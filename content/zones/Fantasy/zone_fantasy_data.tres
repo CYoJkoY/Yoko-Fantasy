@@ -1,0 +1,70 @@
+[gd_resource type="Resource" load_steps=50 format=2]
+
+[ext_resource path="res://items/all/insanity/insanity_icon.png" type="Texture" id=1]
+[ext_resource path="res://entities/units/enemies/lamprey/lamprey.tscn" type="PackedScene" id=2]
+[ext_resource path="res://zones/zone_data.gd" type="Script" id=3]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/000_hordes/group_3.tres" type="Resource" id=4]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/000_hordes/group_1.tres" type="Resource" id=5]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/backgrounds/dlc_1_background_data_2.tres" type="Resource" id=6]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/000_hordes/group_4.tres" type="Resource" id=7]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/001/wave_1.tres" type="Resource" id=8]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/000_all/group_3.tres" type="Resource" id=9]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/000_loot/group_loot.tres" type="Resource" id=10]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/backgrounds/dlc_1_background_data_1.tres" type="Resource" id=11]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/020/wave_20.tres" type="Resource" id=12]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/013/wave_13.tres" type="Resource" id=13]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/008/wave_8.tres" type="Resource" id=14]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/014/wave_14.tres" type="Resource" id=15]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/019/wave_19.tres" type="Resource" id=16]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/011/wave_11.tres" type="Resource" id=17]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/009/wave_9.tres" type="Resource" id=18]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/002/wave_2.tres" type="Resource" id=19]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/006/wave_6.tres" type="Resource" id=20]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/003/wave_3.tres" type="Resource" id=21]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/010/wave_10.tres" type="Resource" id=22]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/004/wave_4.tres" type="Resource" id=23]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/015/wave_15.tres" type="Resource" id=24]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/007/wave_7.tres" type="Resource" id=25]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/016/wave_16.tres" type="Resource" id=26]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/005/wave_5.tres" type="Resource" id=27]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/017/wave_17.tres" type="Resource" id=28]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/012/wave_12.tres" type="Resource" id=29]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/000_hordes/group_5.tres" type="Resource" id=30]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/000_all/group_1.tres" type="Resource" id=31]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/000_all/group_2.tres" type="Resource" id=32]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/backgrounds/dlc_1_background_data_0.tres" type="Resource" id=33]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/018/wave_18.tres" type="Resource" id=34]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/000_hordes/group_2.tres" type="Resource" id=35]
+[ext_resource path="res://dlcs/dlc_1/enemies/vampire_squid/vampire_squid.tscn" type="PackedScene" id=36]
+[ext_resource path="res://dlcs/dlc_1/enemies/narwhal/narwhal.tscn" type="PackedScene" id=37]
+[ext_resource path="res://dlcs/dlc_1/enemies/anglerfish/anglerfish.tscn" type="PackedScene" id=38]
+[ext_resource path="res://dlcs/dlc_1/enemies/diplocaulus/diplocaulus.tscn" type="PackedScene" id=39]
+[ext_resource path="res://dlcs/dlc_1/enemies/stonefish/stonefish.tscn" type="PackedScene" id=40]
+[ext_resource path="res://dlcs/dlc_1/enemies/viperfish/viperfish.tscn" type="PackedScene" id=41]
+[ext_resource path="res://dlcs/dlc_1/enemies/walrus/walrus.tscn" type="PackedScene" id=42]
+[ext_resource path="res://dlcs/dlc_1/enemies/stargazer/stargazer.tscn" type="PackedScene" id=43]
+[ext_resource path="res://dlcs/dlc_1/enemies/goblin_shark/goblin_shark.tscn" type="PackedScene" id=44]
+[ext_resource path="res://dlcs/dlc_1/enemies/colossal_squid/colossal_squid.tscn" type="PackedScene" id=45]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/resources/bg_mono.png" type="Texture" id=46]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/resources/legendary_item_box.png" type="Texture" id=47]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/resources/item_box.png" type="Texture" id=48]
+[ext_resource path="res://dlcs/dlc_1/zones/abyss/resources/fruit.png" type="Texture" id=49]
+
+[resource]
+script = ExtResource( 3 )
+my_id = 2
+unlocked_by_default = true
+name = "ZONE_FANTASY"
+icon = ExtResource( 1 )
+width = 32
+height = 24
+waves_data = [ ExtResource( 8 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 23 ), ExtResource( 27 ), ExtResource( 20 ), ExtResource( 25 ), ExtResource( 14 ), ExtResource( 18 ), ExtResource( 22 ), ExtResource( 17 ), ExtResource( 29 ), ExtResource( 13 ), ExtResource( 15 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 28 ), ExtResource( 34 ), ExtResource( 16 ), ExtResource( 12 ) ]
+loot_alien_groups = [ ExtResource( 10 ) ]
+groups_data_in_all_waves = [ ExtResource( 31 ), ExtResource( 32 ), ExtResource( 9 ) ]
+horde_groups = [ ExtResource( 5 ), ExtResource( 35 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 30 ) ]
+endless_enemy_scenes = [ ExtResource( 38 ), ExtResource( 45 ), ExtResource( 39 ), ExtResource( 44 ), ExtResource( 37 ), ExtResource( 43 ), ExtResource( 40 ), ExtResource( 36 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 2 ) ]
+default_backgrounds = [ ExtResource( 33 ), ExtResource( 11 ), ExtResource( 6 ) ]
+fruit_sprite = ExtResource( 49 )
+item_box_sprite = ExtResource( 48 )
+legendary_box_sprite = ExtResource( 47 )
+ui_background = ExtResource( 46 )

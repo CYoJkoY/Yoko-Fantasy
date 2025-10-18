@@ -1,0 +1,40 @@
+{
+	"name": "Fantasy",
+	"namespace": "Yoko",
+	"version_number": "0.0.1",
+	"description": "",
+	"website_url": "",
+	"dependencies": [
+
+	],
+	"extra": {
+		"godot": {
+			"authors": [
+				"Yoko"
+			],
+			"optional_dependencies": [
+
+			],
+			"compatible_game_version": [
+
+			],
+			"compatible_mod_loader_version": [
+				"6.0.0"
+			],
+			"incompatibilities": [
+
+			],
+			"load_before": [
+
+			],
+			"tags": [
+
+			],
+			"config_schema": {
+
+			},
+			"description_rich": "",
+			"image": null
+		}
+	}
+}

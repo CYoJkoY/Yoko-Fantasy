@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://entities/units/enemies/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/006_medium_slime/medium_slime_stats.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/006_medium_slime/medium_slime.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/006_medium_slime/medium_slime.gd" type="Script" id=4]
+[ext_resource path="res://entities/units/enemies/attack_behaviors/spawning_attack_behavior.gd" type="Script" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/001_little_slime/little_slime.tscn" type="PackedScene" id=7]
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 23.0
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 35.0
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 23.0868
+
+[sub_resource type="CircleShape2D" id=3]
+
+[node name="Enemy" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
+stats = ExtResource( 2 )
+enemy_id = "fantasy_medium_slime"
+evolution_target_path = "res://mods-unpacked/Yoko-YzTato/content/enemies/001_blind_necromancer/blind_necromancer.tscn"
+kills_needed = 50
+detection_radius = 200.0
+die_to_spawn = ExtResource( 7 )
+nb_spawns_on_death = 4
+
+[node name="Sprite" parent="Animation" index="0"]
+texture = ExtResource( 3 )
+
+[node name="Collision" parent="." index="1"]
+position = Vector2( 0, -7 )
+shape = SubResource( 4 )
+
+[node name="Collision" parent="Hurtbox" index="0"]
+position = Vector2( 0, -3 )
+shape = SubResource( 5 )
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 0, -7 )
+shape = SubResource( 6 )
+
+[node name="AttackBehavior" parent="." index="7"]
+script = ExtResource( 6 )
+enemy_to_spawn = ExtResource( 7 )
+cooldown = 60.0
+max_cd_randomization = 10
+attack_anim_speed = 1.0
+nb_to_spawn = 1
+spawn_at_random_pos = false
+spawn_in_radius_around_unit = -1
+max_nb_of_spawns = -1
+
+[node name="DetectionArea" type="Area2D" parent="." index="11"]
+visible = false
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
+shape = SubResource( 3 )
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

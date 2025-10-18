@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy.tres" type="Resource" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-YzTato/content_data/NewContent.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/001_little_slime/little_slime_item.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/006_medium_slime/medium_slime_item.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 2 )
+backgrounds = [ ExtResource( 1 ) ]
+characters = null
+enemies = [ ExtResource( 3 ), ExtResource( 4 ) ]
+elites = null
+bosses = null
+stats = null
+items = null
+weapons = null
+effects = null
+consumables = null
+upgrades = null
+sets = null
+difficulties = null
+icons = null
+title_screen_backgrounds = null
+challenges = null
+zones = null
+tracked_items = null
+translation_keys_needing_operator = null
+translation_keys_needing_percent = null

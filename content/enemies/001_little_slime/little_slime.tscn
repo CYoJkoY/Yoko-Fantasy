@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://entities/units/enemies/enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/001_little_slime/little_slime_stats.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/001_little_slime/little_slime.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/001_little_slime/little_slime.gd" type="Script" id=4]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 17.0294
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 31.0
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 17.2627
+
+[sub_resource type="CircleShape2D" id=3]
+
+[node name="Enemy" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
+stats = ExtResource( 2 )
+enemy_id = "fantasy_little_slime"
+to_be_removed_in_priority = true
+evolution_target_path = "res://mods-unpacked/Yoko-Fantasy/content/enemies/006_medium_slime/medium_slime.tscn"
+kills_needed = 10
+detection_radius = 200.0
+
+[node name="Sprite" parent="Animation" index="0"]
+texture = ExtResource( 3 )
+
+[node name="Collision" parent="." index="1"]
+position = Vector2( 0, 2 )
+shape = SubResource( 2 )
+
+[node name="Hurtbox" parent="." index="2"]
+position = Vector2( 0, -19 )
+
+[node name="Collision" parent="Hurtbox" index="0"]
+shape = SubResource( 4 )
+
+[node name="Hitbox" parent="." index="3"]
+position = Vector2( 0, 5 )
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 0, -3 )
+shape = SubResource( 5 )
+
+[node name="DetectionArea" type="Area2D" parent="." index="11"]
+visible = false
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" index="0"]
+shape = SubResource( 3 )
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]
