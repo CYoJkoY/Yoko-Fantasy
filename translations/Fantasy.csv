@@ -1,3 +1,21 @@
 keys,en,zh
 ZONE_FANTASY,Fantasy,幻界
 BG_FANTASY,Fantasy,幻界
+FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
+FANTASYLOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑, 死亡时掉落一个箱子"
+FANTASY_LITTLE_SLIME_NAME,Small Slime,小史莱姆
+FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,Slowly chase the player\nEvolve when 10 non-slime enemies die within a range of 100,缓慢追击玩家\n100范围内死亡的非史莱姆系敌人达到10个则进化
+FANTASY_MEDIUM_SLIME_NAME,Medium Slime,中史莱姆
+FANTASY_MEDIUM_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the player\nSummon 1 small slime per second\nUpon death, split into 3 small slimes\nEvolve when 24 non-slime enemies die within a range of 200",缓慢追击玩家\n每秒召唤1个小史莱姆\n死亡时分裂成3个小史莱姆\n200范围内死亡的非史莱姆系敌人达到24个则进化
+FANTASY_BIG_SLIME_NAME,Big Slime,大史莱姆
+FANTASY_BIG_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the player\nSummon 3 small slimes per second\nUpon death, split into 2 medium slimes\nEvolve when 48 non-slime enemies die within a range of 400\nLeave a slime trail every 1 second that lasts for 5 seconds, players touching it are slowed by 50%","缓慢追击玩家\n每秒召唤3个小史莱姆\n死亡时分裂成2个中史莱姆\n400范围内死亡的非史莱姆系敌人达到48个则进化\n每秒留下持续5秒的史莱姆粘液痕迹, 玩家触碰时被减速50%"
+FANTASY_SLIME_KING_NAME,Slime King,史莱姆王
+FANTASY_SLIME_KING_BEHAVIOUR_DESCRIPTION,"Mutation 0:\nSlowly chase the player\nSummon 3 medium slimes every 3 seconds and 1 large slime every 5 seconds\nLeave a slime trail every 0.5 seconds that lasts for 10 seconds, players touching it are slowed by 50%\n\nMutation 1 (50% HP / 35 sec):\nPerform a long-range dash toward the player every 5 seconds\nSummon 4 large slimes at once\nSummon 3 medium slimes every 3 seconds and 1 large slime every 5 seconds\nLeave a slime trail every 0.5 seconds that lasts for 10 seconds, players touching it are slowed by 50%","异变0: \n缓慢追击玩家\n每3秒召唤3个中史莱姆, 每5秒召唤1个大史莱姆\n每0.5秒留下持续10秒的史莱姆粘液痕迹, 玩家触碰时被减速50%\n\n异变1 (50%生命/35秒): \n每5秒向玩家长距离冲刺\n一次性召唤4个大史莱姆\n每3秒召唤3个中史莱姆, 每5秒召唤1个大史莱姆\n每0.5秒留下持续10秒的史莱姆粘液痕迹, 玩家触碰时被减速50%"
+FANTASY_UNICORN_RABBIT_NAME,Unicorn Rabbit,独角兔
+FANTASY_UNICORN_RABBIT_BEHAVIOUR_DESCRIPTION,"Chases the character, deals damage on touch","追逐角色, 接触时造成伤害"
+FANTASY_WOLF_NAME,Wolf,狼
+FANTASY_WOLF_BEHAVIOUR_DESCRIPTION,"Chases the character, dashes toward them every 0.75 seconds.
+","追逐角色, 每0.75秒向玩家冲刺"
+FANTASY_FLOWER_SPIRIT_NAME,Flower Spirit,花妖
+FANTASY_FLOWER_SPIRIT_BEHAVIOUR_DESCRIPTION,"Cannot move, fires a laser toward the player every 4 seconds with a 1-second warning.
+","无法移动, 每4秒朝玩家方向发射拥有1秒预警的激光"

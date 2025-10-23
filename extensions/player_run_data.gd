@@ -22,6 +22,8 @@ static func init_effects()->Dictionary:
 
 		var new_effects: = {
 			
+			"fantasy_original_speed": 0.0,
+
 		}
 
 		new_effects.merge(vanilla_effects)

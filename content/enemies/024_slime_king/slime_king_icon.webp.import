@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wolf.png-b0fa7b0cdca562f79aa5d72b7c5c05b0.stex"
+path="res://.import/slime_king_icon.webp-1dc424cf4c89e86db1b9efc4595f24ba.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/003_wolf/wolf.png"
-dest_files=[ "res://.import/wolf.png-b0fa7b0cdca562f79aa5d72b7c5c05b0.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/024_slime_king/slime_king_icon.webp"
+dest_files=[ "res://.import/slime_king_icon.webp-1dc424cf4c89e86db1b9efc4595f24ba.stex" ]
 
 [params]
 

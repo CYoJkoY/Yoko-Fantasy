@@ -10,7 +10,11 @@ onready var detection_area: Area2D = $DetectionArea
 onready var detection_collision: CollisionShape2D = $DetectionArea/CollisionShape2D
 
 var kill_count: int = 0
-var evolution_target_scene = null
+var evolution_target_scene: Resource = null
+export (Array, String) var white_list = [
+		"fantasy_little_slime", "fantasy_medium_slime",
+		"fantasy_big_slime", "fantasy_slime_king"
+	]
 
 func _ready() -> void:
 	detection_collision.shape.radius = detection_radius
@@ -35,9 +39,11 @@ func _disconnect_from_enemy_death(body) -> void:
 	body.is_connected("died", self, "_on_enemy_died"):
 		body.disconnect("died", self, "_on_enemy_died")
 
-func _on_enemy_died(_entity: Entity, die_args: DieArgs) -> void:
+func _on_enemy_died(entity: Entity, die_args: DieArgs) -> void:
 	if die_args.cleaning_up or dead: return
-
+	
+	if entity.enemy_id in white_list: return
+	
 	kill_count += 1
 	emit_signal("kill_count_updated", kill_count, kills_needed)
 	

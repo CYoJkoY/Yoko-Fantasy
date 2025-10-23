@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource( 1 )
 icon = ExtResource( 2 )
-health = 1
-health_increase_each_wave = 1.0
-speed = 200
-speed_randomization = 25
+health = 2
+health_increase_each_wave = 2.0
+speed = 220
+speed_randomization = 22
 damage = 1
 damage_increase_each_wave = 0.5
 attack_cd = 30.0
@@ -24,3 +24,4 @@ min_consumable_tier = 0
 max_consumable_tier = 0
 armor = 0
 armor_increase_each_wave = 0.0
+generate_blood = true
