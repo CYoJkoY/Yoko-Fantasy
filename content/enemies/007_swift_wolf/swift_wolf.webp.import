@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/goblin_javelin_thrower.png-3437693536a6f23ac7650d80f5d7e9ad.stex"
+path="res://.import/swift_wolf.webp-69afbeba28c6e97ddc17272bad21f0ae.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower.png"
-dest_files=[ "res://.import/goblin_javelin_thrower.png-3437693536a6f23ac7650d80f5d7e9ad.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/007_swift_wolf/swift_wolf.webp"
+dest_files=[ "res://.import/swift_wolf.webp-69afbeba28c6e97ddc17272bad21f0ae.stex" ]
 
 [params]
 

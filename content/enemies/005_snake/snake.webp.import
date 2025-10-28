@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/swift_wolf.png-80b16dcd997a35c7488d85ed86603a04.stex"
+path="res://.import/snake.webp-1e279bc1118ad8eacb6cdf089e5ef6d2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/007_swift_wolf/swift_wolf.png"
-dest_files=[ "res://.import/swift_wolf.png-80b16dcd997a35c7488d85ed86603a04.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/005_snake/snake.webp"
+dest_files=[ "res://.import/snake.webp-1e279bc1118ad8eacb6cdf089e5ef6d2.stex" ]
 
 [params]
 

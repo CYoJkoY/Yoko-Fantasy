@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://entities/units/enemies/ItemEnemy.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/005_snake/snake_stats.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/005_snake/snake_icon.webp" type="Texture" id=3]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "fantasy_snake"
+unlocked_by_default = false
+can_be_looted = true
+icon = ExtResource( 3 )
+name = "FANTASY_SNAKE_NAME"
+tier = 0
+value = 1
+effects = [  ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+enemy_stats = ExtResource( 2 )
+behaviour_description = "FANTASY_SNAKE_BEHAVIOUR_DESCRIPTION"

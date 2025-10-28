@@ -15,7 +15,13 @@ FANTASY_UNICORN_RABBIT_NAME,Unicorn Rabbit,独角兔
 FANTASY_UNICORN_RABBIT_BEHAVIOUR_DESCRIPTION,"Chases the character, deals damage on touch","追逐角色, 接触时造成伤害"
 FANTASY_WOLF_NAME,Wolf,狼
 FANTASY_WOLF_BEHAVIOUR_DESCRIPTION,"Chases the character, dashes toward them every 0.75 seconds.
-","追逐角色, 每0.75秒向玩家冲刺"
+","追逐角色, 每0.75秒向角色冲刺"
 FANTASY_FLOWER_SPIRIT_NAME,Flower Spirit,花妖
 FANTASY_FLOWER_SPIRIT_BEHAVIOUR_DESCRIPTION,"Cannot move, fires a laser toward the player every 4 seconds with a 1-second warning.
 ","无法移动, 每4秒朝玩家方向发射拥有1秒预警的激光"
+FANTASY_SNAKE_NAME,Snake,蛇
+FANTASY_SNAKE_BEHAVIOUR_DESCRIPTION,"Winds forward toward the character, dashing toward them every second.
+","蜿蜒前行靠近角色, 每秒向角色冲刺"
+FANTASY_SWIFT_WOLF_NAME,Swift Wolf,疾风狼
+FANTASY_SWIFT_WOLF_BEHAVIOUR_DESCRIPTION,"Hunt the character, charging toward them rapidly every 0.5 seconds.
+","围猎角色, 每0.5秒快速冲向角色"

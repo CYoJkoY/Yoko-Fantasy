@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/snake.png-755d3144c321c01207ca8d9d8f52ba55.stex"
+path="res://.import/goblin_javelin_thrower_projectile.webp-880ae4c8e3a65147595f094e8c942759.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/005_snake/snake.png"
-dest_files=[ "res://.import/snake.png-755d3144c321c01207ca8d9d8f52ba55.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower_projectile.webp"
+dest_files=[ "res://.import/goblin_javelin_thrower_projectile.webp-880ae4c8e3a65147595f094e8c942759.stex" ]
 
 [params]
 
