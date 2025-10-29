@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://entities/units/unit/stats.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/009_goblin_priest/goblin_priest_icon.webp" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+icon = ExtResource( 2 )
+health = 6
+health_increase_each_wave = 2.5
+speed = 250
+speed_randomization = 25
+damage = 1
+damage_increase_each_wave = 0.75
+attack_cd = 30.0
+value = 5
+knockback_resistance = 0.7
+gold_spread = 0
+can_drop_consumables = true
+always_drop_consumables = false
+base_drop_chance = 0.02
+item_drop_chance = 0.02
+min_consumable_tier = 0
+max_consumable_tier = 0
+armor = 3
+armor_increase_each_wave = 0.5
+generate_blood = true

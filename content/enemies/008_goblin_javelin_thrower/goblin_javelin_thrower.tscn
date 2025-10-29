@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower_stats.tres" type="Resource" id=1]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=28]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=29]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=30]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_projectile.tscn" type="PackedScene" id=31]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -62,7 +63,7 @@ radius = 37.0
 [sub_resource type="Animation" id=4]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Animation:scale")
+tracks/0/path = NodePath("Animation:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -71,10 +72,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Animation:rotation_degrees")
+tracks/1/path = NodePath("Animation:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -83,10 +84,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Animation:modulate")
+tracks/2/path = NodePath("Animation/Arm:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -95,10 +96,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Arm:rotation_degrees")
+tracks/3/path = NodePath("Animation/ArmProjectile:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -110,7 +111,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/ArmProjectile:rotation_degrees")
+tracks/4/path = NodePath("Animation/Arm:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -119,7 +120,31 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Animation/ArmProjectile:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Animation/Sprite:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -144,19 +169,19 @@ tracks/0/keys = {
 } ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Animation:scale")
+tracks/1/path = NodePath("Animation:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 0.341 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+"values": [ 0.0, 360.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Animation:rotation_degrees")
+tracks/2/path = NodePath("Animation:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -165,19 +190,43 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 0.0, 360.0 ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.34902, 0.34902, 0.34902, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation:modulate")
+tracks/3/path = NodePath("Animation/Sprite:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"transitions": PoolRealArray( 1, 0.341 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.34902, 0.34902, 0.34902, 1 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Animation/Arm:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 0.341 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Animation/ArmProjectile:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 0.341 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -204,7 +253,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5, 1 )
 }
 tracks/2/type = "bezier"
-tracks/2/path = NodePath("Animation:scale:x")
+tracks/2/path = NodePath("Animation/Sprite:scale:x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -214,7 +263,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1 )
 }
 tracks/3/type = "bezier"
-tracks/3/path = NodePath("Animation:scale:y")
+tracks/3/path = NodePath("Animation/Sprite:scale:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -237,25 +286,13 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, -20 ), Vector2( 0, -32 ), Vector2( 0, -18 ), Vector2( 0, -24 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Animation:scale")
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1.1, 0.9 ), Vector2( 0.8, 1.2 ), Vector2( 1.2, 0.8 ), Vector2( 1, 1 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0.8 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
@@ -263,85 +300,17 @@ tracks/2/keys = {
 "method": "shoot"
 } ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("Animation:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Arm:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 2.73208, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -36.0, 24.0, 0.0 ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/ArmProjectile:rotation_degrees")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -36.0, 24.0, 0.0 ]
-}
-
-[sub_resource type="Animation" id=8]
-resource_name = "shoot_charmed"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Animation:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 2.73208, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, -20 ), Vector2( 0, -32 ), Vector2( 0, -18 ), Vector2( 0, -24 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Animation:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1.1, 0.9 ), Vector2( 0.8, 1.2 ), Vector2( 1.2, 0.8 ), Vector2( 1, 1 ) ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "start_shoot"
-}, {
-"args": [  ],
-"method": "shoot"
-} ]
+"times": PoolRealArray( 0, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Animation/Arm:rotation_degrees")
@@ -367,6 +336,86 @@ tracks/4/keys = {
 "update": 0,
 "values": [ 0.0, -36.0, 24.0, 0.0 ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Animation/Sprite:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.1, 0.9 ), Vector2( 0.8, 1.2 ), Vector2( 1.2, 0.8 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "shoot_charmed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animation:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 2.73208, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -20 ), Vector2( 0, -32 ), Vector2( 0, -18 ), Vector2( 0, -24 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "start_shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation/Arm:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 2.73208, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -36.0, 24.0, 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Animation/ArmProjectile:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -36.0, 24.0, 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Animation/Sprite:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.1, 0.9 ), Vector2( 0.8, 1.2 ), Vector2( 1.2, 0.8 ), Vector2( 1, 1 ) ]
+}
 
 [node name="Enemy" type="RigidBody2D"]
 collision_layer = 4
@@ -383,24 +432,22 @@ burn_sounds = [ ExtResource( 29 ), ExtResource( 23 ), ExtResource( 22 ), ExtReso
 dodge_sounds = [ ExtResource( 21 ), ExtResource( 18 ) ]
 stats = ExtResource( 1 )
 flash_mat = SubResource( 1 )
-enemy_id = "yztato_goblin_javelin_thrower"
+enemy_id = "fantasy_goblin_javelin_thrower"
 
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -24 )
 
-[node name="Sprite" type="Sprite" parent="Animation"]
-position = Vector2( 15, -39 )
-z_index = 2
-texture = ExtResource( 7 )
+[node name="ArmProjectile" type="Sprite" parent="Animation"]
+position = Vector2( 16, -34 )
+texture = ExtResource( 8 )
 
 [node name="Arm" type="Sprite" parent="Animation"]
-position = Vector2( 15, -39 )
-z_index = 1
+position = Vector2( 16, -34 )
 texture = ExtResource( 6 )
 
-[node name="ArmProjectile" type="Sprite" parent="Animation"]
-position = Vector2( 15, -39 )
-texture = ExtResource( 8 )
+[node name="Sprite" type="Sprite" parent="Animation"]
+position = Vector2( 16, -34 )
+texture = ExtResource( 7 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -15 )
@@ -437,10 +484,12 @@ script = ExtResource( 5 )
 
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 3 )
-projectile_speed = 600
-cooldown = 120.0
-damage_increase_each_wave = 0.75
-max_range = 700
+projectile_scene = ExtResource( 31 )
+projectile_speed = 500
+cooldown = 180.0
+max_cd_randomization = 18
+damage = 2
+base_direction_randomization = 0.4
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -451,6 +500,11 @@ position = Vector2( 0, -24 )
 emitting = false
 
 [node name="EffectBehaviors" type="Node2D" parent="."]
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
+[connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

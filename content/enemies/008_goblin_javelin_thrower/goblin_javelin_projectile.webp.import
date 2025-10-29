@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/goblin_projectile.webp-c07d3a5e0d4e4ef3523739a015d652a7.stex"
+path="res://.import/goblin_javelin_projectile.webp-1c1f7ee123ea4939d223484cccf9bc43.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_projectile.webp"
-dest_files=[ "res://.import/goblin_projectile.webp-c07d3a5e0d4e4ef3523739a015d652a7.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_projectile.webp"
+dest_files=[ "res://.import/goblin_javelin_projectile.webp-1c1f7ee123ea4939d223484cccf9bc43.stex" ]
 
 [params]
 

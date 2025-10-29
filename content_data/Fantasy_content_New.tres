@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=14 format=2]
+[gd_resource type="Resource" load_steps=15 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-YzTato/content_data/NewContent.gd" type="Script" id=2]
@@ -13,12 +13,13 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/005_snake/snake_item.tres" type="Resource" id=11]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/007_swift_wolf/swift_wolf_item.tres" type="Resource" id=12]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower_item.tres" type="Resource" id=13]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/009_goblin_priest/goblin_priest_item.tres" type="Resource" id=14]
 
 [resource]
 script = ExtResource( 2 )
 backgrounds = [ ExtResource( 1 ) ]
 characters = null
-enemies = [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ]
+enemies = [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ]
 elites = null
 bosses = null
 stats = null

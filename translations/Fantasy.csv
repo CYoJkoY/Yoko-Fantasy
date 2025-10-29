@@ -14,14 +14,14 @@ FANTASY_SLIME_KING_BEHAVIOUR_DESCRIPTION,"Mutation 0:\nSlowly chase the player\n
 FANTASY_UNICORN_RABBIT_NAME,Unicorn Rabbit,独角兔
 FANTASY_UNICORN_RABBIT_BEHAVIOUR_DESCRIPTION,"Chases the character, deals damage on touch","追逐角色, 接触时造成伤害"
 FANTASY_WOLF_NAME,Wolf,狼
-FANTASY_WOLF_BEHAVIOUR_DESCRIPTION,"Chases the character, dashes toward them every 0.75 seconds.
-","追逐角色, 每0.75秒向角色冲刺"
+FANTASY_WOLF_BEHAVIOUR_DESCRIPTION,"Chases the character, dashes toward them every 0.75 seconds","追逐角色, 每0.75秒向角色冲刺"
 FANTASY_FLOWER_SPIRIT_NAME,Flower Spirit,花妖
-FANTASY_FLOWER_SPIRIT_BEHAVIOUR_DESCRIPTION,"Cannot move, fires a laser toward the player every 4 seconds with a 1-second warning.
-","无法移动, 每4秒朝玩家方向发射拥有1秒预警的激光"
+FANTASY_FLOWER_SPIRIT_BEHAVIOUR_DESCRIPTION,"Cannot move, fires a laser toward the player every 4 seconds with a 1-second warning","无法移动, 每4秒朝玩家方向发射拥有1秒预警的激光"
 FANTASY_SNAKE_NAME,Snake,蛇
-FANTASY_SNAKE_BEHAVIOUR_DESCRIPTION,"Winds forward toward the character, dashing toward them every second.
-","蜿蜒前行靠近角色, 每秒向角色冲刺"
+FANTASY_SNAKE_BEHAVIOUR_DESCRIPTION,"Winds forward toward the character, dashing toward them every second","蜿蜒前行靠近角色, 每秒向角色冲刺"
 FANTASY_SWIFT_WOLF_NAME,Swift Wolf,疾风狼
-FANTASY_SWIFT_WOLF_BEHAVIOUR_DESCRIPTION,"Hunt the character, charging toward them rapidly every 0.5 seconds.
-","围猎角色, 每0.5秒快速冲向角色"
+FANTASY_SWIFT_WOLF_BEHAVIOUR_DESCRIPTION,"Hunt the character, charging toward them rapidly every 0.5 seconds","围猎角色, 每0.5秒快速冲向角色"
+FANTASY_GOBLIN_JAVELIN_THROWER_NAME,Goblin Javelin Thrower,哥布林标枪手
+FANTASY_GOBLIN_JAVELIN_THROWER_BEHAVIOUR_DESCRIPTION,"Runs away if the player is too close, Fires a slow projectile that may directly target the player or somewhere near","太接近时逃离角色, 发射一个可能瞄准玩家也可能瞄准玩家附近的缓慢投射物"
+FANTASY_GOBLIN_PRIEST_NAME,Goblin Priest,哥布林祭司
+FANTASY_GOBLIN_PRIEST_BEHAVIOUR_DESCRIPTION,"Runs away from the character, Heals enemies around it for 50(increasing by 5 each wave), Buffs other enemies' health by 75%, damage by 12%, and speed by 25%.Buffed enemies are outlined in red.","逃离角色, 治疗周围的敌人50生命(每波敌袭增加5), 强化其他敌人生命值75%、伤害12%、速度25%，被强化的敌人会有红色轮廓"
