@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/laser_enemy_projectile_line.webp-c1b72bd23c035deab30e85be4e184fbb.stex"
+path="res://.import/laser_enemy_projectile_end.webp-655cf15d8929296baf88e145d46aacdb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/004_flower_spirit/laser_enemy_projectile/laser_enemy_projectile_line.webp"
-dest_files=[ "res://.import/laser_enemy_projectile_line.webp-c1b72bd23c035deab30e85be4e184fbb.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/laser_enemy_projectile/laser_enemy_projectile_end.webp"
+dest_files=[ "res://.import/laser_enemy_projectile_end.webp-655cf15d8929296baf88e145d46aacdb.stex" ]
 
 [params]
 

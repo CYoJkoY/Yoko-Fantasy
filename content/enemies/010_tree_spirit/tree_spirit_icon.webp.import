@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tree_spirit.png-ca57853d65707bfc7247a1354a9ffef0.stex"
+path="res://.import/tree_spirit_icon.webp-6f0075df7c2728bb20828b61f9b7088e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/010_tree_spirit/tree_spirit.png"
-dest_files=[ "res://.import/tree_spirit.png-ca57853d65707bfc7247a1354a9ffef0.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/010_tree_spirit/tree_spirit_icon.webp"
+dest_files=[ "res://.import/tree_spirit_icon.webp-6f0075df7c2728bb20828b61f9b7088e.stex" ]
 
 [params]
 

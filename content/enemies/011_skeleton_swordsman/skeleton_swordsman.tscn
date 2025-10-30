@@ -1,15 +1,15 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower_stats.tres" type="Resource" id=1]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=2]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=3]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=4]
-[ext_resource path="res://entities/units/movement_behaviors/stay_in_range_from_player_movement_behavior.gd" type="Script" id=5]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower_arm.webp" type="Texture" id=6]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower_sprite.webp" type="Texture" id=7]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower_projectile.webp" type="Texture" id=8]
+[ext_resource path="res://entities/units/movement_behaviors/follow_player_movement_behavior.gd" type="Script" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/011_skeleton_swordsman/skeleton_swordsman_arm.webp" type="Texture" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/011_skeleton_swordsman/skeleton_swordsman_sprite.webp" type="Texture" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/011_skeleton_swordsman/skeleton_swordsman.gd" type="Script" id=8]
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=9]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower.gd" type="Script" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/skeleton_swordsman_projectile/skeleton_swordsman_projectile.tscn" type="PackedScene" id=10]
 [ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=11]
 [ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=12]
 [ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_05.wav" type="AudioStream" id=13]
@@ -30,7 +30,6 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=28]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=29]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=30]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/goblin_javelin_projectile/goblin_javelin_projectile.tscn" type="PackedScene" id=31]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -99,7 +98,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/ArmProjectile:rotation_degrees")
+tracks/3/path = NodePath("Animation/Arm:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -108,10 +107,10 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ Vector2( 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Arm:scale")
+tracks/4/path = NodePath("Animation/Sprite:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -121,42 +120,6 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/ArmProjectile:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Animation/Sprite:scale")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("Animation/ArmProjectile:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -228,18 +191,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
 }
-tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/ArmProjectile:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 0.341 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
-}
 
 [sub_resource type="Animation" id=10]
 loop = true
@@ -305,7 +256,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.8 ),
+"times": PoolRealArray( 0.3 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -334,10 +285,10 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.6, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 2.73208, 1, 1 ),
 "update": 0,
-"values": [ 0.0, -36.0, 24.0, 0.0 ]
+"values": [ 0.0, -75.0, 36.0, 0.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/ArmProjectile:rotation_degrees")
+tracks/4/path = NodePath("Animation/Sprite:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -346,31 +297,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.6, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
 "update": 0,
-"values": [ 0.0, -36.0, 24.0, 0.0 ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/Sprite:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
-"update": 0,
 "values": [ Vector2( 1.1, 0.9 ), Vector2( 0.8, 1.2 ), Vector2( 1.2, 0.8 ), Vector2( 1, 1 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Animation/ArmProjectile:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -414,27 +341,15 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.6, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 2.73208, 1, 1 ),
 "update": 0,
-"values": [ 0.0, -36.0, 24.0, 0.0 ]
+"values": [ 0.0, -75.0, 36.0, 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/ArmProjectile:rotation_degrees")
+tracks/3/path = NodePath("Animation/Sprite:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -36.0, 24.0, 0.0 ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Sprite:scale")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0, 0.6, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
 "update": 0,
@@ -447,7 +362,7 @@ collision_mask = 132
 mode = 2
 physics_material_override = SubResource( 6 )
 custom_integrator = true
-script = ExtResource( 10 )
+script = ExtResource( 8 )
 can_be_boosted = true
 outline_material = SubResource( 7 )
 crit_sounds = [ ExtResource( 27 ), ExtResource( 14 ), ExtResource( 20 ), ExtResource( 13 ) ]
@@ -461,20 +376,16 @@ enemy_id = "fantasy_goblin_javelin_thrower"
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -24 )
 
-[node name="ArmProjectile" type="Sprite" parent="Animation"]
-position = Vector2( 16, -34 )
-texture = ExtResource( 8 )
-
 [node name="Arm" type="Sprite" parent="Animation"]
-position = Vector2( 16, -34 )
+position = Vector2( 1, -34 )
 texture = ExtResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="Animation"]
-position = Vector2( 16, -34 )
+position = Vector2( 1, -34 )
 texture = ExtResource( 7 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -15 )
+position = Vector2( 0, -24 )
 shape = SubResource( 12 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 12 )]
@@ -482,14 +393,14 @@ position = Vector2( 0, -16 )
 collision_mask = 1032
 
 [node name="Collision" parent="Hurtbox" index="0"]
-position = Vector2( 0, -12 )
+position = Vector2( 0, -21 )
 shape = SubResource( 13 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 9 )]
 collision_layer = 4
 
 [node name="Collision" parent="Hitbox" index="0"]
-position = Vector2( 0, -15 )
+position = Vector2( 0, -24 )
 shape = SubResource( 14 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -508,12 +419,13 @@ script = ExtResource( 5 )
 
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 3 )
-projectile_scene = ExtResource( 31 )
-projectile_speed = 800
-cooldown = 180.0
-max_cd_randomization = 18
-damage = 2
-base_direction_randomization = 0.4
+projectile_scene = ExtResource( 10 )
+projectile_speed = 0
+max_cd_randomization = 6
+damage_increase_each_wave = 0.75
+max_range = 200
+spawn_projectiles_on_target = true
+delete_projectile_on_death = true
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5

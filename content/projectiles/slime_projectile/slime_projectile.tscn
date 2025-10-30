@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://projectiles/projectile.tscn" type="PackedScene" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/014_big_slime/slime_projectile.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/slime_projectile/slime_projectile.webp" type="Texture" id=2]
 [ext_resource path="res://projectiles/bullet_enemy/enemy_projectile.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]

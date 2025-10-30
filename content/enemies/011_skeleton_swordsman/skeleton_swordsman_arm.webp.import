@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/laser_enemy_projectile_start.webp-a5612eb3fcfd69beb34fd347b19108f1.stex"
+path="res://.import/skeleton_swordsman_arm.webp-ace6844627db09cf80d2f45022812338.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/004_flower_spirit/laser_enemy_projectile/laser_enemy_projectile_start.webp"
-dest_files=[ "res://.import/laser_enemy_projectile_start.webp-a5612eb3fcfd69beb34fd347b19108f1.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/011_skeleton_swordsman/skeleton_swordsman_arm.webp"
+dest_files=[ "res://.import/skeleton_swordsman_arm.webp-ace6844627db09cf80d2f45022812338.stex" ]
 
 [params]
 

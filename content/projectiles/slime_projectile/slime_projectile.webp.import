@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/skeleton_swordsman.png-a6a64ed663fe845c9c0636d1957ab4f2.stex"
+path="res://.import/slime_projectile.webp-ad67e05971cdf9dbf46d42139f1ecba2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/011_skeleton_swordsman/skeleton_swordsman.png"
-dest_files=[ "res://.import/skeleton_swordsman.png-a6a64ed663fe845c9c0636d1957ab4f2.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/slime_projectile/slime_projectile.webp"
+dest_files=[ "res://.import/slime_projectile.webp-ad67e05971cdf9dbf46d42139f1ecba2.stex" ]
 
 [params]
 

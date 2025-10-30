@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fallen_knight.png-3ebd98043646e834fb611b8901e4237f.stex"
+path="res://.import/laser_enemy_projectile_med.webp-735b778f7df4191820eab2f684a46b38.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/27_fallen_knight/fallen_knight.png"
-dest_files=[ "res://.import/fallen_knight.png-3ebd98043646e834fb611b8901e4237f.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/laser_enemy_projectile/laser_enemy_projectile_med.webp"
+dest_files=[ "res://.import/laser_enemy_projectile_med.webp-735b778f7df4191820eab2f684a46b38.stex" ]
 
 [params]
 
