@@ -45,8 +45,6 @@ func add_resources() -> void:
 	add_if_not_null(ItemService.title_screen_backgrounds, title_screen_backgrounds)
 	add_if_not_null(ItemService.weapons, weapons)
 	add_if_not_null(ItemService.effects, effects)
-
-	if backgrounds != null: ItemService.add_backgrounds(backgrounds)
 	
 	if weapons != null: for weapon in weapons:
 		if weapon.add_to_chars_as_starting.size() > 0:
@@ -67,6 +65,11 @@ func add_resources() -> void:
 
 	if zones != null: 
 		ZoneService.zones.append_array(zones)
+	
+	if backgrounds != null: 
+		ItemService.add_backgrounds(backgrounds)
+		for zone in ZoneService.zones:
+			zone.default_backgrounds.append_array(backgrounds)
 	
 	if translation_keys_needing_operator != null:
 		Text.keys_needing_operator.merge(translation_keys_needing_operator)
