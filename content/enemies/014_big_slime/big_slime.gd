@@ -1,4 +1,4 @@
-extends "res://mods-unpacked/Yoko-Fantasy/content/enemies/006_medium_slime/medium_slime.gd"
+extends "res://mods-unpacked/Yoko-Fantasy/content/enemies/006_medium_slime/scene/medium_slime.gd"
 
 export (PackedScene) var trail_scene
 export (float) var trail_duration = 5.0

@@ -1,4 +1,4 @@
-extends "res://mods-unpacked/Yoko-Fantasy/content/enemies/001_little_slime/little_slime.gd"
+extends "res://mods-unpacked/Yoko-Fantasy/content/enemies/001_little_slime/scene/little_slime.gd"
 
 export (PackedScene) var die_to_spawn
 

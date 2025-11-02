@@ -5,7 +5,7 @@
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=3]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=4]
 [ext_resource path="res://entities/units/movement_behaviors/follow_player_movement_behavior.gd" type="Script" id=5]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/skeleton_swordsman_projectile/skeleton_swordsman_projectile.tscn" type="PackedScene" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/skeleton_archer_projectile/skeleton_archer_projectile.tscn" type="PackedScene" id=6]
 [ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=7]
 [ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=8]
 [ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_01.wav" type="AudioStream" id=9]
@@ -26,8 +26,8 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_03.wav" type="AudioStream" id=24]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=25]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_04.wav" type="AudioStream" id=26]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower_stats.tres" type="Resource" id=27]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/011_skeleton_swordsman/scene/skeleton_swordsman.gd" type="Script" id=28]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/012_skeleton_archer/skeleton_archer_stats.tres" type="Resource" id=27]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/012_skeleton_archer/scene/skeleton_archer.gd" type="Script" id=28]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/012_skeleton_archer/scene/skeleton_archer_sprite.webp" type="Texture" id=29]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/012_skeleton_archer/scene/skeleton_archer_bow.webp" type="Texture" id=30]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/012_skeleton_archer/scene/skeleton_archer_down_arm.webp" type="Texture" id=31]
@@ -553,7 +553,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.3 ),
+"times": PoolRealArray( 0.7 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -608,10 +608,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ false, true, false ]
+"values": [ true, false ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Animation/Bow:texture")
@@ -846,7 +846,7 @@ burn_sounds = [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 18 ), ExtReso
 dodge_sounds = [ ExtResource( 10 ), ExtResource( 16 ) ]
 stats = ExtResource( 27 )
 flash_mat = SubResource( 1 )
-enemy_id = "fantasy_goblin_javelin_thrower"
+enemy_id = "fantasy_skeleton_archer"
 
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -24 )
@@ -880,12 +880,10 @@ position = Vector2( 34, -34 )
 texture = ExtResource( 31 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, -24 )
 shape = SubResource( 12 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 7 )]
-visible = false
 position = Vector2( 0, -16 )
 collision_mask = 1032
 
@@ -894,7 +892,6 @@ position = Vector2( 0, -21 )
 shape = SubResource( 13 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 1 )]
-visible = false
 collision_layer = 4
 
 [node name="Collision" parent="Hitbox" index="0"]
@@ -918,12 +915,10 @@ script = ExtResource( 5 )
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 4 )
 projectile_scene = ExtResource( 6 )
-projectile_speed = 0
-max_cd_randomization = 6
-damage_increase_each_wave = 0.75
-max_range = 200
-spawn_projectiles_on_target = true
-delete_projectile_on_death = true
+projectile_speed = 500
+cooldown = 180.0
+max_cd_randomization = 18
+damage = 3
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5

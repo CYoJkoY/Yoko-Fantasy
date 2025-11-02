@@ -25,3 +25,12 @@ FANTASY_GOBLIN_JAVELIN_THROWER_NAME,Goblin Javelin Thrower,哥布林标枪手
 FANTASY_GOBLIN_JAVELIN_THROWER_BEHAVIOUR_DESCRIPTION,"Runs away if the player is too close, Fires a slow projectile that may directly target the player or somewhere near","太接近时逃离角色, 发射一个可能瞄准玩家也可能瞄准玩家附近的缓慢投射物"
 FANTASY_GOBLIN_PRIEST_NAME,Goblin Priest,哥布林祭司
 FANTASY_GOBLIN_PRIEST_BEHAVIOUR_DESCRIPTION,"Runs away from the character, Heals enemies around it for 50(increasing by 5 each wave), Buffs other enemies' health by 75%, damage by 12%, and speed by 25%.Buffed enemies are outlined in red.","逃离角色, 治疗周围的敌人50生命(每波敌袭增加5), 强化其他敌人生命值75%、伤害12%、速度25%，被强化的敌人会有红色轮廓"
+FANTASY_TREE_SPIRIT_NAME,Tree Spirit,树妖
+FANTASY_TREE_SPIRIT_BEHAVIOUR_DESCRIPTION,"Cannot move, every 4 seconds, fires a winding bullet cluster consisting of 24 bullets toward the player.
+","无法移动, 每4秒朝玩家方向发射一个由24个子弹构成的蜿蜒子弹群"
+FANTASY_SKELETON_SWORDSMAN_NAME,Skeleton Swordsman,骷髅剑士
+FANTASY_SKELETON_SWORDSMAN_BEHAVIOUR_DESCRIPTION,"Chases the player, briefly pauses before attacking, and attempts to slash nearby players once per second.
+","追击玩家, 每秒试图挥砍周围的玩家, 攻击前会短暂静止"
+FANTASY_SKELETON_ARCHER_NAME,Skeleton Archer,骷髅弓手
+FANTASY_SKELETON_ARCHER_BEHAVIOUR_DESCRIPTION,"Chases the player and fires an arrow toward them every 3 seconds. This arrow summons smaller arrows on both perpendicular sides, which automatically disappear after 1.5 seconds.
+","追击玩家, 每3秒朝玩家发射箭矢, 该箭矢可在两侧垂直方向召唤召唤1.5秒后自动消失的小箭矢"
