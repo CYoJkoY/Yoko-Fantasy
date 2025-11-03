@@ -133,7 +133,7 @@ tracks/4/keys = {
 "values": [ true, false ]
 }
 
-[node name="laser_enemy_projectile" type="Node2D"]
+[node name="EnemyProjectile" type="Node2D"]
 script = ExtResource( 2 )
 destroy_on_leaving_screen = false
 
