@@ -24,11 +24,11 @@ export (Array, Resource) var challenges = null
 export (Array, Resource) var zones = null
 
 # RunData
-export (Dictionary) var tracked_items
+export (Dictionary) var tracked_items = null
 
 # Text
-export (Dictionary) var translation_keys_needing_operator
-export (Dictionary) var translation_keys_needing_percent
+export (Dictionary) var translation_keys_needing_operator = null
+export (Dictionary) var translation_keys_needing_percent = null
 
 func add_resources() -> void:
 	add_if_not_null(ItemService.characters, characters)

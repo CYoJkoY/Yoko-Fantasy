@@ -33,4 +33,7 @@ FANTASY_SKELETON_SWORDSMAN_BEHAVIOUR_DESCRIPTION,"Chases the player, briefly pau
 ","追击玩家, 每秒试图挥砍周围的玩家, 攻击前会短暂静止"
 FANTASY_SKELETON_ARCHER_NAME,Skeleton Archer,骷髅弓手
 FANTASY_SKELETON_ARCHER_BEHAVIOUR_DESCRIPTION,"Chases the player and fires an arrow toward them every 3 seconds. This arrow summons smaller arrows on both perpendicular sides, which automatically disappear after 1.5 seconds.
-","追击玩家, 每3秒朝玩家发射箭矢, 该箭矢可在两侧垂直方向召唤召唤1.5秒后自动消失的小箭矢"
+","追击玩家, 每3秒朝玩家发射箭矢, 该箭矢可在两侧垂直方向召唤1.5秒后自动消失的小箭矢"
+FANTASY_MAPLE_WOLF_NAME,Maple Wolf,枫狼
+FANTASY_MAPLE_WOLF_BEHAVIOUR_DESCRIPTION,"Maintain a certain distance while chasing the player, dash toward any player within range every second, and fire a maple-leaf-shaped bullet cluster consisting of six bullets.
+","保持一定距离追击玩家, 每秒冲向范围内玩家, 并产生由6个子弹构成的枫叶状子弹群"
