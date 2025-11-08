@@ -9,7 +9,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/013_maple_wolf/scene/maple_wolf.gd" type="Script" id=7]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=8]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/charging_shoot_attack_projectile/charging_shoot_attack_projectile.tscn" type="PackedScene" id=9]
-[ext_resource path="res://projectiles/slash/slash_projectile.tscn" type="PackedScene" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/maple_shoot_attack_projectile/maple_shoot_attack_projectile.tscn" type="PackedScene" id=10]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/maple_shoot_attack_behavior.gd" type="Script" id=11]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -62,18 +62,18 @@ allow_within = true
 [node name="MapleShootAttackBehavior" type="Node2D" parent="." index="7"]
 script = ExtResource( 11 )
 projectile_scene = ExtResource( 10 )
-projectile_speed = 1100
+projectile_speed = 600
 damage = 2
 damage_increase_each_wave = 3.0
 max_range = 99999
 number_projectiles = 5
-projectile_spread = 0.8
+projectile_spread = 1.6
 constant_spread = true
 
 [node name="ChargingShootAttackBehavior" type="Node2D" parent="." index="8"]
 script = ExtResource( 8 )
 projectile_scene = ExtResource( 9 )
-projectile_speed = 550
+projectile_speed = 400
 max_cd_randomization = 0
 damage = 2
 damage_increase_each_wave = 3.0
