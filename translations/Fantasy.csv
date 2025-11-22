@@ -36,4 +36,14 @@ FANTASY_SKELETON_ARCHER_BEHAVIOUR_DESCRIPTION,"Chases the player and fires an ar
 ","追击玩家, 每3秒朝玩家发射箭矢, 该箭矢可在两侧垂直方向召唤1.5秒后自动消失的小箭矢"
 FANTASY_MAPLE_WOLF_NAME,Maple Wolf,枫狼
 FANTASY_MAPLE_WOLF_BEHAVIOUR_DESCRIPTION,"Maintain a certain distance while chasing the player, dash toward any player within range every second, and fire a maple-leaf-shaped bullet cluster consisting of six bullets.
-","保持一定距离追击玩家, 每秒冲向范围内玩家, 并产生由6个子弹构成的枫叶状子弹群"
+","保持一定距离追击玩家, 每秒冲向范围内玩家, 并产生由6个刀光构成的枫叶状刀光群"
+FANTASY_VINE_STRANGER_NAME,Vine Stranger,藤蔓怪人
+FANTASY_VINE_STRANGER_BEHAVIOUR_DESCRIPTION,"Cannot move, fires a long stream of bullets at the player.","无法移动, 向玩家发射长串子弹"
+FANTASY_LITTLE_ELF_NAME,Little Elf,小精灵
+FANTASY_LITTLE_ELF_BEHAVIOUR_DESCRIPTION,"Rapidly swings towards the player, flees from the player when too close, and fires 5 bullets consecutively. After firing, it enters a 2-second cooldown period","高速摇摆接近玩家, 太接近时逃离玩家, 并连续发射5个子弹, 发射完毕后进入2秒的冷却期"
+FANTASY_SKELETON_KNIGHT_NAME,Skeleton Knight,骷髅骑士
+FANTASY_SKELETON_KNIGHT_BEHAVIOUR_DESCRIPTION,"Moves randomly, initiates a long-distance dash toward the player every 4 seconds, generating sword flashes in random directions during the dash","随机移动, 每4秒向玩家发起长距离冲刺, 冲刺过程中会产生随机方向的刀光"
+FANTASY_GIANT_BEAR_NAME,Giant Bear,巨熊
+FANTASY_GIANT_BEAR_BEHAVIOUR_DESCRIPTION,"Slowly chase the player, dashing toward them every 2 seconds and firing 3 short-range spread bullets in sequence during each dash","缓慢追击玩家, 每2秒冲向玩家, 冲刺过程中先后发射3次短距离的扩散子弹"
+FANTASY_LITTLE_DEMON_NAME,Little Demon,小恶魔
+FANTASY_LITTLE_DEMON_BEHAVIOUR_DESCRIPTION,"Pursue the player, firing two bullets every 1.5 seconds that appear from the left and right sides of the map and travel toward each other","追击玩家, 每1.5秒发射两个从地图左右两侧出现的相对而行的子弹"

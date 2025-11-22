@@ -21,7 +21,7 @@ script = ExtResource( 2 )
 interval = 0.5
 projectile_path = "res://mods-unpacked/Yoko-Fantasy/content/projectiles/skeleton_archer_projectile/skeleton_archer_projectile_small.tscn"
 size = 0.6
-free_time = 2.5
+free_time = 1.5
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2( 0, 0 )

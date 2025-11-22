@@ -28,69 +28,69 @@ var entities_in_zone: = []
 onready var _boost_timer: Timer = $"%BoostTimer"
 
 func respawn()->void :
-	.respawn()
-	_boost_collision.set_deferred("disabled", false)
+    .respawn()
+    _boost_collision.set_deferred("disabled", false)
 
 func die(args: = Entity.DieArgs.new())->void :
-	.die(args)
-	_boost_collision.set_deferred("disabled", true)
-	entities_in_zone.clear()
+    .die(args)
+    _boost_collision.set_deferred("disabled", true)
+    entities_in_zone.clear()
 
 func _on_BoostZone_body_entered(body: Node)->void :
-	# Heal
-	if not dead and ( not body is Structure) and body.current_stats.health < body.max_stats.health:
-		SoundManager2D.play(heal_sound, global_position, - 10, 0.2)
-		var heal_value = int(player_heal + (RunData.current_wave - 1) * player_heal_increase_each_wave)
-		if body is Player:
-			body.on_healing_effect(heal_value)
+    # Heal
+    if not dead and ( not body is Structure) and body.current_stats.health < body.max_stats.health:
+        SoundManager2D.play(heal_sound, global_position, - 10, 0.2)
+        var heal_value = int(player_heal + (RunData.current_wave - 1) * player_heal_increase_each_wave)
+        if body is Player:
+            body.on_healing_effect(heal_value)
 
-		if body is Enemy:
-			body.current_stats.health = min(body.current_stats.health + (heal + (RunData.current_wave - 1) * heal_increase_each_wave), body.max_stats.health)
+        if body is Enemy:
+            body.current_stats.health = min(body.current_stats.health + (heal + (RunData.current_wave - 1) * heal_increase_each_wave), body.max_stats.health)
 
-		if body is Player:
-			body.emit_signal("healed", heal_value, body.player_index)
-		else :
-			body.emit_signal("healed", body)
-		emit_signal("healed", self)
-	
-	# Buff
-	if not dead and body.can_be_boosted:
-		entities_in_zone.push_back(body)
+        if body is Player:
+            body.emit_signal("healed", heal_value, body.player_index)
+        else :
+            body.emit_signal("healed", body)
+        emit_signal("healed", self)
+    
+    # Buff
+    if not dead and body.can_be_boosted:
+        entities_in_zone.push_back(body)
 
 func _on_BoostTimer_timeout()->void :
-	var nb_entities_boosted = 0
-	entities_in_zone.shuffle()
-	for entity in entities_in_zone:
-		if is_instance_valid(entity) and entity.can_be_boosted and not entity.is_boosted:
-			var boost_args: = BoostArgs.new()
-			if entity is Player:
-				boost_args.hp_boost = player_hp_boost
-				boost_args.speed_boost = player_speed_boost
-				boost_args.attack_speed_boost = player_attack_speed_boost
+    var nb_entities_boosted = 0
+    entities_in_zone.shuffle()
+    for entity in entities_in_zone:
+        if is_instance_valid(entity) and entity.can_be_boosted and not entity.is_boosted:
+            var boost_args: = BoostArgs.new()
+            if entity is Player:
+                boost_args.hp_boost = player_hp_boost
+                boost_args.speed_boost = player_speed_boost
+                boost_args.attack_speed_boost = player_attack_speed_boost
 
-			elif entity is Structure:
-				boost_args.damage_boost = structure_damage_boost
-				boost_args.range_boost = structure_range_boost
-				boost_args.attack_speed_boost = structure_attack_speed_boost
+            elif entity is Structure:
+                boost_args.damage_boost = structure_damage_boost
+                boost_args.range_boost = structure_range_boost
+                boost_args.attack_speed_boost = structure_attack_speed_boost
 
-			else :
-				boost_args.hp_boost = hp_boost
-				boost_args.damage_boost = damage_boost
-				boost_args.speed_boost = speed_boost
+            else :
+                boost_args.hp_boost = hp_boost
+                boost_args.damage_boost = damage_boost
+                boost_args.speed_boost = speed_boost
 
-			entity.boost(boost_args)
-			entity.emit_signal("stats_boosted", entity)
+            entity.boost(boost_args)
+            entity.emit_signal("stats_boosted", entity)
 
-			nb_entities_boosted += 1
-			if nb_entities_boosted >= nb_entities_boosted_at_once:
-				break
+            nb_entities_boosted += 1
+            if nb_entities_boosted >= nb_entities_boosted_at_once:
+                break
 
-	if nb_entities_boosted > 0:
-		emit_signal("stats_boosted", self)
-		SoundManager2D.play(boost_sound, global_position, 0.0, 0.2)
+    if nb_entities_boosted > 0:
+        emit_signal("stats_boosted", self)
+        SoundManager2D.play(boost_sound, global_position, 0.0, 0.2)
 
-	_boost_timer.wait_time = boost_cooldown
+    _boost_timer.wait_time = boost_cooldown
 
 
 func _on_BoostZone_body_exited(body: Node)->void :
-	entities_in_zone.erase(body)
+    entities_in_zone.erase(body)

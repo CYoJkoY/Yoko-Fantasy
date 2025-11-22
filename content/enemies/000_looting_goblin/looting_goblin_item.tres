@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://entities/units/enemies/ItemEnemy.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/000_looting_goblin/looting_goblin_icon.png" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/000_looting_goblin/looting_goblin_icon.webp" type="Texture" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/000_looting_goblin/looting_goblin_stats.tres" type="Resource" id=3]
 
 [resource]

@@ -1,0 +1,72 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://entities/units/enemies/attack_behaviors/shoot.tres" type="Animation" id=1]
+[ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/019_little_demon/little_demon_stats.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/019_little_demon/scene/little_demon.webp" type="Texture" id=4]
+[ext_resource path="res://entities/units/enemies/enemy.gd" type="Script" id=5]
+[ext_resource path="res://entities/units/movement_behaviors/follow_rand_pos_around_player_movement_behavior.gd" type="Script" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/surround_shooting_attack_behavior.gd" type="Script" id=7]
+[ext_resource path="res://entities/units/unit/unit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://entities/units/enemies/attack_behaviors/shoot_charmed.tres" type="Animation" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/demon_trident_projectile/demon_trident_projectile.tscn" type="PackedScene" id=10]
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 27.1662
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 48.0416
+
+[sub_resource type="CircleShape2D" id=10]
+radius = 28.0
+
+[node name="Enemy" instance=ExtResource( 8 )]
+collision_layer = 4
+collision_mask = 132
+script = ExtResource( 5 )
+can_be_boosted = true
+stats = ExtResource( 3 )
+enemy_id = "fantasy_little_demon"
+is_loot = false
+can_be_cursed = true
+can_be_charmed = true
+to_be_removed_in_priority = false
+
+[node name="Sprite" parent="Animation" index="0"]
+texture = ExtResource( 4 )
+
+[node name="Collision" parent="." index="1"]
+position = Vector2( 0, 19 )
+shape = SubResource( 8 )
+
+[node name="Hurtbox" parent="." index="2"]
+position = Vector2( 0, -16 )
+collision_mask = 1032
+
+[node name="Collision" parent="Hurtbox" index="0"]
+position = Vector2( 0, 14 )
+shape = SubResource( 9 )
+
+[node name="Hitbox" parent="." index="3" instance=ExtResource( 2 )]
+collision_layer = 4
+
+[node name="Collision" parent="Hitbox" index="0"]
+shape = SubResource( 10 )
+
+[node name="AnimationPlayer" parent="." index="4"]
+anims/shoot = ExtResource( 1 )
+anims/shoot_charmed = ExtResource( 9 )
+
+[node name="MovementBehavior" type="Node2D" parent="." index="6"]
+script = ExtResource( 6 )
+range_around_player = 300
+
+[node name="AttackBehavior" type="Node2D" parent="." index="7"]
+script = ExtResource( 7 )
+projectile_scene = ExtResource( 10 )
+projectile_speed = 550
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]
