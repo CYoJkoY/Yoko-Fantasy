@@ -17,9 +17,10 @@ func get_movement() -> Vector2:
     match _is_teleporting:
         true:
             if (current_time - _last_teleport_time) >= teleport_duration:
-                if _original_speed: _parent.current_stats.speed = _original_speed
+                if _original_speed != null:
+                    _parent.current_stats.speed = _original_speed
                 _is_teleporting = false
-     
+                _current_target = Vector2.ZERO
         false:
             if (current_time - _last_teleport_time) >= teleport_cooldown:
                 _trigger_teleport()
@@ -32,9 +33,6 @@ func get_movement() -> Vector2:
         return _current_target - _parent.global_position
 
     return Vector2.ZERO
-
-func get_target_position():
-    return _current_target
 
 func _trigger_teleport():
     var angle: float = randf() * TAU

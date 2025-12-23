@@ -47,3 +47,6 @@ FANTASY_GIANT_BEAR_NAME,Giant Bear,巨熊
 FANTASY_GIANT_BEAR_BEHAVIOUR_DESCRIPTION,"Slowly chase the player, dashing toward them every 2 seconds and firing 3 short-range spread bullets in sequence during each dash","缓慢追击玩家, 每2秒冲向玩家, 冲刺过程中先后发射3次短距离的扩散子弹"
 FANTASY_LITTLE_DEMON_NAME,Little Demon,小恶魔
 FANTASY_LITTLE_DEMON_BEHAVIOUR_DESCRIPTION,"Pursue the player, firing two bullets every 1.5 seconds that appear from the left and right sides of the map and travel toward each other","追击玩家, 每1.5秒发射两个从地图左右两侧出现的相对而行的子弹"
+FANTASY_CRYSTALLINE_ELEMENTS_NAME,Crystalline Elements,元素结晶
+FANTASY_CRYSTALLINE_ELEMENTS_BEHAVIOUR_DESCRIPTION,"Teleports randomly within a range of 700 every 3 seconds, and each second summons a hexagonal cluster of six blade flashes around itself that contracts inward.
+",每3秒在700范围内随机传送，每秒在周围召唤由6个刀光构成的向内收缩的六边形刀光群
