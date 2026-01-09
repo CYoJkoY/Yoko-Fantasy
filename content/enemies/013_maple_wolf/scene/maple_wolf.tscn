@@ -8,8 +8,8 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/013_maple_wolf/scene/maple_wolf.webp" type="Texture" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/013_maple_wolf/scene/maple_wolf.gd" type="Script" id=7]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=8]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/charging_shoot_attack_projectile/charging_shoot_attack_projectile.tscn" type="PackedScene" id=9]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/maple_shoot_attack_projectile/maple_shoot_attack_projectile.tscn" type="PackedScene" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/charging_shoot_attack_projectile/charging_shoot_attack_projectile.tscn" type="PackedScene" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/maple_shoot_attack_projectile/maple_shoot_attack_projectile.tscn" type="PackedScene" id=10]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/maple_shooting_attack_behavior.gd" type="Script" id=11]
 
 [sub_resource type="CircleShape2D" id=1]

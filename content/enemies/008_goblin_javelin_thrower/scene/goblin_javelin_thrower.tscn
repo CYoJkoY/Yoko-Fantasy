@@ -30,7 +30,7 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=28]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=29]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=30]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/goblin_javelin_projectile/goblin_javelin_projectile.tscn" type="PackedScene" id=31]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/goblin_javelin_projectile/goblin_javelin_projectile.tscn" type="PackedScene" id=31]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

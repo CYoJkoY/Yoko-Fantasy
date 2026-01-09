@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://projectiles/projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_projectile.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_projectile.webp" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 55, 12 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "RESET"
+length = 0.001
+
+[sub_resource type="Animation" id=3]
+resource_name = "shoot"
+length = 0.001
+step = 0.02
+
+[node name="EnemyProjectile" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+interval = 0.5
+projectile_path = "res://mods-unpacked/Yoko-Fantasy/content/projectiles/skeleton_archer_projectile/skeleton_archer_projectile_small.tscn"
+size = 0.6
+free_time = 1.5
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, 0 )
+texture = ExtResource( 3 )
+
+[node name="Hitbox" parent="." index="1"]
+position = Vector2( 0, -15 )
+collision_layer = 16
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 0, 14 )
+shape = SubResource( 4 )
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "shoot"
+anims/RESET = SubResource( 2 )
+anims/shoot = SubResource( 3 )
+
+[connection signal="hit_something" from="Hitbox" to="." method="_on_Hitbox_hit_something"]
+
+[editable path="Hitbox"]

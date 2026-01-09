@@ -3,7 +3,7 @@ extends Resource
 # ItemService
 export (Array, Resource) var backgrounds = null
 export (Array, Resource) var characters = null
-export (Array, Resource) var enemies = null
+export (Array, Resource) var entities = null
 export (Array, Resource) var elites = null
 export (Array, Resource) var bosses = null
 export (Array, Resource) var stats = null
@@ -32,7 +32,7 @@ export (Dictionary) var translation_keys_needing_percent = null
 
 func add_resources() -> void:
     add_if_not_null(ItemService.characters, characters)
-    add_if_not_null(ItemService.enemies, enemies)
+    add_if_not_null(ItemService.entities, entities)
     add_if_not_null(ItemService.elites, elites)
     add_if_not_null(ItemService.bosses, bosses)
     add_if_not_null(ItemService.stats, stats)
