@@ -5,10 +5,10 @@ type="Translation"
 
 [deps]
 
-files=[ "res://mods-unpacked/Yoko-Fantasy/translations/Fantasy.en.translation", "res://mods-unpacked/Yoko-Fantasy/translations/Fantasy.zh.translation" ]
+files=[ "res://mods-unpacked/Yoko-Fantasy/translations/Fantasy.en.translation", "res://mods-unpacked/Yoko-Fantasy/translations/Fantasy.zh_Hans_CN.translation" ]
 
 source_file="res://mods-unpacked/Yoko-Fantasy/translations/Fantasy.csv"
-dest_files=[ "res://mods-unpacked/Yoko-Fantasy/translations/Fantasy.en.translation", "res://mods-unpacked/Yoko-Fantasy/translations/Fantasy.zh.translation" ]
+dest_files=[ "res://mods-unpacked/Yoko-Fantasy/translations/Fantasy.en.translation", "res://mods-unpacked/Yoko-Fantasy/translations/Fantasy.zh_Hans_CN.translation" ]
 
 [params]
 

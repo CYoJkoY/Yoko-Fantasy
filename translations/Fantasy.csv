@@ -1,8 +1,8 @@
-keys,en,zh
+keys,en,zh_Hans_CN
 ZONE_FANTASY,Fantasy,幻界
 BG_FANTASY,Fantasy,幻界
 FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
-FANTASYLOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑, 死亡时掉落一个箱子"
+FANTASY_LOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑, 死亡时掉落一个箱子"
 FANTASY_LITTLE_SLIME_NAME,Small Slime,小史莱姆
 FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,Slowly chase the player\nEvolve when 10 non-slime enemies die within a range of 100,缓慢追击玩家\n100范围内死亡的非史莱姆系敌人达到10个则进化
 FANTASY_MEDIUM_SLIME_NAME,Medium Slime,中史莱姆
@@ -45,3 +45,5 @@ FANTASY_LITTLE_DEMON_NAME,Little Demon,小恶魔
 FANTASY_LITTLE_DEMON_BEHAVIOUR_DESCRIPTION,"Pursue the player, firing two bullets every 1.5 seconds that appear from the left and right sides of the map and travel toward each other","追击玩家, 每1.5秒发射两个从地图左右两侧出现的相对而行的子弹"
 FANTASY_CRYSTALLINE_ELEMENTS_NAME,Crystalline Elements,元素结晶
 FANTASY_CRYSTALLINE_ELEMENTS_BEHAVIOUR_DESCRIPTION,"Teleports randomly within a range of 700 every 3 seconds, and each second summons a hexagonal cluster of six blade flashes around itself that contracts inward.",每3秒在700范围内随机传送，每秒在周围召唤由6个刀光构成的向内收缩的六边形刀光群
+FANTASY_INFO_HOLY,,神圣，属性。负数时不生效。额外增加对被诅咒敌人造成的伤害{0}，增加敌人掉魂的概率{1}，降低所有敌人的血量{2}。
+FANTASY_INFO_SOUL,,魂，特殊掉落物。额外增加20%伤害与20%攻速，持续时间{0}秒。
