@@ -30,8 +30,11 @@ func _init():
 
     var extensions: Array = [
 
-        "progress_data.gd"
+        "progress_data.gd",
         # Mod's Contents
+        
+        "main.gd",
+        # Display Holy, Display Soul
 
     ]
 

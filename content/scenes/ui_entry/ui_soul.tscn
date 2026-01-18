@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://resources/fonts/raw/Anybody-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://resources/themes/base_theme.tres" type="Theme" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/scenes/ui_entry/ui_value.gd" type="Script" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/scenes/ui_entry/soul.webp" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = 10
+font_data = ExtResource( 1 )
+
+[node name="UIHoly" type="HBoxContainer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -616.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = 80.0
+alignment = 2
+script = ExtResource( 3 )
+
+[node name="Icon" type="TextureRect" parent="."]
+margin_left = 505.0
+margin_right = 569.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 4 )
+expand = true
+
+[node name="ValueLabel" type="Label" parent="."]
+margin_left = 573.0
+margin_top = 1.0
+margin_right = 600.0
+margin_bottom = 63.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,9 +1,7 @@
-[gd_resource type="Resource" load_steps=27 format=2]
+[gd_resource type="Resource" load_steps=25 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content_data/NewContent.gd" type="Script" id=2]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/stats/stat_holy.tres" type="Resource" id=3]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/stats/stat_soul.tres" type="Resource" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/018_giant_bear/giant_bear_item.tres" type="Resource" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/010_tree_spirit/tree_spirit_item.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/002_unicorn_rabbit/unicorn_rabbit_item.tres" type="Resource" id=7]
@@ -34,7 +32,7 @@ characters = null
 entities = [ ExtResource( 19 ), ExtResource( 13 ), ExtResource( 7 ), ExtResource( 15 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 23 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 6 ), ExtResource( 25 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 22 ), ExtResource( 26 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 21 ) ]
 elites = null
 bosses = null
-stats = [ ExtResource( 3 ), ExtResource( 4 ) ]
+stats = null
 items = null
 weapons = null
 effects = null

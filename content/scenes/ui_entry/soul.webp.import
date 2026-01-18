@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/holy.webp-3e4bc4d846e9156da2a3225bac694184.stex"
+path="res://.import/soul.webp-0111fa85415e566a776454eb318ffd85.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/extensions/stats/pics/holy.webp"
-dest_files=[ "res://.import/holy.webp-3e4bc4d846e9156da2a3225bac694184.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/scenes/ui_entry/soul.webp"
+dest_files=[ "res://.import/soul.webp-0111fa85415e566a776454eb318ffd85.stex" ]
 
 [params]
 
