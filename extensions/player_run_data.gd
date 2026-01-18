@@ -7,6 +7,9 @@ static func init_stats(all_null_values: bool = false)->Dictionary:
 
         var new_stats: = {
             
+            "fantasy_stat_holy": 0,
+            "fantasy_stat_soul": 0,
+            
         }
 
         new_stats.merge(vanilla_stats)
