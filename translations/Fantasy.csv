@@ -45,5 +45,8 @@ FANTASY_LITTLE_DEMON_NAME,Little Demon,小恶魔
 FANTASY_LITTLE_DEMON_BEHAVIOUR_DESCRIPTION,"Pursue the player, firing two bullets every 1.5 seconds that appear from the left and right sides of the map and travel toward each other","追击玩家, 每1.5秒发射两个从地图左右两侧出现的相对而行的子弹"
 FANTASY_CRYSTALLINE_ELEMENTS_NAME,Crystalline Elements,元素结晶
 FANTASY_CRYSTALLINE_ELEMENTS_BEHAVIOUR_DESCRIPTION,"Teleports randomly within a range of 700 every 3 seconds, and each second summons a hexagonal cluster of six blade flashes around itself that contracts inward.",每3秒在700范围内随机传送，每秒在周围召唤由6个刀光构成的向内收缩的六边形刀光群
-FANTASY_INFO_HOLY,,神圣，属性。负数时不生效。额外增加对被诅咒敌人造成的伤害{0}，增加敌人掉魂的概率{1}，降低所有敌人的血量{2}。
-FANTASY_INFO_SOUL,,魂，特殊掉落物。额外增加20%伤害与20%攻速，持续时间{0}秒。
+FANTASY_INFO_HOLY,"Holy, Attribute. Inactive when negative. Increases damage dealt to Cursed enemies by {0}, increases Soul drop rate by {1}, and reduces all enemies' HP by {2}.",神圣，属性。负数时不生效。额外增加对被诅咒敌人造成的伤害{0}，增加敌人掉魂的概率{1}，降低所有敌人的血量{2}。
+FANTASY_INFO_SOUL,"Soul, Special Drop. Increases damage and attack speed by 20% for {0} seconds.",魂，特殊掉落物。额外增加20%伤害与20%攻速，持续时间{0}秒。
+FANTASY_CLASS_HOLY,Holy,神圣
+FANTASY_CLASS_FALLEN,Fallen,堕落
+FANTASY_CONSUMABLE_SOUL,Soul,魂

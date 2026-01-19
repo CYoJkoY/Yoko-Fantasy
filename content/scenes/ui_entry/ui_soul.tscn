@@ -3,7 +3,7 @@
 [ext_resource path="res://resources/fonts/raw/Anybody-Medium.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/themes/base_theme.tres" type="Theme" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/scenes/ui_entry/ui_value.gd" type="Script" id=3]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/scenes/ui_entry/soul.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/consumables/soul/soul.webp" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 50

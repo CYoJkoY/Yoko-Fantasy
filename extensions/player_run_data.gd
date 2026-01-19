@@ -27,6 +27,7 @@ static func init_effects()->Dictionary:
         var new_effects: = {
             
             "fantasy_original_speed": 0.0,
+            "fantasy_soul_drops": 0.0,
 
         }
         
