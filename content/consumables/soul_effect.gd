@@ -27,7 +27,7 @@ func apply(player_index: int) -> void:
     _reset_decay_timer(player_index)
 
 func _reset_decay_timer(player_index: int) -> void:
-    var player = RunData.get_player(player_index)
+    var player = Utils.get_scene_node()._players[player_index]
     if player:
         if player.has_meta("fantasy_stat_soul_decay_timer"):
             var old_timer = player.get_meta("fantasy_stat_soul_decay_timer")
@@ -67,7 +67,7 @@ func _remove_bonus_effects(player_index: int) -> void:
         TempStats.remove_stat("stat_attack_speed", speed_to_remove, player_index)
         _added_speed_values.erase(player_index)
     
-    var player = RunData.get_player(player_index)
+    var player = Utils.get_scene_node()._players[player_index]
     if player and player.has_meta("fantasy_stat_soul_decay_timer"):
         var timer = player.get_meta("fantasy_stat_soul_decay_timer")
         if is_instance_valid(timer):

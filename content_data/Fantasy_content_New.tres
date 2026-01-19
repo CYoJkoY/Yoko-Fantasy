@@ -1,7 +1,8 @@
-[gd_resource type="Resource" load_steps=25 format=2]
+[gd_resource type="Resource" load_steps=26 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content_data/NewContent.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/consumables/soul/soul_data.tres" type="Resource" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/018_giant_bear/giant_bear_item.tres" type="Resource" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/010_tree_spirit/tree_spirit_item.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemies/002_unicorn_rabbit/unicorn_rabbit_item.tres" type="Resource" id=7]
@@ -36,7 +37,7 @@ stats = null
 items = null
 weapons = null
 effects = null
-consumables = null
+consumables = [ ExtResource( 3 ) ]
 upgrades = null
 sets = null
 difficulties = null

@@ -35,6 +35,9 @@ func _init():
         
         "main.gd",
         # Display Holy, Display Soul
+        
+        "item_service.gd",
+        # Drop Soul
 
     ]
 
