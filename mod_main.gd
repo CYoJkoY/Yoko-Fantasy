@@ -34,10 +34,13 @@ func _init():
         # Mod's Contents
         
         "main.gd",
-        # Display Holy, Display Soul
+        # Entry: Display Holy, Display Soul
         
         "item_service.gd",
-        # Drop Soul
+        # Entry: Soul Drop
+        
+        "enemy.gd",
+        # Entry: Holy Effect
 
     ]
 
