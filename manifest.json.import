@@ -1,0 +1,14 @@
+[remap]
+
+importer="snkkid.SpriteSheetImporter"
+type="Resource"
+path="res://.import/manifest.json-103694f0ad7907f737830b54aaa013f7.res"
+
+[deps]
+
+source_file="res://mods-unpacked/Yoko-Fantasy/manifest.json"
+dest_files=[ "res://.import/manifest.json-103694f0ad7907f737830b54aaa013f7.res" ]
+
+[params]
+
+Import_As_Atlas=true
