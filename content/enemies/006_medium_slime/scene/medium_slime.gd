@@ -12,7 +12,7 @@ func die(args: = Entity.DieArgs.new())->void :
 
     var charmed_by = get_charmed_by_player_index()
     var nb_to_spawn: int = nb_spawns_on_death
-    var nb_of_enemies_stat: int = RunData.sum_all_player_effects("number_of_enemies")
+    var nb_of_enemies_stat: int = RunData.sum_all_player_effects(Keys.number_of_enemies_hash)
 
     if nb_of_enemies_stat < 0:
         var nb_to_remove: int = nb_of_enemies_stat / - 20

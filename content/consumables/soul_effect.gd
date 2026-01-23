@@ -8,7 +8,7 @@ var _added_speed_values = {}
 var _bonus_applied = {}
 
 func apply(player_index: int) -> void:
-    TempStats.add_stat("fantasy_stat_soul", value, player_index)
+    TempStats.add_stat(Keys.fantasy_stat_soul_hash, value, player_index)
     
     if not _bonus_applied.get(player_index, false):
         _apply_bonus_effects(player_index)
@@ -16,19 +16,19 @@ func apply(player_index: int) -> void:
     _reset_decay_timer(player_index)
 
 func _apply_bonus_effects(player_index: int) -> void:
-    var base_damage = Utils.get_stat("stat_percent_damage", player_index)
-    var base_speed = Utils.get_stat("stat_attack_speed", player_index)
+    var base_damage = Utils.get_stat(Keys.stat_percent_damage_hash, player_index)
+    var base_speed = Utils.get_stat(Keys.stat_attack_speed_hash, player_index)
     
     var damage_to_add = 0
     var speed_to_add = 0
     
     if base_damage > 0:
         damage_to_add = int(base_damage * DAMAGE_MULTIPLIER)
-        TempStats.add_stat("stat_percent_damage", damage_to_add, player_index)
+        TempStats.add_stat(Keys.stat_percent_damage_hash, damage_to_add, player_index)
     
     if base_speed > 0:
         speed_to_add = int(base_speed * ATTACK_SPEED_MULTIPLIER)
-        TempStats.add_stat("stat_attack_speed", speed_to_add, player_index)
+        TempStats.add_stat(Keys.stat_attack_speed_hash, speed_to_add, player_index)
     
     _added_damage_values[player_index] = damage_to_add
     _added_speed_values[player_index] = speed_to_add
@@ -59,11 +59,11 @@ func _reset_decay_timer(player_index: int) -> void:
     player.set_meta("fantasy_stat_soul_decay_timer", timer)
 
 func _on_decay_timeout(player_index: int) -> void:
-    var current_soul = TempStats.get_stat("fantasy_stat_soul", player_index)
+    var current_soul = TempStats.get_stat(Keys.fantasy_stat_soul_hash, player_index)
     
     if current_soul > 0:
-        TempStats.remove_stat("fantasy_stat_soul", value, player_index)
-        current_soul = TempStats.get_stat("fantasy_stat_soul", player_index)
+        TempStats.remove_stat(Keys.fantasy_stat_soul_hash, value, player_index)
+        current_soul = TempStats.get_stat(Keys.fantasy_stat_soul_hash, player_index)
     
     if current_soul <= 0:
         _remove_bonus_effects(player_index)
@@ -74,13 +74,13 @@ func _remove_bonus_effects(player_index: int) -> void:
     if _added_damage_values.has(player_index):
         var damage_to_remove = _added_damage_values[player_index]
         if damage_to_remove > 0:
-            TempStats.remove_stat("stat_percent_damage", damage_to_remove, player_index)
+            TempStats.remove_stat(Keys.stat_percent_damage_hash, damage_to_remove, player_index)
         _added_damage_values.erase(player_index)
     
     if _added_speed_values.has(player_index):
         var speed_to_remove = _added_speed_values[player_index]
         if speed_to_remove > 0:
-            TempStats.remove_stat("stat_attack_speed", speed_to_remove, player_index)
+            TempStats.remove_stat(Keys.stat_attack_speed_hash, speed_to_remove, player_index)
         _added_speed_values.erase(player_index)
     
     var main_scene = Utils.get_scene_node()

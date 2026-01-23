@@ -1,7 +1,5 @@
 extends "res://singletons/progress_data.gd"
 
-var Fantasy = null
-
 # =========================== Extention =========================== #
 func _ready() -> void:
     _fantasy_ready()
@@ -17,5 +15,3 @@ func _fantasy_ready() -> void:
     add_unlocked_by_default()
 
     set_max_selectable_difficulty()
-
-    Fantasy = get_node("/root/ModLoader/Yoko-Fantasy/Fantasy")

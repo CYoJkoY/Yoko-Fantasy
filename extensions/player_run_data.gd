@@ -7,8 +7,8 @@ static func init_stats(all_null_values: bool = false)->Dictionary:
 
         var new_stats: = {
             
-            "fantasy_stat_holy": 0,
-            "fantasy_stat_soul": 0,                                                     # Debug : Only For Assert
+            Keys.fantasy_stat_holy_hash: 0,
+            Keys.fantasy_stat_soul_hash: 0,
             
         }
 
@@ -26,7 +26,7 @@ static func init_effects()->Dictionary:
 
         var new_effects: = {
             
-            "fantasy_original_speed": 0.0,
+            Keys.fantasy_original_speed_hash: 0.0,
 
         }
         

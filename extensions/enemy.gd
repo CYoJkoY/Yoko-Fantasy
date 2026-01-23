@@ -28,7 +28,7 @@ func _fantasy_apply_holy_effects() -> void:
     
     var total_holy: int = 0
     for i in range(players_ref.size()):
-        total_holy += int(Utils.get_stat("fantasy_stat_holy", i))
+        total_holy += int(Utils.get_stat(Keys.fantasy_stat_holy_hash, i))
     if total_holy <= 0:
         return
     
@@ -45,7 +45,7 @@ func _fantasy_apply_holy_effects() -> void:
 
 func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult, from_player_index: int) -> GetDamageValueResult:
     if fa_is_cursed():
-        var holy_stat = Utils.get_stat("fantasy_stat_holy", from_player_index)
+        var holy_stat = Utils.get_stat(Keys.fantasy_stat_holy_hash, from_player_index)
         if holy_stat > 0:
             var bonus_multiplier = 1.0 + (holy_stat * 0.01)
             dmg_value_result.value = int(dmg_value_result.value * bonus_multiplier)

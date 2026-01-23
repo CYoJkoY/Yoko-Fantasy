@@ -78,7 +78,11 @@ func add_resources() -> void:
         Text.keys_needing_percent.merge(translation_keys_needing_percent)
     
     if tracked_items != null: 
-        RunData.init_tracked_items.merge(tracked_items)
+        var hashed_tracked_items = {}
+        for key in tracked_items:
+            var hashed_key = Keys.generate_hash(key)
+            hashed_tracked_items[hashed_key] = tracked_items[key]
+        RunData.init_tracked_items.merge(hashed_tracked_items)
     
     ItemService.init_unlocked_pool()
 

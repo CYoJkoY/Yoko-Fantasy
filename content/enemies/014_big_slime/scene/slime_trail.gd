@@ -18,9 +18,9 @@ func _on_SlimeTrail_body_entered(body) -> void:
     if not body in affected_players:
         var player_index: int = body.player_index
         affected_players.append(body)
-        var original_speed = RunData.players_data[player_index].effects["fantasy_original_speed"]
+        var original_speed = RunData.players_data[player_index].effects[Keys.fantasy_original_speed_hash]
         if body.current_stats.speed >= original_speed:
-            RunData.players_data[player_index].effects["fantasy_original_speed"] = body.current_stats.speed
+            RunData.players_data[player_index].effects[Keys.fantasy_original_speed_hash] = body.current_stats.speed
         body.current_stats.speed *= 1 - reduction
 
 func _on_SlimeTrail_body_exited(body) -> void:
@@ -32,6 +32,6 @@ func _remove_effect_from_body(body) -> void:
         affected_players.erase(body)
         
         if body and not body.dead:
-            body.current_stats.speed = RunData.get_player_effect("fantasy_original_speed", player_index)
+            body.current_stats.speed = RunData.get_player_effect(Keys.fantasy_original_speed_hash, player_index)
         
         
