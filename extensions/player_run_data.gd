@@ -2,13 +2,13 @@ extends "res://singletons/player_run_data.gd"
 
 static func init_stats(all_null_values: bool = false)->Dictionary:
 
-    if (not Utils == null) :
+    if (Utils != null) :
         var vanilla_stats = .init_stats(all_null_values)
 
         var new_stats: = {
             
-            Keys.fantasy_stat_holy_hash: 0,
-            Keys.fantasy_stat_soul_hash: 0,
+            Utils.fantasy_stat_holy_hash: 0,
+            Utils.fantasy_stat_soul_hash: 0,
             
         }
 
@@ -20,13 +20,13 @@ static func init_stats(all_null_values: bool = false)->Dictionary:
 
 static func init_effects()->Dictionary:
 
-    if (not Utils == null) :
+    if (Utils != null) :
         var mod_stats = init_stats()
         var vanilla_effects = .init_effects()
 
         var new_effects: = {
             
-            Keys.fantasy_original_speed_hash: 0.0,
+            Utils.fantasy_original_speed_hash: 0.0,
 
         }
         

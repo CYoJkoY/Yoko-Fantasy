@@ -7,14 +7,16 @@ var _added_damage_values = {}
 var _added_speed_values = {}
 var _bonus_applied = {}
 
+# =========================== Extension =========================== #
 func apply(player_index: int) -> void:
-    TempStats.add_stat(Keys.fantasy_stat_soul_hash, value, player_index)
+    TempStats.add_stat(Utils.fantasy_stat_soul_hash, value, player_index)
     
     if not _bonus_applied.get(player_index, false):
         _apply_bonus_effects(player_index)
     
     _reset_decay_timer(player_index)
 
+# =========================== Custom =========================== #
 func _apply_bonus_effects(player_index: int) -> void:
     var base_damage = Utils.get_stat(Keys.stat_percent_damage_hash, player_index)
     var base_speed = Utils.get_stat(Keys.stat_attack_speed_hash, player_index)
@@ -54,21 +56,9 @@ func _reset_decay_timer(player_index: int) -> void:
     timer.wait_time = 2.0
     timer.one_shot = true
     player.add_child(timer)
-    timer.connect("timeout", self, "_on_decay_timeout", [player_index])
+    timer.connect("timeout", self, "fa_on_decay_timeout", [player_index])
     timer.start()
     player.set_meta("fantasy_stat_soul_decay_timer", timer)
-
-func _on_decay_timeout(player_index: int) -> void:
-    var current_soul = TempStats.get_stat(Keys.fantasy_stat_soul_hash, player_index)
-    
-    if current_soul > 0:
-        TempStats.remove_stat(Keys.fantasy_stat_soul_hash, value, player_index)
-        current_soul = TempStats.get_stat(Keys.fantasy_stat_soul_hash, player_index)
-    
-    if current_soul <= 0:
-        _remove_bonus_effects(player_index)
-    else:
-        _reset_decay_timer(player_index)
 
 func _remove_bonus_effects(player_index: int) -> void:
     if _added_damage_values.has(player_index):
@@ -94,3 +84,16 @@ func _remove_bonus_effects(player_index: int) -> void:
             player.remove_meta("fantasy_stat_soul_decay_timer")
     
     _bonus_applied.erase(player_index)
+
+# =========================== Method =========================== #
+func fa_on_decay_timeout(player_index: int) -> void:
+    var current_soul = TempStats.get_stat(Utils.fantasy_stat_soul_hash, player_index)
+    
+    if current_soul > 0:
+        TempStats.remove_stat(Utils.fantasy_stat_soul_hash, value, player_index)
+        current_soul = TempStats.get_stat(Utils.fantasy_stat_soul_hash, player_index)
+    
+    if current_soul <= 0:
+        _remove_bonus_effects(player_index)
+    else:
+        _reset_decay_timer(player_index)

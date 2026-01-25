@@ -35,10 +35,10 @@ func _fantasy_holy_display() -> void:
         player_ui.hud_container.add_child(UIHolyInstance)
         player_ui.hud_container.move_child(UIHolyInstance, after_gold_index)
         
-        UIHolyInstance.update_value(Utils.get_stat(Keys.fantasy_stat_holy_hash, i))
+        UIHolyInstance.update_value(Utils.get_stat(Utils.fantasy_stat_holy_hash, i))
 
         if not UIHolyInstance.is_connected("mouse_entered", self, "fa_on_UIHoly_mouse_entered"):
-            UIHolyInstance.connect("mouse_entered", self, "fa_on_UIHoly_mouse_entered", [Utils.get_stat(Keys.fantasy_stat_holy_hash, i)])
+            UIHolyInstance.connect("mouse_entered", self, "fa_on_UIHoly_mouse_entered", [Utils.get_stat(Utils.fantasy_stat_holy_hash, i)])
         if not UIHolyInstance.is_connected("mouse_exited", self, "fa_on_UIHoly_mouse_exited"):
             UIHolyInstance.connect("mouse_exited", self, "fa_on_UIHoly_mouse_exited")
         
@@ -62,10 +62,10 @@ func _fantasy_soul_display() -> void:
         player_ui.hud_container.add_child(UISoulInstance)
         player_ui.hud_container.move_child(UISoulInstance, after_gold_index)
         
-        UISoulInstance.update_value(Utils.get_stat(Keys.fantasy_stat_soul_hash, i))
+        UISoulInstance.update_value(Utils.get_stat(Utils.fantasy_stat_soul_hash, i))
         
         if not UISoulInstance.is_connected("mouse_entered", self, "fa_on_UISoul_mouse_entered"):
-            UISoulInstance.connect("mouse_entered", self, "fa_on_UISoul_mouse_entered", [Utils.get_stat(Keys.fantasy_stat_soul_hash, i)])
+            UISoulInstance.connect("mouse_entered", self, "fa_on_UISoul_mouse_entered", [Utils.get_stat(Utils.fantasy_stat_soul_hash, i)])
         if not UISoulInstance.is_connected("mouse_exited", self, "fa_on_UISoul_mouse_exited"):
             UISoulInstance.connect("mouse_exited", self, "fa_on_UISoul_mouse_exited")
         
@@ -75,13 +75,13 @@ func _fantasy_holy_process() -> void:
     for i in range(_players.size()):
         if _players[i] in UIHolyScenes and \
         is_instance_valid(UIHolyScenes[_players[i]]):
-            UIHolyScenes[_players[i]].update_value(Utils.get_stat(Keys.fantasy_stat_holy_hash, i))
+            UIHolyScenes[_players[i]].update_value(Utils.get_stat(Utils.fantasy_stat_holy_hash, i))
 
 func _fantasy_soul_process() -> void:
     for i in range(_players.size()):
         if _players[i] in UISoulScenes and \
         is_instance_valid(UISoulScenes[_players[i]]):
-            UISoulScenes[_players[i]].update_value(Utils.get_stat(Keys.fantasy_stat_soul_hash, i))
+            UISoulScenes[_players[i]].update_value(Utils.get_stat(Utils.fantasy_stat_soul_hash, i))
 
 # =========================== Method =========================== #
 func fa_on_UIHoly_mouse_entered(stat_holy: int) -> void :

@@ -49,15 +49,15 @@ func add_resources() -> void:
     if weapons != null: for weapon in weapons:
         if weapon.add_to_chars_as_starting.size() > 0:
             for character_id in weapon.add_to_chars_as_starting:
-                var character_data = ItemService.get_element(ItemService.characters, character_id)
+                var character_data = ItemService.get_element(ItemService.characters, Keys.generate_hash(character_id))
                 var has_weapon = false
                 for starting_weapon in character_data.starting_weapons:
-                    if starting_weapon.my_id == weapon.my_id:
+                    if starting_weapon.my_id_hash == weapon.my_id_hash:
                         has_weapon = true
                         break
-                    
+
                 if not has_weapon:
-                    character_data.starting_weapons.push_back(weapon)	
+                    character_data.starting_weapons.push_back(weapon)
     
     if challenges != null: 
         ChallengeService.challenges.append_array(challenges)
@@ -70,7 +70,7 @@ func add_resources() -> void:
         ItemService.add_backgrounds(backgrounds)
         for zone in ZoneService.zones:
             zone.default_backgrounds.append_array(backgrounds)
-    
+
     if translation_keys_needing_operator != null:
         Text.keys_needing_operator.merge(translation_keys_needing_operator)
     
@@ -78,11 +78,8 @@ func add_resources() -> void:
         Text.keys_needing_percent.merge(translation_keys_needing_percent)
     
     if tracked_items != null: 
-        var hashed_tracked_items = {}
-        for key in tracked_items:
-            var hashed_key = Keys.generate_hash(key)
-            hashed_tracked_items[hashed_key] = tracked_items[key]
-        RunData.init_tracked_items.merge(hashed_tracked_items)
+        var tracked_items_hashes: Dictionary = Utils.convert_dictionary_to_hash(tracked_items)
+        RunData.init_tracked_items.merge(tracked_items_hashes)
     
     ItemService.init_unlocked_pool()
 
