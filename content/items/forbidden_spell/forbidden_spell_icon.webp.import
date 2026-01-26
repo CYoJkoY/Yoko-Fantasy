@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/world_tree.png-b64c5feaed7362cd53c0de854a0ddfd7.stex"
+path="res://.import/forbidden_spell_icon.webp-e24cbe787d913f94277020c2a85ffaf5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/021_world_tree/scene/world_tree.png"
-dest_files=[ "res://.import/world_tree.png-b64c5feaed7362cd53c0de854a0ddfd7.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/items/forbidden_spell/forbidden_spell_icon.webp"
+dest_files=[ "res://.import/forbidden_spell_icon.webp-e24cbe787d913f94277020c2a85ffaf5.stex" ]
 
 [params]
 
