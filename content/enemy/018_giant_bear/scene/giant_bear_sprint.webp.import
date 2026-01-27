@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/giant_bear_sprint.webp-65f79148c8c9fb2b307592db299922b2.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/018_giant_bear/scene/giant_bear.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/enemy/018_giant_bear/scene/giant_bear_sprint.webp"
+dest_files=[ "res://.import/giant_bear_sprint.webp-65f79148c8c9fb2b307592db299922b2.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/018_giant_bear/scene/giant_bear.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

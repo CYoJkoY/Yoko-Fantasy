@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/skeleton_swordsman_sprite.webp-ebb58946784ff36e5bb0687424651a5c.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/011_skeleton_swordsman/scene/skeleton_swordsman.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/enemy/011_skeleton_swordsman/scene/skeleton_swordsman_sprite.webp"
+dest_files=[ "res://.import/skeleton_swordsman_sprite.webp-ebb58946784ff36e5bb0687424651a5c.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/011_skeleton_swordsman/scene/skeleton_swordsman.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true
