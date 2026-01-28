@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=30 format=2]
+[gd_resource type="Resource" load_steps=33 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content_data/NewContent.gd" type="Script" id=2]
@@ -29,6 +29,9 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/bible/bible_data.tres" type="Resource" id=27]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/stats/soul/soul_data.tres" type="Resource" id=28]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/stats/holy/holy_data.tres" type="Resource" id=29]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/black_mud/black_mud_data.tres" type="Resource" id=30]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/blessed_breastplate/blessed_breastplate_data.tres" type="Resource" id=31]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/bookmark/bookmark_data.tres" type="Resource" id=32]
 
 [resource]
 script = ExtResource( 2 )
@@ -38,7 +41,7 @@ entities = [ ExtResource( 19 ), ExtResource( 13 ), ExtResource( 7 ), ExtResource
 elites = null
 bosses = null
 stats = [ ExtResource( 29 ), ExtResource( 28 ) ]
-items = [ ExtResource( 4 ), ExtResource( 27 ) ]
+items = [ ExtResource( 4 ), ExtResource( 27 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ) ]
 weapons = null
 effects = null
 consumables = [ ExtResource( 3 ) ]

@@ -26,4 +26,4 @@ is_cursed = false
 curse_factor = 0.0
 max_nb = 1
 item_appearances = [  ]
-tags = [  ]
+tags = [ "stat_elemental_damage", "fantasy_stat_holy", "stat_attack_speed" ]
