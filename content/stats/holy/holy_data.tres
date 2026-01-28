@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://items/upgrades/stat_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/stats/holy/holy_icon.webp" type="Texture" id=2]
+
+[resource]
+script = ExtResource( 1 )
+stat_name = "fantasy_stat_holy"
+icon = ExtResource( 2 )
+small_icon = ExtResource( 2 )
+is_primary_stat = false
+is_dlc_stat = false
+color_override = Color( 0, 0, 0, 1 )
+reverse = false

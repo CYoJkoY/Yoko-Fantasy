@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/skeleton_archer_up_arm.webp-474e5ebeec32a7fba9148a8b8b674a14.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/012_skeleton_archer/scene/skeleton_archer.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/012_skeleton_archer/scene/skeleton_archer_up_arm.webp"
+dest_files=[ "res://.import/skeleton_archer_up_arm.webp-474e5ebeec32a7fba9148a8b8b674a14.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/enemies/012_skeleton_archer/scene/skeleton_archer.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

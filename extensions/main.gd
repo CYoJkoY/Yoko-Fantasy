@@ -65,7 +65,7 @@ func _fantasy_soul_display() -> void:
         UISoulInstance.update_value(Utils.get_stat(Utils.fantasy_stat_soul_hash, i))
         
         if not UISoulInstance.is_connected("mouse_entered", self, "fa_on_UISoul_mouse_entered"):
-            UISoulInstance.connect("mouse_entered", self, "fa_on_UISoul_mouse_entered", [Utils.get_stat(Utils.fantasy_stat_soul_hash, i)])
+            UISoulInstance.connect("mouse_entered", self, "fa_on_UISoul_mouse_entered")
         if not UISoulInstance.is_connected("mouse_exited", self, "fa_on_UISoul_mouse_exited"):
             UISoulInstance.connect("mouse_exited", self, "fa_on_UISoul_mouse_exited")
         
@@ -86,18 +86,19 @@ func _fantasy_soul_process() -> void:
 # =========================== Method =========================== #
 func fa_on_UIHoly_mouse_entered(stat_holy: int) -> void :
     if _cleaning_up:
-        var damage_bouns = str(stat_holy) + "%"
-        var chance_drop_soul = str(int(stat_holy / (stat_holy + 50.0) * 100)) + "%"
-        var enemy_health_reduction = str(int(stat_holy / (stat_holy + 100.0) * 100)) + "%"
+        var damage_bouns: int = stat_holy
+        var chance_drop_soul: int = int(stat_holy / (stat_holy + 50.0) * 100)
+        var enemy_health_reduction: int = int(stat_holy / (stat_holy + 100.0) * 100)
         _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_HOLY", [damage_bouns, chance_drop_soul, enemy_health_reduction]))
 
 func fa_on_UIHoly_mouse_exited() -> void :
     _info_popup.hide()
 
-func fa_on_UISoul_mouse_entered(stat_soul: int) -> void :
+func fa_on_UISoul_mouse_entered() -> void :
     if _cleaning_up:
-        var duration = str(stat_soul * 2)
-        _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_SOUL", [duration]))
+        var damage_bouns: int = 20
+        var attack_speed_bouns: int = 20
+        _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_SOUL", [damage_bouns, attack_speed_bouns]))
 
 func fa_on_UISoul_mouse_exited() -> void :
     _info_popup.hide()

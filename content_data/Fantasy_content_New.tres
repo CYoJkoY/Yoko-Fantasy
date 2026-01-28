@@ -1,30 +1,34 @@
-[gd_resource type="Resource" load_steps=26 format=2]
+[gd_resource type="Resource" load_steps=30 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content_data/NewContent.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/consumables/soul/soul_data.tres" type="Resource" id=3]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/018_giant_bear/giant_bear_item.tres" type="Resource" id=5]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/010_tree_spirit/tree_spirit_item.tres" type="Resource" id=6]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/002_unicorn_rabbit/unicorn_rabbit_item.tres" type="Resource" id=7]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/020_crystalline_elements/crystalline_elements_item.tres" type="Resource" id=8]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/017_skeleton_knight/skeleton_knight_item.tres" type="Resource" id=9]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/019_little_demon/little_demon_item.tres" type="Resource" id=10]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/004_flower_spirit/flower_spirit_item.tres" type="Resource" id=11]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/005_snake/snake_item.tres" type="Resource" id=12]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/001_little_slime/little_slime_item.tres" type="Resource" id=13]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/009_goblin_priest/goblin_priest_item.tres" type="Resource" id=14]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/003_wolf/wolf_item.tres" type="Resource" id=15]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/007_swift_wolf/swift_wolf_item.tres" type="Resource" id=16]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/008_goblin_javelin_thrower/goblin_javelin_thrower_item.tres" type="Resource" id=17]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/012_skeleton_archer/skeleton_archer_item.tres" type="Resource" id=18]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/000_looting_goblin/looting_goblin_item.tres" type="Resource" id=19]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/013_maple_wolf/maple_wolf_item.tres" type="Resource" id=20]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/024_slime_king/slime_king_item.tres" type="Resource" id=21]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/015_vine_stranger/vine_stranger_item.tres" type="Resource" id=22]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/006_medium_slime/medium_slime_item.tres" type="Resource" id=23]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/014_big_slime/big_slime_item.tres" type="Resource" id=24]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/011_skeleton_swordsman/skeleton_swordsman_item.tres" type="Resource" id=25]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/enemy/016_little_elf/little_elf_item.tres" type="Resource" id=26]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/badge/badge_data.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/018_giant_bear/giant_bear_item.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/010_tree_spirit/tree_spirit_item.tres" type="Resource" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/002_unicorn_rabbit/unicorn_rabbit_item.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/020_crystalline_elements/crystalline_elements_item.tres" type="Resource" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/017_skeleton_knight/skeleton_knight_item.tres" type="Resource" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/019_little_demon/little_demon_item.tres" type="Resource" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/004_flower_spirit/flower_spirit_item.tres" type="Resource" id=11]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/005_snake/snake_item.tres" type="Resource" id=12]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/001_little_slime/little_slime_item.tres" type="Resource" id=13]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/009_goblin_priest/goblin_priest_item.tres" type="Resource" id=14]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/003_wolf/wolf_item.tres" type="Resource" id=15]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/007_swift_wolf/swift_wolf_item.tres" type="Resource" id=16]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower_item.tres" type="Resource" id=17]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/012_skeleton_archer/skeleton_archer_item.tres" type="Resource" id=18]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/000_looting_goblin/looting_goblin_item.tres" type="Resource" id=19]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/013_maple_wolf/maple_wolf_item.tres" type="Resource" id=20]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/024_slime_king/slime_king_item.tres" type="Resource" id=21]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/015_vine_stranger/vine_stranger_item.tres" type="Resource" id=22]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/006_medium_slime/medium_slime_item.tres" type="Resource" id=23]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/014_big_slime/big_slime_item.tres" type="Resource" id=24]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/011_skeleton_swordsman/skeleton_swordsman_item.tres" type="Resource" id=25]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/016_little_elf/little_elf_item.tres" type="Resource" id=26]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/bible/bible_data.tres" type="Resource" id=27]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/stats/soul/soul_data.tres" type="Resource" id=28]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/stats/holy/holy_data.tres" type="Resource" id=29]
 
 [resource]
 script = ExtResource( 2 )
@@ -33,8 +37,8 @@ characters = null
 entities = [ ExtResource( 19 ), ExtResource( 13 ), ExtResource( 7 ), ExtResource( 15 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 23 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 6 ), ExtResource( 25 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 22 ), ExtResource( 26 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 21 ) ]
 elites = null
 bosses = null
-stats = null
-items = null
+stats = [ ExtResource( 29 ), ExtResource( 28 ) ]
+items = [ ExtResource( 4 ), ExtResource( 27 ) ]
 weapons = null
 effects = null
 consumables = [ ExtResource( 3 ) ]
@@ -46,5 +50,11 @@ title_screen_backgrounds = null
 challenges = null
 zones = null
 tracked_items = null
-translation_keys_needing_operator = null
-translation_keys_needing_percent = null
+translation_keys_needing_operator = {
+"fantasy_stat_holy": [ 0 ],
+"fantasy_stat_soul": [ 0 ]
+}
+translation_keys_needing_percent = {
+"fantasy_info_holy": [ 0, 1, 2 ],
+"fantasy_info_soul": [ 0, 1 ]
+}

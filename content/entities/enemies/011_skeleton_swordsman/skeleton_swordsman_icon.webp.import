@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/skeleton_swordsman_icon.webp-d2f0c8e28e9e968ece6b90ac30b79eb6.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/011_skeleton_swordsman/skeleton_swordsman_icon.webp"
+dest_files=[ "res://.import/skeleton_swordsman_icon.webp-d2f0c8e28e9e968ece6b90ac30b79eb6.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

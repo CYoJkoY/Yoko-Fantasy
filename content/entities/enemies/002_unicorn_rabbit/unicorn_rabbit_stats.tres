@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/002_unicorn_rabbit/unicorn_rabbit_icon.webp" type="Texture" id=1]
+[ext_resource path="res://entities/units/unit/stats.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+icon = ExtResource( 1 )
+health = 1
+health_increase_each_wave = 1.0
+speed = 380
+speed_randomization = 38
+damage = 1
+damage_increase_each_wave = 0.5
+attack_cd = 15.0
+value = 1
+knockback_resistance = 0.0
+gold_spread = 0
+can_drop_consumables = true
+always_drop_consumables = false
+base_drop_chance = 0.01
+item_drop_chance = 0.01
+min_consumable_tier = 0
+max_consumable_tier = 0
+armor = 0
+armor_increase_each_wave = 0.0
+generate_blood = true

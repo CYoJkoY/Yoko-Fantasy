@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://items/consumables/consumable_data.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/consumables/soul/soul.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/stats/soul/soul_icon.webp" type="Texture" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/consumables/soul/pickup_soul.wav" type="AudioStream" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/consumables/soul/soul_effect.tres" type="Resource" id=6]
 
