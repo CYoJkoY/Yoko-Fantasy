@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=9 format=2]
+
+[ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_bearing/brass_bearing_icon.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_bearing/brass_bearing_effect_5.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_bearing/brass_bearing_effect_1.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_bearing/brass_bearing_effect_4.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_bearing/brass_bearing_effect_2.tres" type="Resource" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_bearing/brass_bearing_effect_3.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_bearing/brass_bearing_effect_6.tres" type="Resource" id=8]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "fantasy_item_brass_bearing"
+unlocked_by_default = true
+can_be_looted = true
+icon = ExtResource( 2 )
+name = "FANTASY_ITME_BRASS_BEARING"
+tier = 2
+value = 65
+effects = [ ExtResource( 4 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 8 ) ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+max_nb = -1
+item_appearances = [  ]
+tags = [ "fantasy_stat_holy", "stat_engineering", "stat_speed" ]

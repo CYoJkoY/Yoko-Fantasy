@@ -27,6 +27,8 @@ static func init_effects()->Dictionary:
         var new_effects: = {
             
             Utils.fantasy_original_speed_hash: 0.0,
+            Utils.fantasy_time_bouns_current_health_damage_hash: [],
+            Utils.fantasy_shop_enter_stat_curse_hash: [],
 
         }
         

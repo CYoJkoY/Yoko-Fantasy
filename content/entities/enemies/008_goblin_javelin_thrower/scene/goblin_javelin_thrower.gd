@@ -33,7 +33,7 @@ func death_animation_finished()->void :
     Utils.get_scene_node().add_node_to_pool(self)
 
 func _set_outlines(alpha: float = 1.0, desaturation: float = 0.0)->void :
-    if not _outline_colors:
+    if !_outline_colors:
         sprite.material = null
         arm.material = null
         arm_projectile.material = null
@@ -70,14 +70,14 @@ func _set_outlines(alpha: float = 1.0, desaturation: float = 0.0)->void :
         arm.material.set_shader_param("desaturation", _current_material_desaturation)
         arm_projectile.material.set_shader_param("desaturation", _current_material_desaturation)
 
-    for i in range(_outline_colors.size()):
+    for i in _outline_colors.size():
         sprite.material.set_shader_param("outline_color_%s" % i, _outline_colors[i])
         arm.material.set_shader_param("outline_color_%s" % i, _outline_colors[i])
         arm_projectile.material.set_shader_param("outline_color_%s" % i, _outline_colors[i])
 
 func flash()->void :
     var is_already_flashing = sprite.material == flash_mat
-    if not is_already_flashing:
+    if !is_already_flashing:
         _non_flash_material = sprite.material
         sprite.material = flash_mat
         arm.material = flash_mat

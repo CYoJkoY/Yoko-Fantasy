@@ -1,6 +1,6 @@
 extends "res://singletons/item_service.gd"
 
-# =========================== Extention =========================== #
+# =========================== Extension =========================== #
 func get_consumable_to_drop(unit: Unit, item_chance: float) -> ConsumableData:
     var consumable: ConsumableData = .get_consumable_to_drop(unit, item_chance)
     consumable = _fantasy_get_soul_to_drop(consumable)

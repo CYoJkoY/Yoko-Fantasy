@@ -1,9 +1,7 @@
 extends "res://entities/units/enemies/enemy.gd"
 
-# Stat_Holy
-var _holy_health_reduction_applied: bool = false
-var _original_max_health: int = 0
-var _original_current_health: int = 0
+# stat_holy
+var applied_holy_reduce_health: bool = false
 
 # =========================== Extension =========================== #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
@@ -22,31 +20,26 @@ func get_damage_value(dmg_value: int, from_player_index: int, armor_applied: = t
 
 # =========================== Custom =========================== #
 func _fantasy_holy_reduce_health() -> void:
-    if not _holy_health_reduction_applied:
-        _original_max_health = max_stats.health
-        _original_current_health = current_stats.health
-    
+    if applied_holy_reduce_health: return
+
     var total_holy: int = 0
-    for i in range(players_ref.size()):
+    for i in players_ref.size():
         total_holy += int(Utils.get_stat(Utils.fantasy_stat_holy_hash, i))
     if total_holy <= 0: return
     
     var reduction_factor: float = total_holy / (total_holy + 100.0)
-    if reduction_factor <= 0:
-        return
+    if reduction_factor <= 0: return
 
-    var new_max_health = max(1, int(_original_max_health * reduction_factor))
-    var new_current_health = max(1, int(_original_current_health * reduction_factor))
+    var new_max_health = max(1, int(max_stats.health * reduction_factor))
     
     max_stats.health = new_max_health
-    current_stats.health = new_current_health
-    _holy_health_reduction_applied = true
+    applied_holy_reduce_health = true
 
 func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult, from_player_index: int) -> GetDamageValueResult:
     if fa_is_cursed():
         var holy_stat = Utils.get_stat(Utils.fantasy_stat_holy_hash, from_player_index)
         if holy_stat > 0:
-            var bonus_multiplier = 1.0 + (holy_stat * 0.01)
+            var bonus_multiplier = 1.0 + (holy_stat / 100.0)
             dmg_value_result.value = int(dmg_value_result.value * bonus_multiplier)
     
     return dmg_value_result

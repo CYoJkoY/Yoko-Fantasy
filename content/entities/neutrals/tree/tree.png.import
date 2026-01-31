@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/giant_bear.png-c61fb4444511b22edf6c552a47dee446.stex"
+path="res://.import/tree.png-72c0feb53c6af1f67f2d7645e4e905ec.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/018_giant_bear/scene/giant_bear.png"
-dest_files=[ "res://.import/giant_bear.png-c61fb4444511b22edf6c552a47dee446.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/neutrals/tree/tree.png"
+dest_files=[ "res://.import/tree.png-72c0feb53c6af1f67f2d7645e4e905ec.stex" ]
 
 [params]
 

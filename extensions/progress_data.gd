@@ -1,6 +1,6 @@
 extends "res://singletons/progress_data.gd"
 
-# =========================== Extention =========================== #
+# =========================== Extension =========================== #
 func _ready() -> void:
     _fantasy_ready()
 

@@ -15,7 +15,7 @@ var current_projectiles_cooldown: float = 0.0
 
 func _ready()->void :
     _shoot_projectiles_behavior.init(self)
-    _all_attack_behaviors.push_back(_shoot_projectiles_behavior)
+    _all_attack_behaviors.append(_shoot_projectiles_behavior)
 
 func _physics_process(delta) -> void:
     current_projectiles_cooldown = max(0.0, current_projectiles_cooldown - Utils.physics_one(delta))

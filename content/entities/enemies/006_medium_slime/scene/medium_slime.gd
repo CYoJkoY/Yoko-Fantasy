@@ -1,7 +1,6 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/001_little_slime/scene/little_slime.gd"
 
 export (PackedScene) var die_to_spawn
-
 export (int) var nb_spawns_on_death = 4
 
 func die(args: = Entity.DieArgs.new())->void :

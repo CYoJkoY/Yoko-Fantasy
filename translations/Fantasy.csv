@@ -1,6 +1,6 @@
 keys,en,zh_Hans_CN
-ZONE_FANTASY,Fantasy,幻界
-BG_FANTASY,Fantasy,幻界
+FANTASY_ZONE,Fantasy,幻界
+FANTASY_BG,Fantasy,幻界
 FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
 FANTASY_LOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑, 死亡时掉落一个箱子"
 FANTASY_LITTLE_SLIME_NAME,Small Slime,小史莱姆
@@ -57,3 +57,13 @@ FANTASY_ITEM_BIBLE,Bible,圣经
 FANTASY_ITEM_BLACK_MUD,Black Mud,黑泥
 FANTASY_ITEM_BLESSED_BREASTPLATE,Blessed Breastplate,被祝福的胸甲
 FANTASY_ITEM_BOOKMARK,Bookmark,书签
+FANTASY_ITEM_BOWSTRING,Bowstring,弓弦
+FANTASY_ITME_BRASS_BEARING,Brass Bearing,黄铜轴承
+FANTASY_ITEM_BRASS_COMPONENT,Brass Component,黄铜构件
+FANTASY_ITEM_BRASS_GEAR,Brass Gear,黄铜齿轮
+FANTASY_ITEM_BRAVE_NECKLACE,Brave Necklace,勇者项链
+STAT_LEVELS,Levels,等级
+FANTASY_ITEM_CLOCK_TOWER_ECHO,Clock Tower Echo,时针塔的回响
+FANTASY_EFFECT_TIME_BOUNS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the health of all enemies ({2} for bosses and elite enemies)",每{0}秒对所有敌人额外造成相当于其生命值的{1}的伤害(对头目和精英怪则为{2})
+FANTASY_ITEM_CONTRACT,Contract,契约
+FANTASY_EFFECT_SHOP_ENTER_STAT_CURSE,"Upon entering the shop, there is a {1} chance to spend {2} {0} to randomly curse {3} owned item or weapon","进入商店时,有{1}概率使用{2}点{0}随机诅咒{3}件已拥有的道具或武器"

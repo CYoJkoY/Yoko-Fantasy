@@ -29,13 +29,13 @@ func _init() -> void:
         # Mod's Contents
         
         "main.gd",
-        # Entry: Display Holy, Display Soul
+        # STATS: Holy, Soul
         
         "item_service.gd",
-        # Entry: Soul Drop
+        # STATS: Soul
         
         "enemy.gd",
-        # Entry: Holy Effect
+        # STATS: Holy
         
         "player_run_data.gd",
         # EFFECTS' NAMES

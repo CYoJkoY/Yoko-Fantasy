@@ -33,7 +33,7 @@ func reset() -> void:
 func physics_process(delta: float) -> void:
     _current_cd = max(_current_cd - Utils.physics_one(delta), 0)
 
-    if not _parent.is_playing_shoot_animation() and _current_cd <= 0:
+    if !_parent.is_playing_shoot_animation() and _current_cd <= 0:
         _parent._animation_player.play(_parent.shoot_animation_name)
         emit_signal("shot")
 

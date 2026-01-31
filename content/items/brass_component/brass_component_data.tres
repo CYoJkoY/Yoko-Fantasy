@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_component/brass_component_effect_3.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_component/brass_component_effect_4.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_component/brass_component_effect_1.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_component/brass_component_effect_2.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_component/brass_component_icon.webp" type="Texture" id=6]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "fantasy_item_brass_component"
+unlocked_by_default = true
+can_be_looted = true
+icon = ExtResource( 6 )
+name = "FANTASY_ITEM_BRASS_COMPONENT"
+tier = 1
+value = 48
+effects = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ) ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+max_nb = -1
+item_appearances = [  ]
+tags = [ "stat_engineering", "fantasy_stat_holy" ]

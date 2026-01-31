@@ -25,6 +25,7 @@ export (Array, Resource) var zones = null
 
 # RunData
 export (Dictionary) var tracked_items = null
+export (Dictionary) var tracked_effects = null
 
 # Text
 export (Dictionary) var translation_keys_needing_operator = null
@@ -56,8 +57,8 @@ func add_resources() -> void:
                         has_weapon = true
                         break
 
-                if not has_weapon:
-                    character_data.starting_weapons.push_back(weapon)
+                if !has_weapon:
+                    character_data.starting_weapons.append(weapon)
     
     if challenges != null: 
         ChallengeService.challenges.append_array(challenges)
@@ -81,6 +82,10 @@ func add_resources() -> void:
         var tracked_items_hashes: Dictionary = Utils.convert_dictionary_to_hash(tracked_items)
         RunData.init_tracked_items.merge(tracked_items_hashes)
     
+    if tracked_effects != null:
+        var tracked_effects_hashes: Dictionary = Utils.convert_dictionary_to_hash(tracked_effects)
+        RunData.fa_init_tracked_effects.merge(tracked_effects_hashes)
+
     ItemService.init_unlocked_pool()
 
 func add_if_not_null(array, _items) -> void:

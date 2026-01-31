@@ -15,8 +15,8 @@ func _ready()->void :
     _charging_shoot_attack_behavior.init(self)
     maple_shoot_attack_behavior.init(self)
     
-    _all_attack_behaviors.push_back(_charging_shoot_attack_behavior)
-    _all_attack_behaviors.push_back(maple_shoot_attack_behavior)
+    _all_attack_behaviors.append(_charging_shoot_attack_behavior)
+    _all_attack_behaviors.append(maple_shoot_attack_behavior)
 
 
 func _physics_process(delta: float)->void :

@@ -38,7 +38,7 @@ func die(args: = Entity.DieArgs.new())->void :
 
 func _on_BoostZone_body_entered(body: Node)->void :
     # Heal
-    if not dead and ( not body is Structure) and body.current_stats.health < body.max_stats.health:
+    if !dead and ( not body is Structure) and body.current_stats.health < body.max_stats.health:
         SoundManager2D.play(heal_sound, global_position, - 10, 0.2)
         var heal_value = int(player_heal + (RunData.current_wave - 1) * player_heal_increase_each_wave)
         if body is Player:
@@ -54,8 +54,8 @@ func _on_BoostZone_body_entered(body: Node)->void :
         emit_signal("healed", self)
     
     # Buff
-    if not dead and body.can_be_boosted:
-        entities_in_zone.push_back(body)
+    if !dead and body.can_be_boosted:
+        entities_in_zone.append(body)
 
 func _on_BoostTimer_timeout()->void :
     var nb_entities_boosted = 0

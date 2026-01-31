@@ -22,8 +22,8 @@ func _ready() -> void:
     _spawning_attack_behavior.init(self)
     _spawning_attack_behavior_once.init(self)
     
-    _all_attack_behaviors.push_back(_spawning_attack_behavior)
-    _all_attack_behaviors.push_back(_spawning_attack_behavior_once)
+    _all_attack_behaviors.append(_spawning_attack_behavior)
+    _all_attack_behaviors.append(_spawning_attack_behavior_once)
 
 func _physics_process(delta) -> void:
     if _current_state == 0:

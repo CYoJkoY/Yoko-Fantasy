@@ -15,7 +15,7 @@ func _on_TimerTimeout() -> void:
         queue_free()
 
 func _on_SlimeTrail_body_entered(body) -> void:
-    if not body in affected_players:
+    if !body in affected_players:
         var player_index: int = body.player_index
         affected_players.append(body)
         var original_speed = RunData.players_data[player_index].effects[Utils.fantasy_original_speed_hash]

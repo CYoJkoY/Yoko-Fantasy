@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/time_bouns_current_health_damage/time_bouns_current_health_damage_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "fantasy_time_bouns_current_health_damage"
+text_key = "FANTASY_EFFECT_TIME_BOUNS_CURRENT_HEALTH_DAMAGE"
+value = 12
+custom_key = ""
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+value2 = 50
+sum_strategy = 2

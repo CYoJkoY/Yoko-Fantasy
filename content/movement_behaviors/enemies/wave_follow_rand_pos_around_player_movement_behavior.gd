@@ -16,7 +16,7 @@ func init(parent: Node)->Node:
     _actual = range_around_player + rand_range( - range_randomization, range_randomization)
     _distance_from_player = Vector2(rand_range( - _actual, _actual), rand_range( - _actual, _actual))
 
-    if not allow_within:
+    if !allow_within:
         _distance_from_player = _distance_from_player.normalized() * _actual
 
     return self

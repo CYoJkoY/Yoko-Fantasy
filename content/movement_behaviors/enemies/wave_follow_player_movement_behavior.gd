@@ -18,6 +18,6 @@ func get_movement() -> Vector2:
     return final_movement
 
 func get_target_position():
-    if not is_instance_valid(_parent.current_target):
+    if !is_instance_valid(_parent.current_target):
         return global_position
     return _parent.current_target.global_position

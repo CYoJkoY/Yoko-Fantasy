@@ -6,8 +6,8 @@
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=4]
 [ext_resource path="res://entities/units/movement_behaviors/stay_in_range_from_player_movement_behavior.gd" type="Script" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/scene/goblin_javelin_thrower_arm.webp" type="Texture" id=6]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/scene/goblin_javelin_thrower_sprite.webp" type="Texture" id=7]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/scene/goblin_javelin_thrower_projectile.webp" type="Texture" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/scene/goblin_javelin_thrower_projectile.webp" type="Texture" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/scene/goblin_javelin_thrower_sprite.webp" type="Texture" id=8]
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=9]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/scene/goblin_javelin_thrower.gd" type="Script" id=10]
 [ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=11]
@@ -463,7 +463,7 @@ position = Vector2( 0, -24 )
 
 [node name="ArmProjectile" type="Sprite" parent="Animation"]
 position = Vector2( 16, -34 )
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 
 [node name="Arm" type="Sprite" parent="Animation"]
 position = Vector2( 16, -34 )
@@ -471,7 +471,7 @@ texture = ExtResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="Animation"]
 position = Vector2( 16, -34 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -15 )

@@ -54,7 +54,7 @@
 script = ExtResource( 3 )
 my_id = 100
 unlocked_by_default = true
-name = "ZONE_FANTASY"
+name = "FANTASY_ZONE"
 icon = ExtResource( 1 )
 width = 32
 height = 24

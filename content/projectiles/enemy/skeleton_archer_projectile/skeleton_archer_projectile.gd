@@ -24,13 +24,13 @@ func _physics_process(delta) -> void:
 
 func spawn_perpendicular_projectiles() -> void:
     var parent = get_parent()
-    if not parent or not projectile_scene:
+    if !parent or not projectile_scene:
         return
         
     var new_projectile1 = projectile_scene.instance()
     var new_projectile2 = projectile_scene.instance()
     
-    if not new_projectile1 or not new_projectile2:
+    if !new_projectile1 or not new_projectile2:
         return
     
     var direction = velocity.normalized() if velocity else Vector2.RIGHT.rotated(rotation)
