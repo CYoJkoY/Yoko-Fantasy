@@ -24,7 +24,7 @@ FANTASY_SWIFT_WOLF_BEHAVIOUR_DESCRIPTION,"Hunt the character, charging toward th
 FANTASY_GOBLIN_JAVELIN_THROWER_NAME,Goblin Javelin Thrower,哥布林标枪手
 FANTASY_GOBLIN_JAVELIN_THROWER_BEHAVIOUR_DESCRIPTION,"Runs away if the player is too close, Fires a slow projectile that may directly target the player or somewhere near","太接近时逃离角色, 发射一个可能瞄准玩家也可能瞄准玩家附近的缓慢投射物"
 FANTASY_GOBLIN_PRIEST_NAME,Goblin Priest,哥布林祭司
-FANTASY_GOBLIN_PRIEST_BEHAVIOUR_DESCRIPTION,"Runs away from the character, Heals enemies around it for 50(increasing by 5 each wave), Buffs other enemies' health by 75%, damage by 12%, and speed by 25%.Buffed enemies are outlined in red.","逃离角色, 治疗周围的敌人50生命(每波敌袭增加5), 强化其他敌人生命值75%、伤害12%、速度25%，被强化的敌人会有红色轮廓"
+FANTASY_GOBLIN_PRIEST_BEHAVIOUR_DESCRIPTION,"Runs away from the character, Heals enemies around it for 50(increasing by 5 each wave), Buffs other enemies' health by 75%, damage by 12%, and speed by 25%.Buffed enemies are outlined in red.","逃离角色, 治疗周围的敌人50生命(每波敌袭增加5), 强化其他敌人生命值75%,伤害12%,速度25%,被强化的敌人会有红色轮廓"
 FANTASY_TREE_SPIRIT_NAME,Tree Spirit,树妖
 FANTASY_TREE_SPIRIT_BEHAVIOUR_DESCRIPTION,"Cannot move, every 4 seconds, fires a winding bullet cluster consisting of 24 bullets toward the player.","无法移动, 每4秒朝玩家方向发射一个由24个子弹构成的蜿蜒子弹群"
 FANTASY_SKELETON_SWORDSMAN_NAME,Skeleton Swordsman,骷髅剑士
@@ -44,9 +44,9 @@ FANTASY_GIANT_BEAR_BEHAVIOUR_DESCRIPTION,"Slowly chase the player, dashing towar
 FANTASY_LITTLE_DEMON_NAME,Little Demon,小恶魔
 FANTASY_LITTLE_DEMON_BEHAVIOUR_DESCRIPTION,"Pursue the player, firing two bullets every 1.5 seconds that appear from the left and right sides of the map and travel toward each other","追击玩家, 每1.5秒发射两个从地图左右两侧出现的相对而行的子弹"
 FANTASY_CRYSTALLINE_ELEMENTS_NAME,Crystalline Elements,元素结晶
-FANTASY_CRYSTALLINE_ELEMENTS_BEHAVIOUR_DESCRIPTION,"Teleports randomly within a range of 700 every 3 seconds, and each second summons a hexagonal cluster of six blade flashes around itself that contracts inward.",每3秒在700范围内随机传送，每秒在周围召唤由6个刀光构成的向内收缩的六边形刀光群
-FANTASY_INFO_HOLY,"Holy, Attribute. Inactive when negative. Increases damage dealt to Cursed enemies by {0}, increases Soul drop rate by {1}, and reduces all enemies' HP by {2}.",神圣，属性。负数时不生效。额外增加对被诅咒敌人造成的伤害{0}，增加敌人掉魂的概率{1}，降低所有敌人的血量{2}。
-FANTASY_INFO_SOUL,"Soul, Special Drop. Increases damage {0} and attack speed by {1}, each exists 2 seconds.",魂，特殊掉落物。额外增加{0}伤害与{1}攻速，每个持续2秒。
+FANTASY_CRYSTALLINE_ELEMENTS_BEHAVIOUR_DESCRIPTION,"Teleports randomly within a range of 700 every 3 seconds, and each second summons a hexagonal cluster of six blade flashes around itself that contracts inward.","每3秒在700范围内随机传送,每秒在周围召唤由6个刀光构成的向内收缩的六边形刀光群"
+FANTASY_INFO_HOLY,"Holy, Attribute. Inactive when negative. Increases damage dealt to Cursed enemies by {0}, increases Soul drop rate by {1}, and reduces all enemies' HP by {2}.","神圣,属性.负数时不生效.额外增加对被诅咒敌人造成的伤害{0},增加敌人掉魂的概率{1},降低所有敌人的血量{2}"
+FANTASY_INFO_SOUL,"Soul, Special Drop. Increases damage {0} and attack speed by {1}, each exists 2 seconds.","魂,特殊掉落物.额外增加{0}伤害与{1}攻速,每个持续2秒"
 FANTASY_STAT_HOLY,Holy,神圣
 FANTASY_CLASS_HOLY,Holy,神圣
 FANTASY_CLASS_FALLEN,Fallen,堕落
@@ -66,4 +66,11 @@ STAT_LEVELS,Levels,等级
 FANTASY_ITEM_CLOCK_TOWER_ECHO,Clock Tower Echo,时针塔的回响
 FANTASY_EFFECT_TIME_BOUNS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the health of all enemies ({2} for bosses and elite enemies)",每{0}秒对所有敌人额外造成相当于其生命值的{1}的伤害(对头目和精英怪则为{2})
 FANTASY_ITEM_CONTRACT,Contract,契约
-FANTASY_EFFECT_SHOP_ENTER_STAT_CURSE,"Upon entering the shop, there is a {1} chance to spend {2} {0} to randomly curse {3} owned item or weapon","进入商店时,有{1}概率使用{2}点{0}随机诅咒{3}件已拥有的道具或武器"
+FANTASY_EFFECT_SHOP_ENTER_STAT_CURSE,"Upon entering the shop, there is a {2} chance to spend {0} {1} to randomly curse {3} owned item or weapon\n{4}\n{5}","进入商店时,有{2}概率使用{0}点{1}随机诅咒{3}件已拥有的道具或武器\n{4}\n{5}"
+TRACKING_RANDOMCURSED,RandomCursed: {0},已随机诅咒:{0}
+FANTASY_ITEM_SCRIPTURE,Scripture,经文
+FANTASY_ITEM_ELF_EAR,Elf Ear,精灵耳
+FANTASY_ITEM_CURSED_COIN,Cursed Coin,被诅咒的金币
+FANTASY_EFFECT_DAMAGE_CLAMP,"Whenever you take damage, that damage cannot exceed {2} {1}, but is at least {0}","你每次受到伤害不超过{2} {1},但至少为{0}"
+FANTASY_EFFECT_DAMAGE_REFLECT,"When you take damage from a source other than yourself, reflect damage equal to the original damage value {0} to the attacker, modified by your damage bonus percentage","受到来源不是自己的伤害时,对攻击者造成伤害原本值{0}的反伤,受你的%伤害加成"
+FANTASY_ITEM_CRIMSON_HOLY_SHROUD,Crimson Holy Shroud,绯红圣骸布

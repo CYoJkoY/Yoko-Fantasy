@@ -27,7 +27,8 @@ func _init() -> void:
 
         "progress_data.gd",
         # Mod's Contents
-        
+        # Extensions After DLC
+
         "main.gd",
         # STATS: Holy, Soul
         
@@ -42,8 +43,20 @@ func _init() -> void:
         
         "utils.gd",
         # EFFECTS' NAMES
+
+        "run_data.gd",
+        # Tracked Effects
+
+        "shop.gd",
+        # EFFECTS: shop_enter_stat_curse[ 1/2 ]
+
+        "coop_shop.gd",
+        # EFFECTS: shop_enter_stat_curse[ 2/2 ]
+
+        "player.gd",
+        # EFFECTS: damage_clamp
         
-    ]    
+    ]
 
     for path in extensions:
         var extension_path = ext_dir + path

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "stat_curse"
+key = "stat_attack_speed"
 text_key = ""
 value = 6
 custom_key = ""

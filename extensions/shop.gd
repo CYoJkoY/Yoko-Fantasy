@@ -1,7 +1,7 @@
-extends "res://ui/menus/shop/base_shop.gd"
+extends "res://ui/menus/shop/shop.gd"
 
 # =========================== Extension =========================== #
-func _init() -> void:
+func _ready() -> void:
     _fantasy_shop_enter_stat_curse()
 
 # =========================== Custom =========================== #
@@ -29,7 +29,8 @@ func _fantasy_shop_enter_stat_curse() -> void:
             var gear_count := min(effect[3], all_gears.size())
             if gear_count <= 0: continue
             
-            RunData.add_tracked_value(player_index, Utils.fantasy_item_contract_hash, gear_count)
+            RunData.fa_add_effect_tracking_value(effect[4], effect[1], player_index, 0)
+            RunData.fa_add_effect_tracking_value(effect[4], gear_count, player_index, 1)
             
             var gears_to_curse = []
             for _i in gear_count:

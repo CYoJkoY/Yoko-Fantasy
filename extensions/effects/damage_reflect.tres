@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "stat_percent_damage"
+key = "fantasy_damage_reflect"
 text_key = ""
-value = 6
+value = 200
 custom_key = ""
 storage_method = 0
 effect_sign = 3
