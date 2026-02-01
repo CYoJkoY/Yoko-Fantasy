@@ -39,8 +39,8 @@ func unapply(player_index: int) -> void:
     Utils.reset_stat_cache(player_index)
 
 func get_args(_player_index: int) -> Array:
-    tracking_value.append(RunData.fa_get_effect_tracking_value(tracking_key_hash, _player_index, 0))
-    tracking_value.append(RunData.fa_get_effect_tracking_value(tracking_key_hash, _player_index, 1))
+    tracking_value.append(RunData.ncl_get_effect_tracking_value(tracking_key_hash, _player_index, 0))
+    tracking_value.append(RunData.ncl_get_effect_tracking_value(tracking_key_hash, _player_index, 1))
     var str_tracking_value: Array = []
     match tracking_value[0] >= 0:
         true: str_tracking_value.append("[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("STATS_GAINED").format([tracking_value[0]])])

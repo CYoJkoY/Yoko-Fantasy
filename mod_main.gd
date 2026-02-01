@@ -37,9 +37,6 @@ func _init() -> void:
         "utils.gd",
         # EFFECTS' NAMES
 
-        "run_data.gd",
-        # Tracked Effects
-
         "shop.gd",
         # EFFECTS: shop_enter_stat_curse[ 1/2 ]
 
