@@ -9,20 +9,13 @@ var trans_dir: String = ""
 
 # =========================== Extension =========================== #
 func _init() -> void:
-    ModLoaderLog.info("========== Add Translation ==========", MYMODNAME_LOG)
     dir = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR
     trans_dir = dir + "translations/"
     ext_dir = dir + "extensions/"
     
-    #######################################
-    ########## Add translations ##########
-    #####################################
     ModLoaderMod.add_translation(trans_dir + "Fantasy.en.translation")
     ModLoaderMod.add_translation(trans_dir + "Fantasy.zh_Hans_CN.translation")
 
-    #####################################
-    ########## Add extensions ##########
-    ###################################
     var extensions: Array = [
 
         "progress_data.gd",
