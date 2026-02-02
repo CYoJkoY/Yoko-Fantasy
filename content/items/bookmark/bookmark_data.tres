@@ -10,11 +10,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_bookmark"
+my_id = "item_fantasy_bookmark"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "FANTASY_ITEM_BOOKMARK"
+name = "ITEM_FANTASY_BOOKMARK"
 tier = 1
 value = 68
 effects = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 7 ) ]

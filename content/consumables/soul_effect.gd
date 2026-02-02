@@ -6,7 +6,7 @@ var _bonus_applied: Dictionary = {}
 
 # =========================== Extension =========================== #
 func apply(player_index: int) -> void:
-    TempStats.add_stat(Utils.fantasy_stat_soul_hash, value, player_index)
+    TempStats.add_stat(Utils.stat_fantasy_soul_hash, value, player_index)
     
     if _bonus_applied.get(player_index, false): return
     
@@ -35,14 +35,14 @@ func _apply_bonus_effects(player_index: int) -> void:
 
 func _reset_decay_timer(player_index: int) -> void:
     var player: Player = Utils.get_scene_node()._players[player_index]
-    if player.has_meta("fantasy_stat_soul_decay_timer"): return
+    if player.has_meta("stat_fantasy_soul_decay_timer"): return
 
     var timer: Timer = Timer.new()
     timer.wait_time = 2.0
     player.add_child(timer)
-    timer.connect("timeout", self, "fa_on_decay_timeout", [player_index])
+    timer.connect("timeout", self , "fa_on_decay_timeout", [player_index])
     timer.start()
-    player.set_meta("fantasy_stat_soul_decay_timer", timer)
+    player.set_meta("stat_fantasy_soul_decay_timer", timer)
 
 func _remove_bonus_effects(player_index: int) -> void:
     var damage_to_remove: int = _added_damage_values[player_index]
@@ -57,17 +57,17 @@ func _remove_bonus_effects(player_index: int) -> void:
     _added_speed_values.erase(player_index)
     
     var player: Player = Utils.get_scene_node()._players[player_index]
-    var timer: Timer = player.get_meta("fantasy_stat_soul_decay_timer")
+    var timer: Timer = player.get_meta("stat_fantasy_soul_decay_timer")
     timer.stop()
     timer.queue_free()
-    player.remove_meta("fantasy_stat_soul_decay_timer")
+    player.remove_meta("stat_fantasy_soul_decay_timer")
     
     _bonus_applied.erase(player_index)
 
 # =========================== Method =========================== #
 func fa_on_decay_timeout(player_index: int) -> void:
-    var current_soul: float = TempStats.get_stat(Utils.fantasy_stat_soul_hash, player_index)
-    TempStats.remove_stat(Utils.fantasy_stat_soul_hash, value, player_index)
+    var current_soul: float = TempStats.get_stat(Utils.stat_fantasy_soul_hash, player_index)
+    TempStats.remove_stat(Utils.stat_fantasy_soul_hash, value, player_index)
     current_soul = max(current_soul - value, 0)
     
     if current_soul < 1:

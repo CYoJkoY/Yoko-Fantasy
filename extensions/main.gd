@@ -17,7 +17,7 @@ func _on_EntitySpawner_players_spawned(players: Array) -> void:
     _fantasy_start_ui_update_timer()
     _fantasy_start_time_bouns_current_health_damage_timer(players.size())
 
-func clean_up_room() -> void :
+func clean_up_room() -> void:
     for timer in FaTimers: timer.stop()
     .clean_up_room()
 
@@ -26,7 +26,7 @@ func _fantasy_start_ui_update_timer() -> void:
     var timer = Timer.new()
     timer.wait_time = 0.2
     timer.autostart = true
-    timer.connect("timeout", self, "fa_update_all_ui_stats")
+    timer.connect("timeout", self , "fa_update_all_ui_stats")
     add_child(timer)
     FaTimers.append(timer)
 
@@ -37,7 +37,7 @@ func _fantasy_start_time_bouns_current_health_damage_timer(player_num: int) -> v
             var timer: Timer = Timer.new()
             timer.wait_time = effect[0]
             timer.autostart = true
-            timer.connect("timeout", self, "fa_time_bouns_current_health_damage", [effect[1] / 100.0, player_index])
+            timer.connect("timeout", self , "fa_time_bouns_current_health_damage", [effect[1] / 100.0, player_index])
             add_child(timer)
             FaTimers.append(timer)
 
@@ -48,8 +48,8 @@ func _fantasy_holy_display() -> void:
             
         var UIHolyInstance = UI_HOLY_SCENE.instance()
         match i:
-            0,2: UIHolyInstance.alignment = BoxContainer.ALIGN_BEGIN
-            1,3: UIHolyInstance.alignment = BoxContainer.ALIGN_END
+            0, 2: UIHolyInstance.alignment = BoxContainer.ALIGN_BEGIN
+            1, 3: UIHolyInstance.alignment = BoxContainer.ALIGN_END
         
         var player_ui = _players_ui[i]
         if !is_instance_valid(player_ui) or !is_instance_valid(player_ui.hud_container):
@@ -59,12 +59,12 @@ func _fantasy_holy_display() -> void:
         player_ui.hud_container.add_child(UIHolyInstance)
         player_ui.hud_container.move_child(UIHolyInstance, after_gold_index)
         
-        UIHolyInstance.update_value(Utils.get_stat(Utils.fantasy_stat_holy_hash, i))
+        UIHolyInstance.update_value(Utils.get_stat(Utils.stat_fantasy_holy_hash, i))
 
-        if !UIHolyInstance.is_connected("mouse_entered", self, "fa_on_UIHoly_mouse_entered"):
-            UIHolyInstance.connect("mouse_entered", self, "fa_on_UIHoly_mouse_entered", [Utils.get_stat(Utils.fantasy_stat_holy_hash, i)])
-        if !UIHolyInstance.is_connected("mouse_exited", self, "fa_on_UIHoly_mouse_exited"):
-            UIHolyInstance.connect("mouse_exited", self, "fa_on_UIHoly_mouse_exited")
+        if !UIHolyInstance.is_connected("mouse_entered", self , "fa_on_UIHoly_mouse_entered"):
+            UIHolyInstance.connect("mouse_entered", self , "fa_on_UIHoly_mouse_entered", [Utils.get_stat(Utils.stat_fantasy_holy_hash, i)])
+        if !UIHolyInstance.is_connected("mouse_exited", self , "fa_on_UIHoly_mouse_exited"):
+            UIHolyInstance.connect("mouse_exited", self , "fa_on_UIHoly_mouse_exited")
         
         UIHolyScenes[_players[i]] = UIHolyInstance
 
@@ -75,8 +75,8 @@ func _fantasy_soul_display() -> void:
             
         var UISoulInstance = UI_SOUL_SCENE.instance()
         match i:
-            0,2: UISoulInstance.alignment = BoxContainer.ALIGN_BEGIN
-            1,3: UISoulInstance.alignment = BoxContainer.ALIGN_END
+            0, 2: UISoulInstance.alignment = BoxContainer.ALIGN_BEGIN
+            1, 3: UISoulInstance.alignment = BoxContainer.ALIGN_END
         
         var player_ui = _players_ui[i]
         if !is_instance_valid(player_ui) or !is_instance_valid(player_ui.hud_container):
@@ -86,12 +86,12 @@ func _fantasy_soul_display() -> void:
         player_ui.hud_container.add_child(UISoulInstance)
         player_ui.hud_container.move_child(UISoulInstance, after_gold_index)
         
-        UISoulInstance.update_value(Utils.get_stat(Utils.fantasy_stat_soul_hash, i))
+        UISoulInstance.update_value(Utils.get_stat(Utils.stat_fantasy_soul_hash, i))
         
-        if !UISoulInstance.is_connected("mouse_entered", self, "fa_on_UISoul_mouse_entered"):
-            UISoulInstance.connect("mouse_entered", self, "fa_on_UISoul_mouse_entered")
-        if !UISoulInstance.is_connected("mouse_exited", self, "fa_on_UISoul_mouse_exited"):
-            UISoulInstance.connect("mouse_exited", self, "fa_on_UISoul_mouse_exited")
+        if !UISoulInstance.is_connected("mouse_entered", self , "fa_on_UISoul_mouse_entered"):
+            UISoulInstance.connect("mouse_entered", self , "fa_on_UISoul_mouse_entered")
+        if !UISoulInstance.is_connected("mouse_exited", self , "fa_on_UISoul_mouse_exited"):
+            UISoulInstance.connect("mouse_exited", self , "fa_on_UISoul_mouse_exited")
         
         UISoulScenes[_players[i]] = UISoulInstance
 
@@ -99,36 +99,36 @@ func _fantasy_holy_process() -> void:
     for i in _players.size():
         if _players[i] in UIHolyScenes and \
         is_instance_valid(UIHolyScenes[_players[i]]):
-            UIHolyScenes[_players[i]].update_value(Utils.get_stat(Utils.fantasy_stat_holy_hash, i))
+            UIHolyScenes[_players[i]].update_value(Utils.get_stat(Utils.stat_fantasy_holy_hash, i))
 
 func _fantasy_soul_process() -> void:
     for i in _players.size():
         if _players[i] in UISoulScenes and \
         is_instance_valid(UISoulScenes[_players[i]]):
-            UISoulScenes[_players[i]].update_value(Utils.get_stat(Utils.fantasy_stat_soul_hash, i))
+            UISoulScenes[_players[i]].update_value(Utils.get_stat(Utils.stat_fantasy_soul_hash, i))
 
 # =========================== Method =========================== #
 func fa_update_all_ui_stats() -> void:
     _fantasy_holy_process()
     _fantasy_soul_process()
 
-func fa_on_UIHoly_mouse_entered(stat_holy: int) -> void :
+func fa_on_UIHoly_mouse_entered(stat_holy: int) -> void:
     if _cleaning_up:
         var damage_bouns: int = stat_holy
         var chance_drop_soul: int = int(stat_holy / (stat_holy + 50.0) * 100)
         var enemy_health_reduction: int = int(stat_holy / (stat_holy + 100.0) * 100)
         _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_HOLY", [str(damage_bouns), str(chance_drop_soul), str(enemy_health_reduction)]))
 
-func fa_on_UIHoly_mouse_exited() -> void :
+func fa_on_UIHoly_mouse_exited() -> void:
     _info_popup.hide()
 
-func fa_on_UISoul_mouse_entered() -> void :
+func fa_on_UISoul_mouse_entered() -> void:
     if _cleaning_up:
         var damage_bouns: int = 20
         var attack_speed_bouns: int = 20
         _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_SOUL", [str(damage_bouns), str(attack_speed_bouns)]))
 
-func fa_on_UISoul_mouse_exited() -> void :
+func fa_on_UISoul_mouse_exited() -> void:
     _info_popup.hide()
 
 func fa_time_bouns_current_health_damage(bouns: float, player_index: int):
@@ -149,15 +149,15 @@ func fa_time_bouns_current_health_damage(bouns: float, player_index: int):
         
         enemy.emit_signal("health_updated", enemy, enemy.current_stats.health, enemy_max_hp)
         enemy.emit_signal(
-            "took_damage", 
-            enemy, 
-            full_dmg_value, 
-            Vector2.ZERO, 
-            false, 
-            false, 
-            false, 
-            false, 
-            TakeDamageArgs.new(player_index), 
-            HitType.NORMAL, 
+            "took_damage",
+            enemy,
+            full_dmg_value,
+            Vector2.ZERO,
+            false,
+            false,
+            false,
+            false,
+            TakeDamageArgs.new(player_index),
+            HitType.NORMAL,
             false
         )

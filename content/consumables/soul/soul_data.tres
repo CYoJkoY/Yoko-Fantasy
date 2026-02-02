@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_consumable_soul"
+my_id = "consumable_fantasy_soul"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )

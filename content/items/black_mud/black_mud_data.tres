@@ -9,11 +9,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_black_mud"
+my_id = "item_fantasy_black_mud"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "FANTASY_ITEM_BLACK_MUD"
+name = "ITEM_FANTASY_BLACK_MUD"
 tier = 1
 value = 45
 effects = [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ) ]

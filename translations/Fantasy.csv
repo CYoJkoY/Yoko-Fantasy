@@ -1,16 +1,48 @@
-keys,en,zh_Hans_CN
+﻿keys,en,zh_Hans_CN
 FANTASY_ZONE,Fantasy,幻界
 FANTASY_BG,Fantasy,幻界
 FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
 FANTASY_LOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑, 死亡时掉落一个箱子"
 FANTASY_LITTLE_SLIME_NAME,Small Slime,小史莱姆
-FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,Slowly chase the player\nEvolve when 10 non-slime enemies die within a range of 100,缓慢追击玩家\n100范围内死亡的非史莱姆系敌人达到10个则进化
+FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the player
+Evolve when 10 non-slime enemies die within a range of 100","缓慢追击玩家
+100范围内死亡的非史莱姆系敌人达到10个则进化"
 FANTASY_MEDIUM_SLIME_NAME,Medium Slime,中史莱姆
-FANTASY_MEDIUM_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the player\nSummon 1 small slime per second\nUpon death, split into 3 small slimes\nEvolve when 24 non-slime enemies die within a range of 200",缓慢追击玩家\n每秒召唤1个小史莱姆\n死亡时分裂成3个小史莱姆\n200范围内死亡的非史莱姆系敌人达到24个则进化
+FANTASY_MEDIUM_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the player
+Summon 1 small slime per second
+Upon death, split into 3 small slimes
+Evolve when 24 non-slime enemies die within a range of 200","缓慢追击玩家每秒召唤1个小史莱姆
+死亡时分裂成3个小史莱姆
+200范围内死亡的非史莱姆系敌人达到24个则进化"
 FANTASY_BIG_SLIME_NAME,Big Slime,大史莱姆
-FANTASY_BIG_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the player\nSummon 3 small slimes per second\nUpon death, split into 2 medium slimes\nEvolve when 48 non-slime enemies die within a range of 400\nLeave a slime trail every 1 second that lasts for 5 seconds, players touching it are slowed by 50%","缓慢追击玩家\n每秒召唤3个小史莱姆\n死亡时分裂成2个中史莱姆\n400范围内死亡的非史莱姆系敌人达到48个则进化\n每秒留下持续5秒的史莱姆粘液痕迹, 玩家触碰时被减速50%"
+FANTASY_BIG_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the playerSummon 3 small slimes per second
+Upon death, split into 2 medium slimes
+Evolve when 48 non-slime enemies die within a range of 400
+Leave a slime trail every 1 second that lasts for 5 seconds, players touching it are slowed by 50%","缓慢追击玩家每秒召唤3个小史莱姆
+死亡时分裂成2个中史莱姆
+400范围内死亡的非史莱姆系敌人达到48个则进化
+每秒留下持续5秒的史莱姆粘液痕迹, 玩家触碰时被减速50%"
 FANTASY_SLIME_KING_NAME,Slime King,史莱姆王
-FANTASY_SLIME_KING_BEHAVIOUR_DESCRIPTION,"Mutation 0:\nSlowly chase the player\nSummon 3 medium slimes every 3 seconds and 1 large slime every 5 seconds\nLeave a slime trail every 0.5 seconds that lasts for 10 seconds, players touching it are slowed by 50%\n\nMutation 1 (50% HP / 35 sec):\nPerform a long-range dash toward the player every 5 seconds\nSummon 4 large slimes at once\nSummon 3 medium slimes every 3 seconds and 1 large slime every 5 seconds\nLeave a slime trail every 0.5 seconds that lasts for 10 seconds, players touching it are slowed by 50%","异变0: \n缓慢追击玩家\n每3秒召唤3个中史莱姆, 每5秒召唤1个大史莱姆\n每0.5秒留下持续10秒的史莱姆粘液痕迹, 玩家触碰时被减速50%\n\n异变1 (50%生命/35秒): \n每5秒向玩家长距离冲刺\n一次性召唤4个大史莱姆\n每3秒召唤3个中史莱姆, 每5秒召唤1个大史莱姆\n每0.5秒留下持续10秒的史莱姆粘液痕迹, 玩家触碰时被减速50%"
+FANTASY_SLIME_KING_BEHAVIOUR_DESCRIPTION,"Mutation 0:
+Slowly chase the player
+Summon 3 medium slimes every 3 seconds and 1 large slime every 5 seconds
+Leave a slime trail every 0.5 seconds that lasts for 10 seconds, players touching it are slowed by 50%
+
+Mutation 1 (50% HP / 35 sec):
+Perform a long-range dash toward the player every 5 seconds
+Summon 4 large slimes at once
+Summon 3 medium slimes every 3 seconds and 1 large slime every 5 seconds
+Leave a slime trail every 0.5 seconds that lasts for 10 seconds, players touching it are slowed by 50%","异变0:
+缓慢追击玩家
+每3秒召唤3个中史莱姆,每5秒召唤1个大史莱姆
+每0.5秒留下持续10秒的史莱姆粘液痕迹,玩家触碰时被减速50%
+
+异变1 (50%生命/35秒): 
+每5秒向玩家长距离冲刺
+一次性召唤4个大史莱姆
+每3秒召唤3个中史莱姆,每5秒召唤1个大史莱姆
+每0.5秒留下持续10秒的史莱姆粘液痕迹,
+玩家触碰时被减速50%"
 FANTASY_UNICORN_RABBIT_NAME,Unicorn Rabbit,独角兔
 FANTASY_UNICORN_RABBIT_BEHAVIOUR_DESCRIPTION,"Chases the character, deals damage on touch","追逐角色, 接触时造成伤害"
 FANTASY_WOLF_NAME,Wolf,狼
@@ -52,25 +84,51 @@ FANTASY_CLASS_HOLY,Holy,神圣
 FANTASY_CLASS_FALLEN,Fallen,堕落
 FANTASY_STAT_SOUL,Soul,魂
 FANTASY_CONSUMABLE_SOUL,Soul,魂
-FANTASY_ITEM_BADGE,Badge,徽章
-FANTASY_ITEM_BIBLE,Bible,圣经
-FANTASY_ITEM_BLACK_MUD,Black Mud,黑泥
-FANTASY_ITEM_BLESSED_BREASTPLATE,Blessed Breastplate,被祝福的胸甲
-FANTASY_ITEM_BOOKMARK,Bookmark,书签
-FANTASY_ITEM_BOWSTRING,Bowstring,弓弦
+ITEM_FANTASY_BADGE,Badge,徽章
+ITEM_FANTASY_BIBLE,Bible,圣经
+ITEM_FANTASY_BLACK_MUD,Black Mud,黑泥
+ITEM_FANTASY_BLESSED_BREASTPLATE,Blessed Breastplate,被祝福的胸甲
+ITEM_FANTASY_BOOKMARK,Bookmark,书签
+ITEM_FANTASY_BOWSTRING,Bowstring,弓弦
 FANTASY_ITME_BRASS_BEARING,Brass Bearing,黄铜轴承
-FANTASY_ITEM_BRASS_COMPONENT,Brass Component,黄铜构件
-FANTASY_ITEM_BRASS_GEAR,Brass Gear,黄铜齿轮
-FANTASY_ITEM_BRAVE_NECKLACE,Brave Necklace,勇者项链
+ITEM_FANTASY_BRASS_COMPONENT,Brass Component,黄铜构件
+ITEM_FANTASY_BRASS_GEAR,Brass Gear,黄铜齿轮
+ITEM_FANTASY_BRAVE_NECKLACE,Brave Necklace,勇者项链
 STAT_LEVELS,Levels,等级
-FANTASY_ITEM_CLOCK_TOWER_ECHO,Clock Tower Echo,时针塔的回响
+ITEM_FANTASY_CLOCK_TOWER_ECHO,Clock Tower Echo,时针塔的回响
 FANTASY_EFFECT_TIME_BOUNS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the health of all enemies ({2} for bosses and elite enemies)",每{0}秒对所有敌人额外造成相当于其生命值的{1}的伤害(对头目和精英怪则为{2})
-FANTASY_ITEM_CONTRACT,Contract,契约
-FANTASY_EFFECT_SHOP_ENTER_STAT_CURSE,"Upon entering the shop, there is a {2} chance to spend {0} {1} to randomly curse {3} owned item or weapon\n{4}\n{5}","进入商店时,有{2}概率使用{0}点{1}随机诅咒{3}件已拥有的道具或武器\n{4}\n{5}"
+ITEM_FANTASY_CONTRACT,Contract,契约
+FANTASY_EFFECT_SHOP_ENTER_STAT_CURSE,"Upon entering the shop, there is a {2} chance to spend {0} {1} to randomly curse {3} owned item or weapon
+{4}
+{5}","进入商店时,有{2}概率使用{0}点{1}随机诅咒{3}件已拥有的道具或武器
+{4}
+{5}"
 TRACKING_RANDOMCURSED,RandomCursed: {0},已随机诅咒:{0}
-FANTASY_ITEM_SCRIPTURE,Scripture,经文
-FANTASY_ITEM_ELF_EAR,Elf Ear,精灵耳
-FANTASY_ITEM_CURSED_COIN,Cursed Coin,被诅咒的金币
+ITEM_FANTASY_SCRIPTURE,Scripture,经文
+ITEM_FANTASY_ELF_EAR,Elf Ear,精灵耳
+ITEM_FANTASY_CURSED_COIN,Cursed Coin,被诅咒的金币
 FANTASY_EFFECT_DAMAGE_CLAMP,"Whenever you take damage, that damage cannot exceed {2} {1}, but is at least {0}","你每次受到伤害不超过{2} {1},但至少为{0}"
 FANTASY_EFFECT_DAMAGE_REFLECT,"When you take damage from a source other than yourself, reflect damage equal to the original damage value {0} to the attacker, modified by your damage bonus percentage","受到来源不是自己的伤害时,对攻击者造成伤害原本值{0}的反伤,受你的%伤害加成"
-FANTASY_ITEM_CRIMSON_HOLY_SHROUD,Crimson Holy Shroud,绯红圣骸布
+ITEM_FANTASY_CRIMSON_HOLY_SHROUD,Crimson Holy Shroud,绯红圣骸布
+ITEM_FANTASY_CROW,Crow,乌鸦
+FANTASY_EFFECT_PET_CROW,"Summon a crow that surrounds you, firing a feather every {0}s at enemies within range {1}, dealing {2} ({3}) damage, the feather has 3 pierces by default","召唤一只乌鸦围绕在你身边,每{0}秒发射一枚羽毛攻击范围{1}内的敌人,造成{2}({3})伤害,羽毛初始自带3贯通"
+FANTASY_CROW_NAME,Crow,乌鸦
+FANTASY_CROW_BEHAVIOUR_DESCRIPTION,"Flies around the player, attacking enemies by firing feathers
+
+This pet scales with player :
+- % Life Steal
+- % Damage
+- % Crit. Chance
+- Bounces
+- Piercing
+- % Piercing Damage
+- % Damage against bosses","围绕玩家飞行,发射羽毛攻击敌人
+
+这个宠物受到玩家以下属性的影响：
+- %生命窃取
+- %伤害
+- %暴击率
+- 弹跳
+- 贯通
+- %贯通伤害
+- %对头目伤害"

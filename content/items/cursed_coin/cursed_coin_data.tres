@@ -8,11 +8,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_cursed_coin"
+my_id = "item_fantasy_cursed_coin"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "FANTASY_ITEM_CURSED_COIN"
+name = "ITEM_FANTASY_CURSED_COIN"
 tier = 0
 value = 18
 effects = [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ) ]

@@ -12,5 +12,5 @@ storage_method = 0
 effect_sign = 3
 custom_args = [  ]
 nb_stat_scaled = 1
-stat_scaled = "fantasy_stat_holy"
+stat_scaled = "stat_fantasy_holy"
 perm_stats_only = true

@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource( 1 )
-stat_name = "fantasy_stat_holy"
+stat_name = "stat_fantasy_holy"
 icon = ExtResource( 2 )
 small_icon = ExtResource( 2 )
 is_primary_stat = false

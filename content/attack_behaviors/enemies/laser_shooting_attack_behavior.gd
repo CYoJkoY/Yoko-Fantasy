@@ -1,11 +1,13 @@
 extends ShootingAttackBehavior
 
-func spawn_projectile(rot: float, pos: Vector2, spd: int)->Node:
+func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
     var main = Utils.get_scene_node()
     var projectile = main.get_node_from_pool(projectile_scene.resource_path)
-    if projectile == null:
+    
+    if not is_instance_valid(projectile):
         projectile = projectile_scene.instance()
-        main.call_deferred("add_enemy_projectile", projectile)
+        main.add_enemy_projectile(projectile)
+        projectile.set_meta("pool_id", projectile_pool_id)
 
     projectile.global_position = pos
     projectile.call_deferred("set_from", _parent)

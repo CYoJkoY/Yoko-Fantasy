@@ -10,11 +10,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_crimson_holy_shroud"
+my_id = "item_fantasy_crimson_holy_shroud"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "FANTASY_ITEM_CRIMSON_HOLY_SHROUD"
+name = "ITEM_FANTASY_CRIMSON_HOLY_SHROUD"
 tier = 3
 value = 125
 effects = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ]

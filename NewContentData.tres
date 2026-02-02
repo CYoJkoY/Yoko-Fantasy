@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=44 format=2]
+[gd_resource type="Resource" load_steps=48 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/007_swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/017_skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -43,18 +43,22 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/badge/badge_data.tres" type="Resource" id=41]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/time_bouns_current_health_damage/time_bouns_current_health_damage_effect.gd" type="Script" id=42]
 [ext_resource path="res://mods-unpacked/Yoko-NewContentLoader/NewContent.gd" type="Script" id=43]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/crow/crow_data.tres" type="Resource" id=44]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/shop_enter_stat_curse/shop_enter_stat_curse_effect.gd" type="Script" id=45]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/wandering_attack_pet/wandering_attack_pet_effect.gd" type="Script" id=46]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/crow_item.tres" type="Resource" id=47]
 
 [resource]
 script = ExtResource( 43 )
 backgrounds = [ ExtResource( 40 ) ]
 characters = null
-entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 22 ), ExtResource( 2 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 18 ) ]
+entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 22 ), ExtResource( 2 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 18 ), ExtResource( 47 ) ]
 elites = null
 bosses = null
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]
-items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ) ]
+items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 44 ) ]
 weapons = null
-effects = [ ExtResource( 42 ) ]
+effects = [ ExtResource( 42 ), ExtResource( 46 ), ExtResource( 45 ) ]
 consumables = [ ExtResource( 39 ) ]
 upgrades = null
 sets = null
@@ -63,19 +67,21 @@ icons = null
 title_screen_backgrounds = null
 challenges = null
 zones = null
-tracked_items = null
+tracked_items = {
+"item_fantasy_crow": 0
+}
 tracked_effects = {
-"fantasy_item_contract": [ 0, 0 ]
+"item_fantasy_contract": [ 0, 0 ]
 }
 translation_keys_needing_operator = {
-"fantasy_stat_holy": [ 0 ],
-"fantasy_stat_soul": [ 0 ]
+"stat_fantasy_holy": [ 0 ],
+"stat_fantasy_soul": [ 0 ]
 }
 translation_keys_needing_percent = {
-"fantasy_effect_damage_clamp": [ 2 ],
-"fantasy_effect_damage_reflect": [ 0 ],
-"fantasy_effect_shop_enter_stat_curse": [ 2 ],
-"fantasy_effect_time_bouns_current_health_damage": [ 1, 2 ],
+"effect_fantasy_damage_clamp": [ 2 ],
+"effect_fantasy_damage_reflect": [ 0 ],
+"effect_fantasy_shop_enter_stat_curse": [ 2 ],
+"effect_fantasy_time_bouns_current_health_damage": [ 1, 2 ],
 "fantasy_info_holy": [ 0, 1, 2 ],
 "fantasy_info_soul": [ 0, 1 ]
 }

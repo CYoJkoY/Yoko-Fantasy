@@ -7,11 +7,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_bowstring"
+my_id = "item_fantasy_bowstring"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "FANTASY_ITEM_BOWSTRING"
+name = "ITEM_FANTASY_BOWSTRING"
 tier = 1
 value = 55
 effects = [ ExtResource( 3 ), ExtResource( 4 ) ]

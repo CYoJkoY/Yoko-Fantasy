@@ -11,11 +11,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_blessed_breastplate"
+my_id = "item_fantasy_blessed_breastplate"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "FANTASY_ITEM_BLESSED_BREASTPLATE"
+name = "ITEM_FANTASY_BLESSED_BREASTPLATE"
 tier = 3
 value = 110
 effects = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 6 ) ]
@@ -26,4 +26,4 @@ is_cursed = false
 curse_factor = 0.0
 max_nb = 1
 item_appearances = [  ]
-tags = [ "fantasy_stat_holy", "stat_percent_damage", "stat_armor" ]
+tags = [ "stat_fantasy_holy", "stat_percent_damage", "stat_armor" ]

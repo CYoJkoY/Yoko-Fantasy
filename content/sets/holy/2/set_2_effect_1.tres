@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "fantasy_stat_holy"
+key = "stat_fantasy_holy"
 text_key = ""
 value = 1
 custom_key = ""

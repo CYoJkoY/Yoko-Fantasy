@@ -12,8 +12,8 @@ func respawn() -> void:
     .respawn()
     _fantasy_holy_reduce_health()
 
-func get_damage_value(dmg_value: int, from_player_index: int, armor_applied: = true, dodgeable: = true, is_crit: = false, hitbox: Hitbox = null, is_burning: = false) -> GetDamageValueResult:
-    var dmg_value_result = .get_damage_value(dmg_value, from_player_index, armor_applied, dodgeable, is_crit, hitbox, is_burning)
+func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := true, dodgeable := true, is_crit := false, hitbox: Hitbox = null, is_burning := false) -> GetDamageValueResult:
+    var dmg_value_result =.get_damage_value(dmg_value, from_player_index, armor_applied, dodgeable, is_crit, hitbox, is_burning)
     dmg_value_result = _fantasy_apply_holy_damage_bonus(dmg_value_result, from_player_index)
 
     return dmg_value_result
@@ -24,7 +24,7 @@ func _fantasy_holy_reduce_health() -> void:
 
     var total_holy: int = 0
     for i in players_ref.size():
-        total_holy += int(Utils.get_stat(Utils.fantasy_stat_holy_hash, i))
+        total_holy += int(Utils.get_stat(Utils.stat_fantasy_holy_hash, i))
     if total_holy <= 0: return
     
     var reduction_factor: float = total_holy / (total_holy + 100.0)
@@ -37,7 +37,7 @@ func _fantasy_holy_reduce_health() -> void:
 
 func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult, from_player_index: int) -> GetDamageValueResult:
     if fa_is_cursed():
-        var holy_stat = Utils.get_stat(Utils.fantasy_stat_holy_hash, from_player_index)
+        var holy_stat = Utils.get_stat(Utils.stat_fantasy_holy_hash, from_player_index)
         if holy_stat > 0:
             var bonus_multiplier = 1.0 + (holy_stat / 100.0)
             dmg_value_result.value = int(dmg_value_result.value * bonus_multiplier)

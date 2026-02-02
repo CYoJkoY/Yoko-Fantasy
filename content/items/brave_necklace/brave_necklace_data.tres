@@ -10,11 +10,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_brave_necklace"
+my_id = "item_fantasy_brave_necklace"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "FANTASY_ITEM_BRAVE_NECKLACE"
+name = "ITEM_FANTASY_BRAVE_NECKLACE"
 tier = 3
 value = 125
 effects = [ ExtResource( 7 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 6 ) ]

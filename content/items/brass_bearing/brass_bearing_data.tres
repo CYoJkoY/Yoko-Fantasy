@@ -11,7 +11,7 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_brass_bearing"
+my_id = "item_fantasy_brass_bearing"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
@@ -26,4 +26,4 @@ is_cursed = false
 curse_factor = 0.0
 max_nb = -1
 item_appearances = [  ]
-tags = [ "fantasy_stat_holy", "stat_engineering", "stat_speed" ]
+tags = [ "stat_fantasy_holy", "stat_engineering", "stat_speed" ]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tree.png-72c0feb53c6af1f67f2d7645e4e905ec.stex"
+path="res://.import/corw_projectile.webp-b52ad48ed2491237f8e5d870c1f8cda9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/neutrals/tree/tree.png"
-dest_files=[ "res://.import/tree.png-72c0feb53c6af1f67f2d7645e4e905ec.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/pet/crow_projectile/corw_projectile.webp"
+dest_files=[ "res://.import/corw_projectile.webp-b52ad48ed2491237f8e5d870c1f8cda9.stex" ]
 
 [params]
 

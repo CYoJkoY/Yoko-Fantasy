@@ -8,11 +8,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_elf_ear"
+my_id = "item_fantasy_elf_ear"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "FANTASY_ITEM_ELF_EAR"
+name = "ITEM_FANTASY_ELF_EAR"
 tier = 0
 value = 18
 effects = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ) ]

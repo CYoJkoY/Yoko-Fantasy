@@ -9,11 +9,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_brass_gear"
+my_id = "item_fantasy_brass_gear"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "FANTASY_ITEM_BRASS_GEAR"
+name = "ITEM_FANTASY_BRASS_GEAR"
 tier = 0
 value = 16
 effects = [ ExtResource( 4 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 3 ) ]
@@ -24,4 +24,4 @@ is_cursed = false
 curse_factor = 0.0
 max_nb = -1
 item_appearances = [  ]
-tags = [ "fantasy_stat_holy", "stat_engineering" ]
+tags = [ "stat_fantasy_holy", "stat_engineering" ]

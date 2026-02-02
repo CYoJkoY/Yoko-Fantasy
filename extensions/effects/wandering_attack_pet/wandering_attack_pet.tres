@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/wandering_attack_pet/wandering_attack_pet_effect.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+key = ""
+text_key = ""
+value = 1
+custom_key = ""
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+is_structure = false

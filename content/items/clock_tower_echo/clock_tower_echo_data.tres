@@ -8,11 +8,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_item_clock_tower_echo"
+my_id = "item_fantasy_clock_tower_echo"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "FANTASY_ITEM_CLOCK_TOWER_ECHO"
+name = "ITEM_FANTASY_CLOCK_TOWER_ECHO"
 tier = 3
 value = 125
 effects = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]

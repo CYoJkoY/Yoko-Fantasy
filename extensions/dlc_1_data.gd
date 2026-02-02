@@ -2,7 +2,7 @@ extends "res://dlcs/dlc_1/dlc_1_data.gd"
 
 # =========================== Extension =========================== #
 func curse_item(item_data: ItemParentData, player_index: int, turn_randomization_off: bool = false, min_modifier: float = 0.0) -> ItemParentData:
-    if fa_has_fantasy_effect(item_data.effects):
+    if fa_has_effect_fantasy(item_data.effects):
         return _fantasy_curse_item(item_data, player_index, turn_randomization_off, min_modifier)
     else:
         return.curse_item(item_data, player_index, turn_randomization_off, min_modifier)
@@ -63,7 +63,7 @@ func fa_process_other_effect(effect: Resource, modifier: float) -> Resource:
     return effect
 
 # =========================== Method =========================== #
-func fa_has_fantasy_effect(effects: Array) -> bool:
+func fa_has_effect_fantasy(effects: Array) -> bool:
     for effect in effects:
         if effect.get_id().begins_with("fantasy") or \
         effect.key.begins_with("fantasy") or \

@@ -26,7 +26,7 @@ func _fantasy_shop_enter_stat_curse() -> void:
                 if !weapon.is_cursed:
                     all_gears.append(weapon)
             
-            var gear_count := min(effect[3], all_gears.size())
+            var gear_count: int = min(effect[3], all_gears.size()) as int
             if gear_count <= 0: continue
             
             RunData.ncl_add_effect_tracking_value(effect[4], effect[1], player_index, 0)
