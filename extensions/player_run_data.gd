@@ -7,7 +7,11 @@ static func init_stats(all_null_values: bool = false) -> Dictionary:
         var new_stats := {
             
             Utils.stat_fantasy_holy_hash: 0,
+            Utils.gain_stat_fantasy_holy_hash: 0,
             Utils.stat_fantasy_soul_hash: 0,
+            Utils.gain_stat_fantasy_soul_hash: 0,
+            Utils.stat_fantasy_living_cursed_enemy_hash: 0,
+            Utils.gain_stat_fantasy_living_cursed_enemy_hash: 0,
             
         }
 

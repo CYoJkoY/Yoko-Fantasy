@@ -17,9 +17,18 @@ func _on_EntitySpawner_players_spawned(players: Array) -> void:
     _fantasy_start_ui_update_timer()
     _fantasy_start_time_bouns_current_health_damage_timer(players.size())
 
+func _on_EntitySpawner_enemy_respawned(_enemy: Enemy) -> void:
+    ._on_EntitySpawner_enemy_respawned(_enemy)
+    call_deferred("_fantasy_change_living_cursed_enemy", _enemy, true)
+
+func _on_enemy_died(enemy: Enemy, args: Entity.DieArgs) -> void:
+    ._on_enemy_died(enemy, args)
+    _fantasy_change_living_cursed_enemy(enemy, false)
+
 func clean_up_room() -> void:
     for timer in FaTimers: timer.stop()
     .clean_up_room()
+
 
 # =========================== Custom =========================== #
 func _fantasy_start_ui_update_timer() -> void:
@@ -106,6 +115,14 @@ func _fantasy_soul_process() -> void:
         if _players[i] in UISoulScenes and \
         is_instance_valid(UISoulScenes[_players[i]]):
             UISoulScenes[_players[i]].update_value(Utils.get_stat(Utils.stat_fantasy_soul_hash, i))
+
+func _fantasy_change_living_cursed_enemy(enemy: Enemy, is_add: bool) -> void:
+    var num: int = 1 if is_add else -1
+    if !enemy._outline_colors.has(Utils.CURSE_COLOR): return
+
+    for player_index in RunData.get_player_count():
+        Utils.ncl_quiet_add_stat(Utils.stat_fantasy_living_cursed_enemy_hash, num, player_index)
+        LinkedStats.reset_player(player_index)
 
 # =========================== Method =========================== #
 func fa_update_all_ui_stats() -> void:

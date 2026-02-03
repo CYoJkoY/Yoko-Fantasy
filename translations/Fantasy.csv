@@ -79,10 +79,10 @@ FANTASY_CRYSTALLINE_ELEMENTS_NAME,Crystalline Elements,元素结晶
 FANTASY_CRYSTALLINE_ELEMENTS_BEHAVIOUR_DESCRIPTION,"Teleports randomly within a range of 700 every 3 seconds, and each second summons a hexagonal cluster of six blade flashes around itself that contracts inward.","每3秒在700范围内随机传送,每秒在周围召唤由6个刀光构成的向内收缩的六边形刀光群"
 FANTASY_INFO_HOLY,"Holy, Attribute. Inactive when negative. Increases damage dealt to Cursed enemies by {0}, increases Soul drop rate by {1}, and reduces all enemies' HP by {2}.","神圣,属性.负数时不生效.额外增加对被诅咒敌人造成的伤害{0},增加敌人掉魂的概率{1},降低所有敌人的血量{2}"
 FANTASY_INFO_SOUL,"Soul, Special Drop. Increases damage {0} and attack speed by {1}, each exists 2 seconds.","魂,特殊掉落物.额外增加{0}伤害与{1}攻速,每个持续2秒"
-FANTASY_STAT_HOLY,Holy,神圣
+STAT_FANTASY_HOLY,Holy,神圣
 FANTASY_CLASS_HOLY,Holy,神圣
 FANTASY_CLASS_FALLEN,Fallen,堕落
-FANTASY_STAT_SOUL,Soul,魂
+STAT_FANTASY_SOUL,Soul,魂
 FANTASY_CONSUMABLE_SOUL,Soul,魂
 ITEM_FANTASY_BADGE,Badge,徽章
 ITEM_FANTASY_BIBLE,Bible,圣经
@@ -90,7 +90,7 @@ ITEM_FANTASY_BLACK_MUD,Black Mud,黑泥
 ITEM_FANTASY_BLESSED_BREASTPLATE,Blessed Breastplate,被祝福的胸甲
 ITEM_FANTASY_BOOKMARK,Bookmark,书签
 ITEM_FANTASY_BOWSTRING,Bowstring,弓弦
-FANTASY_ITME_BRASS_BEARING,Brass Bearing,黄铜轴承
+ITEM_FANTASY_BRASS_BEARING,Brass Bearing,黄铜轴承
 ITEM_FANTASY_BRASS_COMPONENT,Brass Component,黄铜构件
 ITEM_FANTASY_BRASS_GEAR,Brass Gear,黄铜齿轮
 ITEM_FANTASY_BRAVE_NECKLACE,Brave Necklace,勇者项链
@@ -132,3 +132,5 @@ This pet scales with player :
 - 贯通
 - %贯通伤害
 - %对头目伤害"
+ITEM_FANTASY_CURSED_FIRE,Cursed Fire,诅咒之火
+STAT_FANTASY_LIVING_CURSED_ENEMY,Cursed Enemy,被诅咒的敌人

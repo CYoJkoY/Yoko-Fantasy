@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=48 format=2]
+[gd_resource type="Resource" load_steps=49 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/007_swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/017_skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -47,6 +47,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/shop_enter_stat_curse/shop_enter_stat_curse_effect.gd" type="Script" id=45]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/wandering_attack_pet/wandering_attack_pet_effect.gd" type="Script" id=46]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/crow_item.tres" type="Resource" id=47]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/cursed_fire/cursed_fire_data.tres" type="Resource" id=48]
 
 [resource]
 script = ExtResource( 43 )
@@ -56,7 +57,7 @@ entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource
 elites = null
 bosses = null
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]
-items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 44 ) ]
+items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 48 ) ]
 weapons = null
 effects = [ ExtResource( 42 ), ExtResource( 46 ), ExtResource( 45 ) ]
 consumables = [ ExtResource( 39 ) ]

@@ -13,7 +13,7 @@ func fa_install_extensions() -> void:
         
         "dlc_1_data.gd",
         # Curse My Effects
-        
+
     ]
     
     for path in extensions:

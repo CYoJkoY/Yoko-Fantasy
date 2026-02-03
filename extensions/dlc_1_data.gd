@@ -30,11 +30,11 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
 
         match new_effect.get_id():
             "fantasy_time_bouns_current_health_damage":
-                new_effect.value = fa_curse_effect_value(new_effect.value, effect_modifier, {"is_negative": true})
+                new_effect.value = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier, {"is_negative": true})
 
             "fantasy_shop_enter_stat_curse":
-                new_effect.value = fa_curse_effect_value(new_effect.value, effect_modifier, {"is_negative": true})
-                new_effect.chance = fa_curse_effect_value(new_effect.value, effect_modifier)
+                new_effect.value = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier, {"is_negative": true})
+                new_effect.chance = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier)
 
             _: new_effect = fa_process_other_effect(new_effect, effect_modifier)
 
@@ -57,9 +57,9 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
 func fa_process_other_effect(effect: Resource, modifier: float) -> Resource:
     match effect.custom_key:
         "fantasy_damage_clamp":
-            effect.value2 = fa_curse_effect_value(effect.value2, modifier, {"is_negative": true})
+            effect.value2 = Utils.ncl_curse_effect_value(effect.value2, modifier, {"is_negative": true})
 
-    effect.value = fa_curse_effect_value(effect.value, modifier, {"process_negative": false})
+    effect.value = Utils.ncl_curse_effect_value(effect.value, modifier, {"process_negative": false})
     return effect
 
 # =========================== Method =========================== #
@@ -70,25 +70,3 @@ func fa_has_effect_fantasy(effects: Array) -> bool:
         effect.custom_key.begins_with("fantasy"):
             return true
     return false
-
-func fa_curse_effect_value(
-    value: float, modifier: float, options: Dictionary = {}
-) -> float:
-    var step: float = options.get("step", 0.01)
-    var process_negative: bool = options.get("process_negative", true)
-    var is_negative: bool = options.get("is_negative", false)
-    var has_min: bool = options.get("has_min", false)
-    var min_num: float = options.get("min_num", 0.0)
-    var has_max: bool = options.get("has_max", false)
-    var max_num: float = options.get("max_num", 0.0)
-
-    match is_negative or (process_negative and value < 0.0):
-        true:
-            value = stepify(value / (1.0 + modifier), step)
-        false:
-            value = stepify(value * (1.0 + modifier), step)
-
-    if has_min: value = max(value, min_num)
-    if has_max: value = min(value, max_num)
-
-    return value
