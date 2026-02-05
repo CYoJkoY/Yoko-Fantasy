@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource( 2 )
 key = ""
-text_key = "FANTASY_EFFECT_PET_CROW"
+text_key = "EFFECT_FANTASY_PET_CROW"
 value = 1
 custom_key = ""
 storage_method = 0

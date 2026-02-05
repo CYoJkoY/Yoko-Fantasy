@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 key = "stat_max_hp"
-text_key = "FANTASY_EFFECT_DAMAGE_CLAMP"
+text_key = "EFFECT_FANTASY_DAMAGE_CLAMP"
 value = 1
 custom_key = "fantasy_damage_clamp"
 storage_method = 1

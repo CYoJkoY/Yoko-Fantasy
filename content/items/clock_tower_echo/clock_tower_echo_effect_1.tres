@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 key = "fantasy_time_bouns_current_health_damage"
-text_key = "FANTASY_EFFECT_TIME_BOUNS_CURRENT_HEALTH_DAMAGE"
+text_key = "EFFECT_FANTASY_TIME_BOUNS_CURRENT_HEALTH_DAMAGE"
 value = 12
 custom_key = ""
 storage_method = 0

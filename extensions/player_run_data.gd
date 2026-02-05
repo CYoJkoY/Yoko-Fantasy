@@ -33,6 +33,7 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_shop_enter_stat_curse_hash: [],
             Utils.fantasy_damage_clamp_hash: [],
             Utils.fantasy_damage_reflect_hash: 0,
+            Utils.fantasy_curse_all_on_reroll_hash: [],
 
         }
         

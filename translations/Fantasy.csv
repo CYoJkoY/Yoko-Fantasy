@@ -1,4 +1,4 @@
-﻿keys,en,zh_Hans_CN
+﻿keys,en,zh
 FANTASY_ZONE,Fantasy,幻界
 FANTASY_BG,Fantasy,幻界
 FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
@@ -96,9 +96,9 @@ ITEM_FANTASY_BRASS_GEAR,Brass Gear,黄铜齿轮
 ITEM_FANTASY_BRAVE_NECKLACE,Brave Necklace,勇者项链
 STAT_LEVELS,Levels,等级
 ITEM_FANTASY_CLOCK_TOWER_ECHO,Clock Tower Echo,时针塔的回响
-FANTASY_EFFECT_TIME_BOUNS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the health of all enemies ({2} for bosses and elite enemies)",每{0}秒对所有敌人额外造成相当于其生命值的{1}的伤害(对头目和精英怪则为{2})
+EFFECT_FANTASY_TIME_BOUNS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the health of all enemies ({2} for bosses and elite enemies)",每{0}秒对所有敌人额外造成相当于其生命值的{1}的伤害(对头目和精英怪则为{2})
 ITEM_FANTASY_CONTRACT,Contract,契约
-FANTASY_EFFECT_SHOP_ENTER_STAT_CURSE,"Upon entering the shop, there is a {2} chance to spend {0} {1} to randomly curse {3} owned item or weapon
+EFFECT_FANTASY_SHOP_ENTER_STAT_CURSE,"Upon entering the shop, there is a {2} chance to spend {0} {1} to randomly curse {3} owned item or weapon
 {4}
 {5}","进入商店时,有{2}概率使用{0}点{1}随机诅咒{3}件已拥有的道具或武器
 {4}
@@ -107,11 +107,11 @@ TRACKING_RANDOMCURSED,RandomCursed: {0},已随机诅咒:{0}
 ITEM_FANTASY_SCRIPTURE,Scripture,经文
 ITEM_FANTASY_ELF_EAR,Elf Ear,精灵耳
 ITEM_FANTASY_CURSED_COIN,Cursed Coin,被诅咒的金币
-FANTASY_EFFECT_DAMAGE_CLAMP,"Whenever you take damage, that damage cannot exceed {2} {1}, but is at least {0}","你每次受到伤害不超过{2} {1},但至少为{0}"
-FANTASY_EFFECT_DAMAGE_REFLECT,"When you take damage from a source other than yourself, reflect damage equal to the original damage value {0} to the attacker, modified by your damage bonus percentage","受到来源不是自己的伤害时,对攻击者造成伤害原本值{0}的反伤,受你的%伤害加成"
+EFFECT_FANTASY_DAMAGE_CLAMP,"Whenever you take damage, that damage cannot exceed {2} {1}, but is at least {0}","你每次受到伤害不超过{2} {1},但至少为{0}"
+EFFECT_FANTASY_DAMAGE_REFLECT,"When you take damage from a source other than yourself, reflect damage equal to the original damage value {0} to the attacker, modified by your damage bonus percentage","受到来源不是自己的伤害时,对攻击者造成伤害原本值{0}的反伤,受你的%伤害加成"
 ITEM_FANTASY_CRIMSON_HOLY_SHROUD,Crimson Holy Shroud,绯红圣骸布
 ITEM_FANTASY_CROW,Crow,乌鸦
-FANTASY_EFFECT_PET_CROW,"Summon a crow that surrounds you, firing a feather every {0}s at enemies within range {1}, dealing {2} ({3}) damage, the feather has 3 pierces by default","召唤一只乌鸦围绕在你身边,每{0}秒发射一枚羽毛攻击范围{1}内的敌人,造成{2}({3})伤害,羽毛初始自带3贯通"
+EFFECT_FANTASY_PET_CROW,"Summon a crow that surrounds you, firing a feather every {0}s at enemies within range {1}, dealing {2} ({3}) damage, the feather has 3 pierces by default","召唤一只乌鸦围绕在你身边,每{0}秒发射一枚羽毛攻击范围{1}内的敌人,造成{2}({3})伤害,羽毛初始自带3贯通"
 FANTASY_CROW_NAME,Crow,乌鸦
 FANTASY_CROW_BEHAVIOUR_DESCRIPTION,"Flies around the player, attacking enemies by firing feathers
 
@@ -134,3 +134,8 @@ This pet scales with player :
 - %对头目伤害"
 ITEM_FANTASY_CURSED_FIRE,Cursed Fire,诅咒之火
 STAT_FANTASY_LIVING_CURSED_ENEMY,Cursed Enemy,被诅咒的敌人
+ITEM_FANTASY_DEMON_EYE,Demon Eye,恶魔之眼
+ITEM_FANTASY_DEMON_EYE_USED,Fossilized Demon Eye,石化的恶魔之眼
+EFFECT_FANTASY_CURSE_ALL_ON_REROLL,Curse all items in the shop the next reroll,下一次刷新诅咒商店里的所有物品
+EFFECT_FANTASY_DEMON_EYE_USED,"The exhausted demon eye has turned into a stone statue","消耗殆尽的恶魔之眼变成了石像"
+EFFECT_FANTASY_CURSE_ALL_ON_REROLL_CURSED,"Curse all items in the shop the next reroll,return to the uncursed state rather than the used state","下一次刷新诅咒商店里的所有物品,变回未诅咒状态而非已使用状态"

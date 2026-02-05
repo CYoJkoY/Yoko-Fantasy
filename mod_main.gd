@@ -14,7 +14,7 @@ func _init() -> void:
     ext_dir = dir + "extensions/"
     
     ModLoaderMod.add_translation(trans_dir + "Fantasy.en.translation")
-    ModLoaderMod.add_translation(trans_dir + "Fantasy.zh_Hans_CN.translation")
+    ModLoaderMod.add_translation(trans_dir + "Fantasy.zh.translation")
 
     var extensions: Array = [
 
@@ -37,14 +37,11 @@ func _init() -> void:
         "utils.gd",
         # EFFECTS' NAMES
 
-        "shop.gd",
-        # EFFECTS: shop_enter_stat_curse[ 1/2 ]
-
-        "coop_shop.gd",
-        # EFFECTS: shop_enter_stat_curse[ 2/2 ]
+        "base_shop.gd",
+        # EFFECTS: shop_enter_stat_curse, curse_all_on_reroll
 
         "player.gd",
-        # EFFECTS: damage_clamp
+        # EFFECTS: damage_clamp, damage_reflect
         
     ]
 

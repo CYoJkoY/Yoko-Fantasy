@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 key = "stat_fantasy_holy"
-text_key = "FANTASY_EFFECT_SHOP_ENTER_STAT_CURSE"
+text_key = "EFFECT_FANTASY_SHOP_ENTER_STAT_CURSE"
 value = 1
 custom_key = "fantasy_shop_enter_stat_curse"
 storage_method = 0
