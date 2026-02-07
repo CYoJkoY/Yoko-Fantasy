@@ -15,6 +15,7 @@ var fantasy_shop_enter_stat_curse_hash: int = Keys.generate_hash("fantasy_shop_e
 var fantasy_damage_clamp_hash: int = Keys.generate_hash("fantasy_damage_clamp")
 var fantasy_damage_reflect_hash: int = Keys.generate_hash("fantasy_damage_reflect")
 var fantasy_curse_all_on_reroll_hash: int = Keys.generate_hash("fantasy_curse_all_on_reroll")
+var fantasy_extra_curse_enemy_hash: int = Keys.generate_hash("fantasy_extra_curse_enemy")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

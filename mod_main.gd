@@ -18,18 +18,16 @@ func _init() -> void:
 
     var extensions: Array = [
 
-        "progress_data.gd",
-        # Mod's Contents
-        # Extensions After DLC
-
         "main.gd",
         # STATS: Holy, Soul
+        # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ][ 1/2 ]
         
         "item_service.gd",
         # STATS: Soul
         
         "enemy.gd",
         # STATS: Holy
+        # EFFECTS: extra_curse_enemy
         
         "player_run_data.gd",
         # EFFECTS' NAMES
@@ -42,6 +40,10 @@ func _init() -> void:
 
         "player.gd",
         # EFFECTS: damage_clamp, damage_reflect
+
+
+        "dlc_1_data.gd"
+        # Curse
         
     ]
 

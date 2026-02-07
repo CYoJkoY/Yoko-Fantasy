@@ -6,7 +6,7 @@ var _bonus_applied: Dictionary = {}
 
 # =========================== Extension =========================== #
 func apply(player_index: int) -> void:
-    TempStats.add_stat(Utils.stat_fantasy_soul_hash, value, player_index)
+    Utils.ncl_quiet_add_stat(Utils.stat_fantasy_soul_hash, value, player_index)
     
     if _bonus_applied.get(player_index, false): return
     
@@ -23,11 +23,11 @@ func _apply_bonus_effects(player_index: int) -> void:
     
     if base_damage > 0:
         damage_to_add = int(base_damage * 0.2)
-        TempStats.add_stat(Keys.stat_percent_damage_hash, damage_to_add, player_index)
+        Utils.ncl_quiet_add_stat(Keys.stat_percent_damage_hash, damage_to_add, player_index)
     
     if base_speed > 0:
         speed_to_add = int(base_speed * 0.2)
-        TempStats.add_stat(Keys.stat_attack_speed_hash, speed_to_add, player_index)
+        Utils.ncl_quiet_add_stat(Keys.stat_attack_speed_hash, speed_to_add, player_index)
     
     _added_damage_values.set(player_index, damage_to_add)
     _added_speed_values.set(player_index, speed_to_add)
@@ -49,9 +49,9 @@ func _remove_bonus_effects(player_index: int) -> void:
     var speed_to_remove: int = _added_speed_values[player_index]
     
     if damage_to_remove > 0:
-        TempStats.remove_stat(Keys.stat_percent_damage_hash, damage_to_remove, player_index)
+        Utils.ncl_quiet_add_stat(Keys.stat_percent_damage_hash, -damage_to_remove, player_index)
     if speed_to_remove > 0:
-        TempStats.remove_stat(Keys.stat_attack_speed_hash, speed_to_remove, player_index)
+        Utils.ncl_quiet_add_stat(Keys.stat_attack_speed_hash, -speed_to_remove, player_index)
 
     _added_damage_values.erase(player_index)
     _added_speed_values.erase(player_index)
@@ -66,8 +66,8 @@ func _remove_bonus_effects(player_index: int) -> void:
 
 # =========================== Method =========================== #
 func fa_on_decay_timeout(player_index: int) -> void:
-    var current_soul: float = TempStats.get_stat(Utils.stat_fantasy_soul_hash, player_index)
-    TempStats.remove_stat(Utils.stat_fantasy_soul_hash, value, player_index)
+    var current_soul: float = RunData.get_stat(Utils.stat_fantasy_soul_hash, player_index)
+    Utils.ncl_quiet_add_stat(Utils.stat_fantasy_soul_hash, -value, player_index)
     current_soul = max(current_soul - value, 0)
     
     if current_soul < 1:

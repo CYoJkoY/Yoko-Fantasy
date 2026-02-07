@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "item_fantasy_crimson_holy_shroud"
-text_key = "EFFECT_FANTASY_DAMAGE_REFLECT"
-value = 200
-custom_key = "fantasy_damage_reflect"
-storage_method = 4
-effect_sign = 0
+key = "gold_on_cursed_enemy_kill"
+text_key = "EFFECT_GOLD_ON_CURSED_ENEMY_KILL"
+value = 2
+custom_key = ""
+storage_method = 0
+effect_sign = 3
 custom_args = [  ]

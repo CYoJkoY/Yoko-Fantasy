@@ -7,10 +7,12 @@ var applied_holy_reduce_health: bool = false
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
     _fantasy_holy_reduce_health()
+    _fantasy_extra_curse_enemy()
 
 func respawn() -> void:
     .respawn()
     _fantasy_holy_reduce_health()
+    _fantasy_extra_curse_enemy()
 
 func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := true, dodgeable := true, is_crit := false, hitbox: Hitbox = null, is_burning := false) -> GetDamageValueResult:
     var dmg_value_result =.get_damage_value(dmg_value, from_player_index, armor_applied, dodgeable, is_crit, hitbox, is_burning)
@@ -43,6 +45,17 @@ func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult, fr
             dmg_value_result.value = int(dmg_value_result.value * bonus_multiplier)
     
     return dmg_value_result
+
+func _fantasy_extra_curse_enemy() -> void:
+    if _outline_colors.has(Utils.CURSE_COLOR): return
+
+    for player_index in players_ref.size():
+        var effect_items: Array = RunData.get_player_effect(Utils.fantasy_extra_curse_enemy_hash, player_index)
+        for effect_item in effect_items:
+            var chance: float = effect_item[1] / 100.0
+            if !Utils.get_chance_success(chance): continue
+
+            Utils.ncl_curse_enemy(self )
 
 # =========================== Method =========================== #
 func fa_is_cursed() -> bool:

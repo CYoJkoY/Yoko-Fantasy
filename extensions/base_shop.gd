@@ -47,7 +47,7 @@ func _fantasy_shop_enter_stat_curse() -> void:
             
             var updated_any_gear := false
             for gear in gears_to_curse:
-                var new_gear: ItemParentData = Utils.ncl_curse(gear, player_index)
+                var new_gear: ItemParentData = Utils.ncl_curse_item(gear, player_index)
 
                 if new_gear is WeaponData:
                     RunData.remove_weapon(gear, player_index)
@@ -94,7 +94,7 @@ func _fantasy_curse_all_on_reroll(player_index: int, just_entered_shop: bool = f
 
     var new_shop_items: Array = []
     for shop_item in _shop_items[player_index]:
-        shop_item[0] = Utils.ncl_curse(shop_item[0], player_index)
+        shop_item[0] = Utils.ncl_curse_item(shop_item[0], player_index)
         new_shop_items.append(shop_item)
     _shop_items[player_index] = new_shop_items
 

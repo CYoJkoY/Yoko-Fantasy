@@ -15,7 +15,7 @@ func _on_EntitySpawner_players_spawned(players: Array) -> void:
     _fantasy_soul_display()
 
     _fantasy_start_ui_update_timer()
-    _fantasy_start_time_bouns_current_health_damage_timer(players.size())
+    _fantasy_start_time_bouns_current_health_damage_timer()
 
 func _on_EntitySpawner_enemy_respawned(_enemy: Enemy) -> void:
     ._on_EntitySpawner_enemy_respawned(_enemy)
@@ -39,8 +39,8 @@ func _fantasy_start_ui_update_timer() -> void:
     add_child(timer)
     FaTimers.append(timer)
 
-func _fantasy_start_time_bouns_current_health_damage_timer(player_num: int) -> void:
-    for player_index in player_num:
+func _fantasy_start_time_bouns_current_health_damage_timer() -> void:
+    for player_index in _players.size():
         var effect_items: Array = RunData.get_player_effect(Utils.fantasy_time_bouns_current_health_damage_hash, player_index)
         for effect in effect_items:
             var timer: Timer = Timer.new()
@@ -79,8 +79,10 @@ func _fantasy_holy_display() -> void:
 
 func _fantasy_soul_display() -> void:
     for i in _players.size():
-        if _players[i] in UISoulScenes:
-            continue
+        var effects: Dictionary = RunData.get_player_effects(i)
+        effects[Utils.stat_fantasy_soul_hash] = 0
+
+        if _players[i] in UISoulScenes: continue
             
         var UISoulInstance = UI_SOUL_SCENE.instance()
         match i:
@@ -88,14 +90,13 @@ func _fantasy_soul_display() -> void:
             1, 3: UISoulInstance.alignment = BoxContainer.ALIGN_END
         
         var player_ui = _players_ui[i]
-        if !is_instance_valid(player_ui) or !is_instance_valid(player_ui.hud_container):
-            continue
+        if !is_instance_valid(player_ui) or !is_instance_valid(player_ui.hud_container): continue
 
         var after_gold_index = player_ui.hud_container.get_children().find(player_ui.gold) + 1
         player_ui.hud_container.add_child(UISoulInstance)
         player_ui.hud_container.move_child(UISoulInstance, after_gold_index)
         
-        UISoulInstance.update_value(Utils.get_stat(Utils.stat_fantasy_soul_hash, i))
+        UISoulInstance.update_value(RunData.get_stat(Utils.stat_fantasy_soul_hash, i))
         
         if !UISoulInstance.is_connected("mouse_entered", self , "fa_on_UISoul_mouse_entered"):
             UISoulInstance.connect("mouse_entered", self , "fa_on_UISoul_mouse_entered")
@@ -114,13 +115,13 @@ func _fantasy_soul_process() -> void:
     for i in _players.size():
         if _players[i] in UISoulScenes and \
         is_instance_valid(UISoulScenes[_players[i]]):
-            UISoulScenes[_players[i]].update_value(Utils.get_stat(Utils.stat_fantasy_soul_hash, i))
+            UISoulScenes[_players[i]].update_value(RunData.get_stat(Utils.stat_fantasy_soul_hash, i))
 
 func _fantasy_change_living_cursed_enemy(enemy: Enemy, is_add: bool) -> void:
     var num: int = 1 if is_add else -1
     if !enemy._outline_colors.has(Utils.CURSE_COLOR): return
 
-    for player_index in RunData.get_player_count():
+    for player_index in _players.size():
         Utils.ncl_quiet_add_stat(Utils.stat_fantasy_living_cursed_enemy_hash, num, player_index)
         LinkedStats.reset_player(player_index)
 

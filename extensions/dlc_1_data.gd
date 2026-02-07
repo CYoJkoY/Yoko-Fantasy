@@ -24,36 +24,31 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
         max_effect_modifier = max(max_effect_modifier, effect_modifier)
 
         var new_effect: Effect = effect.duplicate()
+        var id: String = new_effect.get_id()
+        var key: int = new_effect.key_hash
+        var cskey: int = new_effect.custom_key_hash
 
-        match new_effect.get_id():
-            "fantasy_time_bouns_current_health_damage":
-                new_effect.value = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier, {"is_negative": true})
+        match [id, key, cskey]:
+            ["fantasy_shop_enter_stat_curse", _, _]:
+                new_effect.value = 0 if new_effect.value == 1 else new_effect.value
+                new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier, {"setp": 1})
 
-            "fantasy_shop_enter_stat_curse":
-                new_effect.value = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier, {"is_negative": true})
-                new_effect.chance = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier)
-
-            "fantasy_wandering_pet":
+            ["fantasy_wandering_pet", _, _]:
                 new_effect.weapon_stats = _boost_weapon_stats_damage(new_effect.weapon_stats, effect_modifier)
 
-            _:
-                var has_processed: bool = false
-
-                match new_effect.key_hash:
-                    Utils.fantasy_damage_reflect_hash:
-                        new_effect.value = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier, {"process_negative": false})
-                        has_processed = true
-
-                if has_processed: break
-
-                match new_effect.custom_key_hash:
-                    Utils.fantasy_damage_clamp_hash:
-                        new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"is_negative": true, "step": 1})
-                    
-                    Utils.fantasy_curse_all_on_reroll_hash:
-                        new_effect.text_key += "_CURSED"
-                        new_item_data.replaced_by = ItemService.get_element(ItemService.items, new_effect.key_hash)
-
+            [_, _, Utils.fantasy_damage_clamp_hash]:
+                new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"is_negative": true, "step": 1})
+            
+            [_, _, Utils.fantasy_curse_all_on_reroll_hash]:
+                new_effect.text_key += "_CURSED"
+                new_item_data.replaced_by = ItemService.get_element(ItemService.items, new_effect.key_hash)
+            
+            [_, _, Utils.fantasy_extra_curse_enemy_hash]:
+                var extra_effect: Effect = Effect.new()
+                extra_effect.key = new_effect.key
+                extra_effect.key_hash = new_effect.key_hash
+                extra_effect.value = new_effect.value
+                new_effects.append(extra_effect)
 
         new_effects.append(new_effect)
     new_item_data.effects = new_effects

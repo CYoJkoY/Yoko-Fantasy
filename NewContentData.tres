@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=51 format=2]
+[gd_resource type="Resource" load_steps=52 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/007_swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/017_skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -50,6 +50,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/cursed_fire/cursed_fire_data.tres" type="Resource" id=48]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/demon_eye/demon_eye_used_data.tres" type="Resource" id=49]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/demon_eye/demon_eye_data.tres" type="Resource" id=50]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/demon_hunter_blade/demon_hunter_blade_data.tres" type="Resource" id=51]
 
 [resource]
 script = ExtResource( 43 )
@@ -59,7 +60,7 @@ entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource
 elites = null
 bosses = null
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]
-items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 48 ), ExtResource( 50 ), ExtResource( 49 ) ]
+items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 48 ), ExtResource( 50 ), ExtResource( 49 ), ExtResource( 51 ) ]
 weapons = null
 effects = [ ExtResource( 42 ), ExtResource( 46 ), ExtResource( 45 ) ]
 consumables = [ ExtResource( 39 ) ]
@@ -71,20 +72,29 @@ title_screen_backgrounds = null
 challenges = null
 zones = null
 tracked_items = {
+"item_fantasy_crimson_holy_shroud": 0,
 "item_fantasy_crow": 0
 }
 tracked_effects = {
-"item_fantasy_contract": [ 0, 0 ]
+"item_fantasy_contract": [ 0, 0 ],
+"item_fantasy_crimson_holy_shroud": 0
 }
 translation_keys_needing_operator = {
+"effect_fantasy_extra_curse_enemy": [ 0 ],
+"effect_fantasy_extra_curse_enemy_cursed": [ 0 ],
 "stat_fantasy_holy": [ 0 ],
 "stat_fantasy_soul": [ 0 ]
 }
 translation_keys_needing_percent = {
 "effect_fantasy_damage_clamp": [ 2 ],
 "effect_fantasy_damage_reflect": [ 0 ],
+"effect_fantasy_extra_curse_enemy": [ 0 ],
+"effect_fantasy_extra_curse_enemy_cursed": [ 0 ],
 "effect_fantasy_shop_enter_stat_curse": [ 2 ],
 "effect_fantasy_time_bouns_current_health_damage": [ 1, 2 ],
 "fantasy_info_holy": [ 0, 1, 2 ],
 "fantasy_info_soul": [ 0, 1 ]
 }
+scene_effect_behaviors = [  ]
+enemy_effect_behaviors = [  ]
+player_effect_behaviors = [  ]

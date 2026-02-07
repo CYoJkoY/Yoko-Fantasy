@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "stat_max_hp"
-text_key = "EFFECT_FANTASY_DAMAGE_CLAMP"
-value = 1
-custom_key = "fantasy_damage_clamp"
-storage_method = 1
+key = "fantasy_crit_overflow"
+text_key = "EFFECT_FANTASY_CRIT_OVERFLOW"
+value = 2
+custom_key = ""
+storage_method = 0
 effect_sign = 3
 custom_args = [  ]
-value2 = 25
-sum_strategy = 0
+value2 = 1
+sum_strategy = 2
