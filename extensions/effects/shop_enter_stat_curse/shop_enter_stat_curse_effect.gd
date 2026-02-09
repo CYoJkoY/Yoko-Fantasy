@@ -52,13 +52,13 @@ func serialize() -> Dictionary:
     var serialized: Dictionary =.serialize()
     serialized.chance = chance
     serialized.curse_num = curse_num
-    serialized.curse_num = tracking_key
+    serialized.tracking_key = tracking_key
     
     return serialized
 
 func deserialize_and_merge(serialized: Dictionary) -> void:
     .deserialize_and_merge(serialized)
-    chance = serialized.chacne as int
+    chance = serialized.chance as int
     curse_num = serialized.curse_num as int
     tracking_key = serialized.tracking_key as String
     tracking_key_hash = Keys.generate_hash(serialized.tracking_key) as int

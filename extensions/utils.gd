@@ -16,12 +16,8 @@ var fantasy_damage_clamp_hash: int = Keys.generate_hash("fantasy_damage_clamp")
 var fantasy_damage_reflect_hash: int = Keys.generate_hash("fantasy_damage_reflect")
 var fantasy_curse_all_on_reroll_hash: int = Keys.generate_hash("fantasy_curse_all_on_reroll")
 var fantasy_extra_curse_enemy_hash: int = Keys.generate_hash("fantasy_extra_curse_enemy")
+var fantasy_crit_overflow_hash: int = Keys.generate_hash("fantasy_crit_overflow")
+var fantasy_random_reload_when_pickup_gold_hash: int = Keys.generate_hash("fantasy_random_reload_when_pickup_gold")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")
-
-# =========================== Extension =========================== #
-
-# =========================== Custom =========================== #
-
-# =========================== Method =========================== #

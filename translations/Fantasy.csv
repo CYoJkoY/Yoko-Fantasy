@@ -37,7 +37,7 @@ Leave a slime trail every 0.5 seconds that lasts for 10 seconds, players touchin
 每3秒召唤3个中史莱姆,每5秒召唤1个大史莱姆
 每0.5秒留下持续10秒的史莱姆粘液痕迹,玩家触碰时被减速50%
 
-异变1 (50%生命/35秒): 
+异变1 (50%生命/35秒):
 每5秒向玩家长距离冲刺
 一次性召唤4个大史莱姆
 每3秒召唤3个中史莱姆,每5秒召唤1个大史莱姆
@@ -113,20 +113,20 @@ EFFECT_FANTASY_DAMAGE_CLAMP,"Whenever you take damage, that damage cannot exceed
 EFFECT_FANTASY_DAMAGE_REFLECT,"When you take damage from a source other than yourself, reflect damage equal to the original damage value {0} to the attacker, modified by your damage bonus percentage","受到来源不是自己的伤害时,对攻击者造成伤害原本值{0}的反伤,受你的%伤害加成"
 ITEM_FANTASY_CRIMSON_HOLY_SHROUD,Crimson Holy Shroud,绯红圣骸布
 ITEM_FANTASY_CROW,Crow,乌鸦
-EFFECT_FANTASY_PET_CROW,"Summon a crow that surrounds you, firing a feather every {0}s at enemies within range {1}, dealing {2} ({3}) damage, the feather has 3 pierces by default","召唤一只乌鸦围绕在你身边,每{0}秒发射一枚羽毛攻击范围{1}内的敌人,造成{2}({3})伤害,羽毛初始自带3贯通"
 FANTASY_CROW_NAME,Crow,乌鸦
-FANTASY_CROW_BEHAVIOUR_DESCRIPTION,"Flies around the player, attacking enemies by firing feathers
+EFFECT_FANTASY_PET_CROW,"Summon a crow that surrounds you, firing a feather every {0}s at enemies within range {1}, dealing {2} ({3}) damage","召唤一只乌鸦围绕在你身边,每{0}秒发射一枚羽毛攻击范围{1}内的敌人,造成{2}({3})伤害"
+FANTASY_WANDERING_RANGED_PET_BEHAVIOUR_DESCRIPTION,"Flies around the player, attacking enemies by firing projectiles
 
 This pet scales with player :
 - % Life Steal
 - % Damage
-- % Crit. Chance
+- % Crit Chance
 - Bounces
 - Piercing
 - % Piercing Damage
-- % Damage against bosses","围绕玩家飞行,发射羽毛攻击敌人
+- % Damage against bosses","围绕玩家飞行,发射投射物攻击敌人
 
-这个宠物受到玩家以下属性的影响：
+这个宠物受到玩家以下属性的影响:
 - %生命窃取
 - %伤害
 - %暴击率
@@ -144,3 +144,47 @@ EFFECT_FANTASY_CURSE_ALL_ON_REROLL_CURSED,"Curse all items in the shop the next 
 EFFECT_FANTASY_EXTRA_CURSE_ENEMY,Enemies have an additional {0} chance to be cursed,敌人有额外{0}概率被诅咒
 ITEM_FANTASY_DEMON_HUNTER_BLADE,Demon Hunter Blade,猎魔之刃
 TRACKING_DAMAGE_REDUCED,Damage Reduced: {0},已减免伤害: {0}
+ITEM_FANTASY_DOG_COIN,Dog Coin,狗狗金币
+EFFECT_FANTASY_CRIT_OVERFLOW,"For every {2} overflow, increase {0} critical damage","每溢出{2}暴击率增加{0}暴击伤害"
+ITEM_FANTASY_DWARVEN_SCOPE,Dwarven Scope,矮人瞄准镜
+ITEM_FANTASY_EGYPTIAN_CAT,Egyptian Cat,埃及猫
+EFFECT_FANTASY_PET_EGYPTIAN_CAT,"Summons an Egyptian cat that chases enemies within range of {1}, firing three spikes every {0} seconds and dealing {2}({3}) damage.","召唤一只埃及猫追击范围{1}内的敌人,每{0}秒发射三枚尖刺攻击,造成{2}({3})伤害"
+FANTASY_EGYPTIAN_NAME,Egyptian Cat,埃及猫
+FANTASY_FOLLOW_RANGED_PET_BEHAVIOUR_DESCRIPTION,"Chases enemies within range, launches projectiles to attack them, and returns to the player's side if beyond the range
+
+This pet scales with player :
+- % Life Steal
+- % Damage
+- % Crit Chance
+- Speed
+- Bounces
+- Piercing
+- % Piercing Damage
+- % Damage against bosses","追击范围内的敌人,发射投射物攻击敌人,超出范围回到玩家身边
+
+这个宠物受到玩家以下属性的影响:
+- %生命窃取
+- %伤害
+- %暴击率
+- 速度
+- 弹跳
+- 贯通
+- %贯通伤害
+- %对头目伤害"
+ITEM_FANTASY_PIXIE,Pixie,小妖精
+ITEM_FANTASY_GAUNTLET,Gauntlet,护手
+ITEM_FANTASY_IRON_RING,Iron Ring,铁戒指
+ITEM_FANTASY_WORLD_TREE_SEED,World Tree Seed,世界树种子
+ITEM_FANTASY_GINKGO_LEAF,Ginkgo Leaf,银杏叶
+ITEM_FANTASY_SHOULDER_ARMOR,Shoulder Armor,肩甲
+ITEM_FANTASY_KNEE_PAD,Knee Pad,护膝
+TRACKING_RELOAD,Reloaded: {0},已重置: {0}
+EFFECT_FANTASY_RANDOM_RELOAD_WHEN_PICKUP_GOLD,"When picking up materials, {0} chance to randomly reset one weapon's cooldown
+{1}","拾起材料时,{0}概率随机重置一把武器的冷却
+{1}"
+ITEM_FANTASY_SCABBARD,Scabbard,剑鞘
+ITEM_FANTASY_NIGHTINGALE,Nightingale,夜莺
+FANTASY_NIGHTINGALE_NAME,Nightingale,夜莺
+EFFECT_FANTASY_PET_NIGHTINGALE,,"召唤一只夜莺环绕在你身边,每{0}秒为范围{1}内的玩家恢复{2}({3})生命值."
+ITEM_FANTASY_ROTTEN_PLANT,Rotten Plant,腐烂的植物
+ITEM_FANTASY_RUSTY_ARROW,Rusty Arrow,生锈的箭头

@@ -25,10 +25,14 @@ func _on_enemy_died(enemy: Enemy, args: Entity.DieArgs) -> void:
     ._on_enemy_died(enemy, args)
     _fantasy_change_living_cursed_enemy(enemy, false)
 
+func on_gold_picked_up(gold: Node, player_index: int) -> void:
+    .on_gold_picked_up(gold, player_index)
+    if player_index >= 0:
+        _fantasy_random_reload_when_pickup_gold(player_index)
+
 func clean_up_room() -> void:
     for timer in FaTimers: timer.stop()
     .clean_up_room()
-
 
 # =========================== Custom =========================== #
 func _fantasy_start_ui_update_timer() -> void:
@@ -44,9 +48,9 @@ func _fantasy_start_time_bouns_current_health_damage_timer() -> void:
         var effect_items: Array = RunData.get_player_effect(Utils.fantasy_time_bouns_current_health_damage_hash, player_index)
         for effect in effect_items:
             var timer: Timer = Timer.new()
-            timer.wait_time = effect[0]
+            timer.wait_time = effect[1]
             timer.autostart = true
-            timer.connect("timeout", self , "fa_time_bouns_current_health_damage", [effect[1] / 100.0, player_index])
+            timer.connect("timeout", self , "fa_time_bouns_current_health_damage", [effect[2] / 100.0, player_index, effect[0]])
             add_child(timer)
             FaTimers.append(timer)
 
@@ -71,7 +75,7 @@ func _fantasy_holy_display() -> void:
         UIHolyInstance.update_value(Utils.get_stat(Utils.stat_fantasy_holy_hash, i))
 
         if !UIHolyInstance.is_connected("mouse_entered", self , "fa_on_UIHoly_mouse_entered"):
-            UIHolyInstance.connect("mouse_entered", self , "fa_on_UIHoly_mouse_entered", [Utils.get_stat(Utils.stat_fantasy_holy_hash, i)])
+            UIHolyInstance.connect("mouse_entered", self , "fa_on_UIHoly_mouse_entered", [Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)])
         if !UIHolyInstance.is_connected("mouse_exited", self , "fa_on_UIHoly_mouse_exited"):
             UIHolyInstance.connect("mouse_exited", self , "fa_on_UIHoly_mouse_exited")
         
@@ -81,6 +85,8 @@ func _fantasy_soul_display() -> void:
     for i in _players.size():
         var effects: Dictionary = RunData.get_player_effects(i)
         effects[Utils.stat_fantasy_soul_hash] = 0
+        RunData._are_player_stats_dirty[i] = true
+        Utils.reset_stat_cache(i)
 
         if _players[i] in UISoulScenes: continue
             
@@ -125,6 +131,27 @@ func _fantasy_change_living_cursed_enemy(enemy: Enemy, is_add: bool) -> void:
         Utils.ncl_quiet_add_stat(Utils.stat_fantasy_living_cursed_enemy_hash, num, player_index)
         LinkedStats.reset_player(player_index)
 
+func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
+    var random_weapon: Weapon = _players[player_index].current_weapons.pick_random()
+    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_random_reload_when_pickup_gold_hash, player_index)
+
+    for effect_item in effect_items:
+        var chance: float = effect_item[1] / 100.0
+
+        if !Utils.get_chance_success(chance): continue
+
+        var tracking_key_hash: int = effect_item[0]
+        RunData.ncl_add_effect_tracking_value(tracking_key_hash, 1, player_index)
+
+        random_weapon._current_cooldown = 0
+        random_weapon.tween_animation.interpolate_property(
+            random_weapon.sprite, "self_modulate",
+            Color("#3E68DA"), Color.white, 0.48,
+            Tween.TRANS_SINE, Tween.EASE_IN_OUT
+        )
+        random_weapon.tween_animation.start()
+        
+
 # =========================== Method =========================== #
 func fa_update_all_ui_stats() -> void:
     _fantasy_holy_process()
@@ -149,7 +176,7 @@ func fa_on_UISoul_mouse_entered() -> void:
 func fa_on_UISoul_mouse_exited() -> void:
     _info_popup.hide()
 
-func fa_time_bouns_current_health_damage(bouns: float, player_index: int):
+func fa_time_bouns_current_health_damage(bouns: float, player_index: int, tracking_key_hash: int):
     var enemies: Array = _entity_spawner.get_all_enemies(false)
     for enemy in enemies:
         var enemy_current_hp: int = enemy.current_stats.health
@@ -165,6 +192,7 @@ func fa_time_bouns_current_health_damage(bouns: float, player_index: int):
             full_dmg_value += int(enemy_current_hp * bouns)
             enemy.current_stats.health -= full_dmg_value
         
+        RunData.add_tracked_value(player_index, tracking_key_hash, full_dmg_value)
         enemy.emit_signal("health_updated", enemy, enemy.current_stats.health, enemy_max_hp)
         enemy.emit_signal(
             "took_damage",

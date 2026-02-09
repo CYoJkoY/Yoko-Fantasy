@@ -1,0 +1,30 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/egyptian_cat/egyptian_cat_data.tres" type="Resource" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/egyptian_cat_stats.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/egyptian_cat_icon.webp" type="Texture" id=3]
+[ext_resource path="res://entities/units/pet/ItemPet.gd" type="Script" id=4]
+
+[resource]
+script = ExtResource( 4 )
+my_id = "fantasy_egyptian_cat"
+unlocked_by_default = false
+can_be_looted = true
+icon = ExtResource( 3 )
+name = "FANTASY_EGYPTIAN_NAME"
+tier = 0
+value = 1
+effects = [  ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+stats = ExtResource( 2 )
+behaviour_description = "FANTASY_FOLLOW_RANGED_PET_BEHAVIOUR_DESCRIPTION"
+show_hp = false
+show_dammage = false
+show_speed = true
+show_knoback_resistance = false
+show_material_dropped = false
+item_drop = ExtResource( 1 )

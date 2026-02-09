@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/crow_left_wing.webp-a07ed9e677ce6bf84c3bda33f000850a.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow_left_wing.webp"
+dest_files=[ "res://.import/crow_left_wing.webp-a07ed9e677ce6bf84c3bda33f000850a.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

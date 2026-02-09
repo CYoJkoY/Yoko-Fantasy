@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/crow.tscn" type="PackedScene" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/wandering_attack_pet/wandering_attack_pet_effect.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/ranged_pet/ranged_pet_effect.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/crow_weapon_stats.tres" type="Resource" id=3]
 
 [resource]

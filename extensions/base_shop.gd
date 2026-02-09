@@ -109,5 +109,3 @@ func _fantasy_set_curse_all_on_reroll_icon(player_index: int) -> void:
         texture.create_from_image(source_item.icon.get_data())
         reroll_button.set_additional_icon(texture)
         break
-
-# =========================== Method =========================== #

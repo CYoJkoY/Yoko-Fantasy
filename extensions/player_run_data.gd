@@ -35,7 +35,8 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_damage_reflect_hash: [],
             Utils.fantasy_curse_all_on_reroll_hash: [],
             Utils.fantasy_extra_curse_enemy_hash: [],
-
+            Utils.fantasy_crit_overflow_hash: [],
+            Utils.fantasy_random_reload_when_pickup_gold_hash: [],
         }
         
         new_effects.merge(mod_stats)

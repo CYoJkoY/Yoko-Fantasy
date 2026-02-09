@@ -1,0 +1,28 @@
+[gd_resource type="Resource" load_steps=8 format=2]
+
+[ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/shoulder_armor/shoulder_armor_icon.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/shoulder_armor/shoulder_armor_effect_3.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/shoulder_armor/shoulder_armor_effect_2.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/shoulder_armor/shoulder_armor_effect_1.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/shoulder_armor/shoulder_armor_effect_4.tres" type="Resource" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/shoulder_armor/shoulder_armor_effect_5.tres" type="Resource" id=7]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "item_fantasy_shoulder_armor"
+unlocked_by_default = true
+can_be_looted = true
+icon = ExtResource( 2 )
+name = "ITEM_FANTASY_SHOULDER_ARMOR"
+tier = 1
+value = 50
+effects = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 7 ) ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+max_nb = 2
+item_appearances = [  ]
+tags = [ "stat_ranged_damage", "stat_fantasy_holy" ]

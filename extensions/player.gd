@@ -42,5 +42,3 @@ func _fantasy_damage_reflect(full_dmg_value: int, args: TakeDamageArgs) -> void:
 
         RunData.add_tracked_value(player_index, tracking_key_hash, reflect_damage)
         enemy.take_damage(reflect_damage, reflect_args)
-
-# =========================== Method =========================== #

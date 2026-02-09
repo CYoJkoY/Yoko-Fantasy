@@ -41,9 +41,11 @@ func _init() -> void:
         "player.gd",
         # EFFECTS: damage_clamp, damage_reflect
 
-
-        "dlc_1_data.gd"
+        "dlc_1_data.gd",
         # Curse
+
+        "weapon_service.gd",
+        # EFFECTS: crit_overflow
         
     ]
 

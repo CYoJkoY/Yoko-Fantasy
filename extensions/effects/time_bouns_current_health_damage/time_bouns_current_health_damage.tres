@@ -29,12 +29,12 @@ arg_key = ""
 
 [resource]
 script = ExtResource( 1 )
-key = "fantasy_time_bouns_current_health_damage"
+key = "item_fantasy_clock_tower_echo"
 text_key = "EFFECT_FANTASY_TIME_BOUNS_CURRENT_HEALTH_DAMAGE"
 value = 12
-custom_key = ""
-storage_method = 0
+custom_key = "fantasy_time_bouns_current_health_damage"
+storage_method = 1
 effect_sign = 1
 custom_args = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ]
 value2 = 50
-sum_strategy = 2
+sum_strategy = 0

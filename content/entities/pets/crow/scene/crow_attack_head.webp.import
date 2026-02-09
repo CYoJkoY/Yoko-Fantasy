@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/crow_attack_head.webp-44c872f1b1f7b6e283c040271aa1597f.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow_attack_head.webp"
+dest_files=[ "res://.import/crow_attack_head.webp-44c872f1b1f7b6e283c040271aa1597f.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

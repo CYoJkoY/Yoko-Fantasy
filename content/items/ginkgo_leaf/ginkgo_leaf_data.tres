@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/ginkgo_leaf/ginkgo_leaf_icon.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/ginkgo_leaf/ginkgo_leaf_effect_2.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/ginkgo_leaf/ginkgo_leaf_effect_1.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "item_fantasy_ginkgo_leaf"
+unlocked_by_default = true
+can_be_looted = true
+icon = ExtResource( 2 )
+name = "ITEM_FANTASY_GINKGO_LEAF"
+tier = 1
+value = 60
+effects = [ ExtResource( 4 ), ExtResource( 3 ) ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+max_nb = 4
+item_appearances = [  ]
+tags = [ "stat_fantasy_holy", "stat_percent_damage" ]

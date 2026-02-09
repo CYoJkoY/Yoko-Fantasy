@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/nightingale_body.webp-6e7c19495762ee3f5f517a305342eefb.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_body.webp"
+dest_files=[ "res://.import/nightingale_body.webp-6e7c19495762ee3f5f517a305342eefb.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/egyptian_cat_attack_head.webp-e02d2a8ba4e2f2a46cc26bbbfe463d5c.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/scene/egyptian_cat.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/scene/egyptian_cat_attack_head.webp"
+dest_files=[ "res://.import/egyptian_cat_attack_head.webp-e02d2a8ba4e2f2a46cc26bbbfe463d5c.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/scene/egyptian_cat.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

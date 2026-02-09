@@ -16,7 +16,7 @@ func respawn() -> void:
 
 func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := true, dodgeable := true, is_crit := false, hitbox: Hitbox = null, is_burning := false) -> GetDamageValueResult:
     var dmg_value_result =.get_damage_value(dmg_value, from_player_index, armor_applied, dodgeable, is_crit, hitbox, is_burning)
-    dmg_value_result = _fantasy_apply_holy_damage_bonus(dmg_value_result, from_player_index)
+    dmg_value_result = _fantasy_apply_holy_damage_bonus(dmg_value_result)
 
     return dmg_value_result
 
@@ -24,12 +24,10 @@ func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := t
 func _fantasy_holy_reduce_health() -> void:
     if applied_holy_reduce_health: return
 
-    var total_holy: int = 0
-    for i in players_ref.size():
-        total_holy += int(Utils.get_stat(Utils.stat_fantasy_holy_hash, i))
-    if total_holy <= 0: return
+    var holy_stat: int = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash) as int
+    if holy_stat <= 0: return
     
-    var reduction_factor: float = total_holy / (total_holy + 100.0)
+    var reduction_factor: float = holy_stat / (holy_stat + 100.0)
     if reduction_factor <= 0: return
 
     var new_max_health = max(1, int(max_stats.health * reduction_factor))
@@ -37,12 +35,14 @@ func _fantasy_holy_reduce_health() -> void:
     max_stats.health = new_max_health
     applied_holy_reduce_health = true
 
-func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult, from_player_index: int) -> GetDamageValueResult:
-    if fa_is_cursed():
-        var holy_stat = Utils.get_stat(Utils.stat_fantasy_holy_hash, from_player_index)
-        if holy_stat > 0:
-            var bonus_multiplier = 1.0 + (holy_stat / 100.0)
-            dmg_value_result.value = int(dmg_value_result.value * bonus_multiplier)
+func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult) -> GetDamageValueResult:
+    if !fa_is_cursed(): return dmg_value_result
+
+    var holy_stat = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
+    if holy_stat <= 0: return dmg_value_result
+
+    var bonus_multiplier = 1.0 + (holy_stat / 100.0)
+    dmg_value_result.value = int(dmg_value_result.value * bonus_multiplier)
     
     return dmg_value_result
 

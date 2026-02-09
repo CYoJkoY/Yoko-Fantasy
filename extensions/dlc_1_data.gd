@@ -36,9 +36,9 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
             ["fantasy_wandering_pet", _, _]:
                 new_effect.weapon_stats = _boost_weapon_stats_damage(new_effect.weapon_stats, effect_modifier)
 
-            [_, _, Utils.fantasy_damage_clamp_hash]:
+            ["fantasy_damage_clamp", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"is_negative": true, "step": 1})
-            
+
             [_, _, Utils.fantasy_curse_all_on_reroll_hash]:
                 new_effect.text_key += "_CURSED"
                 new_item_data.replaced_by = ItemService.get_element(ItemService.items, new_effect.key_hash)

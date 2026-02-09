@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/random_reload_when_pickup_gold/random_reload_when_pickup_gold_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "item_fantasy_world_tree_seed"
+text_key = "EFFECT_FANTASY_RANDOM_RELOAD_WHEN_PICKUP_GOLD"
+value = 50
+custom_key = "fantasy_random_reload_when_pickup_gold"
+storage_method = 4
+effect_sign = 3
+custom_args = [  ]
