@@ -1,4 +1,4 @@
-extends NullEffect
+extends Effect
 
 export(int) var chance = 0
 export(int) var curse_num = 0
