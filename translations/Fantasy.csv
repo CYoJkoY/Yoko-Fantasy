@@ -188,3 +188,9 @@ FANTASY_NIGHTINGALE_NAME,Nightingale,夜莺
 EFFECT_FANTASY_PET_NIGHTINGALE,,"召唤一只夜莺环绕在你身边,每{0}秒为范围{1}内的玩家恢复{2}({3})生命值."
 ITEM_FANTASY_ROTTEN_PLANT,Rotten Plant,腐烂的植物
 ITEM_FANTASY_RUSTY_ARROW,Rusty Arrow,生锈的箭头
+ITEM_FANTASY_NUCLEAR_DRUM,Nuclear Drum,核废料桶
+EFFECT_FANTASY_EROSION,"Attacks have a {0} chance to deal {1} erosion damage.","攻击有{0}概率造成{1}的侵蚀伤害"
+EFFECT_FANTASY_EROSION_CAN_CRIT,Erosion damage can crit,侵蚀伤害可以暴击
+EFFECT_FANTASY_EROSION_SPEED,{0} Erosion speed,{0}侵蚀速度
+ITEM_FANATSY_OVERGROWTH,Overgrowth,过度生长
+ITEM_FANTASY_FORBIDDEN_SPELL,Forbidden Spell,禁咒

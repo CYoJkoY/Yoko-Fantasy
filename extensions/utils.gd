@@ -18,6 +18,9 @@ var fantasy_curse_all_on_reroll_hash: int = Keys.generate_hash("fantasy_curse_al
 var fantasy_extra_curse_enemy_hash: int = Keys.generate_hash("fantasy_extra_curse_enemy")
 var fantasy_crit_overflow_hash: int = Keys.generate_hash("fantasy_crit_overflow")
 var fantasy_random_reload_when_pickup_gold_hash: int = Keys.generate_hash("fantasy_random_reload_when_pickup_gold")
+var fantasy_erosion_hash: int = Keys.generate_hash("fantasy_erosion")
+var fantasy_erosion_can_crit_hash: int = Keys.generate_hash("fantasy_erosion_can_crit")
+var fantasy_erosion_speed_hash: int = Keys.generate_hash("fantasy_erosion_speed")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

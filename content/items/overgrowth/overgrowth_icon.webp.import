@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/overgrowth.webp-417e10a70a24259c1a114bffe0e9672c.stex"
+path="res://.import/overgrowth_icon.webp-78808301a05d29df582d3d7f59b9a825.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/items/overgrowth/overgrowth.webp"
-dest_files=[ "res://.import/overgrowth.webp-417e10a70a24259c1a114bffe0e9672c.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/items/overgrowth/overgrowth_icon.webp"
+dest_files=[ "res://.import/overgrowth_icon.webp-78808301a05d29df582d3d7f59b9a825.stex" ]
 
 [params]
 

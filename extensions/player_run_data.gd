@@ -37,6 +37,10 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_extra_curse_enemy_hash: [],
             Utils.fantasy_crit_overflow_hash: [],
             Utils.fantasy_random_reload_when_pickup_gold_hash: [],
+            Utils.fantasy_erosion_hash: [],
+            Utils.fantasy_erosion_can_crit_hash: 0,
+            Utils.fantasy_erosion_speed_hash: 0,
+
         }
         
         new_effects.merge(mod_stats)

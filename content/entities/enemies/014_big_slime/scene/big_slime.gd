@@ -1,9 +1,9 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/006_medium_slime/scene/medium_slime.gd"
 
-export (PackedScene) var trail_scene
-export (float) var trail_duration = 5.0
-export (float) var trail_interval = 0.5
-export (float) var speed_reduction = 0.5
+export(PackedScene) var trail_scene
+export(float) var trail_duration = 5.0
+export(float) var trail_interval = 0.5
+export(float) var speed_reduction = 0.5
 
 var trail_timer: float = 0.0
 var last_trail_pos: Vector2 = Vector2.ZERO
@@ -13,8 +13,8 @@ onready var _shoot_projectiles_behavior = $ShootProjectilesBehavior
 onready var COOLDOWN: float = _shoot_projectiles_behavior.cooldown
 var current_projectiles_cooldown: float = 0.0
 
-func _ready()->void :
-    _shoot_projectiles_behavior.init(self)
+func _ready() -> void:
+    _shoot_projectiles_behavior.init(self )
     _all_attack_behaviors.append(_shoot_projectiles_behavior)
 
 func _physics_process(delta) -> void:

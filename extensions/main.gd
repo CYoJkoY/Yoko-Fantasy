@@ -4,9 +4,9 @@ var FaTimers: Array = []
 
 # ui_entry
 var UIHolyScenes = {}
-const UI_HOLY_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/scenes/ui_entry/ui_holy.tscn")
+const UI_HOLY_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/ui_entry/ui_holy.tscn")
 var UISoulScenes = {}
-const UI_SOUL_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/scenes/ui_entry/ui_soul.tscn")
+const UI_SOUL_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/ui_entry/ui_soul.tscn")
 
 # =========================== Extension =========================== #
 func _on_EntitySpawner_players_spawned(players: Array) -> void:
@@ -194,6 +194,8 @@ func fa_time_bouns_current_health_damage(bouns: float, player_index: int, tracki
         
         RunData.add_tracked_value(player_index, tracking_key_hash, full_dmg_value)
         enemy.emit_signal("health_updated", enemy, enemy.current_stats.health, enemy_max_hp)
+
+        var time_bouns_args: TakeDamageArgs = TakeDamageArgs.new(player_index)
         enemy.emit_signal(
             "took_damage",
             enemy,
@@ -203,7 +205,7 @@ func fa_time_bouns_current_health_damage(bouns: float, player_index: int, tracki
             false,
             false,
             false,
-            TakeDamageArgs.new(player_index),
+            time_bouns_args,
             HitType.NORMAL,
             false
         )

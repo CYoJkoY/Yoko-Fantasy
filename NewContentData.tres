@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=70 format=2]
+[gd_resource type="Resource" load_steps=75 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/007_swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/017_skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -69,6 +69,11 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/rotten_plant/rotten_plant_data.tres" type="Resource" id=67]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/rusty_arrow/rusty_arrow_data.tres" type="Resource" id=68]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/nightingale_item.tres" type="Resource" id=69]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/erosion/erosion_effect.gd" type="Script" id=70]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/enemy/erosion_enemy_effect_behavior_data.tres" type="Resource" id=71]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/nuclear_waste_drum/nuclear_waste_drum_data.tres" type="Resource" id=72]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/overgrowth/overgrowth_data.tres" type="Resource" id=73]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/forbidden_spell/forbidden_spell_data.tres" type="Resource" id=74]
 
 [resource]
 script = ExtResource( 43 )
@@ -78,9 +83,9 @@ entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource
 elites = null
 bosses = null
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]
-items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 48 ), ExtResource( 50 ), ExtResource( 49 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ) ]
+items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 48 ), ExtResource( 50 ), ExtResource( 49 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ) ]
 weapons = null
-effects = [ ExtResource( 42 ), ExtResource( 46 ), ExtResource( 45 ), ExtResource( 54 ) ]
+effects = [ ExtResource( 42 ), ExtResource( 46 ), ExtResource( 45 ), ExtResource( 54 ), ExtResource( 70 ) ]
 consumables = [ ExtResource( 39 ) ]
 upgrades = null
 sets = null
@@ -102,6 +107,7 @@ tracked_effects = {
 "item_fantasy_world_tree_seed": 0
 }
 translation_keys_needing_operator = {
+"effect_fantasy_erosion_speed": [ 0 ],
 "effect_fantasy_extra_curse_enemy": [ 0 ],
 "effect_fantasy_extra_curse_enemy_cursed": [ 0 ],
 "stat_fantasy_holy": [ 0 ],
@@ -111,6 +117,8 @@ translation_keys_needing_percent = {
 "effect_fantasy_crit_overflow": [ 0, 2 ],
 "effect_fantasy_damage_clamp": [ 2 ],
 "effect_fantasy_damage_reflect": [ 0 ],
+"effect_fantasy_erosion": [ 0 ],
+"effect_fantasy_erosion_speed": [ 0 ],
 "effect_fantasy_extra_curse_enemy": [ 0 ],
 "effect_fantasy_extra_curse_enemy_cursed": [ 0 ],
 "effect_fantasy_random_reload_when_pickup_gold": [ 0 ],
@@ -120,5 +128,5 @@ translation_keys_needing_percent = {
 "fantasy_info_soul": [ 0, 1 ]
 }
 scene_effect_behaviors = [  ]
-enemy_effect_behaviors = [  ]
+enemy_effect_behaviors = [ ExtResource( 71 ) ]
 player_effect_behaviors = [  ]

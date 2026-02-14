@@ -1,9 +1,9 @@
 extends Boss
 
-export (PackedScene) var trail_scene
-export (float) var trail_duration = 5.0
-export (float) var trail_interval = 0.5
-export (float) var speed_reduction = 0.5
+export(PackedScene) var trail_scene
+export(float) var trail_duration = 5.0
+export(float) var trail_interval = 0.5
+export(float) var speed_reduction = 0.5
 
 var trail_timer: float = 0.0
 var last_trail_pos: Vector2 = Vector2.ZERO
@@ -19,8 +19,8 @@ var current_spawn_cooldown_1: float = 0.0
 onready var _spawning_attack_behavior_once = $SpawningAttackBehaviorOnce
 
 func _ready() -> void:
-    _spawning_attack_behavior.init(self)
-    _spawning_attack_behavior_once.init(self)
+    _spawning_attack_behavior.init(self )
+    _spawning_attack_behavior_once.init(self )
     
     _all_attack_behaviors.append(_spawning_attack_behavior)
     _all_attack_behaviors.append(_spawning_attack_behavior_once)
@@ -45,7 +45,7 @@ func _physics_process(delta) -> void:
     last_trail_pos = global_position
     create_trail()
 
-func on_state_changed(_new_state: int)->void :
+func on_state_changed(_new_state: int) -> void:
     .on_state_changed(_new_state)
     
     if _new_state == 0:

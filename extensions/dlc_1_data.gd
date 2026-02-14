@@ -30,14 +30,21 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
 
         match [id, key, cskey]:
             ["fantasy_shop_enter_stat_curse", _, _]:
-                new_effect.value = 0 if new_effect.value == 1 else new_effect.value
+                new_effect.value = 0 if new_effect.value == 1 else new_effect.value # Second process
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier, {"setp": 1})
 
-            ["fantasy_wandering_pet", _, _]:
+            ["fantasy_ranged_pet", _, _]:
                 new_effect.weapon_stats = _boost_weapon_stats_damage(new_effect.weapon_stats, effect_modifier)
 
             ["fantasy_damage_clamp", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"is_negative": true, "step": 1})
+
+            ["fantasy_erosion", _, _]:
+                var new_scaling_stats: Array = new_effect.scaling_stats.duplicate()
+                for scaling in new_scaling_stats:
+                    scaling[1] = Utils.ncl_curse_effect_value(scaling[1], effect_modifier, {"process_negative": false})
+                new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier)
+                new_effect.times = Utils.ncl_curse_effect_value(new_effect.times, effect_modifier)
 
             [_, _, Utils.fantasy_curse_all_on_reroll_hash]:
                 new_effect.text_key += "_CURSED"

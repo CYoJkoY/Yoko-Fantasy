@@ -36,7 +36,9 @@ func _fantasy_holy_reduce_health() -> void:
     applied_holy_reduce_health = true
 
 func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult) -> GetDamageValueResult:
-    if !fa_is_cursed(): return dmg_value_result
+    if dead: return dmg_value_result
+
+    if _outline_colors.has(Utils.CURSE_COLOR): return dmg_value_result
 
     var holy_stat = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
     if holy_stat <= 0: return dmg_value_result
@@ -56,14 +58,3 @@ func _fantasy_extra_curse_enemy() -> void:
             if !Utils.get_chance_success(chance): continue
 
             Utils.ncl_curse_enemy(self )
-
-# =========================== Method =========================== #
-func fa_is_cursed() -> bool:
-    if dead:
-        return false
-    
-    for effect_behavior in effect_behaviors.get_children():
-        if effect_behavior is CurseEnemyEffectBehavior:
-            return true
-    
-    return false

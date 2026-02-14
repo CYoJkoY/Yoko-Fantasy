@@ -4,7 +4,7 @@ export(Resource) var weapon_stats
 
 # =========================== Extension =========================== #
 static func get_id() -> String:
-    return "fantasy_wandering_pet"
+    return "fantasy_ranged_pet"
 
 func get_args(player_index: int) -> Array:
     var args: WeaponServiceInitStatsArgs = WeaponServiceInitStatsArgs.new()
