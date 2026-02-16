@@ -24,6 +24,7 @@ var fantasy_erosion_can_crit_hash: int = Keys.generate_hash("fantasy_erosion_can
 var fantasy_erosion_speed_hash: int = Keys.generate_hash("fantasy_erosion_speed")
 var fantasy_extra_elites_next_wave_hash: int = Keys.generate_hash("fantasy_extra_elites_next_wave")
 var fantasy_extra_curse_item_hash: int = Keys.generate_hash("fantasy_extra_curse_item")
+var fantasy_gain_temp_stat_every_killed_enemies_hash: int = Keys.generate_hash("fantasy_gain_temp_stat_every_killed_enemies")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

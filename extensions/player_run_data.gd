@@ -43,6 +43,7 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_extra_elites_next_wave_hash: 0,
             Utils.fantasy_extra_curse_item_hash: [],
             Utils.fantasy_soul_bonus_hash: 0,
+            Utils.fantasy_gain_temp_stat_every_killed_enemies_hash: [],
 
         }
         
