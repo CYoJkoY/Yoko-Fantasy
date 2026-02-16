@@ -10,7 +10,8 @@ var gain_stat_fantasy_living_cursed_enemy_hash: int = Keys.generate_hash("gain_s
 
 # Effects
 var fantasy_original_speed_hash: int = Keys.generate_hash("fantasy_original_speed")
-var fantasy_time_bouns_current_health_damage_hash: int = Keys.generate_hash("fantasy_time_bouns_current_health_damage")
+var fantasy_soul_bonus_hash: int = Keys.generate_hash("fantasy_soul_bonus")
+var fantasy_time_bonus_current_health_damage_hash: int = Keys.generate_hash("fantasy_time_bonus_current_health_damage")
 var fantasy_shop_enter_stat_curse_hash: int = Keys.generate_hash("fantasy_shop_enter_stat_curse")
 var fantasy_damage_clamp_hash: int = Keys.generate_hash("fantasy_damage_clamp")
 var fantasy_damage_reflect_hash: int = Keys.generate_hash("fantasy_damage_reflect")
@@ -21,6 +22,8 @@ var fantasy_random_reload_when_pickup_gold_hash: int = Keys.generate_hash("fanta
 var fantasy_erosion_hash: int = Keys.generate_hash("fantasy_erosion")
 var fantasy_erosion_can_crit_hash: int = Keys.generate_hash("fantasy_erosion_can_crit")
 var fantasy_erosion_speed_hash: int = Keys.generate_hash("fantasy_erosion_speed")
+var fantasy_extra_elites_next_wave_hash: int = Keys.generate_hash("fantasy_extra_elites_next_wave")
+var fantasy_extra_curse_item_hash: int = Keys.generate_hash("fantasy_extra_curse_item")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

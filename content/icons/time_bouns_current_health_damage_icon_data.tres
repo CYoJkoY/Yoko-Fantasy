@@ -1,9 +1,0 @@
-[gd_resource type="Resource" load_steps=3 format=2]
-
-[ext_resource path="res://ui/icons/misc/icon_data.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/clock_tower_echo/clock_tower_echo_icon.webp" type="Texture" id=2]
-
-[resource]
-script = ExtResource( 1 )
-my_id = "icon_fantasy_time_bouns_current_health_damage"
-icon = ExtResource( 2 )

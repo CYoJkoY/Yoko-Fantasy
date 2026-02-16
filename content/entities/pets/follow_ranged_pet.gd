@@ -2,6 +2,7 @@ extends "res://entities/units/pet/pet.gd"
 
 export(String) var damage_tracking_id = ""
 
+onready var _target_behavior_shape := $TargetBehavior/Range/CollisionShape2D
 onready var _muzzle: Position2D = $"Muzzle"
 
 var _base_weapon_stats: RangedWeaponStats = RangedWeaponStats.new()
@@ -16,23 +17,16 @@ var _next_proj_rotation = 0
 
 var _damage_tracking_id_hash: int = Keys.empty_hash
 
-var _players: Array = []
-var _angle: float = rand_range(0, TAU)
-
 # =========================== Extension =========================== #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
-    _players = p_players_ref
     _damage_tracking_id_hash = Keys.generate_hash(damage_tracking_id)
 
 func update_data(effect: PetEffect) -> void:
     .update_data(effect)
-
     _base_weapon_stats = effect.weapon_stats
 
-    var args := WeaponServiceInitStatsArgs.new()
-    _current_weapon_stats = WeaponService.init_ranged_pet_stats(effect.weapon_stats, player_index, false, args)
-    _current_weapon_stats.burning_data.from = self
+    reload_data()
 
     _cooldown = _current_weapon_stats.cooldown
 
@@ -43,10 +37,13 @@ func reload_data():
     var args := WeaponServiceInitStatsArgs.new()
     _current_weapon_stats = WeaponService.init_ranged_pet_stats(_base_weapon_stats, player_index, false, args)
     _current_weapon_stats.burning_data.from = self
+    _target_behavior_shape.shape.radius = _base_weapon_stats.max_range
+    
 
 func set_current_stats(stats: Array) -> void:
     _current_weapon_stats = stats[0]
     _current_weapon_stats.burning_data.from = self
+    _target_behavior_shape.shape.radius = _base_weapon_stats.max_range
 
 func get_stats() -> Array:
     return [_current_weapon_stats]

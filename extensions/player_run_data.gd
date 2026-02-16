@@ -29,7 +29,7 @@ static func init_effects() -> Dictionary:
         var new_effects := {
             
             Utils.fantasy_original_speed_hash: 0.0,
-            Utils.fantasy_time_bouns_current_health_damage_hash: [],
+            Utils.fantasy_time_bonus_current_health_damage_hash: [],
             Utils.fantasy_shop_enter_stat_curse_hash: [],
             Utils.fantasy_damage_clamp_hash: [],
             Utils.fantasy_damage_reflect_hash: [],
@@ -40,6 +40,9 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_erosion_hash: [],
             Utils.fantasy_erosion_can_crit_hash: 0,
             Utils.fantasy_erosion_speed_hash: 0,
+            Utils.fantasy_extra_elites_next_wave_hash: 0,
+            Utils.fantasy_extra_curse_item_hash: [],
+            Utils.fantasy_soul_bonus_hash: 0,
 
         }
         

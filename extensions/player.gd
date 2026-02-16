@@ -37,8 +37,8 @@ func _fantasy_damage_reflect(full_dmg_value: int, args: TakeDamageArgs) -> void:
         var tracking_key_hash: int = effect_item[0]
         var reflect_percent: float = effect_item[1] / 100.0
         var reflect_args: TakeDamageArgs = TakeDamageArgs.new(player_index)
-        var percent_damage_bouns: float = 1 + Utils.get_stat(Keys.stat_percent_damage_hash, player_index) / 100.0
-        var reflect_damage: int = int(full_dmg_value * reflect_percent * percent_damage_bouns)
+        var percent_damage_bonus: float = 1 + Utils.get_stat(Keys.stat_percent_damage_hash, player_index) / 100.0
+        var reflect_damage: int = int(full_dmg_value * reflect_percent * percent_damage_bonus)
 
         RunData.add_tracked_value(player_index, tracking_key_hash, reflect_damage)
         enemy.take_damage(reflect_damage, reflect_args)

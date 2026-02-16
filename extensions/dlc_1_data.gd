@@ -52,8 +52,8 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
             
             [_, _, Utils.fantasy_extra_curse_enemy_hash]:
                 var extra_effect: Effect = Effect.new()
-                extra_effect.key = new_effect.key
-                extra_effect.key_hash = new_effect.key_hash
+                extra_effect.key = "number_of_enemies"
+                extra_effect.key_hash = Keys.number_of_enemies_hash
                 extra_effect.value = new_effect.value
                 new_effects.append(extra_effect)
 

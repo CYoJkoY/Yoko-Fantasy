@@ -192,6 +192,42 @@ tracks/10/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/11/type = "value"
+tracks/11/path = NodePath("Animation/Sprite:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Animation/Sprite:rotation_degrees")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Animation/Sprite:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=4]
 length = 1.05
@@ -435,8 +471,7 @@ texture = ExtResource( 28 )
 texture = ExtResource( 29 )
 
 [node name="LeftWing" type="Sprite" parent="Animation/Viewport/Offset/Body"]
-position = Vector2( 0, 1.05614 )
-scale = Vector2( 1, 0.711228 )
+position = Vector2( 0, 2.5 )
 texture = ExtResource( 30 )
 
 [node name="RightWing" type="Sprite" parent="Animation/Viewport/Offset/Body"]
@@ -447,9 +482,6 @@ visible = false
 texture = ExtResource( 32 )
 
 [node name="Sprite" type="Sprite" parent="Animation"]
-modulate = Color( 0.34902, 0.34902, 0.34902, 1 )
-rotation = 6.28319
-scale = Vector2( 1e-05, 1e-05 )
 texture = SubResource( 10 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -496,7 +528,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetTriggerZone"]
 shape = SubResource( 9 )
 
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]

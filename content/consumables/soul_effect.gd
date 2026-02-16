@@ -18,15 +18,16 @@ func _apply_bonus_effects(player_index: int) -> void:
     var base_damage: float = Utils.get_stat(Keys.stat_percent_damage_hash, player_index)
     var base_speed: float = Utils.get_stat(Keys.stat_attack_speed_hash, player_index)
     
+    var bonus: float = (20 + RunData.get_player_effect(Utils.fantasy_soul_bonus_hash, player_index)) / 100.0
     var damage_to_add: int = 0
     var speed_to_add: int = 0
-    
+
     if base_damage > 0:
-        damage_to_add = int(base_damage * 0.2)
+        damage_to_add = int(base_damage * bonus)
         Utils.ncl_quiet_add_stat(Keys.stat_percent_damage_hash, damage_to_add, player_index)
     
     if base_speed > 0:
-        speed_to_add = int(base_speed * 0.2)
+        speed_to_add = int(base_speed * bonus)
         Utils.ncl_quiet_add_stat(Keys.stat_attack_speed_hash, speed_to_add, player_index)
     
     _added_damage_values.set(player_index, damage_to_add)

@@ -46,6 +46,9 @@ func _init() -> void:
 
         "weapon_service.gd",
         # EFFECTS: crit_overflow
+
+        "wave_manager.gd",
+        # EFFECTS: extra_elites_next_wave
         
     ]
 

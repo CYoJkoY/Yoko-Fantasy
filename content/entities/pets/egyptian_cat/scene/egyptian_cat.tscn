@@ -222,7 +222,8 @@ tracks/3/keys = {
 }
 
 [sub_resource type="Animation" id=8]
-length = 0.5
+length = 0.25
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Animation:scale")
 tracks/0/interp = 1
@@ -230,7 +231,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
+"times": PoolRealArray( 0, 0.1, 0.15, 0.25 ),
 "transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1.1, 0.9 ), Vector2( 0.663, 1 ), Vector2( 1.5, 1 ), Vector2( 1, 1 ) ]
@@ -242,7 +243,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.2 ),
+"times": PoolRealArray( 0.1 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -256,7 +257,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.2, 0.5 ),
+"times": PoolRealArray( 0.1, 0.25 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -268,14 +269,13 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.2, 0.5 ),
+"times": PoolRealArray( 0.1, 0.25 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
 }
 
 [sub_resource type="CircleShape2D" id=11]
-radius = 350.0
 
 [sub_resource type="CircleShape2D" id=9]
 radius = 400.0
@@ -300,6 +300,7 @@ damage_tracking_id = "item_fantasy_egyptian_cat"
 
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -24 )
+scale = Vector2( 1.1, 0.9 )
 
 [node name="Viewport" type="Viewport" parent="Animation"]
 size = Vector2( 150, 150 )
@@ -356,9 +357,12 @@ distance_to_target = 150.0
 script = ExtResource( 29 )
 target_player_if_no_target = true
 pet_id = "fantasy_egyptian_cat"
+exclude_elite_and_boss_target = true
 
 [node name="Range" type="Area2D" parent="TargetBehavior"]
 visible = false
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetBehavior/Range"]
 shape = SubResource( 11 )
@@ -383,9 +387,10 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetTriggerZone"]
 shape = SubResource( 9 )
 
-[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
+[connection signal="target_found" from="TargetBehavior" to="MovementBehavior" method="_on_TargetBehavior_target_found"]
+[connection signal="target_player" from="TargetBehavior" to="MovementBehavior" method="_on_TargetBehavior_target_player"]
 [connection signal="body_entered" from="TargetBehavior/Range" to="TargetBehavior" method="_on_Range_body_entered"]
 [connection signal="body_exited" from="TargetBehavior/Range" to="TargetBehavior" method="_on_Range_body_exited"]
 [connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]

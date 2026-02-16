@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "number_of_enemies"
+key = "item_fantasy_demon_hunter_blade"
 text_key = "EFFECT_FANTASY_EXTRA_CURSE_ENEMY"
 value = 10
 custom_key = "fantasy_extra_curse_enemy"

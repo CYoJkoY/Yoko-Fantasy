@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://items/global/item_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/sacrificial_offering/sacrificial_offering_icon.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/sacrificial_offering/sacrificial_offering_effect_2.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/sacrificial_offering/sacrificial_offering_effect_1.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/sacrificial_offering/sacrificial_offering_effect_3.tres" type="Resource" id=5]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "item_fantasy_sacrificial_offering"
+unlocked_by_default = true
+can_be_looted = true
+icon = ExtResource( 2 )
+name = "ITEM_FANTASY_SACRIFICIAL_OFFERING"
+tier = 2
+value = 85
+effects = [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ) ]
+tracking_text = "TRACKING_CURSED"
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+max_nb = 6
+item_appearances = [  ]
+tags = [ "stat_curse" ]

@@ -44,7 +44,7 @@ func get_args(_player_index: int) -> Array:
     match tracking_value[0] >= 0:
         true: str_tracking_value.append(Utils.ncl_create_tracking("STATS_GAINED", tracking_value[0]))
         false: str_tracking_value.append(Utils.ncl_create_tracking("STATS_LOST", -tracking_value[0]))
-    str_tracking_value.append(Utils.ncl_create_tracking("TRACKING_RANDOMCURSED", tracking_value[1]))
+    str_tracking_value.append(Utils.ncl_create_tracking("TRACKING_CURSED", tracking_value[1]))
 
     return [str(value), tr(key.to_upper()), str(chance), str(curse_num), str_tracking_value[0], str_tracking_value[1]]
 

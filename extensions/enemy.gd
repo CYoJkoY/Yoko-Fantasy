@@ -58,3 +58,4 @@ func _fantasy_extra_curse_enemy() -> void:
             if !Utils.get_chance_success(chance): continue
 
             Utils.ncl_curse_enemy(self )
+            RunData.add_tracked_value(player_index, effect_item[0], 1)

@@ -29,12 +29,9 @@ func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [
 
 func update_data(effect: PetEffect) -> void:
     .update_data(effect)
-
     _base_weapon_stats = effect.weapon_stats
 
-    var args := WeaponServiceInitStatsArgs.new()
-    _current_weapon_stats = WeaponService.init_ranged_pet_stats(effect.weapon_stats, player_index, false, args)
-    _current_weapon_stats.burning_data.from = self
+    reload_data()
 
     _cooldown = _current_weapon_stats.cooldown
 

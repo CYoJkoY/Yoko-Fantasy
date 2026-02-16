@@ -2,7 +2,7 @@
 FANTASY_ZONE,Fantasy,幻界
 FANTASY_BG,Fantasy,幻界
 FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
-FANTASY_LOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑, 死亡时掉落一个箱子"
+FANTASY_LOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑,死亡时掉落一个箱子"
 FANTASY_LITTLE_SLIME_NAME,Small Slime,小史莱姆
 FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the player
 Evolve when 10 non-slime enemies die within a range of 100","缓慢追击玩家
@@ -96,14 +96,14 @@ ITEM_FANTASY_BRASS_GEAR,Brass Gear,黄铜齿轮
 ITEM_FANTASY_BRAVE_NECKLACE,Brave Necklace,勇者项链
 STAT_LEVELS,Levels,等级
 ITEM_FANTASY_CLOCK_TOWER_ECHO,Clock Tower Echo,时针塔的回响
-EFFECT_FANTASY_TIME_BOUNS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the health of all enemies ({2} for bosses and elite enemies)",每{0}秒对所有敌人额外造成相当于其生命值的{1}的伤害(对头目和精英怪则为{2})
+EFFECT_FANTASY_TIME_BONUS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the health of all enemies ({2} for bosses and elite enemies)",每{0}秒对所有敌人额外造成相当于其生命值的{1}的伤害(对头目和精英怪则为{2})
 ITEM_FANTASY_CONTRACT,Contract,契约
 EFFECT_FANTASY_SHOP_ENTER_STAT_CURSE,"Upon entering the shop, there is a {2} chance to spend {0} {1} to randomly curse {3} owned item or weapon
 {4}
 {5}","进入商店时,有{2}概率使用{0}点{1}随机诅咒{3}件已拥有的道具或武器
 {4}
 {5}"
-TRACKING_RANDOMCURSED,RandomCursed: {0},已随机诅咒:{0}
+TRACKING_CURSED,Cursed: {0},已诅咒:{0}
 ITEM_FANTASY_SCRIPTURE,Scripture,经文
 ITEM_FANTASY_ELF_EAR,Elf Ear,精灵耳
 ITEM_FANTASY_CURSED_COIN,Cursed Coin,被诅咒的金币
@@ -148,8 +148,8 @@ ITEM_FANTASY_DOG_COIN,Dog Coin,狗狗金币
 EFFECT_FANTASY_CRIT_OVERFLOW,"For every {2} overflow, increase {0} critical damage","每溢出{2}暴击率增加{0}暴击伤害"
 ITEM_FANTASY_DWARVEN_SCOPE,Dwarven Scope,矮人瞄准镜
 ITEM_FANTASY_EGYPTIAN_CAT,Egyptian Cat,埃及猫
+FANTASY_EGYPTIAN_CAT_NAME,Egyptian Cat,埃及猫
 EFFECT_FANTASY_PET_EGYPTIAN_CAT,"Summons an Egyptian cat that chases enemies within range of {1}, firing three spikes every {0} seconds and dealing {2}({3}) damage.","召唤一只埃及猫追击范围{1}内的敌人,每{0}秒发射三枚尖刺攻击,造成{2}({3})伤害"
-FANTASY_EGYPTIAN_NAME,Egyptian Cat,埃及猫
 FANTASY_FOLLOW_RANGED_PET_BEHAVIOUR_DESCRIPTION,"Chases enemies within range, launches projectiles to attack them, and returns to the player's side if beyond the range
 
 This pet scales with player :
@@ -185,7 +185,7 @@ EFFECT_FANTASY_RANDOM_RELOAD_WHEN_PICKUP_GOLD,"When picking up materials, {0} ch
 ITEM_FANTASY_SCABBARD,Scabbard,剑鞘
 ITEM_FANTASY_NIGHTINGALE,Nightingale,夜莺
 FANTASY_NIGHTINGALE_NAME,Nightingale,夜莺
-EFFECT_FANTASY_PET_NIGHTINGALE,,"召唤一只夜莺环绕在你身边,每{0}秒为范围{1}内的玩家恢复{2}({3})生命值."
+EFFECT_FANTASY_PET_NIGHTINGALE,"Summons a nightingale orbiting around you, healing players within a range of {1} for {2} ({3}) HP every {0} seconds","召唤一只夜莺环绕在你身边,每{0}秒为范围{1}内的玩家恢复{2}({3})生命值"
 ITEM_FANTASY_ROTTEN_PLANT,Rotten Plant,腐烂的植物
 ITEM_FANTASY_RUSTY_ARROW,Rusty Arrow,生锈的箭头
 ITEM_FANTASY_NUCLEAR_DRUM,Nuclear Drum,核废料桶
@@ -194,3 +194,38 @@ EFFECT_FANTASY_EROSION_CAN_CRIT,Erosion damage can crit,侵蚀伤害可以暴击
 EFFECT_FANTASY_EROSION_SPEED,{0} Erosion speed,{0}侵蚀速度
 ITEM_FANATSY_OVERGROWTH,Overgrowth,过度生长
 ITEM_FANTASY_FORBIDDEN_SPELL,Forbidden Spell,禁咒
+ITEM_FANTASY_PROMOTION_LETTER,Promotion Letter,晋升文书
+EFFECT_FANTASY_EXTRA_ELITES_NEXT_WAVE,"When the next wave begins, spawn {0} extra elite enemy","下一波敌袭开始时,额外生成{0}只精英怪"
+ITEM_FANTASY_MAGIC_SWORD,Magic Sword,魔剑
+FANTASY_MAGIC_SWORD_NAME,Magic Sword,魔剑
+EFFECT_FANTASY_PET_MAGIC_SWORD,"Summons a magic sword that pursues enemies within a range of {1}, striking nearby enemies every {0} seconds and dealing {2} ({3}) damage","召唤一把魔剑追击范围{1}内的敌人,每{0}秒劈砍周围敌人,造成{2}({3})伤害"
+FANTASY_FOLLOW_MELEE_PET_BEHAVIOUR_DESCRIPTION,"Chases enemies within range, melee attack them, and returns to the player's side if beyond the range
+
+This pet scales with player :
+- % Life Steal
+- % Damage
+- % Crit Chance
+- Speed
+- Bounces
+- Piercing
+- % Piercing Damage
+- % Damage against bosses","追击范围内的敌人,近战攻击敌人,超出范围回到玩家身边
+
+这个宠物受到玩家以下属性的影响:
+- %生命窃取
+- %伤害
+- %暴击率
+- 速度
+- 弹跳
+- 贯通
+- %贯通伤害
+- %对头目伤害"
+ITEM_FANTASY_SACRIFICIAL_OFFERING,Sacrificial Offering,仪式祭品
+EFFECT_FANTASY_EXTRA_CURSE_ITEM,"Items and weapons have an additional {0} chance to be cursed","道具和武器有额外{0}概率被诅咒"
+ITEM_FANTASY_HEX_BUG,Hex Bug,蛊虫
+ITEM_FANTASY_SOUL_LINK,Soul Link,灵魂链接
+EFFECT_FANTASY_SOUL_BONUS,"{0} bonus from souls","{0}魂给与的增幅"
+ITEM_FANTASY_HOLY_WATER,Holy Water,圣水
+ITEM_FANTASY_WHITE_FOX,White Fox,白狐
+FANTASY_WHITE_FOX_NAME,White Fox,白狐
+EFFECT_FANTASY_PET_WHITE_FOX,"Summons a white fox to pursue enemies within a range of {1}, fires an ice spear with an initial 1 pierce, dealing {2} ({3}) damage","召唤一只白狐追击范围{1}内的敌人,每{0}秒发射一枚初始自带1贯穿的冰锥,造成{2}({3})伤害"

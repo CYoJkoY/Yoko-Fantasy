@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/egyptian_cat.webp-d462aa8b5a435d2af79ec96111fe7982.stex"
+path="res://.import/white_fox_tail1.webp-65502310e66e54021806cb09174ccc04.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/egyptian_cat.webp"
-dest_files=[ "res://.import/egyptian_cat.webp-d462aa8b5a435d2af79ec96111fe7982.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox_tail1.webp"
+dest_files=[ "res://.import/white_fox_tail1.webp-65502310e66e54021806cb09174ccc04.stex" ]
 
 [params]
 
