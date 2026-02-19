@@ -171,19 +171,17 @@ func fa_update_all_ui_stats() -> void:
     _fantasy_soul_process()
 
 func fa_on_UIHoly_mouse_entered(stat_holy: int) -> void:
-    if _cleaning_up:
-        var damage_bonus: int = stat_holy
-        var chance_drop_soul: int = int(stat_holy / (stat_holy + 50.0) * 100)
-        var enemy_health_reduction: int = int(stat_holy / (stat_holy + 100.0) * 100)
-        _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_HOLY", [str(damage_bonus), str(chance_drop_soul), str(enemy_health_reduction)]))
+    var damage_bonus: int = stat_holy
+    var chance_drop_soul: int = int(stat_holy / (stat_holy + 50.0) * 100)
+    var enemy_health_reduction: int = int(stat_holy / (stat_holy + 100.0) * 100)
+    _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_HOLY", [str(damage_bonus), str(chance_drop_soul), str(enemy_health_reduction)]))
 
 func fa_on_UIHoly_mouse_exited() -> void:
     _info_popup.hide()
 
 func fa_on_UISoul_mouse_entered(player_index: int) -> void:
-    if _cleaning_up:
-        var bonus: int = 20 + RunData.get_player_effect(Utils.fantasy_soul_bonus_hash, player_index)
-        _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_SOUL", [str(bonus), str(bonus)]))
+    var bonus: int = 20 + RunData.get_player_effect(Utils.fantasy_soul_bonus_hash, player_index)
+    _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_SOUL", [str(bonus), str(bonus)]))
 
 func fa_on_UISoul_mouse_exited() -> void:
     _info_popup.hide()

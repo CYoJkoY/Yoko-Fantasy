@@ -36,8 +36,9 @@ func _fantasy_damage_clamp(result: Unit.GetDamageValueResult) -> Unit.GetDamageV
     return result
 
 func _fantasy_damage_reflect(full_dmg_value: int, args: TakeDamageArgs) -> void:
-    if !args.hitbox or !args.hitbox.from \
-    or !(args.hitbox.from is Enemy): return
+    if !args.hitbox or !args.hitbox.from: return
+
+    if !(args.hitbox.from is Enemy): return
 
     var enemy: Enemy = args.hitbox.from
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_damage_reflect_hash, player_index)

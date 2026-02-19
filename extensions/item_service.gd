@@ -3,7 +3,7 @@ extends "res://singletons/item_service.gd"
 # =========================== Extension =========================== #
 func get_consumable_to_drop(unit: Unit, item_chance: float) -> ConsumableData:
     var consumable: ConsumableData =.get_consumable_to_drop(unit, item_chance)
-    consumable = _fantasy_get_soul_to_drop(unit, consumable)
+    consumable = _fantasy_get_soul_to_drop(consumable)
     
     return consumable
 
@@ -14,9 +14,9 @@ func apply_item_effect_modifications(item: ItemParentData, player_index: int) ->
     return new_item
 
 # =========================== Custom =========================== #
-func _fantasy_get_soul_to_drop(unit: Unit, consumable: ConsumableData) -> ConsumableData:
+func _fantasy_get_soul_to_drop(consumable: ConsumableData) -> ConsumableData:
     var stat_holy: float = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
-    var chance_drop_soul: float = unit.stats.base_drop_chance * 5.0
+    var chance_drop_soul: float = 0.01
     var chance_drop_soul_bonus: float = stat_holy / (stat_holy + 50.0) if stat_holy > 0 else -1.0
     if consumable == null and Utils.get_chance_success(chance_drop_soul * (1.0 + chance_drop_soul_bonus)):
         consumable = get_element(consumables, Utils.consumable_fantasy_soul_hash)
