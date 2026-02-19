@@ -55,7 +55,7 @@ shader_param/flash_modifier = 1.0
 viewport_path = NodePath("Animation/Viewport")
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 40.0
+radius = 27.0185
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -396,7 +396,8 @@ position = Vector2( 80, 80 )
 texture = ExtResource( 29 )
 
 [node name="LeftWing" type="Sprite" parent="Animation/Viewport/Offset/Body"]
-position = Vector2( 0, 2.5 )
+position = Vector2( 0, 2.06981 )
+scale = Vector2( 1, 0.913963 )
 texture = ExtResource( 31 )
 
 [node name="RightWing" type="Sprite" parent="Animation/Viewport/Offset/Body"]
@@ -411,6 +412,7 @@ texture = SubResource( 10 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
+position = Vector2( 0, -24 )
 shape = SubResource( 2 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 2 )]

@@ -12,6 +12,8 @@ static func init_stats(all_null_values: bool = false) -> Dictionary:
             Utils.gain_stat_fantasy_soul_hash: 0,
             Utils.stat_fantasy_living_cursed_enemy_hash: 0,
             Utils.gain_stat_fantasy_living_cursed_enemy_hash: 0,
+            Utils.stat_fantasy_decaying_slow_enemy_hash: 0,
+            Utils.gain_stat_fantasy_decaying_slow_enemy_hash: 0,
             
         }
 
@@ -44,6 +46,7 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_extra_curse_item_hash: [],
             Utils.fantasy_soul_bonus_hash: 0,
             Utils.fantasy_gain_temp_stat_every_killed_enemies_hash: [],
+            Utils.fantasy_decaying_slow_enemy_when_below_hp_hash: [],
 
         }
         

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/decaying_slow_enemy_when_below_hp/decaying_slow_enemy_when_below_hp_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "fantasy_decaying_slow_enemy_when_below_hp"
+text_key = "EFFECT_FANTASY_DECAYING_SLOW_ENEMY_WHEN_BELOW_HP"
+value = 40
+custom_key = ""
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+value2 = 5
+sum_strategy = 0
+stat_nb = -100
+trigger_times = 1

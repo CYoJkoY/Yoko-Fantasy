@@ -1,52 +1,40 @@
 extends MovementBehavior
 
-export (float) var teleport_cooldown: float = 3.0
-export (float) var teleport_distance: float = 700.0
-export (float) var teleport_duration: float = 0.1
-export (bool) var base_on_centerx: bool = true
-export (bool) var base_on_centery: bool = true
+export(float) var teleport_cooldown: float = 3.0
+export(float) var teleport_distance: float = 700.0
+export(bool) var base_on_centerx: bool = true
+export(bool) var base_on_centery: bool = true
 
 var _current_target: Vector2 = Vector2.ZERO
-var _last_teleport_time: float = 0.0
+var _cooldown: float = 0.0
 var _is_teleporting: bool = false
-var _original_speed: float
 
+# =========================== Extension =========================== #
 func get_movement() -> Vector2:
-    var current_time = Time.get_ticks_msec() / 1000.0
+    _cooldown -= _parent.get_physics_process_delta_time()
     
-    match _is_teleporting:
-        true:
-            if (current_time - _last_teleport_time) >= teleport_duration:
-                if _original_speed != null:
-                    _parent.current_stats.speed = _original_speed
-                _is_teleporting = false
-                _current_target = Vector2.ZERO
-        false:
-            if (current_time - _last_teleport_time) >= teleport_cooldown:
-                _trigger_teleport()
-                _last_teleport_time = current_time
-                _is_teleporting = true
+    if _is_teleporting or _cooldown > 0: return Vector2.ZERO
 
-    if _current_target != Vector2.ZERO:
-        _original_speed = _parent.current_stats.speed
-        _parent.current_stats.speed = Utils.LARGE_NUMBER
-        return _current_target - _parent.global_position
+    fa_trigger_teleport()
 
     return Vector2.ZERO
 
-func _trigger_teleport():
+# =========================== Method =========================== #
+func fa_trigger_teleport():
+    _is_teleporting = true
+    _cooldown = teleport_cooldown
     var angle: float = randf() * TAU
     var direction: Vector2 = Vector2(cos(angle), sin(angle))
     var base_position: Vector2 = _parent.global_position
-    
-    if base_on_centerx or base_on_centery:
-        var map_center: Vector2 = ZoneService.get_map_center()
-        
-        if base_on_centerx:
-            base_position.x = map_center.x
-        if base_on_centery:
-            base_position.y = map_center.y
+
+    match [base_on_centerx, base_on_centery]:
+        [true, true]: base_position = ZoneService.get_map_center()
+        [true, false]: base_position.x = ZoneService.get_map_center().x
+        [false, true]: base_position.y = ZoneService.get_map_center().y
     
     _current_target = base_position + direction * teleport_distance
     _current_target.x = clamp(_current_target.x, 0, ZoneService.current_zone_max_position.x)
     _current_target.y = clamp(_current_target.y, 0, ZoneService.current_zone_max_position.y)
+
+    _parent.global_position = _current_target
+    _is_teleporting = false

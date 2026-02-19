@@ -1,6 +1,7 @@
-extends "res://entities/units/pet/pet.gd"
+extends Pet
 
 export(String) var damage_tracking_id = ""
+var _damage_tracking_id_hash: int = Keys.empty_hash
 
 onready var _target_behavior_shape := $TargetBehavior/Range/CollisionShape2D
 onready var _muzzle: Position2D = $"Muzzle"
@@ -14,8 +15,6 @@ var _current_target: Array = []
 var _cooldown: float = 0.0
 var _is_shooting: bool = false
 var _next_proj_rotation = 0
-
-var _damage_tracking_id_hash: int = Keys.empty_hash
 
 # =========================== Extension =========================== #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
@@ -61,7 +60,7 @@ func _physics_process(delta) -> void:
 
 func should_shoot(cooldown: float, current_target: Array) -> bool:
     return (cooldown <= 0 and
-        not _is_shooting and
+        !_is_shooting and
         (
             current_target.size() > 0
             and is_instance_valid(current_target[0])
@@ -84,6 +83,7 @@ func shoot() -> void:
     
     _spawn_projectile(weapon_point)
 
+# =========================== Method =========================== #
 func _spawn_projectile(position: Vector2) -> void:
     for i in _current_weapon_stats.nb_projectiles:
         var spread: float = _current_weapon_stats.projectile_spread

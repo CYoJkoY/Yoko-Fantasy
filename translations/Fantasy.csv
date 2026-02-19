@@ -229,3 +229,31 @@ ITEM_FANTASY_HOLY_WATER,Holy Water,圣水
 ITEM_FANTASY_WHITE_FOX,White Fox,白狐
 FANTASY_WHITE_FOX_NAME,White Fox,白狐
 EFFECT_FANTASY_PET_WHITE_FOX,"Summons a white fox to pursue enemies within a range of {1}, fires an ice spear with an initial 1 pierce, dealing {2} ({3}) damage","召唤一只白狐追击范围{1}内的敌人,每{0}秒发射一枚初始自带1贯穿的冰锥,造成{2}({3})伤害"
+ITEM_FANTASY_SECLUDED_PARADISE,Secluded Paradise,世外桃源
+EFFECT_GAIN_TEMP_STAT_EVERY_KILLED_ENEMIES,"Gains {0} {1} for every {2} enemies killed, until the end of the wave","每击杀{2}名敌人{0}{1},直至敌袭结束"
+EFFECT_FANTASY_DECAYING_SLOW_ENEMY_WHEN_BELOW_HP,"Slows enemies by {2} for {1} seconds when your HP drops below {0}, up to {3} times per wave","敌袭内生命值降低到{0}以下时,{2}敌人速度持续{1}秒,每次敌袭可触发{3}次"
+ITEM_FANTASY_SILVER_POCKET_WATCH,Silver Pocket Watch,银怀表
+ITEM_FANTASY_WOLF_TOTEM,Wolf Totem,狼图腾
+FANTASY_WOLF_TOTEM_NAME,Wolf God,狼神
+EFFECT_FANTASY_PET_WOLF_TOTEM,"Summons a Wolf God to deal {2} ({3}) damage to the healthiest enemy every {0}s. Killing an enemy resets all structures' cooldowns","召唤狼神跟随玩家, 每{0}秒对场上生命值最高的敌人造成造成{2}({3})伤害, 杀死敌人时, 立即重置所有构筑物的冷却时间"
+FANTASY_TACTICAL_GLOBAL_PET_BEHAVIOUR_DESCRIPTION,"Follows player. Deals damage to the healthiest enemy on the screen every {0}s. Killing an enemy resets the cooldown of all structures
+
+This pet scales with player :
+- % Life Steal
+- % Damage
+- % Crit Chance
+- Speed
+- Bounces
+- Piercing
+- % Piercing Damage
+- % Damage against bosses","跟随玩家,全屏攻击生命值最高的敌人,杀死敌人时会重置构筑物冷却
+
+这个宠物受到玩家以下属性的影响:
+- %生命窃取
+- %伤害
+- %暴击率
+- 速度
+- 弹跳
+- 贯通
+- %贯通伤害
+- %对头目伤害"

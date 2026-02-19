@@ -9,7 +9,8 @@ onready var contents = $Contents
 onready var Line = $Line
 onready var _line = $Line/line
 
-func shoot()->void :
+# =========================== Extension =========================== #
+func shoot() -> void:
     .shoot()
     
     if contents != null:

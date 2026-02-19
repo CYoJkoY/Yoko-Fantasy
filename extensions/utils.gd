@@ -7,6 +7,8 @@ var stat_fantasy_soul_hash: int = Keys.generate_hash("stat_fantasy_soul")
 var gain_stat_fantasy_soul_hash: int = Keys.generate_hash("gain_stat_fantasy_soul")
 var stat_fantasy_living_cursed_enemy_hash: int = Keys.generate_hash("stat_fantasy_living_cursed_enemy")
 var gain_stat_fantasy_living_cursed_enemy_hash: int = Keys.generate_hash("gain_stat_fantasy_living_cursed_enemy")
+var stat_fantasy_decaying_slow_enemy_hash: int = Keys.generate_hash("stat_fantasy_decaying_slow_enemy")
+var gain_stat_fantasy_decaying_slow_enemy_hash: int = Keys.generate_hash("gain_stat_fantasy_decaying_slow_enemy")
 
 # Effects
 var fantasy_original_speed_hash: int = Keys.generate_hash("fantasy_original_speed")
@@ -25,6 +27,7 @@ var fantasy_erosion_speed_hash: int = Keys.generate_hash("fantasy_erosion_speed"
 var fantasy_extra_elites_next_wave_hash: int = Keys.generate_hash("fantasy_extra_elites_next_wave")
 var fantasy_extra_curse_item_hash: int = Keys.generate_hash("fantasy_extra_curse_item")
 var fantasy_gain_temp_stat_every_killed_enemies_hash: int = Keys.generate_hash("fantasy_gain_temp_stat_every_killed_enemies")
+var fantasy_decaying_slow_enemy_when_below_hp_hash: int = Keys.generate_hash("fantasy_decaying_slow_enemy_when_below_hp")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

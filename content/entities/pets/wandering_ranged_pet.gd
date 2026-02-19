@@ -1,8 +1,9 @@
-extends "res://entities/units/pet/pet.gd"
+extends Pet
 
 export(float) var radius = 280.0
 export(float) var rotation_speed = 0.7
 export(String) var damage_tracking_id = ""
+var _damage_tracking_id_hash: int = Keys.empty_hash
 
 onready var _muzzle: Position2D = $"Muzzle"
 
@@ -15,8 +16,6 @@ var _current_target: Array = []
 var _cooldown: float = 0.0
 var _is_shooting: bool = false
 var _next_proj_rotation = 0
-
-var _damage_tracking_id_hash: int = Keys.empty_hash
 
 var _players: Array = []
 var _angle: float = rand_range(0, TAU)
@@ -55,11 +54,14 @@ func _physics_process(delta) -> void:
     
     _angle += delta * rotation_speed
     var player_position: Vector2 = _players[player_index].global_position
-
-    global_position = Vector2(
+    var nex_position: Vector2 = Vector2(
         player_position.x + cos(_angle) * radius,
         player_position.y + sin(_angle) * radius
     )
+
+    nex_position.x = clamp(nex_position.x, 0, ZoneService.current_zone_max_position.x)
+    nex_position.y = clamp(nex_position.y, 0, ZoneService.current_zone_max_position.y)
+    global_position = nex_position
 
     _cooldown -= Utils.physics_one(delta)
     _current_target = Utils.get_nearest(_targets_in_range, _muzzle.global_position, _current_weapon_stats.min_range)
@@ -69,7 +71,7 @@ func _physics_process(delta) -> void:
 
 func should_shoot(cooldown: float, current_target: Array) -> bool:
     return (cooldown <= 0 and
-        not _is_shooting and
+        !_is_shooting and
         (
             current_target.size() > 0
             and is_instance_valid(current_target[0])
@@ -92,6 +94,7 @@ func shoot() -> void:
     
     _spawn_projectile(weapon_point)
 
+# =========================== Method =========================== #
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
     if anim_name == "shoot" and !dead:
         _cooldown = _current_weapon_stats.cooldown

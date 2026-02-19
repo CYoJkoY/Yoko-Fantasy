@@ -14,10 +14,11 @@ export(Array, String) var white_list = [
         "fantasy_big_slime", "fantasy_slime_king"
     ]
 
+# =========================== Extension =========================== #
 func _ready() -> void:
     detection_collision.shape.radius = detection_radius
-    detection_area.connect("body_entered", self , "_connect_to_enemy_death")
-    detection_area.connect("body_exited", self , "_disconnect_from_enemy_death")
+    detection_area.connect("body_entered", self , "fa_connect_to_enemy_death")
+    detection_area.connect("body_exited", self , "fa_disconnect_from_enemy_death")
     
     # Avoid Cycle Load
     if evolution_target_path != "":
@@ -27,17 +28,18 @@ func respawn() -> void:
     .respawn()
     kill_count = 0
 
-func _connect_to_enemy_death(body) -> void:
+# =========================== Method =========================== #
+func fa_connect_to_enemy_death(body) -> void:
     if body != self and body.has_signal("died") and \
-    not body.is_connected("died", self , "_on_enemy_died"):
-        body.connect("died", self , "_on_enemy_died")
+    not body.is_connected("died", self , "fa_on_enemy_died"):
+        body.connect("died", self , "fa_on_enemy_died")
 
-func _disconnect_from_enemy_death(body) -> void:
+func fa_disconnect_from_enemy_death(body) -> void:
     if body != self and body.has_signal("died") and \
-    body.is_connected("died", self , "_on_enemy_died"):
-        body.disconnect("died", self , "_on_enemy_died")
+    body.is_connected("died", self , "fa_on_enemy_died"):
+        body.disconnect("died", self , "fa_on_enemy_died")
 
-func _on_enemy_died(entity: Entity, die_args: DieArgs) -> void:
+func fa_on_enemy_died(entity: Entity, die_args: DieArgs) -> void:
     if die_args.cleaning_up or dead: return
     
     if entity.enemy_id in white_list: return
@@ -45,9 +47,9 @@ func _on_enemy_died(entity: Entity, die_args: DieArgs) -> void:
     kill_count += 1
     if kill_count < kills_needed: return
     
-    evolve()
+    fa_evolve()
 
-func evolve() -> void:
+func fa_evolve() -> void:
     if !evolution_target_scene: return
 
     var charmed_by = get_charmed_by_player_index()

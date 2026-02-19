@@ -3,35 +3,39 @@ extends AttackBehavior
 signal shot
 signal finished_shooting
 
-enum TargetClass { SELF, PLAYER }
+enum TargetClass {SELF, PLAYER}
 
-export (PackedScene) var projectile_scene: PackedScene = preload("res://projectiles/bullet_enemy/enemy_projectile.tscn")
-export (int) var projectile_speed: int = 800
-export (float) var cooldown: float = 90.0
-export (int) var number_projectiles: int = 2
-export (TargetClass) var target_class = TargetClass.PLAYER
-export (int) var spawn_radius: int = 1100
-export (float, 0, 6.28, 0.01) var init_rotation: float = 0.08
-export (float, 0, 6.28, 0.01) var projectile_direction: float = 3.14
-export (float, 0, 6.28, 0.01) var direction_change_after_each_proj: float = 3.14
-export (bool) var rotate_projectile: bool = true
-export (bool) var pos_base_on_centerx: bool = true
-export (bool) var pos_base_on_centery: bool = false
+export(PackedScene) var projectile_scene: PackedScene = preload("res://projectiles/bullet_enemy/enemy_projectile.tscn")
+var projectile_pool_id: int = Keys.empty_hash
+export(int) var projectile_speed: int = 800
+export(float) var cooldown: float = 90.0
+export(int) var number_projectiles: int = 2
+export(TargetClass) var target_class = TargetClass.PLAYER
+export(int) var spawn_radius: int = 1100
+export(float, 0, 6.28, 0.01) var init_rotation: float = 0.08
+export(float, 0, 6.28, 0.01) var projectile_direction: float = 3.14
+export(float, 0, 6.28, 0.01) var direction_change_after_each_proj: float = 3.14
+export(bool) var rotate_projectile: bool = true
+export(bool) var pos_base_on_centerx: bool = true
+export(bool) var pos_base_on_centery: bool = false
 
 var _current_cd: float = cooldown
 var projectile_damage: int = 0
 var living_time: float = 0.0
 var living_projectiles: Array = []
 
+# =========================== Extension =========================== #
 func _ready() -> void:
     _current_cd = cooldown
+    if projectile_scene != null:
+        projectile_pool_id = Keys.generate_hash(projectile_scene.resource_path)
 
 func reset() -> void:
     _current_cd = cooldown
     projectile_damage = 0
 
 func physics_process(delta: float) -> void:
-    _current_cd = max(_current_cd - Utils.physics_one(delta), 0)
+    _current_cd = _current_cd - Utils.physics_one(delta)
 
     if !_parent.is_playing_shoot_animation() and _current_cd <= 0:
         _parent._animation_player.play(_parent.shoot_animation_name)
@@ -64,18 +68,19 @@ func shoot() -> void:
 
 func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
     var main = Utils.get_scene_node()
-    var projectile = main.get_node_from_pool(projectile_scene.resource_path)
-    if projectile == null:
+    var projectile = main.get_node_from_pool(projectile_pool_id, main._enemy_projectiles)
+    if !is_instance_valid(projectile):
         projectile = projectile_scene.instance()
-        main.call_deferred("add_enemy_projectile", projectile)
+        main.add_enemy_projectile(projectile)
+        projectile.set_meta("pool_id", projectile_pool_id)
 
     projectile.global_position = pos
-    projectile.call_deferred("set_from", _parent)
-    projectile.set_deferred("velocity", Vector2.RIGHT.rotated(rot) * spd * RunData.current_run_accessibility_settings.speed)
+    projectile.set_from(_parent)
+    projectile.velocity = Vector2.RIGHT.rotated(rot) * spd * RunData.current_run_accessibility_settings.speed
 
     if rotate_projectile:
-        projectile.set_deferred("rotation", rot)
+        projectile.rotation = rot
 
-    projectile.call_deferred("set_damage", projectile_damage)
-    projectile.call_deferred("shoot")
+    projectile.set_damage(projectile_damage)
+    projectile.shoot()
     return projectile

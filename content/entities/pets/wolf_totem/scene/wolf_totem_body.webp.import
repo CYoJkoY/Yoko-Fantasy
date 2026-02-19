@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wolf_totem.webp-3f3e34149c3b29380f3031472b48a8ec.stex"
+path="res://.import/wolf_totem_body.webp-035e643d92ccd241ef8412c850055c10.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/wolf_totem.webp"
-dest_files=[ "res://.import/wolf_totem.webp-3f3e34149c3b29380f3031472b48a8ec.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/scene/wolf_totem_body.webp"
+dest_files=[ "res://.import/wolf_totem_body.webp-035e643d92ccd241ef8412c850055c10.stex" ]
 
 [params]
 

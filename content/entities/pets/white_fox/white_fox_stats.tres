@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/egyptian_cat_icon.webp" type="Texture" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/white_fox_icon.webp" type="Texture" id=1]
 [ext_resource path="res://entities/units/unit/stats.gd" type="Script" id=2]
 
 [resource]

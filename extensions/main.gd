@@ -20,6 +20,7 @@ func _on_EntitySpawner_players_spawned(players: Array) -> void:
 func _on_EntitySpawner_enemy_respawned(_enemy: Enemy) -> void:
     ._on_EntitySpawner_enemy_respawned(_enemy)
     call_deferred("_fantasy_change_living_cursed_enemy", _enemy, true)
+    _fantasy_decaying_slow_enemy(_enemy)
 
 func _on_enemy_died(enemy: Enemy, args: Entity.DieArgs) -> void:
     ._on_enemy_died(enemy, args)
@@ -151,6 +152,18 @@ func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
         )
         random_weapon.tween_animation.start()
         
+func _fantasy_decaying_slow_enemy(enemy: Enemy) -> void:
+    # For decaying slow new enemy
+    for player_index in _players.size():
+        var stat_nb: float = TempStats.get_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, player_index)
+        if stat_nb == 0: continue
+
+        var player: Player = _players[player_index]
+        enemy.current_stats.speed += int(enemy.current_stats.speed * stat_nb / 100.0)
+        match enemy.sprite.material == enemy.flash_mat:
+            true: player._non_decaying_slow_material[enemy] = enemy._non_flash_material
+            false: player._non_decaying_slow_material[enemy] = enemy.sprite.material
+        enemy.sprite.material = load("res://mods-unpacked/Yoko-Fantasy/extensions/effects/decaying_slow_enemy_when_below_hp/decaying_slow_enemy_when_below_hp_shader.tres")
 
 # =========================== Method =========================== #
 func fa_update_all_ui_stats() -> void:

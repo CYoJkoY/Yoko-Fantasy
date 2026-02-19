@@ -68,10 +68,10 @@ func serialize() -> Dictionary:
 
 func deserialize_and_merge(serialized: Dictionary) -> void:
     .deserialize_and_merge(serialized)
-    scaling_stats = Utils.convert_to_hash_array(serialized.get("scaling_stats", []))
-    chance = serialized.chance
-    times = serialized.times
-    crit_chance = serialized.crit_chance
-    crit_damage = serialized.crit_damage
-    source_id = serialized.source_id
-    source_id_hash = Keys.generate_hash(serialized.source_id)
+    scaling_stats = Utils.convert_to_hash_array(serialized.get("scaling_stats", [])) as Array
+    chance = serialized.chance as int
+    times = serialized.times as int
+    crit_chance = serialized.crit_chance as int
+    crit_damage = serialized.crit_damage as float
+    source_id = serialized.source_id as String
+    source_id_hash = Keys.generate_hash(serialized.source_id) as int

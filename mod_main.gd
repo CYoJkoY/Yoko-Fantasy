@@ -20,7 +20,7 @@ func _init() -> void:
 
         "main.gd",
         # STATS: Holy, Soul
-        # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ][ 1/2 ]
+        # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ][ 1/2 ], decaying_slow_enemy_when_below_hp[ 1/2 ]
         
         "item_service.gd",
         # STATS: Soul
@@ -39,13 +39,22 @@ func _init() -> void:
         # EFFECTS: shop_enter_stat_curse, curse_all_on_reroll
 
         "player.gd",
-        # EFFECTS: damage_clamp, damage_reflect
+        # EFFECTS: damage_clamp, damage_reflect, decaying_slow_enemy_when_below_hp[ 2/2 ]
 
         "weapon_service.gd",
         # EFFECTS: crit_overflow
 
         "wave_manager.gd",
         # EFFECTS: extra_elites_next_wave
+
+        "entity_spawner.gd",
+        # EFFECTS: gain_temp_stat_every_killed_enemies[ 1/3 ]
+
+        "melee_weapon.gd",
+        # EFFECTS: gain_temp_stat_every_killed_enemies[ 2/3 ]
+
+        "ranged_weapon.gd",
+        # EFFECTS: gain_temp_stat_every_killed_enemies[ 3/3 ]
         
     ]
 

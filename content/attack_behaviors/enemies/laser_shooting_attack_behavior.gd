@@ -1,33 +1,33 @@
 extends ShootingAttackBehavior
 
+# =========================== Extension =========================== #
 func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
-    var main = Utils.get_scene_node()
-    var projectile = main.get_node_from_pool(projectile_scene.resource_path)
+    var main: Main = Utils.get_scene_node()
+    var projectile: Node = main.get_node_from_pool(projectile_pool_id, main._enemy_projectiles)
     
-    if not is_instance_valid(projectile):
+    if !is_instance_valid(projectile):
         projectile = projectile_scene.instance()
         main.add_enemy_projectile(projectile)
         projectile.set_meta("pool_id", projectile_pool_id)
 
     projectile.global_position = pos
-    projectile.call_deferred("set_from", _parent)
-    projectile.set_deferred("velocity", Vector2.RIGHT.rotated(rot) * spd * RunData.current_run_accessibility_settings.speed)
-    # For Laser Extends
-    projectile.call_deferred("set_range", min_range, max_range)
+    projectile.set_from(_parent)
+    projectile.velocity = Vector2.RIGHT.rotated(rot) * spd * RunData.current_run_accessibility_settings.speed
+    projectile.set_range(min_range, max_range) # For Laser Extends
 
     if rotate_projectile:
-        projectile.set_deferred("rotation", rot)
+        projectile.rotation = rot
 
     if delete_projectile_on_death and not _parent.is_connected("died", projectile, "on_entity_died"):
         var _error_died = _parent.connect("died", projectile, "on_entity_died")
 
-    projectile.call_deferred("set_damage", projectile_damage)
+    projectile.set_damage(projectile_damage)
 
     if custom_collision_layer != 0:
-        projectile.call_deferred("set_collision_layer", custom_collision_layer)
+        projectile.set_collision_layer(custom_collision_layer)
 
     if custom_sprite_material:
-        projectile.call_deferred("set_sprite_material", custom_sprite_material)
+        projectile.set_sprite_material(custom_sprite_material)
 
-    projectile.call_deferred("shoot")
+    projectile.shoot()
     return projectile

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/world_tree_projectile_flower.webp-ba7b59eafd9511413589d5ce2b56da4c.stex"
+path="res://.import/wolf_totem_attack_body.webp-8013180c74dafd5b3a127e269f21c4e7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/world_tree_projectile/world_tree_projectile_flower.webp"
-dest_files=[ "res://.import/world_tree_projectile_flower.webp-ba7b59eafd9511413589d5ce2b56da4c.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/scene/wolf_totem_attack_body.webp"
+dest_files=[ "res://.import/wolf_totem_attack_body.webp-8013180c74dafd5b3a127e269f21c4e7.stex" ]
 
 [params]
 

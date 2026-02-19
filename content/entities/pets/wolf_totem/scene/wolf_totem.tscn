@@ -1,0 +1,391 @@
+[gd_scene load_steps=42 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/tactical_global_pet.gd" type="Script" id=1]
+[ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=2]
+[ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=4]
+[ext_resource path="res://entities/units/target_behavior/closest_player_target_behavior.gd" type="Script" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/scene/wolf_totem_shadow.webp" type="Texture" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/scene/wolf_totem_body.webp" type="Texture" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/scene/wolf_totem_head.webp" type="Texture" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/scene/wolf_totem_attack_head.webp" type="Texture" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/scene/wolf_totem_attack_body.webp" type="Texture" id=10]
+[ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=11]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_04.wav" type="AudioStream" id=12]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_02.wav" type="AudioStream" id=13]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_05.wav" type="AudioStream" id=14]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_02.wav" type="AudioStream" id=15]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_08.wav" type="AudioStream" id=16]
+[ext_resource path="res://entities/units/unit/dodge_sounds/whoosh_swish_small_harsh_03.wav" type="AudioStream" id=17]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=18]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_03.wav" type="AudioStream" id=19]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=20]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=21]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_02.wav" type="AudioStream" id=22]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_03.wav" type="AudioStream" id=23]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=24]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_04.wav" type="AudioStream" id=25]
+[ext_resource path="res://entities/units/unit/dodge_sounds/whoosh_swish_small_harsh_02.wav" type="AudioStream" id=26]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_05.wav" type="AudioStream" id=27]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_03.wav" type="AudioStream" id=28]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_01.wav" type="AudioStream" id=29]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/wolf_totem_stats.tres" type="Resource" id=30]
+[ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=31]
+[ext_resource path="res://particles/curse/curse_enemy_particles.tscn" type="PackedScene" id=32]
+
+[sub_resource type="PhysicsMaterial" id=6]
+friction = 0.0
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 11 )
+shader_param/width = 3.0
+shader_param/alpha = 1.0
+shader_param/desaturation = 0.0
+shader_param/texture_size = Vector2( 0, 0 )
+shader_param/outline_color_0 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_1 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_2 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 31 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 1.0
+
+[sub_resource type="ViewportTexture" id=9]
+viewport_path = NodePath("Animation/Viewport")
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 77.0
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animation/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Animation/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Animation/Viewport/Offset/Normal:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Animation/Viewport/Offset/Attack:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Animation/Viewport/Offset/Normal/Body/Head:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 1.05
+step = 0.25
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.25, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "stop_burning"
+}, {
+"args": [  ],
+"method": "death_animation_finished"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Animation/Sprite:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation/Sprite:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 0.341 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Animation/Sprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 0.297 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.34902, 0.34902, 0.34902, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Animation:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Animation:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -24, -0.25, 0, 0.25, 0, -19, -0.25, 0, 0.25, 0, -24, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Animation:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1.15, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Animation:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.85, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("Animation/Viewport/Offset/Normal/Body/Head:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( -5, -0.25, 0, 0.25, 0, -10, -0.25, 0, 0.25, 0, -5, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animation:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.1, 0.9 ), Vector2( 0.663, 1 ), Vector2( 1.5, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation/Viewport/Offset/Normal:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Animation/Viewport/Offset/Attack:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+
+[node name="WolfTotem" type="RigidBody2D"]
+collision_layer = 512
+collision_mask = 640
+mode = 2
+physics_material_override = SubResource( 6 )
+custom_integrator = true
+script = ExtResource( 1 )
+outline_material = SubResource( 7 )
+crit_sounds = [ ExtResource( 29 ), ExtResource( 15 ), ExtResource( 19 ), ExtResource( 14 ) ]
+hurt_sounds = [ ExtResource( 24 ), ExtResource( 13 ), ExtResource( 23 ), ExtResource( 12 ), ExtResource( 27 ), ExtResource( 20 ), ExtResource( 18 ), ExtResource( 16 ) ]
+burn_sounds = [ ExtResource( 21 ), ExtResource( 22 ), ExtResource( 28 ), ExtResource( 25 ) ]
+dodge_sounds = [ ExtResource( 26 ), ExtResource( 17 ) ]
+stats = ExtResource( 30 )
+flash_mat = SubResource( 1 )
+curse_particles = ExtResource( 32 )
+damage_tracking_id = "item_fantasy_wolf_totem"
+
+[node name="Animation" type="Node2D" parent="."]
+position = Vector2( 0, -22.615 )
+
+[node name="Viewport" type="Viewport" parent="Animation"]
+size = Vector2( 300, 300 )
+transparent_bg = true
+hdr = false
+disable_3d = true
+usage = 0
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="Offset" type="Node2D" parent="Animation/Viewport"]
+position = Vector2( 150, 150 )
+
+[node name="Shadow" type="Sprite" parent="Animation/Viewport/Offset"]
+texture = ExtResource( 6 )
+
+[node name="Normal" type="Node2D" parent="Animation/Viewport/Offset"]
+
+[node name="Body" type="Sprite" parent="Animation/Viewport/Offset/Normal"]
+texture = ExtResource( 7 )
+
+[node name="Head" type="Sprite" parent="Animation/Viewport/Offset/Normal/Body"]
+texture = ExtResource( 8 )
+
+[node name="Attack" type="Node2D" parent="Animation/Viewport/Offset"]
+visible = false
+
+[node name="AttackBody" type="Sprite" parent="Animation/Viewport/Offset/Attack"]
+texture = ExtResource( 10 )
+
+[node name="AttackHead" type="Sprite" parent="Animation/Viewport/Offset/Attack/AttackBody"]
+texture = ExtResource( 9 )
+
+[node name="Sprite" type="Sprite" parent="Animation"]
+texture = SubResource( 9 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, 34 )
+shape = SubResource( 11 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 3 )]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/RESET = SubResource( 3 )
+anims/death = SubResource( 4 )
+anims/idle = SubResource( 5 )
+anims/shoot = SubResource( 10 )
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="MovementBehavior" type="Node2D" parent="."]
+script = ExtResource( 4 )
+stop_close_to_target = true
+distance_to_target = 200.0
+
+[node name="TargetBehavior" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="BurningTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="BurningParticles" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 0, -24 )
+emitting = false
+
+[node name="EffectBehaviors" type="Node2D" parent="."]
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

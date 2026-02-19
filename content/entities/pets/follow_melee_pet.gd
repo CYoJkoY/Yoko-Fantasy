@@ -1,6 +1,7 @@
-extends "res://entities/units/pet/pet.gd"
+extends Pet
 
 export(String) var damage_tracking_id = ""
+var _damage_tracking_id_hash: int = Keys.empty_hash
 
 onready var _target_behavior_shape := $"TargetBehavior/Range/CollisionShape2D"
 onready var _hitbox: Hitbox = $"Animation/Hitbox"
@@ -10,8 +11,6 @@ var _current_weapon_stats: MeleeWeaponStats = MeleeWeaponStats.new()
 
 var _cooldown: float = 0.0
 var _is_shooting: bool = false
-
-var _damage_tracking_id_hash: int = Keys.empty_hash
 
 # =========================== Extension =========================== #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
@@ -66,7 +65,7 @@ func _physics_process(delta) -> void:
 
     _cooldown -= Utils.physics_one(delta)
 
-    if _cooldown <= 0:
+    if _cooldown <= 0 and !_is_shooting:
         _animation_player.play("shoot")
 
 func shoot() -> void:
@@ -81,7 +80,8 @@ func update_animation(movement: Vector2) -> void:
         elif movement.x < 0:
             _hitbox.scale.x = - abs(_hitbox.scale.x)
 
-func _return_attack() -> void:
+# =========================== Method =========================== #
+func fa_return_attack() -> void:
     _hitbox.ignored_objects.clear()
     if _hitbox.is_disabled(): _hitbox.enable()
 

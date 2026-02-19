@@ -25,4 +25,4 @@ func deserialize_and_merge(serialized: Dictionary) -> void:
 
     var stats = RangedWeaponStats.new()
     stats.deserialize_and_merge(serialized.weapon_stats)
-    weapon_stats = stats
+    weapon_stats = stats as Resource
