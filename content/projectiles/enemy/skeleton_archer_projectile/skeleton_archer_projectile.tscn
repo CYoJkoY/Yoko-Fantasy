@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://projectiles/projectile.tscn" type="PackedScene" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_projectile.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/spawner_projectile.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_projectile.webp" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=4]
@@ -18,9 +18,14 @@ step = 0.02
 
 [node name="EnemyProjectile" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-interval = 0.5
-projectile_path = "res://mods-unpacked/Yoko-Fantasy/content/projectiles/skeleton_archer_projectile/skeleton_archer_projectile_small.tscn"
-size = 0.6
+child_projectiles = 2
+child_init_rotation = 90
+child_rotation_change_after_each = 0
+is_symmetrical = true
+offset_distance = 50
+spawn_cooldown = 30
+child_projectile_path = "res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_projectile_small.tscn"
+power = 0.6
 free_time = 1.5
 
 [node name="Sprite" parent="." index="0"]

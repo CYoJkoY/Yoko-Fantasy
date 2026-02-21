@@ -1,48 +1,62 @@
 extends Enemy
 
 export(String, FILE, "*.tscn") var evolution_target_path
-export(int) var kills_needed = 5
-export(float) var detection_radius = 200.0
-
-onready var detection_area: Area2D = $DetectionArea
-onready var detection_collision: CollisionShape2D = $DetectionArea/CollisionShape2D
-
-var kill_count: int = 0
 var evolution_target_scene: Resource = null
+export(int) var kills_needed = 5
 export(Array, String) var white_list = [
         "fantasy_little_slime", "fantasy_medium_slime",
         "fantasy_big_slime", "fantasy_slime_king"
     ]
 
+var kill_count: int = 0
+var evovle_args: Entity.DieArgs = Utils.default_die_args
+
 # =========================== Extension =========================== #
 func _ready() -> void:
-    detection_collision.shape.radius = detection_radius
-    detection_area.connect("body_entered", self , "fa_connect_to_enemy_death")
-    detection_area.connect("body_exited", self , "fa_disconnect_from_enemy_death")
+    evovle_args.cleaning_up = true
     
-    # Avoid Cycle Load
-    if evolution_target_path != "":
-        evolution_target_scene = load(evolution_target_path)
+    if evolution_target_path != "": evolution_target_scene = load(evolution_target_path) # Avoid Cycle Load
     
 func respawn() -> void:
     .respawn()
     kill_count = 0
 
 # =========================== Method =========================== #
-func fa_connect_to_enemy_death(body) -> void:
-    if body != self and body.has_signal("died") and \
-    not body.is_connected("died", self , "fa_on_enemy_died"):
+func fa_on_DetectionArea_body_entered(body: Enemy) -> void:
+    if !body.is_connected("died", self , "fa_on_enemy_died"):
         body.connect("died", self , "fa_on_enemy_died")
 
-func fa_disconnect_from_enemy_death(body) -> void:
-    if body != self and body.has_signal("died") and \
-    body.is_connected("died", self , "fa_on_enemy_died"):
+func fa_on_DetectionArea_body_exited(body: Enemy) -> void:
+    if !body.is_connected("died", self , "fa_on_enemy_died"):
         body.disconnect("died", self , "fa_on_enemy_died")
 
-func fa_on_enemy_died(entity: Entity, die_args: DieArgs) -> void:
+func fa_on_ItemAttractArea_area_entered(item: Item) -> void:
+    if dead: return
+
+    var should_attract_item: bool = item is Gold
+    if !should_attract_item: return
+
+    var item_already_attracted_by_player: bool = item.attracted_by != null
+    if item_already_attracted_by_player: return
+
+    item.attracted_by = self
+
+func _on_ItemPickUpArea_area_entered(area: Area2D) -> void:
+    if dead: return
+
+    if !(area is Gold): return
+
+    var gold: Gold = area
+    gold.pickup(-1)
+    kill_count += 1
+    if kill_count < kills_needed: return
+
+    fa_evolve()
+
+func fa_on_enemy_died(enemy: Enemy, die_args: DieArgs) -> void:
     if die_args.cleaning_up or dead: return
     
-    if entity.enemy_id in white_list: return
+    if white_list.has(enemy.enemy_id): return
     
     kill_count += 1
     if kill_count < kills_needed: return
@@ -56,4 +70,4 @@ func fa_evolve() -> void:
 
     emit_signal("wanted_to_spawn_an_enemy", evolution_target_scene, global_position, self , charmed_by)
     
-    die()
+    die(evovle_args)

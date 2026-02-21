@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 key = "fantasy_gain_temp_stat_every_killed_enemies"
 text_key = "EFFECT_GAIN_TEMP_STAT_EVERY_KILLED_ENEMIES"
-value = 10
+value = 100
 custom_key = ""
 storage_method = 0
 effect_sign = 3

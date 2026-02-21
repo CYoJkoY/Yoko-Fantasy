@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/elder_shadow.png-45937fbe580c071c1de7fcf89a7cc332.stex"
+path="res://.import/great_demon_lord.png-ec68a971041645e1207ad80ff7c744fd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/029_elder_shadow/elder_shadow.png"
-dest_files=[ "res://.import/elder_shadow.png-45937fbe580c071c1de7fcf89a7cc332.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/029_great_demon_lord/great_demon_lord.png"
+dest_files=[ "res://.import/great_demon_lord.png-ec68a971041645e1207ad80ff7c744fd.stex" ]
 
 [params]
 

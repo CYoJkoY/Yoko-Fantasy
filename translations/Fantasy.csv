@@ -4,45 +4,21 @@ FANTASY_BG,Fantasy,幻界
 FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
 FANTASY_LOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑,死亡时掉落一个箱子"
 FANTASY_LITTLE_SLIME_NAME,Small Slime,小史莱姆
-FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the player
-Evolve when 10 non-slime enemies die within a range of 100","缓慢追击玩家
-100范围内死亡的非史莱姆系敌人达到10个则进化"
+FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chases the player, evolves after 10 non-slime enemy deaths or material pickups within range of 100.","缓慢追击玩家,100范围内死亡的非史莱姆系敌人或其拾取的材料达到10个则进化"
 FANTASY_MEDIUM_SLIME_NAME,Medium Slime,中史莱姆
-FANTASY_MEDIUM_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the player
-Summon 1 small slime per second
-Upon death, split into 3 small slimes
-Evolve when 24 non-slime enemies die within a range of 200","缓慢追击玩家每秒召唤1个小史莱姆
-死亡时分裂成3个小史莱姆
-200范围内死亡的非史莱姆系敌人达到24个则进化"
+FANTASY_MEDIUM_SLIME_BEHAVIOUR_DESCRIPTION,"No materials drop, slowly chases the player, summons 1 small slime per second, splits into 3 small slimes upon death, evolves after 24 non-slime enemy deaths or material pickups within range of 150.","不掉落材料,缓慢追击玩家,每秒召唤1个小史莱姆,死亡时分裂成3个小史莱姆,150范围内死亡的非史莱姆系敌人或其拾取的材料达到24个则进化"
 FANTASY_BIG_SLIME_NAME,Big Slime,大史莱姆
-FANTASY_BIG_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chase the playerSummon 3 small slimes per second
-Upon death, split into 2 medium slimes
-Evolve when 48 non-slime enemies die within a range of 400
-Leave a slime trail every 1 second that lasts for 5 seconds, players touching it are slowed by 50%","缓慢追击玩家每秒召唤3个小史莱姆
-死亡时分裂成2个中史莱姆
-400范围内死亡的非史莱姆系敌人达到48个则进化
-每秒留下持续5秒的史莱姆粘液痕迹, 玩家触碰时被减速50%"
+FANTASY_BIG_SLIME_BEHAVIOUR_DESCRIPTION,"No materials drop, slowly chases the player, summons 3 small slimes per second, splits into 2 medium slimes upon death, evolves after 48 non-slime enemy deaths within range of 200, leaves a trail of slime residue lasting 5 seconds each second, slows player by 50% on contact","不掉落材料,缓慢追击玩家,每秒召唤3个小史莱姆,死亡时分裂成2个中史莱姆,200范围内死亡的非史莱姆系敌人达到48个则进化,每秒留下持续5秒的史莱姆粘液痕迹,玩家触碰时被减速50%"
 FANTASY_SLIME_KING_NAME,Slime King,史莱姆王
 FANTASY_SLIME_KING_BEHAVIOUR_DESCRIPTION,"Mutation 0:
-Slowly chase the player
-Summon 3 medium slimes every 3 seconds and 1 large slime every 5 seconds
-Leave a slime trail every 0.5 seconds that lasts for 10 seconds, players touching it are slowed by 50%
+Slowly pursues the player. Every 3 seconds, it summons 3 Medium Slimes; every 5 seconds, it summons 1 Large Slime. Every 0.5 seconds, it leaves behind a Slime Trail that lasts for 10 seconds. Players who touch the trail are slowed by 50%.
 
-Mutation 1 (50% HP / 35 sec):
-Perform a long-range dash toward the player every 5 seconds
-Summon 4 large slimes at once
-Summon 3 medium slimes every 3 seconds and 1 large slime every 5 seconds
-Leave a slime trail every 0.5 seconds that lasts for 10 seconds, players touching it are slowed by 50%","异变0:
-缓慢追击玩家
-每3秒召唤3个中史莱姆,每5秒召唤1个大史莱姆
-每0.5秒留下持续10秒的史莱姆粘液痕迹,玩家触碰时被减速50%
+Mutation 1 (50% HP / 35s)
+Builds upon Mutation 0. Additionally, it performs a long-distance dash toward the player every 5 seconds.","异变0:
+缓慢追击玩家,每3秒召唤3个中史莱姆,每5秒召唤1个大史莱姆,每0.5秒留下持续10秒的史莱姆粘液痕迹,玩家触碰时被减速50%
 
 异变1 (50%生命/35秒):
-每5秒向玩家长距离冲刺
-一次性召唤4个大史莱姆
-每3秒召唤3个中史莱姆,每5秒召唤1个大史莱姆
-每0.5秒留下持续10秒的史莱姆粘液痕迹,
-玩家触碰时被减速50%"
+在异变0的基础上,每5秒向玩家长距离冲刺"
 FANTASY_UNICORN_RABBIT_NAME,Unicorn Rabbit,独角兔
 FANTASY_UNICORN_RABBIT_BEHAVIOUR_DESCRIPTION,"Chases the character, deals damage on touch","追逐角色, 接触时造成伤害"
 FANTASY_WOLF_NAME,Wolf,狼

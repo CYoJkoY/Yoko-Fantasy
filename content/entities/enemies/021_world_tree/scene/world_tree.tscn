@@ -1,17 +1,17 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=1]
-[ext_resource path="res://entities/units/enemies/boss/boss.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/021_world_tree/scene/world_tree.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/021_world_tree/scene/world_tree.webp" type="Texture" id=3]
 [ext_resource path="res://ui/hud/ui_progress_bar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/021_world_tree/world_tree_stats.tres" type="Resource" id=5]
-[ext_resource path="res://entities/units/enemies/attack_behaviors/charging_attack_behavior.gd" type="Script" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/world_tree_projectile/world_tree_flower_projectile.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/units/enemies/boss/boss_state.tscn" type="PackedScene" id=7]
-[ext_resource path="res://entities/units/enemies/attack_behaviors/spawning_attack_behavior.gd" type="Script" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/leaf_shooting_attack_behavior.gd" type="Script" id=8]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=9]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/006_medium_slime/scene/medium_slime.tscn" type="PackedScene" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/world_tree_projectile/world_tree_leaf_projectile.tscn" type="PackedScene" id=10]
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=11]
-[ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=12]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/movement_behaviors/enemy/force_map_center_movement_behavior.gd" type="Script" id=12]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shoot.tres" type="Animation" id=13]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shoot_charmed.tres" type="Animation" id=14]
 [ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=15]
@@ -34,6 +34,9 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=32]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=33]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=34]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/surround_target_shooting_attack_behavior.gd" type="Script" id=35]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/laser_shooting_attack_behavior.gd" type="Script" id=36]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/laser_enemy_projectile/laser_enemy_projectile.tscn" type="PackedScene" id=37]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -290,10 +293,7 @@ script = ExtResource( 12 )
 
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 8 )
-enemy_to_spawn = ExtResource( 10 )
-cooldown = 180.0
-max_cd_randomization = 0
-nb_to_spawn = 3
+projectile_scene = ExtResource( 10 )
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -309,19 +309,40 @@ emitting = false
 hp_start = 0.5
 timer_start = 40.0
 
+[node name="MovementBehavior" parent="States/State1" index="0"]
+script = ExtResource( 12 )
+check_interval = 1.0
+center_tolerance = 25.0
+
 [node name="AttackBehavior" parent="States/State1" index="1"]
-script = ExtResource( 6 )
-cooldown = 300.0
-long_cooldown = 0.0
-max_cd_randomization = 0
-max_range = 1600
-charge_duration = 1.0
-charge_speed = 800.0
-target_calculation_timing = 0
-target = 0
-rand_target_size = -1
-only_positions_in_target_direction = false
-scale_charge_duration_with_range = false
+script = ExtResource( 35 )
+projectile_scene = ExtResource( 6 )
+projectile_speed = 120
+number_projectiles = 6
+target_class = 2
+spawn_radius = 200
+init_rotation = 0
+projectile_direction = 180
+direction_change_after_each_proj = 60
+pos_base_on_centerx = false
+pos_base_on_centery = false
+
+[node name="LaserShootingAttackBehavior" type="Node2D" parent="States/State1"]
+unique_name_in_owner = true
+position = Vector2( 0, -78 )
+script = ExtResource( 36 )
+projectile_scene = ExtResource( 37 )
+projectile_speed = 0
+cooldown = 240.0
+max_range = 9999999
+number_projectiles = 5
+projectile_spawn_spread = 50
+projectile_spawn_only_on_borders = true
+constant_spread = true
+constant_spread_rand_base_pos = 3.1
+shoot_away_from_unit = true
+random_rotation = 0.3
+delete_projectile_on_death = true
 
 [node name="CheckStateTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -340,7 +361,6 @@ progress_color = Color( 0.721569, 0, 0, 1 )
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
-[connection signal="wanted_to_spawn_an_enemy" from="AttackBehavior" to="." method="_on_AttackBehavior_wanted_to_spawn_an_enemy"]
 [connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]
 [connection signal="timeout" from="CheckStateTimer" to="." method="_on_CheckStateTimer_timeout"]
 

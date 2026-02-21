@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/006_medium_slime/medium_slime_stats.tres" type="Resource" id=2]
@@ -31,6 +31,7 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=29]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=30]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=31]
+[ext_resource path="res://entities/units/player/item_attract_area.gd" type="Script" id=32]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -226,7 +227,14 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5, 1 )
 }
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=12]
+radius = 150.0
+
+[sub_resource type="CircleShape2D" id=13]
+radius = 150.0
+
+[sub_resource type="CircleShape2D" id=14]
+radius = 34.0
 
 [node name="Enemy" type="RigidBody2D"]
 collision_layer = 4
@@ -309,13 +317,34 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-shape = SubResource( 3 )
+shape = SubResource( 12 )
+
+[node name="ItemAttractArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 96
+script = ExtResource( 32 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemAttractArea"]
+shape = SubResource( 13 )
+
+[node name="ItemPickUpArea" type="Area2D" parent="."]
+visible = false
+collision_mask = 96
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemPickUpArea"]
+position = Vector2( 0, -1 )
+shape = SubResource( 14 )
 
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="wanted_to_spawn_an_enemy" from="AttackBehavior" to="." method="_on_AttackBehavior_wanted_to_spawn_an_enemy"]
 [connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]
+[connection signal="body_entered" from="DetectionArea" to="." method="fa_on_DetectionArea_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="fa_on_DetectionArea_body_exited"]
+[connection signal="area_entered" from="ItemAttractArea" to="." method="fa_on_ItemAttractArea_area_entered"]
+[connection signal="area_entered" from="ItemPickUpArea" to="." method="fa_on_ItemPickUpArea_area_entered"]
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]

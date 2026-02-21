@@ -2,12 +2,13 @@ extends Enemy
 
 var current_projectiles_cooldown: float = 0.0
 
-onready var _charging_shoot_attack_behavior = $ChargingShootAttackBehavior
+onready var _charging_shoot_attack_behavior: ShootingAttackBehavior = $ChargingShootAttackBehavior
 
 export(Resource) var STAND_SPRITE = null
 export(Resource) var STAND_FOUR_SPRITE = null
 export(Resource) var SPRINT_SPRITE = null
 
+# =========================== Extension =========================== #
 func respawn() -> void:
     .respawn()
     current_projectiles_cooldown = 0.0

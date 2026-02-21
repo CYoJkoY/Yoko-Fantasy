@@ -8,7 +8,7 @@
 [ext_resource path="res://entities/units/enemies/attack_behaviors/charging_attack_behavior.gd" type="Script" id=6]
 [ext_resource path="res://entities/units/enemies/boss/boss_state.tscn" type="PackedScene" id=7]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/spawning_attack_behavior.gd" type="Script" id=8]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/024_slime_king/scene/slime_trail.tscn" type="PackedScene" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/slime_trail_attack_behavior.gd" type="Script" id=9]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/006_medium_slime/scene/medium_slime.tscn" type="PackedScene" id=10]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/014_big_slime/scene/big_slime.tscn" type="PackedScene" id=11]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=12]
@@ -249,8 +249,6 @@ flash_mat = SubResource( 1 )
 enemy_id = "fantasy_slime_king"
 can_be_cursed = false
 can_be_charmed = false
-trail_scene = ExtResource( 9 )
-trail_duration = 10.0
 
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -22.8748 )
@@ -311,6 +309,10 @@ enemy_to_spawn = ExtResource( 11 )
 cooldown = 99999.0
 max_cd_randomization = 0
 nb_to_spawn = 4
+
+[node name="SlimeTrailAttackBehavior" type="Node2D" parent="."]
+script = ExtResource( 9 )
+cooldown = 30
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5
