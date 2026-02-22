@@ -17,7 +17,7 @@ Mutation 1 (50% HP / 35s)
 Builds upon Mutation 0. Additionally, it performs a long-distance dash toward the player every 5 seconds.","异变0:
 缓慢追击玩家,每3秒召唤3个中史莱姆,每5秒召唤1个大史莱姆,每0.5秒留下持续10秒的史莱姆粘液痕迹,玩家触碰时被减速50%
 
-异变1 (50%生命/35秒):
+异变1 (50%生命 / 35秒):
 在异变0的基础上,每5秒向玩家长距离冲刺"
 FANTASY_UNICORN_RABBIT_NAME,Unicorn Rabbit,独角兔
 FANTASY_UNICORN_RABBIT_BEHAVIOUR_DESCRIPTION,"Chases the character, deals damage on touch","追逐角色, 接触时造成伤害"
@@ -207,6 +207,7 @@ FANTASY_WHITE_FOX_NAME,White Fox,白狐
 EFFECT_FANTASY_PET_WHITE_FOX,"Summons a white fox to pursue enemies within a range of {1}, fires an ice spear with an initial 1 pierce, dealing {2} ({3}) damage","召唤一只白狐追击范围{1}内的敌人,每{0}秒发射一枚初始自带1贯穿的冰锥,造成{2}({3})伤害"
 ITEM_FANTASY_SECLUDED_PARADISE,Secluded Paradise,世外桃源
 EFFECT_GAIN_TEMP_STAT_EVERY_KILLED_ENEMIES,"Gains {0} {1} for every {2} enemies killed, until the end of the wave","每击杀{2}名敌人{0}{1},直至敌袭结束"
+HIT_PROTECTION,Nullify Damage,伤害无效
 EFFECT_FANTASY_DECAYING_SLOW_ENEMY_WHEN_BELOW_HP,"Slows enemies by {2} for {1} seconds when your HP drops below {0}, up to {3} times per wave","敌袭内生命值降低到{0}以下时,{2}敌人速度持续{1}秒,每次敌袭可触发{3}次"
 ITEM_FANTASY_SILVER_POCKET_WATCH,Silver Pocket Watch,银怀表
 ITEM_FANTASY_WOLF_TOTEM,Wolf Totem,狼图腾
@@ -233,3 +234,13 @@ This pet scales with player :
 - 贯通
 - %贯通伤害
 - %对头目伤害"
+FANTASY_WORLD_TREE_NAME,World Tree,世界树
+FANTASY_WORLD_TREE_BEHAVIOUR_DESCRIPTION,"Mutation 0:
+Immobilized. The player is forced to spawn at the exact center of the map. If the player does not move in time, they will be pushed aside by the World Tree and take collision damage. A massive amount of leaf projectiles will continuously and slowly fall from the top of the screen; their spawn points and drifting angles are randomized.
+
+Mutation 1 (50% HP / 40 Seconds):
+The attack pattern shifts: the entity repeatedly summons flower-shaped patterns consisting of six petals in the surrounding area. Simultaneously, it fires five light beams outward at equal angular intervals.","异变0:
+无法移动,强制出生在地图最中央,如果玩家不及时移动会被世界树挤开并且受到碰撞伤害,地图正上方持续缓慢落下大量落叶弹幕,落叶出现的位置和飘落的角度随机
+
+异变1 (50%生命 / 40秒):
+攻击方式变为在周围反复召唤六片花瓣构成的花型弹幕,同时自身向外发射五条等角度间隔的光束"

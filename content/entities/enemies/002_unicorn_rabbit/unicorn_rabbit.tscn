@@ -1,0 +1,304 @@
+[gd_scene load_steps=40 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/002_unicorn_rabbit/unicorn_rabbit_stats.tres" type="Resource" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/002_unicorn_rabbit/unicorn_rabbit.webp" type="Texture" id=2]
+[ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=3]
+[ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=4]
+[ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/units/enemies/enemy.gd" type="Script" id=6]
+[ext_resource path="res://entities/units/enemies/attack_behaviors/attack_behavior.gd" type="Script" id=7]
+[ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=8]
+[ext_resource path="res://entities/units/enemies/attack_behaviors/shoot.tres" type="Animation" id=9]
+[ext_resource path="res://entities/units/enemies/attack_behaviors/shoot_charmed.tres" type="Animation" id=10]
+[ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=11]
+[ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=12]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_02.wav" type="AudioStream" id=13]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_08.wav" type="AudioStream" id=14]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_03.wav" type="AudioStream" id=15]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_02.wav" type="AudioStream" id=16]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_04.wav" type="AudioStream" id=17]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_05.wav" type="AudioStream" id=18]
+[ext_resource path="res://entities/units/unit/dodge_sounds/whoosh_swish_small_harsh_03.wav" type="AudioStream" id=19]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_05.wav" type="AudioStream" id=20]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_03.wav" type="AudioStream" id=21]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=22]
+[ext_resource path="res://entities/units/unit/dodge_sounds/whoosh_swish_small_harsh_02.wav" type="AudioStream" id=23]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_02.wav" type="AudioStream" id=24]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_01.wav" type="AudioStream" id=25]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_03.wav" type="AudioStream" id=26]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_04.wav" type="AudioStream" id=27]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=28]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=29]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=30]
+
+[sub_resource type="PhysicsMaterial" id=6]
+friction = 0.0
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 3 )
+shader_param/width = 3.0
+shader_param/alpha = 1.0
+shader_param/desaturation = 0.0
+shader_param/texture_size = Vector2( 0, 0 )
+shader_param/outline_color_0 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_1 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_2 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 4 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 1.0
+
+[sub_resource type="CircleShape2D" id=10]
+radius = 27.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 36.0
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 27.0
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animation/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Animation/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Animation:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Animation/Sprite:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "death"
+length = 1.05
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animation/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 0.297302 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.34902, 0.34902, 0.34902, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Animation/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 0.34151 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.25, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "stop_burning"
+}, {
+"args": [  ],
+"method": "death_animation_finished"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "idle"
+loop = true
+step = 0.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Animation:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Animation:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -24, -0.25, 0, 0.25, 0, -19, -0.25, 0, 0.25, 0, -24, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Animation:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1.15, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Animation:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.85, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+
+[node name="Enemy" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 132
+mode = 2
+physics_material_override = SubResource( 6 )
+custom_integrator = true
+script = ExtResource( 6 )
+can_be_boosted = true
+outline_material = SubResource( 7 )
+crit_sounds = [ ExtResource( 25 ), ExtResource( 16 ), ExtResource( 21 ), ExtResource( 18 ) ]
+hurt_sounds = [ ExtResource( 30 ), ExtResource( 13 ), ExtResource( 26 ), ExtResource( 17 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 28 ), ExtResource( 14 ) ]
+burn_sounds = [ ExtResource( 29 ), ExtResource( 24 ), ExtResource( 15 ), ExtResource( 27 ) ]
+dodge_sounds = [ ExtResource( 23 ), ExtResource( 19 ) ]
+stats = ExtResource( 1 )
+flash_mat = SubResource( 1 )
+enemy_id = "fantasy_unicorn_rabbit"
+to_be_removed_in_priority = true
+
+[node name="Animation" type="Node2D" parent="."]
+position = Vector2( 0, -22.8748 )
+
+[node name="Sprite" type="Sprite" parent="Animation"]
+texture = ExtResource( 2 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -14 )
+shape = SubResource( 10 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 11 )]
+position = Vector2( 0, -16 )
+collision_mask = 1032
+
+[node name="Collision" parent="Hurtbox" index="0"]
+position = Vector2( 0, -7 )
+shape = SubResource( 2 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 5 )]
+collision_layer = 4
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 0, -14 )
+shape = SubResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/RESET = SubResource( 8 )
+anims/death = SubResource( 9 )
+anims/idle = SubResource( 5 )
+anims/shoot = ExtResource( 9 )
+anims/shoot_charmed = ExtResource( 10 )
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="MovementBehavior" type="Node2D" parent="."]
+script = ExtResource( 8 )
+
+[node name="AttackBehavior" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="BurningTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="BurningParticles" parent="." instance=ExtResource( 12 )]
+visible = false
+position = Vector2( 0, -24 )
+emitting = false
+
+[node name="EffectBehaviors" type="Node2D" parent="."]
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
+[connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

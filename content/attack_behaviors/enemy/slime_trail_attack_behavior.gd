@@ -5,6 +5,7 @@ var trail_pool_id: int = Keys.empty_hash
 export(int) var cooldown = 60
 export(float) var trail_duration = 5.0
 export(float) var speed_reduction = 0.5
+export(float) var size = 1.0
 
 var main: Main = Utils.get_scene_node()
 var _materials_container: Node2D = main._materials_container
@@ -26,6 +27,7 @@ func shoot() -> void:
     trail.global_position = global_position
     trail.duration = trail_duration
     trail.reduction = speed_reduction
+    trail.scale *= size
     trail.already_recycle = false
     trail.show()
     trail.monitoring = true

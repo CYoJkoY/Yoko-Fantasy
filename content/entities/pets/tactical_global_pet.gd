@@ -85,5 +85,5 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
         _is_shooting = false
         _animation_player.play("idle")
 
-func fa_on_wolf_totem_killed_best_enemy(entity_spawner: EntitySpawner) -> void:
+func fa_on_wolf_totem_killed_best_enemy(_entity: Entity, _die_args: Entity.DieArgs, entity_spawner: EntitySpawner) -> void:
     entity_spawner.on_weapon_wanted_to_reset_turrets_cooldown()

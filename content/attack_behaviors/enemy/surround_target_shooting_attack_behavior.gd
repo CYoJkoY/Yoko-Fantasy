@@ -6,6 +6,8 @@ export(PackedScene) var projectile_scene = preload("res://projectiles/bullet_ene
 var projectile_pool_id: int = Keys.empty_hash
 export(int) var projectile_speed = 800
 export(float) var cooldown = 90.0
+export(float) var damage = 0.0
+export(float) var damage_increase_each_wave = 0.0
 export(int) var number_projectiles = 6
 export(TargetClass) var target_class = TargetClass.PLAYER
 export(int) var spawn_radius = 1100
@@ -18,16 +20,17 @@ export(bool) var pos_base_on_centery = false
 
 onready var map_center: Vector2 = ZoneService.get_map_center()
 
+var main: Main = null
+
 var _current_cd: float = cooldown
 var projectile_damage: int = 0
-var living_time: float = 0.0
-var living_projectiles: Array = []
 
 # =========================== Extension =========================== #
 func _ready() -> void:
     _current_cd = cooldown
     if projectile_scene != null:
         projectile_pool_id = Keys.generate_hash(projectile_scene.resource_path)
+    main = Utils.get_scene_node()
     init_rotation = deg2rad(init_rotation)
     projectile_direction = deg2rad(projectile_direction)
     direction_change_after_each_proj = deg2rad(direction_change_after_each_proj)
@@ -67,7 +70,6 @@ func shoot() -> void:
     _current_cd = cooldown
 
 func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
-    var main = Utils.get_scene_node()
     var projectile = main.get_node_from_pool(projectile_pool_id, main._enemy_projectiles)
     if !is_instance_valid(projectile):
         projectile = projectile_scene.instance()

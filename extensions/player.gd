@@ -36,7 +36,7 @@ func _fantasy_damage_clamp(result: Unit.GetDamageValueResult) -> Unit.GetDamageV
     return result
 
 func _fantasy_damage_reflect(full_dmg_value: int, args: TakeDamageArgs) -> void:
-    if !args.hitbox or !args.hitbox.from: return
+    if !is_instance_valid(args.hitbox) or !is_instance_valid(args.hitbox.from): return
 
     if !(args.hitbox.from is Enemy): return
 

@@ -17,13 +17,12 @@ var map_zero: Vector2 = ZoneService.current_zone_min_position
 var map_size_quarter: Vector2 = ZoneService.current_zone_max_position * 0.25
 var map_size_three_quarter: Vector2 = ZoneService.current_zone_max_position * 0.75
 
-var active_projectiles: Array = []
-var _time_passed: float = 0.0
+var main: Main = null
 
 var _current_cd: float = 0.0
 var projectile_damage: int = 0
-
-var main: Main = null
+var _time_passed: float = 0.0
+var active_projectiles: Array = []
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -31,10 +30,14 @@ func _ready() -> void:
     if projectile_scene != null:
         projectile_pool_id = Keys.generate_hash(projectile_scene.resource_path)
     main = Utils.get_scene_node()
+    angle_min = deg2rad(angle_min)
+    angle_max = deg2rad(angle_max)
 
 func reset() -> void:
     _current_cd = cooldown
     projectile_damage = 0
+    _time_passed = 0.0
+    active_projectiles.clear()
 
 func physics_process(delta: float) -> void:
     _current_cd -= Utils.physics_one(delta)
@@ -69,7 +72,6 @@ func shoot() -> void:
     _current_cd = cooldown
 
 func spawn_projectile(rot: float, pos: Vector2, spd: float) -> Node:
-    rot = deg2rad(rot)
     var projectile: EnemyProjectile = main.get_node_from_pool(projectile_pool_id, main._enemy_projectiles)
     if !is_instance_valid(projectile):
         projectile = projectile_scene.instance()

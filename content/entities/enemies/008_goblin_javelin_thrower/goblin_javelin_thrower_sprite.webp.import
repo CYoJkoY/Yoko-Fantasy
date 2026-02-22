@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/goblin_javelin_thrower_sprite.webp-e85cf5d3afc0d41f236a487eafbcee4b.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower_sprite.webp"
+dest_files=[ "res://.import/goblin_javelin_thrower_sprite.webp-e85cf5d3afc0d41f236a487eafbcee4b.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true
