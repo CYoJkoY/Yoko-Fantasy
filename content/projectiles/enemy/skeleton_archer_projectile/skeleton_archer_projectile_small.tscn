@@ -19,7 +19,9 @@ step = 0.02
 [node name="EnemyProjectile" instance=ExtResource( 1 )]
 scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 2 )
-lifetime = 0.0
+lifetime = 1.5
+reset_alpa = false
+reset_alpha = 0
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2( 0, 0 )

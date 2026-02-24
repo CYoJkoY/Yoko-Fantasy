@@ -20,8 +20,8 @@ func _ready() -> void:
     _shoot_projectiles_behavior.init(self )
     _slime_trail_attack_behavior.init(self )
 
-    _all_attack_behaviors.append(_shoot_projectiles_behavior)
-    _all_attack_behaviors.append(_slime_trail_attack_behavior)
+    register_attack_behavior(_shoot_projectiles_behavior)
+    register_attack_behavior(_slime_trail_attack_behavior)
 
 func _physics_process(delta) -> void:
     current_projectiles_cooldown_0 -= Utils.physics_one(delta)

@@ -252,7 +252,7 @@ can_be_cursed = false
 can_be_charmed = false
 
 [node name="Animation" type="Node2D" parent="."]
-position = Vector2( 0, -22.8748 )
+position = Vector2( 0, -24 )
 
 [node name="Sprite" type="Sprite" parent="Animation"]
 position = Vector2( 0, -76 )
@@ -294,6 +294,9 @@ script = ExtResource( 12 )
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 8 )
 projectile_scene = ExtResource( 10 )
+projectile_speed = 300
+projectile_speed_randomization = 100
+max_range = 99999
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5

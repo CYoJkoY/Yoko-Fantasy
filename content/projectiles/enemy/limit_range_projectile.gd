@@ -1,7 +1,7 @@
 extends EnemyProjectile
 
 export(int) var max_distance = 250
-export(bool) var reset_alpa = true
+export(bool) var reset_alpa = false
 export(int) var reset_alpha = 0
 
 var delta_distance: float = 0.0

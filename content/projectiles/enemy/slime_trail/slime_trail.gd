@@ -2,8 +2,9 @@ extends Area2D
 
 signal duration_timeout()
 
+var idle_time_after_pushed_back: float = 10.0
 var already_recycle: bool = false
-var duration: float = 5.0
+
 var reduction: float = 0.5
 var affected_players: Array = []
 
@@ -11,17 +12,36 @@ onready var duration_timer: Timer = $Timer
 
 # =========================== Extension =========================== #
 func _ready() -> void:
+    reset()
+
+func reset() -> void:
     hide()
     set_deferred("monitoring", false)
     set_physics_process(false)
+    scale = Vector2(1.0, 1.0)
+    idle_time_after_pushed_back = 10.0
+    affected_players.clear()
+
+func drop(pos: Vector2, duration: float) -> void:
+    global_position = pos
     duration_timer.wait_time = duration
+    duration_timer.start()
+    show()
+    set_physics_process(true)
+
+func _physics_process(delta: float) -> void:
+    if idle_time_after_pushed_back > 0:
+        if !monitoring: monitoring = true
+        idle_time_after_pushed_back -= Utils.physics_one(delta) * delta
+    else: set_physics_process(false)
 
 # =========================== Method =========================== #
 func fa_on_DurationTimerTimeout() -> void:
+    emit_signal("duration_timeout")
+    reset()
+
     for body in affected_players:
         fa_remove_effect_from_body(body)
-
-    emit_signal("duration_timeout")
 
 func fa_on_SlimeTrail_body_entered(body) -> void:
     if affected_players.has(body): return

@@ -12,32 +12,33 @@ var _materials_container: Node2D = main._materials_container
 
 # =========================== Extension =========================== #
 func _ready() -> void:
-    if trail_scene != null: trail_pool_id = Keys.generate_hash(trail_scene.resource_path)
+    reset()
+    if !trail_scene: trail_pool_id = Keys.generate_hash(trail_scene.resource_path)
+
+func reset() -> void:
+    hide()
+    set_deferred("monitoring", false)
+    set_physics_process(false)
+    scale = Vector2(1.0, 1.0)
 
 func shoot() -> void:
-    var trail = main.get_node_from_pool(trail_pool_id, _materials_container)
+    var trail: Node = main.get_node_from_pool(trail_pool_id, _materials_container)
     
     if !trail:
         trail = trail_scene.instance()
         _materials_container.call_deferred("add_child", trail)
-        if !trail.is_connected("duration_timeout", self , "fa_on_DurationTimer_timeout"):
-            trail.connect("duration_timeout", self , "fa_on_DurationTimer_timeout", [trail])
+        var _error = trail.connect("duration_timeout", self , "fa_on_DurationTimer_timeout", [trail])
         yield (trail, "ready")
 
-    trail.global_position = global_position
-    trail.duration = trail_duration
-    trail.reduction = speed_reduction
     trail.scale *= size
+    trail.reduction = speed_reduction
     trail.already_recycle = false
-    trail.show()
-    trail.monitoring = true
-    trail.duration_timer.start()
+
+    trail.drop(global_position, trail_duration)
 
 # =========================== Method =========================== #
 func fa_on_DurationTimer_timeout(trail: Area2D) -> void:
     if trail.already_recycle: return
 
-    trail.monitoring = false
-    trail.hide()
     trail.already_recycle = true
     main.add_node_to_pool(trail, trail_pool_id)

@@ -286,6 +286,9 @@ range_around_player = 300
 script = ExtResource( 7 )
 projectile_scene = ExtResource( 10 )
 projectile_speed = 550
+max_range = 99999
+number_projectiles = 2
+direction_change_after_each_proj = 180
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5

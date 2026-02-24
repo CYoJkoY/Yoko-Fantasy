@@ -9,7 +9,6 @@ export(int) var spawn_cooldown = 30
 export(PackedScene) var child_projectile = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_projectile_small.tscn")
 var child_projectile_pool_id: int = Keys.empty_hash
 export(float) var power = 0.6
-export(float) var free_time = 1.5
 
 var _spawn_cooldwon: float = 0
 var main: Main = null
@@ -39,14 +38,13 @@ func spawn_perpendicular_projectiles(index: int) -> void:
 
     var child_velocity: Vector2 = velocity
     match [is_symmetrical, index % 2 == 1]:
-        [false, _]: child_velocity.rotated(child_init_rotation + index * child_rotation_change_after_each)
-        [true, false]: child_velocity.rotated(child_init_rotation + index * child_rotation_change_after_each)
-        [true, true]: child_velocity.rotated(- (child_init_rotation + (index - 1) * child_rotation_change_after_each))
+        [false, _]: child_velocity = child_velocity.rotated(child_init_rotation + index * child_rotation_change_after_each)
+        [true, false]: child_velocity = child_velocity.rotated(child_init_rotation + index * child_rotation_change_after_each)
+        [true, true]: child_velocity = child_velocity.rotated(- (child_init_rotation + (index - 1) * child_rotation_change_after_each))
 
     var child_rotation: float = child_velocity.angle()
     new_projectile.global_position = global_position + child_velocity.normalized() * offset_distance
     new_projectile.rotation = child_rotation
-    new_projectile.lifetime = free_time
     new_projectile.set_from(_hitbox.from)
     new_projectile.velocity = child_velocity
 

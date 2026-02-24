@@ -1,12 +1,6 @@
-extends AttackBehavior
+extends ShootingAttackBehavior
 
-export(PackedScene) var projectile_scene = preload("res://projectiles/bullet_enemy/enemy_projectile.tscn")
-var projectile_pool_id: int = Keys.empty_hash
-
-export(float) var cooldown: float = 60
 export(int) var projectiles_per_time = 3
-export(int) var projectile_speed_min = 200
-export(int) var projectile_speed_max = 400
 export(int, 0, 360) var angle_min = 0
 export(int, 0, 360) var angle_max = 24
 export(float) var wave_speed = 1.5
@@ -19,28 +13,20 @@ var map_size_three_quarter: Vector2 = ZoneService.current_zone_max_position * 0.
 
 var main: Main = null
 
-var _current_cd: float = 0.0
-var projectile_damage: int = 0
 var _time_passed: float = 0.0
 var active_projectiles: Array = []
 
 # =========================== Extension =========================== #
 func _ready() -> void:
-    _current_cd = cooldown
-    if projectile_scene != null:
-        projectile_pool_id = Keys.generate_hash(projectile_scene.resource_path)
     main = Utils.get_scene_node()
     angle_min = deg2rad(angle_min)
     angle_max = deg2rad(angle_max)
 
 func reset() -> void:
-    _current_cd = cooldown
-    projectile_damage = 0
     _time_passed = 0.0
     active_projectiles.clear()
 
 func physics_process(delta: float) -> void:
-    _current_cd -= Utils.physics_one(delta)
     _time_passed += delta
 
     for i in range(active_projectiles.size() - 1, -1, -1):
@@ -53,25 +39,37 @@ func physics_process(delta: float) -> void:
         var p_id_offset: int = p.get_instance_id() % 100
         p.velocity.x = sin(_time_passed * wave_speed + p_id_offset) * wave_range
         p.velocity.y = p.velocity.y / (1.0 + air_resistance * delta)
-    
-    if _parent.is_playing_shoot_animation() or _current_cd > 0: return
 
-    _parent._animation_player.play(_parent.shoot_animation_name)
+    if _current_initial_cooldown > 0:
+        _current_initial_cooldown = _current_initial_cooldown - Utils.physics_one(delta)
+        return
+
+    _current_cd = _current_cd - Utils.physics_one(delta)
+
+    if not _parent.is_playing_shoot_animation() and _current_cd <= 0 and Utils.is_between(_parent.global_position.distance_to(_parent.current_target.global_position), min_range, max_range):
+        _parent._animation_player.playback_speed = attack_anim_speed
+        _parent._animation_player.play(_parent.shoot_animation_name)
+        emit_signal("shot")
 
 func shoot() -> void:
+    var speed: float = 0
+
     for i in projectiles_per_time:
         var spawn_x: float = rand_range(map_size_quarter.x, map_size_three_quarter.x)
         var spawn_y: float = map_zero.y
         var spawn_pos = Vector2(spawn_x, spawn_y)
 
         var random_angle: float = rand_range(angle_min - angle_max, angle_min + angle_max)
-        var random_speed: float = rand_range(projectile_speed_min, projectile_speed_max)
+        speed = rand_range(projectile_speed - projectile_speed_randomization, projectile_speed + projectile_speed_randomization)
 
-        active_projectiles.append(spawn_projectile(random_angle, spawn_pos, random_speed))
+        if speed_change_after_each_projectile != 0:
+            speed += speed_change_after_each_projectile * i
 
-    _current_cd = cooldown
+        active_projectiles.append(spawn_projectile(random_angle, spawn_pos, speed as int))
 
-func spawn_projectile(rot: float, pos: Vector2, spd: float) -> Node:
+    _shots_taken += 1
+
+func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
     var projectile: EnemyProjectile = main.get_node_from_pool(projectile_pool_id, main._enemy_projectiles)
     if !is_instance_valid(projectile):
         projectile = projectile_scene.instance()
@@ -80,8 +78,21 @@ func spawn_projectile(rot: float, pos: Vector2, spd: float) -> Node:
 
     projectile.global_position = pos
     projectile.set_from(_parent)
-    projectile.velocity = Vector2.DOWN.rotated(rot) * spd # (-24°~24°, Down) for (480~1440,1080)
+    projectile.velocity = Vector2.DOWN.rotated(rot) * spd * RunData.current_run_accessibility_settings.speed # (-24°~24°, Down) for (480~1440,1080)
+
+    if rotate_projectile:
+        projectile.rotation = rot
+
+    if delete_projectile_on_death and not _parent.is_connected("died", projectile, "on_entity_died"):
+        var _error_died = _parent.connect("died", projectile, "on_entity_died")
 
     projectile.set_damage(projectile_damage)
+
+    if custom_collision_layer != 0:
+        projectile.set_collision_layer(custom_collision_layer)
+    
+    if custom_sprite_material:
+        projectile.set_sprite_material(custom_sprite_material)
+
     projectile.shoot()
     return projectile

@@ -8,7 +8,7 @@ FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly chases the player, evolves af
 FANTASY_MEDIUM_SLIME_NAME,Medium Slime,中史莱姆
 FANTASY_MEDIUM_SLIME_BEHAVIOUR_DESCRIPTION,"No materials drop, slowly chases the player, summons 1 small slime per second, splits into 3 small slimes upon death, evolves after 24 non-slime enemy deaths or material pickups within range of 150.","不掉落材料,缓慢追击玩家,每秒召唤1个小史莱姆,死亡时分裂成3个小史莱姆,150范围内死亡的非史莱姆系敌人或其拾取的材料达到24个则进化"
 FANTASY_BIG_SLIME_NAME,Big Slime,大史莱姆
-FANTASY_BIG_SLIME_BEHAVIOUR_DESCRIPTION,"No materials drop, slowly chases the player, summons 3 small slimes per second, splits into 2 medium slimes upon death, evolves after 48 non-slime enemy deaths within range of 200, leaves a trail of slime residue lasting 5 seconds each second, slows player by 50% on contact","不掉落材料,缓慢追击玩家,每秒召唤3个小史莱姆,死亡时分裂成2个中史莱姆,200范围内死亡的非史莱姆系敌人达到48个则进化,每秒留下持续5秒的史莱姆粘液痕迹,玩家触碰时被减速50%"
+FANTASY_BIG_SLIME_BEHAVIOUR_DESCRIPTION,"No materials drop, slowly chases the player, summons 3 small slimes per second, splits into 2 medium slimes upon death, leaves a trail of slime residue lasting 5 seconds each second, slows player by 50% on contact","不掉落材料,缓慢追击玩家,每秒召唤3个小史莱姆,死亡时分裂成2个中史莱姆,每秒留下持续5秒的史莱姆粘液痕迹,玩家触碰时被减速50%"
 FANTASY_SLIME_KING_NAME,Slime King,史莱姆王
 FANTASY_SLIME_KING_BEHAVIOUR_DESCRIPTION,"Mutation 0:
 Slowly pursues the player. Every 3 seconds, it summons 3 Medium Slimes; every 5 seconds, it summons 1 Large Slime. Every 0.5 seconds, it leaves behind a Slime Trail that lasts for 10 seconds. Players who touch the trail are slowed by 50%.

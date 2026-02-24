@@ -1,10 +1,9 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/014_big_slime/big_slime_stats.tres" type="Resource" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/014_big_slime/big_slime.gd" type="Script" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/014_big_slime/big_slime.webp" type="Texture" id=4]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/006_medium_slime/medium_slime.tscn" type="PackedScene" id=5]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/spawning_attack_behavior.gd" type="Script" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/001_little_slime/little_slime.tscn" type="PackedScene" id=7]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/slime_trail_attack_behavior.gd" type="Script" id=8]
@@ -256,9 +255,7 @@ dodge_sounds = [ ExtResource( 28 ), ExtResource( 24 ) ]
 stats = ExtResource( 2 )
 flash_mat = SubResource( 1 )
 enemy_id = "fantasy_big_slime"
-evolution_target_path = "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/024_slime_king/scene/slime_king.tscn"
-kills_needed = 48
-die_to_spawn = ExtResource( 5 )
+die_to_spawn_path = "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/006_medium_slime/medium_slime.tscn"
 nb_spawns_on_death = 2
 
 [node name="Animation" type="Node2D" parent="."]

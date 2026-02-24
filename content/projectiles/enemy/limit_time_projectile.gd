@@ -1,7 +1,7 @@
 extends EnemyProjectile
 
 export(float) var lifetime = 0.0
-export(bool) var reset_alpa = true
+export(bool) var reset_alpa = false
 export(int) var reset_alpha = 0
 
 var delta_time: float = 0.0

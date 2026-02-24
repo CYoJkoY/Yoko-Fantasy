@@ -1,7 +1,6 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://entities/units/enemies/ItemEnemy.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/021_world_tree/world_tree_stats.tres" type="Resource" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/021_world_tree/world_tree_icon.webp" type="Texture" id=3]
 
 [resource]
@@ -19,5 +18,11 @@ is_lockable = true
 unlock_codex_descr_after_get_it = 1
 is_cursed = false
 curse_factor = 0.0
-enemy_stats = ExtResource( 2 )
 behaviour_description = "FANTASY_WORLD_TREE_BEHAVIOUR_DESCRIPTION"
+show_hp = true
+show_dammage = true
+show_speed = true
+show_knoback_resistance = true
+show_material_dropped = true
+is_boss = false
+is_elite = true
