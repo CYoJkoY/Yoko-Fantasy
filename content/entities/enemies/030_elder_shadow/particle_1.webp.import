@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/maple_wolf_king_1.png-e5e56f5bd9a06689e49b3ffa47f45f35.stex"
+path="res://.import/particle_1.webp-8b28dc5eb79809e81cdc8e0ccfa2bb5e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king_1.png"
-dest_files=[ "res://.import/maple_wolf_king_1.png-e5e56f5bd9a06689e49b3ffa47f45f35.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/particle_1.webp"
+dest_files=[ "res://.import/particle_1.webp-8b28dc5eb79809e81cdc8e0ccfa2bb5e.stex" ]
 
 [params]
 

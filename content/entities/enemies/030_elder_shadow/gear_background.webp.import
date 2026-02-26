@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/gear_background.webp-e078517f05932a2a6ba00cafcc879910.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_shadow.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/gear_background.webp"
+dest_files=[ "res://.import/gear_background.webp-e078517f05932a2a6ba00cafcc879910.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_shadow.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

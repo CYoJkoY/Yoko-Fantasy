@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/maple_wolf_king_attack_right.webp-622af957b8c3cc335b5aeb95c2f147e2.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king_attack_right.webp"
+dest_files=[ "res://.import/maple_wolf_king_attack_right.webp-622af957b8c3cc335b5aeb95c2f147e2.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

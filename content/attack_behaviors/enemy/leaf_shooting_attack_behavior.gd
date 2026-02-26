@@ -1,6 +1,6 @@
 extends ShootingAttackBehavior
 
-export(int) var projectiles_per_time = 3
+export(int) var projectiles_per_time = 6
 export(int, 0, 360) var angle_min = 0
 export(int, 0, 360) var angle_max = 24
 export(float) var wave_speed = 1.5

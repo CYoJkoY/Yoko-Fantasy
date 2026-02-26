@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/maple_wolf_king_howling.webp-dc423bd60b631a0675661561b8540ec7.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king_howling.webp"
+dest_files=[ "res://.import/maple_wolf_king_howling.webp-dc423bd60b631a0675661561b8540ec7.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

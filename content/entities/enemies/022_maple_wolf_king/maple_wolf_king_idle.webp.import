@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/maple_wolf_king_idle.webp-284af2450d82ae836d3e8f440e55b703.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king_idle.webp"
+dest_files=[ "res://.import/maple_wolf_king_idle.webp-284af2450d82ae836d3e8f440e55b703.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

@@ -244,3 +244,19 @@ The attack pattern shifts: the entity repeatedly summons flower-shaped patterns 
 
 异变1 (50%生命 / 40秒):
 攻击方式变为在周围反复召唤六片花瓣构成的花型弹幕,同时自身向外发射五条等角度间隔的光束"
+FANTASY_MAPLE_WOLF_KING_NAME,Maple Wolf King,枫狼王
+FANTASY_MAPLE_WOLF_KING_BEHAVIOUR_DESCRIPTION,"Mutation 0:
+Pursues the player, using a double-claw attack. Each claw slash generates a maple-leaf-shaped blade light. Remains stationary during slashes, and performs a dash at the end.
+
+Mutation 1 (67% HP / 25s):
+Stands still and performs a wolf howl for 2 seconds upon entering this phase, summoning 12 Maple Wolves at the 1-second mark. Subsequent attack patterns are the same as Mutation 0.
+
+Mutation 2 (33% HP / 50s):
+Movement speed is significantly increased. Attacks change to a five-claw attack but will not dash. Summons 5 Maple Wolves at the end of the slash sequence.","异变0:
+追击玩家,使用二连挥爪攻击,每次挥爪产生枫叶形的刀光,挥爪时不会移动,结束时发起冲刺
+
+异变1 (67%生命 / 25秒):
+进入该阶段时静止狼嚎2秒,在1秒时召唤12只枫狼,后续攻击方式和异变0一致
+
+异变2 (33%生命 / 50秒):
+移速大幅度提高,攻击方式变为五连挥爪攻击,但不会冲刺,挥爪结束时召唤5只枫狼"

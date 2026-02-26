@@ -369,11 +369,17 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.7 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "values": [ {
+"args": [ false ],
+"method": "switch_can_move"
+}, {
 "args": [  ],
 "method": "shoot"
+}, {
+"args": [ true ],
+"method": "switch_can_move"
 } ]
 }
 tracks/2/type = "value"
@@ -387,177 +393,6 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/3/type = "method"
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "nullify_speed"
-}, {
-"args": [  ],
-"method": "recovery_speed"
-} ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Viewport/Offset/Arrow:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/Viewport/Offset/Bow:texture")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ ExtResource( 30 ), ExtResource( 35 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Animation/Viewport/Offset/UpArm:rotation_degrees")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.3, 0.35, 0.4, 0.45, 0.5, 0.6, 0.65, 0.75, 0.8, 0.801 ),
-"transitions": PoolRealArray( 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ -74.9999, -99.6, -82.9, -81.2, -63.9, -58.2, -39.5, -31.0, -15.2, -74.9999, -75.0 ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("Animation/Viewport/Offset/Bow:rotation_degrees")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0, 0.3, 0.75, 0.8 ),
-"transitions": PoolRealArray( 2, 1, 1, 1 ),
-"update": 0,
-"values": [ 45.0, 0.0, 0.0, 45.0 ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("Animation/Viewport/Offset/BowArm:rotation_degrees")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0, 0.3, 0.75, 0.8 ),
-"transitions": PoolRealArray( 2, 1, 1, 1 ),
-"update": 0,
-"values": [ 45.0, 0.0, 0.0, 45.0 ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("Animation:scale")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 2.82, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1.1, 0.9 ), Vector2( 0.8, 1.2 ), Vector2( 1.2, 0.8 ), Vector2( 1, 1 ) ]
-}
-tracks/10/type = "value"
-tracks/10/path = NodePath("Animation/Viewport/Offset/DownArm:position")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
-"times": PoolRealArray( 0, 0.3, 0.75, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 29.7129, 8.4127 ), Vector2( 37.8947, 2.85714 ), Vector2( 2.09712, 2.85714 ), Vector2( 31.2638, 10.3571 ) ]
-}
-tracks/11/type = "value"
-tracks/11/path = NodePath("Animation/Viewport/Offset/Arrow:position")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
-"times": PoolRealArray( 0.3, 0.75 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 37.8947, 0 ), Vector2( 0.925113, 0 ) ]
-}
-tracks/12/type = "value"
-tracks/12/path = NodePath("Animation/Viewport/Offset/UpArm:position")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
-"times": PoolRealArray( 0, 0.05, 0.35, 0.4, 0.45, 0.5, 0.6, 0.8 ),
-"transitions": PoolRealArray( 2, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -26.7904, -10.0803 ), Vector2( -24.6856, -9.21498 ), Vector2( -26.5847, -11.3505 ), Vector2( -27.4985, -11.381 ), Vector2( -25.9736, -15.521 ), Vector2( -25.9736, -15.521 ), Vector2( -24.8701, -16.2704 ), Vector2( -23.4532, -6.35978 ) ]
-}
-
-[sub_resource type="Animation" id=8]
-resource_name = "shoot_charmed"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Animation:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 2.73208, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, -20 ), Vector2( 0, -32 ), Vector2( 0, -18 ), Vector2( 0, -24 ) ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.7 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "shoot"
-} ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "nullify_speed"
-}, {
-"args": [  ],
-"method": "recovery_speed"
-} ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Animation/Viewport/Offset/Arrow:visible")
@@ -662,6 +497,149 @@ tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
+"times": PoolRealArray( 0, 0.05, 0.35, 0.4, 0.45, 0.5, 0.6, 0.8 ),
+"transitions": PoolRealArray( 2, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -26.7904, -10.0803 ), Vector2( -24.6856, -9.21498 ), Vector2( -26.5847, -11.3505 ), Vector2( -27.4985, -11.381 ), Vector2( -25.9736, -15.521 ), Vector2( -25.9736, -15.521 ), Vector2( -24.8701, -16.2704 ), Vector2( -23.4532, -6.35978 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "shoot_charmed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animation:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 2.73208, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -20 ), Vector2( 0, -32 ), Vector2( 0, -18 ), Vector2( 0, -24 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "switch_can_move"
+}, {
+"args": [  ],
+"method": "shoot"
+}, {
+"args": [ true ],
+"method": "switch_can_move"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation/Viewport/Offset/Arrow:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Animation/Viewport/Offset/Bow:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.3, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 30 ), ExtResource( 35 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Animation/Viewport/Offset/UpArm:rotation_degrees")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3, 0.35, 0.4, 0.45, 0.5, 0.6, 0.65, 0.75, 0.8, 0.801 ),
+"transitions": PoolRealArray( 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -74.9999, -99.6, -82.9, -81.2, -63.9, -58.2, -39.5, -31.0, -15.2, -74.9999, -75.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Animation/Viewport/Offset/Bow:rotation_degrees")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.3, 0.75, 0.8 ),
+"transitions": PoolRealArray( 2, 1, 1, 1 ),
+"update": 0,
+"values": [ 45.0, 0.0, 0.0, 45.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Animation/Viewport/Offset/BowArm:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.3, 0.75, 0.8 ),
+"transitions": PoolRealArray( 2, 1, 1, 1 ),
+"update": 0,
+"values": [ 45.0, 0.0, 0.0, 45.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Animation:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 2.82, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.1, 0.9 ), Vector2( 0.8, 1.2 ), Vector2( 1.2, 0.8 ), Vector2( 1, 1 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Animation/Viewport/Offset/DownArm:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.3, 0.75, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 29.7129, 8.4127 ), Vector2( 37.8947, 2.85714 ), Vector2( 2.09712, 2.85714 ), Vector2( 31.2638, 10.3571 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Animation/Viewport/Offset/Arrow:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.3, 0.75 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 37.8947, 0 ), Vector2( 0.925113, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Animation/Viewport/Offset/UpArm:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
 "times": PoolRealArray( 0, 0.05, 0.35, 0.4, 0.45, 0.5, 0.6, 0.8 ),
 "transitions": PoolRealArray( 2, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
