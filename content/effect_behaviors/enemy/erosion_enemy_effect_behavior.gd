@@ -39,7 +39,7 @@ func should_add_on_spawn() -> bool:
 func on_hurt(hitbox: Hitbox) -> void:
     var from: Node = hitbox.from
 
-    if (is_instance_valid(from) and not "player_index" in from) or not is_instance_valid(from): return
+    if (is_instance_valid(from) and !from.has("player_index")) or !is_instance_valid(from): return
 
     var from_player_index: int = from.player_index if (from.player_index != -1) else RunData.DUMMY_PLAYER_INDEX
     var item_effects: Array = RunData.get_player_effect(Utils.fantasy_erosion_hash, from_player_index)

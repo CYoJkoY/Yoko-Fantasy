@@ -11,10 +11,10 @@ func apply(player_index: int) -> void:
     
     if _bonus_applied[player_index]: return
     
-    _apply_bonus_effects(player_index)
+    _fantasy_apply_bonus_effects(player_index)
 
 # =========================== Custom =========================== #
-func _apply_bonus_effects(player_index: int) -> void:
+func _fantasy_apply_bonus_effects(player_index: int) -> void:
     var base_damage: float = Utils.get_stat(Keys.stat_percent_damage_hash, player_index)
     var base_speed: float = Utils.get_stat(Keys.stat_attack_speed_hash, player_index)
     

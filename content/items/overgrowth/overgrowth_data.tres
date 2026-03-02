@@ -10,11 +10,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "item_fanatsy_overgrowth"
+my_id = "item_fantasy_overgrowth"
 unlocked_by_default = true
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "ITEM_FANATSY_OVERGROWTH"
+name = "ITEM_FANTASY_OVERGROWTH"
 tier = 1
 value = 60
 effects = [ ExtResource( 5 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ) ]

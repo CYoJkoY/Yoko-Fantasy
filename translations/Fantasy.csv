@@ -168,7 +168,7 @@ ITEM_FANTASY_NUCLEAR_DRUM,Nuclear Drum,核废料桶
 EFFECT_FANTASY_EROSION,"Attacks have a {0} chance to deal {1} erosion damage.","攻击有{0}概率造成{1}的侵蚀伤害"
 EFFECT_FANTASY_EROSION_CAN_CRIT,Erosion damage can crit,侵蚀伤害可以暴击
 EFFECT_FANTASY_EROSION_SPEED,{0} Erosion speed,{0}侵蚀速度
-ITEM_FANATSY_OVERGROWTH,Overgrowth,过度生长
+ITEM_FANTASY_OVERGROWTH,Overgrowth,过度生长
 ITEM_FANTASY_FORBIDDEN_SPELL,Forbidden Spell,禁咒
 ITEM_FANTASY_PROMOTION_LETTER,Promotion Letter,晋升文书
 EFFECT_FANTASY_EXTRA_ELITES_NEXT_WAVE,"When the next wave begins, spawn {0} extra elite enemy","下一波敌袭开始时,额外生成{0}只精英怪"

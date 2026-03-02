@@ -31,7 +31,7 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
         match [id, key, cskey]:
             ["fantasy_shop_enter_stat_curse", _, _]:
                 new_effect.value = 0 if new_effect.value == 1 else new_effect.value # Second process
-                new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier, {"setp": 1})
+                new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier, {"step": 1})
 
             ["fantasy_ranged_pet", _, _]:
                 new_effect.weapon_stats = _boost_weapon_stats_damage(new_effect.weapon_stats, effect_modifier)
