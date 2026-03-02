@@ -2,14 +2,14 @@
 
 importer="texture_atlas"
 type="Texture"
-path="res://.import/skeleton_swordsman_sprite.webp-07bb90162e552ef65720c7caf136795c.res"
+path="res://.import/skeleton_swordsman_body.webp-03dc0c54c714a6e92e30c2e813e1f536.res"
 group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/011_skeleton_swordsman/skeleton_swordsman.png"
 valid=true
 [deps]
 
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/011_skeleton_swordsman/skeleton_swordsman_sprite.webp"
-dest_files=[ "res://.import/skeleton_swordsman_sprite.webp-07bb90162e552ef65720c7caf136795c.res" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/011_skeleton_swordsman/skeleton_swordsman_body.webp"
+dest_files=[ "res://.import/skeleton_swordsman_body.webp-03dc0c54c714a6e92e30c2e813e1f536.res" ]
 
 [params]
 
