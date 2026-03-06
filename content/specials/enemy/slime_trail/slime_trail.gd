@@ -2,13 +2,13 @@ extends Area2D
 
 signal duration_timeout()
 
+onready var duration_timer: Timer = $Timer
+
 var idle_time_after_pushed_back: float = 10.0
 var already_recycle: bool = false
 
 var reduction: float = 0.5
 var affected_players: Array = []
-
-onready var duration_timer: Timer = $Timer
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -32,7 +32,7 @@ func drop(pos: Vector2, duration: float) -> void:
 func _physics_process(delta: float) -> void:
     if idle_time_after_pushed_back > 0:
         if !monitoring: monitoring = true
-        idle_time_after_pushed_back -= Utils.physics_one(delta) * delta
+        idle_time_after_pushed_back -= Utils.physics_one(delta)
     else: set_physics_process(false)
 
 # =========================== Method =========================== #

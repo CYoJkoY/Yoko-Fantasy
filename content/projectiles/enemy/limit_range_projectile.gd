@@ -17,4 +17,5 @@ func stop() -> void:
     if _enable_stop_delay: return
 
     if reset_alpa: _sprite.self_modulate.a = reset_alpha
+    delta_distance = 0.0
     .stop()

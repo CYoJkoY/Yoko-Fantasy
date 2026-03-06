@@ -7,6 +7,12 @@ func get_consumable_to_drop(unit: Unit, item_chance: float) -> ConsumableData:
     
     return consumable
 
+func get_consumable_for_tier(tier: int = Tier.COMMON) -> ConsumableData:
+    var consumable: ConsumableData =.get_consumable_for_tier(tier)
+    consumable = _fantasy_get_soul_to_drop(consumable)
+
+    return consumable
+
 func apply_item_effect_modifications(item: ItemParentData, player_index: int) -> ItemParentData:
     var new_item: ItemParentData =.apply_item_effect_modifications(item, player_index)
     new_item = _fantasy_extra_curse_item(item, player_index)

@@ -18,7 +18,7 @@ func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
     if rotate_projectile:
         projectile.rotation = rot
 
-    if delete_projectile_on_death and not _parent.is_connected("died", projectile, "on_entity_died"):
+    if delete_projectile_on_death and !_parent.is_connected("died", projectile, "on_entity_died"):
         var _error_died = _parent.connect("died", projectile, "on_entity_died")
 
     projectile.set_damage(projectile_damage)

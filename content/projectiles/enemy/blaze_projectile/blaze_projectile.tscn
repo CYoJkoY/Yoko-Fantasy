@@ -1,0 +1,134 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/blaze_projectile/blaze_projectile_001.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/limit_time_projectile.gd" type="Script" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/blaze_shake.gdshader" type="Shader" id=4]
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 4 )
+shader_param/intensity = 1.5
+shader_param/speed = 5.0
+shader_param/scale = 5.0
+shader_param/detail = 2.0
+shader_param/flame_color = Color( 1, 0.6, 0.2, 1 )
+shader_param/core_color = Color( 1, 1, 0.2, 1 )
+shader_param/flicker_speed = 5.0
+shader_param/bottom_offset = 0.0
+
+[sub_resource type="ViewportTexture" id=8]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 24.0
+
+[sub_resource type="Animation" id=11]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "shoot"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "disable_hitbox"
+}, {
+"args": [  ],
+"method": "enable_hitbox"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "set_physics_process"
+}, {
+"args": [ true ],
+"method": "set_physics_process"
+} ]
+}
+
+[node name="EnemyProjectile" type="Node2D"]
+script = ExtResource( 3 )
+lifetime = 4.0
+reset_alpa = true
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 150, 150 )
+transparent_bg = true
+hdr = false
+disable_3d = true
+usage = 0
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="Offset" type="Node2D" parent="Viewport"]
+position = Vector2( 75, 75 )
+
+[node name="Blaze" type="Sprite" parent="Viewport/Offset"]
+material = SubResource( 9 )
+position = Vector2( 0, 13 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -37 )
+
+[node name="Sprite" type="Sprite" parent="."]
+unique_name_in_owner = true
+self_modulate = Color( 1, 1, 1, 0 )
+texture = SubResource( 8 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 1 )]
+unique_name_in_owner = true
+position = Vector2( 0, -15 )
+collision_layer = 16
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 0, 6 )
+shape = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+autoplay = "shoot"
+anims/RESET = SubResource( 11 )
+anims/shoot = SubResource( 10 )
+
+[connection signal="hit_something" from="Hitbox" to="." method="_on_Hitbox_hit_something"]
+
+[editable path="Hitbox"]

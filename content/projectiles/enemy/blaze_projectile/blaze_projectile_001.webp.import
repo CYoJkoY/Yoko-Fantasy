@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/slime_trail.webp-8502ae75b6aac3c3413333346541fce2.stex"
+path="res://.import/blaze_projectile_001.webp-360c5d51dc5e1224e2015f02fe993d09.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/slime_trail/slime_trail.webp"
-dest_files=[ "res://.import/slime_trail.webp-8502ae75b6aac3c3413333346541fce2.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/blaze_projectile/blaze_projectile_001.webp"
+dest_files=[ "res://.import/blaze_projectile_001.webp-360c5d51dc5e1224e2015f02fe993d09.stex" ]
 
 [params]
 

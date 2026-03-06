@@ -1,6 +1,6 @@
 extends AttackBehavior
 
-export(PackedScene) var trail_scene = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/slime_trail/slime_trail.tscn")
+export(PackedScene) var trail_scene = preload("res://mods-unpacked/Yoko-Fantasy/content/specials/enemy/slime_trail/slime_trail.tscn")
 var trail_pool_id: int = Keys.empty_hash
 export(int) var cooldown = 60
 export(float) var trail_duration = 5.0
@@ -13,7 +13,7 @@ var _materials_container: Node2D = main._materials_container
 # =========================== Extension =========================== #
 func _ready() -> void:
     reset()
-    if !trail_scene: trail_pool_id = Keys.generate_hash(trail_scene.resource_path)
+    if trail_scene: trail_pool_id = Keys.generate_hash(trail_scene.resource_path)
 
 func reset() -> void:
     hide()

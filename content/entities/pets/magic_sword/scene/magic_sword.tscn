@@ -29,7 +29,7 @@
 [ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_03.wav" type="AudioStream" id=27]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=28]
 [ext_resource path="res://entities/units/target_behavior/closest_enemy_target_behavior.gd" type="Script" id=29]
-[ext_resource path="res://mods-unpacked/Yoko-NewContentLoader/content/visual_effects/x_flow.gdshader" type="Shader" id=30]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/x_flow.gdshader" type="Shader" id=30]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

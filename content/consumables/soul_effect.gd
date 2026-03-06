@@ -18,19 +18,17 @@ func _fantasy_apply_bonus_effects(player_index: int) -> void:
     var base_damage: float = Utils.get_stat(Keys.stat_percent_damage_hash, player_index)
     var base_speed: float = Utils.get_stat(Keys.stat_attack_speed_hash, player_index)
     
-    var bonus: float = (20 + RunData.get_player_effect(Utils.fantasy_soul_bonus_hash, player_index)) / 100.0
-    var damage_to_add: int = 0
-    var speed_to_add: int = 0
+    var bonus: float = (10 + RunData.get_player_effect(Utils.fantasy_soul_bonus_hash, player_index)) / 100.0
+    var damage_to_add: int = 10
+    var speed_to_add: int = 10
 
-    if base_damage > 0:
-        damage_to_add = int(base_damage * bonus)
-        Utils.ncl_quiet_add_stat(Keys.stat_percent_damage_hash, damage_to_add, player_index)
-        _added_damage_values[player_index] += damage_to_add
-    
-    if base_speed > 0:
-        speed_to_add = int(base_speed * bonus)
-        Utils.ncl_quiet_add_stat(Keys.stat_attack_speed_hash, speed_to_add, player_index)
-        _added_speed_values[player_index] += speed_to_add
+    damage_to_add += int(base_damage * bonus)
+    Utils.ncl_quiet_add_stat(Keys.stat_percent_damage_hash, damage_to_add, player_index)
+    _added_damage_values[player_index] += damage_to_add
+
+    speed_to_add += int(base_speed * bonus)
+    Utils.ncl_quiet_add_stat(Keys.stat_attack_speed_hash, speed_to_add, player_index)
+    _added_speed_values[player_index] += speed_to_add
     
     if timers[player_index]: return
 
