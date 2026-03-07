@@ -9,55 +9,58 @@ var trans_dir: String = ""
 
 # =========================== Extension =========================== #
 func _init() -> void:
-    dir = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR
-    trans_dir = dir + "translations/"
-    ext_dir = dir + "extensions/"
-    
-    ModLoaderMod.add_translation(trans_dir + "Fantasy.en.translation")
-    ModLoaderMod.add_translation(trans_dir + "Fantasy.zh.translation")
+	dir = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR
+	trans_dir = dir + "translations/"
+	ext_dir = dir + "extensions/"
+	
+	ModLoaderMod.add_translation(trans_dir + "Fantasy.en.translation")
+	ModLoaderMod.add_translation(trans_dir + "Fantasy.zh.translation")
 
-    var extensions: Array = [
+	var extensions: Array = [
 
-        "main.gd",
-        # STATS: Holy, Soul
-        # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ][ 1/2 ], decaying_slow_enemy_when_below_hp[ 1/2 ]
-        
-        "item_service.gd",
-        # STATS: Soul
-        
-        "enemy.gd",
-        # STATS: Holy
-        # EFFECTS: extra_curse_enemy
-        
-        "player_run_data.gd",
-        # EFFECTS' NAMES
-        
-        "utils.gd",
-        # EFFECTS' NAMES
+		"main.gd",
+		# STATS: Holy, Soul
+		# EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ][ 1/2 ], decaying_slow_enemy_when_below_hp[ 1/2 ]
 
-        "base_shop.gd",
-        # EFFECTS: shop_enter_stat_curse, curse_all_on_reroll
+		"utils.gd",
+		# EFFECTS' NAMES + coop focus safety
 
-        "player.gd",
-        # EFFECTS: damage_clamp, damage_reflect, decaying_slow_enemy_when_below_hp[ 2/2 ]
+		"pause_menu.gd",
+		# UI: pause hotkey multifunction menu (F1 / LT)
 
-        "weapon_service.gd",
-        # EFFECTS: crit_overflow
+		"item_service.gd",
+		# STATS: Soul
+		
+		"enemy.gd",
+		# STATS: Holy
+		# EFFECTS: extra_curse_enemy
+		
+		"player_run_data.gd",
+		# EFFECTS' NAMES
 
-        "wave_manager.gd",
-        # EFFECTS: extra_elites_next_wave
+		"base_shop.gd",
+		# EFFECTS: shop_enter_stat_curse, curse_all_on_reroll
 
-        "entity_spawner.gd",
-        # EFFECTS: gain_temp_stat_every_killed_enemies[ 1/3 ]
+		"player.gd",
+		# EFFECTS: damage_clamp, damage_reflect, decaying_slow_enemy_when_below_hp[ 2/2 ]
 
-        "melee_weapon.gd",
-        # EFFECTS: gain_temp_stat_every_killed_enemies[ 2/3 ]
+		"weapon_service.gd",
+		# EFFECTS: crit_overflow
 
-        "ranged_weapon.gd",
-        # EFFECTS: gain_temp_stat_every_killed_enemies[ 3/3 ]
-        
-    ]
+		"wave_manager.gd",
+		# EFFECTS: extra_elites_next_wave
 
-    for path in extensions:
-        var extension_path = ext_dir + path
-        ModLoaderMod.install_script_extension(extension_path)
+		"entity_spawner.gd",
+		# EFFECTS: gain_temp_stat_every_killed_enemies[ 1/3 ]
+
+		"melee_weapon.gd",
+		# EFFECTS: gain_temp_stat_every_killed_enemies[ 2/3 ]
+
+		"ranged_weapon.gd",
+		# EFFECTS: gain_temp_stat_every_killed_enemies[ 3/3 ]
+		
+	]
+
+	for path in extensions:
+		var extension_path = ext_dir + path
+		ModLoaderMod.install_script_extension(extension_path)

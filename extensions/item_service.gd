@@ -1,5 +1,7 @@
 extends "res://singletons/item_service.gd"
 
+const JOB_SYSTEM = preload("res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_system.gd")
+
 # =========================== Extension =========================== #
 func get_consumable_to_drop(unit: Unit, item_chance: float) -> ConsumableData:
     var consumable: ConsumableData =.get_consumable_to_drop(unit, item_chance)
@@ -7,11 +9,38 @@ func get_consumable_to_drop(unit: Unit, item_chance: float) -> ConsumableData:
     
     return consumable
 
-func get_consumable_for_tier(tier: int = Tier.COMMON) -> ConsumableData:
-    var consumable: ConsumableData =.get_consumable_for_tier(tier)
-    consumable = _fantasy_get_soul_to_drop(consumable)
+func get_upgrades(level: int, number: int, old_upgrades: Array, player_index: int) -> Array:
+    if !JOB_SYSTEM.ENABLE_JOB_SYSTEM:
+        return .get_upgrades(level, number, old_upgrades, player_index)
 
-    return consumable
+    var pending_tier: int = int(RunData.get_player_effect(Utils.fantasy_job_pending_tier_hash, player_index))
+    if pending_tier == JOB_SYSTEM.JOB_PENDING_NONE:
+        return .get_upgrades(level, number, old_upgrades, player_index)
+
+    var job_pool: Array = JOB_SYSTEM.get_upgrade_pool_for_player(pending_tier, player_index)
+    if job_pool.empty():
+        return .get_upgrades(level, number, old_upgrades, player_index)
+
+    var upgrades_to_show: Array = []
+    var tries: int = 0
+    var max_tries: int = max(50, number * 40)
+
+    while upgrades_to_show.size() < number and tries < max_tries:
+        var upgrade: UpgradeData = Utils.get_rand_element(job_pool)
+        if upgrade == null:
+            break
+
+        if is_upgrade_already_added(upgrades_to_show, upgrade) or is_upgrade_already_added(old_upgrades, upgrade):
+            tries += 1
+            continue
+
+        upgrades_to_show.push_back(upgrade)
+        tries += 1
+
+    if upgrades_to_show.empty():
+        return .get_upgrades(level, number, old_upgrades, player_index)
+
+    return upgrades_to_show
 
 func apply_item_effect_modifications(item: ItemParentData, player_index: int) -> ItemParentData:
     var new_item: ItemParentData =.apply_item_effect_modifications(item, player_index)

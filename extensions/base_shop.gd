@@ -2,6 +2,8 @@ extends "res://ui/menus/shop/base_shop.gd"
 
 # =========================== Extension =========================== #
 func _ready() -> void:
+    _fantasy_blacksmith_upgrade_tier3_weapons()
+    _fantasy_sync_all_job_weapon_count_effects()
     _fantasy_shop_enter_stat_curse()
 
 func fill_shop_items(player_locked_items: Array, player_index: int, just_entered_shop: bool = false) -> void:
@@ -11,6 +13,18 @@ func fill_shop_items(player_locked_items: Array, player_index: int, just_entered
 func set_reroll_button_price(player_index: int) -> void:
     .set_reroll_button_price(player_index)
     _fantasy_set_curse_all_on_reroll_icon(player_index)
+
+func on_shop_item_bought(shop_item: ShopItem, player_index: int) -> void:
+    .on_shop_item_bought(shop_item, player_index)
+    Utils.sync_fantasy_job_weapon_count_effects(player_index)
+
+func _combine_weapon(weapon_data: WeaponData, player_index: int, is_upgrade: bool) -> void:
+    ._combine_weapon(weapon_data, player_index, is_upgrade)
+    Utils.sync_fantasy_job_weapon_count_effects(player_index)
+
+func _on_item_discard_button_pressed(weapon_data: WeaponData, player_index: int) -> void:
+    ._on_item_discard_button_pressed(weapon_data, player_index)
+    Utils.sync_fantasy_job_weapon_count_effects(player_index)
 
 # =========================== Custom =========================== #
 func _fantasy_shop_enter_stat_curse() -> void:
@@ -65,6 +79,49 @@ func _fantasy_shop_enter_stat_curse() -> void:
                 var player_gear_container: PlayerGearContainer = _get_gear_container(player_index)
                 player_gear_container.set_weapons_data(RunData.get_player_weapons(player_index))
                 player_gear_container.set_items_data(RunData.get_player_items(player_index))
+
+func _fantasy_blacksmith_upgrade_tier3_weapons() -> void:
+    for player_index in RunData.get_player_count():
+        var effects: Dictionary = RunData.get_player_effects(player_index)
+        var trigger_count: int = int(effects.get(Utils.fantasy_job_blacksmith_tier3_upgrade_hash, 0))
+        if trigger_count <= 0:
+            continue
+
+        if RunData.get_player_effect_bool(Keys.lock_current_weapons_hash, player_index):
+            continue
+
+        var upgraded_any := false
+        for _i in trigger_count:
+            var candidate_weapons: Array = []
+            var player_weapons: Array = RunData.get_player_weapons(player_index)
+            var max_weapon_tier: int = int(effects.get(Keys.max_weapon_tier_hash, Tier.LEGENDARY))
+
+            for weapon in player_weapons:
+                if weapon.upgrades_into == null:
+                    continue
+                if weapon.tier != Tier.RARE:
+                    continue
+                if weapon.tier >= max_weapon_tier:
+                    continue
+                candidate_weapons.push_back(weapon)
+
+            if candidate_weapons.empty():
+                break
+
+            var weapon_to_upgrade: WeaponData = Utils.get_rand_element(candidate_weapons)
+            _combine_weapon(weapon_to_upgrade, player_index, true)
+            upgraded_any = true
+
+        if upgraded_any:
+            _update_stats()
+            var player_gear_container: PlayerGearContainer = _get_gear_container(player_index)
+            player_gear_container.set_weapons_data(RunData.get_player_weapons(player_index))
+            player_gear_container.set_items_data(RunData.get_player_items(player_index))
+            Utils.sync_fantasy_job_weapon_count_effects(player_index)
+
+func _fantasy_sync_all_job_weapon_count_effects() -> void:
+    for player_index in RunData.get_player_count():
+        Utils.sync_fantasy_job_weapon_count_effects(player_index)
 
 func _fantasy_curse_all_on_reroll(player_index: int, just_entered_shop: bool = false) -> void:
     if just_entered_shop: return

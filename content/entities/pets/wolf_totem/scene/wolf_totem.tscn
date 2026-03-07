@@ -305,7 +305,6 @@ physics_material_override = SubResource( 6 )
 custom_integrator = true
 script = ExtResource( 1 )
 outline_material = SubResource( 7 )
-get_entity_spawner_ref_on_spawn = true
 crit_sounds = [ ExtResource( 29 ), ExtResource( 15 ), ExtResource( 19 ), ExtResource( 14 ) ]
 hurt_sounds = [ ExtResource( 24 ), ExtResource( 13 ), ExtResource( 23 ), ExtResource( 12 ), ExtResource( 27 ), ExtResource( 20 ), ExtResource( 18 ), ExtResource( 16 ) ]
 burn_sounds = [ ExtResource( 21 ), ExtResource( 22 ), ExtResource( 28 ), ExtResource( 25 ) ]

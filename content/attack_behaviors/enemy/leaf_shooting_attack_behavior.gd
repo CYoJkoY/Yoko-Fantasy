@@ -11,13 +11,14 @@ var map_zero: Vector2 = ZoneService.current_zone_min_position
 var map_size_quarter: Vector2 = ZoneService.current_zone_max_position * 0.25
 var map_size_three_quarter: Vector2 = ZoneService.current_zone_max_position * 0.75
 
-var main: Main = Utils.get_scene_node()
+var main: Main = null
 
 var _time_passed: float = 0.0
 var active_projectiles: Array = []
 
 # =========================== Extension =========================== #
 func _ready() -> void:
+    main = Utils.get_scene_node()
     angle_min = deg2rad(angle_min)
     angle_max = deg2rad(angle_max)
 
@@ -31,7 +32,7 @@ func physics_process(delta: float) -> void:
     for i in range(active_projectiles.size() - 1, -1, -1):
         var p = active_projectiles[i]
 
-        if !p._hitbox.active:
+        if p._hitbox.is_disabled():
             active_projectiles.remove(i)
             continue
 
@@ -45,7 +46,7 @@ func physics_process(delta: float) -> void:
 
     _current_cd = _current_cd - Utils.physics_one(delta)
 
-    if !_parent.is_playing_shoot_animation() and _current_cd <= 0 and Utils.is_between(_parent.global_position.distance_to(_parent.current_target.global_position), min_range, max_range):
+    if not _parent.is_playing_shoot_animation() and _current_cd <= 0 and Utils.is_between(_parent.global_position.distance_to(_parent.current_target.global_position), min_range, max_range):
         _parent._animation_player.playback_speed = attack_anim_speed
         _parent._animation_player.play(_parent.shoot_animation_name)
         emit_signal("shot")
@@ -82,7 +83,7 @@ func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
     if rotate_projectile:
         projectile.rotation = rot
 
-    if delete_projectile_on_death and !_parent.is_connected("died", projectile, "on_entity_died"):
+    if delete_projectile_on_death and not _parent.is_connected("died", projectile, "on_entity_died"):
         var _error_died = _parent.connect("died", projectile, "on_entity_died")
 
     projectile.set_damage(projectile_damage)
