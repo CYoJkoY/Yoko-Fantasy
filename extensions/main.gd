@@ -1,6 +1,7 @@
 extends "res://main.gd"
 
 var FaTimers: Array = []
+var twin_summoned: Array = []
 
 # ui_entry
 var UIHolyScenes = {}
@@ -16,6 +17,10 @@ func _on_EntitySpawner_players_spawned(players: Array) -> void:
 
     _fantasy_start_ui_update_timer()
     _fantasy_start_time_bonus_current_health_damage_timer()
+
+func _on_EntitySpawner_enemy_spawned(enemy: Enemy) -> void:
+    ._on_EntitySpawner_enemy_spawned(enemy)
+    _fantasy_twin_connect(enemy)
 
 func _on_EntitySpawner_enemy_respawned(_enemy: Enemy) -> void:
     ._on_EntitySpawner_enemy_respawned(_enemy)
@@ -164,6 +169,22 @@ func _fantasy_decaying_slow_enemy(enemy: Enemy) -> void:
             true: player._non_decaying_slow_material[enemy] = enemy._non_flash_material
             false: player._non_decaying_slow_material[enemy] = enemy.sprite.material
         enemy.sprite.material = load("res://mods-unpacked/Yoko-Fantasy/extensions/effects/decaying_slow_enemy_when_below_hp/decaying_slow_enemy_when_below_hp_shader.tres")
+
+func _fantasy_twin_connect(enemy: Enemy) -> void:
+    match [enemy.enemy_id, twin_summoned.has(enemy.pool_id)]:
+        ["fantasy_twin_blaze", false]:
+            var scene: PackedScene = load("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023b_twin_frost/twin_frost.tscn")
+            twin_summoned.append(scene.get_instance_id())
+            var args: EntitySpawner.SpawnEntityArgs = EntitySpawner.SpawnEntityArgs.new(enemy.global_position, EntityType.BOSS)
+            var _new_enemy: Enemy = _entity_spawner.spawn_entity(scene, args)
+            var _error_twin_state_connect: int = enemy.connect("state_changed", _new_enemy, "fa_change_state")
+
+        ["fantasy_twin_frost", false]:
+            var scene: PackedScene = load("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023a_twin_blaze/twin_blaze.tscn")
+            twin_summoned.append(scene.get_instance_id())
+            var args: EntitySpawner.SpawnEntityArgs = EntitySpawner.SpawnEntityArgs.new(enemy.global_position, EntityType.BOSS)
+            var _new_enemy: Enemy = _entity_spawner.spawn_entity(scene, args)
+            var _error_twin_state_connect: int = enemy.connect("state_changed", _new_enemy, "fa_change_state")
 
 # =========================== Method =========================== #
 func fa_update_all_ui_stats() -> void:

@@ -1,14 +1,14 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://entities/units/unit/stats.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/021_world_tree/world_tree_icon.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023b_twin_frost/twin_frost_icon.webp" type="Texture" id=2]
 
 [resource]
 script = ExtResource( 1 )
 icon = ExtResource( 2 )
 health = 1
 health_increase_each_wave = 750.0
-speed = 0
+speed = 250
 speed_randomization = 0
 damage = 1
 damage_increase_each_wave = 1.5

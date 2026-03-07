@@ -8,7 +8,6 @@ export(float) var speed_reduction = 0.5
 export(float) var size = 1.0
 
 var main: Main = Utils.get_scene_node()
-var _materials_container: Node2D = main._materials_container
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -22,13 +21,12 @@ func reset() -> void:
     scale = Vector2(1.0, 1.0)
 
 func shoot() -> void:
-    var trail: Node = main.get_node_from_pool(trail_pool_id, _materials_container)
+    var trail: Node = main.get_node_from_pool(trail_pool_id, main._effects)
     
-    if !trail:
+    if !is_instance_valid(trail):
         trail = trail_scene.instance()
-        _materials_container.call_deferred("add_child", trail)
+        main.add_effect(trail)
         var _error = trail.connect("duration_timeout", self , "fa_on_DurationTimer_timeout", [trail])
-        yield (trail, "ready")
 
     trail.scale *= size
     trail.reduction = speed_reduction

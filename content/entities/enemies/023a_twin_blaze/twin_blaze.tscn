@@ -5,7 +5,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023a_twin_blaze/twin_blaze.webp" type="Texture" id=3]
 [ext_resource path="res://ui/hud/ui_progress_bar.tscn" type="PackedScene" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023a_twin_blaze/twin_blaze_stats.tres" type="Resource" id=5]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/world_tree_projectile/world_tree_flower_projectile.tscn" type="PackedScene" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/enemy/prediction_line/prediction_line.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/units/enemies/boss/boss_state.tscn" type="PackedScene" id=7]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=8]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=9]
@@ -34,8 +34,8 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=32]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=33]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=34]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/surround_target_shooting_attack_behavior.gd" type="Script" id=35]
 [ext_resource path="res://entities/units/movement_behaviors/target_rand_pos_movement_behavior.gd" type="Script" id=36]
+[ext_resource path="res://entities/units/movement_behaviors/target_rand_pos_around_player_movement_behavior.gd" type="Script" id=37]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -313,12 +313,11 @@ damage_increase_each_wave = 1.15
 max_range = 99999
 attack_anim_speed = 2.0
 number_projectiles = 12
-spawn_projectiles_on_target = true
-projectile_spawn_spread = 1000
+projectile_spawn_spread = 300
 projectile_spawn_only_on_borders = true
 constant_spread = true
 constant_spread_rand_base_pos = 3.14
-shoot_from_proj_pos_towards_player = true
+shoot_away_from_unit = true
 rotate_projectile = false
 
 [node name="BurningTimer" type="Timer" parent="."]
@@ -336,22 +335,51 @@ hp_start = 0.5
 timer_start = 40.0
 
 [node name="MovementBehavior" parent="States/State1" index="0"]
-script = ExtResource( 36 )
+script = ExtResource( 37 )
+range_around_player = 300
+range_randomization = 0
+update_every_x_frames = 60
 
 [node name="AttackBehavior" parent="States/State1" index="1"]
-script = ExtResource( 35 )
-projectile_scene = ExtResource( 6 )
-projectile_speed = 120
-damage = 0.0
-damage_increase_each_wave = 0.0
+script = ExtResource( 12 )
+projectile_scene = ExtResource( 10 )
+projectile_speed = 600
+speed_change_after_each_projectile = 50
+cooldown = 45.0
+long_cooldown_every_x_shoots = 2
+long_cooldown = 180
+damage_increase_each_wave = 1.15
 number_projectiles = 6
-target_class = 2
-spawn_radius = 200
-init_rotation = 0
-projectile_direction = 180
-direction_change_after_each_proj = 60
-pos_base_on_centerx = false
-pos_base_on_centery = false
+projectile_spawn_spread = 200
+projectile_spawn_only_on_borders = true
+constant_spread = true
+shoot_from_proj_pos_towards_player = true
+rotate_projectile = false
+prediction_line_scene = ExtResource( 6 )
+prediction_line_time = 3.0
+prediction_line_precision = 0.1
+prediction_line_duration = 1.0
+prediction_line_color = Color( 1, 0, 0, 1 )
+prediction_line_width = 30.0
+wave_range = 100.0
+wave_speed = 1.0
+
+[node name="SpreadAttackBehavior2" type="Node2D" parent="States/State1"]
+unique_name_in_owner = true
+script = ExtResource( 8 )
+projectile_scene = ExtResource( 10 )
+projectile_speed = 250
+damage_increase_each_wave = 1.15
+max_range = 99999
+attack_anim_speed = 2.0
+number_projectiles = 12
+spawn_projectiles_on_target = true
+projectile_spawn_spread = 1000
+projectile_spawn_only_on_borders = true
+constant_spread = true
+constant_spread_rand_base_pos = 3.14
+shoot_from_proj_pos_towards_player = true
+rotate_projectile = false
 
 [node name="CheckStateTimer" type="Timer" parent="."]
 unique_name_in_owner = true

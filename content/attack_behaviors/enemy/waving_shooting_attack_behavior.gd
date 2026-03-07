@@ -17,7 +17,6 @@ var pre_forward = Vector2.ZERO
 var _perpendicular: Vector2 = Vector2.ZERO
 
 var main = Utils.get_scene_node()
-var _materials_container: Node2D = main._materials_container
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -133,12 +132,11 @@ func shoot() -> void:
 
 # =========================== Custom =========================== #
 func fantasy_spawn_prediction_line(rot: float, pos: Vector2, spd: int) -> void:
-    var prediction_line: Node = main.get_node_from_pool(prediction_line_pool_id, _materials_container)
-    if !prediction_line:
+    var prediction_line: Node = main.get_node_from_pool(prediction_line_pool_id, main._effects)
+    if !is_instance_valid(prediction_line):
         prediction_line = prediction_line_scene.instance()
-        _materials_container.call_deferred("add_child", prediction_line)
+        main.add_effect(prediction_line)
         var _error = prediction_line.connect("duration_timeout", self , "fa_on_DurationTimer_timeout", [prediction_line])
-        yield (prediction_line, "ready")
 
     prediction_line.already_recycle = false
     var velocity: Vector2 = Vector2.RIGHT.rotated(rot) * spd * RunData.current_run_accessibility_settings.speed

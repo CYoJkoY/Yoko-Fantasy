@@ -52,7 +52,6 @@ func _physics_process(delta) -> void:
 
 func shoot() -> void:
     _is_shooting = true
-    var entity_spawner: EntitySpawner = get_tree().current_scene._entity_spawner
     var enemies: Array = entity_spawner.get_all_enemies(false)
     var bosses: Array = entity_spawner.bosses
     var max_hp: int = 0

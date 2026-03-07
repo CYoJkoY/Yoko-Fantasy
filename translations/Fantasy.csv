@@ -262,3 +262,5 @@ Movement speed is significantly increased. Attacks change to a five-claw attack 
 移速大幅度提高,攻击方式变为五连挥爪攻击,但不会冲刺,挥爪结束时召唤5只枫狼"
 FANTASY_TWIN_BLAZE_NAME,Blaze,炎
 FANTASY_TWIN_BLAZE_BEHAVIOUR_DESCRIPTION,"",""
+FANTASY_TWIN_FROST_NAME,Frost,霜
+FANTASY_TWIN_FROST_BEHAVIOUR_DESCRIPTION,"",""
