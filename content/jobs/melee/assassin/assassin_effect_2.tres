@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "item_fantasy_demon_hunter_blade"
-text_key = "EFFECT_FANTASY_EXTRA_CURSE_ENEMY"
-value = 10
-custom_key = "fantasy_extra_curse_enemy"
-storage_method = 4
+key = "stat_fantasy_crit_damage"
+text_key = ""
+value = 50
+custom_key = ""
+storage_method = 0
 effect_sign = 3
 custom_args = [  ]

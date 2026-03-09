@@ -42,6 +42,7 @@ func _init() -> void:
         # EFFECTS: damage_clamp, damage_reflect, decaying_slow_enemy_when_below_hp[ 2/2 ]
 
         "weapon_service.gd",
+        # STATS: Crit Damage
         # EFFECTS: crit_overflow
 
         "wave_manager.gd",
@@ -51,10 +52,13 @@ func _init() -> void:
         # EFFECTS: gain_temp_stat_every_killed_enemies[ 1/3 ]
 
         "melee_weapon.gd",
-        # EFFECTS: gain_temp_stat_every_killed_enemies[ 2/3 ]
+        # EFFECTS: gain_temp_stat_every_killed_enemies[ 2/3 ], reload_when_shoot[ 1/2 ]
 
         "ranged_weapon.gd",
-        # EFFECTS: gain_temp_stat_every_killed_enemies[ 3/3 ]
+        # EFFECTS: gain_temp_stat_every_killed_enemies[ 3/3 ], reload_when_shoot[ 2/2 ]
+
+        "run_data.gd",
+        # EFFECTS: specific_set_weapon_effects
         
     ]
 

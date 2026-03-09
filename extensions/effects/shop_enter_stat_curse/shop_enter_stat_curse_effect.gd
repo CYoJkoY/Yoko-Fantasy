@@ -5,6 +5,7 @@ export(int) var curse_num = 0
 export(String) var tracking_key = ""
 var tracking_key_hash: int = Keys.empty_hash
 
+# =========================== Extension =========================== #
 func duplicate(subresources := false) -> Resource:
     var duplication =.duplicate(subresources)
 

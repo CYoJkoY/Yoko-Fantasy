@@ -117,7 +117,9 @@ ITEM_FANTASY_DEMON_EYE_USED,Fossilized Demon Eye,石化的恶魔之眼
 EFFECT_FANTASY_CURSE_ALL_ON_REROLL,Curse all items in the shop the next reroll,下一次刷新诅咒商店里的所有物品
 EFFECT_FANTASY_DEMON_EYE_USED,"The exhausted demon eye has turned into a stone statue","消耗殆尽的恶魔之眼变成了石像"
 EFFECT_FANTASY_CURSE_ALL_ON_REROLL_CURSED,"Curse all items in the shop the next reroll,return to the uncursed state rather than the used state","下一次刷新诅咒商店里的所有物品,变回未诅咒状态而非已使用状态"
-EFFECT_FANTASY_EXTRA_CURSE_ENEMY,Enemies have an additional {0} chance to be cursed,敌人有额外{0}概率被诅咒
+EFFECT_FANTASY_EXTRA_CURSE_ENEMY,"Enemies have an additional {0} chance to be cursed
+{1}","敌人有额外{0}概率被诅咒
+{1}"
 ITEM_FANTASY_DEMON_HUNTER_BLADE,Demon Hunter Blade,猎魔之刃
 TRACKING_DAMAGE_REDUCED,Damage Reduced: {0},已减免伤害: {0}
 ITEM_FANTASY_DOG_COIN,Dog Coin,狗狗金币
@@ -206,7 +208,8 @@ ITEM_FANTASY_WHITE_FOX,White Fox,白狐
 FANTASY_WHITE_FOX_NAME,White Fox,白狐
 EFFECT_FANTASY_PET_WHITE_FOX,"Summons a white fox to pursue enemies within a range of {1}, fires an ice spear with an initial 1 pierce, dealing {2} ({3}) damage","召唤一只白狐追击范围{1}内的敌人,每{0}秒发射一枚初始自带1贯穿的冰锥,造成{2}({3})伤害"
 ITEM_FANTASY_SECLUDED_PARADISE,Secluded Paradise,世外桃源
-EFFECT_GAIN_TEMP_STAT_EVERY_KILLED_ENEMIES,"Gains {0} {1} for every {2} enemies killed, until the end of the wave","每击杀{2}名敌人{0}{1},直至敌袭结束"
+EFFECT_FANTASY_GAIN_STAT_EVERY_KILLED_ENEMIES,"Gains {0} {1} for every {2} enemies killed","每击杀{2}名敌人{0}{1}"
+EFFECT_FANTASY_GAIN_TEMP_STAT_EVERY_KILLED_ENEMIES,"Gains {0} {1} for every {2} enemies killed{3}, until the end of the wave","每击杀{2}名敌人{0}{1}{3},直至敌袭结束"
 HIT_PROTECTION,Nullify Damage,伤害无效
 EFFECT_FANTASY_DECAYING_SLOW_ENEMY_WHEN_BELOW_HP,"Slows enemies by {2} for {1} seconds when your HP drops below {0}, up to {3} times per wave","敌袭内生命值降低到{0}以下时,{2}敌人速度持续{1}秒,每次敌袭可触发{3}次"
 ITEM_FANTASY_SILVER_POCKET_WATCH,Silver Pocket Watch,银怀表
@@ -264,3 +267,25 @@ FANTASY_TWIN_BLAZE_NAME,Blaze,炎
 FANTASY_TWIN_BLAZE_BEHAVIOUR_DESCRIPTION,"",""
 FANTASY_TWIN_FROST_NAME,Frost,霜
 FANTASY_TWIN_FROST_BEHAVIOUR_DESCRIPTION,"",""
+JOB_FANTASY_SWORDER,Sworder,剑士
+JOB_FANTASY_ARCHER,Archer,射手
+JOB_FANTASY_MAGE,Mage,法师
+JOB_FANTASY_CONSTRUCTOR,Constructor,构筑师
+JOB_FANTASY_DUAL_WIELDER,Dual Wielder,双刀使
+EFFECT_FANTASY_RELOAD_WHEN_SHOOT,"There is a {0} chance to reset cooldown after using the weapon.
+{1}","武器使用后有{0}概率重置冷却
+{1}"
+JOB_FANTASY_HOLY_SWORDSMAN,Holy Swordsman,圣剑使
+JOB_FANTASY_WANDERING_SAMURAI,Wandering Samurai,流浪武士
+JOB_FANTASY_ASSASSIN,Assassin,暗杀者
+STAT_FANTASY_CRIT_DAMAGE,Crit Damage,暴击伤害
+JOB_FANTASY_DIVINE_ARCHER,Divine Archer,神弓手
+JOB_FANTASY_WIND_WALKER,Wind Walker,风行者
+JOB_FANTASY_CANNONIER,Cannonier,炮手
+EFFECT_FANTASY_SPECIFIC_SET_WEAPON_BONUSES,{0}{1} for every {4} weapon of type {2} you have[{3}],每持有有{4}把{2}类武器{0}{1}[{3}]
+JOB_FANTASY_FIREARMS_MASTER,Firearms Master,枪械大师
+JOB_FANTASY_FIRE_MAGE,Fire Mage,火法师
+JOB_FANTASY_LIGHTNING_MAGE,Lightning Mage,雷法师
+JOB_FANTASY_HOLY_MAGE,Holy Mage,圣法师
+JOB_FANTASY_DARK_MAGE,Dark Mage,黑魔法师
+JOB_FANTASY_MECHANIC,Mechanic,机械师
