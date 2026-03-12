@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/upgrade_specific_tier_weapons/upgrade_specific_tier_weapons_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "fantasy_upgrade_specific_tier_weapons"
+text_key = "EFFECT_FANTASY_UPGRADE_SPECIFIC_TIER_WEAPONS"
+value = 1
+custom_key = ""
+storage_method = 0
+effect_sign = 2
+custom_args = [  ]
+tier = 0

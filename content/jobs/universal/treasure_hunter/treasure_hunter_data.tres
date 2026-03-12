@@ -1,0 +1,27 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/job_data.gd" type="Script" id=1]
+[ext_resource path="res://items/all/acid/acid_icon.png" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/treasure_hunter/treasure_hunter_effect_2.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/treasure_hunter/treasure_hunter_effect_1.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "job_fantasy_treasure_hunter"
+unlocked_by_default = true
+can_be_looted = true
+icon = ExtResource( 2 )
+name = "JOB_FANTASY_TREASURE_HUNTER"
+tier = 0
+value = 1
+effects = [ ExtResource( 4 ), ExtResource( 3 ) ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+max_nb = 1
+item_appearances = [  ]
+tags = [  ]
+upgrade_id = "job_fantasy_universal"
+stage = 1

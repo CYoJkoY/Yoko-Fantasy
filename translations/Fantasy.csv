@@ -53,13 +53,13 @@ FANTASY_LITTLE_DEMON_NAME,Little Demon,小恶魔
 FANTASY_LITTLE_DEMON_BEHAVIOUR_DESCRIPTION,"Pursue the player, firing two bullets every 1.5 seconds that appear from the left and right sides of the map and travel toward each other","追击玩家, 每1.5秒发射两个从地图左右两侧出现的相对而行的子弹"
 FANTASY_CRYSTALLINE_ELEMENTS_NAME,Crystalline Elements,元素结晶
 FANTASY_CRYSTALLINE_ELEMENTS_BEHAVIOUR_DESCRIPTION,"Teleports randomly within a range of 700 every 3 seconds, and each second summons a hexagonal cluster of six blade flashes around itself that contracts inward.","每3秒在700范围内随机传送,每秒在周围召唤由6个刀光构成的向内收缩的六边形刀光群"
-FANTASY_INFO_HOLY,"Holy, Attribute. Inactive when negative. Increases damage dealt to Cursed enemies by {0}, increases Soul drop rate by {1}, and reduces all enemies' HP by {2}.","神圣,属性.负数时不生效.额外增加对被诅咒敌人造成的伤害{0},增加敌人掉魂的概率{1},降低所有敌人的血量{2}"
-FANTASY_INFO_SOUL,"Soul, Special Drop. Increases %damage {0} and %attack speed by {1}, each exists 2 seconds.","魂,特殊掉落物.额外增加{0}的%伤害与{1}的%攻击速度,每个持续2秒"
+INFO_FANTASY_HOLY,"Holy, Attribute. Inactive when negative. Increases damage dealt to Cursed enemies by {0}, increases Soul drop rate by {1}, and reduces all enemies' HP by {2}.","神圣,属性.负数时不生效.额外增加对被诅咒敌人造成的伤害{0},增加敌人掉魂的概率{1},降低所有敌人的血量{2}"
+INFO_FANTASY_SOUL,"Soul, Special Drop. Increases %damage {0} and %attack speed by {1}, each exists 2 seconds.","魂,特殊掉落物.额外增加{0}的%伤害与{1}的%攻击速度,每个持续2秒"
 STAT_FANTASY_HOLY,Holy,神圣
-FANTASY_CLASS_HOLY,Holy,神圣
-FANTASY_CLASS_FALLEN,Fallen,堕落
+CLASS_FANTASY_HOLY,Holy,神圣
+CLASS_FANTASY_FALLEN,Fallen,堕落
 STAT_FANTASY_SOUL,Soul,魂
-FANTASY_CONSUMABLE_SOUL,Soul,魂
+CONSUMABLE_FANTASY_SOUL,Soul,魂
 ITEM_FANTASY_BADGE,Badge,徽章
 ITEM_FANTASY_BIBLE,Bible,圣经
 ITEM_FANTASY_BLACK_MUD,Black Mud,黑泥
@@ -111,7 +111,7 @@ This pet scales with player :
 - %贯通伤害
 - %对头目伤害"
 ITEM_FANTASY_CURSED_FIRE,Cursed Fire,诅咒之火
-STAT_FANTASY_LIVING_CURSED_ENEMY,Cursed Enemy,被诅咒的敌人
+FANTASY_LIVING_CURSED_ENEMY,Cursed Enemy,被诅咒的敌人
 ITEM_FANTASY_DEMON_EYE,Demon Eye,恶魔之眼
 ITEM_FANTASY_DEMON_EYE_USED,Fossilized Demon Eye,石化的恶魔之眼
 EFFECT_FANTASY_CURSE_ALL_ON_REROLL,Curse all items in the shop the next reroll,下一次刷新诅咒商店里的所有物品
@@ -199,7 +199,9 @@ This pet scales with player :
 - %贯通伤害
 - %对头目伤害"
 ITEM_FANTASY_SACRIFICIAL_OFFERING,Sacrificial Offering,仪式祭品
-EFFECT_FANTASY_EXTRA_CURSE_ITEM,"Items and weapons have an additional {0} chance to be cursed","道具和武器有额外{0}概率被诅咒"
+EFFECT_FANTASY_EXTRA_CURSE_ITEM,"Items and weapons have an additional {0} chance to be cursed
+{1}","道具和武器有额外{0}概率被诅咒
+{1}"
 ITEM_FANTASY_HEX_BUG,Hex Bug,蛊虫
 ITEM_FANTASY_SOUL_LINK,Soul Link,灵魂链接
 EFFECT_FANTASY_SOUL_BONUS,"{0} bonus from souls","{0}魂给与的增幅"
@@ -209,7 +211,7 @@ FANTASY_WHITE_FOX_NAME,White Fox,白狐
 EFFECT_FANTASY_PET_WHITE_FOX,"Summons a white fox to pursue enemies within a range of {1}, fires an ice spear with an initial 1 pierce, dealing {2} ({3}) damage","召唤一只白狐追击范围{1}内的敌人,每{0}秒发射一枚初始自带1贯穿的冰锥,造成{2}({3})伤害"
 ITEM_FANTASY_SECLUDED_PARADISE,Secluded Paradise,世外桃源
 EFFECT_FANTASY_GAIN_STAT_EVERY_KILLED_ENEMIES,"Gains {0} {1} for every {2} enemies killed","每击杀{2}名敌人{0}{1}"
-EFFECT_FANTASY_GAIN_TEMP_STAT_EVERY_KILLED_ENEMIES,"Gains {0} {1} for every {2} enemies killed{3}, until the end of the wave","每击杀{2}名敌人{0}{1}{3},直至敌袭结束"
+EFFECT_FANTASY_GAIN_TEMP_STAT_EVERY_KILLED_ENEMIES,"Gains {0} {1} for every {2} enemies killed, until the end of the wave","每击杀{2}名敌人{0}{1},直至敌袭结束"
 HIT_PROTECTION,Nullify Damage,伤害无效
 EFFECT_FANTASY_DECAYING_SLOW_ENEMY_WHEN_BELOW_HP,"Slows enemies by {2} for {1} seconds when your HP drops below {0}, up to {3} times per wave","敌袭内生命值降低到{0}以下时,{2}敌人速度持续{1}秒,每次敌袭可触发{3}次"
 ITEM_FANTASY_SILVER_POCKET_WATCH,Silver Pocket Watch,银怀表
@@ -263,10 +265,6 @@ Movement speed is significantly increased. Attacks change to a five-claw attack 
 
 异变2 (33%生命 / 50秒):
 移速大幅度提高,攻击方式变为五连挥爪攻击,但不会冲刺,挥爪结束时召唤5只枫狼"
-FANTASY_TWIN_BLAZE_NAME,Blaze,炎
-FANTASY_TWIN_BLAZE_BEHAVIOUR_DESCRIPTION,"",""
-FANTASY_TWIN_FROST_NAME,Frost,霜
-FANTASY_TWIN_FROST_BEHAVIOUR_DESCRIPTION,"",""
 JOB_FANTASY_SWORDER,Sworder,剑士
 JOB_FANTASY_ARCHER,Archer,射手
 JOB_FANTASY_MAGE,Mage,法师
@@ -289,3 +287,35 @@ JOB_FANTASY_LIGHTNING_MAGE,Lightning Mage,雷法师
 JOB_FANTASY_HOLY_MAGE,Holy Mage,圣法师
 JOB_FANTASY_DARK_MAGE,Dark Mage,黑魔法师
 JOB_FANTASY_MECHANIC,Mechanic,机械师
+JOB_FANTASY_TECH_MODDER,Tech Modder,改造师
+JOB_FANTASY_DRIVER_KNIGHT,Driver Knight,驱动骑士
+JOB_FANTASY_SHAMAN_KING,Shaman King,通灵王
+EFFECT_FANTASY_STRUCTURE_SCALING_STATS,Structure damage additionally scales with {0} {1},构筑物伤害会受到{0}{1}影响
+EFFECT_FANTASY_TURRET_CAN_PURSUE_TARGET,The turret now automatically pursues target,炮塔现在会自动追击目标
+JOB_FANTASY_TANK,Tank,坦克
+JOB_FANTASY_NURSE,Nurse,护士
+JOB_FANTASY_ACCOUNTANT,Accountant,会计师
+JOB_FANTASY_PERFORMER,Performer,演奏家
+JOB_FANTASY_BOTANIST,Botanist,植物学家
+JOB_FANTASY_FORGER,Forger,锻造师
+EFFECT_FANTASY_UPGRADE_SPECIFIC_TIER_WEAPONS,"When entering the shop, randomly upgrade {0} weapon(s) of Tier {1}.","进入商店时,随机升级{0}件{1}级别的武器"
+JOB_FANTASY_WALKER,Walker,行者
+JOB_FANTASY_ENCHANTER,Enchanter,附魔师
+JOB_FANTASY_ECONOMIST,Economist,经济学家
+JOB_FANTASY_TEMPLE_GUARD,Temple Guard,圣殿守卫
+JOB_FANTASY_MISSIONARY,Missionary,传教士
+JOB_FANTASY_LAND_LORD,Land Lord,土地领主
+JOB_FANTASY_TREASURE_HUNTER,Tresure Hunter,宝藏猎手
+JOB_FANTASY_PROPHET,Prophet,先知
+JOB_FANTASY_ABYSSAL_CULTIST,Abyssal Cultist,深渊信徒
+JOB_FANTASY_PERFUMER,Perfumer,调香师
+EFFECT_FANTASY_SLOW_CURSED_ENEMY,{0} base speed of cursed enemies,{0}被诅咒的敌人基础速度
+JOB_ELEMENTAL,Job: Elemental {0},职业: 元素 {0}
+JOB_ENGINEERING,Job: Engineering {0},职业: 工程 {0}
+JOB_MELEE,Job: Melee {0},职业: 近战 {0}
+JOB_RANGED,Job: Ranged {0},职业: 远程 {0}
+JOB_UNIVERSAL,Job: Universal {0},职业: 通用 {0}
+FANTASY_TWIN_BLAZE_NAME,Blaze,炎
+FANTASY_TWIN_BLAZE_BEHAVIOUR_DESCRIPTION,"",""
+FANTASY_TWIN_FROST_NAME,Frost,霜
+FANTASY_TWIN_FROST_BEHAVIOUR_DESCRIPTION,"",""

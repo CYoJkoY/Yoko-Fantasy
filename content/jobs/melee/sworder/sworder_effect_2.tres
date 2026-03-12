@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 key = "effect_increase_stat_gains"
 text_key = ""
-value = 50
+value = 25
 custom_key = ""
 storage_method = 0
 effect_sign = 3

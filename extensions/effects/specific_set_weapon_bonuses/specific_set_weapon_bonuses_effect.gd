@@ -26,18 +26,36 @@ func apply(player_index: int) -> void:
     if custom_key_hash == Keys.empty_hash: return
 
     var effects: Dictionary = RunData.get_player_effects(player_index)
-    effects[custom_key_hash].append([key_hash, value, set_id_hash])
+    var effect_items: Array = effects[custom_key_hash]
+    for existing_item in effect_items:
+        if existing_item[2] == set_id_hash:
+            existing_item[1] += value
+            return
+
+    effect_items.append([key_hash, value, set_id_hash])
 
 func unapply(player_index: int) -> void:
     if custom_key_hash == Keys.empty_hash: return
 
     var effects: Dictionary = RunData.get_player_effects(player_index)
-    effects[custom_key_hash].erase([key_hash, value, set_id_hash])
+    var effect_items: Array = effects[custom_key_hash]
+    for i in effect_items.size():
+        var existing_item: Array = effect_items[i]
+        if existing_item[2] == set_id_hash:
+            existing_item[1] -= value
+            if existing_item[1] == 0: effect_items.remove(i)
+            return
 
 func get_args(_player_index: int) -> Array:
     var set_data: SetData = ItemService.get_set(set_id_hash)
-    var bonuses: Dictionary = RunData.get_player_effect(Utils.fantasy_old_specific_set_weapon_bonuses_hash, _player_index)
-    var bonus_value: int = bonuses.get(key_hash, 0)
+    var weapons: Array = RunData.get_player_weapons_ref(_player_index)
+    var nb_specific_set_weapons: int = 0
+    var bonus_value: int = 0
+    for weapon in weapons: for set in weapon.sets:
+        if set.my_id_hash != set_id_hash: continue
+
+        nb_specific_set_weapons += 1
+        bonus_value = value * nb_specific_set_weapons
 
     return [str(value), tr(key.to_upper()), tr(set_data.name.to_upper()), str(bonus_value), str(need_num)]
 

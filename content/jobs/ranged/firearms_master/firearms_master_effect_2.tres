@@ -11,6 +11,6 @@ custom_key = ""
 storage_method = 0
 effect_sign = 3
 custom_args = [  ]
-set_id = "set_ethereal"
+set_id = "set_gun"
 stat_displayed_name = "stat_damage"
 stat_name = "damage"

@@ -1,15 +1,22 @@
 extends "res://main.gd"
 
 var FaTimers: Array = []
-var twin_summoned: Array = []
+var summoned_twins: Array = []
+var cursed_enemies: Array = []
 
-# ui_entry
 var UIHolyScenes = {}
 const UI_HOLY_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/ui_entry/ui_holy.tscn")
 var UISoulScenes = {}
 const UI_SOUL_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/ui_entry/ui_soul.tscn")
 
 # =========================== Extension =========================== #
+func _ready() -> void:
+    _fantasy_queue_job_upgrades()
+
+func on_upgrade_selected(upgrade_data: UpgradeData, upgrade: UpgradesUI.UpgradeToProcess) -> void:
+    .on_upgrade_selected(upgrade_data, upgrade)
+    _fantasy_add_job(upgrade_data, upgrade.player_index)
+
 func _on_EntitySpawner_players_spawned(players: Array) -> void:
     ._on_EntitySpawner_players_spawned(players)
     _fantasy_holy_display()
@@ -62,17 +69,15 @@ func _fantasy_start_time_bonus_current_health_damage_timer() -> void:
 
 func _fantasy_holy_display() -> void:
     for i in _players.size():
-        if _players[i] in UIHolyScenes:
-            continue
+        if _players[i] in UIHolyScenes: continue
             
-        var UIHolyInstance = UI_HOLY_SCENE.instance()
+        var UIHolyInstance: Node = UI_HOLY_SCENE.instance()
         match i:
             0, 2: UIHolyInstance.alignment = BoxContainer.ALIGN_BEGIN
             1, 3: UIHolyInstance.alignment = BoxContainer.ALIGN_END
         
         var player_ui = _players_ui[i]
-        if !is_instance_valid(player_ui) or !is_instance_valid(player_ui.hud_container):
-            continue
+        if !is_instance_valid(player_ui) or !is_instance_valid(player_ui.hud_container): continue
 
         var after_gold_index = player_ui.hud_container.get_children().find(player_ui.gold) + 1
         player_ui.hud_container.add_child(UIHolyInstance)
@@ -96,7 +101,7 @@ func _fantasy_soul_display() -> void:
 
         if _players[i] in UISoulScenes: continue
             
-        var UISoulInstance = UI_SOUL_SCENE.instance()
+        var UISoulInstance: Node = UI_SOUL_SCENE.instance()
         match i:
             0, 2: UISoulInstance.alignment = BoxContainer.ALIGN_BEGIN
             1, 3: UISoulInstance.alignment = BoxContainer.ALIGN_END
@@ -130,11 +135,20 @@ func _fantasy_soul_process() -> void:
             UISoulScenes[_players[i]].update_value(RunData.get_stat(Utils.stat_fantasy_soul_hash, i))
 
 func _fantasy_change_living_cursed_enemy(enemy: Enemy, is_add: bool) -> void:
-    var num: int = 1 if is_add else -1
     if !enemy._outline_colors.has(Utils.CURSE_COLOR): return
 
+    var num: int = 0
+    match is_add:
+        true:
+            num = 1
+            cursed_enemies.append(enemy)
+            _fantasy_slow_cursed_enemy(enemy)
+        false:
+            num = -1
+            cursed_enemies.erase(enemy)
+
     for player_index in _players.size():
-        Utils.ncl_quiet_add_stat(Utils.stat_fantasy_living_cursed_enemy_hash, num, player_index)
+        Utils.ncl_quiet_add_stat(Utils.fantasy_living_cursed_enemy_hash, num, player_index)
         LinkedStats.reset_player(player_index)
 
 func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
@@ -160,31 +174,53 @@ func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
 func _fantasy_decaying_slow_enemy(enemy: Enemy) -> void:
     # For decaying slow new enemy
     for player_index in _players.size():
-        var stat_nb: float = TempStats.get_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, player_index)
-        if stat_nb == 0: continue
+        var slow_percent: float = TempStats.get_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, player_index)
+        if slow_percent == 0: continue
 
         var player: Player = _players[player_index]
-        enemy.current_stats.speed += int(enemy.current_stats.speed * stat_nb / 100.0)
+        enemy.current_stats.speed += int(enemy.current_stats.speed * slow_percent / 100.0)
         match enemy.sprite.material == enemy.flash_mat:
             true: player._non_decaying_slow_material[enemy] = enemy._non_flash_material
             false: player._non_decaying_slow_material[enemy] = enemy.sprite.material
         enemy.sprite.material = load("res://mods-unpacked/Yoko-Fantasy/extensions/effects/decaying_slow_enemy_when_below_hp/decaying_slow_enemy_when_below_hp_shader.tres")
 
 func _fantasy_twin_connect(enemy: Enemy) -> void:
-    match [enemy.enemy_id, twin_summoned.has(enemy.pool_id)]:
+    match [enemy.enemy_id, summoned_twins.has(enemy.pool_id)]:
         ["fantasy_twin_blaze", false]:
             var scene: PackedScene = load("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023b_twin_frost/twin_frost.tscn")
-            twin_summoned.append(scene.get_instance_id())
+            summoned_twins.append(scene.get_instance_id())
             var args: EntitySpawner.SpawnEntityArgs = EntitySpawner.SpawnEntityArgs.new(enemy.global_position, EntityType.BOSS)
             var _new_enemy: Enemy = _entity_spawner.spawn_entity(scene, args)
             var _error_twin_state_connect: int = enemy.connect("state_changed", _new_enemy, "fa_change_state")
 
         ["fantasy_twin_frost", false]:
             var scene: PackedScene = load("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023a_twin_blaze/twin_blaze.tscn")
-            twin_summoned.append(scene.get_instance_id())
+            summoned_twins.append(scene.get_instance_id())
             var args: EntitySpawner.SpawnEntityArgs = EntitySpawner.SpawnEntityArgs.new(enemy.global_position, EntityType.BOSS)
             var _new_enemy: Enemy = _entity_spawner.spawn_entity(scene, args)
             var _error_twin_state_connect: int = enemy.connect("state_changed", _new_enemy, "fa_change_state")
+
+func _fantasy_slow_cursed_enemy(enemy: Enemy) -> void:
+    for player_index in _players.size():
+        var slow_percent: int = RunData.get_player_effect(Utils.fantasy_slow_cursed_enemy_hash, player_index)
+        enemy.current_stats.speed += int(enemy.current_stats.speed * slow_percent / 100.0)
+
+func _fantasy_add_job(job_data: UpgradeData, player_index: int) -> void:
+    if job_data.get("stage") == null: return
+
+    RunData.fa_add_job(job_data, player_index)
+
+func _fantasy_queue_job_upgrades() -> void:
+    for player_index in _players.size():
+        var s1_job: UpgradeData = RunData.fa_get_current_job(0, player_index)
+        var s2_job: UpgradeData = RunData.fa_get_current_job(1, player_index)
+
+        var need_add_job: bool = (
+            (RunData.current_wave == 5 and s1_job == null) or \
+            (RunData.current_wave == 15 and s2_job == null)
+        )
+
+        if need_add_job: fa_push_job_upgrade_to_queue(player_index)
 
 # =========================== Method =========================== #
 func fa_update_all_ui_stats() -> void:
@@ -195,14 +231,14 @@ func fa_on_UIHoly_mouse_entered(stat_holy: int) -> void:
     var damage_bonus: int = stat_holy
     var chance_drop_soul: int = int(stat_holy / (stat_holy + 50.0) * 100)
     var enemy_health_reduction: int = int(stat_holy / (stat_holy + 100.0) * 100)
-    _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_HOLY", [str(damage_bonus), str(chance_drop_soul), str(enemy_health_reduction)]))
+    _info_popup.display(_ui_bonus_gold, Text.text("INFO_FANTASY_HOLY", [str(damage_bonus), str(chance_drop_soul), str(enemy_health_reduction)]))
 
 func fa_on_UIHoly_mouse_exited() -> void:
     _info_popup.hide()
 
 func fa_on_UISoul_mouse_entered(player_index: int) -> void:
     var bonus: int = 20 + RunData.get_player_effect(Utils.fantasy_soul_bonus_hash, player_index)
-    _info_popup.display(_ui_bonus_gold, Text.text("FANTASY_INFO_SOUL", [str(bonus), str(bonus)]))
+    _info_popup.display(_ui_bonus_gold, Text.text("INFO_FANTASY_SOUL", [str(bonus), str(bonus)]))
 
 func fa_on_UISoul_mouse_exited() -> void:
     _info_popup.hide()
@@ -240,3 +276,13 @@ func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracki
             HitType.NORMAL,
             false
         )
+
+func fa_push_job_upgrade_to_queue(player_index: int) -> void:
+    var level = RunData.get_player_level(player_index)
+
+    _things_to_process_player_containers[player_index].upgrades.add_element(ItemService.get_icon(Utils.icon_job_to_process_hash), level)
+
+    var upgrade_to_process = UpgradesUI.UpgradeToProcess.new()
+    upgrade_to_process.level = level
+    upgrade_to_process.player_index = player_index
+    _upgrades_to_process[player_index].push_front(upgrade_to_process)

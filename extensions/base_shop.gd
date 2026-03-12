@@ -2,7 +2,10 @@ extends "res://ui/menus/shop/base_shop.gd"
 
 # =========================== Extension =========================== #
 func _ready() -> void:
-    _fantasy_shop_enter_stat_curse()
+    if !RunData.fantasy_resumed_from_state_in_shop:
+        _fantasy_shop_enter_stat_curse()
+        _fantasy_upgrade_specific_tier_weapons()
+    else: RunData.fantasy_resumed_from_state_in_shop = false
 
 func fill_shop_items(player_locked_items: Array, player_index: int, just_entered_shop: bool = false) -> void:
     .fill_shop_items(player_locked_items, player_index, just_entered_shop)
@@ -99,7 +102,7 @@ func _fantasy_curse_all_on_reroll(player_index: int, just_entered_shop: bool = f
     _shop_items[player_index] = new_shop_items
 
 func _fantasy_set_curse_all_on_reroll_icon(player_index: int) -> void:
-    var reroll_button := _get_reroll_button(player_index)
+    var reroll_button: Control = _get_reroll_button(player_index)
     reroll_button.init(_reroll_price[player_index], player_index)
 
     reroll_button.remove_additional_icon()
@@ -109,3 +112,29 @@ func _fantasy_set_curse_all_on_reroll_icon(player_index: int) -> void:
         texture.create_from_image(source_item.icon.get_data())
         reroll_button.set_additional_icon(texture)
         break
+
+func _fantasy_upgrade_specific_tier_weapons() -> void:
+    var upgrade_any_weapon = false
+    for player_index in RunData.get_player_count():
+        var upgrade_effects: Array = RunData.get_player_effect(Utils.fantasy_upgrade_specific_tier_weapons_hash, player_index)
+        for effect in upgrade_effects:
+            upgrade_any_weapon = true
+
+            var specific_tier: int = effect[0]
+            var upgrade_num: int = effect[1]
+            var upgraded: int = 0
+            var weapons: Array = RunData.get_player_weapons(player_index)
+            var to_upgrade: Array = []
+            for w in weapons:
+                if upgraded >= upgrade_num: break
+
+                if w.tier != specific_tier or \
+                w.upgrades_into == null: continue
+
+                to_upgrade.append(w)
+                upgraded += 1
+
+            for w in to_upgrade:
+                _combine_weapon(w, player_index, true)
+
+    if upgrade_any_weapon: _update_stats()

@@ -1,14 +1,19 @@
 extends "res://singletons/utils.gd"
 
+# Jobs
+var job_fantasy_elemental_hash: int = Keys.generate_hash("job_fantasy_elemental")
+var job_fantasy_engineering_hash: int = Keys.generate_hash("job_fantasy_engineering")
+var job_fantasy_melee_hash: int = Keys.generate_hash("job_fantasy_melee")
+var job_fantasy_ranged_hash: int = Keys.generate_hash("job_fantasy_ranged")
+var job_fantasy_universal_hash: int = Keys.generate_hash("job_fantasy_universal")
+var icon_job_to_process_hash: int = Keys.generate_hash("icon_job_to_process")
+
 # Stats
 var stat_fantasy_holy_hash: int = Keys.generate_hash("stat_fantasy_holy")
 var gain_stat_fantasy_holy_hash: int = Keys.generate_hash("gain_stat_fantasy_holy")
 var stat_fantasy_soul_hash: int = Keys.generate_hash("stat_fantasy_soul")
 var gain_stat_fantasy_soul_hash: int = Keys.generate_hash("gain_stat_fantasy_soul")
-var stat_fantasy_living_cursed_enemy_hash: int = Keys.generate_hash("stat_fantasy_living_cursed_enemy")
-var gain_stat_fantasy_living_cursed_enemy_hash: int = Keys.generate_hash("gain_stat_fantasy_living_cursed_enemy")
 var stat_fantasy_decaying_slow_enemy_hash: int = Keys.generate_hash("stat_fantasy_decaying_slow_enemy")
-var gain_stat_fantasy_decaying_slow_enemy_hash: int = Keys.generate_hash("gain_stat_fantasy_decaying_slow_enemy")
 var stat_fantasy_crit_damage_hash: int = Keys.generate_hash("stat_fantasy_crit_damage")
 var gain_stat_fantasy_crit_damage_hash: int = Keys.generate_hash("gain_stat_fantasy_crit_damage")
 
@@ -33,6 +38,11 @@ var fantasy_decaying_slow_enemy_when_below_hp_hash: int = Keys.generate_hash("fa
 var fantasy_reload_when_shoot_hash: int = Keys.generate_hash("fantasy_reload_when_shoot")
 var fantasy_old_specific_set_weapon_bonuses_hash: int = Keys.generate_hash("fantasy_old_specific_set_weapon_bonuses")
 var fantasy_specific_set_weapon_bonuses_hash: int = Keys.generate_hash("fantasy_specific_set_weapon_bonuses")
+var fantasy_living_cursed_enemy_hash: int = Keys.generate_hash("fantasy_living_cursed_enemy")
+var fantasy_structure_scaling_stats_hash: int = Keys.generate_hash("fantasy_structure_scaling_stats")
+var fantasy_turret_can_pursue_target_hash: int = Keys.generate_hash("fantasy_turret_can_pursue_target")
+var fantasy_upgrade_specific_tier_weapons_hash: int = Keys.generate_hash("fantasy_upgrade_specific_tier_weapons")
+var fantasy_slow_cursed_enemy_hash: int = Keys.generate_hash("fantasy_slow_cursed_enemy")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

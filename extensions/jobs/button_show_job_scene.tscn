@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/themes/verysmall_option_button_theme.tres" type="Theme" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/jobs/button_show_job_scene.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/jobs/jobs_icon.webp" type="Texture" id=3]
+
+[node name="button_show_job_scene" type="Button"]
+margin_left = 50.0
+margin_right = 95.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 45, 45 )
+theme = ExtResource( 1 )
+toggle_mode = true
+icon = ExtResource( 3 )
+icon_align = 1
+expand_icon = true
+script = ExtResource( 2 )

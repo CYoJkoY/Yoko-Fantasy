@@ -19,6 +19,12 @@ func apply_item_effect_modifications(item: ItemParentData, player_index: int) ->
 
     return new_item
 
+func get_upgrades(level: int, number: int, old_upgrades: Array, player_index: int) -> Array:
+    var upgrades_to_show: Array =.get_upgrades(level, number, old_upgrades, player_index)
+    upgrades_to_show = _fantasy_get_jobs(upgrades_to_show, level, player_index)
+
+    return upgrades_to_show
+
 # =========================== Custom =========================== #
 func _fantasy_get_soul_to_drop(consumable: ConsumableData) -> ConsumableData:
     var stat_holy: float = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
@@ -27,7 +33,7 @@ func _fantasy_get_soul_to_drop(consumable: ConsumableData) -> ConsumableData:
     if consumable == null and Utils.get_chance_success(chance_drop_soul * (1.0 + chance_drop_soul_bonus)):
         consumable = get_element(consumables, Utils.consumable_fantasy_soul_hash)
     elif consumable != null and consumable.my_id_hash == Utils.consumable_fantasy_soul_hash:
-        consumable = null
+        consumable = get_consumable_for_tier(Tier.COMMON)
     
     return consumable
 
@@ -38,7 +44,58 @@ func _fantasy_extra_curse_item(item: ItemParentData, player_index: int) -> ItemP
     for effect in effect_items:
         if !Utils.get_chance_success(effect[1] / 100.0): continue
 
-        RunData.add_tracked_value(player_index, effect[0], 1)
+        RunData.ncl_add_effect_tracking_value(effect[0], 1, player_index)
         return Utils.ncl_curse_item(item, player_index)
 
     return item
+
+func _fantasy_get_jobs(upgrades_to_show: Array, level: int, player_index: int) -> Array:
+    var s1_job: UpgradeData = RunData.fa_get_current_job(0, player_index)
+    var s2_job: UpgradeData = RunData.fa_get_current_job(1, player_index)
+
+    var need_add_job: bool = (
+        (RunData.current_wave == 5 and s1_job == null) or \
+        (RunData.current_wave == 15 and s2_job == null)
+    )
+
+    if !need_add_job:
+        var has_job: bool = false
+        for upgrade in upgrades_to_show:
+            if upgrade.get("stage") == null: continue
+
+            upgrades_to_show.erase(upgrade)
+            has_job = true
+
+        if has_job: upgrades_to_show = get_upgrades(level, 4, upgrades_to_show, player_index)
+
+        return upgrades_to_show
+
+    var s1_job_hash: int = s1_job.upgrade_id_hash if s1_job else Keys.empty_hash
+    var s2_job_hash: int = s2_job.upgrade_id_hash if s2_job else Keys.empty_hash
+    match [s1_job_hash == Keys.empty_hash, s2_job_hash == Keys.empty_hash]:
+        [true, _]: return fa_get_jobs(0, 4)
+        [false, true]: return fa_get_jobs(1, 4, s1_job_hash)
+
+    return upgrades_to_show
+
+# =========================== Method =========================== #
+func fa_get_jobs(stage: int, number: int, way: int = Keys.empty_hash) -> Array:
+    var jobs_by_stage: Dictionary = {0: [], 1: []}
+    for upgrade in upgrades:
+        var job_stage = upgrade.get("stage")
+        if job_stage != null: jobs_by_stage[job_stage].append(upgrade)
+
+    var source = jobs_by_stage.get(stage, [])
+    var candidates = source
+
+    if way != Keys.empty_hash and way != Utils.job_fantasy_universal_hash:
+        candidates = []
+        for upgrade in source:
+            if upgrade.upgrade_id_hash != way and \
+            upgrade.upgrade_id_hash != Utils.job_fantasy_universal_hash: continue
+
+            candidates.append(upgrade)
+
+    var count = min(number, candidates.size())
+    candidates.shuffle()
+    return candidates.slice(0, count - 1)

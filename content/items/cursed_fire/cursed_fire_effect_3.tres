@@ -37,5 +37,5 @@ storage_method = 0
 effect_sign = 0
 custom_args = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ]
 nb_stat_scaled = 1
-stat_scaled = "stat_fantasy_living_cursed_enemy"
+stat_scaled = "fantasy_living_cursed_enemy"
 perm_stats_only = true

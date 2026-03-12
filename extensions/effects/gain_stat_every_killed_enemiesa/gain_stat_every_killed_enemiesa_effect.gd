@@ -7,9 +7,7 @@ static func get_id() -> String:
     return "fantasy_gain_stat_every_killed_enemies"
 
 func get_args(_player_index: int) -> Array:
-    var temp_text: String = tr("SUFFIX_UNTIL_END") if is_temp else tr("EMPTY")
-
-    return [str(stat_nb), tr(stat.to_upper()), str(value), temp_text]
+    return [str(stat_nb), tr(stat.to_upper()), str(value)]
 
 func apply(player_index: int) -> void:
     if key_hash == Keys.empty_hash: return

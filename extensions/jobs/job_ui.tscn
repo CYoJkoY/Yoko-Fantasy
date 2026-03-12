@@ -1,0 +1,224 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://resources/themes/base_theme.tres" type="Theme" id=1]
+[ext_resource path="res://ui/menus/shop/item_description.tscn" type="PackedScene" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_ui.gd" type="Script" id=3]
+
+[node name="JobUi" type="PanelContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -271.0
+margin_top = -328.0
+margin_right = 76.0
+margin_bottom = 53.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 342.0
+margin_bottom = 390.0
+rect_clip_content = true
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 322.0
+margin_bottom = 370.0
+custom_constants/separation = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JobDescription" parent="MarginContainer/VBoxContainer" instance=ExtResource( 2 )]
+unique_name_in_owner = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 307.0
+margin_bottom = 355.0
+
+[node name="HBoxContainer" parent="MarginContainer/VBoxContainer/JobDescription" index="0"]
+margin_right = 307.0
+margin_bottom = 60.0
+
+[node name="IconPanel" parent="MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="0"]
+margin_right = 60.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 60, 60 )
+
+[node name="ScrollContainer" parent="MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
+margin_left = 75.0
+margin_right = 307.0
+margin_bottom = 60.0
+
+[node name="_h_scroll2" type="HScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
+visible = false
+margin_right = 10.0
+margin_bottom = 5.0
+max_value = 210.0
+page = 210.0
+
+[node name="_v_scroll2" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="1"]
+visible = false
+max_value = 59.0
+page = 60.0
+
+[node name="_h_scroll3" type="HScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="2"]
+margin_right = 10.0
+margin_bottom = 5.0
+
+[node name="_v_scroll3" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="3"]
+
+[node name="VBoxContainer" parent="MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="4"]
+margin_right = 232.0
+
+[node name="Name" parent="MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+margin_right = 232.0
+
+[node name="Category" parent="MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+margin_right = 232.0
+focus_mode = 2
+
+[node name="VBoxContainer" parent="MarginContainer/VBoxContainer/JobDescription" index="1"]
+margin_top = 90.0
+margin_right = 285.0
+margin_bottom = 172.0
+
+[node name="VScrollBar2" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="0"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+max_value = 29.0
+step = 1.0
+page = 29.0
+
+[node name="VScrollBar3" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="1"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+step = 1.0
+
+[node name="VScrollBar2" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="0"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+max_value = 29.0
+step = 1.0
+page = 29.0
+
+[node name="VScrollBar3" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="1"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+step = 1.0
+
+[node name="WeaponStats" parent="MarginContainer/VBoxContainer/JobDescription/VBoxContainer" index="1"]
+margin_right = 285.0
+
+[node name="VScrollBar2" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="0"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+max_value = 78.0
+step = 1.0
+page = 78.0
+
+[node name="VScrollBar3" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="1"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+step = 1.0
+
+[node name="Effects" parent="MarginContainer/VBoxContainer/JobDescription/VBoxContainer" index="2"]
+margin_right = 285.0
+
+[node name="ScrollContainer" parent="MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_top = 90.0
+margin_right = 307.0
+margin_bottom = 355.0
+
+[node name="_h_scroll2" type="HScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+visible = false
+margin_right = 10.0
+margin_bottom = 5.0
+max_value = 25.0
+page = 285.0
+
+[node name="_v_scroll2" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="1"]
+visible = false
+margin_right = 10.0
+margin_bottom = 5.0
+max_value = 35.0
+page = 265.0
+
+[node name="_h_scroll3" type="HScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="2"]
+margin_right = 10.0
+margin_bottom = 5.0
+
+[node name="_v_scroll3" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="3"]
+margin_right = 10.0
+margin_bottom = 5.0
+
+[node name="VBoxContainer" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="4"]
+margin_right = 307.0
+
+[node name="VScrollBar2" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="0"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+max_value = 29.0
+step = 1.0
+page = 29.0
+
+[node name="VScrollBar3" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="1"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+step = 1.0
+
+[node name="VScrollBar2" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="0"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+max_value = 29.0
+step = 1.0
+page = 29.0
+
+[node name="VScrollBar3" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="1"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+step = 1.0
+
+[node name="VScrollBar2" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="0"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+max_value = 78.0
+step = 1.0
+page = 78.0
+
+[node name="VScrollBar3" type="VScrollBar" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="1"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+step = 1.0
+
+[node name="Effects_scrolled" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 307.0
+
+[node name="effect_line" parent="MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
+margin_right = 307.0
+
+[editable path="MarginContainer/VBoxContainer/JobDescription"]

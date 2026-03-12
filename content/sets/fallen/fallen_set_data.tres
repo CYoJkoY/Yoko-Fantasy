@@ -14,6 +14,6 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "fantasy_set_fallen"
-name = "FANTASY_CLASS_FALLEN"
+my_id = "set_fantasy_fallen"
+name = "CLASS_FANTASY_FALLEN"
 set_bonuses = [ [ ExtResource( 2 ), ExtResource( 7 ) ], [ ExtResource( 8 ), ExtResource( 9 ) ], [ ExtResource( 10 ), ExtResource( 11 ) ], [ ExtResource( 6 ), ExtResource( 4 ) ], [ ExtResource( 3 ), ExtResource( 5 ) ] ]

@@ -8,6 +8,18 @@ func init_base_stats(from_stats: WeaponStats, player_index: int, args: WeaponSer
 
     return base_stats
 
+func init_structure_stats(from_stats: RangedWeaponStats, player_index: int, args: WeaponServiceInitStatsArgs = _init_stats_args_service) -> RangedWeaponStats:
+    var structure_stats: RangedWeaponStats =.init_structure_stats(from_stats, player_index, args)
+    structure_stats.scaling_stats = _fantasy_apply_structure_scaling_stat_effects(structure_stats.scaling_stats, player_index)
+
+    return structure_stats
+
+func init_structure_pet_stats(from_stats: RangedWeaponStats, player_index: int, args := WeaponServiceInitStatsArgs.new()) -> RangedWeaponStats:
+    var structure_pet_stats: RangedWeaponStats =.init_structure_pet_stats(from_stats, player_index, args)
+    structure_pet_stats.scaling_stats = _fantasy_apply_structure_scaling_stat_effects(structure_pet_stats.scaling_stats, player_index)
+
+    return structure_pet_stats
+
 # =========================== Custom =========================== #
 func _fantasy_add_crit_damage(crit_damage: float, player_index: int) -> float:
     crit_damage += Utils.get_stat(Utils.stat_fantasy_crit_damage_hash, player_index)
@@ -27,3 +39,20 @@ func _fantasy_crit_overflow(crit_chance: float, crit_damage: float, player_index
         crit_damage += over / scaling * plus
 
     return crit_damage
+
+func _fantasy_apply_structure_scaling_stat_effects(scaling_stats: Array, player_index: int) -> Array:
+    var structure_scaling_stat_effects: Array = RunData.get_player_effect(Utils.fantasy_structure_scaling_stats_hash, player_index)
+    if structure_scaling_stat_effects.empty(): return scaling_stats
+
+    var new_scaling_stats = scaling_stats.duplicate(true)
+    for scaling_stat_effect in structure_scaling_stat_effects:
+        assert(scaling_stat_effect[0] is int)
+        var scaling_stat_hash = scaling_stat_effect[0]
+        var scaling_stat_value = scaling_stat_effect[1] / 100.0
+        var existing_scaling_stat = find_scaling_stat(scaling_stat_hash, new_scaling_stats)
+        if existing_scaling_stat != null:
+            existing_scaling_stat[1] += scaling_stat_value
+        else:
+            new_scaling_stats.push_back([scaling_stat_hash, scaling_stat_value])
+
+    return new_scaling_stats
