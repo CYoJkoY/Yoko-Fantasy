@@ -10,5 +10,5 @@ icon = ExtResource( 2 )
 small_icon = ExtResource( 2 )
 is_primary_stat = false
 is_dlc_stat = false
-color_override = Color( 0, 0, 0, 1 )
+color_override = Color( 0.878431, 0.270588, 0.196078, 1 )
 reverse = false

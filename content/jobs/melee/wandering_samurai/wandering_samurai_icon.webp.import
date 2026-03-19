@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/frost_projectile_001b.webp-513b655d0002548df666ca44c572b014.stex"
+path="res://.import/wandering_samurai_icon.webp-4ffe39c8585a372cceb98861dafa9207.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/frost_projectile/frost_projectile_001b.webp"
-dest_files=[ "res://.import/frost_projectile_001b.webp-513b655d0002548df666ca44c572b014.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/jobs/melee/wandering_samurai/wandering_samurai_icon.webp"
+dest_files=[ "res://.import/wandering_samurai_icon.webp-4ffe39c8585a372cceb98861dafa9207.stex" ]
 
 [params]
 

@@ -9,6 +9,7 @@ export(int, 0, 360) var projectile_direction = 180
 export(int, 0, 360) var direction_change_after_each_proj = 60
 export(bool) var pos_base_on_centerx = true
 export(bool) var pos_base_on_centery = false
+export(Dictionary) var specific_projectiles = {}
 
 onready var map_center: Vector2 = ZoneService.get_map_center()
 
@@ -20,6 +21,9 @@ func _ready() -> void:
     init_rotation = deg2rad(init_rotation)
     projectile_direction = deg2rad(projectile_direction)
     direction_change_after_each_proj = deg2rad(direction_change_after_each_proj)
+    for specific_projectile in specific_projectiles.values():
+        specific_projectile[1] = deg2rad(specific_projectile[1])
+        specific_projectile[2] = deg2rad(specific_projectile[2])
 
 func shoot() -> void:
     var target_pos: Vector2
@@ -39,6 +43,13 @@ func shoot() -> void:
         var angle = init_rotation + (TAU * i) / number_projectiles
         var spawn_pos = target_pos + spawn_radius * Vector2(cos(angle), sin(angle))
         var proj_direction = projectile_direction + (direction_change_after_each_proj * i)
+
+        if !specific_projectiles.empty() and specific_projectiles.keys().has(i):
+            var specific_porjectile: Array = specific_projectiles[i]
+            var specific_spawn_radius = specific_porjectile[0]
+            angle = specific_porjectile[1]
+            proj_direction = specific_porjectile[2]
+            spawn_pos = target_pos + specific_spawn_radius * Vector2(cos(angle), sin(angle))
 
         spawn_projectile(proj_direction, spawn_pos, projectile_speed)
     

@@ -3,7 +3,7 @@ extends Pet
 export(String) var damage_tracking_id = ""
 var _damage_tracking_id_hash: int = Keys.empty_hash
 
-onready var _target_behavior_shape := $"TargetBehavior/Range/CollisionShape2D"
+onready var _target_behavior_shape: CollisionShape2D = $"TargetBehavior/Range/CollisionShape2D"
 onready var _hitbox: Hitbox = $"Animation/Hitbox"
 
 var _base_weapon_stats: MeleeWeaponStats = MeleeWeaponStats.new()
@@ -65,8 +65,17 @@ func _physics_process(delta) -> void:
 
     _cooldown -= Utils.physics_one(delta)
 
-    if _cooldown <= 0 and !_is_shooting:
+    if should_shoot(_cooldown, current_target):
         _animation_player.play("shoot")
+
+func should_shoot(cooldown: float, current_target: Node) -> bool:
+    return (cooldown <= 0 and
+        !_is_shooting and
+        (
+            is_instance_valid(current_target)
+            and Utils.is_between(current_target.global_position.distance_squared_to(global_position), 0, 2500) # 0 ~ 50
+        )
+    )
 
 func shoot() -> void:
     _is_shooting = true

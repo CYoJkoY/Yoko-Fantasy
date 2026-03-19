@@ -10,9 +10,7 @@ var icon_job_to_process_hash: int = Keys.generate_hash("icon_job_to_process")
 
 # Stats
 var stat_fantasy_holy_hash: int = Keys.generate_hash("stat_fantasy_holy")
-var gain_stat_fantasy_holy_hash: int = Keys.generate_hash("gain_stat_fantasy_holy")
 var stat_fantasy_soul_hash: int = Keys.generate_hash("stat_fantasy_soul")
-var gain_stat_fantasy_soul_hash: int = Keys.generate_hash("gain_stat_fantasy_soul")
 var stat_fantasy_decaying_slow_enemy_hash: int = Keys.generate_hash("stat_fantasy_decaying_slow_enemy")
 var stat_fantasy_crit_damage_hash: int = Keys.generate_hash("stat_fantasy_crit_damage")
 var gain_stat_fantasy_crit_damage_hash: int = Keys.generate_hash("gain_stat_fantasy_crit_damage")
@@ -43,6 +41,7 @@ var fantasy_structure_scaling_stats_hash: int = Keys.generate_hash("fantasy_stru
 var fantasy_turret_can_pursue_target_hash: int = Keys.generate_hash("fantasy_turret_can_pursue_target")
 var fantasy_upgrade_specific_tier_weapons_hash: int = Keys.generate_hash("fantasy_upgrade_specific_tier_weapons")
 var fantasy_slow_cursed_enemy_hash: int = Keys.generate_hash("fantasy_slow_cursed_enemy")
+var fantasy_extra_enemies_next_waves_hash: int = Keys.generate_hash("fantasy_extra_enemies_next_waves")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

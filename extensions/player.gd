@@ -92,3 +92,12 @@ func _fantasy_decaying_slow_enemy_when_below_hp(dmg_taken: int) -> void:
         
         _non_decaying_slow_material = {} # Reset for next
         break # Once a time when take damage
+
+func fa_on_soul_effect(damage_to_add: int, speed_to_add: int) -> void:
+    var timer: SceneTreeTimer = get_tree().create_timer(2.0, false)
+    var _e: int = timer.connect("timeout", self , "fa_on_soul_effect_timer_timeout", [damage_to_add, speed_to_add])
+
+func fa_on_soul_effect_timer_timeout(damage_to_add: int, speed_to_add: int) -> void:
+    Utils.ncl_quiet_add_stat(Utils.stat_fantasy_soul_hash, -1, player_index)
+    TempStats.remove_stat(Keys.stat_percent_damage_hash, damage_to_add, player_index)
+    TempStats.remove_stat(Keys.stat_attack_speed_hash, speed_to_add, player_index)

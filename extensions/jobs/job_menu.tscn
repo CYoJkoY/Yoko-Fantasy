@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://ui/hud/ui_better_tab_container.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_menu.gd" type="Script" id=2]
@@ -6,6 +6,12 @@
 [ext_resource path="res://resources/themes/base_theme.tres" type="Theme" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_ui.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/menus/global/cross_icon..png" type="Texture" id=6]
+[ext_resource path="res://ui/menus/shop/inventory_container.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/menus/global/popup_manager.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ui/menus/shop/item_popup.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ui/menus/global/triangle_down_icon.png" type="Texture" id=10]
+[ext_resource path="res://ui/menus/shop/stat_container.tscn" type="PackedScene" id=11]
+[ext_resource path="res://ui/menus/shop/stat_popup.tscn" type="PackedScene" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.215686, 0.215686, 0.215686, 1 )
@@ -31,15 +37,26 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_top = 20.0
+content_margin_bottom = 20.0
+bg_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
 [node name="JobMenu" type="PanelContainer"]
-visible = false
+margin_right = 490.0
 margin_bottom = 1080.0
 rect_pivot_offset = Vector2( 829, 83 )
 theme = ExtResource( 4 )
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="JobCont" type="VBoxContainer" parent="."]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 485.0
@@ -49,21 +66,19 @@ script = ExtResource( 1 )
 buttons_tab_np = [ NodePath("HBoxContainer/TabBut1"), NodePath("HBoxContainer/TabBut2"), NodePath("HBoxContainer/TabBut3"), NodePath("HBoxContainer/TabBut4") ]
 tab_container_np = NodePath("TabContainer")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="JobCont"]
 margin_right = 480.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 480, 0 )
 
-[node name="TabBut1" type="Button" parent="VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="TabBut1" type="Button" parent="JobCont/HBoxContainer"]
 margin_right = 480.0
 margin_bottom = 45.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 text = "Player 1"
 
-[node name="TabBut2" type="Button" parent="VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="TabBut2" type="Button" parent="JobCont/HBoxContainer"]
 visible = false
 margin_left = 242.0
 margin_right = 480.0
@@ -72,8 +87,7 @@ size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 text = "Player 2"
 
-[node name="TabBut3" type="Button" parent="VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="TabBut3" type="Button" parent="JobCont/HBoxContainer"]
 visible = false
 margin_left = 322.0
 margin_right = 480.0
@@ -82,8 +96,7 @@ size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 text = "Player 3"
 
-[node name="TabBut4" type="Button" parent="VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="TabBut4" type="Button" parent="JobCont/HBoxContainer"]
 visible = false
 margin_left = 363.0
 margin_right = 480.0
@@ -92,7 +105,7 @@ size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 text = "Player 4"
 
-[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="JobCont"]
 margin_top = 68.0
 margin_right = 480.0
 margin_bottom = 1070.0
@@ -100,7 +113,8 @@ size_flags_vertical = 3
 custom_styles/panel = SubResource( 2 )
 tabs_visible = false
 
-[node name="PlayerCont1" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
+[node name="JobPlayerCont1" type="ScrollContainer" parent="JobCont/TabContainer"]
+unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 5.0
@@ -110,15 +124,14 @@ margin_bottom = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VPlayerCont1" type="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont1"]
-unique_name_in_owner = true
+[node name="VPlayerCont" type="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1"]
 margin_right = 470.0
 margin_bottom = 992.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 23
 
-[node name="JobUi1" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1" instance=ExtResource( 5 )]
+[node name="JobUi1" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont" instance=ExtResource( 5 )]
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -127,340 +140,107 @@ anchor_bottom = 0.0
 margin_left = 0.0
 margin_top = 0.0
 margin_right = 470.0
-margin_bottom = 395.0
+margin_bottom = 992.0
+size_flags_vertical = 3
 
-[node name="MarginContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1" index="0"]
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1" index="0"]
 margin_right = 465.0
+margin_bottom = 987.0
 
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer" index="0"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer" index="0"]
 margin_right = 445.0
+margin_bottom = 967.0
 
-[node name="JobDescription" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer" index="0"]
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 952.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="0"]
 margin_right = 430.0
 
-[node name="HBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="0"]
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
 margin_right = 430.0
 
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
-margin_right = 430.0
-
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 232.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="5"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="7"]
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="8"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
 margin_right = 355.0
 
-[node name="Name" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 355.0
 
-[node name="Category" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
 margin_right = 355.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 952.0
 
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 862.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 862.0
 
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="2"]
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 307.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="5"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="7"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="8"]
-margin_right = 430.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="Effects_scrolled" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
-margin_right = 430.0
-
-[node name="effect_line" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
-margin_right = 430.0
-
-[node name="JobUi2" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1" instance=ExtResource( 5 )]
+[node name="JobUi2" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont" instance=ExtResource( 5 )]
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 0.0
-margin_top = 418.0
+margin_top = 0.0
 margin_right = 470.0
-margin_bottom = 813.0
+margin_bottom = 992.0
+size_flags_vertical = 3
 
-[node name="MarginContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2" index="0"]
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2" index="0"]
 margin_right = 465.0
+margin_bottom = 987.0
 
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer" index="0"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer" index="0"]
 margin_right = 445.0
+margin_bottom = 967.0
 
-[node name="JobDescription" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer" index="0"]
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 952.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="0"]
 margin_right = 430.0
 
-[node name="HBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="0"]
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
 margin_right = 430.0
 
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
-margin_right = 430.0
-
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 232.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="5"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="7"]
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="8"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
 margin_right = 355.0
 
-[node name="Name" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 355.0
 
-[node name="Category" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
 margin_right = 355.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 952.0
 
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 862.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 862.0
 
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="2"]
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 307.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="5"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="7"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="8"]
-margin_right = 430.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="Effects_scrolled" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
-margin_right = 430.0
-
-[node name="effect_line" parent="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
-margin_right = 430.0
-
-[node name="PlayerCont2" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
+[node name="JobPlayerCont2" type="ScrollContainer" parent="JobCont/TabContainer"]
+unique_name_in_owner = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -471,15 +251,14 @@ margin_bottom = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VPlayerCont2" type="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont2"]
-unique_name_in_owner = true
+[node name="VPlayerCont" type="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2"]
 margin_right = 470.0
 margin_bottom = 992.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 23
 
-[node name="JobUi1" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2" instance=ExtResource( 5 )]
+[node name="JobUi1" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont" instance=ExtResource( 5 )]
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -488,588 +267,107 @@ anchor_bottom = 0.0
 margin_left = 0.0
 margin_top = 0.0
 margin_right = 470.0
-margin_bottom = 395.0
+margin_bottom = 484.0
+size_flags_vertical = 3
 
-[node name="MarginContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1" index="0"]
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1" index="0"]
 margin_right = 465.0
+margin_bottom = 479.0
 
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer" index="0"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer" index="0"]
 margin_right = 445.0
+margin_bottom = 459.0
 
-[node name="JobDescription" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer" index="0"]
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 444.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="0"]
 margin_right = 430.0
 
-[node name="HBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="0"]
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
 margin_right = 430.0
 
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
-margin_right = 430.0
-
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 232.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="5"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="7"]
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 326.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="9"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="11"]
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="12"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
 margin_right = 355.0
 
-[node name="Name" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 355.0
 
-[node name="Category" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
 margin_right = 355.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 444.0
 
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 354.0
 
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 354.0
 
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="2"]
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 307.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="5"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="7"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 401.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="9"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="11"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="12"]
-margin_right = 430.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="Effects_scrolled" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
-margin_right = 430.0
-
-[node name="effect_line" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
-margin_right = 430.0
-
-[node name="JobUi2" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2" instance=ExtResource( 5 )]
+[node name="JobUi2" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont" instance=ExtResource( 5 )]
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 0.0
-margin_top = 418.0
+margin_top = 507.0
 margin_right = 470.0
-margin_bottom = 813.0
+margin_bottom = 992.0
+size_flags_vertical = 3
 
-[node name="MarginContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2" index="0"]
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2" index="0"]
 margin_right = 465.0
+margin_bottom = 480.0
 
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer" index="0"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer" index="0"]
 margin_right = 445.0
+margin_bottom = 460.0
 
-[node name="JobDescription" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer" index="0"]
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 445.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="0"]
 margin_right = 430.0
 
-[node name="HBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="0"]
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
 margin_right = 430.0
 
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
-margin_right = 430.0
-
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 232.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="5"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="7"]
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 326.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="9"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="11"]
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="12"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
 margin_right = 355.0
 
-[node name="Name" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 355.0
 
-[node name="Category" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
 margin_right = 355.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 445.0
 
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 355.0
 
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 355.0
 
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="2"]
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 307.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="5"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="7"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 401.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="9"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="11"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="12"]
-margin_right = 430.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="Effects_scrolled" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
-margin_right = 430.0
-
-[node name="effect_line" parent="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
-margin_right = 430.0
-
-[node name="PlayerCont3" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
+[node name="JobPlayerCont3" type="ScrollContainer" parent="JobCont/TabContainer"]
+unique_name_in_owner = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1080,15 +378,14 @@ margin_bottom = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VPlayerCont3" type="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont3"]
-unique_name_in_owner = true
+[node name="VPlayerCont" type="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3"]
 margin_right = 470.0
 margin_bottom = 992.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 23
 
-[node name="JobUi1" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3" instance=ExtResource( 5 )]
+[node name="JobUi1" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont" instance=ExtResource( 5 )]
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1097,588 +394,107 @@ anchor_bottom = 0.0
 margin_left = 0.0
 margin_top = 0.0
 margin_right = 470.0
-margin_bottom = 395.0
+margin_bottom = 484.0
+size_flags_vertical = 3
 
-[node name="MarginContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1" index="0"]
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1" index="0"]
 margin_right = 465.0
+margin_bottom = 479.0
 
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer" index="0"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer" index="0"]
 margin_right = 445.0
+margin_bottom = 459.0
 
-[node name="JobDescription" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer" index="0"]
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 444.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="0"]
 margin_right = 430.0
 
-[node name="HBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="0"]
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
 margin_right = 430.0
 
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
-margin_right = 430.0
-
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 232.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="5"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="7"]
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 326.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="9"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="11"]
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="12"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
 margin_right = 355.0
 
-[node name="Name" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 355.0
 
-[node name="Category" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
 margin_right = 355.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 444.0
 
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 354.0
 
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 354.0
 
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="2"]
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 307.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="5"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="7"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 401.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="9"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="11"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="12"]
-margin_right = 430.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="Effects_scrolled" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
-margin_right = 430.0
-
-[node name="effect_line" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
-margin_right = 430.0
-
-[node name="JobUi2" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3" instance=ExtResource( 5 )]
+[node name="JobUi2" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont" instance=ExtResource( 5 )]
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 0.0
-margin_top = 418.0
+margin_top = 507.0
 margin_right = 470.0
-margin_bottom = 813.0
+margin_bottom = 992.0
+size_flags_vertical = 3
 
-[node name="MarginContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2" index="0"]
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2" index="0"]
 margin_right = 465.0
+margin_bottom = 480.0
 
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer" index="0"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer" index="0"]
 margin_right = 445.0
+margin_bottom = 460.0
 
-[node name="JobDescription" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer" index="0"]
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 445.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="0"]
 margin_right = 430.0
 
-[node name="HBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="0"]
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
 margin_right = 430.0
 
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
-margin_right = 430.0
-
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 232.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="5"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="7"]
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 326.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="9"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="11"]
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="12"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
 margin_right = 355.0
 
-[node name="Name" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 355.0
 
-[node name="Category" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
 margin_right = 355.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 445.0
 
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 355.0
 
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 355.0
 
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="2"]
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 307.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="5"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="7"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 401.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="9"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="11"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="12"]
-margin_right = 430.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="Effects_scrolled" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
-margin_right = 430.0
-
-[node name="effect_line" parent="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
-margin_right = 430.0
-
-[node name="PlayerCont4" type="ScrollContainer" parent="VBoxContainer/TabContainer"]
+[node name="JobPlayerCont4" type="ScrollContainer" parent="JobCont/TabContainer"]
+unique_name_in_owner = true
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1689,15 +505,14 @@ margin_bottom = -5.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VPlayerCont4" type="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont4"]
-unique_name_in_owner = true
+[node name="VPlayerCont" type="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4"]
 margin_right = 470.0
 margin_bottom = 992.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 23
 
-[node name="JobUi1" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4" instance=ExtResource( 5 )]
+[node name="JobUi1" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont" instance=ExtResource( 5 )]
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1706,585 +521,103 @@ anchor_bottom = 0.0
 margin_left = 0.0
 margin_top = 0.0
 margin_right = 470.0
-margin_bottom = 395.0
+margin_bottom = 484.0
+size_flags_vertical = 3
 
-[node name="MarginContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1" index="0"]
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1" index="0"]
 margin_right = 465.0
+margin_bottom = 479.0
 
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer" index="0"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer" index="0"]
 margin_right = 445.0
+margin_bottom = 459.0
 
-[node name="JobDescription" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer" index="0"]
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 444.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="0"]
 margin_right = 430.0
 
-[node name="HBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="0"]
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
 margin_right = 430.0
 
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
-margin_right = 430.0
-
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 232.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="5"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="7"]
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 326.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="9"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="11"]
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="12"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
 margin_right = 355.0
 
-[node name="Name" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 355.0
 
-[node name="Category" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
 margin_right = 355.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 444.0
 
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 354.0
 
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 354.0
 
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription" index="2"]
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 307.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="5"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="7"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 401.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="9"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="11"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="12"]
-margin_right = 430.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="Effects_scrolled" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
-margin_right = 430.0
-
-[node name="effect_line" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
-margin_right = 430.0
-
-[node name="JobUi2" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4" instance=ExtResource( 5 )]
+[node name="JobUi2" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont" instance=ExtResource( 5 )]
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 0.0
-margin_top = 418.0
+margin_top = 507.0
 margin_right = 470.0
-margin_bottom = 813.0
+margin_bottom = 992.0
+size_flags_vertical = 3
 
-[node name="MarginContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2" index="0"]
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2" index="0"]
 margin_right = 465.0
+margin_bottom = 480.0
 
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer" index="0"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer" index="0"]
 margin_right = 445.0
+margin_bottom = 460.0
 
-[node name="JobDescription" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer" index="0"]
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 445.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="0"]
 margin_right = 430.0
 
-[node name="HBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="0"]
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
 margin_right = 430.0
 
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
-margin_right = 430.0
-
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 232.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="5"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="7"]
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 210.0
-page = 326.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="9"]
-visible = false
-max_value = 59.0
-page = 60.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="11"]
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="12"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
 margin_right = 355.0
 
-[node name="Name" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
 margin_right = 355.0
 
-[node name="Category" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
 margin_right = 355.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/PlayerStatsDescr/PlayerStatsDescr_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/VBoxContainer/WeaponStats" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="ScrollContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="2"]
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription" index="2"]
 margin_right = 430.0
+margin_bottom = 445.0
 
-[node name="_h_scroll4" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="4"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 307.0
-
-[node name="_v_scroll4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="5"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll5" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="6"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="7"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_h_scroll6" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="8"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 25.0
-page = 401.0
-
-[node name="_v_scroll6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="9"]
-visible = false
-margin_right = 10.0
-margin_bottom = 5.0
-max_value = 35.0
-page = 265.0
-
-[node name="_h_scroll7" type="HScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="10"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="_v_scroll7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="11"]
-margin_right = 10.0
-margin_bottom = 5.0
-
-[node name="VBoxContainer" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="12"]
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
 margin_right = 430.0
+margin_bottom = 355.0
 
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_left" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 29.0
-step = 1.0
-page = 29.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/PlayerStatsDescr_scrolled/PlayerStatsDescr_scrolled_right" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar4" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="2"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar5" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="3"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="VScrollBar6" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="4"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-max_value = 78.0
-step = 1.0
-page = 78.0
-
-[node name="VScrollBar7" type="VScrollBar" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/WeaponStats_scrolled" index="5"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-step = 1.0
-
-[node name="Effects_scrolled" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
 margin_right = 430.0
+margin_bottom = 355.0
 
-[node name="effect_line" parent="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
 [node name="Others" type="Control" parent="."]
@@ -2293,7 +626,7 @@ margin_top = 5.0
 margin_right = 485.0
 margin_bottom = 1075.0
 
-[node name="cross_button" type="Button" parent="Others"]
+[node name="CrossButton" type="Button" parent="Others"]
 unique_name_in_owner = true
 anchor_left = 1.0
 anchor_right = 1.0
@@ -2303,21 +636,686 @@ margin_bottom = 65.0
 rect_pivot_offset = Vector2( 150, 136 )
 icon = ExtResource( 6 )
 
-[connection signal="pressed" from="Others/cross_button" to="." method="_on_cross_button_pressed"]
+[node name="StatsButton" type="Button" parent="Others"]
+unique_name_in_owner = true
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 90.0
+margin_right = 154.0
+margin_bottom = 65.0
+rect_pivot_offset = Vector2( 150, 136 )
+icon = ExtResource( 10 )
+expand_icon = true
 
-[editable path="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1"]
-[editable path="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
-[editable path="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2"]
-[editable path="VBoxContainer/TabContainer/PlayerCont1/VPlayerCont1/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
-[editable path="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1"]
-[editable path="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
-[editable path="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2"]
-[editable path="VBoxContainer/TabContainer/PlayerCont2/VPlayerCont2/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
-[editable path="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1"]
-[editable path="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
-[editable path="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2"]
-[editable path="VBoxContainer/TabContainer/PlayerCont3/VPlayerCont3/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
-[editable path="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1"]
-[editable path="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
-[editable path="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2"]
-[editable path="VBoxContainer/TabContainer/PlayerCont4/VPlayerCont4/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
+[node name="StatCont" type="VBoxContainer" parent="Others"]
+unique_name_in_owner = true
+margin_top = -1080.0
+margin_right = 480.0
+margin_bottom = -10.0
+custom_constants/separation = 23
+script = ExtResource( 1 )
+buttons_tab_np = [ NodePath("HBoxContainer/TabBut1"), NodePath("HBoxContainer/TabBut2"), NodePath("HBoxContainer/TabBut3"), NodePath("HBoxContainer/TabBut4") ]
+tab_container_np = NodePath("TabContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Others/StatCont"]
+margin_right = 480.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 480, 0 )
+
+[node name="TabBut1" type="Button" parent="Others/StatCont/HBoxContainer"]
+margin_right = 480.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "Player 1"
+
+[node name="TabBut2" type="Button" parent="Others/StatCont/HBoxContainer"]
+visible = false
+margin_left = 242.0
+margin_right = 480.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "Player 2"
+
+[node name="TabBut3" type="Button" parent="Others/StatCont/HBoxContainer"]
+visible = false
+margin_left = 322.0
+margin_right = 480.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "Player 3"
+
+[node name="TabBut4" type="Button" parent="Others/StatCont/HBoxContainer"]
+visible = false
+margin_left = 363.0
+margin_right = 480.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "Player 4"
+
+[node name="TabContainer" type="TabContainer" parent="Others/StatCont"]
+margin_top = 68.0
+margin_right = 480.0
+margin_bottom = 1070.0
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 2 )
+tabs_visible = false
+
+[node name="StatPlayerCont1" type="ScrollContainer" parent="Others/StatCont/TabContainer"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Others/StatCont/TabContainer/StatPlayerCont1"]
+margin_right = 470.0
+margin_bottom = 106.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+
+[node name="VPlayerCont" type="VBoxContainer" parent="Others/StatCont/TabContainer/StatPlayerCont1/MarginContainer"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 455.0
+margin_bottom = 106.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 23
+
+[node name="HolyContainer" parent="Others/StatCont/TabContainer/StatPlayerCont1/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
+margin_right = 440.0
+margin_bottom = 34.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+key = "STAT_FANTASY_HOLY"
+
+[node name="SoulContainer" parent="Others/StatCont/TabContainer/StatPlayerCont1/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
+margin_top = 57.0
+margin_right = 440.0
+margin_bottom = 91.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+key = "STAT_FANTASY_SOUL"
+
+[node name="StatPlayerCont2" type="ScrollContainer" parent="Others/StatCont/TabContainer"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Others/StatCont/TabContainer/StatPlayerCont2"]
+margin_right = 470.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+
+[node name="VPlayerCont" type="VBoxContainer" parent="Others/StatCont/TabContainer/StatPlayerCont2/MarginContainer"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 455.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 23
+
+[node name="HolyContainer" parent="Others/StatCont/TabContainer/StatPlayerCont2/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
+margin_right = 440.0
+margin_bottom = 34.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+key = "STAT_FANTASY_HOLY"
+
+[node name="SoulContainer" parent="Others/StatCont/TabContainer/StatPlayerCont2/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
+margin_top = 57.0
+margin_right = 440.0
+margin_bottom = 91.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+key = "STAT_FANTASY_SOUL"
+
+[node name="StatPlayerCont3" type="ScrollContainer" parent="Others/StatCont/TabContainer"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Others/StatCont/TabContainer/StatPlayerCont3"]
+margin_right = 470.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+
+[node name="VPlayerCont" type="VBoxContainer" parent="Others/StatCont/TabContainer/StatPlayerCont3/MarginContainer"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 455.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 23
+
+[node name="HolyContainer" parent="Others/StatCont/TabContainer/StatPlayerCont3/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
+margin_right = 440.0
+margin_bottom = 34.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+key = "STAT_FANTASY_HOLY"
+
+[node name="SoulContainer" parent="Others/StatCont/TabContainer/StatPlayerCont3/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
+margin_top = 57.0
+margin_right = 440.0
+margin_bottom = 91.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+key = "STAT_FANTASY_SOUL"
+
+[node name="StatPlayerCont4" type="ScrollContainer" parent="Others/StatCont/TabContainer"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Others/StatCont/TabContainer/StatPlayerCont4"]
+margin_right = 470.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 15
+custom_constants/margin_top = 15
+custom_constants/margin_left = 15
+
+[node name="VPlayerCont" type="VBoxContainer" parent="Others/StatCont/TabContainer/StatPlayerCont4/MarginContainer"]
+margin_left = 15.0
+margin_top = 15.0
+margin_right = 455.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 23
+
+[node name="HolyContainer" parent="Others/StatCont/TabContainer/StatPlayerCont4/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
+margin_right = 440.0
+margin_bottom = 34.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+key = "STAT_FANTASY_HOLY"
+
+[node name="SoulContainer" parent="Others/StatCont/TabContainer/StatPlayerCont4/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
+margin_top = 57.0
+margin_right = 440.0
+margin_bottom = 91.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+key = "STAT_FANTASY_SOUL"
+
+[node name="JobsContainer" type="TabContainer" parent="Others"]
+unique_name_in_owner = true
+margin_left = 539.0
+margin_top = 92.0
+margin_right = 1871.0
+margin_bottom = 1013.0
+custom_styles/panel = SubResource( 3 )
+tabs_visible = false
+
+[node name="JobsCont1" type="VBoxContainer" parent="Others/JobsContainer"]
+unique_name_in_owner = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+
+[node name="Jobs1" parent="Others/JobsContainer/JobsCont1" instance=ExtResource( 7 )]
+margin_right = 1292.0
+margin_bottom = 438.0
+size_flags_vertical = 3
+authorize_sorting = true
+reserve_column_count = 12
+
+[node name="HBoxContainer" parent="Others/JobsContainer/JobsCont1/Jobs1" index="0"]
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="Label" parent="Others/JobsContainer/JobsCont1/Jobs1/HBoxContainer" index="0"]
+margin_top = 3.0
+margin_right = 129.0
+margin_bottom = 48.0
+text = "Jobs 1"
+
+[node name="HSeparator" parent="Others/JobsContainer/JobsCont1/Jobs1/HBoxContainer" index="1"]
+margin_left = 133.0
+margin_right = 1020.0
+margin_bottom = 51.0
+
+[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont1/Jobs1/HBoxContainer" index="2"]
+margin_left = 1024.0
+margin_right = 1243.0
+margin_bottom = 51.0
+items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
+sort_by_when_got_it = false
+
+[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont1/Jobs1/HBoxContainer" index="3"]
+margin_left = 1247.0
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont1/Jobs1" index="1"]
+margin_top = 76.0
+margin_right = 1292.0
+margin_bottom = 438.0
+
+[node name="ScrollContainer" parent="Others/JobsContainer/JobsCont1/Jobs1/ScrollSizeContainer" index="0"]
+anchor_bottom = 1.0
+size_flags_vertical = 3
+
+[node name="Jobs2" parent="Others/JobsContainer/JobsCont1" instance=ExtResource( 7 )]
+margin_top = 442.0
+margin_right = 1292.0
+margin_bottom = 881.0
+size_flags_vertical = 3
+authorize_sorting = true
+reserve_column_count = 12
+
+[node name="HBoxContainer" parent="Others/JobsContainer/JobsCont1/Jobs2" index="0"]
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="Label" parent="Others/JobsContainer/JobsCont1/Jobs2/HBoxContainer" index="0"]
+margin_top = 3.0
+margin_right = 131.0
+margin_bottom = 48.0
+text = "Jobs 2"
+
+[node name="HSeparator" parent="Others/JobsContainer/JobsCont1/Jobs2/HBoxContainer" index="1"]
+margin_left = 135.0
+margin_right = 1020.0
+margin_bottom = 51.0
+
+[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont1/Jobs2/HBoxContainer" index="2"]
+margin_left = 1024.0
+margin_right = 1243.0
+margin_bottom = 51.0
+items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
+sort_by_when_got_it = false
+
+[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont1/Jobs2/HBoxContainer" index="3"]
+margin_left = 1247.0
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont1/Jobs2" index="1"]
+margin_top = 76.0
+margin_right = 1292.0
+margin_bottom = 439.0
+
+[node name="ScrollContainer" parent="Others/JobsContainer/JobsCont1/Jobs2/ScrollSizeContainer" index="0"]
+anchor_bottom = 1.0
+size_flags_vertical = 3
+
+[node name="JobsCont2" type="VBoxContainer" parent="Others/JobsContainer"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+
+[node name="Jobs1" parent="Others/JobsContainer/JobsCont2" instance=ExtResource( 7 )]
+margin_right = 1292.0
+margin_bottom = 438.0
+size_flags_vertical = 3
+authorize_sorting = true
+reserve_column_count = 12
+
+[node name="HBoxContainer" parent="Others/JobsContainer/JobsCont2/Jobs1" index="0"]
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="Label" parent="Others/JobsContainer/JobsCont2/Jobs1/HBoxContainer" index="0"]
+margin_top = 3.0
+margin_right = 129.0
+margin_bottom = 48.0
+text = "Jobs 1"
+
+[node name="HSeparator" parent="Others/JobsContainer/JobsCont2/Jobs1/HBoxContainer" index="1"]
+margin_left = 133.0
+margin_right = 1020.0
+margin_bottom = 51.0
+
+[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont2/Jobs1/HBoxContainer" index="2"]
+margin_left = 1024.0
+margin_right = 1243.0
+margin_bottom = 51.0
+items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
+sort_by_when_got_it = false
+
+[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont2/Jobs1/HBoxContainer" index="3"]
+margin_left = 1247.0
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont2/Jobs1" index="1"]
+margin_top = 76.0
+margin_right = 1292.0
+margin_bottom = 438.0
+
+[node name="ScrollContainer" parent="Others/JobsContainer/JobsCont2/Jobs1/ScrollSizeContainer" index="0"]
+anchor_bottom = 1.0
+size_flags_vertical = 3
+
+[node name="Jobs2" parent="Others/JobsContainer/JobsCont2" instance=ExtResource( 7 )]
+margin_top = 442.0
+margin_right = 1292.0
+margin_bottom = 881.0
+size_flags_vertical = 3
+authorize_sorting = true
+reserve_column_count = 12
+
+[node name="HBoxContainer" parent="Others/JobsContainer/JobsCont2/Jobs2" index="0"]
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="Label" parent="Others/JobsContainer/JobsCont2/Jobs2/HBoxContainer" index="0"]
+margin_top = 3.0
+margin_right = 131.0
+margin_bottom = 48.0
+text = "Jobs 2"
+
+[node name="HSeparator" parent="Others/JobsContainer/JobsCont2/Jobs2/HBoxContainer" index="1"]
+margin_left = 135.0
+margin_right = 1020.0
+margin_bottom = 51.0
+
+[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont2/Jobs2/HBoxContainer" index="2"]
+margin_left = 1024.0
+margin_right = 1243.0
+margin_bottom = 51.0
+items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
+sort_by_when_got_it = false
+
+[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont2/Jobs2/HBoxContainer" index="3"]
+margin_left = 1247.0
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont2/Jobs2" index="1"]
+margin_top = 76.0
+margin_right = 1292.0
+margin_bottom = 439.0
+
+[node name="ScrollContainer" parent="Others/JobsContainer/JobsCont2/Jobs2/ScrollSizeContainer" index="0"]
+anchor_bottom = 1.0
+size_flags_vertical = 3
+
+[node name="JobsCont3" type="VBoxContainer" parent="Others/JobsContainer"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+
+[node name="Jobs1" parent="Others/JobsContainer/JobsCont3" instance=ExtResource( 7 )]
+margin_right = 1292.0
+margin_bottom = 438.0
+size_flags_vertical = 3
+authorize_sorting = true
+reserve_column_count = 12
+
+[node name="HBoxContainer" parent="Others/JobsContainer/JobsCont3/Jobs1" index="0"]
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="Label" parent="Others/JobsContainer/JobsCont3/Jobs1/HBoxContainer" index="0"]
+margin_top = 3.0
+margin_right = 129.0
+margin_bottom = 48.0
+text = "Jobs 1"
+
+[node name="HSeparator" parent="Others/JobsContainer/JobsCont3/Jobs1/HBoxContainer" index="1"]
+margin_left = 133.0
+margin_right = 1020.0
+margin_bottom = 51.0
+
+[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont3/Jobs1/HBoxContainer" index="2"]
+margin_left = 1024.0
+margin_right = 1243.0
+margin_bottom = 51.0
+items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
+sort_by_when_got_it = false
+
+[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont3/Jobs1/HBoxContainer" index="3"]
+margin_left = 1247.0
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont3/Jobs1" index="1"]
+margin_top = 76.0
+margin_right = 1292.0
+margin_bottom = 438.0
+
+[node name="ScrollContainer" parent="Others/JobsContainer/JobsCont3/Jobs1/ScrollSizeContainer" index="0"]
+anchor_bottom = 1.0
+size_flags_vertical = 3
+
+[node name="Jobs2" parent="Others/JobsContainer/JobsCont3" instance=ExtResource( 7 )]
+margin_top = 442.0
+margin_right = 1292.0
+margin_bottom = 881.0
+size_flags_vertical = 3
+authorize_sorting = true
+reserve_column_count = 12
+
+[node name="HBoxContainer" parent="Others/JobsContainer/JobsCont3/Jobs2" index="0"]
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="Label" parent="Others/JobsContainer/JobsCont3/Jobs2/HBoxContainer" index="0"]
+margin_top = 3.0
+margin_right = 131.0
+margin_bottom = 48.0
+text = "Jobs 2"
+
+[node name="HSeparator" parent="Others/JobsContainer/JobsCont3/Jobs2/HBoxContainer" index="1"]
+margin_left = 135.0
+margin_right = 1020.0
+margin_bottom = 51.0
+
+[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont3/Jobs2/HBoxContainer" index="2"]
+margin_left = 1024.0
+margin_right = 1243.0
+margin_bottom = 51.0
+items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
+sort_by_when_got_it = false
+
+[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont3/Jobs2/HBoxContainer" index="3"]
+margin_left = 1247.0
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont3/Jobs2" index="1"]
+margin_top = 76.0
+margin_right = 1292.0
+margin_bottom = 439.0
+
+[node name="ScrollContainer" parent="Others/JobsContainer/JobsCont3/Jobs2/ScrollSizeContainer" index="0"]
+anchor_bottom = 1.0
+size_flags_vertical = 3
+
+[node name="JobsCont4" type="VBoxContainer" parent="Others/JobsContainer"]
+unique_name_in_owner = true
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+
+[node name="Jobs1" parent="Others/JobsContainer/JobsCont4" instance=ExtResource( 7 )]
+margin_right = 1292.0
+margin_bottom = 438.0
+size_flags_vertical = 3
+authorize_sorting = true
+reserve_column_count = 12
+
+[node name="HBoxContainer" parent="Others/JobsContainer/JobsCont4/Jobs1" index="0"]
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="Label" parent="Others/JobsContainer/JobsCont4/Jobs1/HBoxContainer" index="0"]
+margin_top = 3.0
+margin_right = 129.0
+margin_bottom = 48.0
+text = "Jobs 1"
+
+[node name="HSeparator" parent="Others/JobsContainer/JobsCont4/Jobs1/HBoxContainer" index="1"]
+margin_left = 133.0
+margin_right = 1020.0
+margin_bottom = 51.0
+
+[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont4/Jobs1/HBoxContainer" index="2"]
+margin_left = 1024.0
+margin_right = 1243.0
+margin_bottom = 51.0
+items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
+sort_by_when_got_it = false
+
+[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont4/Jobs1/HBoxContainer" index="3"]
+margin_left = 1247.0
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont4/Jobs1" index="1"]
+margin_top = 76.0
+margin_right = 1292.0
+margin_bottom = 438.0
+
+[node name="ScrollContainer" parent="Others/JobsContainer/JobsCont4/Jobs1/ScrollSizeContainer" index="0"]
+anchor_bottom = 1.0
+size_flags_vertical = 3
+
+[node name="Jobs2" parent="Others/JobsContainer/JobsCont4" instance=ExtResource( 7 )]
+margin_top = 442.0
+margin_right = 1292.0
+margin_bottom = 881.0
+size_flags_vertical = 3
+authorize_sorting = true
+reserve_column_count = 12
+
+[node name="HBoxContainer" parent="Others/JobsContainer/JobsCont4/Jobs2" index="0"]
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="Label" parent="Others/JobsContainer/JobsCont4/Jobs2/HBoxContainer" index="0"]
+margin_top = 3.0
+margin_right = 131.0
+margin_bottom = 48.0
+text = "Jobs 2"
+
+[node name="HSeparator" parent="Others/JobsContainer/JobsCont4/Jobs2/HBoxContainer" index="1"]
+margin_left = 135.0
+margin_right = 1020.0
+margin_bottom = 51.0
+
+[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont4/Jobs2/HBoxContainer" index="2"]
+margin_left = 1024.0
+margin_right = 1243.0
+margin_bottom = 51.0
+items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
+sort_by_when_got_it = false
+
+[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont4/Jobs2/HBoxContainer" index="3"]
+margin_left = 1247.0
+margin_right = 1292.0
+margin_bottom = 51.0
+
+[node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont4/Jobs2" index="1"]
+margin_top = 76.0
+margin_right = 1292.0
+margin_bottom = 439.0
+
+[node name="ScrollContainer" parent="Others/JobsContainer/JobsCont4/Jobs2/ScrollSizeContainer" index="0"]
+anchor_bottom = 1.0
+size_flags_vertical = 3
+
+[node name="ItemPopup" parent="Others" instance=ExtResource( 9 )]
+unique_name_in_owner = true
+visible = false
+margin_right = 713.0
+margin_bottom = 1070.0
+
+[node name="StatPopup" parent="Others" instance=ExtResource( 12 )]
+unique_name_in_owner = true
+visible = false
+margin_top = 1008.0
+margin_bottom = 1008.0
+
+[node name="PopupManager" parent="." instance=ExtResource( 8 )]
+unique_name_in_owner = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="pressed" from="Others/CrossButton" to="." method="_on_CrossButton_pressed"]
+[connection signal="pressed" from="Others/StatsButton" to="." method="_on_StatsButton_pressed"]
+
+[editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1"]
+[editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2"]
+[editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1"]
+[editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2"]
+[editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1"]
+[editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2"]
+[editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1"]
+[editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2"]
+[editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="Others/JobsContainer/JobsCont1/Jobs1"]
+[editable path="Others/JobsContainer/JobsCont1/Jobs2"]
+[editable path="Others/JobsContainer/JobsCont2/Jobs1"]
+[editable path="Others/JobsContainer/JobsCont2/Jobs2"]
+[editable path="Others/JobsContainer/JobsCont3/Jobs1"]
+[editable path="Others/JobsContainer/JobsCont3/Jobs2"]
+[editable path="Others/JobsContainer/JobsCont4/Jobs1"]
+[editable path="Others/JobsContainer/JobsCont4/Jobs2"]

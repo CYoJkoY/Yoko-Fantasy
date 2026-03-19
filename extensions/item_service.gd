@@ -1,6 +1,11 @@
 extends "res://singletons/item_service.gd"
 
+var jobs_by_stage: Dictionary = {0: [], 1: []}
+
 # =========================== Extension =========================== #
+func _ready() -> void:
+    _fantasy_get_jobs_by_stage()
+
 func get_consumable_to_drop(unit: Unit, item_chance: float) -> ConsumableData:
     var consumable: ConsumableData =.get_consumable_to_drop(unit, item_chance)
     consumable = _fantasy_get_soul_to_drop(consumable)
@@ -25,6 +30,12 @@ func get_upgrades(level: int, number: int, old_upgrades: Array, player_index: in
 
     return upgrades_to_show
 
+func get_stat_description_text(stat_hash: int, value: int, player_index: int) -> String:
+    var stat_description: String =.get_stat_description_text(stat_hash, value, player_index)
+    stat_description = _fantasy_get_stat_description_text(stat_description, stat_hash, value, player_index)
+
+    return stat_description
+
 # =========================== Custom =========================== #
 func _fantasy_get_soul_to_drop(consumable: ConsumableData) -> ConsumableData:
     var stat_holy: float = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
@@ -48,6 +59,11 @@ func _fantasy_extra_curse_item(item: ItemParentData, player_index: int) -> ItemP
         return Utils.ncl_curse_item(item, player_index)
 
     return item
+
+func _fantasy_get_jobs_by_stage() -> void:
+    for upgrade in upgrades:
+        var job_stage = upgrade.get("stage")
+        if job_stage != null: jobs_by_stage[job_stage].append(upgrade)
 
 func _fantasy_get_jobs(upgrades_to_show: Array, level: int, player_index: int) -> Array:
     var s1_job: UpgradeData = RunData.fa_get_current_job(0, player_index)
@@ -78,13 +94,27 @@ func _fantasy_get_jobs(upgrades_to_show: Array, level: int, player_index: int) -
 
     return upgrades_to_show
 
-# =========================== Method =========================== #
-func fa_get_jobs(stage: int, number: int, way: int = Keys.empty_hash) -> Array:
-    var jobs_by_stage: Dictionary = {0: [], 1: []}
-    for upgrade in upgrades:
-        var job_stage = upgrade.get("stage")
-        if job_stage != null: jobs_by_stage[job_stage].append(upgrade)
+func _fantasy_get_stat_description_text(stat_description: String, stat_hash: int, value: int, player_index: int) -> String:
+    var stat_name = Keys.hash_to_string[stat_hash].to_upper()
+    var stat_sign = "POS_" if value >= 0 else "NEG_"
+    var key = "INFO_" + stat_sign + stat_name
 
+    match stat_hash:
+        Utils.stat_fantasy_holy_hash:
+            var stat_holy: float = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
+            var damage_bonus: int = stat_holy as int
+            var chance_drop_soul: int = (stat_holy / (stat_holy + 50.0) * 100) as int
+            var enemy_health_reduction: int = (stat_holy / (stat_holy + 100.0) * 100) as int
+            stat_description = Text.text(key, [str(damage_bonus), str(chance_drop_soul), str(enemy_health_reduction)])
+
+        Utils.stat_fantasy_soul_hash:
+            var bonus: int = 10 + RunData.get_player_effect(Utils.fantasy_soul_bonus_hash, player_index)
+            stat_description = Text.text(key, [str(bonus), str(bonus)])
+
+    return stat_description
+
+# =========================== Method =========================== #
+func fa_get_jobs(stage: int, number: int = Utils.LARGE_NUMBER, way: int = Keys.empty_hash) -> Array:
     var source = jobs_by_stage.get(stage, [])
     var candidates = source
 

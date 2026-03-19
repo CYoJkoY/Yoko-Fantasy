@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/frost_projectile_001a.webp-43adaf34d48de72dcd65247d5ad897fd.stex"
+path="res://.import/performer_icon.webp-39d12785853d7346fe2cadedd8b0c41c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/frost_projectile/frost_projectile_001a.webp"
-dest_files=[ "res://.import/frost_projectile_001a.webp-43adaf34d48de72dcd65247d5ad897fd.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/performer/performer_icon.webp"
+dest_files=[ "res://.import/performer_icon.webp-39d12785853d7346fe2cadedd8b0c41c.stex" ]
 
 [params]
 

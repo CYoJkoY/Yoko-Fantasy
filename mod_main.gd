@@ -19,22 +19,21 @@ func _init() -> void:
     var extensions: Array = [
 
         "main.gd",
-        # Job System[ 1/5 ]
-        # STATS: Holy, Soul
+        # Job System[ 1/6 ]
         # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ],
         #          decaying_slow_enemy_when_below_hp[ 1/2 ]
         #          slow_cursed_enemy
         
         "item_service.gd",
-        # Job System[ 2/5 ]
-        # STATS: Soul
+        # Job System[ 2/6 ]
+        # STATS: Soul[ 1/3 ], Holy[ 1/2 ]
         
         "enemy.gd",
-        # STATS: Holy
+        # STATS: Holy[ 2/2 ]
         # EFFECTS: extra_curse_enemy
         
         "player_run_data.gd",
-        # Job System[ 3/5 ]
+        # Job System[ 3/6 ]
         # EFFECTS' NAMES
         
         "utils.gd",
@@ -46,6 +45,7 @@ func _init() -> void:
         #          upgrade_specific_tier_weapons[ 1/2 ]
 
         "player.gd",
+        # STATS: Soul[ 2/3 ]
         # EFFECTS: damage_clamp,
         #          damage_reflect,
         #          decaying_slow_enemy_when_below_hp[ 2/2 ]
@@ -70,7 +70,8 @@ func _init() -> void:
         #          reload_when_shoot[ 2/2 ]
 
         "run_data.gd",
-        # Job System[ 4/5 ]
+        # Job System[ 4/6 ]
+        # STATS: Soul[ 3/3 ]
         # EFFECTS: specific_set_weapon_effects,
         #          shop_enter_stat_curse[ 2/2 ],
         #          upgrade_specific_tier_weapons[ 2/2 ]
@@ -79,7 +80,14 @@ func _init() -> void:
         # EFFECTS: turret_can_pursue_target
 
         "ingame_main_menu.gd",
-        # Job System[ 5/5 ]
+        # Job System[ 5/6 ]
+
+        "end_run.gd",
+        # Job System[ 6/6 ]
+    
+        "wave_manager.gd",
+        # EFFECTS: extra_enemies_next_waves
+
     ]
 
     for path in extensions:

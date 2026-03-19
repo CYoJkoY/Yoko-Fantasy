@@ -53,8 +53,10 @@ FANTASY_LITTLE_DEMON_NAME,Little Demon,小恶魔
 FANTASY_LITTLE_DEMON_BEHAVIOUR_DESCRIPTION,"Pursue the player, firing two bullets every 1.5 seconds that appear from the left and right sides of the map and travel toward each other","追击玩家, 每1.5秒发射两个从地图左右两侧出现的相对而行的子弹"
 FANTASY_CRYSTALLINE_ELEMENTS_NAME,Crystalline Elements,元素结晶
 FANTASY_CRYSTALLINE_ELEMENTS_BEHAVIOUR_DESCRIPTION,"Teleports randomly within a range of 700 every 3 seconds, and each second summons a hexagonal cluster of six blade flashes around itself that contracts inward.","每3秒在700范围内随机传送,每秒在周围召唤由6个刀光构成的向内收缩的六边形刀光群"
-INFO_FANTASY_HOLY,"Holy, Attribute. Inactive when negative. Increases damage dealt to Cursed enemies by {0}, increases Soul drop rate by {1}, and reduces all enemies' HP by {2}.","神圣,属性.负数时不生效.额外增加对被诅咒敌人造成的伤害{0},增加敌人掉魂的概率{1},降低所有敌人的血量{2}"
-INFO_FANTASY_SOUL,"Soul, Special Drop. Increases %damage {0} and %attack speed by {1}, each exists 2 seconds.","魂,特殊掉落物.额外增加{0}的%伤害与{1}的%攻击速度,每个持续2秒"
+INFO_POS_STAT_FANTASY_HOLY,"Holy, Attribute. Increases damage dealt to Cursed enemies by {0}, increases Soul drop rate by {1}, and reduces all enemies' HP by {2}.","神圣,属性.额外增加对被诅咒敌人造成的伤害{0},增加敌人掉魂的概率{1},降低所有敌人的血量{2}"
+INFO_NEG_STAT_FANTASY_HOLY,"Holy, Attribute. Inactive when negative.","神圣,属性.负数时不生效."
+INFO_POS_STAT_FANTASY_SOUL,"Soul, a special drop. Upon pickup, increases damage by an additional 10% ({0} %damage) and attack speed by an additional 10% ({1} %attack speed). Each effect lasts 2 seconds","魂,特殊掉落物.拾取后%伤害额外增加10({0} %伤害),%攻击速度额外增加10({1} %攻击速度),每个持续2秒"
+INFO_NEG_STAT_FANTASY_SOUL,"Soul, a special drop. Upon pickup, increases damage by an additional 10 and attack speed by an additional 10. Each effect lasts 2 seconds","魂,特殊掉落物.拾取后%伤害额外增加10,%攻击速度额外增加10,每个持续2秒"
 STAT_FANTASY_HOLY,Holy,神圣
 CLASS_FANTASY_HOLY,Holy,神圣
 CLASS_FANTASY_FALLEN,Fallen,堕落
@@ -315,7 +317,17 @@ JOB_ENGINEERING,Job: Engineering {0},职业: 工程 {0}
 JOB_MELEE,Job: Melee {0},职业: 近战 {0}
 JOB_RANGED,Job: Ranged {0},职业: 远程 {0}
 JOB_UNIVERSAL,Job: Universal {0},职业: 通用 {0}
+COOP_S1_JOB,S1 Job,一阶职业
+COOP_S2_JOB,S2 Job,二阶职业
+EFFECT_FANTASY_EXTRA_ENEMIES_NEXT_WAVES,"{3} will appear in {2} future waves
+{4}","未来 {2} 波次出现{3}
+{4}"
+TRACKING_REMAINING,Remaining: {0},剩余: {0}
 FANTASY_TWIN_BLAZE_NAME,Blaze,炎
-FANTASY_TWIN_BLAZE_BEHAVIOUR_DESCRIPTION,"",""
+FANTASY_TWIN_BLAZE_BEHAVIOUR_DESCRIPTION,"","异变0:
+随机移动,死亡或异变时会导致霜发生异变,每秒发射4道蜿蜒前进的带有预警的火焰弹幕,发射两次后,向周围发射一圈12个向外扩散的火焰弹幕
+
+异变1 (67%生命 / 25秒):
+移动方式变为追击玩家"
 FANTASY_TWIN_FROST_NAME,Frost,霜
-FANTASY_TWIN_FROST_BEHAVIOUR_DESCRIPTION,"",""
+FANTASY_TWIN_FROST_BEHAVIOUR_DESCRIPTION,"","死亡或异变时会导致炎发生异变,"

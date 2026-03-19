@@ -1,5 +1,7 @@
 extends "res://singletons/run_data.gd"
 
+signal on_soul_effect(damage_to_add, speed_to_add, player_index)
+
 var fantasy_resumed_from_state_in_shop: bool = false
 
 # =========================== Extension =========================== #
