@@ -1,45 +1,47 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=46 format=2]
 
-[ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/slow_field_attack_behavior.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023b_twin_frost/twin_frost.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023b_twin_frost/twin_frost.webp" type="Texture" id=3]
 [ext_resource path="res://ui/hud/ui_progress_bar.tscn" type="PackedScene" id=4]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023b_twin_frost/twin_frost_stats.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/enemy/frost_mage_circle/frost_mage_circle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/surround_target_shooting_attack_behavior.gd" type="Script" id=6]
 [ext_resource path="res://entities/units/enemies/boss/boss_state.tscn" type="PackedScene" id=7]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/frost_projectile/frost_projectile_1.tscn" type="PackedScene" id=8]
-[ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/frost_projectile/frost_projectilel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=9]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_02.wav" type="AudioStream" id=10]
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=11]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_04.wav" type="AudioStream" id=12]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shoot.tres" type="Animation" id=13]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shoot_charmed.tres" type="Animation" id=14]
 [ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=15]
 [ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=16]
-[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_02.wav" type="AudioStream" id=17]
-[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_08.wav" type="AudioStream" id=18]
-[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_03.wav" type="AudioStream" id=19]
-[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_02.wav" type="AudioStream" id=20]
-[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_04.wav" type="AudioStream" id=21]
-[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_05.wav" type="AudioStream" id=22]
-[ext_resource path="res://entities/units/unit/dodge_sounds/whoosh_swish_small_harsh_03.wav" type="AudioStream" id=23]
-[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_05.wav" type="AudioStream" id=24]
-[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_03.wav" type="AudioStream" id=25]
-[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=26]
-[ext_resource path="res://entities/units/unit/dodge_sounds/whoosh_swish_small_harsh_02.wav" type="AudioStream" id=27]
-[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_02.wav" type="AudioStream" id=28]
-[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_01.wav" type="AudioStream" id=29]
-[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_03.wav" type="AudioStream" id=30]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_08.wav" type="AudioStream" id=17]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_03.wav" type="AudioStream" id=18]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=19]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_05.wav" type="AudioStream" id=20]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_03.wav" type="AudioStream" id=21]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_01.wav" type="AudioStream" id=22]
+[ext_resource path="res://entities/units/unit/dodge_sounds/whoosh_swish_small_harsh_02.wav" type="AudioStream" id=23]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=24]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=25]
+[ext_resource path="res://entities/units/unit/dodge_sounds/whoosh_swish_small_harsh_03.wav" type="AudioStream" id=26]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_02.wav" type="AudioStream" id=27]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_05.wav" type="AudioStream" id=28]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_02.wav" type="AudioStream" id=29]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=30]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_04.wav" type="AudioStream" id=31]
-[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=32]
-[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=33]
-[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=34]
-[ext_resource path="res://entities/units/movement_behaviors/target_rand_pos_movement_behavior.gd" type="Script" id=36]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_03.wav" type="AudioStream" id=32]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023b_twin_frost/twin_frost_stats.tres" type="Resource" id=33]
+[ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=34]
+[ext_resource path="res://entities/units/movement_behaviors/stay_in_range_from_player_movement_behavior.gd" type="Script" id=35]
 [ext_resource path="res://entities/units/movement_behaviors/target_rand_pos_around_player_movement_behavior.gd" type="Script" id=37]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
 
 [sub_resource type="ShaderMaterial" id=7]
-shader = ExtResource( 1 )
+shader = ExtResource( 9 )
 shader_param/width = 3.0
 shader_param/alpha = 1.0
 shader_param/desaturation = 0.0
@@ -50,7 +52,7 @@ shader_param/outline_color_2 = Color( 0, 0, 0, 0 )
 shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
 
 [sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 9 )
+shader = ExtResource( 34 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_modifier = 1.0
 
@@ -238,11 +240,11 @@ physics_material_override = SubResource( 6 )
 custom_integrator = true
 script = ExtResource( 2 )
 outline_material = SubResource( 7 )
-crit_sounds = [ ExtResource( 29 ), ExtResource( 20 ), ExtResource( 25 ), ExtResource( 22 ) ]
-hurt_sounds = [ ExtResource( 34 ), ExtResource( 17 ), ExtResource( 30 ), ExtResource( 21 ), ExtResource( 24 ), ExtResource( 26 ), ExtResource( 32 ), ExtResource( 18 ) ]
-burn_sounds = [ ExtResource( 33 ), ExtResource( 28 ), ExtResource( 19 ), ExtResource( 31 ) ]
-dodge_sounds = [ ExtResource( 27 ), ExtResource( 23 ) ]
-stats = ExtResource( 5 )
+crit_sounds = [ ExtResource( 22 ), ExtResource( 10 ), ExtResource( 21 ), ExtResource( 20 ) ]
+hurt_sounds = [ ExtResource( 25 ), ExtResource( 27 ), ExtResource( 32 ), ExtResource( 12 ), ExtResource( 28 ), ExtResource( 30 ), ExtResource( 19 ), ExtResource( 17 ) ]
+burn_sounds = [ ExtResource( 24 ), ExtResource( 29 ), ExtResource( 18 ), ExtResource( 31 ) ]
+dodge_sounds = [ ExtResource( 23 ), ExtResource( 26 ) ]
+stats = ExtResource( 33 )
 flash_mat = SubResource( 1 )
 enemy_id = "fantasy_twin_frost"
 can_be_cursed = false
@@ -286,7 +288,8 @@ anims/shoot_charmed = ExtResource( 14 )
 wait_time = 0.1
 
 [node name="MovementBehavior" type="Node2D" parent="."]
-script = ExtResource( 36 )
+script = ExtResource( 35 )
+target_range = 500
 
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 6 )
@@ -338,7 +341,7 @@ timer_start = 40.0
 
 [node name="MovementBehavior" parent="States/State1" index="0"]
 script = ExtResource( 37 )
-range_around_player = 300
+range_around_player = 500
 range_randomization = 0
 update_every_x_frames = 60
 
@@ -379,21 +382,14 @@ specific_projectiles = {
 23: [ 390, 390, 450 ]
 }
 
-[node name="AttackBehaviorSmall" type="Node2D" parent="States/State1"]
+[node name="MageCircleAttackBehavior" type="Node2D" parent="States/State1"]
 unique_name_in_owner = true
-script = ExtResource( 6 )
-projectile_scene = ExtResource( 8 )
-projectile_speed = 0
-cooldown = 99999.0
-damage_increase_each_wave = 1.2
-max_range = 99999
-number_projectiles = 6
-spawn_projectiles_on_target = true
-target_class = 2
-spawn_radius = 0
-init_rotation = 90
-projectile_direction = 90
-pos_base_on_centerx = false
+script = ExtResource( 1 )
+slow_field_scene = ExtResource( 5 )
+cooldown = 99999
+slow_field_duration = 2.0
+speed_reduction = 0.75
+spawn_position = 1
 
 [node name="CheckStateTimer" type="Timer" parent="."]
 unique_name_in_owner = true

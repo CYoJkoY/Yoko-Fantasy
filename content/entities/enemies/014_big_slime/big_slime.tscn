@@ -6,7 +6,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/014_big_slime/big_slime.webp" type="Texture" id=4]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/spawning_attack_behavior.gd" type="Script" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/001_little_slime/little_slime.tscn" type="PackedScene" id=7]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/slime_trail_attack_behavior.gd" type="Script" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/slow_field_attack_behavior.gd" type="Script" id=8]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=9]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/slime_projectile/slime_projectile.tscn" type="PackedScene" id=10]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=11]
@@ -35,6 +35,7 @@
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=34]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=35]
 [ext_resource path="res://entities/units/player/item_attract_area.gd" type="Script" id=36]
+
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

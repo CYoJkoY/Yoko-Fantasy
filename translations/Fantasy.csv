@@ -324,10 +324,22 @@ EFFECT_FANTASY_EXTRA_ENEMIES_NEXT_WAVES,"{3} will appear in {2} future waves
 {4}"
 TRACKING_REMAINING,Remaining: {0},剩余: {0}
 FANTASY_TWIN_BLAZE_NAME,Blaze,炎
-FANTASY_TWIN_BLAZE_BEHAVIOUR_DESCRIPTION,"","异变0:
+FANTASY_TWIN_BLAZE_BEHAVIOUR_DESCRIPTION,"Mutation 0:
+Moves randomly. Upon death or mutation, causes Frost to mutate. Fires 4 serpentine flame projectiles with warning per second. After firing twice, fires a ring of 12 outward-spreading flame projectiles around itself
+
+Mutation 1 (67% HP / 25 sec):
+Movement changes to chasing the player, 12 flame projectiles now contract inward","异变0:
 随机移动,死亡或异变时会导致霜发生异变,每秒发射4道蜿蜒前进的带有预警的火焰弹幕,发射两次后,向周围发射一圈12个向外扩散的火焰弹幕
 
 异变1 (67%生命 / 25秒):
-移动方式变为追击玩家"
+移动方式变为追击玩家,12个火焰弹幕变为向内收缩"
 FANTASY_TWIN_FROST_NAME,Frost,霜
-FANTASY_TWIN_FROST_BEHAVIOUR_DESCRIPTION,"","死亡或异变时会导致炎发生异变,"
+FANTASY_TWIN_FROST_BEHAVIOUR_DESCRIPTION,"Mutation 0:
+Moves away from the player. Upon death or mutation, causes Flame to mutate. Summons a large snowflake projectile formed by 24 blade beams centered on the player every 2 seconds
+
+Mutation 1 (67% HP / 25 sec):
+Movement changes to chasing the player. After summoning the large snowflake projectile, randomly spawns 3 frost formations on the field that last for 2 seconds, slowing the player by 75% upon contact","异变0:
+远离玩家,死亡或异变时会导致炎发生异变,每2秒以玩家为中心召唤由24道刀光组合而成的大型雪花弹幕
+
+异变1 (67%生命 / 25秒):
+移动方式变为追击玩家,在召唤大型雪花弹幕后,会在场上随机召唤3个持续2秒的霜冻法阵,玩家触碰时减速75%"

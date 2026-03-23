@@ -52,7 +52,8 @@ func fa_on_SlimeTrail_body_entered(body) -> void:
     var effects: Dictionary = RunData.get_player_effects(player_index)
     
     var original_speed = effects[Utils.fantasy_original_speed_hash]
-    if body.current_stats.speed >= original_speed: effects[Utils.fantasy_original_speed_hash] = body.current_stats.speed
+    if body.current_stats.speed >= original_speed:
+        effects[Utils.fantasy_original_speed_hash] = body.current_stats.speed
     
     body.current_stats.speed *= 1 - reduction
     affected_players.append(body)

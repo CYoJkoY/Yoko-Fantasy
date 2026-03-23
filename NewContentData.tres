@@ -180,6 +180,7 @@ translation_keys_needing_operator = {
 "effect_fantasy_erosion_speed": [ 0 ],
 "effect_fantasy_extra_curse_enemy": [ 0 ],
 "effect_fantasy_extra_curse_enemy_cursed": [ 0 ],
+"effect_fantasy_gain_stat_every_killed_enemies": [ 0 ],
 "effect_fantasy_slow_cursed_enemy": [ 0 ],
 "effect_fantasy_soul_bonus": [ 0 ],
 "effect_fantasy_specific_set_weapon_bonuses": [ 0, 3 ],
