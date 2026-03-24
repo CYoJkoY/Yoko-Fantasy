@@ -7,7 +7,7 @@ onready var _spawning_attack_behavior: SpawningAttackBehavior = $"SpawningAttack
 onready var COOLDOWN_1: float = _spawning_attack_behavior.cooldown
 var current_spawn_cooldown_1: float = 0.0
 
-onready var _spawning_attack_behavior_once: SpawningAttackBehavior = $"SpawningAttackBehaviorOnce"
+onready var _spawning_attack_behavior_once: SpawningAttackBehavior = $"%SpawningAttackBehaviorOnce"
 
 onready var _slime_trail_attack_behavior: AttackBehavior = $"SlimeTrailAttackBehavior"
 onready var COOLDOWN_2: float = _slime_trail_attack_behavior.cooldown

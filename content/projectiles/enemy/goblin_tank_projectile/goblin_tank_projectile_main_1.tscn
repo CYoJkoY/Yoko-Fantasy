@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://projectiles/projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/goblin_tank_projectile/goblin_tank_projectile_main.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/spawner_projectile.gd" type="Script" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/goblin_tank_projectile/goblin_tank_projectile_minor.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 161.5, 14 )
+
+[node name="EnemyProjectile" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+child_projectiles_num = 8
+child_init_rotation = 0
+child_rotation_change_after_each = 45
+is_symmetrical = false
+offset_distance = 30
+spawn_cooldown = 99999
+child_projectile = ExtResource( 4 )
+power = 0.75
+will_spawn_entity = true
+entity_spawn_num = 1
+entity_scenes = [ "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower.tscn", "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/009_goblin_priest/goblin_priest.tscn" ]
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 159, 0 )
+texture = ExtResource( 2 )
+
+[node name="Hitbox" parent="." index="1"]
+position = Vector2( 159, 0 )
+collision_layer = 16
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 2.5, -1 )
+shape = SubResource( 1 )
+
+[connection signal="hit_something" from="Hitbox" to="." method="_on_Hitbox_hit_something"]
+
+[editable path="Hitbox"]

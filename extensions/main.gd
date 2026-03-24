@@ -105,10 +105,10 @@ func _fantasy_twin_connect(enemy: Enemy) -> void:
             summoned_twins.append(scene.get_instance_id())
             var args: EntitySpawner.SpawnEntityArgs = EntitySpawner.SpawnEntityArgs.new(enemy.global_position, EntityType.BOSS)
             var _new_enemy: Enemy = _entity_spawner.spawn_entity(scene, args)
-            
+
             var _error_twin_state_connect_1: int = enemy.connect("state_changed", _new_enemy, "fa_change_state")
             var _error_twin_dead_change_state_connect_1: int = enemy.connect("died", _new_enemy, "fa_died_change_state")
-            
+
             var _error_twin_state_connect_2: int = _new_enemy.connect("state_changed", enemy, "fa_change_state")
             var _error_twin_dead_change_state_connect_2: int = _new_enemy.connect("died", enemy, "fa_died_change_state")
 
@@ -117,10 +117,10 @@ func _fantasy_twin_connect(enemy: Enemy) -> void:
             summoned_twins.append(scene.get_instance_id())
             var args: EntitySpawner.SpawnEntityArgs = EntitySpawner.SpawnEntityArgs.new(enemy.global_position, EntityType.BOSS)
             var _new_enemy: Enemy = _entity_spawner.spawn_entity(scene, args)
-            
+
             var _error_twin_state_connect: int = enemy.connect("state_changed", _new_enemy, "fa_change_state")
             var _error_twin_dead_change_state_connect: int = enemy.connect("died", _new_enemy, "fa_died_change_state")
-            
+
             var _error_twin_state_connect_2: int = _new_enemy.connect("state_changed", enemy, "fa_change_state")
             var _error_twin_dead_change_state_connect_2: int = _new_enemy.connect("died", enemy, "fa_died_change_state")
 

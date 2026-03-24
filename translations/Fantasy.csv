@@ -343,3 +343,13 @@ Movement changes to chasing the player. After summoning the large snowflake proj
 
 异变1 (67%生命 / 25秒):
 移动方式变为追击玩家,在召唤大型雪花弹幕后,会在场上随机召唤3个持续2秒的霜冻法阵,玩家触碰时减速75%"
+FANTASY_GOBLIN_TANK_NAME,Gooblin Tank,哥布林坦克
+FANTASY_GOBLIN_TANK_BEHAVIOUR_DESCRIPTION,"Mutation 0:
+Chases the player. Every 5 seconds, fires 1 blade wave toward the player. At the end of the blade wave, scatters 8 bullets and summons either a Goblin Javelin Thrower or a Goblin Priest. Upon death, summons 9 Goblin Javelin Throwers
+
+Mutation 1 (50% HP / 40 seconds):
+Now fires 3 blade waves in succession, but no longer summons goblins","异变0:
+追击玩家,每5秒朝玩家发射1道前进的刀光,刀光末尾处散射8个子弹并召唤1只哥布林标枪手或哥布林祭司,死亡时召唤9只哥布林标枪手
+
+异变1 (50%生命 / 40秒):
+现在刀光变为3连发,但不会再召唤哥布林"
