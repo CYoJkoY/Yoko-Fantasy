@@ -122,7 +122,7 @@ func shoot() -> void:
             speed += speed_change_after_each_projectile * i
         
         # Prediction lines
-        fantasy_spawn_prediction_line(rot, pos, speed)
+        _fantasy_spawn_prediction_line(rot, pos, speed)
 
         # Waving projectiles
         _projectile = spawn_projectile(rot, pos, rand_range(speed - projectile_speed_randomization, speed + projectile_speed_randomization) as int)
@@ -131,7 +131,7 @@ func shoot() -> void:
     _shots_taken += 1
 
 # =========================== Custom =========================== #
-func fantasy_spawn_prediction_line(rot: float, pos: Vector2, spd: int) -> void:
+func _fantasy_spawn_prediction_line(rot: float, pos: Vector2, spd: int) -> void:
     var prediction_line: Node = main.get_node_from_pool(prediction_line_pool_id, main._effects)
     if !is_instance_valid(prediction_line):
         prediction_line = prediction_line_scene.instance()

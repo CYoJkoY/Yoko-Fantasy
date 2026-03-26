@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sleeve_arrow_projctile.webp-f58fa399d97887394a42647a17fcead5.stex"
+path="res://.import/necromancer_icon.webp-43315f15cba53d17a9bca4384e840347.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/sleeve_arrow_projectile/sleeve_arrow_projctile.webp"
-dest_files=[ "res://.import/sleeve_arrow_projctile.webp-f58fa399d97887394a42647a17fcead5.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/026_necromancer/necromancer_icon.webp"
+dest_files=[ "res://.import/necromancer_icon.webp-43315f15cba53d17a9bca4384e840347.stex" ]
 
 [params]
 

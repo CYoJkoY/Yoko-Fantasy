@@ -321,8 +321,6 @@ center_tolerance = 25.0
 script = ExtResource( 35 )
 projectile_scene = ExtResource( 6 )
 projectile_speed = 120
-damage = 0.0
-damage_increase_each_wave = 0.0
 number_projectiles = 6
 target_class = 2
 spawn_radius = 200
@@ -331,6 +329,8 @@ projectile_direction = 180
 direction_change_after_each_proj = 60
 pos_base_on_centerx = false
 pos_base_on_centery = false
+specific_projectiles = {
+}
 
 [node name="LaserShootingAttackBehavior" type="Node2D" parent="States/State1"]
 unique_name_in_owner = true

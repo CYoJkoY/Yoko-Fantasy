@@ -319,6 +319,16 @@ JOB_RANGED,Job: Ranged {0},职业: 远程 {0}
 JOB_UNIVERSAL,Job: Universal {0},职业: 通用 {0}
 COOP_S1_JOB,S1 Job,一阶职业
 COOP_S2_JOB,S2 Job,二阶职业
+JOB,Job,职业
+TAG_DESCRIPTION_JOB,"At the end of wave 5, the first class change occurs.
+At the end of wave 15, the second class change occurs.
+
+The first class change includes four fixed-damage class options and one general class option.
+The second class change consists of the second-tier forms of the corresponding fixed-damage classes, as well as the second-tier form of the general class.
+If the general class was chosen during the first class change, fixed-damage classes will not appear in the second class change.","第5波结束时,进行第1次转职,
+第15波结束时,进行第2次转职.
+
+一转包括四大固伤转职和通用转职,二转为对应固伤转职的二阶及通用转职的二阶,若一转选择了通用转职,则二转不会出现固伤转职"
 EFFECT_FANTASY_EXTRA_ENEMIES_NEXT_WAVES,"{3} will appear in {2} future waves
 {4}","未来 {2} 波次出现{3}
 {4}"
@@ -353,3 +363,19 @@ Now fires 3 blade waves in succession, but no longer summons goblins","异变0:
 
 异变1 (50%生命 / 40秒):
 现在刀光变为3连发,但不会再召唤哥布林"
+FANTASY_NECROMANCER_NAME,Necromancer, 死灵法师
+FANTASY_NECROMANCER_BEHAVIOUR_DESCRIPTION,"Mutation 0:
+Stay away from players, summon 3 Skeleton Swordsmen every second.
+
+Mutation 1 (67% HP / 30 sec):
+In addition to Mutation 0, summon 1 additional Skeleton Archer.
+
+Mutation 2 (33% HP / 60 sec):
+No longer summons skeletons. Attack changes to firing 5 eyeball projectiles at the player per second, and summons 10 eyeballs to surround the player every second.","异变0:
+远离玩家,每秒召唤3个骷髅剑士
+
+异变1(67%生命 / 30秒):
+在异变0的基础上多召唤1个骷髅弓手
+
+异变2(33%生命 / 60秒):
+不再召唤骷髅,攻击方式变为每秒向玩家发射5个眼球子弹,且每秒召唤10个眼球包围玩家"

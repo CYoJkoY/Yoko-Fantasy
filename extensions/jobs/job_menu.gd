@@ -123,8 +123,8 @@ func update_jobs() -> void:
 
             _popup_manager.connect_inventory_container(jobs1)
             _popup_manager.connect_inventory_container(jobs2)
+
             _popup_manager.add_item_popup(_item_popup, player_index)
-            
             var _err = connect("stat_focused", _popup_manager, "_on_stat_focused")
             _err = connect("stat_unfocused", _popup_manager, "_on_stat_unfocused")
             _err = connect("stat_hovered", _popup_manager, "_on_stat_hovered")

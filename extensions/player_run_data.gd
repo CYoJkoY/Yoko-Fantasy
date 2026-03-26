@@ -28,15 +28,13 @@ func deserialize(data: Dictionary) -> PlayerRunData:
     .deserialize(data)
 
     for job in data.jobs:
-        if job is String: continue
-
         var job_data = ItemService.get_element_safe(ItemService.upgrades, job.my_id)
 
         if job_data:
             job_data = job_data.duplicate()
             job_data.deserialize_and_merge(job)
             jobs.push_back(job_data)
-    
+
     current_s1_job = (
         ItemService.get_element_safe(ItemService.upgrades, data.current_s1_job)
         if data.current_s1_job
