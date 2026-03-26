@@ -317,8 +317,8 @@ JOB_ENGINEERING,Job: Engineering {0},职业: 工程 {0}
 JOB_MELEE,Job: Melee {0},职业: 近战 {0}
 JOB_RANGED,Job: Ranged {0},职业: 远程 {0}
 JOB_UNIVERSAL,Job: Universal {0},职业: 通用 {0}
-COOP_S1_JOB,S1 Job,一阶职业
-COOP_S2_JOB,S2 Job,二阶职业
+COOP_S1_JOB,S1 Job(Wave 5),一阶职业(第5波)
+COOP_S2_JOB,S2 Job(Wave 15),二阶职业(第15波)
 JOB,Job,职业
 TAG_DESCRIPTION_JOB,"At the end of wave 5, the first class change occurs.
 At the end of wave 15, the second class change occurs.

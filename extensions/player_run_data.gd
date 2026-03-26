@@ -1,11 +1,13 @@
 extends "res://singletons/player_run_data.gd"
 
+
 var jobs: Array = []
 var current_s1_job: UpgradeData = null
 var current_s2_job: UpgradeData = null
 
-func duplicate() -> PlayerRunData:
-    var copy: PlayerRunData =.duplicate()
+# =========================== Extension =========================== #
+func duplicate(): # Avoid class problem
+    var copy :=.duplicate()
     copy.jobs = jobs.duplicate()
     copy.current_s1_job = current_s1_job
     copy.current_s2_job = current_s2_job

@@ -4,7 +4,7 @@ var job_data: UpgradeData = null
 
 onready var _job_description = $"%JobDescription"
 
-
+# =========================== Extension =========================== #
 func set_job(p_job_data: UpgradeData, player_index: int) -> void:
     show()
     job_data = p_job_data
