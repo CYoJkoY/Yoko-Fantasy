@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/fallen_knight_projectile/fallen_knight_semicircle_projectile.webp" type="Texture" id=2]
+[ext_resource path="res://projectiles/bullet_enemy/enemy_projectile.gd" type="Script" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 26.5
+
+[sub_resource type="Animation" id=2]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "set_physics_process"
+}, {
+"args": [ true ],
+"method": "set_physics_process"
+} ]
+}
+
+[node name="EnemyProjectile" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+unique_name_in_owner = true
+texture = ExtResource( 2 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 1 )]
+unique_name_in_owner = true
+collision_layer = 16
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( -0.5, -0.5 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+autoplay = "shoot"
+anims/shoot = SubResource( 2 )
+
+[connection signal="hit_something" from="Hitbox" to="." method="_on_Hitbox_hit_something"]
+
+[editable path="Hitbox"]

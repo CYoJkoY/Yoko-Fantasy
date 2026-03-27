@@ -3,7 +3,9 @@ extends ShootingAttackBehavior
 enum TargetClass {SELF, PLAYER, RANDOM}
 
 export(TargetClass) var target_class = TargetClass.PLAYER
+export(bool) var towards_player = false
 export(int) var spawn_radius = 1100
+export(int, 0, 360) var spawn_degrees = 360
 export(int, 0, 360) var init_rotation = 0
 export(int, 0, 360) var projectile_direction = 180
 export(int, 0, 360) var direction_change_after_each_proj = 60
@@ -14,10 +16,12 @@ export(Dictionary) var specific_projectiles = {}
 onready var map_center: Vector2 = ZoneService.get_map_center()
 
 var main: Main = null
+var base_rot: float = 0.0
 
 # =========================== Extension =========================== #
 func _ready() -> void:
     main = Utils.get_scene_node()
+    spawn_degrees = deg2rad(spawn_degrees)
     init_rotation = deg2rad(init_rotation)
     projectile_direction = deg2rad(projectile_direction)
     direction_change_after_each_proj = deg2rad(direction_change_after_each_proj)
@@ -39,16 +43,18 @@ func shoot() -> void:
         [true, false]: target_pos.x = map_center.x
         [false, true]: target_pos.y = map_center.y
     
+    if towards_player: base_rot = (_parent.current_target.global_position - _parent.global_position).angle()
+
     for i in number_projectiles:
-        var angle = init_rotation + (TAU * i) / number_projectiles
+        var angle = base_rot + init_rotation + (spawn_degrees * i) / number_projectiles
         var spawn_pos = target_pos + spawn_radius * Vector2(cos(angle), sin(angle))
-        var proj_direction = projectile_direction + (direction_change_after_each_proj * i)
+        var proj_direction = base_rot + projectile_direction + (direction_change_after_each_proj * i)
 
         if !specific_projectiles.empty() and specific_projectiles.keys().has(i):
             var specific_porjectile: Array = specific_projectiles[i]
             var specific_spawn_radius = specific_porjectile[0]
-            angle = specific_porjectile[1]
-            proj_direction = specific_porjectile[2]
+            angle = base_rot + specific_porjectile[1]
+            proj_direction = base_rot + specific_porjectile[2]
             spawn_pos = target_pos + specific_spawn_radius * Vector2(cos(angle), sin(angle))
 
         spawn_projectile(proj_direction, spawn_pos, projectile_speed)

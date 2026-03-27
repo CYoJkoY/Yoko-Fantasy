@@ -1,0 +1,84 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/fallen_knight_projectile/fallen_knight_triangle_projectile.webp" type="Texture" id=2]
+[ext_resource path="res://projectiles/bullet_enemy/enemy_projectile.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 35, 13.5 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "shoot"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 1.2, 1.2 ), Vector2( 1.4, 1.4 ), Vector2( 1.7, 1.7 ), Vector2( 2, 2 ), Vector2( 2.4, 2.4 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "set_physics_process"
+}, {
+"args": [ true ],
+"method": "set_physics_process"
+} ]
+}
+
+[node name="EnemyProjectile" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+unique_name_in_owner = true
+position = Vector2( 35, 0 )
+texture = ExtResource( 2 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 1 )]
+unique_name_in_owner = true
+position = Vector2( 35, 0 )
+collision_layer = 16
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( -1, -0.5 )
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+autoplay = "shoot"
+anims/RESET = SubResource( 2 )
+anims/shoot = SubResource( 3 )
+
+[connection signal="hit_something" from="Hitbox" to="." method="_on_Hitbox_hit_something"]
+
+[editable path="Hitbox"]

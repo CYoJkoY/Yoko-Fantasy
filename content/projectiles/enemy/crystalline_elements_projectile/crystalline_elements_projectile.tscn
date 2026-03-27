@@ -83,7 +83,6 @@ texture = ExtResource( 2 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 1 )]
 unique_name_in_owner = true
-visible = false
 collision_layer = 16
 
 [node name="Collision" parent="Hitbox" index="0"]

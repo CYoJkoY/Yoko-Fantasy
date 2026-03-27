@@ -13,7 +13,7 @@ FANTASY_SLIME_KING_NAME,Slime King,史莱姆王
 FANTASY_SLIME_KING_BEHAVIOUR_DESCRIPTION,"Mutation 0:
 Slowly pursues the player. Every 3 seconds, it summons 3 Medium Slimes; every 5 seconds, it summons 1 Large Slime. Every 0.5 seconds, it leaves behind a Slime Trail that lasts for 10 seconds. Players who touch the trail are slowed by 50%.
 
-Mutation 1 (50% HP / 35s)
+Mutation 1 (50% HP / 35 s)
 Builds upon Mutation 0. Additionally, it performs a long-distance dash toward the player every 5 seconds.","异变0:
 缓慢追击玩家,每3秒召唤3个中史莱姆,每5秒召唤1个大史莱姆,每0.5秒留下持续10秒的史莱姆粘液痕迹,玩家触碰时被减速50%
 
@@ -245,7 +245,7 @@ FANTASY_WORLD_TREE_NAME,World Tree,世界树
 FANTASY_WORLD_TREE_BEHAVIOUR_DESCRIPTION,"Mutation 0:
 Immobilized. The player is forced to spawn at the exact center of the map. If the player does not move in time, they will be pushed aside by the World Tree and take collision damage. A massive amount of leaf projectiles will continuously and slowly fall from the top of the screen; their spawn points and drifting angles are randomized.
 
-Mutation 1 (50% HP / 40 Seconds):
+Mutation 1 (50% HP / 40 s):
 The attack pattern shifts: the entity repeatedly summons flower-shaped patterns consisting of six petals in the surrounding area. Simultaneously, it fires five light beams outward at equal angular intervals.","异变0:
 无法移动,强制出生在地图最中央,如果玩家不及时移动会被世界树挤开并且受到碰撞伤害,地图正上方持续缓慢落下大量落叶弹幕,落叶出现的位置和飘落的角度随机
 
@@ -337,7 +337,7 @@ FANTASY_TWIN_BLAZE_NAME,Blaze,炎
 FANTASY_TWIN_BLAZE_BEHAVIOUR_DESCRIPTION,"Mutation 0:
 Moves randomly. Upon death or mutation, causes Frost to mutate. Fires 4 serpentine flame projectiles with warning per second. After firing twice, fires a ring of 12 outward-spreading flame projectiles around itself
 
-Mutation 1 (67% HP / 25 sec):
+Mutation 1 (67% HP / 25 s):
 Movement changes to chasing the player, 12 flame projectiles now contract inward","异变0:
 随机移动,死亡或异变时会导致霜发生异变,每秒发射4道蜿蜒前进的带有预警的火焰弹幕,发射两次后,向周围发射一圈12个向外扩散的火焰弹幕
 
@@ -347,7 +347,7 @@ FANTASY_TWIN_FROST_NAME,Frost,霜
 FANTASY_TWIN_FROST_BEHAVIOUR_DESCRIPTION,"Mutation 0:
 Moves away from the player. Upon death or mutation, causes Flame to mutate. Summons a large snowflake projectile formed by 24 blade beams centered on the player every 2 seconds
 
-Mutation 1 (67% HP / 25 sec):
+Mutation 1 (67% HP / 25 s):
 Movement changes to chasing the player. After summoning the large snowflake projectile, randomly spawns 3 frost formations on the field that last for 2 seconds, slowing the player by 75% upon contact","异变0:
 远离玩家,死亡或异变时会导致炎发生异变,每2秒以玩家为中心召唤由24道刀光组合而成的大型雪花弹幕
 
@@ -357,7 +357,7 @@ FANTASY_GOBLIN_TANK_NAME,Gooblin Tank,哥布林坦克
 FANTASY_GOBLIN_TANK_BEHAVIOUR_DESCRIPTION,"Mutation 0:
 Chases the player. Every 5 seconds, fires 1 blade wave toward the player. At the end of the blade wave, scatters 8 bullets and summons either a Goblin Javelin Thrower or a Goblin Priest. Upon death, summons 9 Goblin Javelin Throwers
 
-Mutation 1 (50% HP / 40 seconds):
+Mutation 1 (50% HP / 40 s):
 Now fires 3 blade waves in succession, but no longer summons goblins","异变0:
 追击玩家,每5秒朝玩家发射1道前进的刀光,刀光末尾处散射8个子弹并召唤1只哥布林标枪手或哥布林祭司,死亡时召唤9只哥布林标枪手
 
@@ -367,10 +367,10 @@ FANTASY_NECROMANCER_NAME,Necromancer, 死灵法师
 FANTASY_NECROMANCER_BEHAVIOUR_DESCRIPTION,"Mutation 0:
 Stay away from players, summon 3 Skeleton Swordsmen every second.
 
-Mutation 1 (67% HP / 30 sec):
+Mutation 1 (67% HP / 30 s):
 In addition to Mutation 0, summon 1 additional Skeleton Archer.
 
-Mutation 2 (33% HP / 60 sec):
+Mutation 2 (33% HP / 60 s):
 No longer summons skeletons. Attack changes to firing 5 eyeball projectiles at the player per second, and summons 10 eyeballs to surround the player every second.","异变0:
 远离玩家,每秒召唤3个骷髅剑士
 
@@ -379,3 +379,17 @@ No longer summons skeletons. Attack changes to firing 5 eyeball projectiles at t
 
 异变2(33%生命 / 60秒):
 不再召唤骷髅,攻击方式变为每秒向玩家发射5个眼球子弹,且每秒召唤10个眼球包围玩家"
+FANTASY_FALLEN_KNIGHT_NAME,Fallen Knight,堕落骑士
+FANTASY_FALLEN_KNIGHT_BEHAVIOUR_DESCRIPTION,"Mutation 0:  
+Chases the player. Every 2 seconds, alternates between:  
+- Firing a arrow-shaped projectile at the player that expands from its tail end;  
+- Firing two semicircular waves of projectiles at the player, with the second wave filling the gaps of the first
+
+Mutation 1 (60% HP / 35s):  
+Stops moving but performs a dash at the player every second. After each dash, fires an arrow-shaped projectile. After every three dashes, pauses for 3 seconds.","异变0:
+追击玩家,每2秒交替使用:
+- 对玩家发射一个箭头形弹幕,且弹幕会以尾端为中心不断扩大;
+- 对玩家发射两圈半圆形弹幕,第二圈子弹叠加在第一圈的空隙间
+
+异变1(60%生命 / 35秒):
+停止移动,但是每秒对玩家使用冲刺.每次冲刺结束后都回发射一次箭头弹幕.每冲刺三次,停顿3秒"
