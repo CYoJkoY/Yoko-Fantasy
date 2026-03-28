@@ -1,8 +1,8 @@
 extends ShootingAttackBehavior
 
 export(int) var projectiles_per_time = 6
-export(int, 0, 360) var angle_min = 0
-export(int, 0, 360) var angle_max = 24
+export(float) var angle_min = 0.0
+export(float) var angle_max = 24.0
 export(float) var wave_speed = 1.5
 export(float) var wave_range = 120.0
 export(float) var air_resistance = 0.2
@@ -29,13 +29,13 @@ func physics_process(delta: float) -> void:
     _time_passed += delta
 
     for i in range(active_projectiles.size() - 1, -1, -1):
-        var p = active_projectiles[i]
+        var p: EnemyProjectile = active_projectiles[i]
 
         if !p._hitbox.active:
             active_projectiles.remove(i)
             continue
 
-        var p_id_offset: int = p.get_instance_id() % 100
+        var p_id_offset: int = p.get_instance_id() % 128
         p.velocity.x = sin(_time_passed * wave_speed + p_id_offset) * wave_range
         p.velocity.y = p.velocity.y / (1.0 + air_resistance * delta)
 

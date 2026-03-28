@@ -1,0 +1,160 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://projectiles/bullet_enemy/enemy_projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/units/enemies/corrupted_tree/pivot.gd" type="Script" id=2]
+[ext_resource path="res://projectiles/bullet_enemy/enemy_projectile_rotating.gd" type="Script" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/028_dragon/dragon_pivots.gd" type="Script" id=4]
+
+[node name="Pivots" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[node name="Pivot" type="Node2D" parent="Bullets"]
+script = ExtResource( 2 )
+rotation_speed = 1.5
+
+[node name="EnemyProjectile" parent="Bullets/Pivot" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+destroy_on_leaving_screen = false
+min_target_distance = 200
+max_target_distance = 200
+speed = 300
+destroy_on_hit = false
+damage = 1.0
+damage_increase_each_wave = 0.8
+
+[node name="Pivot2" type="Node2D" parent="Bullets"]
+script = ExtResource( 2 )
+rotation_speed = 1.5
+start_rotation = 5.0
+
+[node name="EnemyProjectile" parent="Bullets/Pivot2" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+destroy_on_leaving_screen = false
+min_target_distance = 250
+max_target_distance = 250
+speed = 300
+destroy_on_hit = false
+damage = 1.0
+damage_increase_each_wave = 0.8
+
+[node name="Pivot3" type="Node2D" parent="Bullets"]
+script = ExtResource( 2 )
+rotation_speed = 1.5
+start_rotation = 10.0
+
+[node name="EnemyProjectile" parent="Bullets/Pivot3" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+destroy_on_leaving_screen = false
+min_target_distance = 300
+max_target_distance = 300
+speed = 300
+destroy_on_hit = false
+damage = 1.0
+damage_increase_each_wave = 0.8
+
+[node name="Pivot4" type="Node2D" parent="Bullets"]
+script = ExtResource( 2 )
+rotation_speed = 1.5
+start_rotation = 15.0
+
+[node name="EnemyProjectile" parent="Bullets/Pivot4" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+destroy_on_leaving_screen = false
+min_target_distance = 350
+max_target_distance = 350
+speed = 300
+destroy_on_hit = false
+damage = 1.0
+damage_increase_each_wave = 0.8
+
+[node name="Pivot5" type="Node2D" parent="Bullets"]
+script = ExtResource( 2 )
+rotation_speed = 1.5
+start_rotation = 20.0
+
+[node name="EnemyProjectile" parent="Bullets/Pivot5" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+destroy_on_leaving_screen = false
+min_target_distance = 400
+max_target_distance = 400
+speed = 300
+destroy_on_hit = false
+damage = 1.0
+damage_increase_each_wave = 0.8
+
+[node name="Pivot6" type="Node2D" parent="Bullets"]
+script = ExtResource( 2 )
+rotation_speed = 1.5
+start_rotation = 25.0
+
+[node name="EnemyProjectile" parent="Bullets/Pivot6" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+destroy_on_leaving_screen = false
+min_target_distance = 450
+max_target_distance = 450
+speed = 300
+destroy_on_hit = false
+damage = 1.0
+damage_increase_each_wave = 0.8
+
+[node name="Pivot7" type="Node2D" parent="Bullets"]
+script = ExtResource( 2 )
+rotation_speed = 1.5
+start_rotation = 30.0
+
+[node name="EnemyProjectile" parent="Bullets/Pivot7" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+destroy_on_leaving_screen = false
+min_target_distance = 500
+max_target_distance = 500
+speed = 300
+destroy_on_hit = false
+damage = 1.0
+damage_increase_each_wave = 0.8
+
+[node name="Pivot8" type="Node2D" parent="Bullets"]
+script = ExtResource( 2 )
+rotation_speed = 1.5
+start_rotation = 35.0
+
+[node name="EnemyProjectile" parent="Bullets/Pivot8" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+destroy_on_leaving_screen = false
+min_target_distance = 550
+max_target_distance = 550
+speed = 300
+destroy_on_hit = false
+damage = 1.0
+damage_increase_each_wave = 0.8
+
+[node name="Pivot9" type="Node2D" parent="Bullets"]
+script = ExtResource( 2 )
+rotation_speed = 1.5
+start_rotation = 40.0
+
+[node name="EnemyProjectile" parent="Bullets/Pivot9" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+destroy_on_leaving_screen = false
+min_target_distance = 600
+max_target_distance = 600
+speed = 300
+destroy_on_hit = false
+damage = 1.0
+damage_increase_each_wave = 0.8
+
+[node name="Pivot10" type="Node2D" parent="Bullets"]
+script = ExtResource( 2 )
+rotation_speed = 1.5
+start_rotation = 45.0
+
+[node name="EnemyProjectile" parent="Bullets/Pivot10" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+destroy_on_leaving_screen = false
+min_target_distance = 650
+max_target_distance = 650
+speed = 300
+destroy_on_hit = false
+damage = 1.0
+damage_increase_each_wave = 0.8

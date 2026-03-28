@@ -1,7 +1,7 @@
 [gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://entities/units/enemies/attack_behaviors/charging_attack_behavior.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/maple_shoot_attack_projectile/maple_shoot_attack_projectile_big.tscn" type="PackedScene" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/maple_shoot_projectile/maple_shoot_projectile_big.tscn" type="PackedScene" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king_howling.webp" type="Texture" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king_attack_right.webp" type="Texture" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/maple_shooting_attack_behavior.gd" type="Script" id=5]
@@ -38,6 +38,7 @@
 [ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=36]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king_idle.webp" type="Texture" id=38]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/022_maple_wolf_king/maple_wolf_king_attack_left.webp" type="Texture" id=39]
+
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

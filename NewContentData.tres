@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=142 format=2]
+[gd_resource type="Resource" load_steps=143 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/007_swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/017_skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -141,6 +141,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/specific_set_weapon_bonuses/specific_set_weapon_bonuses_effect.gd" type="Script" id=139]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/extra_enemies_next_waves/extra_enemies_next_waves_effect.gd" type="Script" id=140]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/upgrade_specific_tier_weapons/upgrade_specific_tier_weapons_effect.gd" type="Script" id=141]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/028_dragon/dragon_item.tres" type="Resource" id=142]
 
 [resource]
 script = ExtResource( 43 )
@@ -149,7 +150,7 @@ groups_in_all_zones = [  ]
 music_tracks = [  ]
 backgrounds = [ ExtResource( 40 ) ]
 characters = [  ]
-entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 22 ), ExtResource( 2 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 18 ), ExtResource( 47 ), ExtResource( 56 ), ExtResource( 69 ), ExtResource( 76 ), ExtResource( 83 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 133 ), ExtResource( 134 ), ExtResource( 135 ) ]
+entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 22 ), ExtResource( 2 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 18 ), ExtResource( 47 ), ExtResource( 56 ), ExtResource( 69 ), ExtResource( 76 ), ExtResource( 83 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 133 ), ExtResource( 134 ), ExtResource( 135 ), ExtResource( 142 ) ]
 elites = [  ]
 bosses = [  ]
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]

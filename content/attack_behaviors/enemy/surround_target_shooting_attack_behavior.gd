@@ -5,10 +5,10 @@ enum TargetClass {SELF, PLAYER, RANDOM}
 export(TargetClass) var target_class = TargetClass.PLAYER
 export(bool) var towards_player = false
 export(int) var spawn_radius = 1100
-export(int, 0, 360) var spawn_degrees = 360
-export(int, 0, 360) var init_rotation = 0
-export(int, 0, 360) var projectile_direction = 180
-export(int, 0, 360) var direction_change_after_each_proj = 60
+export(float) var spawn_degrees = 360.0
+export(float) var init_rotation = 0.0
+export(float) var projectile_direction = 180.0
+export(float) var direction_change_after_each_proj = 60.0
 export(bool) var pos_base_on_centerx = true
 export(bool) var pos_base_on_centery = false
 export(Dictionary) var specific_projectiles = {}

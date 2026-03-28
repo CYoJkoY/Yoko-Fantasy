@@ -393,3 +393,5 @@ Stops moving but performs a dash at the player every second. After each dash, fi
 
 异变1(60%生命 / 35秒):
 停止移动,但是每秒对玩家使用冲刺.每次冲刺结束后都回发射一次箭头弹幕.每冲刺三次,停顿3秒"
+FANTASY_DRAGON_NAME,Dragon,龙
+FANTASY_DRAGON_BEHAVIOUR_DESCRIPTION,"",""

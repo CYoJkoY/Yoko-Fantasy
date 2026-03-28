@@ -28,7 +28,7 @@ func on_state_changed(_new_state: int) -> void:
         _animation_player.play("howling")
 
     if _new_state == 1: # Mutation 2 boost speed, spawn five, disable charging, five shoot
-        current_stats.speed += 100
+        reset_speed_stat(50)
         shoot_anime_set(State.VIOLENT)
         shoot_charmed_anime_set(State.VIOLENT)
 

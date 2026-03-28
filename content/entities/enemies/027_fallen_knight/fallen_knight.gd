@@ -17,9 +17,11 @@ func shoot() -> void:
     .shoot()
     if _current_state != -1: return
 
+    # Mutation 0 switch attack mode
     mutation_0_attack_mode ^= 1
-    if mutation_0_attack_mode == 0: _current_attack_behavior = _attack_behavior
-    else: _current_attack_behavior = mutation_0_attack_behavior_2
+    match mutation_0_attack_mode:
+        0: _current_attack_behavior = _attack_behavior
+        1: _current_attack_behavior = mutation_0_attack_behavior_2
 
 func on_state_changed(_new_state: int) -> void:
     .on_state_changed(_new_state)

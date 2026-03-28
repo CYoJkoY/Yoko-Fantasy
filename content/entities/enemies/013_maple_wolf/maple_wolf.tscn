@@ -9,7 +9,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/013_maple_wolf/maple_wolf.gd" type="Script" id=7]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=8]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/charging_shoot_attack_projectile/charging_shoot_attack_projectile.tscn" type="PackedScene" id=9]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/maple_shoot_attack_projectile/maple_shoot_attack_projectile_small.tscn" type="PackedScene" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/maple_shoot_projectile/maple_shoot_projectile_small.tscn" type="PackedScene" id=10]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/maple_shooting_attack_behavior.gd" type="Script" id=11]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=12]
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=13]
@@ -34,6 +34,7 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=32]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=33]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=34]
+
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

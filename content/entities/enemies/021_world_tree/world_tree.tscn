@@ -36,7 +36,7 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=34]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/surround_target_shooting_attack_behavior.gd" type="Script" id=35]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/laser_shooting_attack_behavior.gd" type="Script" id=36]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/laser_enemy_projectile/laser_enemy_projectile.tscn" type="PackedScene" id=37]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/laser_shoot_enemy_projectile/laser_shoot_enemy_projectile.tscn" type="PackedScene" id=37]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
