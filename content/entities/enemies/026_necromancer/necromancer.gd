@@ -15,6 +15,7 @@ func _ready() -> void:
     register_attack_behavior(mutation_2_shooting_attack_behavior)
 
 func _physics_process(delta: float) -> void:
+    # Mutation 2: shoot five projectiles
     if _current_state == 1:
         current_cooldown_0 = current_cooldown_0 - Utils.physics_one(delta)
         if current_cooldown_0 <= 0 and !dead:

@@ -1,0 +1,19 @@
+[remap]
+
+importer="texture_atlas"
+type="Texture"
+path="res://.import/red_eyes.webp-01df35efb8538337edd398e114345649.res"
+group_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/029_great_demon_lord/great_demon_lord.png"
+valid=true
+[deps]
+
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/029_great_demon_lord/red_eyes.webp"
+dest_files=[ "res://.import/red_eyes.webp-01df35efb8538337edd398e114345649.res" ]
+
+[params]
+
+atlas_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/029_great_demon_lord/great_demon_lord.png"
+import_mode=0
+crop_to_region=false
+trim_alpha_border_from_region=true

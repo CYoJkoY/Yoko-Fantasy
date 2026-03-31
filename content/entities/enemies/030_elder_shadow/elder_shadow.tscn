@@ -804,7 +804,7 @@ can_be_cursed = false
 can_be_charmed = false
 
 [node name="Animation" type="Node2D" parent="."]
-position = Vector2( 0, -24 )
+position = Vector2( 0, -20 )
 
 [node name="Viewport" type="Viewport" parent="Animation"]
 size = Vector2( 1920, 1080 )

@@ -6,6 +6,7 @@ export(int) var reset_alpha = 0
 
 var delta_distance: float = 0.0
 
+# =========================== Extension =========================== #
 func _physics_process(delta: float) -> void:
     delta_distance += (velocity * delta).length()
     if delta_distance < max_distance: return

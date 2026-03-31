@@ -24,18 +24,21 @@ func _ready() -> void:
 func on_state_changed(_new_state: int) -> void:
     .on_state_changed(_new_state)
 
-    if _new_state == 0: # Mutation 1 howling once ans spawn twelve maple wolf
+    # Mutation 1 howling once ans spawn twelve maple wolf
+    if _new_state == 0:
         _animation_player.play("howling")
 
-    if _new_state == 1: # Mutation 2 boost speed, spawn five, disable charging, five shoot
+    # Mutation 2 boost speed, spawn five, disable charging, five shoot
+    if _new_state == 1:
         reset_speed_stat(50)
         shoot_anime_set(State.VIOLENT)
         shoot_charmed_anime_set(State.VIOLENT)
 
 func is_playing_shoot_animation() -> bool:
+    # Avoid "shoot" animation interrupt "howling" animation
 	return _animation_player.current_animation == "shoot" or \
     _animation_player.current_animation == "shoot_charmed" or \
-    _animation_player.current_animation == "howling" # Avoid "shoot" interrupt "howling"
+    _animation_player.current_animation == "howling"
 
 # =========================== Custom =========================== #
 func charging_start_shoot() -> void:

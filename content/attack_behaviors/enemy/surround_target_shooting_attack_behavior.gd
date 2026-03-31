@@ -17,6 +17,7 @@ onready var map_center: Vector2 = ZoneService.get_map_center()
 
 var main: Main = null
 var base_rot: float = 0.0
+var true_number_projectiles: int = 0
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -25,6 +26,7 @@ func _ready() -> void:
     init_rotation = deg2rad(init_rotation)
     projectile_direction = deg2rad(projectile_direction)
     direction_change_after_each_proj = deg2rad(direction_change_after_each_proj)
+    true_number_projectiles = number_projectiles - specific_projectiles.size()
     for specific_projectile in specific_projectiles.values():
         specific_projectile[1] = deg2rad(specific_projectile[1])
         specific_projectile[2] = deg2rad(specific_projectile[2])
@@ -42,23 +44,28 @@ func shoot() -> void:
             target_pos.y = map_center.y
         [true, false]: target_pos.x = map_center.x
         [false, true]: target_pos.y = map_center.y
-    
+
     if towards_player: base_rot = (_parent.current_target.global_position - _parent.global_position).angle()
+    elif shoot_in_unit_direction: base_rot = (_parent.global_position + _parent.get_movement()).angle()
 
     for i in number_projectiles:
-        var angle = base_rot + init_rotation + (spawn_degrees * i) / number_projectiles
-        var spawn_pos = target_pos + spawn_radius * Vector2(cos(angle), sin(angle))
-        var proj_direction = base_rot + projectile_direction + (direction_change_after_each_proj * i)
+        var angle: float = 0.0
+        var spawn_pos: Vector2 = Vector2.ZERO
+        var proj_direction: float = 0.0
 
         if !specific_projectiles.empty() and specific_projectiles.keys().has(i):
             var specific_porjectile: Array = specific_projectiles[i]
-            var specific_spawn_radius = specific_porjectile[0]
+            var specific_spawn_radius: int = specific_porjectile[0]
             angle = base_rot + specific_porjectile[1]
-            proj_direction = base_rot + specific_porjectile[2]
             spawn_pos = target_pos + specific_spawn_radius * Vector2(cos(angle), sin(angle))
+            proj_direction = base_rot + specific_porjectile[2]
+        else:
+            angle = base_rot + init_rotation + (spawn_degrees * i) / true_number_projectiles
+            spawn_pos = target_pos + spawn_radius * Vector2(cos(angle), sin(angle))
+            proj_direction = base_rot + projectile_direction + (direction_change_after_each_proj * i)
 
         spawn_projectile(proj_direction, spawn_pos, projectile_speed)
-    
+
     _current_cd = cooldown
 
 func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:

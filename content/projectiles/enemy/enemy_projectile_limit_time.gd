@@ -6,6 +6,7 @@ export(int) var reset_alpha = 0
 
 var delta_time: float = 0.0
 
+# =========================== Extension =========================== #
 func _physics_process(delta) -> void:
     if lifetime <= 0: return
 

@@ -24,7 +24,8 @@ func _ready() -> void:
     register_attack_behavior(_slime_trail_attack_behavior)
 
 func _physics_process(delta) -> void:
-    if _current_state == 0: # Mutation 1 also has Mutation 0's attack behavior
+    # Mutation 1: Plus Mutation 0 attack behavior
+    if _current_state == 0:
         current_spawn_cooldown_0 = current_spawn_cooldown_0 - Utils.physics_one(delta)
         if current_spawn_cooldown_0 <= 0 and !dead:
             current_spawn_cooldown_0 = COOLDOWN_0

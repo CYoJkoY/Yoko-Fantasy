@@ -320,15 +320,6 @@ JOB_UNIVERSAL,Job: Universal {0},职业: 通用 {0}
 COOP_S1_JOB,S1 Job(Wave 5),一阶职业(第5波)
 COOP_S2_JOB,S2 Job(Wave 15),二阶职业(第15波)
 JOB,Job,职业
-TAG_DESCRIPTION_JOB,"At the end of wave 5, the first class change occurs.
-At the end of wave 15, the second class change occurs.
-
-The first class change includes four fixed-damage class options and one general class option.
-The second class change consists of the second-tier forms of the corresponding fixed-damage classes, as well as the second-tier form of the general class.
-If the general class was chosen during the first class change, fixed-damage classes will not appear in the second class change.","第5波结束时,进行第1次转职,
-第15波结束时,进行第2次转职.
-
-一转包括四大固伤转职和通用转职,二转为对应固伤转职的二阶及通用转职的二阶,若一转选择了通用转职,则二转不会出现固伤转职"
 EFFECT_FANTASY_EXTRA_ENEMIES_NEXT_WAVES,"{3} will appear in {2} future waves
 {4}","未来 {2} 波次出现{3}
 {4}"
@@ -394,4 +385,20 @@ Stops moving but performs a dash at the player every second. After each dash, fi
 异变1(60%生命 / 35秒):
 停止移动,但是每秒对玩家使用冲刺.每次冲刺结束后都回发射一次箭头弹幕.每冲刺三次,停顿3秒"
 FANTASY_DRAGON_NAME,Dragon,龙
-FANTASY_DRAGON_BEHAVIOUR_DESCRIPTION,"",""
+FANTASY_DRAGON_BEHAVIOUR_DESCRIPTION,"Mutation 0:
+Moves randomly, fires 3 Dragon Breaths in the direction of movement every 0.25 seconds, and pauses for 4 seconds after every 5 Dragon Breath casts
+
+Mutation 1 (50% HP / 25s):
+Summons a Dragon Tail composed of 10 bullets that spins around itself. The interval of Dragon Breath casts is changed to 0.16 seconds, the number of Dragon Breaths per cast is changed to 1, with an extended travel range
+
+Mutation 2 (25% HP / 50s):
+Stops moving, and dashes towards the player every 2 seconds. It continuously fires the Dragon Breath from Mutation 0 while dashing. The Dragon Tail remains active, while the Dragon Breath effect from Mutation 1 is disabled","异变0:
+随机移动,每0.25秒朝移动方向发射3个龙息,每5次龙息后,停顿4秒
+
+异变1(50%生命 / 25秒):
+召唤由10个子弹组成的龙尾,围绕自身旋转,龙息的间隔改为0.16秒,数量改为1个,但距离更远
+
+异变2(25%生命 / 50秒):
+停止移动,每2秒对玩家使用冲刺.冲刺时会不断发射异变0的龙息,龙尾依旧存在,但异变1的龙息消失"
+FANTASY_GREAT_DEMON_LORD_NAME,Great Demon Lord,大恶魔领主
+FANTASY_GREAT_DEMON_LORD_BEHAVIOUR_DESCRIPTION,"",""

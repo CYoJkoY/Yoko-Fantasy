@@ -347,14 +347,13 @@ script = ExtResource( 8 )
 long_cooldown_every_x_shoots = 3
 long_cooldown = 180.0
 max_cd_randomization = 0
-max_range = 1200
 charge_duration = 1.0
 charge_speed = 500.0
 target_calculation_timing = 0
 target = 0
 rand_target_size = -1
 only_positions_in_target_direction = false
-scale_charge_duration_with_range = false
+scale_charge_duration_with_range = true
 
 [node name="TriangleAttackBehavior" type="Node2D" parent="States/State1"]
 unique_name_in_owner = true
