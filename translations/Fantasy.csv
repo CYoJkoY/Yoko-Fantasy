@@ -401,4 +401,24 @@ Stops moving, and dashes towards the player every 2 seconds. It continuously fir
 异变2(25%生命 / 50秒):
 停止移动,每2秒对玩家使用冲刺.冲刺时会不断发射异变0的龙息,龙尾依旧存在,但异变1的龙息消失"
 FANTASY_GREAT_DEMON_LORD_NAME,Great Demon Lord,大恶魔领主
-FANTASY_GREAT_DEMON_LORD_BEHAVIOUR_DESCRIPTION,"",""
+FANTASY_GREAT_DEMON_LORD_BEHAVIOUR_DESCRIPTION,"Mutation 0:
+Chases the player, using Dash every 3 seconds. When the Dash begins, fires 1 crescent-shaped projectile in the direction it is facing. When the Dash ends, fires 3 pellets toward the player
+
+Mutation 1 (75% HP / 20s):
+Uses Dash every 2 seconds. When Dashing, fires 1 crescent-shaped projectile and 3 pellets to each side behind it
+
+Mutation 2 (50% HP / 40s):
+No longer Dashes. Movement speed greatly increased. Every 3 seconds, briefly pauses, then fires a rectangular barrage of 3 Slashes toward the player, with 3 crescent-shaped projectiles accompanying each side
+
+Mutation 3 (75% HP / 60s):
+Uses Dash every second. During the Dash, unleashes 6 Slashes in all directions around itself. When the Dash ends, generates a full-screen horizontal or vertical barrage composed of Slashes","异变0:
+追逐玩家,每3秒对玩家使用冲刺.冲刺开始时向面朝的方向发射1道半月形投射物,冲刺结束后向玩家发射3个弹丸.
+
+异变1(75%生命 / 20秒):
+每2秒对玩家使用冲刺.冲刺时向后方两侧各发射1道半月形投射物和3个弹丸
+
+异变2(50%生命 / 40秒):
+不再冲刺,移速大幅度提高,每3秒停顿片刻,随后朝玩家发射由3道刀光组成的长方形弹幕,其两侧各伴随3道半月形投射物
+
+异变3(75%生命 / 60秒):
+每秒对玩家使用冲刺.冲刺过程中朝周围发射6道刀光,冲刺结束时会生成由刀光组成的跨越全图的横型弹幕或竖型弹幕"

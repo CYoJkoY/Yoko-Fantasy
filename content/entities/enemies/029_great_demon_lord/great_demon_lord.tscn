@@ -389,7 +389,7 @@ distance_to_target = 200.0
 
 [node name="AttackBehavior" parent="States/State1" index="1"]
 script = ExtResource( 8 )
-cooldown = 180.0
+cooldown = 120.0
 long_cooldown = 0.0
 max_cd_randomization = 0
 max_range = 800
@@ -451,7 +451,7 @@ distance_to_target = 200.0
 script = ExtResource( 9 )
 projectile_scene = ExtResource( 11 )
 projectile_speed = 500
-cooldown = 360.0
+cooldown = 180.0
 max_cd_randomization = 0
 damage_increase_each_wave = 1.5
 max_range = 99999
@@ -486,8 +486,8 @@ direction_change_after_each_proj = 30.0
 pos_base_on_centerx = false
 
 [node name="State3" parent="States" instance=ExtResource( 7 )]
-hp_start = 0.99
-timer_start = 1.0
+hp_start = 0.25
+timer_start = 60.0
 
 [node name="MovementBehavior" parent="States/State3" index="0"]
 stop_close_to_target = true
@@ -497,25 +497,29 @@ distance_to_target = 200.0
 script = ExtResource( 8 )
 long_cooldown = 0.0
 max_cd_randomization = 0
-max_range = 800
-charge_duration = 1.0
+max_range = 2000
+charge_duration = 0.5
 charge_speed = 800.0
 target_calculation_timing = 0
 target = 0
 rand_target_size = -1
 only_positions_in_target_direction = false
-scale_charge_duration_with_range = true
+scale_charge_duration_with_range = false
 
 [node name="ChargingSlashShootingAttackBehavior3" type="Node2D" parent="States/State3"]
 unique_name_in_owner = true
 script = ExtResource( 10 )
 projectile_scene = ExtResource( 11 )
-projectile_speed = 0
+projectile_speed = 600
 cooldown = 12.0
 max_cd_randomization = 0
 damage_increase_each_wave = 1.5
 max_range = 99999
-random_direction = true
+number_projectiles = 6
+projectile_spread = 1.1
+projectile_spawn_spread = 500
+projectile_spawn_only_on_borders = true
+constant_spread = true
 
 [node name="HorizontalGlobalShootingAttackBehavior3" type="Node2D" parent="States/State3"]
 unique_name_in_owner = true
@@ -558,27 +562,6 @@ specific_projectiles = {
 6: [ 723, 311.6, 90.0 ],
 7: [ 513, 339.4, 90.0 ],
 8: [ 513, 20.6, 90.0 ]
-}
-
-[node name="ProjectileShootingAttackBehavior3" type="Node2D" parent="States/State3"]
-unique_name_in_owner = true
-script = ExtResource( 9 )
-projectile_scene = ExtResource( 40 )
-projectile_speed = 1500
-damage_increase_each_wave = 1.25
-number_projectiles = 6
-shoot_in_unit_direction = true
-target_class = 0
-spawn_radius = 50
-spawn_degrees = 60.0
-init_rotation = 15.0
-projectile_direction = 15.0
-direction_change_after_each_proj = 30.0
-pos_base_on_centerx = false
-specific_projectiles = {
-3: [ 50, 105.0, 105.0 ],
-4: [ 50, 135.0, 135.0 ],
-5: [ 50, 165.0, 165.0 ]
 }
 
 [node name="CheckStateTimer" type="Timer" parent="."]

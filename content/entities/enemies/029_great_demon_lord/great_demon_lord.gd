@@ -11,7 +11,6 @@ var current_cooldown_0: float = 0.0
 onready var _crescent_shooting_attack_behavior_2: ShootingAttackBehavior = $"%CrescentShootingAttackBehavior2"
 
 onready var _charging_slash_shooting_attack_behavior_3: ShootingAttackBehavior = $"%ChargingSlashShootingAttackBehavior3"
-onready var _projectile_shooting_attack_behavior_3: ShootingAttackBehavior = $"%ProjectileShootingAttackBehavior3"
 onready var COOLDOWN_1: float = _charging_slash_shooting_attack_behavior_3.cooldown
 var current_cooldown_1: float = 0.0
 onready var _horizontal_global_shooting_attack_behavior_3: ShootingAttackBehavior = $"%HorizontalGlobalShootingAttackBehavior3"
@@ -26,7 +25,6 @@ func _ready() -> void:
     _projectile_shooting_attack_behavior_1.init(self )
     _crescent_shooting_attack_behavior_2.init(self )
     _charging_slash_shooting_attack_behavior_3.init(self )
-    _projectile_shooting_attack_behavior_3.init(self )
     _horizontal_global_shooting_attack_behavior_3.init(self )
     _vertical_global_shooting_attack_behavior_3.init(self )
 
@@ -36,7 +34,6 @@ func _ready() -> void:
     register_attack_behavior(_projectile_shooting_attack_behavior_1)
     register_attack_behavior(_crescent_shooting_attack_behavior_2)
     register_attack_behavior(_charging_slash_shooting_attack_behavior_3)
-    register_attack_behavior(_projectile_shooting_attack_behavior_3)
     register_attack_behavior(_horizontal_global_shooting_attack_behavior_3)
     register_attack_behavior(_vertical_global_shooting_attack_behavior_3)
 
@@ -55,7 +52,6 @@ func _physics_process(delta: float) -> void:
         if current_cooldown_1 <= 0:
             current_cooldown_1 = COOLDOWN_1
             _charging_slash_shooting_attack_behavior_3.shoot()
-            _projectile_shooting_attack_behavior_3.shoot()
 
 func shoot() -> void:
     .shoot()
