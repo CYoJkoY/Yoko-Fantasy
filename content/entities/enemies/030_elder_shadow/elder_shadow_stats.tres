@@ -1,17 +1,17 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/029_great_demon_lord/great_demon_lord_icon.webp" type="Texture" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_shadow_icon.webp" type="Texture" id=1]
 [ext_resource path="res://entities/units/unit/stats.gd" type="Script" id=2]
 
 [resource]
 script = ExtResource( 2 )
 icon = ExtResource( 1 )
 health = 15000
-health_increase_each_wave = 750.0
-speed = 200
-speed_randomization = 20
+health_increase_each_wave = 250.0
+speed = 450
+speed_randomization = 45
 damage = 1
-damage_increase_each_wave = 1.5
+damage_increase_each_wave = 0.0
 attack_cd = 30.0
 value = 10
 knockback_resistance = 1.0
@@ -22,6 +22,6 @@ base_drop_chance = 1.0
 item_drop_chance = 1.0
 min_consumable_tier = 0
 max_consumable_tier = 0
-armor = 0
-armor_increase_each_wave = 0.0
+armor = 1
+armor_increase_each_wave = 1.5
 generate_blood = true

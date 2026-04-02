@@ -38,7 +38,7 @@ func clean_up_room() -> void:
 
 # =========================== Custom =========================== #
 func _fantasy_start_time_bonus_current_health_damage_timer() -> void:
-    for player_index in _players.size():
+    for player_index in range(_players.size()):
         var effect_items: Array = RunData.get_player_effect(Utils.fantasy_time_bonus_current_health_damage_hash, player_index)
         for effect in effect_items:
             var timer: Timer = Timer.new()
@@ -61,7 +61,7 @@ func _fantasy_change_living_cursed_enemy(enemy: Enemy, is_add: bool) -> void:
             num = -1
             cursed_enemies.erase(enemy)
 
-    for player_index in _players.size():
+    for player_index in range(_players.size()):
         Utils.ncl_quiet_add_stat(Utils.fantasy_living_cursed_enemy_hash, num, player_index)
         LinkedStats.reset_player(player_index)
 
@@ -87,7 +87,7 @@ func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
         
 func _fantasy_decaying_slow_enemy(enemy: Enemy) -> void:
     # For decaying slow new enemy
-    for player_index in _players.size():
+    for player_index in range(_players.size()):
         var slow_percent: float = TempStats.get_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, player_index)
         if slow_percent == 0: continue
 
@@ -125,7 +125,7 @@ func _fantasy_twin_connect(enemy: Enemy) -> void:
             var _error_twin_dead_change_state_connect_2: int = _new_enemy.connect("died", enemy, "fa_died_change_state")
 
 func _fantasy_slow_cursed_enemy(enemy: Enemy) -> void:
-    for player_index in _players.size():
+    for player_index in range(_players.size()):
         var slow_percent: int = RunData.get_player_effect(Utils.fantasy_slow_cursed_enemy_hash, player_index)
         enemy.current_stats.speed += int(enemy.current_stats.speed * slow_percent / 100.0)
 
@@ -138,7 +138,7 @@ func _fantasy_connect_effect() -> void:
     var _error_on_soul_effect: int = RunData.connect("on_soul_effect", self , "fa_on_soul_effect")
 
 func _fantasy_queue_job_upgrades() -> void:
-    for player_index in _players.size():
+    for player_index in range(_players.size()):
         var s1_job: UpgradeData = RunData.fa_get_current_job(0, player_index)
         var s2_job: UpgradeData = RunData.fa_get_current_job(1, player_index)
 

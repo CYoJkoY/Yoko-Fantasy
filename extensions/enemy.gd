@@ -51,7 +51,7 @@ func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult) ->
 func _fantasy_extra_curse_enemy() -> void:
     if _outline_colors.has(Utils.CURSE_COLOR): return
 
-    for player_index in players_ref.size():
+    for player_index in range(players_ref.size()):
         var effect_items: Array = RunData.get_player_effect(Utils.fantasy_extra_curse_enemy_hash, player_index)
         for effect_item in effect_items:
             var chance: float = effect_item[1] / 100.0

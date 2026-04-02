@@ -59,7 +59,7 @@ func _input(event: InputEvent) -> void:
         focus_before_created.grab_focus()
 
 func _ready():
-    for player_index in RunData.get_player_count():
+    for player_index in range(RunData.get_player_count()):
         var job_player_cont: VBoxContainer = job_player_conts[player_index]
         _job_ui_1[player_index] = job_player_cont.get_child(0)
         _job_ui_2[player_index] = job_player_cont.get_child(1)
@@ -99,7 +99,7 @@ func show() -> void:
     cross_button.grab_focus()
 
 func update_jobs() -> void:
-    for player_index in RunData.get_player_count():
+    for player_index in range(RunData.get_player_count()):
         var job_1: UpgradeData = RunData.fa_get_current_job(0, player_index)
         var job_2: UpgradeData = RunData.fa_get_current_job(1, player_index)
         if job_1: _job_ui_1[player_index].set_job(job_1, player_index)
@@ -132,7 +132,7 @@ func update_jobs() -> void:
             _popup_manager.add_stat_popup(_stat_popup, player_index)
 
 func update_stats() -> void:
-    for player_index in RunData.get_player_count():
+    for player_index in range(RunData.get_player_count()):
         for stat in _stat_nodes[player_index]:
             stat.update_player_stat(player_index)
 

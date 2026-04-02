@@ -17,7 +17,7 @@ func set_reroll_button_price(player_index: int) -> void:
 
 # =========================== Custom =========================== #
 func _fantasy_shop_enter_stat_curse() -> void:
-    for player_index in RunData.get_player_count():
+    for player_index in range(RunData.get_player_count()):
         var effect_items: Array = RunData.get_player_effect(Utils.fantasy_shop_enter_stat_curse_hash, player_index)
         for effect in effect_items:
             if !Utils.get_chance_success(effect[2] / 100.0): continue
@@ -42,8 +42,8 @@ func _fantasy_shop_enter_stat_curse() -> void:
             RunData.ncl_add_effect_tracking_value(effect[4], effect[1], player_index, 0)
             RunData.ncl_add_effect_tracking_value(effect[4], gear_count, player_index, 1)
             
-            var gears_to_curse = []
-            for _i in gear_count:
+            var gears_to_curse: Array = []
+            for _i in range(gear_count):
                 var random_index: int = Utils.randi_range(0, all_gears.size() - 1)
                 gears_to_curse.append(all_gears[random_index])
                 all_gears.remove(random_index)
@@ -115,7 +115,7 @@ func _fantasy_set_curse_all_on_reroll_icon(player_index: int) -> void:
 
 func _fantasy_upgrade_specific_tier_weapons() -> void:
     var upgrade_any_weapon = false
-    for player_index in RunData.get_player_count():
+    for player_index in range(RunData.get_player_count()):
         var upgrade_effects: Array = RunData.get_player_effect(Utils.fantasy_upgrade_specific_tier_weapons_hash, player_index)
         for effect in upgrade_effects:
             upgrade_any_weapon = true

@@ -11,7 +11,7 @@ func _on_enemy_died(enemy: Node2D, _args: Entity.DieArgs) -> void:
 
 # =========================== Custom =========================== #
 func _fantasy_gain_stat_every_killed_enemies() -> void:
-    for player_index in RunData.get_player_count():
+    for player_index in range(RunData.get_player_count()):
         var effect_items: Array = RunData.get_player_effect(Utils.fantasy_gain_stat_every_killed_enemies_hash, player_index)
         gain_stat_ever_killed_enemies_killed_count[player_index] += 1
         for effect in effect_items:

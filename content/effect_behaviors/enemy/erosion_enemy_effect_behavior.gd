@@ -26,7 +26,7 @@ func _ready() -> void:
     erosion_particles.emitting = false
 
 func should_add_on_spawn() -> bool:
-    for player_index in RunData.get_player_count():
+    for player_index in range(RunData.get_player_count()):
         if !RunData.get_player_effect(Utils.fantasy_erosion_hash, player_index).empty(): return true
         
         var player_weapons: Array = RunData.get_player_weapons_ref(player_index)

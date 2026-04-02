@@ -48,7 +48,7 @@ func shoot() -> void:
     if towards_player: base_rot = (_parent.current_target.global_position - _parent.global_position).angle()
     elif shoot_in_unit_direction: base_rot = (_parent.global_position + _parent.get_movement()).angle()
 
-    for i in number_projectiles:
+    for i in range(number_projectiles):
         var angle: float = 0.0
         var spawn_pos: Vector2 = Vector2.ZERO
         var proj_direction: float = 0.0

@@ -102,7 +102,7 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
         _animation_player.play("idle")
 
 func _spawn_projectile(position: Vector2) -> void:
-    for i in _current_weapon_stats.nb_projectiles:
+    for i in range(_current_weapon_stats.nb_projectiles):
         var spread: float = _current_weapon_stats.projectile_spread
         var proj_rotation: float = rand_range(_next_proj_rotation - spread, _next_proj_rotation + spread)
 

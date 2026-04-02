@@ -36,12 +36,12 @@ func _physics_process(delta) -> void:
     _spawn_cooldwon -= Utils.physics_one(delta)
     if _spawn_cooldwon > 0: return
 
-    for i in child_projectiles_num: spawn_perpendicular_projectiles(i)
+    for i in range(child_projectiles_num): spawn_perpendicular_projectiles(i)
     
     if will_spawn_entity:
         var args: EntitySpawner.SpawnEntityArgs = EntitySpawner.SpawnEntityArgs.new(global_position, EntityType.ENEMY)
         var entity_scene: PackedScene = load(Utils.get_rand_element(entity_scenes))
-        for _i in entity_spawn_num: entity_spawner.spawn_entity(entity_scene, args)
+        for _i in range(entity_spawn_num): entity_spawner.spawn_entity(entity_scene, args)
 
     _spawn_cooldwon = spawn_cooldown
 

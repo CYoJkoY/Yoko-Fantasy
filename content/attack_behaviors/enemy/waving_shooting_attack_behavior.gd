@@ -7,6 +7,7 @@ export(float) var prediction_line_precision = 0.1
 export(float) var prediction_line_duration = 1.0
 export(Color) var prediction_line_color = Color.red
 export(float) var prediction_line_width = 30.0
+
 export(float) var wave_range = 100.0
 export(float) var wave_speed = 1.0
 
@@ -16,7 +17,7 @@ var _forward = Vector2.ZERO
 var pre_forward = Vector2.ZERO
 var _perpendicular: Vector2 = Vector2.ZERO
 
-var main = Utils.get_scene_node()
+var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -83,7 +84,7 @@ func shoot() -> void:
     var speed: int = 0
     var _projectile: Node = null
 
-    for i in number_projectiles:
+    for i in range(number_projectiles):
         var pos: Vector2 = get_projectile_spawn_pos(target_pos, i, base_pos)
 
         var base_rot = (target_pos - _parent.global_position).angle() + base_randomization

@@ -365,10 +365,10 @@ Mutation 2 (33% HP / 60 s):
 No longer summons skeletons. Attack changes to firing 5 eyeball projectiles at the player per second, and summons 10 eyeballs to surround the player every second.","异变0:
 远离玩家,每秒召唤3个骷髅剑士
 
-异变1(67%生命 / 30秒):
+异变1 (67%生命 / 30秒):
 在异变0的基础上多召唤1个骷髅弓手
 
-异变2(33%生命 / 60秒):
+异变2 (33%生命 / 60秒):
 不再召唤骷髅,攻击方式变为每秒向玩家发射5个眼球子弹,且每秒召唤10个眼球包围玩家"
 FANTASY_FALLEN_KNIGHT_NAME,Fallen Knight,堕落骑士
 FANTASY_FALLEN_KNIGHT_BEHAVIOUR_DESCRIPTION,"Mutation 0:  
@@ -395,30 +395,32 @@ Mutation 2 (25% HP / 50s):
 Stops moving, and dashes towards the player every 2 seconds. It continuously fires the Dragon Breath from Mutation 0 while dashing. The Dragon Tail remains active, while the Dragon Breath effect from Mutation 1 is disabled","异变0:
 随机移动,每0.25秒朝移动方向发射3个龙息,每5次龙息后,停顿4秒
 
-异变1(50%生命 / 25秒):
+异变1 (50%生命 / 25秒):
 召唤由10个子弹组成的龙尾,围绕自身旋转,龙息的间隔改为0.16秒,数量改为1个,但距离更远
 
-异变2(25%生命 / 50秒):
+异变2 (25%生命 / 50秒):
 停止移动,每2秒对玩家使用冲刺.冲刺时会不断发射异变0的龙息,龙尾依旧存在,但异变1的龙息消失"
 FANTASY_GREAT_DEMON_LORD_NAME,Great Demon Lord,大恶魔领主
-FANTASY_GREAT_DEMON_LORD_BEHAVIOUR_DESCRIPTION,"Mutation 0:
-Chases the player, using Dash every 3 seconds. When the Dash begins, fires 1 crescent-shaped projectile in the direction it is facing. When the Dash ends, fires 3 pellets toward the player
+FANTASY_GREAT_DEMON_LORD_BEHAVIOUR_DESCRIPTION,"Mutation 0:  
+Chases the player, uses a dash toward the player every 3 seconds. When dashing starts, fires 1 crescent-shaped projectile in the facing direction; after dashing ends, fires 3 projectiles toward the player
 
-Mutation 1 (75% HP / 20s):
-Uses Dash every 2 seconds. When Dashing, fires 1 crescent-shaped projectile and 3 pellets to each side behind it
+Mutation 1 (75% HP / 20s):  
+Uses a dash toward the player every 2 seconds. While dashing, fires 1 crescent-shaped projectile and 3 projectiles to each side backward
 
-Mutation 2 (50% HP / 40s):
-No longer Dashes. Movement speed greatly increased. Every 3 seconds, briefly pauses, then fires a rectangular barrage of 3 Slashes toward the player, with 3 crescent-shaped projectiles accompanying each side
+Mutation 2 (50% HP / 40s):  
+No longer dashes; movement speed greatly increased. Pauses briefly every 3 seconds, then fires a rectangular barrage composed of 3 slashes toward the player, accompanied by 3 crescent-shaped projectiles on each side
 
-Mutation 3 (75% HP / 60s):
-Uses Dash every second. During the Dash, unleashes 6 Slashes in all directions around itself. When the Dash ends, generates a full-screen horizontal or vertical barrage composed of Slashes","异变0:
+Mutation 3 (75% HP / 60s):  
+Uses a dash toward the player every second. During the dash, releases 6 slashes around itself; at the end of the dash, generates either a horizontal or vertical slash barrage that crosses the entire screen","异变0:
 追逐玩家,每3秒对玩家使用冲刺.冲刺开始时向面朝的方向发射1道半月形投射物,冲刺结束后向玩家发射3个弹丸.
 
-异变1(75%生命 / 20秒):
+异变1 (75%生命 / 20秒):
 每2秒对玩家使用冲刺.冲刺时向后方两侧各发射1道半月形投射物和3个弹丸
 
-异变2(50%生命 / 40秒):
+异变2 (50%生命 / 40秒):
 不再冲刺,移速大幅度提高,每3秒停顿片刻,随后朝玩家发射由3道刀光组成的长方形弹幕,其两侧各伴随3道半月形投射物
 
-异变3(75%生命 / 60秒):
+异变3 (75%生命 / 60秒):
 每秒对玩家使用冲刺.冲刺过程中朝周围发射6道刀光,冲刺结束时会生成由刀光组成的跨越全图的横型弹幕或竖型弹幕"
+FANTASY_ELDER_SHADOW_NAME,Elder Shadow, 旧日虚影
+FANTASY_ELDER_SHADOW_BEHAVIOUR_DESCRIPTION,"",""

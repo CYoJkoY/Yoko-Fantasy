@@ -126,7 +126,7 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0.48, 0.51, 0.54, 0.57, 0.6, 0.63 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
+"update": 1,
 "values": [ Vector2( -122, 18 ), Vector2( -71, 18 ), Vector2( -6.5, 18 ), Vector2( 65.5, 19 ), Vector2( 105, 15.5 ), Vector2( 143, 18 ) ]
 }
 tracks/3/type = "value"
@@ -138,7 +138,7 @@ tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 0.48, 0.51, 0.54, 0.57, 0.6, 0.63 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 0,
+"update": 1,
 "values": [ Vector2( 30, 17 ), Vector2( 79, 15 ), Vector2( 136.5, 14 ), Vector2( 88.5, 12 ), Vector2( 44, 9.5 ), Vector2( 20, 7 ) ]
 }
 

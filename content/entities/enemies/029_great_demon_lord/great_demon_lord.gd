@@ -67,7 +67,7 @@ func on_state_changed(_new_state: int) -> void:
 
 # =========================== Custom =========================== #
 func mutation_2_slash_shoot() -> void:
-    for i in 3:
+    for i in range(3):
         _crescent_shooting_attack_behavior_2.shoot()
         if i < 2: yield (get_tree().create_timer(0.2), "timeout")
 

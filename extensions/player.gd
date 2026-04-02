@@ -54,7 +54,7 @@ func _fantasy_damage_reflect(full_dmg_value: int, args: TakeDamageArgs) -> void:
 
 func _fantasy_decaying_slow_enemy_when_below_hp_ready() -> void:
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_decaying_slow_enemy_when_below_hp_hash, player_index)
-    for effect_index in effect_items.size():
+    for effect_index in range(effect_items.size()):
         var effect: Array = effect_items[effect_index]
         decaying_slow_enemy_when_below_hp_triggers[effect_index] = effect[3] # Trigger times
 
@@ -62,7 +62,7 @@ func _fantasy_decaying_slow_enemy_when_below_hp(dmg_taken: int) -> void:
     if dmg_taken <= 0: return
 
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_decaying_slow_enemy_when_below_hp_hash, player_index)
-    for effect_index in effect_items.size():
+    for effect_index in range(effect_items.size()):
         var effect: Array = effect_items[effect_index]
         var hp_threshold: float = max_stats.health * effect[0] / 100.0
         var duration: int = effect[1]

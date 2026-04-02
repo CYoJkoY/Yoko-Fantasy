@@ -39,7 +39,7 @@ func unapply(player_index: int) -> void:
 
     var effects: Dictionary = RunData.get_player_effects(player_index)
     var effect_items: Array = effects[custom_key_hash]
-    for i in effect_items.size():
+    for i in range(effect_items.size()):
         var existing_item: Array = effect_items[i]
         if existing_item[2] == set_id_hash:
             existing_item[1] -= value

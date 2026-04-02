@@ -4,7 +4,6 @@ signal duration_timeout()
 
 onready var duration_timer: Timer = $"Timer"
 
-var idle_time_after_pushed_back: float = 10.0
 var already_recycle: bool = false
 
 # =========================== Extension =========================== #
@@ -15,9 +14,15 @@ func reset() -> void:
     hide()
     clear_points()
 
-func draw_prediction(duration: float) -> void:
+func draw_prediction(duration: float = 0.0) -> void:
+    if duration <= 0:
+        material.set_shader_param("line_color", default_color)
+        show()
+        return
+
     duration_timer.wait_time = duration
     duration_timer.start()
+    material.set_shader_param("line_color", default_color)
     show()
 
 # =========================== Method =========================== #

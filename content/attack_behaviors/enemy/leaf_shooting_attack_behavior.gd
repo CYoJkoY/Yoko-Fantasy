@@ -53,7 +53,7 @@ func physics_process(delta: float) -> void:
 func shoot() -> void:
     var speed: float = 0
 
-    for i in projectiles_per_time:
+    for i in range(projectiles_per_time):
         var spawn_x: float = rand_range(map_size_quarter.x, map_size_three_quarter.x)
         var spawn_y: float = map_zero.y
         var spawn_pos = Vector2(spawn_x, spawn_y)

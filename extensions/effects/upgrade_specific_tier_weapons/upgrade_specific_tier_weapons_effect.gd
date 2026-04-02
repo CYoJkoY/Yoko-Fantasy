@@ -25,7 +25,7 @@ func unapply(player_index: int) -> void:
 
     var effects: Dictionary = RunData.get_player_effects(player_index)
     var effect_items: Array = effects[key_hash]
-    for i in effect_items.size():
+    for i in range(effect_items.size()):
         var existing_item: Array = effect_items[i]
         if existing_item[0] == tier:
             existing_item[1] -= value

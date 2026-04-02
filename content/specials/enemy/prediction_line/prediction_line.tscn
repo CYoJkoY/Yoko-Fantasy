@@ -3,7 +3,6 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/enemy/prediction_line.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/stream_energy.gdshader" type="Shader" id=2]
 
-
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 2 )
 shader_param/line_color = Color( 1, 0, 0.1, 1 )
