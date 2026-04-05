@@ -1,10 +1,10 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=68 format=2]
 
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_shadow.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/movement_behaviors/enemy/wave_follow_and_teleport_opposite_movement_behavior.gd" type="Script" id=3]
 [ext_resource path="res://ui/hud/ui_progress_bar.tscn" type="PackedScene" id=4]
-[ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=5]
+[ext_resource path="res://entities/units/enemies/attack_behaviors/attack_behavior.gd" type="Script" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/gear_shadow_7.webp" type="Texture" id=6]
 [ext_resource path="res://entities/units/enemies/boss/boss_state.tscn" type="PackedScene" id=7]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/gear_shadow_2.webp" type="Texture" id=8]
@@ -53,6 +53,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/gear_9.webp" type="Texture" id=51]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/gear_background.webp" type="Texture" id=52]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_clocks.tscn" type="PackedScene" id=53]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/movement_behaviors/enemy/teleport_points_movement_behavior.gd" type="Script" id=54]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/wind_blow.gdshader" type="Shader" id=63]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_shadow_stats.tres" type="Resource" id=64]
 
@@ -919,8 +920,16 @@ emitting = false
 [node name="States" type="Node2D" parent="."]
 
 [node name="State1" parent="States" instance=ExtResource( 7 )]
-hp_start = 0.5
-timer_start = 40.0
+hp_start = 0.75
+timer_start = 20.0
+
+[node name="MovementBehavior" parent="States/State1" index="0"]
+script = ExtResource( 54 )
+teleport_interval = 1.0
+order_teleport = true
+
+[node name="AttackBehavior" parent="States/State1" index="1"]
+script = ExtResource( 5 )
 
 [node name="CheckStateTimer" type="Timer" parent="."]
 unique_name_in_owner = true

@@ -18,6 +18,13 @@ func _ready() -> void:
     for child in clocks._fantasy_get_bullets():
         register_additional_projectile(child)
 
+func on_state_changed(_new_state: int) -> void:
+    .on_state_changed(_new_state)
+    
+    # Mutation 1:
+    if _new_state == 0:
+        _current_movement_behavior.teleport_points = clocks._fantasy_get_all_top_positions(false)
+
 func die(args := Utils.default_die_args) -> void:
     .die(args)
     particles.queue_free()

@@ -22,7 +22,7 @@ var main: Main = Utils.get_scene_node()
 func _ready() -> void:
     timer.wait_time = tick_time
     timer.start()
-    rotation = deg2rad(start_rotation) if fixed_start_rotation else tick_angle * (randi() % tick_num)
+    rotation = deg2rad(start_rotation) if fixed_start_rotation else tick_angle * Utils.randi_range(0, tick_num - 1)
     global_position = ZoneService.get_map_center()
     if with_prediction: _fantasy_spawn_prediction_line()
 
