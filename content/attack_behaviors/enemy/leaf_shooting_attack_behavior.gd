@@ -2,14 +2,17 @@ extends ShootingAttackBehavior
 
 export(int) var projectiles_per_time = 6
 export(float) var angle_min = 0.0
-export(float) var angle_max = 24.0
+export(float) var angle_range = 24.0
 export(float) var wave_speed = 1.5
 export(float) var wave_range = 120.0
 export(float) var air_resistance = 0.2
+export(bool) var from_top = true
+
 
 var map_zero: Vector2 = ZoneService.current_zone_min_position
-var map_size_quarter: Vector2 = ZoneService.current_zone_max_position * 0.25
-var map_size_three_quarter: Vector2 = ZoneService.current_zone_max_position * 0.75
+var map_max: Vector2 = ZoneService.current_zone_max_position
+var map_size_quarter: Vector2 = map_max * 0.25
+var map_size_three_quarter: Vector2 = map_max * 0.75
 
 var main: Main = Utils.get_scene_node()
 
@@ -19,7 +22,7 @@ var active_projectiles: Array = []
 # =========================== Extension =========================== #
 func _ready() -> void:
     angle_min = deg2rad(angle_min)
-    angle_max = deg2rad(angle_max)
+    angle_range = deg2rad(angle_range)
 
 func reset() -> void:
     _time_passed = 0.0
@@ -55,10 +58,10 @@ func shoot() -> void:
 
     for i in range(projectiles_per_time):
         var spawn_x: float = rand_range(map_size_quarter.x, map_size_three_quarter.x)
-        var spawn_y: float = map_zero.y
+        var spawn_y: float = map_zero.y if from_top else map_max.y
         var spawn_pos = Vector2(spawn_x, spawn_y)
 
-        var random_angle: float = rand_range(angle_min - angle_max, angle_min + angle_max)
+        var random_angle: float = rand_range(angle_min - angle_range, angle_min + angle_range)
         speed = rand_range(projectile_speed - projectile_speed_randomization, projectile_speed + projectile_speed_randomization)
 
         if speed_change_after_each_projectile != 0:

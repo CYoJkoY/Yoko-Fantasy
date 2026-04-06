@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_shadow.gd" type="Script" id=2]
@@ -54,6 +54,11 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/gear_background.webp" type="Texture" id=52]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_clocks.tscn" type="PackedScene" id=53]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/movement_behaviors/enemy/teleport_points_movement_behavior.gd" type="Script" id=54]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/elder_shadow_projectile/elder_shadow_projectile.tscn" type="PackedScene" id=55]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/movement_behaviors/enemy/force_map_center_movement_behavior.gd" type="Script" id=56]
+[ext_resource path="res://entities/units/enemies/pursuer/sci-fi_code_fail_08.wav" type="AudioStream" id=57]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/leaf_shooting_attack_behavior.gd" type="Script" id=58]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/elder_shadow_projectile/elder_shadow_projectile_limit_time.tscn" type="PackedScene" id=59]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/wind_blow.gdshader" type="Shader" id=63]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_shadow_stats.tres" type="Resource" id=64]
 
@@ -723,6 +728,9 @@ tracks/20/keys = {
 "values": [ 0.0, 360.0 ]
 }
 
+[sub_resource type="CircleShape2D" id=31]
+radius = 400.125
+
 [node name="Boss" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 132
@@ -742,6 +750,11 @@ enemy_id = "fantasy_elder_shadow"
 can_be_cursed = false
 can_be_charmed = false
 clocks_scene = ExtResource( 53 )
+heal_sound = ExtResource( 57 )
+heal = 200.0
+heal_increase_each_wave = 20.0
+player_heal = 2.0
+player_heal_increase_each_wave = 1.0
 
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -20 )
@@ -925,11 +938,63 @@ timer_start = 20.0
 
 [node name="MovementBehavior" parent="States/State1" index="0"]
 script = ExtResource( 54 )
-teleport_interval = 1.0
+teleport_interval = 2.0
 order_teleport = true
 
 [node name="AttackBehavior" parent="States/State1" index="1"]
-script = ExtResource( 5 )
+projectile_scene = ExtResource( 55 )
+projectile_speed = 500
+cooldown = 99999.0
+max_cd_randomization = 0
+number_projectiles = 6
+projectile_spread = 3.1
+projectile_spawn_spread = 500
+projectile_spawn_only_on_borders = true
+constant_spread = true
+shoot_from_proj_pos_towards_player = true
+
+[node name="State2" parent="States" instance=ExtResource( 7 )]
+hp_start = 0.5
+timer_start = 40.0
+
+[node name="MovementBehavior" parent="States/State2" index="0"]
+script = ExtResource( 3 )
+wave_period = 2.0
+wave_amplitude = 1000.0
+teleport_distance = 200.0
+teleport_offset = 400.0
+
+[node name="AttackBehavior" parent="States/State2" index="1"]
+projectile_scene = ExtResource( 55 )
+projectile_speed = 500
+cooldown = 99999.0
+max_cd_randomization = 0
+number_projectiles = 8
+projectile_spread = 3.1
+constant_spread = true
+
+[node name="State3" parent="States" instance=ExtResource( 7 )]
+hp_start = 0.25
+timer_start = 1.0
+
+[node name="MovementBehavior" parent="States/State3" index="0"]
+script = ExtResource( 56 )
+check_interval = 1.0
+center_tolerance = 25.0
+
+[node name="AttackBehavior" parent="States/State3" index="1"]
+script = ExtResource( 58 )
+projectile_scene = ExtResource( 59 )
+projectile_speed = 200
+projectile_speed_randomization = 100
+max_range = 99999
+projectiles_per_time = 5
+angle_min = 180.0
+angle_range = 24.0
+wave_speed = 2.0
+wave_range = 240.0
+air_resistance = 0.1
+from_top = false
 
 [node name="CheckStateTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -945,12 +1010,31 @@ progress_color = Color( 0.721569, 0, 0, 1 )
 
 [node name="EffectBehaviors" type="Node2D" parent="."]
 
+[node name="HealingZone" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="HealingCollision" type="CollisionShape2D" parent="HealingZone"]
+unique_name_in_owner = true
+shape = SubResource( 31 )
+
+[node name="HealingTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]
+[connection signal="teleport_point_reached" from="States/State1/MovementBehavior" to="States/State1/AttackBehavior" method="shoot"]
+[connection signal="teleport_point_reached" from="States/State2/MovementBehavior" to="States/State2/AttackBehavior" method="shoot"]
 [connection signal="timeout" from="CheckStateTimer" to="." method="_on_CheckStateTimer_timeout"]
+[connection signal="timeout" from="HealingTimer" to="." method="fa_on_HealingTimer_timeout"]
 
 [editable path="Hurtbox"]
 [editable path="Hitbox"]
 [editable path="States/State1"]
+[editable path="States/State2"]
+[editable path="States/State3"]

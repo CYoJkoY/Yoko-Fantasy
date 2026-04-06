@@ -1,5 +1,7 @@
 extends MovementBehavior
 
+signal teleport_point_reached()
+
 export(float) var wave_period = 2.0
 export(float) var wave_amplitude = 1000.0
 export(float) var teleport_distance = 100.0
@@ -19,6 +21,7 @@ func get_movement() -> Vector2:
         teleport_position.x = clamp(teleport_position.x, 0, ZoneService.current_zone_max_position.x)
         teleport_position.y = clamp(teleport_position.y, 0, ZoneService.current_zone_max_position.y)
         _parent.global_position = teleport_position
+        emit_signal("teleport_point_reached")
         return Vector2.ZERO
 
     var sway_direction: Vector2 = Vector2(to_target.y, -to_target.x)

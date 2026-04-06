@@ -27,47 +27,56 @@ export(int) var structure_attack_speed_boost = 10
 
 onready var _boost_timer: Timer = $"%BoostTimer"
 
-var entities_in_zone: Array = []
+var entities_in_zone: Array = [[], []]
 
 # =========================== Extension =========================== #
 func respawn() -> void:
     .respawn()
     _boost_collision.set_deferred("disabled", false)
-    entities_in_zone.clear()
+    entities_in_zone = [[], []]
 
 func die(args := Entity.DieArgs.new()) -> void:
     .die(args)
     _boost_collision.set_deferred("disabled", true)
-    entities_in_zone.clear()
+    entities_in_zone = [[], []]
 
 func _on_BoostZone_body_entered(body: Node) -> void:
     # Heal
     if !dead and !(body is Structure) and body.current_stats.health < body.max_stats.health:
-        SoundManager2D.play(heal_sound, global_position, -10, 0.2)
-        var heal_value = int(player_heal + (RunData.current_wave - 1) * player_heal_increase_each_wave)
-        if body is Player:
-            body.on_healing_effect(heal_value)
-
-        if body is Enemy:
-            body.current_stats.health = min(body.current_stats.health + (heal + (RunData.current_wave - 1) * heal_increase_each_wave), body.max_stats.health)
-
-        if body is Player:
-            body.emit_signal("healed", heal_value, body.player_index)
-        else:
-            body.emit_signal("healed", body)
-        emit_signal("healed", self )
-    
+        entities_in_zone[0].append(body)
     # Buff
     if !dead and body.can_be_boosted:
-        entities_in_zone.append(body)
+        entities_in_zone[1].append(body)
 
 func _on_BoostZone_body_exited(body: Node) -> void:
-    entities_in_zone.erase(body)
+    match [entities_in_zone[0].has(body), entities_in_zone[1].has(body)]:
+        [false, false]: return
+        [true, false]: entities_in_zone[0].erase(body)
+        [false, true]: entities_in_zone[1].erase(body)
+        [true, true]:
+            entities_in_zone[0].erase(body)
+            entities_in_zone[1].erase(body)
 
 func _on_BoostTimer_timeout() -> void:
+    for entity in entities_in_zone[0]:
+        if is_instance_valid(entity) and !(entity is Structure) and entity.current_stats.health < entity.max_stats.health:
+            SoundManager2D.play(heal_sound, global_position, -10, 0.2)
+            var heal_value = int(player_heal + (RunData.current_wave - 1) * player_heal_increase_each_wave)
+            if entity is Player:
+                entity.on_healing_effect(heal_value)
+
+            if entity is Enemy:
+                entity.current_stats.health = min(entity.current_stats.health + (heal + (RunData.current_wave - 1) * heal_increase_each_wave), entity.max_stats.health)
+
+            if entity is Player:
+                entity.emit_signal("healed", heal_value, entity.player_index)
+            else:
+                entity.emit_signal("healed", entity)
+            emit_signal("healed", self )
+
     var nb_entities_boosted = 0
-    entities_in_zone.shuffle()
-    for entity in entities_in_zone:
+    entities_in_zone[1].shuffle()
+    for entity in entities_in_zone[1]:
         if is_instance_valid(entity) and entity.can_be_boosted and !entity.is_boosted:
             var boost_args := BoostArgs.new()
             if entity is Player:

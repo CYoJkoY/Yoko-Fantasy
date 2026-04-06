@@ -45,3 +45,6 @@ var fantasy_extra_enemies_next_waves_hash: int = Keys.generate_hash("fantasy_ext
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")
+
+# Enemies
+var fantasy_great_demon_lord_hash: int = Keys.generate_hash("fantasy_great_demon_lord")

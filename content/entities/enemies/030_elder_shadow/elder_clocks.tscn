@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_clocks.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/elder_shadow_projectile/elder_shadow_projectile.tscn" type="PackedScene" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/elder_shadow_projectile/elder_shadow_projectile_rotating.tscn" type="PackedScene" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/enemy/prediction_line/prediction_line.tscn" type="PackedScene" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/enemy/clock/clock.tscn" type="PackedScene" id=5]
 
