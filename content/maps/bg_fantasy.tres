@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "FANTASY_BG"
+name = "BG_FANTASY"
 icon = ExtResource( 3 )
 outline_color = Color( 0.294118, 0.337255, 0.356863, 1 )
 tiles_sprite = ExtResource( 2 )

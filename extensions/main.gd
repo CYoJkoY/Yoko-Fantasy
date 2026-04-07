@@ -8,11 +8,11 @@ var cursed_enemies: Array = []
 func _ready() -> void:
     _fantasy_connect_effect()
     _fantasy_queue_job_upgrades()
+    _fantasy_start_time_bonus_current_health_damage_timer()
 
 func on_upgrade_selected(upgrade_data: UpgradeData, upgrade: UpgradesUI.UpgradeToProcess) -> void:
     .on_upgrade_selected(upgrade_data, upgrade)
     _fantasy_add_job(upgrade_data, upgrade.player_index)
-    _fantasy_start_time_bonus_current_health_damage_timer()
 
 func _on_EntitySpawner_enemy_spawned(enemy: Enemy) -> void:
     ._on_EntitySpawner_enemy_spawned(enemy)
@@ -170,6 +170,7 @@ func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracki
         enemy.emit_signal("health_updated", enemy, enemy.current_stats.health, enemy_max_hp)
 
         var time_bonus_args: TakeDamageArgs = TakeDamageArgs.new(player_index)
+        time_bonus_args.set_meta("custom_color", Color("#FFA500"))
         enemy.emit_signal(
             "took_damage",
             enemy,

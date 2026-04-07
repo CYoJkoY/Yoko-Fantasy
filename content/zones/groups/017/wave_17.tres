@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=9 format=2]
+
+[ext_resource path="res://zones/wave_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/017/group_1.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/017/group_2.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/017/d1_group_1.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/017/group_3.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/017/group_3b.tres" type="Resource" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/017/group_4.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/017/group_5.tres" type="Resource" id=8]
+
+[resource]
+script = ExtResource( 1 )
+wave_duration = 60
+max_enemies = 100
+groups_data = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 8 ) ]
+conditional_groups_data = [  ]

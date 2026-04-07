@@ -946,6 +946,7 @@ projectile_scene = ExtResource( 55 )
 projectile_speed = 500
 cooldown = 99999.0
 max_cd_randomization = 0
+damage_increase_each_wave = 1.25
 number_projectiles = 6
 projectile_spread = 3.1
 projectile_spawn_spread = 500
@@ -969,13 +970,14 @@ projectile_scene = ExtResource( 55 )
 projectile_speed = 500
 cooldown = 99999.0
 max_cd_randomization = 0
+damage_increase_each_wave = 1.25
 number_projectiles = 8
 projectile_spread = 3.1
 constant_spread = true
 
 [node name="State3" parent="States" instance=ExtResource( 7 )]
 hp_start = 0.25
-timer_start = 1.0
+timer_start = 60.0
 
 [node name="MovementBehavior" parent="States/State3" index="0"]
 script = ExtResource( 56 )
@@ -987,6 +989,7 @@ script = ExtResource( 58 )
 projectile_scene = ExtResource( 59 )
 projectile_speed = 200
 projectile_speed_randomization = 100
+damage_increase_each_wave = 1.25
 max_range = 99999
 projectiles_per_time = 5
 angle_min = 180.0

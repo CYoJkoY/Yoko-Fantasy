@@ -24,7 +24,8 @@ func _init() -> void:
         # Job System[ 1/6 ]
         # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ],
         #          decaying_slow_enemy_when_below_hp[ 1/2 ]
-        #          slow_cursed_enemy
+        #          slow_cursed_enemy,
+        #          time_bonus_current_health_damage
         
         "item_service.gd",
         # Job System[ 2/6 ]

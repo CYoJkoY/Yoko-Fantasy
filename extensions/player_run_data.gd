@@ -21,8 +21,8 @@ func serialize() -> Dictionary:
     for job in jobs: serialized_jobs.append(job.serialize())
 
     serialized.jobs = serialized_jobs
-    serialized.current_s1_job = current_s1_job.my_id if current_s1_job else null
-    serialized.current_s2_job = current_s2_job.my_id if current_s2_job else null
+    serialized.current_s1_job = current_s1_job.my_id if current_s1_job else ""
+    serialized.current_s2_job = current_s2_job.my_id if current_s2_job else ""
 
     return serialized
 
@@ -30,24 +30,15 @@ func deserialize(data: Dictionary) -> PlayerRunData:
     .deserialize(data)
 
     for job in data.jobs:
-        var job_data = ItemService.get_element_safe(ItemService.upgrades, job.my_id)
+        var job_data: Resource = ItemService.get_element_safe(ItemService.upgrades, job.my_id)
 
         if job_data:
             job_data = job_data.duplicate()
             job_data.deserialize_and_merge(job)
-            jobs.push_back(job_data)
+            jobs.append(job_data)
 
-    current_s1_job = (
-        ItemService.get_element_safe(ItemService.upgrades, data.current_s1_job)
-        if data.current_s1_job
-        else null
-    )
-
-    current_s2_job = (
-        ItemService.get_element_safe(ItemService.upgrades, data.current_s2_job)
-        if data.current_s2_job
-        else null
-    )
+    current_s1_job = ItemService.get_element_safe(ItemService.upgrades, data.current_s1_job)
+    current_s2_job = ItemService.get_element_safe(ItemService.upgrades, data.current_s2_job)
 
     return self
 

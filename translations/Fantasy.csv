@@ -1,6 +1,7 @@
 ﻿keys,en,zh
-FANTASY_ZONE,Fantasy,幻界
-FANTASY_BG,Fantasy,幻界
+ZONE_FANTASY,Fantasy,幻界
+BG_FANTASY,Fantasy,幻界
+BG_FANTASY_NIGHT,Fantasy-Night,幻界-夜
 FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
 FANTASY_LOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑,死亡时掉落一个箱子"
 FANTASY_LITTLE_SLIME_NAME,Small Slime,小史莱姆
@@ -420,7 +421,31 @@ Uses a dash toward the player every second. During the dash, releases 6 slashes 
 异变2 (50%生命 / 40秒):
 不再冲刺,移速大幅度提高,每3秒停顿片刻,随后朝玩家发射由3道刀光组成的长方形弹幕,其两侧各伴随3道半月形投射物
 
-异变3 (75%生命 / 60秒):
+异变3 (25%生命 / 60秒):
 每秒对玩家使用冲刺.冲刺过程中朝周围发射6道刀光,冲刺结束时会生成由刀光组成的跨越全图的横型弹幕或竖型弹幕"
 FANTASY_ELDER_SHADOW_NAME,Elder Shadow, 旧日虚影
-FANTASY_ELDER_SHADOW_BEHAVIOUR_DESCRIPTION,"",""
+FANTASY_ELDER_SHADOW_BEHAVIOUR_DESCRIPTION,"A persistent clock array exists on the field: with the very center of the map as the pivot, 12 cardinal directions are marked, forming hour and minute hands. Both hands light up once per second for 0.5 seconds, dealing damage to the player while lit. The minute hand rotates clockwise once per light-up; the hour hand rotates only once every 12 light-ups
+
+Mutation 0:
+Moves in a winding path chasing the player. When it gets within a certain range of the player, it teleports to the opposite side of the arena
+
+Mutation 1 (75% HP / 20s):
+Movement changes: it teleports clockwise between the positions pointed to by the tips of the minute hand. Each teleport is followed by firing 6 bullets aimed at the player
+
+Mutation 2 (50% HP / 40s):
+Movement returns to the winding pattern of Mutation 0, but each teleport now releases 8 bullets in all directions. It now continuously heals nearby enemies
+
+Mutation 3 (25% HP / 60s):
+Stays at the center of the map. Gears that move upward in a winding pattern now appear from the bottom of the screen. Its healing effect now ignores range but only affects the Great Demon Lord","场上始终存在时钟阵列:以地图最中心为圆心,规划出12个正方向,分为时针和分针,时针和分针均为每秒点亮1次,持续0.5秒,在点亮期间可对玩家造成伤害,分针每次点亮都会顺时针转动1次,时针每点亮12次才会转动1次
+
+异变0:
+蜿蜒前行追逐玩家,在靠近玩家一定范围后会瞬移到对面方向
+
+异变1 (75%生命 / 20秒):
+移动方式变为在各个分针顶端指向的位置之间按顺时针瞬移,每次瞬移都会发射6个射向玩家的子弹
+
+异变2 (50%生命 / 40秒):
+移动方式变为异变0的移动方式,但每次瞬移都会向周围发射8个子弹,现在会持续恢复周围敌人生命
+
+异变3 (25%生命 / 60秒):
+停留在地图中心,地图下方会有向上移动的蜿蜒运动的齿轮弹幕,现在无视距离只恢复大恶魔领主的生命"

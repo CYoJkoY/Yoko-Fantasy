@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=145 format=2]
+[gd_resource type="Resource" load_steps=158 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/007_swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/017_skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -144,17 +144,30 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/028_dragon/dragon_item.tres" type="Resource" id=142]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/029_great_demon_lord/great_demon_lord_item.tres" type="Resource" id=143]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/030_elder_shadow/elder_shadow_item.tres" type="Resource" id=144]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/maple_wolf_king_data.tres" type="Resource" id=145]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/fallen_knight_data.tres" type="Resource" id=146]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/twin_blaze_data.tres" type="Resource" id=147]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/twin_frost_data.tres" type="Resource" id=148]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/world_tree_data.tres" type="Resource" id=149]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/goblin_tank_data.tres" type="Resource" id=150]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/dragon_data.tres" type="Resource" id=151]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/necromancer_data.tres" type="Resource" id=152]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/great_demon_lord_data.tres" type="Resource" id=153]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/elder_shadow_data.tres" type="Resource" id=154]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/slime_king_data.tres" type="Resource" id=155]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy_night.tres" type="Resource" id=156]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/zone_fantasy_data.tres" type="Resource" id=157]
 
 [resource]
 script = ExtResource( 43 )
 my_id = "fantasy"
 groups_in_all_zones = [  ]
 music_tracks = [  ]
-backgrounds = [ ExtResource( 40 ) ]
+backgrounds = [ ExtResource( 40 ), ExtResource( 156 ) ]
 characters = [  ]
 entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 22 ), ExtResource( 2 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 18 ), ExtResource( 47 ), ExtResource( 56 ), ExtResource( 69 ), ExtResource( 76 ), ExtResource( 83 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 133 ), ExtResource( 134 ), ExtResource( 135 ), ExtResource( 142 ), ExtResource( 143 ), ExtResource( 144 ) ]
-elites = [  ]
-bosses = [  ]
+elites = [ ExtResource( 151 ), ExtResource( 146 ), ExtResource( 150 ), ExtResource( 145 ), ExtResource( 152 ), ExtResource( 155 ), ExtResource( 147 ), ExtResource( 148 ), ExtResource( 149 ) ]
+bosses = [ ExtResource( 154 ), ExtResource( 153 ) ]
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]
 items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 25 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 48 ), ExtResource( 50 ), ExtResource( 49 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 77 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 42 ), ExtResource( 82 ), ExtResource( 84 ), ExtResource( 87 ), ExtResource( 89 ), ExtResource( 90 ) ]
 weapons = [  ]
@@ -166,7 +179,7 @@ difficulties = [  ]
 icons = [ ExtResource( 96 ) ]
 title_screen_backgrounds = [  ]
 challenges = [  ]
-zones = [  ]
+zones = [ ExtResource( 157 ) ]
 tracked_items = {
 "item_fantasy_clock_tower_echo": 0,
 "item_fantasy_crimson_holy_shroud": 0,
