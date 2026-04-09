@@ -20,7 +20,7 @@ child_projectile = ExtResource( 4 )
 power = 0.75
 will_spawn_entity = true
 entity_spawn_num = 1
-entity_scenes = [ "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/008_goblin_javelin_thrower/goblin_javelin_thrower.tscn", "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/009_goblin_priest/goblin_priest.tscn" ]
+entity_scenes = [ "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/goblin_javelin_thrower/goblin_javelin_thrower.tscn", "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/goblin_priest/goblin_priest.tscn" ]
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2( 159, 0 )

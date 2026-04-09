@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/enemy_projectile_laser.gd" type="Script" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/laser_shoot_enemy_projectile/laser_shoot_enemy_projectile_end.webp" type="Texture" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/laser_shoot_enemy_projectile/laser_shoot_enemy_projectile_med.webp" type="Texture" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/laser_shoot_enemy_projectile/laser_shoot_enemy_projectile_line.webp" type="Texture" id=6]
-
+[ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 11.5 )
@@ -142,6 +142,7 @@ destroy_on_leaving_screen = false
 position = Vector2( -100, 0 )
 
 [node name="StartProjectile" type="Sprite" parent="StartContainer"]
+material = ExtResource( 7 )
 position = Vector2( 0, -16 )
 texture = ExtResource( 3 )
 centered = false
@@ -150,6 +151,7 @@ centered = false
 position = Vector2( 100, 0 )
 
 [node name="EndProjectile" type="Sprite" parent="EndContainer"]
+material = ExtResource( 7 )
 position = Vector2( 0, -16 )
 texture = ExtResource( 4 )
 centered = false
@@ -158,6 +160,7 @@ centered = false
 
 [node name="Sprite" type="Sprite" parent="Contents"]
 unique_name_in_owner = true
+material = ExtResource( 7 )
 position = Vector2( 0, -16 )
 texture = ExtResource( 5 )
 centered = false
@@ -173,6 +176,7 @@ shape = SubResource( 1 )
 [node name="Line" type="Node2D" parent="."]
 
 [node name="line" type="Sprite" parent="Line"]
+material = ExtResource( 7 )
 position = Vector2( 0, -16 )
 texture = ExtResource( 6 )
 centered = false

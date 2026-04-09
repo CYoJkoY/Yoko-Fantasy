@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://projectiles/projectile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/enemy_projectile_spawner.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_projectile.webp" type="Texture" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_projectile_small.tscn" type="PackedScene" id=4]
-
+[ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=5]
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 55, 12 )
@@ -20,7 +20,7 @@ step = 0.02
 
 [node name="EnemyProjectile" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-child_projectiles = 2
+child_projectiles_num = 2
 child_init_rotation = 90
 child_rotation_change_after_each = 0
 is_symmetrical = true
@@ -28,9 +28,12 @@ offset_distance = 50
 spawn_cooldown = 30
 child_projectile = ExtResource( 4 )
 power = 0.6
-free_time = 1.5
+will_spawn_entity = false
+entity_spawn_num = 1
+entity_scenes = [  ]
 
 [node name="Sprite" parent="." index="0"]
+material = ExtResource( 5 )
 position = Vector2( 0, 0 )
 texture = ExtResource( 3 )
 

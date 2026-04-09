@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://projectiles/bullet_enemy/enemy_projectile.gd" type="Script" id=1]
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://projectiles/slash/sprites/slash_0002.png" type="Texture" id=7]
 [ext_resource path="res://projectiles/slash/sprites/slash_0004.png" type="Texture" id=8]
 [ext_resource path="res://projectiles/slash/sprites/slash_0000.png" type="Texture" id=9]
+[ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=10]
 
 [sub_resource type="RectangleShape2D" id=4]
 resource_local_to_scene = true
@@ -146,6 +147,7 @@ script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 unique_name_in_owner = true
+material = ExtResource( 10 )
 position = Vector2( -179, 0 )
 texture = ExtResource( 9 )
 

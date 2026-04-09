@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/world_tree_projectile/world_tree_flower_projectile.webp" type="Texture" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/enemy_projectile_limit_range.gd" type="Script" id=3]
-
+[ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=4]
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 24.0
@@ -80,6 +80,7 @@ reset_alpa = true
 
 [node name="Sprite" type="Sprite" parent="."]
 unique_name_in_owner = true
+material = ExtResource( 4 )
 texture = ExtResource( 2 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 1 )]

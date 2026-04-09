@@ -101,7 +101,7 @@ func _fantasy_decaying_slow_enemy(enemy: Enemy) -> void:
 func _fantasy_twin_connect(enemy: Enemy) -> void:
     match [enemy.enemy_id, summoned_twins.has(enemy.pool_id)]:
         ["fantasy_twin_blaze", false]:
-            var scene: PackedScene = load("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023b_twin_frost/twin_frost.tscn")
+            var scene: PackedScene = load("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/twin_frost/twin_frost.tscn")
             summoned_twins.append(scene.get_instance_id())
             var args: EntitySpawner.SpawnEntityArgs = EntitySpawner.SpawnEntityArgs.new(enemy.global_position, EntityType.BOSS)
             var _new_enemy: Enemy = _entity_spawner.spawn_entity(scene, args)
@@ -113,7 +113,7 @@ func _fantasy_twin_connect(enemy: Enemy) -> void:
             var _error_twin_dead_change_state_connect_2: int = _new_enemy.connect("died", enemy, "fa_died_change_state")
 
         ["fantasy_twin_frost", false]:
-            var scene: PackedScene = load("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/023a_twin_blaze/twin_blaze.tscn")
+            var scene: PackedScene = load("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/twin_blaze/twin_blaze.tscn")
             summoned_twins.append(scene.get_instance_id())
             var args: EntitySpawner.SpawnEntityArgs = EntitySpawner.SpawnEntityArgs.new(enemy.global_position, EntityType.BOSS)
             var _new_enemy: Enemy = _entity_spawner.spawn_entity(scene, args)

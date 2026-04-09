@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://projectiles/projectile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://projectiles/bullet_enemy/enemy_projectile.gd" type="Script" id=2]
 [ext_resource path="res://projectiles/pillar_enemy/sprites/bullet_pillar_0000.png" type="Texture" id=3]
+[ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 40.0
@@ -90,6 +91,7 @@ tracks/2/keys = {
 script = ExtResource( 2 )
 
 [node name="Sprite" parent="." index="0"]
+material = ExtResource( 4 )
 position = Vector2( 0.500002, -24 )
 scale = Vector2( 1.5, 0.75 )
 texture = ExtResource( 3 )

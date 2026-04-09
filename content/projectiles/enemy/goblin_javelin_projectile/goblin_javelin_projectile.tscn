@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://projectiles/projectile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/goblin_javelin_projectile/goblin_javelin_projectile.webp" type="Texture" id=2]
 [ext_resource path="res://projectiles/bullet_enemy/enemy_projectile.gd" type="Script" id=3]
+[ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 85.5, 4 )
@@ -11,6 +12,7 @@ extents = Vector2( 85.5, 4 )
 script = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="0"]
+material = ExtResource( 4 )
 position = Vector2( 0, 0 )
 texture = ExtResource( 2 )
 

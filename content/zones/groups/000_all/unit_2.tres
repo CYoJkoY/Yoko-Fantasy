@@ -1,13 +1,13 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://zones/wave_unit_data.gd" type="Script" id=1]
-[ext_resource path="res://entities/units/enemies/looter/looter.tscn" type="PackedScene" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/looting_goblin/looting_goblin.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
 type = 1
 unit_scene = ExtResource( 2 )
-unit_scene_name = "looter.tscn"
+unit_scene_name = "looting_goblin.tscn"
 min_number = 1
 max_number = 1
 spawn_chance = 0.1

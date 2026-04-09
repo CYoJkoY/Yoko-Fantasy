@@ -1,0 +1,594 @@
+[gd_scene load_steps=56 format=2]
+
+[ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/great_demon_lord/great_demon_lord.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/great_demon_lord/red_eyes.webp" type="Texture" id=3]
+[ext_resource path="res://ui/hud/ui_progress_bar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/great_demon_lord/great_demon_lord_stats.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/great_demon_lord/great_demon_lord_body.webp" type="Texture" id=6]
+[ext_resource path="res://entities/units/enemies/boss/boss_state.tscn" type="PackedScene" id=7]
+[ext_resource path="res://entities/units/enemies/attack_behaviors/charging_attack_behavior.gd" type="Script" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/surround_target_shooting_attack_behavior.gd" type="Script" id=9]
+[ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/great_demon_lord_projectile/great_demon_lord_slash_projectile.tscn" type="PackedScene" id=11]
+[ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=12]
+[ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=13]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/great_demon_lord/purple_flames.webp" type="Texture" id=14]
+[ext_resource path="res://entities/units/enemies/attack_behaviors/shoot.tres" type="Animation" id=15]
+[ext_resource path="res://entities/units/enemies/attack_behaviors/shoot_charmed.tres" type="Animation" id=16]
+[ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=17]
+[ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=18]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_02.wav" type="AudioStream" id=19]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_08.wav" type="AudioStream" id=20]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_03.wav" type="AudioStream" id=21]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_02.wav" type="AudioStream" id=22]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_04.wav" type="AudioStream" id=23]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_05.wav" type="AudioStream" id=24]
+[ext_resource path="res://entities/units/unit/dodge_sounds/whoosh_swish_small_harsh_03.wav" type="AudioStream" id=25]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_05.wav" type="AudioStream" id=26]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_03.wav" type="AudioStream" id=27]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=28]
+[ext_resource path="res://entities/units/unit/dodge_sounds/whoosh_swish_small_harsh_02.wav" type="AudioStream" id=29]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_02.wav" type="AudioStream" id=30]
+[ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_01.wav" type="AudioStream" id=31]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_03.wav" type="AudioStream" id=32]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_04.wav" type="AudioStream" id=33]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=34]
+[ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=35]
+[ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=36]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/blaze_shake.gdshader" type="Shader" id=37]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/wind_blow.gdshader" type="Shader" id=38]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/great_demon_lord_projectile/great_demon_lord_crescent_projectile.tscn" type="PackedScene" id=39]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/great_demon_lord_projectile/great_demon_lord_ball_projectile.tscn" type="PackedScene" id=40]
+[ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=41]
+
+[sub_resource type="PhysicsMaterial" id=6]
+friction = 0.0
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 1 )
+shader_param/width = 3.0
+shader_param/alpha = 1.0
+shader_param/desaturation = 0.0
+shader_param/texture_size = Vector2( 0, 0 )
+shader_param/outline_color_0 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_1 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_2 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 12 )
+shader_param/flash_color = Color( 1, 1, 1, 1 )
+shader_param/flash_modifier = 1.0
+
+[sub_resource type="ShaderMaterial" id=16]
+shader = ExtResource( 37 )
+shader_param/intensity = 0.766
+shader_param/speed = 2.234
+shader_param/scale = 10.0
+shader_param/detail = 5.0
+shader_param/flame_color = Color( 1, 0, 0, 1 )
+shader_param/core_color = Color( 0.54902, 0, 1, 1 )
+shader_param/flicker_speed = 10.0
+shader_param/bottom_offset = 0.0
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = ExtResource( 38 )
+shader_param/speed = 3.0
+shader_param/frequency = 2.0
+shader_param/amplitude = 15.372
+
+[sub_resource type="ShaderMaterial" id=18]
+shader = ExtResource( 38 )
+shader_param/speed = 5.072
+shader_param/frequency = 2.0
+shader_param/amplitude = 10.319
+
+[sub_resource type="ViewportTexture" id=15]
+viewport_path = NodePath("Animation/Viewport")
+
+[sub_resource type="CircleShape2D" id=14]
+radius = 80.5047
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 128.098
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 98.0816
+
+[sub_resource type="Animation" id=12]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animation/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Animation/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Animation:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Animation/Sprite:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "death"
+length = 1.05
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Animation/Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 0.297302 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.34902, 0.34902, 0.34902, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Animation/Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 0.34151 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation/Sprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.25, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "stop_burning"
+}, {
+"args": [  ],
+"method": "death_animation_finished"
+} ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "idle"
+loop = true
+step = 0.5
+
+[sub_resource type="Animation" id=19]
+resource_name = "shoot_stand"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "start_shoot"
+}, {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ false ],
+"method": "switch_can_move"
+}, {
+"args": [ true ],
+"method": "switch_can_move"
+} ]
+}
+
+[node name="Boss" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 132
+mode = 2
+mass = 100.0
+physics_material_override = SubResource( 6 )
+custom_integrator = true
+script = ExtResource( 2 )
+outline_material = SubResource( 7 )
+crit_sounds = [ ExtResource( 31 ), ExtResource( 22 ), ExtResource( 27 ), ExtResource( 24 ) ]
+hurt_sounds = [ ExtResource( 36 ), ExtResource( 19 ), ExtResource( 32 ), ExtResource( 23 ), ExtResource( 26 ), ExtResource( 28 ), ExtResource( 34 ), ExtResource( 20 ) ]
+burn_sounds = [ ExtResource( 35 ), ExtResource( 30 ), ExtResource( 21 ), ExtResource( 33 ) ]
+dodge_sounds = [ ExtResource( 29 ), ExtResource( 25 ) ]
+stats = ExtResource( 5 )
+flash_mat = SubResource( 1 )
+enemy_id = "fantasy_great_demon_lord"
+can_be_cursed = false
+can_be_charmed = false
+
+[node name="Animation" type="Node2D" parent="."]
+position = Vector2( 0, -24 )
+
+[node name="Viewport" type="Viewport" parent="Animation"]
+size = Vector2( 360, 360 )
+transparent_bg = true
+hdr = false
+disable_3d = true
+usage = 0
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="Offset" type="Node2D" parent="Animation/Viewport"]
+position = Vector2( 180, 180 )
+
+[node name="Flames" type="Sprite" parent="Animation/Viewport/Offset"]
+material = SubResource( 16 )
+texture = ExtResource( 14 )
+
+[node name="RedEyes" type="Sprite" parent="Animation/Viewport/Offset"]
+material = SubResource( 17 )
+texture = ExtResource( 3 )
+
+[node name="Body" type="Sprite" parent="Animation/Viewport/Offset"]
+material = SubResource( 18 )
+texture = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="Animation"]
+position = Vector2( -1, -67 )
+texture = SubResource( 15 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( -1, 0 )
+shape = SubResource( 14 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 17 )]
+position = Vector2( 0, -16 )
+collision_mask = 1032
+
+[node name="Collision" parent="Hurtbox" index="0"]
+position = Vector2( -1, -31 )
+shape = SubResource( 2 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 13 )]
+collision_layer = 4
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( -1, -16 )
+shape = SubResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/RESET = SubResource( 12 )
+anims/death = SubResource( 13 )
+anims/idle = SubResource( 11 )
+anims/shoot = ExtResource( 15 )
+anims/shoot_charmed = ExtResource( 16 )
+anims/shoot_stand = SubResource( 19 )
+
+[node name="FlashTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="MovementBehavior" type="Node2D" parent="."]
+script = ExtResource( 41 )
+stop_close_to_target = true
+distance_to_target = 200.0
+
+[node name="AttackBehavior" type="Node2D" parent="."]
+script = ExtResource( 8 )
+cooldown = 180.0
+max_cd_randomization = 0
+max_range = 800
+scale_charge_duration_with_range = true
+
+[node name="CrescentShootingAttackBehavior" type="Node2D" parent="."]
+script = ExtResource( 10 )
+projectile_scene = ExtResource( 39 )
+projectile_speed = 750
+damage_increase_each_wave = 1.5
+shoot_in_unit_direction = true
+
+[node name="ProjectileShootingAttackBehavior" type="Node2D" parent="."]
+script = ExtResource( 10 )
+projectile_scene = ExtResource( 40 )
+projectile_speed = 1500
+damage_increase_each_wave = 1.25
+number_projectiles = 3
+projectile_spread = 0.3
+constant_spread = true
+shoot_in_unit_direction = true
+
+[node name="BurningTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="BurningParticles" parent="." instance=ExtResource( 18 )]
+visible = false
+position = Vector2( 0, -24 )
+emitting = false
+
+[node name="States" type="Node2D" parent="."]
+
+[node name="State1" parent="States" instance=ExtResource( 7 )]
+hp_start = 0.75
+timer_start = 20.0
+
+[node name="MovementBehavior" parent="States/State1" index="0"]
+stop_close_to_target = true
+distance_to_target = 200.0
+
+[node name="AttackBehavior" parent="States/State1" index="1"]
+script = ExtResource( 8 )
+cooldown = 120.0
+long_cooldown = 0.0
+max_cd_randomization = 0
+max_range = 800
+charge_duration = 1.0
+charge_speed = 500.0
+target_calculation_timing = 0
+target = 0
+rand_target_size = -1
+only_positions_in_target_direction = false
+scale_charge_duration_with_range = true
+
+[node name="CrescentShootingAttackBehavior1" type="Node2D" parent="States/State1"]
+unique_name_in_owner = true
+script = ExtResource( 9 )
+projectile_scene = ExtResource( 39 )
+projectile_speed = 750
+cooldown = 50.0
+damage_increase_each_wave = 1.5
+number_projectiles = 2
+shoot_in_unit_direction = true
+target_class = 0
+spawn_radius = 50
+spawn_degrees = 0.0
+projectile_direction = 30.0
+direction_change_after_each_proj = 120.0
+pos_base_on_centerx = false
+
+[node name="ProjectileShootingAttackBehavior1" type="Node2D" parent="States/State1"]
+unique_name_in_owner = true
+script = ExtResource( 9 )
+projectile_scene = ExtResource( 40 )
+projectile_speed = 1500
+cooldown = 50.0
+damage_increase_each_wave = 1.25
+number_projectiles = 6
+shoot_in_unit_direction = true
+target_class = 0
+spawn_radius = 50
+spawn_degrees = 60.0
+init_rotation = 15.0
+projectile_direction = 15.0
+direction_change_after_each_proj = 30.0
+pos_base_on_centerx = false
+specific_projectiles = {
+3: [ 50, 105.0, 105.0 ],
+4: [ 50, 135.0, 135.0 ],
+5: [ 50, 165.0, 165.0 ]
+}
+
+[node name="State2" parent="States" instance=ExtResource( 7 )]
+hp_start = 0.5
+timer_start = 40.0
+
+[node name="MovementBehavior" parent="States/State2" index="0"]
+stop_close_to_target = true
+distance_to_target = 200.0
+
+[node name="AttackBehavior" parent="States/State2" index="1"]
+script = ExtResource( 9 )
+projectile_scene = ExtResource( 11 )
+projectile_speed = 500
+cooldown = 180.0
+max_cd_randomization = 0
+damage_increase_each_wave = 1.5
+max_range = 99999
+number_projectiles = 3
+target_class = 0
+towards_player = true
+spawn_radius = 50
+spawn_degrees = 0.0
+init_rotation = 0.0
+projectile_direction = 0.0
+direction_change_after_each_proj = 0.0
+pos_base_on_centerx = false
+pos_base_on_centery = false
+specific_projectiles = {
+1: [ 400, 0.0, 0.0 ],
+2: [ 750, 0.0, 0.0 ]
+}
+
+[node name="CrescentShootingAttackBehavior2" type="Node2D" parent="States/State2"]
+unique_name_in_owner = true
+script = ExtResource( 9 )
+projectile_scene = ExtResource( 39 )
+projectile_speed = 750
+damage_increase_each_wave = 1.5
+number_projectiles = 2
+target_class = 0
+towards_player = true
+spawn_radius = 50
+spawn_degrees = 0.0
+projectile_direction = 345.0
+direction_change_after_each_proj = 30.0
+pos_base_on_centerx = false
+
+[node name="State3" parent="States" instance=ExtResource( 7 )]
+hp_start = 0.25
+timer_start = 60.0
+
+[node name="MovementBehavior" parent="States/State3" index="0"]
+stop_close_to_target = true
+distance_to_target = 200.0
+
+[node name="AttackBehavior" parent="States/State3" index="1"]
+script = ExtResource( 8 )
+long_cooldown = 0.0
+max_cd_randomization = 0
+max_range = 2000
+charge_duration = 0.5
+charge_speed = 800.0
+target_calculation_timing = 0
+target = 0
+rand_target_size = -1
+only_positions_in_target_direction = false
+scale_charge_duration_with_range = false
+
+[node name="ChargingSlashShootingAttackBehavior3" type="Node2D" parent="States/State3"]
+unique_name_in_owner = true
+script = ExtResource( 10 )
+projectile_scene = ExtResource( 11 )
+projectile_speed = 600
+cooldown = 12.0
+max_cd_randomization = 0
+damage_increase_each_wave = 1.5
+max_range = 99999
+number_projectiles = 6
+projectile_spread = 1.1
+projectile_spawn_spread = 500
+projectile_spawn_only_on_borders = true
+constant_spread = true
+
+[node name="HorizontalGlobalShootingAttackBehavior3" type="Node2D" parent="States/State3"]
+unique_name_in_owner = true
+script = ExtResource( 9 )
+projectile_scene = ExtResource( 11 )
+projectile_speed = 0
+damage_increase_each_wave = 1.5
+max_range = 99999
+random_direction = true
+number_projectiles = 8
+pos_base_on_centery = true
+specific_projectiles = {
+0: [ 977, 190.6, 0.0 ],
+1: [ 513, 200.6, 0.0 ],
+2: [ 180, 270.0, 0.0 ],
+3: [ 513, 339.4, 0.0 ],
+4: [ 977, 169.4, 0.0 ],
+5: [ 513, 159.4, 0.0 ],
+6: [ 180, 90.0, 0.0 ],
+7: [ 513, 20.6, 0.0 ]
+}
+
+[node name="VerticalGlobalShootingAttackBehavior3" type="Node2D" parent="States/State3"]
+unique_name_in_owner = true
+script = ExtResource( 9 )
+projectile_scene = ExtResource( 11 )
+projectile_speed = 0
+damage_increase_each_wave = 1.5
+max_range = 99999
+random_direction = true
+number_projectiles = 9
+pos_base_on_centery = true
+specific_projectiles = {
+0: [ 723, 228.4, 90.0 ],
+1: [ 513, 200.6, 90.0 ],
+2: [ 513, 159.4, 90.0 ],
+3: [ 540, 270.0, 90.0 ],
+4: [ 180, 270.0, 90.0 ],
+5: [ 180, 90.0, 90.0 ],
+6: [ 723, 311.6, 90.0 ],
+7: [ 513, 339.4, 90.0 ],
+8: [ 513, 20.6, 90.0 ]
+}
+
+[node name="CheckStateTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true
+
+[node name="LifeBar" parent="." instance=ExtResource( 4 )]
+margin_left = -32.0
+margin_top = -182.0
+margin_right = 32.0
+margin_bottom = -166.0
+nine_patch_stretch = true
+progress_color = Color( 0.721569, 0, 0, 1 )
+
+[node name="EffectBehaviors" type="Node2D" parent="."]
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
+[connection signal="move_unlocked" from="AttackBehavior" to="ProjectileShootingAttackBehavior" method="shoot"]
+[connection signal="started_shooting" from="AttackBehavior" to="CrescentShootingAttackBehavior" method="shoot"]
+[connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]
+[connection signal="move_unlocked" from="States/State3/AttackBehavior" to="." method="choose_random_mutation_3_global_shoot"]
+[connection signal="timeout" from="CheckStateTimer" to="." method="_on_CheckStateTimer_timeout"]
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]
+[editable path="States/State1"]
+[editable path="States/State2"]
+[editable path="States/State3"]
