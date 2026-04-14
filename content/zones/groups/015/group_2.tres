@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource( 1 )
 spawn_chance = 1.0
-spawn_timing = 2
+spawn_timing = 40
 repeating = 999
 repeating_interval = 3
 reduce_repeating_interval = 0

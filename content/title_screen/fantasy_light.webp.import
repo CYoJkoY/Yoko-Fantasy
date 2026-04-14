@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/goblin_tank_projectile_main.webp-36cb6eccc5f3e8c884b91a4656173635.stex"
+path="res://.import/fantasy_light.webp-d7b275556440c602aadf73068bd6435c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/goblin_tank_projectile/goblin_tank_projectile_main.webp"
-dest_files=[ "res://.import/goblin_tank_projectile_main.webp-36cb6eccc5f3e8c884b91a4656173635.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/title_screen/fantasy_light.webp"
+dest_files=[ "res://.import/fantasy_light.webp-d7b275556440c602aadf73068bd6435c.stex" ]
 
 [params]
 

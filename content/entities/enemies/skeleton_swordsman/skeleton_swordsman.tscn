@@ -436,6 +436,7 @@ projectile_speed = 0
 max_cd_randomization = 6
 damage_increase_each_wave = 0.75
 max_range = 200
+attack_anim_speed = 2.0
 spawn_projectiles_on_target = true
 delete_projectile_on_death = true
 

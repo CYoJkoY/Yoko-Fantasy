@@ -528,6 +528,8 @@ projectile_speed = 800
 cooldown = 180.0
 max_cd_randomization = 18
 damage = 2
+max_range = 1000
+attack_anim_speed = 2.0
 base_direction_randomization = 0.4
 
 [node name="BurningTimer" type="Timer" parent="."]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=1]
-[ext_resource path="res://visual_effects/shader_double_color.gdshader" type="Shader" id=2]
+[ext_resource path="res://resources/shaders/shader_outline_double_color.gdshader" type="Shader" id=2]
 [ext_resource path="res://projectiles/bullet_enemy/enemy_projectile.gd" type="Script" id=3]
 [ext_resource path="res://projectiles/slash/sprites/slash_0000.png" type="Texture" id=4]
 [ext_resource path="res://projectiles/slash/sprites/slash_0003.png" type="Texture" id=5]
@@ -13,7 +13,15 @@
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 2 )
-shader_param/color_A = Color( 0.482353, 0.180392, 0.647059, 1 )
+shader_param/width = 3.0
+shader_param/alpha = 1.0
+shader_param/desaturation = 0.0
+shader_param/texture_size = Vector2( 0, 0 )
+shader_param/outline_color_0 = Color( 0, 0, 0, 1 )
+shader_param/outline_color_1 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_2 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
+shader_param/color_A = Color( 0.478431, 0, 1, 1 )
 shader_param/color_B = Color( 1, 1, 1, 1 )
 
 [sub_resource type="RectangleShape2D" id=4]

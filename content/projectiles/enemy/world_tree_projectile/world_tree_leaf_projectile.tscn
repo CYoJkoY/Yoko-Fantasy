@@ -1,9 +1,22 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/world_tree_projectile/world_tree_leaf_projectile.webp" type="Texture" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/enemy_projectile_limit_time.gd" type="Script" id=3]
-[ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=4]
+[ext_resource path="res://resources/shaders/shader_outline_double_color.gdshader" type="Shader" id=4]
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 4 )
+shader_param/width = 3.0
+shader_param/alpha = 1.0
+shader_param/desaturation = 0.0
+shader_param/texture_size = Vector2( 0, 0 )
+shader_param/outline_color_0 = Color( 0, 0, 0, 1 )
+shader_param/outline_color_1 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_2 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
+shader_param/color_A = Color( 0.509804, 0, 0, 1 )
+shader_param/color_B = Color( 1, 1, 1, 1 )
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 17.0294
@@ -42,7 +55,7 @@ lifetime = 5.0
 
 [node name="Sprite" type="Sprite" parent="."]
 unique_name_in_owner = true
-material = ExtResource( 4 )
+material = SubResource( 4 )
 position = Vector2( 0, -30 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, 30 )

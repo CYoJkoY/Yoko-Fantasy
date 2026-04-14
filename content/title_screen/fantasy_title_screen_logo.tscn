@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/titlescreen_fantasy_logo.webp" type="Texture" id=1]
+
+[node name="Logo" type="TextureRect"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -561.0
+margin_right = 561.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 1000, 200 )
+size_flags_horizontal = 4
+texture = ExtResource( 1 )
+stretch_mode = 4

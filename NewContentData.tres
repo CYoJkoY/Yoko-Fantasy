@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=158 format=2]
+[gd_resource type="Resource" load_steps=159 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -157,6 +157,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/elites/slime_king_data.tres" type="Resource" id=155]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy_night.tres" type="Resource" id=156]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/zone_fantasy_data.tres" type="Resource" id=157]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/fantasy_title_screen_data.tres" type="Resource" id=158]
 
 [resource]
 script = ExtResource( 43 )
@@ -177,7 +178,7 @@ upgrades = [ ExtResource( 98 ), ExtResource( 97 ), ExtResource( 99 ), ExtResourc
 sets = [  ]
 difficulties = [  ]
 icons = [ ExtResource( 96 ) ]
-title_screen_backgrounds = [  ]
+title_screen_backgrounds = [ ExtResource( 158 ) ]
 challenges = [  ]
 zones = [ ExtResource( 157 ) ]
 tracked_items = {
