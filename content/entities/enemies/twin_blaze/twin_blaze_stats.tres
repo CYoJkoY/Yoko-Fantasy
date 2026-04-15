@@ -3,7 +3,6 @@
 [ext_resource path="res://entities/units/unit/stats.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/twin_blaze/twin_blaze_icon.webp" type="Texture" id=2]
 
-
 [resource]
 script = ExtResource( 1 )
 icon = ExtResource( 2 )
@@ -20,6 +19,7 @@ gold_spread = 0
 can_drop_consumables = true
 always_drop_consumables = true
 base_drop_chance = 1.0
+legendary_drop_chance = 0.01
 item_drop_chance = 1.0
 min_consumable_tier = 0
 max_consumable_tier = 0

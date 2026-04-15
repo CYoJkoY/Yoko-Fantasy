@@ -25,7 +25,7 @@ FANTASY_UNICORN_RABBIT_BEHAVIOUR_DESCRIPTION,"Chases the character, deals damage
 FANTASY_WOLF_NAME,Wolf,狼
 FANTASY_WOLF_BEHAVIOUR_DESCRIPTION,"Chases the character, dashes toward them every 0.75 seconds","追逐角色, 每0.75秒向角色冲刺"
 FANTASY_FLOWER_SPIRIT_NAME,Flower Spirit,花妖
-FANTASY_FLOWER_SPIRIT_BEHAVIOUR_DESCRIPTION,"Cannot move, fires a laser toward the player every 4 seconds with a 1-second warning","无法移动, 每4秒朝玩家方向发射拥有1秒预警的激光"
+FANTASY_FLOWER_SPIRIT_BEHAVIOUR_DESCRIPTION,"Cannot move, fires a laser toward the player every 3 seconds with a 1-second warning","无法移动, 每3秒朝玩家方向发射拥有1秒预警的激光"
 FANTASY_SNAKE_NAME,Snake,蛇
 FANTASY_SNAKE_BEHAVIOUR_DESCRIPTION,"Winds forward toward the character, dashing toward them every second","蜿蜒前行靠近角色, 每秒向角色冲刺"
 FANTASY_SWIFT_WOLF_NAME,Swift Wolf,疾风狼
@@ -35,13 +35,13 @@ FANTASY_GOBLIN_JAVELIN_THROWER_BEHAVIOUR_DESCRIPTION,"Runs away if the player is
 FANTASY_GOBLIN_PRIEST_NAME,Goblin Priest,哥布林祭司
 FANTASY_GOBLIN_PRIEST_BEHAVIOUR_DESCRIPTION,"Runs away from the character, Heals enemies around it for 50(increasing by 5 each wave), Buffs other enemies' health by 75%, damage by 12%, and speed by 25%.Buffed enemies are outlined in red.","逃离角色, 治疗周围的敌人50生命(每波敌袭增加5), 强化其他敌人生命值75%,伤害12%,速度25%,被强化的敌人会有红色轮廓"
 FANTASY_TREE_SPIRIT_NAME,Tree Spirit,树妖
-FANTASY_TREE_SPIRIT_BEHAVIOUR_DESCRIPTION,"Cannot move, every 4 seconds, fires a winding bullet cluster consisting of 24 bullets toward the player.","无法移动, 每4秒朝玩家方向发射一个由24个子弹构成的蜿蜒子弹群"
+FANTASY_TREE_SPIRIT_BEHAVIOUR_DESCRIPTION,"Cannot move, fires a winding bullet cluster consisting of 24 bullets toward the player.","无法移动, 朝玩家方向发射一个由24个子弹构成的蜿蜒子弹群"
 FANTASY_SKELETON_SWORDSMAN_NAME,Skeleton Swordsman,骷髅剑士
 FANTASY_SKELETON_SWORDSMAN_BEHAVIOUR_DESCRIPTION,"Chases the player, briefly pauses before attacking, and attempts to slash nearby players once per second.","追击玩家, 每秒试图挥砍周围的玩家, 攻击前会短暂静止"
 FANTASY_SKELETON_ARCHER_NAME,Skeleton Archer,骷髅弓手
-FANTASY_SKELETON_ARCHER_BEHAVIOUR_DESCRIPTION,"Chases the player and fires an arrow toward them every 3 seconds. This arrow summons smaller arrows on both perpendicular sides, which automatically disappear after 1.5 seconds.","追击玩家, 每3秒朝玩家发射箭矢, 该箭矢可在两侧垂直方向召唤1.5秒后自动消失的小箭矢"
+FANTASY_SKELETON_ARCHER_BEHAVIOUR_DESCRIPTION,"Chases the player and fires an arrow toward them. This arrow summons smaller arrows on both perpendicular sides, which automatically disappear.","追击玩家, 朝玩家发射箭矢, 该箭矢可在两侧垂直方向召唤自动消失的小箭矢"
 FANTASY_MAPLE_WOLF_NAME,Maple Wolf,枫狼
-FANTASY_MAPLE_WOLF_BEHAVIOUR_DESCRIPTION,"Maintain a certain distance while chasing the player, dash toward any player within range every second, and fire a maple-leaf-shaped bullet cluster consisting of six bullets.","保持一定距离追击玩家, 每秒冲向范围内玩家, 并产生由6个刀光构成的枫叶状刀光群"
+FANTASY_MAPLE_WOLF_BEHAVIOUR_DESCRIPTION,"Maintain a certain distance while chasing the player, dash toward any player within range, and fire a maple-leaf-shaped bullet cluster consisting of six bullets.","保持一定距离追击玩家, 冲向范围内玩家, 并产生由6个刀光构成的枫叶状刀光群"
 FANTASY_VINE_STRANGER_NAME,Vine Stranger,藤蔓怪人
 FANTASY_VINE_STRANGER_BEHAVIOUR_DESCRIPTION,"Cannot move, fires a long stream of bullets at the player.","无法移动, 向玩家发射长串子弹"
 FANTASY_LITTLE_ELF_NAME,Little Elf,小精灵

@@ -31,7 +31,6 @@
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=29]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=30]
 
-
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
 
@@ -287,9 +286,10 @@ script = ExtResource( 9 )
 script = ExtResource( 3 )
 cooldown = 45.0
 max_cd_randomization = 6
-max_range = 350
+max_range = 500
+attack_anim_speed = 1.5
 charge_duration = 0.5
-charge_speed = 600.0
+charge_speed = 350.0
 target = 1
 
 [node name="BurningTimer" type="Timer" parent="."]

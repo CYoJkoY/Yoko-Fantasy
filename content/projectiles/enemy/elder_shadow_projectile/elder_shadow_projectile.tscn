@@ -1,21 +1,38 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://projectiles/bullet_enemy/enemy_projectile.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/elder_shadow_projectile/elder_shadow_projectile.webp" type="Texture" id=3]
+[ext_resource path="res://resources/shaders/shader_outline_double_color.gdshader" type="Shader" id=4]
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 4 )
+shader_param/width = 3.0
+shader_param/alpha = 1.0
+shader_param/desaturation = 0.0
+shader_param/texture_size = Vector2( 0, 0 )
+shader_param/outline_color_0 = Color( 0, 0, 0, 1 )
+shader_param/outline_color_1 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_2 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
+shader_param/color_A = Color( 0, 0, 0, 1 )
+shader_param/color_B = Color( 1, 1, 1, 1 )
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 31.305
 
 [node name="EnemyProjectile" type="Node2D"]
 script = ExtResource( 2 )
+clear_material_when_pooled = false
 
 [node name="Sprite" type="Sprite" parent="."]
 unique_name_in_owner = true
+material = SubResource( 5 )
 texture = ExtResource( 3 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 1 )]
 unique_name_in_owner = true
+visible = false
 collision_layer = 16
 
 [node name="Collision" parent="Hitbox" index="0"]

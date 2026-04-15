@@ -51,6 +51,7 @@ tracks/0/keys = {
 
 [node name="EnemyProjectile" type="Node2D"]
 script = ExtResource( 3 )
+clear_material_when_pooled = false
 lifetime = 5.0
 
 [node name="Sprite" type="Sprite" parent="."]

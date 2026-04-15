@@ -32,7 +32,6 @@
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=30]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=31]
 
-
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
 
@@ -290,8 +289,9 @@ position = Vector2( 0, -78 )
 script = ExtResource( 6 )
 projectile_scene = ExtResource( 7 )
 projectile_speed = 0
-cooldown = 240.0
+cooldown = 180.0
 max_range = 99999
+attack_anim_speed = 1.75
 shoot_away_from_unit = true
 shoot_from_proj_pos_towards_player = true
 random_rotation = 0.3

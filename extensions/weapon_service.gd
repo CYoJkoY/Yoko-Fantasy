@@ -22,7 +22,7 @@ func init_structure_pet_stats(from_stats: RangedWeaponStats, player_index: int, 
 
 # =========================== Custom =========================== #
 func _fantasy_add_crit_damage(crit_damage: float, player_index: int) -> float:
-    crit_damage += Utils.get_stat(Utils.stat_fantasy_crit_damage_hash, player_index)
+    crit_damage += Utils.get_stat(Utils.stat_fantasy_crit_damage_hash, player_index) / 100.0
 
     return crit_damage
 

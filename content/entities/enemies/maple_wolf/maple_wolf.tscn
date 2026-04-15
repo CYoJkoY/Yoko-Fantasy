@@ -35,7 +35,6 @@
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=33]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=34]
 
-
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
 
@@ -291,8 +290,9 @@ range_randomization = 20
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 3 )
 max_cd_randomization = 0
+max_range = 800
+attack_anim_speed = 1.5
 charge_duration = 0.3
-charge_speed = 800.0
 
 [node name="MapleShootAttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 11 )

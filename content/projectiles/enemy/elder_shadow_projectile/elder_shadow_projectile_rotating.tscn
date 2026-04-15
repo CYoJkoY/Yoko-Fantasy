@@ -1,9 +1,23 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://projectiles/bullet_enemy/enemy_projectile_rotating.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/elder_shadow_projectile/elder_shadow_projectile_rotating_001.webp" type="Texture" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/elder_shadow_projectile/elder_shadow_projectile_rotating_000.webp" type="Texture" id=4]
+[ext_resource path="res://resources/shaders/shader_outline_double_color.gdshader" type="Shader" id=5]
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = ExtResource( 5 )
+shader_param/width = 3.0
+shader_param/alpha = 1.0
+shader_param/desaturation = 0.0
+shader_param/texture_size = Vector2( 0, 0 )
+shader_param/outline_color_0 = Color( 0, 0, 0, 1 )
+shader_param/outline_color_1 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_2 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
+shader_param/color_A = Color( 0, 0, 0, 1 )
+shader_param/color_B = Color( 1, 1, 1, 1 )
 
 [sub_resource type="RectangleShape2D" id=4]
 resource_local_to_scene = true
@@ -133,9 +147,11 @@ tracks/3/keys = {
 [node name="EnemyProjectile" type="Node2D"]
 script = ExtResource( 2 )
 destroy_on_leaving_screen = false
+clear_material_when_pooled = false
 
 [node name="Sprite" type="Sprite" parent="."]
 unique_name_in_owner = true
+material = SubResource( 5 )
 position = Vector2( -110, 0 )
 texture = ExtResource( 4 )
 

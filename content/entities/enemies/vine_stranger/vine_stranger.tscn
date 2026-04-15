@@ -32,7 +32,6 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=30]
 [ext_resource path="res://projectiles/pillar_enemy/pillar_projectile.tscn" type="PackedScene" id=31]
 
-
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
 
@@ -298,7 +297,7 @@ long_cooldown_every_x_shoots = 3
 long_cooldown = 180
 damage_increase_each_wave = 1.25
 max_range = 99999
-attack_anim_speed = 2.0
+attack_anim_speed = 1.75
 base_direction_randomization = 0.8
 number_projectiles = 6
 

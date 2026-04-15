@@ -32,7 +32,6 @@
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=30]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=31]
 
-
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
 
@@ -290,9 +289,10 @@ script = ExtResource( 9 )
 projectile_scene = ExtResource( 7 )
 projectile_speed = 300
 speed_change_after_each_projectile = 50
-cooldown = 240.0
+cooldown = 180.0
 max_cd_randomization = 24
 max_range = 99999
+attack_anim_speed = 1.75
 number_projectiles = 16
 projectile_spawn_spread = 150
 projectile_spawn_only_on_borders = true

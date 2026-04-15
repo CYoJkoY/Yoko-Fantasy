@@ -1,10 +1,10 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/elder_shadow/elder_shadow.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/great_demon_lord/great_demon_lord.tscn" type="PackedScene" id=1]
 [ext_resource path="res://entities/units/enemies/enemy_data.gd" type="Script" id=2]
 
 [resource]
 script = ExtResource( 2 )
-my_id = "elite_fantasy_elder_shadow"
+my_id = "boss_fantasy_great_demon_lord"
 zone_id = 2
 scene = ExtResource( 1 )

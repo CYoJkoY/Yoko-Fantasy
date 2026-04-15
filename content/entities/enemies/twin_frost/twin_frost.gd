@@ -12,7 +12,7 @@ func shoot() -> void:
     .shoot()
     if _current_state != 0: return
 
-    for i in range(3): _mage_circle_attack_behavior.shoot()
+    for _i in range(3): _mage_circle_attack_behavior.shoot()
 
 # =========================== Method =========================== #
 func fa_change_state(boss: Boss) -> void:

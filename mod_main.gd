@@ -80,7 +80,13 @@ func _init() -> void:
         #          upgrade_specific_tier_weapons[ 2/2 ]
 
         "turret.gd",
-        # EFFECTS: turret_can_pursue_target
+        # EFFECTS: turret_can_pursue_target[ 1/3 ]
+
+        "garden.gd",
+        # EFFECTS: turret_can_pursue_target[ 2/3 ]
+
+        "wandering_bot.gd",
+        # EFFECTS: turret_can_pursue_target[ 3/3 ]
 
         "ingame_main_menu.gd",
         # Job System[ 5/6 ]

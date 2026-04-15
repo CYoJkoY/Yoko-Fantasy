@@ -31,7 +31,6 @@
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=29]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=30]
 
-
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
 
@@ -294,7 +293,7 @@ max_cd_randomization = 1
 long_cooldown_every_x_shoots = 5
 long_cooldown = 120
 damage_increase_each_wave = 0.5
-max_range = 300
+max_range = 600
 attack_anim_speed = 2.0
 random_rotation = 0.8
 

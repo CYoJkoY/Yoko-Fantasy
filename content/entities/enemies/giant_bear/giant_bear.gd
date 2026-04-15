@@ -12,8 +12,6 @@ func respawn() -> void:
     .respawn()
     current_projectiles_cooldown = 0.0
 
-    _charging_shoot_attack_behavior.reset()
-
 func _ready() -> void:
     _charging_shoot_attack_behavior.init(self )
     
