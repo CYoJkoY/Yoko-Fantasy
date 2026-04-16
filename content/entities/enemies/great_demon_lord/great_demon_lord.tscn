@@ -413,8 +413,8 @@ shoot_in_unit_direction = true
 target_class = 0
 spawn_radius = 50
 spawn_degrees = 0.0
-projectile_direction = 30.0
-direction_change_after_each_proj = 120.0
+projectile_direction = 0.52
+direction_change_after_each_proj = 2.09
 pos_base_on_centerx = false
 
 [node name="ProjectileShootingAttackBehavior1" type="Node2D" parent="States/State1"]
@@ -428,15 +428,15 @@ number_projectiles = 6
 shoot_in_unit_direction = true
 target_class = 0
 spawn_radius = 50
-spawn_degrees = 60.0
-init_rotation = 15.0
-projectile_direction = 15.0
-direction_change_after_each_proj = 30.0
+spawn_degrees = 1.05
+init_rotation = 0.26
+projectile_direction = 0.26
+direction_change_after_each_proj = 0.52
 pos_base_on_centerx = false
 specific_projectiles = {
-3: [ 50, 105.0, 105.0 ],
-4: [ 50, 135.0, 135.0 ],
-5: [ 50, 165.0, 165.0 ]
+3: [ 50, 1.83, 1.83 ],
+4: [ 50, 2.36, 2.36 ],
+5: [ 50, 2.88, 2.88 ]
 }
 
 [node name="State2" parent="States" instance=ExtResource( 7 )]
@@ -481,8 +481,8 @@ target_class = 0
 towards_player = true
 spawn_radius = 50
 spawn_degrees = 0.0
-projectile_direction = 345.0
-direction_change_after_each_proj = 30.0
+projectile_direction = 6.02
+direction_change_after_each_proj = 0.52
 pos_base_on_centerx = false
 
 [node name="State3" parent="States" instance=ExtResource( 7 )]
@@ -532,14 +532,14 @@ random_direction = true
 number_projectiles = 8
 pos_base_on_centery = true
 specific_projectiles = {
-0: [ 977, 190.6, 0.0 ],
-1: [ 513, 200.6, 0.0 ],
-2: [ 180, 270.0, 0.0 ],
-3: [ 513, 339.4, 0.0 ],
-4: [ 977, 169.4, 0.0 ],
-5: [ 513, 159.4, 0.0 ],
-6: [ 180, 90.0, 0.0 ],
-7: [ 513, 20.6, 0.0 ]
+0: [ 977, 3.33, 0.0 ],
+1: [ 513, 3.50, 0.0 ],
+2: [ 180, 4.71, 0.0 ],
+3: [ 513, 5.92, 0.0 ],
+4: [ 977, 2.96, 0.0 ],
+5: [ 513, 2.78, 0.0 ],
+6: [ 180, 1.57, 0.0 ],
+7: [ 513, 0.36, 0.0 ]
 }
 
 [node name="VerticalGlobalShootingAttackBehavior3" type="Node2D" parent="States/State3"]
@@ -553,15 +553,15 @@ random_direction = true
 number_projectiles = 9
 pos_base_on_centery = true
 specific_projectiles = {
-0: [ 723, 228.4, 90.0 ],
-1: [ 513, 200.6, 90.0 ],
-2: [ 513, 159.4, 90.0 ],
-3: [ 540, 270.0, 90.0 ],
-4: [ 180, 270.0, 90.0 ],
-5: [ 180, 90.0, 90.0 ],
-6: [ 723, 311.6, 90.0 ],
-7: [ 513, 339.4, 90.0 ],
-8: [ 513, 20.6, 90.0 ]
+0: [ 723, 3.99, 1.57 ],
+1: [ 513, 3.50, 1.57 ],
+2: [ 513, 2.78, 1.57 ],
+3: [ 540, 4.71, 1.57 ],
+4: [ 180, 4.71, 1.57 ],
+5: [ 180, 1.57, 1.57 ],
+6: [ 723, 5.44, 1.57 ],
+7: [ 513, 5.92, 1.57 ],
+8: [ 513, 0.36, 1.57 ]
 }
 
 [node name="CheckStateTimer" type="Timer" parent="."]

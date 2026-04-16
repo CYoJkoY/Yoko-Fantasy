@@ -1,8 +1,8 @@
 extends ShootingAttackBehavior
 
 export(int) var projectiles_per_time = 6
-export(float) var angle_min = 0.0
-export(float) var angle_range = 24.0
+export(float, 0.0, 6.28, 0.01) var angle_min = 0.0
+export(float, 0.0, 6.28, 0.01) var angle_range = 0.42
 export(float) var wave_speed = 1.5
 export(float) var wave_range = 120.0
 export(float) var air_resistance = 0.2
@@ -20,10 +20,6 @@ var _time_passed: float = 0.0
 var active_projectiles: Array = []
 
 # =========================== Extension =========================== #
-func _ready() -> void:
-    angle_min = deg2rad(angle_min)
-    angle_range = deg2rad(angle_range)
-
 func reset() -> void:
     _time_passed = 0.0
     active_projectiles.clear()

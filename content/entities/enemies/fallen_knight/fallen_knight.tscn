@@ -313,19 +313,19 @@ number_projectiles = 15
 target_class = 0
 towards_player = true
 spawn_radius = 0
-spawn_degrees = 120
-init_rotation = 300
-projectile_direction = 300
-direction_change_after_each_proj = 15
+spawn_degrees = 2.09
+init_rotation = 5.24
+projectile_direction = 5.24
+direction_change_after_each_proj = 0.26
 pos_base_on_centerx = false
 specific_projectiles = {
-8: [ 200, 308, 308 ],
-9: [ 200, 323, 323 ],
-10: [ 200, 338, 338 ],
-11: [ 200, 353, 353 ],
-12: [ 200, 368, 368 ],
-13: [ 200, 383, 383 ],
-14: [ 200, 398, 398 ]
+8: [ 200, 5.38, 5.38 ],
+9: [ 200, 5.64, 5.64 ],
+10: [ 200, 5.90, 5.90 ],
+11: [ 200, 6.16, 6.16 ],
+12: [ 200, 6.42, 6.42 ],
+13: [ 200, 0.40, 0.40 ],
+14: [ 200, 0.66, 0.66 ]
 }
 
 [node name="BurningTimer" type="Timer" parent="."]

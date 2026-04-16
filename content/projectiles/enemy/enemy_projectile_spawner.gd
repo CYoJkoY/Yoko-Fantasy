@@ -65,4 +65,9 @@ func spawn_perpendicular_projectiles(index: int) -> void:
     new_projectile.velocity = child_velocity
 
     new_projectile.set_damage(get_damage() * power)
+
+    if _hitbox.collision_layer == Utils.PET_PROJECTILES_BIT:
+        new_projectile.set_collision_layer(_hitbox.collision_layer)
+        new_projectile.set_sprite_material(_sprite.material)
+    
     new_projectile.shoot()

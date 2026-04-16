@@ -90,7 +90,7 @@ tracks/2/keys = {
 script = ExtResource( 3 )
 clear_material_when_pooled = false
 max_distance = 100
-reset_alpa = true
+reset_alpha_on_stop = true
 
 [node name="Sprite" type="Sprite" parent="."]
 unique_name_in_owner = true

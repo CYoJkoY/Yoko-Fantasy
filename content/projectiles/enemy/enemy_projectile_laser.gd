@@ -3,27 +3,29 @@ extends EnemyProjectile
 var min_range: int = 0
 var max_range: int = 0
 
-onready var end_container = $EndContainer
-onready var start_container = $StartContainer
-onready var contents = $Contents
-onready var Line = $Line
-onready var _line = $Line/line
+onready var end_container = $"%EndContainer"
+onready var start_container = $"%StartContainer"
+onready var contents = $"%Contents"
+onready var content_sprite = $"%Contents/Content"
+onready var line = $"%Line"
+onready var line_sprite = $"%Line/line"
 
 # =========================== Extension =========================== #
 func shoot() -> void:
     .shoot()
-    
-    if !contents: return
+
+    # Avoid null
+    if !is_instance_valid(contents): return
 
     _animation_player.playback_speed = 2
-    var sprite_w = _sprite.texture.get_width()
+    var sprite_w = content_sprite.texture.get_width()
     var base_scale_x = max(1.0, float(max_range) / float(sprite_w))
     var hitbox_scale_x = max(1.0, (max_range + sprite_w * 2.0) / sprite_w)
-    
-    _line.scale.x = base_scale_x
-    Line.position.x = sprite_w
-    
-    _sprite.scale.x = base_scale_x
+
+    line_sprite.scale.x = base_scale_x
+    line.position.x = sprite_w
+
+    content_sprite.scale.x = base_scale_x
     _hitbox.scale.x = hitbox_scale_x
     _hitbox.position.x = - sprite_w
     end_container.position.x = max_range + sprite_w

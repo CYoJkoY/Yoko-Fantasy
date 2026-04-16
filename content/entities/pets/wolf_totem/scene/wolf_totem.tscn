@@ -56,7 +56,7 @@ shader_param/flash_modifier = 1.0
 viewport_path = NodePath("Animation/Viewport")
 
 [sub_resource type="CircleShape2D" id=11]
-radius = 77.0
+radius = 108.042
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -355,7 +355,7 @@ texture = SubResource( 9 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2( 0, 34 )
+position = Vector2( 0, 2 )
 shape = SubResource( 11 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]

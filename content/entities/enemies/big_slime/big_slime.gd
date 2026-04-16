@@ -14,8 +14,6 @@ func respawn() -> void:
     current_projectiles_cooldown_0 = 0.0
     current_slime_trail_cooldown_1 = 0.0
 
-    _shoot_projectiles_behavior.reset()
-
 func _ready() -> void:
     _shoot_projectiles_behavior.init(self )
     _slime_trail_attack_behavior.init(self )

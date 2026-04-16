@@ -5,10 +5,10 @@ enum TargetClass {SELF, PLAYER, RANDOM}
 export(TargetClass) var target_class = TargetClass.PLAYER
 export(bool) var towards_player = false
 export(int) var spawn_radius = 1100
-export(float) var spawn_degrees = 360.0
-export(float) var init_rotation = 0.0
-export(float) var projectile_direction = 180.0
-export(float) var direction_change_after_each_proj = 60.0
+export(float, 0.0, 6.28, 0.01) var spawn_degrees = 6.28
+export(float, 0.0, 6.28, 0.01) var init_rotation = 0.0
+export(float, 0.0, 6.28, 0.01) var projectile_direction = 3.14
+export(float, 0.0, 6.28, 0.01) var direction_change_after_each_proj = 1.05
 export(bool) var pos_base_on_centerx = true
 export(bool) var pos_base_on_centery = false
 export(Dictionary) var specific_projectiles = {}
@@ -22,14 +22,8 @@ var true_number_projectiles: int = 0
 # =========================== Extension =========================== #
 func _ready() -> void:
     main = Utils.get_scene_node()
-    spawn_degrees = deg2rad(spawn_degrees)
-    init_rotation = deg2rad(init_rotation)
-    projectile_direction = deg2rad(projectile_direction)
-    direction_change_after_each_proj = deg2rad(direction_change_after_each_proj)
     true_number_projectiles = number_projectiles - specific_projectiles.size()
-    for specific_projectile in specific_projectiles.values():
-        specific_projectile[1] = deg2rad(specific_projectile[1])
-        specific_projectile[2] = deg2rad(specific_projectile[2])
+    
 
 func shoot() -> void:
     var target_pos: Vector2
