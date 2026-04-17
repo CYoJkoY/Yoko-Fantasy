@@ -8,11 +8,11 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/laser_shoot_enemy_projectile/laser_shoot_enemy_projectile_line.webp" type="Texture" id=6]
 [ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=7]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 11.5 )
-
 [sub_resource type="ViewportTexture" id=4]
 viewport_path = NodePath("Viewport")
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 50, 11.5 )
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -75,10 +75,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 1, 1.3, 1.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 1.3, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 0 ), Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
+"values": [ Vector2( 1, 0 ), Vector2( 1, 1e-05 ), Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -107,10 +107,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 1, 1.3, 1.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 1.3, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 0 ), Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
+"values": [ Vector2( 1, 0 ), Vector2( 1, 1e-05 ), Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Viewport/Offset/StartContainer:scale")
@@ -119,10 +119,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 1, 1.3, 1.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 1.3, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 0 ), Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
+"values": [ Vector2( 1, 0 ), Vector2( 1, 1e-05 ), Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Viewport/Offset/Line/line:visible")
@@ -142,7 +142,7 @@ script = ExtResource( 2 )
 destroy_on_leaving_screen = false
 
 [node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 2400, 60 )
+size = Vector2( 4800, 60 )
 transparent_bg = true
 handle_input_locally = false
 hdr = false
@@ -152,7 +152,7 @@ render_target_v_flip = true
 render_target_update_mode = 3
 
 [node name="Offset" type="Node2D" parent="Viewport"]
-position = Vector2( 1200, 30 )
+position = Vector2( 2400, 30 )
 
 [node name="StartContainer" type="Node2D" parent="Viewport/Offset"]
 unique_name_in_owner = true
@@ -180,14 +180,6 @@ position = Vector2( 0, -16 )
 texture = ExtResource( 5 )
 centered = false
 
-[node name="Hitbox" parent="Viewport/Offset/Contents" instance=ExtResource( 1 )]
-unique_name_in_owner = true
-collision_layer = 16
-
-[node name="Collision" parent="Viewport/Offset/Contents/Hitbox" index="0"]
-position = Vector2( 50, 0.5 )
-shape = SubResource( 1 )
-
 [node name="Line" type="Node2D" parent="Viewport/Offset"]
 unique_name_in_owner = true
 
@@ -201,10 +193,18 @@ unique_name_in_owner = true
 material = ExtResource( 7 )
 texture = SubResource( 4 )
 
+[node name="Hitbox" parent="." instance=ExtResource( 1 )]
+unique_name_in_owner = true
+collision_layer = 16
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 50, 0.5 )
+shape = SubResource( 1 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 autoplay = "fire"
 anims/RESET = SubResource( 2 )
 anims/fire = SubResource( 3 )
 
-[editable path="Viewport/Offset/Contents/Hitbox"]
+[editable path="Hitbox"]

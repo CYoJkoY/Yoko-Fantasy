@@ -23,13 +23,13 @@ func shoot() -> void:
     var hitbox_scale_x = max(1.0, (max_range + sprite_w * 2.0) / sprite_w)
 
     line_sprite.scale.x = base_scale_x
-    line.position.x = sprite_w
-
     content_sprite.scale.x = base_scale_x
     _hitbox.scale.x = hitbox_scale_x
-    _hitbox.position.x = - sprite_w
+
     end_container.position.x = max_range + sprite_w
+    line.position.x = sprite_w
     contents.position.x = sprite_w
+    _hitbox.position.x = - sprite_w
     start_container.position.x = 0
 
 func set_range(p_min_range: int, p_max_range: int) -> void:

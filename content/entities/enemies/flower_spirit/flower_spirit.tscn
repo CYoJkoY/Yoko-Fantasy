@@ -285,14 +285,12 @@ wait_time = 0.1
 script = ExtResource( 10 )
 
 [node name="AttackBehavior" type="Node2D" parent="."]
-position = Vector2( 0, -78 )
 script = ExtResource( 6 )
 projectile_scene = ExtResource( 7 )
 projectile_speed = 0
 cooldown = 180.0
 max_range = 99999
 attack_anim_speed = 1.75
-shoot_away_from_unit = true
 shoot_from_proj_pos_towards_player = true
 random_rotation = 0.3
 delete_projectile_on_death = true

@@ -14,6 +14,18 @@ func init_structure_stats(from_stats: RangedWeaponStats, player_index: int, args
 
     return structure_stats
 
+func init_melee_pet_stats(from_stats: MeleeWeaponStats, player_index: int, args := WeaponServiceInitStatsArgs.new()) -> MeleeWeaponStats:
+    var melee_pet_stats: MeleeWeaponStats =.init_melee_pet_stats(from_stats, player_index, args)
+    melee_pet_stats.cooldown = apply_attack_speed_mod_to_cooldown(melee_pet_stats.cooldown, Utils.get_stat(Utils.stat_fantasy_pet_attack_speed_hash, player_index))
+
+    return melee_pet_stats
+
+func init_ranged_pet_stats(from_stats: RangedWeaponStats, player_index: int, is_special_spawn := false, args := WeaponServiceInitStatsArgs.new()) -> RangedWeaponStats:
+    var ranged_pet_stats: RangedWeaponStats =.init_ranged_pet_stats(from_stats, player_index, is_special_spawn, args)
+    ranged_pet_stats.cooldown = apply_attack_speed_mod_to_cooldown(ranged_pet_stats.cooldown, Utils.get_stat(Utils.stat_fantasy_pet_attack_speed_hash, player_index))
+
+    return ranged_pet_stats
+
 func init_structure_pet_stats(from_stats: RangedWeaponStats, player_index: int, args := WeaponServiceInitStatsArgs.new()) -> RangedWeaponStats:
     var structure_pet_stats: RangedWeaponStats =.init_structure_pet_stats(from_stats, player_index, args)
     structure_pet_stats.scaling_stats = _fantasy_apply_structure_scaling_stat_effects(structure_pet_stats.scaling_stats, player_index)

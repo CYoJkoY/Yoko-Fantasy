@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/follow_melee_pet.gd" type="Script" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=28]
 [ext_resource path="res://entities/units/target_behavior/closest_enemy_target_behavior.gd" type="Script" id=29]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/x_flow.gdshader" type="Shader" id=30]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/scene/magic_sword_shadow.webp" type="Texture" id=31]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -60,7 +61,7 @@ shader_param/speed = 5.0
 viewport_path = NodePath("Animation/Viewport")
 
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 52, 16.5 )
+extents = Vector2( 109.5, 34 )
 
 [sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 65, 19.5 )
@@ -104,7 +105,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation:rotation_degrees")
+tracks/3/path = NodePath("Animation:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -113,10 +114,10 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ Vector2( 0, 0 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation:position")
+tracks/4/path = NodePath("Animation/Viewport/Offset/Shadow:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -124,20 +125,8 @@ tracks/4/enabled = true
 tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath(".:scale")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -242,6 +231,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 0.0, 45.0, 0.0, 360.0 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Animation/Viewport/Offset/Shadow:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="CircleShape2D" id=11]
 
@@ -263,9 +264,10 @@ curse_particles = ExtResource( 8 )
 damage_tracking_id = "item_fantasy_magic_sword"
 
 [node name="Animation" type="Node2D" parent="."]
+rotation = 6.28319
 
 [node name="Viewport" type="Viewport" parent="Animation"]
-size = Vector2( 150, 150 )
+size = Vector2( 300, 300 )
 transparent_bg = true
 hdr = false
 disable_3d = true
@@ -274,24 +276,31 @@ render_target_v_flip = true
 render_target_update_mode = 3
 
 [node name="Offset" type="Node2D" parent="Animation/Viewport"]
-position = Vector2( 75, 75 )
+position = Vector2( 150, 150 )
 
 [node name="Body" type="Sprite" parent="Animation/Viewport/Offset"]
 material = SubResource( 14 )
+position = Vector2( -70, 0 )
 texture = ExtResource( 3 )
 
+[node name="Shadow" type="Sprite" parent="Animation/Viewport/Offset"]
+visible = false
+position = Vector2( -6.294, 0 )
+texture = ExtResource( 31 )
+
 [node name="Sprite" type="Sprite" parent="Animation"]
-position = Vector2( 38, 0 )
+position = Vector2( 109, 0 )
 texture = SubResource( 13 )
 
 [node name="Hitbox" type="Area2D" parent="Animation"]
-position = Vector2( 38, 0 )
+visible = false
+position = Vector2( -31, 0 )
 collision_layer = 1024
 collision_mask = 0
 script = ExtResource( 6 )
 
 [node name="Collision" type="CollisionShape2D" parent="Animation/Hitbox"]
-position = Vector2( 13, -1.5 )
+position = Vector2( 157.5, 0 )
 shape = SubResource( 12 )
 disabled = true
 

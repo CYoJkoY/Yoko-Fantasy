@@ -1,5 +1,6 @@
 extends Pet
 
+export(int) var max_num: int = 8
 export(String) var damage_tracking_id
 var _damage_tracking_id_hash: int = Keys.empty_hash
 
@@ -53,29 +54,27 @@ func _physics_process(delta) -> void:
 func shoot() -> void:
     _is_shooting = true
     var enemies: Array = entity_spawner.get_all_enemies(false)
-    var bosses: Array = entity_spawner.bosses
-    var max_hp: int = 0
-    var best_enemy: Enemy = null
     var crit_chance: float = _current_weapon_stats.crit_chance
     var crit_damage: float = _current_weapon_stats.crit_damage
     var damage: int = int(_current_weapon_stats.damage * crit_damage) if Utils.get_chance_success(crit_chance) else _current_weapon_stats.damage
 
     if enemies.empty(): return
 
-    if !bosses.empty(): enemies = bosses
+    enemies.sort_custom(self , "fa_sort_by_health_desc")
 
-    for enemy in enemies:
-        var hp: int = enemy.current_stats.health
-        if hp <= max_hp: continue
-        
-        max_hp = hp
-        best_enemy = enemy
+    var processed_count = 0
+    for i in range(min(max_num, enemies.size())):
+        var enemy = enemies[i]
 
-    if !best_enemy or best_enemy.dead: return
+        if !is_instance_valid(enemy) or enemy.dead: continue
 
-    if !best_enemy.is_connected("died", self , "fa_on_wolf_totem_killed_best_enemy"):
-        best_enemy.connect("died", self , "fa_on_wolf_totem_killed_best_enemy", [entity_spawner], CONNECT_ONESHOT)
-    best_enemy.take_damage(damage, wolf_totem_args)
+        if !enemy.is_connected("died", self , "fa_on_wolf_totem_killed_best_enemy"):
+            enemy.connect("died", self , "fa_on_wolf_totem_killed_best_enemy", [entity_spawner], CONNECT_ONESHOT)
+
+        enemy.take_damage(damage, wolf_totem_args)
+        processed_count += 1
+
+        if processed_count >= max_num: break
 
 # =========================== Method =========================== #
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
@@ -86,3 +85,6 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 
 func fa_on_wolf_totem_killed_best_enemy(_entity: Entity, _die_args: Entity.DieArgs, entity_spawner: EntitySpawner) -> void:
     entity_spawner.on_weapon_wanted_to_reset_turrets_cooldown()
+
+func fa_sort_by_health_desc(enemy_1: Enemy, enemy_2: Enemy) -> bool:
+    return enemy_1.current_stats.health > enemy_2.current_stats.health

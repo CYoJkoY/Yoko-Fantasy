@@ -22,6 +22,7 @@ func _init() -> void:
 
         "main.gd",
         # Job System[ 1/6 ]
+        # ENEMIES: World Tree
         # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ],
         #          decaying_slow_enemy_when_below_hp[ 1/2 ]
         #          slow_cursed_enemy,

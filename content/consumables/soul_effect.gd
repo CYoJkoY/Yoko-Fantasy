@@ -2,6 +2,7 @@ extends NullEffect
 
 var damage_to_add: int = 0
 var speed_to_add: int = 0
+var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
 func apply(player_index: int) -> void:

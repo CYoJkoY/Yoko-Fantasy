@@ -14,6 +14,10 @@ func on_upgrade_selected(upgrade_data: UpgradeData, upgrade: UpgradesUI.UpgradeT
     .on_upgrade_selected(upgrade_data, upgrade)
     _fantasy_add_job(upgrade_data, upgrade.player_index)
 
+func _on_EntitySpawner_players_spawned(players: Array) -> void:
+    ._on_EntitySpawner_players_spawned(players)
+    _fantasy_teleport_if_world_tree_enemy(players)
+
 func _on_EntitySpawner_enemy_spawned(enemy: Enemy) -> void:
     ._on_EntitySpawner_enemy_spawned(enemy)
     _fantasy_twin_connect(enemy)
@@ -148,6 +152,22 @@ func _fantasy_queue_job_upgrades() -> void:
         )
 
         if need_add_job: fa_push_job_upgrade_to_queue(player_index)
+
+func _fantasy_teleport_if_world_tree_enemy(players: Array) -> void:
+    for group_data in _wave_manager.current_wave_data.groups_data:
+        for enemy in group_data.wave_units_data:
+            if enemy.unit_scene_name != "world_tree.tscn": continue
+
+            var base_pos: Vector2 = ZoneService.get_rand_pos(200)
+            var player_count: int = players.size()
+            for player_index in range(player_count):
+                if player_count > 1:
+                    players[player_index].global_position = Vector2(
+                        base_pos.x - 100 + (player_index % 2) * 100,
+                        base_pos.y + ((player_index / 2) % 2) * 100
+                    )
+                else:
+                    players[player_index].global_position = base_pos
 
 # =========================== Method =========================== #
 func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracking_key_hash: int):
