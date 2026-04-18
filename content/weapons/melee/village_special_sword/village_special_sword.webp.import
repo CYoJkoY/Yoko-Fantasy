@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/holy_battle_axe.png-347e0f8bd67d57b67a52bd2e837b9e31.stex"
+path="res://.import/village_special_sword.webp-f6b2310a15c791e73ac7806ded42f59e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/holy_battle_axe/holy_battle_axe.png"
-dest_files=[ "res://.import/holy_battle_axe.png-347e0f8bd67d57b67a52bd2e837b9e31.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/village_special_sword.webp"
+dest_files=[ "res://.import/village_special_sword.webp-f6b2310a15c791e73ac7806ded42f59e.stex" ]
 
 [params]
 

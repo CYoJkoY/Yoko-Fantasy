@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sleeve_arrow_empty.webp-7773dcdb3ffb9cee3b4b873e93a43396.stex"
+path="res://.import/hero_sword.webp-71771aa9e777083701a1a08de77fcd05.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/sleeve_arrow/sleeve_arrow_empty.webp"
-dest_files=[ "res://.import/sleeve_arrow_empty.webp-7773dcdb3ffb9cee3b4b873e93a43396.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/hero_sword/hero_sword.webp"
+dest_files=[ "res://.import/hero_sword.webp-71771aa9e777083701a1a08de77fcd05.stex" ]
 
 [params]
 

@@ -220,7 +220,7 @@ EFFECT_FANTASY_DECAYING_SLOW_ENEMY_WHEN_BELOW_HP,"Slows enemies by {2} for {1} s
 ITEM_FANTASY_SILVER_POCKET_WATCH,Silver Pocket Watch,银怀表
 ITEM_FANTASY_WOLF_TOTEM,Wolf Totem,狼图腾
 FANTASY_WOLF_TOTEM_NAME,Wolf God,狼神
-EFFECT_FANTASY_PET_WOLF_TOTEM,"Summons a Wolf God to deal {2} ({3}) damage to the healthiest enemy every {0}s. Killing an enemy resets all structures' cooldowns","召唤狼神跟随玩家, 每{0}秒对场上生命值最高的敌人造成造成{2}({3})伤害, 杀死敌人时, 立即重置所有构筑物的冷却时间"
+EFFECT_FANTASY_PET_WOLF_TOTEM,"Summons a Wolf God to deal {2} ({3}) damage to the healthiest enemy every {0}s. Killing an enemy resets all pets' cooldowns (including Wolf God)","召唤狼神跟随玩家, 每{0}秒对场上生命值最高的敌人造成造成{2}({3})伤害, 杀死敌人时, 立即重置所有宠物的冷却时间(包括狼神)"
 FANTASY_TACTICAL_GLOBAL_PET_BEHAVIOUR_DESCRIPTION,"Follows player. Deals damage to the healthiest enemy on the screen every {0}s. Killing an enemy resets the cooldown of all structures
 
 This pet scales with player :
@@ -450,3 +450,4 @@ Stays at the center of the map. Gears that move upward in a winding pattern now 
 异变3 (25%生命 / 60秒):
 停留在地图中心,地图下方会有向上移动的蜿蜒运动的齿轮弹幕,现在无视距离只恢复大恶魔领主的生命"
 KEYART_FANTASY,Fantasy,幻界
+WEAPON_FANTASY_VILLAGE_SPECIAL_SWORD,Village Special Sword,村好剑

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wind_bow.png-41c06b17a42812932478aaab41d3c348.stex"
+path="res://.import/village_special_sword_icon.webp-f18dc71d96c188c05f8a30b478181b98.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/wind_bow/wind_bow.png"
-dest_files=[ "res://.import/wind_bow.png-41c06b17a42812932478aaab41d3c348.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/village_special_sword_icon.webp"
+dest_files=[ "res://.import/village_special_sword_icon.webp-f18dc71d96c188c05f8a30b478181b98.stex" ]
 
 [params]
 

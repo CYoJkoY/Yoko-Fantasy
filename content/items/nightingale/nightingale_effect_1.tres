@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "structure_range"
+key = "fantasy_pet_attack_speed"
 text_key = ""
 value = 10
 custom_key = ""
