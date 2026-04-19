@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://effects/items/double_value_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "stat_attack_speed"
+text_key = "EFFECT_FANTASY_LIMITED_ITEM_BONUSES"
+value = 5
+custom_key = "fantasy_limited_item_bonuses"
+storage_method = 1
+effect_sign = 3
+custom_args = [  ]
+value2 = 1
+sum_strategy = 0

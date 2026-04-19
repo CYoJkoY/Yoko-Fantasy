@@ -1,0 +1,45 @@
+[gd_resource type="Resource" load_steps=20 format=2]
+
+[ext_resource path="res://items/characters/character_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/thief/thief_icon.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/thief/thief_appearance.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/thief/thief_effect_0.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/thief/thief_effect_1.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/thief/thief_effect_2.tres" type="Resource" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/thief/thief_effect_3.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/thief/thief_effect_4.tres" type="Resource" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/thief/thief_effect_5.tres" type="Resource" id=9]
+[ext_resource path="res://weapons/melee/dagger/1/dagger_data.tres" type="Resource" id=10]
+[ext_resource path="res://weapons/melee/hand/1/hand_data.tres" type="Resource" id=11]
+[ext_resource path="res://weapons/melee/stick/1/stick_data.tres" type="Resource" id=12]
+[ext_resource path="res://weapons/melee/fist/1/fist_data.tres" type="Resource" id=13]
+[ext_resource path="res://weapons/melee/spear/1/spear_data.tres" type="Resource" id=14]
+[ext_resource path="res://weapons/ranged/pistol/1/pistol_data.tres" type="Resource" id=15]
+[ext_resource path="res://weapons/ranged/smg/1/smg_data.tres" type="Resource" id=16]
+[ext_resource path="res://weapons/ranged/taser/1/taser_data.tres" type="Resource" id=17]
+[ext_resource path="res://weapons/ranged/crossbow/1/crossbow_data.tres" type="Resource" id=18]
+[ext_resource path="res://weapons/ranged/wand/1/wand_data.tres" type="Resource" id=19]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "character_fantasy_thief"
+unlocked_by_default = true
+can_be_looted = true
+icon = ExtResource( 2 )
+name = "CHARACTER_FANTASY_THIEF"
+tier = 0
+value = 1
+effects = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+max_nb = -1
+item_appearances = [ ExtResource( 3 ) ]
+tags = [  ]
+wanted_tags = [  ]
+banned_item_groups = [  ]
+banned_items = [  ]
+starting_weapons = [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ) ]
+starting_items = [  ]

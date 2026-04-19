@@ -6,7 +6,6 @@ var job_fantasy_engineering_hash: int = Keys.generate_hash("job_fantasy_engineer
 var job_fantasy_melee_hash: int = Keys.generate_hash("job_fantasy_melee")
 var job_fantasy_ranged_hash: int = Keys.generate_hash("job_fantasy_ranged")
 var job_fantasy_universal_hash: int = Keys.generate_hash("job_fantasy_universal")
-var icon_job_to_process_hash: int = Keys.generate_hash("icon_job_to_process")
 
 # Stats
 var stat_fantasy_holy_hash: int = Keys.generate_hash("stat_fantasy_holy")
@@ -43,9 +42,22 @@ var fantasy_upgrade_specific_tier_weapons_hash: int = Keys.generate_hash("fantas
 var fantasy_slow_cursed_enemy_hash: int = Keys.generate_hash("fantasy_slow_cursed_enemy")
 var fantasy_extra_enemies_next_waves_hash: int = Keys.generate_hash("fantasy_extra_enemies_next_waves")
 var fantasy_pet_attack_speed_hash: int = Keys.generate_hash("fantasy_pet_attack_speed")
+var fantasy_material_loss_on_hit_hash: int = Keys.generate_hash("fantasy_material_loss_on_hit")
+var fantasy_crit_overflow_stat_hash: int = Keys.generate_hash("fantasy_crit_overflow_stat")
+var fantasy_old_limited_item_bonuses_hash: int = Keys.generate_hash("fantasy_old_limited_item_bonuses")
+var fantasy_limited_item_bonuses_hash: int = Keys.generate_hash("fantasy_limited_item_bonuses")
+var fantasy_dmg_when_pickup_consumable_hash: int = Keys.generate_hash("fantasy_dmg_when_pickup_consumable")
+var fantasy_periodic_radius_damage_hash: int = Keys.generate_hash("fantasy_periodic_radius_damage")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")
 
 # Enemies
 var fantasy_great_demon_lord_hash: int = Keys.generate_hash("fantasy_great_demon_lord")
+
+# Characters
+var character_fantasy_princess_hash = Keys.generate_hash("character_fantasy_princess")
+
+# Icons
+var icon_fantasy_job_to_process_hash: int = Keys.generate_hash("icon_fantasy_job_to_process")
+var icon_fantasy_princess_limited_hash = Keys.generate_hash("icon_fantasy_princess_limited")

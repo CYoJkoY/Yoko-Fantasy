@@ -4,9 +4,16 @@ extends "res://entities/units/player/player.gd"
 var decaying_slow_enemy_when_below_hp_triggers: Dictionary = {}
 var _non_decaying_slow_material: Dictionary = {}
 
+# periodic_radius_damage
+var enemies_in_perioidc_radius: Array = []
+var periodic_radius_area: Area2D = Area2D.new()
+var periodic_radius_collision: CollisionShape2D = CollisionShape2D.new()
+var periodic_radius_shape: Shape2D = CircleShape2D.new()
+
 # =========================== Extension =========================== #
 func _ready() -> void:
     _fantasy_decaying_slow_enemy_when_below_hp_ready()
+    _fantasy_periodic_radius_damage_ready()
 
 func get_damage_value(dmg_value: int, _from_player_index: int, armor_applied := true, dodgeable := true, _is_crit := false, _hitbox: Hitbox = null, _is_burning := false) -> Unit.GetDamageValueResult:
     var result: Unit.GetDamageValueResult =.get_damage_value(dmg_value, _from_player_index, armor_applied, dodgeable, _is_crit, _hitbox, _is_burning)
@@ -18,8 +25,13 @@ func take_damage(value: int, args: TakeDamageArgs) -> Array:
     var take_damage_array: Array =.take_damage(value, args)
     _fantasy_damage_reflect(take_damage_array[0], args)
     _fantasy_decaying_slow_enemy_when_below_hp(take_damage_array[1])
+    _fantasy_loss_material_on_hit(take_damage_array[1])
 
     return take_damage_array
+
+func on_consumable_picked_up(consumable_data: ConsumableData) -> void:
+    .on_consumable_picked_up(consumable_data)
+    _fantasy_dmg_when_pickup_consumable(consumable_data)
 
 # =========================== Custom =========================== #
 func _fantasy_damage_clamp(result: Unit.GetDamageValueResult) -> Unit.GetDamageValueResult:
@@ -93,6 +105,64 @@ func _fantasy_decaying_slow_enemy_when_below_hp(dmg_taken: int) -> void:
         _non_decaying_slow_material = {} # Reset for next
         break # Once a time when take damage
 
+func _fantasy_loss_material_on_hit(dmg_taken: int) -> void:
+    if dmg_taken <= 0: return
+
+    var materials_to_remove: int = RunData.get_player_effect(Utils.fantasy_material_loss_on_hit_hash, player_index)
+    if materials_to_remove <= 0: return
+
+    RunData.remove_gold(materials_to_remove, player_index)
+    RunData.emit_signal("stat_removed", Keys.stat_materials_hash, materials_to_remove, -15.0, player_index)
+
+func _fantasy_dmg_when_pickup_consumable(consumable_data: ConsumableData) -> void:
+    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_dmg_when_pickup_consumable_hash, player_index)
+    if effect_items.empty(): return
+
+    for effect_item in effect_items:
+        var consumable_id: int = effect_item[0]
+
+        if consumable_data.my_id_hash != consumable_id: continue
+
+        var enemies: Array = Utils.get_scene_node()._entity_spawner.get_all_enemies(false)
+
+        if enemies.empty(): return
+
+        enemies.shuffle()
+
+        var max_num: int = effect_item[1]
+        var scaling_stats: Array = effect_item[2]
+        var base_damage: int = effect_item[3]
+        var scaling_dmg: float = Utils.ncl_get_scaling_stats_dmg(scaling_stats, player_index)
+        var total_damage: int = int(base_damage + scaling_dmg)
+        var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(player_index, Color("#F5D35E"))
+
+        var processed_count = 0
+        for i in range(min(max_num, enemies.size())):
+            var enemy: Enemy = enemies[i]
+
+            if !is_instance_valid(enemy) or enemy.dead: continue
+
+            enemy.take_damage(total_damage, damage_args)
+            processed_count += 1
+
+            if processed_count >= max_num: break
+
+func _fantasy_periodic_radius_damage_ready() -> void:
+    add_child(periodic_radius_area)
+    periodic_radius_area.name = "PeriodicRadiusArea"
+    periodic_radius_area.monitorable = false
+    periodic_radius_area.collision_layer = Utils.NO_COLLISION_BIT
+    periodic_radius_area.collision_mask = Utils.ENEMIES_BIT
+
+    periodic_radius_collision.set_shape(periodic_radius_shape)
+    periodic_radius_area.add_child(periodic_radius_collision)
+    
+    if !periodic_radius_area.is_connected("body_entered", self , "fa_on_PeriodicRadiusArea_enemy_entered"):
+        periodic_radius_area.connect("body_entered", self , "fa_on_PeriodicRadiusArea_enemy_entered")
+    if !periodic_radius_area.is_connected("body_exited", self , "fa_on_PeriodicRadiusArea_enemy_exited"):
+        periodic_radius_area.connect("body_exited", self , "fa_on_PeriodicRadiusArea_enemy_exited")
+
+# =========================== Method =========================== #
 func fa_on_soul_effect(damage_to_add: int, speed_to_add: int) -> void:
     var timer: SceneTreeTimer = get_tree().create_timer(2.0, false)
     var _e: int = timer.connect("timeout", self , "fa_on_soul_effect_timer_timeout", [damage_to_add, speed_to_add])
@@ -101,3 +171,16 @@ func fa_on_soul_effect_timer_timeout(damage_to_add: int, speed_to_add: int) -> v
     Utils.ncl_quiet_add_stat(Utils.stat_fantasy_soul_hash, -1, player_index)
     TempStats.remove_stat(Keys.stat_percent_damage_hash, damage_to_add, player_index)
     TempStats.remove_stat(Keys.stat_attack_speed_hash, speed_to_add, player_index)
+
+func fa_set_periodic_radius(finall_range: int) -> void:
+    periodic_radius_shape.radius = finall_range + 200
+
+func fa_on_PeriodicRadiusArea_enemy_entered(body: Node) -> void:
+    enemies_in_perioidc_radius.append(body)
+    print("Entered")
+    print(enemies_in_perioidc_radius)
+
+func fa_on_PeriodicRadiusArea_enemy_exited(body: Node) -> void:
+    enemies_in_perioidc_radius.erase(body)
+    print("Exited")
+    print(enemies_in_perioidc_radius)

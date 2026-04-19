@@ -1,6 +1,8 @@
-[gd_resource type="Resource" load_steps=38 format=2]
+[gd_resource type="Resource" load_steps=40 format=2]
 
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/apostle/apostle_data.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/rotten_plant/rotten_plant_data.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/paladin/paladin_data.tres" type="Resource" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/overgrowth/overgrowth_data.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/nuclear_waste_drum/nuclear_waste_drum_data.tres" type="Resource" id=7]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/forbidden_spell/forbidden_spell_data.tres" type="Resource" id=9]
@@ -44,7 +46,7 @@ my_id = ""
 groups_in_all_zones = [  ]
 music_tracks = [  ]
 backgrounds = [  ]
-characters = [ ExtResource( 114 ) ]
+characters = [ ExtResource( 114 ), ExtResource( 1 ), ExtResource( 3 ) ]
 entities = [ ExtResource( 14 ) ]
 elites = [ ExtResource( 77 ), ExtResource( 71 ), ExtResource( 76 ), ExtResource( 72 ), ExtResource( 60 ), ExtResource( 62 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ) ]
 bosses = [ ExtResource( 79 ), ExtResource( 78 ) ]

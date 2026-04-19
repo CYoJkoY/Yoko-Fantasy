@@ -36,16 +36,22 @@ func get_stat_description_text(stat_hash: int, value: int, player_index: int) ->
 
     return stat_description
 
+func get_icon_for_duplicate_shop_item(character: CharacterData, player_items: Array, player_weapons: Array, shop_item: ItemParentData, player_index: int) -> Texture:
+    var icon: Texture =.get_icon_for_duplicate_shop_item(character, player_items, player_weapons, shop_item, player_index)
+    icon = _fantasy_get_icon_for_limited_shop_item(icon, character, player_items, player_weapons, shop_item, player_index)
+
+    return icon
+
 # =========================== Custom =========================== #
 func _fantasy_get_soul_to_drop(consumable: ConsumableData) -> ConsumableData:
     var stat_holy: float = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
-    var chance_drop_soul: float = 0.01
+    var chance_drop_soul: float = 0.01 * (1 + Utils.average_all_player_stats(Keys.stat_luck_hash) / 100.0)
     var chance_drop_soul_bonus: float = stat_holy / (stat_holy + 50.0) if stat_holy > 0 else -1.0
     if consumable == null and Utils.get_chance_success(chance_drop_soul * (1.0 + chance_drop_soul_bonus)):
         consumable = get_element(consumables, Utils.consumable_fantasy_soul_hash)
     elif consumable != null and consumable.my_id_hash == Utils.consumable_fantasy_soul_hash:
         consumable = get_consumable_for_tier(Tier.COMMON)
-    
+
     return consumable
 
 func _fantasy_extra_curse_item(item: ItemParentData, player_index: int) -> ItemParentData:
@@ -112,6 +118,15 @@ func _fantasy_get_stat_description_text(stat_description: String, stat_hash: int
             stat_description = Text.text(key, [str(bonus), str(bonus)])
 
     return stat_description
+
+func _fantasy_get_icon_for_limited_shop_item(icon: Texture, character: CharacterData, _player_items: Array, _player_weapons: Array, shop_item: ItemParentData, _player_index: int) -> Texture:
+    if icon != null: return icon
+
+    var is_princess: bool = character.my_id_hash == Utils.character_fantasy_princess_hash
+    var is_limited_item: bool = shop_item is ItemData and shop_item.max_nb != -1
+    if is_princess and is_limited_item: return get_icon(Utils.icon_fantasy_princess_limited_hash).get_data()
+
+    return icon
 
 # =========================== Method =========================== #
 func fa_get_jobs(stage: int, number: int = Utils.LARGE_NUMBER, way: int = Keys.empty_hash) -> Array:

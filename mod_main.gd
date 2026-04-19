@@ -27,11 +27,13 @@ func _init() -> void:
         #          decaying_slow_enemy_when_below_hp[ 1/2 ]
         #          slow_cursed_enemy,
         #          time_bonus_current_health_damage
+        #          periodic_radius_damage[ 1/2 ]
         
         "item_service.gd",
         # Job System[ 2/6 ]
         # STATS: Soul[ 1/3 ], Holy[ 1/2 ]
-        
+        # EFFECTS: gain_stat_for_limited_item[]
+
         "enemy.gd",
         # STATS: Holy[ 2/2 ]
         # EFFECTS: extra_curse_enemy
@@ -53,6 +55,9 @@ func _init() -> void:
         # EFFECTS: damage_clamp,
         #          damage_reflect,
         #          decaying_slow_enemy_when_below_hp[ 2/2 ]
+        #          material_loss_on_hit
+        #          dmg_when_pickup_consumable
+        #          periodic_radius_damage[ 2/2 ]
 
         "weapon_service.gd",
         # STATS: Crit Damage
@@ -77,9 +82,10 @@ func _init() -> void:
         "run_data.gd",
         # Job System[ 4/6 ]
         # STATS: Soul[ 3/3 ]
-        # EFFECTS: specific_set_weapon_effects,
+        # EFFECTS: specific_set_weapon_bonuses,
         #          shop_enter_stat_curse[ 2/2 ],
         #          upgrade_specific_tier_weapons[ 2/2 ]
+        #          limited_item_bonuses
 
         "turret.gd",
         # EFFECTS: turret_can_pursue_target[ 1/3 ]
@@ -98,6 +104,9 @@ func _init() -> void:
     
         "wave_manager.gd",
         # EFFECTS: extra_elites_next_wave
+
+        "linked_stats.gd",
+        # EFFECTS: crit_overflow_stat
 
     ]
 

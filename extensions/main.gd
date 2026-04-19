@@ -9,6 +9,7 @@ func _ready() -> void:
     _fantasy_connect_effect()
     _fantasy_queue_job_upgrades()
     _fantasy_start_time_bonus_current_health_damage_timer()
+    _fantasy_start_periodic_radius_damage_timer()
 
 func on_upgrade_selected(upgrade_data: UpgradeData, upgrade: UpgradesUI.UpgradeToProcess) -> void:
     .on_upgrade_selected(upgrade_data, upgrade)
@@ -49,6 +50,23 @@ func _fantasy_start_time_bonus_current_health_damage_timer() -> void:
             timer.wait_time = effect[1]
             timer.autostart = true
             timer.connect("timeout", self , "fa_time_bonus_current_health_damage", [effect[2] / 100.0, player_index, effect[0]])
+            add_child(timer)
+            FaTimers.append(timer)
+
+func _fantasy_start_periodic_radius_damage_timer() -> void:
+    for player_index in range(_players.size()):
+        var effect_items: Array = RunData.get_player_effect(Utils.fantasy_periodic_radius_damage_hash, player_index)
+        for effect in effect_items:
+            var total_range: float = Utils.get_stat(Keys.stat_range_hash, player_index) * effect[1] / 100.0 + effect[0]
+            var total_damage: int = effect[4] + Utils.ncl_get_scaling_stats_dmg(effect[2], player_index)
+            var final_cooldown: float = effect[3] / (1 + Utils.get_stat(Keys.stat_attack_speed_hash, player_index) / 100.0) / 60.0
+
+            var player: Player = _players[player_index]
+            player.fa_set_periodic_radius(total_range)
+            var timer: Timer = Timer.new()
+            timer.wait_time = final_cooldown
+            timer.autostart = true
+            timer.connect("timeout", self , "fa_periodic_radius_damage", [player_index, total_range, total_damage])
             add_child(timer)
             FaTimers.append(timer)
 
@@ -170,14 +188,14 @@ func _fantasy_teleport_if_world_tree_enemy(players: Array) -> void:
                     players[player_index].global_position = base_pos
 
 # =========================== Method =========================== #
-func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracking_key_hash: int):
+func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracking_key_hash: int) -> void:
     var enemies: Array = _entity_spawner.get_all_enemies(false)
     for enemy in enemies:
         var enemy_current_hp: int = enemy.current_stats.health
         var enemy_max_hp: int = enemy.max_stats.health
 
         if enemy_current_hp == 1: continue
-        
+
         var full_dmg_value: int = 0
         if enemy is Boss:
             full_dmg_value += int(enemy_current_hp * bonus / 10.0)
@@ -189,8 +207,7 @@ func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracki
         RunData.add_tracked_value(player_index, tracking_key_hash, full_dmg_value)
         enemy.emit_signal("health_updated", enemy, enemy.current_stats.health, enemy_max_hp)
 
-        var time_bonus_args: TakeDamageArgs = TakeDamageArgs.new(player_index)
-        time_bonus_args.set_meta("custom_color", Color("#FFA500"))
+        var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(player_index, Color("#FFA500"))
         enemy.emit_signal(
             "took_damage",
             enemy,
@@ -200,10 +217,23 @@ func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracki
             false,
             false,
             false,
-            time_bonus_args,
+            damage_args,
             HitType.NORMAL,
             false
         )
+
+func fa_periodic_radius_damage(player_index: int, total_range: float, total_damage: int) -> void:
+    var player: Player = _players[player_index]
+    var enemies: Array = player.enemies_in_perioidc_radius
+    print("Damage")
+    print(enemies)
+    for enemy in enemies:
+        if !is_instance_valid(enemy) or enemy.dead: continue
+
+        var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(player_index, Color("#F5D35E"))
+        enemy.take_damage(total_damage, damage_args)
+
+    player.fa_set_periodic_radius(total_range)
 
 func fa_on_soul_effect(damage_to_add: int, speed_to_add: int, player_index: int) -> void:
     _players[player_index].fa_on_soul_effect(damage_to_add, speed_to_add)
@@ -211,7 +241,7 @@ func fa_on_soul_effect(damage_to_add: int, speed_to_add: int, player_index: int)
 func fa_push_job_upgrade_to_queue(player_index: int) -> void:
     var level = RunData.get_player_level(player_index)
 
-    _things_to_process_player_containers[player_index].upgrades.add_element(ItemService.get_icon(Utils.icon_job_to_process_hash), level)
+    _things_to_process_player_containers[player_index].upgrades.add_element(ItemService.get_icon(Utils.icon_fantasy_job_to_process_hash), level)
 
     var upgrade_to_process = UpgradesUI.UpgradeToProcess.new()
     upgrade_to_process.level = level

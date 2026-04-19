@@ -456,3 +456,15 @@ CHARACTER_FANTASY_BRAVE,Brave,勇者
 EFFECT_FANTASY_CANTCOMBINE,Cannot be upgraded via combining,无法通过合成升级
 FANTASY_BELIEVER_NAME,Believer,信仰者
 FANTASY_BELIEVER_BEHAVIOUR_DESCRIPTION,"Wanders around, drops a fair number of materials and gives 1 holy on death.","四处游荡,死亡时掉落大量材料并给予1点神圣"
+CHARACTER_FANTASY_SAGE,Sage,贤者
+CHARACTER_FANTASY_THIEF,Thief,盗贼
+EFFECT_FANTASY_MATERIAL_LOSS_ON_HIT,Lose {0} materials when hit,每次受伤失去{0}材料
+CHARACTER_FANTASY_NINJA,Ninja,忍者
+EFFECT_FANTASY_CRIT_OVERFLOW_STAT,"For every {2} excess %critical chance, {0} {1}","每溢出{2}%暴击率,{0}{1}"
+CHARACTER_FANTASY_PRINCESS,Princess,公主
+EFFECT_FANTASY_LIMITED_ITEM_BONUSES,"For every {2} limited item(s) owned, {0}{1}","每有{2}个限制道具,{0}{1}"
+CHARACTER_FANTASY_APOSTLE,Apostle,使徒
+EFFECT_FANTASY_DMG_WHEN_PICKUP_CONSUMABLE,"Picking up {0} deals {2} damage to up to {1} random enemies","捡起{0}时,对随机最多{1}个敌人造成{2}伤害"
+CHARACTER_FANTASY_PRIEST,Priest,牧师
+EFFECT_FANTASY_PERIODIC_RADIUS_DAMAGE,"Every {0} seconds, deals {2} damage to enemies within a range of {1}. Damage frequency is affected by %attack speed","每{0}秒对范围{1}内的敌人造成{2}伤害,攻速受%攻击速度影响"
+CHARACTER_FANTASY_PALADIN,Paladin,圣斗士

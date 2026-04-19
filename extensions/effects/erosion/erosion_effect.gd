@@ -32,13 +32,13 @@ func _generate_hashes() -> void:
     source_id_hash = Keys.generate_hash(source_id)
 
 func apply(player_index: int) -> void:
-    if key_hash == Keys.empty_hash: return
+    if key == "": return
 
     var effects = RunData.get_player_effects(player_index)
     effects[key_hash].append([value, scaling_stats, chance, times, cd, crit_chance, crit_damage, source_id_hash])
 
 func unapply(player_index: int) -> void:
-    if key_hash == Keys.empty_hash: return
+    if key == "": return
 
     var effects = RunData.get_player_effects(player_index)
     effects[key_hash].erase([value, scaling_stats, chance, times, cd, crit_chance, crit_damage, source_id_hash])

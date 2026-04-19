@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/dmg_when_pickup_consumable/dmg_when_pickup_consumable_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "consumable_fantasy_soul"
+text_key = "EFFECT_FANTASY_DMG_WHEN_PICKUP_CONSUMABLE"
+value = 1
+custom_key = "fantasy_dmg_when_pickup_consumable"
+storage_method = 1
+effect_sign = 3
+custom_args = [  ]
+value2 = 1
+sum_strategy = 0

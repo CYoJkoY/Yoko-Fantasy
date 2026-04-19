@@ -71,17 +71,18 @@ func _physics_process(delta) -> void:
 func shoot() -> void:
     _is_shooting = true
     var enemies: Array = entity_spawner.get_all_enemies(false)
+
+    if enemies.empty(): return
+
     var crit_chance: float = _current_weapon_stats.crit_chance
     var crit_damage: float = _current_weapon_stats.crit_damage
     var damage: int = int(_current_weapon_stats.damage * crit_damage) if Utils.get_chance_success(crit_chance) else _current_weapon_stats.damage
-
-    if enemies.empty(): return
 
     enemies.sort_custom(self , "fa_sort_by_health_desc")
 
     var processed_count = 0
     for i in range(min(max_num, enemies.size())):
-        var enemy = enemies[i]
+        var enemy: Enemy = enemies[i]
 
         if !is_instance_valid(enemy) or enemy.dead: continue
 

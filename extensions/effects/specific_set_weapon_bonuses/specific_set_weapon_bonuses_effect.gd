@@ -28,11 +28,11 @@ func apply(player_index: int) -> void:
     var effects: Dictionary = RunData.get_player_effects(player_index)
     var effect_items: Array = effects[custom_key_hash]
     for existing_item in effect_items:
-        if existing_item[2] == set_id_hash:
+        if existing_item[2] == set_id_hash and existing_item[3] == need_num:
             existing_item[1] += value
             return
 
-    effect_items.append([key_hash, value, set_id_hash])
+    effect_items.append([key_hash, value, set_id_hash, need_num])
 
 func unapply(player_index: int) -> void:
     if custom_key_hash == Keys.empty_hash: return
@@ -41,7 +41,7 @@ func unapply(player_index: int) -> void:
     var effect_items: Array = effects[custom_key_hash]
     for i in range(effect_items.size()):
         var existing_item: Array = effect_items[i]
-        if existing_item[2] == set_id_hash:
+        if existing_item[2] == set_id_hash and existing_item[3] == need_num:
             existing_item[1] -= value
             if existing_item[1] == 0: effect_items.remove(i)
             return

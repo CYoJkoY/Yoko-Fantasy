@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "icon_job_to_process"
+my_id = "icon_fantasy_job_to_process"
 icon = ExtResource( 2 )

@@ -96,6 +96,12 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_upgrade_specific_tier_weapons_hash: [],
             Utils.fantasy_slow_cursed_enemy_hash: 0,
             Utils.fantasy_extra_enemies_next_waves_hash: [],
+            Utils.fantasy_material_loss_on_hit_hash: 0,
+            Utils.fantasy_crit_overflow_stat_hash: [],
+            Utils.fantasy_old_limited_item_bonuses_hash: {},
+            Utils.fantasy_limited_item_bonuses_hash: [],
+            Utils.fantasy_dmg_when_pickup_consumable_hash: [],
+            Utils.fantasy_periodic_radius_damage_hash: [],
 
         }
         
