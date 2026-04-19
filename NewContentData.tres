@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=144 format=2]
+[gd_resource type="Resource" load_steps=146 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/little_elf/little_elf_item.tres" type="Resource" id=22]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/bible/bible_data.tres" type="Resource" id=23]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/stats/soul/soul_data.tres" type="Resource" id=24]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/000_in_all_zones/group_1.tres" type="Resource" id=25]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/stats/holy/holy_data.tres" type="Resource" id=26]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/scripture/scripture_data.tres" type="Resource" id=27]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_bearing/brass_bearing_data.tres" type="Resource" id=28]
@@ -32,6 +33,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/brass_component/brass_component_data.tres" type="Resource" id=31]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/bowstring/bowstring_data.tres" type="Resource" id=32]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/clock_tower_echo/clock_tower_echo_data.tres" type="Resource" id=33]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/believer/believer_item.tres" type="Resource" id=34]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/blessed_breastplate/blessed_breastplate_data.tres" type="Resource" id=35]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/elf_ear/elf_ear_data.tres" type="Resource" id=36]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/crimson_holy_shroud/crimson_holy_shroud_data.tres" type="Resource" id=38]
@@ -147,11 +149,11 @@
 [resource]
 script = ExtResource( 43 )
 my_id = ""
-groups_in_all_zones = [  ]
+groups_in_all_zones = [ ExtResource( 25 ) ]
 music_tracks = [  ]
 backgrounds = [ ExtResource( 40 ), ExtResource( 156 ) ]
 characters = [  ]
-entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 22 ), ExtResource( 2 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 18 ), ExtResource( 47 ), ExtResource( 56 ), ExtResource( 69 ), ExtResource( 83 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 133 ), ExtResource( 134 ), ExtResource( 135 ), ExtResource( 142 ), ExtResource( 143 ), ExtResource( 144 ) ]
+entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 22 ), ExtResource( 2 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 18 ), ExtResource( 47 ), ExtResource( 56 ), ExtResource( 69 ), ExtResource( 83 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 133 ), ExtResource( 134 ), ExtResource( 135 ), ExtResource( 142 ), ExtResource( 143 ), ExtResource( 144 ), ExtResource( 34 ) ]
 elites = [ ExtResource( 151 ), ExtResource( 146 ), ExtResource( 150 ), ExtResource( 145 ), ExtResource( 152 ), ExtResource( 155 ), ExtResource( 147 ), ExtResource( 148 ), ExtResource( 149 ) ]
 bosses = [ ExtResource( 154 ), ExtResource( 153 ) ]
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]
@@ -177,8 +179,7 @@ tracked_items = {
 tracked_effects = {
 "item_fantasy_crimson_holy_shroud": 0,
 "item_fantasy_world_tree_seed": 0,
-"job_fantasy_dual_wielder": 0,
-"job_fantasy_treasure_hunter": 0
+"job_fantasy_dual_wielder": 0
 }
 translation_keys_needing_operator = {
 "effect_fantasy_decaying_slow_enemy_when_below_hp": [ 2 ],

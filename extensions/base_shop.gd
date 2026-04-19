@@ -114,27 +114,39 @@ func _fantasy_set_curse_all_on_reroll_icon(player_index: int) -> void:
         break
 
 func _fantasy_upgrade_specific_tier_weapons() -> void:
-    var upgrade_any_weapon = false
     for player_index in range(RunData.get_player_count()):
         var upgrade_effects: Array = RunData.get_player_effect(Utils.fantasy_upgrade_specific_tier_weapons_hash, player_index)
         for effect in upgrade_effects:
-            upgrade_any_weapon = true
-
             var specific_tier: int = effect[0]
             var upgrade_num: int = effect[1]
             var upgraded: int = 0
             var weapons: Array = RunData.get_player_weapons(player_index)
             var to_upgrade: Array = []
-            for w in weapons:
+            var to_special_upgrade: Array = []
+            for w_index in range(weapons.size()):
                 if upgraded >= upgrade_num: break
 
-                if w.tier != specific_tier or \
-                w.upgrades_into == null: continue
+                var w: WeaponData = weapons[w_index]
+                var w_special_upgrade: Array = fa_special_upgrade(w)
+                var can_special_upgrade: bool = w_special_upgrade[0]
+                var new_weapon_id: int = w_special_upgrade[1]
+                if w.tier != specific_tier: continue
 
-                to_upgrade.append(w)
+                match [w.upgrades_into == null, !can_special_upgrade]:
+                    [true, true]: continue
+                    [false, true]: to_upgrade.append(w)
+                    [true, false]: to_special_upgrade.append([w_index, new_weapon_id])
+                    [false, false]:
+                        if Utils.get_chance_success(0.5): to_upgrade.append(w)
+                        else: to_special_upgrade.append([w_index, new_weapon_id])
                 upgraded += 1
 
-            for w in to_upgrade:
-                _combine_weapon(w, player_index, true)
+            for w in to_upgrade: _combine_weapon(w, player_index, true)
+            for w_list in to_special_upgrade: Utils.ncl_change_weapon_within_shop(w_list[0], w_list[1], player_index, self )
 
-    if upgrade_any_weapon: _update_stats()
+# =========================== Method =========================== #
+func fa_special_upgrade(weapon: WeaponData) -> Array:
+    for effect in weapon.effects:
+        if effect.get_id() != "fantasy_change_weapon_every_killed_enemies": continue
+        return [true, effect.key_hash]
+    return [false, Keys.empty_hash]

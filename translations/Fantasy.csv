@@ -301,7 +301,7 @@ JOB_FANTASY_ACCOUNTANT,Accountant,会计师
 JOB_FANTASY_PERFORMER,Performer,演奏家
 JOB_FANTASY_BOTANIST,Botanist,植物学家
 JOB_FANTASY_FORGER,Forger,锻造师
-EFFECT_FANTASY_UPGRADE_SPECIFIC_TIER_WEAPONS,"When entering the shop, randomly upgrade {0} weapon(s) of Tier {1}.","进入商店时,随机升级{0}件{1}级别的武器"
+EFFECT_FANTASY_UPGRADE_SPECIFIC_TIER_WEAPONS,"Entering the shop randomly upgrades {0} Tier {1} weapon(s) (including those with special upgrade methods)","进入商店时,随机升级{0}件{1}级别的武器 (包括特殊升级方式的武器)"
 JOB_FANTASY_WALKER,Walker,行者
 JOB_FANTASY_ENCHANTER,Enchanter,附魔师
 JOB_FANTASY_ECONOMIST,Economist,经济学家
@@ -451,6 +451,8 @@ Stays at the center of the map. Gears that move upward in a winding pattern now 
 停留在地图中心,地图下方会有向上移动的蜿蜒运动的齿轮弹幕,现在无视距离只恢复大恶魔领主的生命"
 KEYART_FANTASY,Fantasy,幻界
 WEAPON_FANTASY_VILLAGE_SPECIAL_SWORD,Village Special Sword,村好剑
-EFFECT_FANTASY_CHANGE_WEAPON_EVERY_KILLED_ENEMIES,"Weapon transforms into {1} after killing {0} enemies within a wave","该武器在敌袭内击杀{0}个敌人后变为{1}"
+EFFECT_FANTASY_CHANGE_WEAPON_EVERY_KILLED_ENEMIES,"This weapon transforms into {0} after killing {1} enemies within a wave","该武器在敌袭内击杀{0}个敌人后变为{1}"
 CHARACTER_FANTASY_BRAVE,Brave,勇者
 EFFECT_FANTASY_CANTCOMBINE,Cannot be upgraded via combining,无法通过合成升级
+FANTASY_BELIEVER_NAME,Believer,信仰者
+FANTASY_BELIEVER_BEHAVIOUR_DESCRIPTION,"Wanders around, drops a fair number of materials and gives 1 holy on death.","四处游荡,死亡时掉落大量材料并给予1点神圣"

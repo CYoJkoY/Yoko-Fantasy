@@ -43,7 +43,7 @@ func _fantasy_reload_when_shoot() -> void:
 
 func _fantasy_change_weapon_every_killed_enemies() -> void:
     for effect in effects:
-        if effect.custom_key_hash != Utils.fantasy_change_weapon_every_killed_enemies_hash or \
+        if effect.get_id() != "fantasy_change_weapon_every_killed_enemies" or \
         _enemies_killed_this_wave_count != effect.value: continue
 
-        Utils.ncl_change_weapon(weapon_pos, effect.key_hash, player_index)
+        Utils.ncl_change_weapon_within_run(weapon_pos, effect.key_hash, player_index)

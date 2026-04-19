@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/believer.png-bb0fed92b6bc04565d9149647a8f40ea.stex"
+path="res://.import/magic_swordsman_icon.webp-ced4035d720179b94fe6f955fb6798f1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/believer/believer.png"
-dest_files=[ "res://.import/believer.png-bb0fed92b6bc04565d9149647a8f40ea.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/characters/magic_swordsman/magic_swordsman_icon.webp"
+dest_files=[ "res://.import/magic_swordsman_icon.webp-ced4035d720179b94fe6f955fb6798f1.stex" ]
 
 [params]
 

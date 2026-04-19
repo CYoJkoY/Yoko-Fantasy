@@ -97,8 +97,7 @@ func _init() -> void:
         # Job System[ 6/6 ]
     
         "wave_manager.gd",
-        # EFFECTS: extra_enemies_next_waves,
-        #          extra_elites_next_wave
+        # EFFECTS: extra_elites_next_wave
 
     ]
 
