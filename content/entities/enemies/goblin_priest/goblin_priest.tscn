@@ -246,8 +246,18 @@ dodge_sounds = [ ExtResource( 25 ), ExtResource( 21 ) ]
 stats = ExtResource( 3 )
 flash_mat = SubResource( 1 )
 enemy_id = "fantasy_goblin_priest"
-heal_sound = ExtResource( 7 )
 boost_sound = ExtResource( 8 )
+boost_cooldown = 2.0
+hp_boost = 75
+damage_boost = 12
+speed_boost = 25
+player_hp_boost = 10
+player_speed_boost = 10
+player_attack_speed_boost = 10
+structure_range_boost = 10
+structure_damage_boost = 10
+structure_attack_speed_boost = 10
+heal_sound = ExtResource( 7 )
 
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -22.8748 )

@@ -2,7 +2,8 @@ extends Enemy
 
 export(String, FILE, "*.tscn") var evolution_target_path = ""
 var evolution_target: PackedScene = null
-export(int) var kills_needed = 5
+export(int) var evovle_needed = 5
+export(float) var drop_rate = 0.5
 export(Array, String) var white_list = [
     "fantasy_little_slime", "fantasy_medium_slime",
     "fantasy_big_slime", "fantasy_slime_king"
@@ -11,7 +12,8 @@ export(Array, String) var white_list = [
 var evovle_args: Entity.DieArgs = Utils.default_die_args
 var main: Main = Utils.get_scene_node()
 
-var kill_count: int = 0
+var gold_count: int = 0
+var evolve_count: int = 0
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -19,7 +21,10 @@ func _ready() -> void:
 
 func respawn() -> void:
     .respawn()
-    kill_count = 0
+    evolve_count = 0
+
+func get_stats_value() -> int:
+	return int(gold_count * drop_rate + stats.value)
 
 # =========================== Method =========================== #
 func fa_on_DetectionArea_body_entered(body: Enemy) -> void:
@@ -43,17 +48,18 @@ func fa_on_ItemPickUpArea_area_entered(area: Area2D) -> void:
     if dead or !(area is Gold) or !evolution_target_path: return
 
     var gold: Gold = area
+    gold_count += gold.value
     gold.pickup(-1)
-    kill_count += 1
-    if kill_count < kills_needed: return
+    evolve_count += 1
+    if evolve_count < evovle_needed: return
 
     fa_evolve()
 
 func fa_on_enemy_died(enemy: Enemy, _die_args: Entity.DieArgs) -> void:
     if dead or !evolution_target_path or white_list.has(enemy.enemy_id): return
     
-    kill_count += 1
-    if kill_count < kills_needed: return
+    evolve_count += 1
+    if evolve_count < evovle_needed: return
     
     fa_evolve()
 

@@ -1,8 +1,4 @@
-extends Enemy
-
-# All
-onready var _boost_zone: Area2D = $"%BoostZone"
-onready var _boost_collision: CollisionShape2D = $"%BoostCollision"
+extends Buffer
 
 # Heal
 export(Resource) var heal_sound
@@ -11,25 +7,10 @@ export(float) var heal_increase_each_wave = 5.0
 export(float) var player_heal = 0.5
 export(float) var player_heal_increase_each_wave = 0.25
 
-# Buff
-export(Resource) var boost_sound
-export(int) var nb_entities_boosted_at_once = 1
-export(float) var boost_cooldown = 2.0
-export(int) var hp_boost = 75
-export(int) var damage_boost = 12
-export(int) var speed_boost = 25
-export(int) var player_hp_boost = 10
-export(int) var player_speed_boost = 10
-export(int) var player_attack_speed_boost = 10
-export(int) var structure_range_boost = 10
-export(int) var structure_damage_boost = 10
-export(int) var structure_attack_speed_boost = 10
-
-onready var _boost_timer: Timer = $"%BoostTimer"
-
-var entities_in_zone: Array = [[], []]
-
 # =========================== Extension =========================== #
+func _ready():
+    entities_in_zone = [[], []]
+
 func respawn() -> void:
     .respawn()
     _boost_collision.set_deferred("disabled", false)
@@ -47,15 +28,6 @@ func _on_BoostZone_body_entered(body: Node) -> void:
     # Buff
     if !dead and body.can_be_boosted:
         entities_in_zone[1].append(body)
-
-func _on_BoostZone_body_exited(body: Node) -> void:
-    match [entities_in_zone[0].has(body), entities_in_zone[1].has(body)]:
-        [false, false]: return
-        [true, false]: entities_in_zone[0].erase(body)
-        [false, true]: entities_in_zone[1].erase(body)
-        [true, true]:
-            entities_in_zone[0].erase(body)
-            entities_in_zone[1].erase(body)
 
 func _on_BoostTimer_timeout() -> void:
     for entity in entities_in_zone[0]:
@@ -106,3 +78,12 @@ func _on_BoostTimer_timeout() -> void:
         SoundManager2D.play(boost_sound, global_position, 0.0, 0.2)
 
     _boost_timer.wait_time = boost_cooldown
+
+func _on_BoostZone_body_exited(body: Node) -> void:
+    match [entities_in_zone[0].has(body), entities_in_zone[1].has(body)]:
+        [false, false]: return
+        [true, false]: entities_in_zone[0].erase(body)
+        [false, true]: entities_in_zone[1].erase(body)
+        [true, true]:
+            entities_in_zone[0].erase(body)
+            entities_in_zone[1].erase(body)
