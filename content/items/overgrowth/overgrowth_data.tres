@@ -23,6 +23,6 @@ is_lockable = true
 unlock_codex_descr_after_get_it = 1
 is_cursed = false
 curse_factor = 0.0
-max_nb = -1
+max_nb = 1
 item_appearances = [  ]
 tags = [ "stat_curse", "xp_gain" ]

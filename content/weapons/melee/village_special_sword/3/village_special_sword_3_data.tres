@@ -1,10 +1,23 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/village_special_sword.tscn" type="PackedScene" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/3/village_special_sword_3_stats.tres" type="Resource" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/village_special_sword_icon.webp" type="Texture" id=4]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/4/village_special_sword_4_data.tres" type="Resource" id=5]
+[ext_resource path="res://effects/weapons/null_effect.gd" type="Script" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/3/village_special_sword_3_effect.tres" type="Resource" id=6]
+[ext_resource path="res://items/sets/medieval/medieval_set_data.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/holy/holy_set_data.tres" type="Resource" id=8]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 5 )
+key = ""
+text_key = "EFFECT_FANTASY_CANTCOMBINE"
+value = 0
+custom_key = ""
+storage_method = 0
+effect_sign = 1
+custom_args = [  ]
 
 [resource]
 script = ExtResource( 1 )
@@ -15,7 +28,7 @@ icon = ExtResource( 4 )
 name = "WEAPON_FANTASY_VILLAGE_SPECIAL_SWORD"
 tier = 2
 value = 72
-effects = [  ]
+effects = [ SubResource( 1 ), ExtResource( 6 ) ]
 tracking_text = ""
 is_lockable = true
 unlock_codex_descr_after_get_it = 1
@@ -23,8 +36,7 @@ is_cursed = false
 curse_factor = 0.0
 weapon_id = "weapon_fantasy_village_special_sword"
 type = 0
-sets = [  ]
+sets = [ ExtResource( 7 ), ExtResource( 8 ) ]
 scene = ExtResource( 2 )
 stats = ExtResource( 3 )
-upgrades_into = ExtResource( 5 )
 add_to_chars_as_starting = [  ]

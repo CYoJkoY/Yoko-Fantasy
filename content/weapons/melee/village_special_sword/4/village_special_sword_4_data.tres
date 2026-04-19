@@ -1,9 +1,11 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/village_special_sword.tscn" type="PackedScene" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/4/village_special_sword_4_stats.tres" type="Resource" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/village_special_sword_icon.webp" type="Texture" id=4]
+[ext_resource path="res://items/sets/medieval/medieval_set_data.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/holy/holy_set_data.tres" type="Resource" id=6]
 
 [resource]
 script = ExtResource( 1 )
@@ -22,7 +24,7 @@ is_cursed = false
 curse_factor = 0.0
 weapon_id = "weapon_fantasy_village_special_sword"
 type = 0
-sets = [  ]
+sets = [ ExtResource( 5 ), ExtResource( 6 ) ]
 scene = ExtResource( 2 )
 stats = ExtResource( 3 )
 add_to_chars_as_starting = [  ]

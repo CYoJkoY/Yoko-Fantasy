@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hero_sword_icon.webp-6f88ab02cbcc9025d6bfaf3c2813c370.stex"
+path="res://.import/thief_icon.webp-fd98fb6f7aa9b1ff90bd24a4e67177fe.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/hero_sword/hero_sword_icon.webp"
-dest_files=[ "res://.import/hero_sword_icon.webp-6f88ab02cbcc9025d6bfaf3c2813c370.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/characters/thief/thief_icon.webp"
+dest_files=[ "res://.import/thief_icon.webp-fd98fb6f7aa9b1ff90bd24a4e67177fe.stex" ]
 
 [params]
 

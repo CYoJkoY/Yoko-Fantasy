@@ -8,6 +8,7 @@ func shoot() -> void:
 func on_killed_something(_thing_killed: Node, hitbox: Hitbox) -> void:
     .on_killed_something(_thing_killed, hitbox)
     _fantasy_gain_temp_stat_every_killed_enemies()
+    _fantasy_change_weapon_every_killed_enemies()
 
 # =========================== Custom =========================== #
 func _fantasy_gain_temp_stat_every_killed_enemies() -> void:
@@ -39,3 +40,10 @@ func _fantasy_reload_when_shoot() -> void:
             Tween.TRANS_SINE, Tween.EASE_IN_OUT
         )
         tween_animation.start()
+
+func _fantasy_change_weapon_every_killed_enemies() -> void:
+    for effect in effects:
+        if effect.custom_key_hash != Utils.fantasy_change_weapon_every_killed_enemies_hash or \
+        _enemies_killed_this_wave_count != effect.value: continue
+
+        Utils.ncl_change_weapon(weapon_pos, effect.key_hash, player_index)

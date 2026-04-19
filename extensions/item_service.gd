@@ -20,7 +20,7 @@ func get_consumable_for_tier(tier: int = Tier.COMMON) -> ConsumableData:
 
 func apply_item_effect_modifications(item: ItemParentData, player_index: int) -> ItemParentData:
     var new_item: ItemParentData =.apply_item_effect_modifications(item, player_index)
-    new_item = _fantasy_extra_curse_item(item, player_index)
+    new_item = _fantasy_extra_curse_item(new_item, player_index)
 
     return new_item
 

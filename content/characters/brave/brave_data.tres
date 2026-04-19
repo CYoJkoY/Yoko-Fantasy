@@ -1,0 +1,36 @@
+[gd_resource type="Resource" load_steps=11 format=2]
+
+[ext_resource path="res://items/characters/character_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/brave/brave_icon.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/brave/brave_appearance.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/brave/brave_effect_0.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/brave/brave_effect_4.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/brave/brave_effect_2.tres" type="Resource" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/brave/brave_effect_1.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/brave/brave_effect_3.tres" type="Resource" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/1/village_special_sword_data.tres" type="Resource" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/brave/brave_effect_5.tres" type="Resource" id=10]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "character_fantasy_brave"
+unlocked_by_default = true
+can_be_looted = true
+icon = ExtResource( 2 )
+name = "CHARACTER_FANTASY_BRAVE"
+tier = 0
+value = 1
+effects = [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 10 ) ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+max_nb = -1
+item_appearances = [ ExtResource( 3 ) ]
+tags = [  ]
+wanted_tags = [  ]
+banned_item_groups = [  ]
+banned_items = [  ]
+starting_weapons = [ ExtResource( 9 ) ]
+starting_items = [  ]

@@ -451,3 +451,6 @@ Stays at the center of the map. Gears that move upward in a winding pattern now 
 停留在地图中心,地图下方会有向上移动的蜿蜒运动的齿轮弹幕,现在无视距离只恢复大恶魔领主的生命"
 KEYART_FANTASY,Fantasy,幻界
 WEAPON_FANTASY_VILLAGE_SPECIAL_SWORD,Village Special Sword,村好剑
+EFFECT_FANTASY_CHANGE_WEAPON_EVERY_KILLED_ENEMIES,"Weapon transforms into {1} after killing {0} enemies within a wave","该武器在敌袭内击杀{0}个敌人后变为{1}"
+CHARACTER_FANTASY_BRAVE,Brave,勇者
+EFFECT_FANTASY_CANTCOMBINE,Cannot be upgraded via combining,无法通过合成升级

@@ -43,6 +43,7 @@ var fantasy_upgrade_specific_tier_weapons_hash: int = Keys.generate_hash("fantas
 var fantasy_slow_cursed_enemy_hash: int = Keys.generate_hash("fantasy_slow_cursed_enemy")
 var fantasy_extra_enemies_next_waves_hash: int = Keys.generate_hash("fantasy_extra_enemies_next_waves")
 var fantasy_pet_attack_speed_hash: int = Keys.generate_hash("fantasy_pet_attack_speed")
+var fantasy_change_weapon_every_killed_enemies_hash: int = Keys.generate_hash("fantasy_change_weapon_every_killed_enemies")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

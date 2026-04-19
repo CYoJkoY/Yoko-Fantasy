@@ -59,6 +59,9 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
                 extra_effect.key_hash = Keys.number_of_enemies_hash
                 extra_effect.value = new_effect.value
                 new_effects.append(extra_effect)
+            
+            [_, _, Utils.fantasy_change_weapon_every_killed_enemies_hash]:
+                new_effect.value = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier, {"is_negative": true, "step": 1})
 
         new_effects.append(new_effect)
     new_item_data.effects = new_effects
