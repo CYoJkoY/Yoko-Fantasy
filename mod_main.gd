@@ -68,6 +68,7 @@ func _init() -> void:
         "melee_weapon.gd",
         # EFFECTS: gain_stat_every_killed_enemies[ 2/3 ],
         #          reload_when_shoot[ 1/2 ]
+        #          change_weapon_every_killed_enemies
 
         "ranged_weapon.gd",
         # EFFECTS: gain_stat_every_killed_enemies[ 3/3 ],
