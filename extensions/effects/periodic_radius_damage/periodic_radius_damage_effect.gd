@@ -36,8 +36,8 @@ func get_args(player_index: int) -> Array:
     var cooldown_text: String = str(stepify(final_cooldown / 60.0, 0.01))
 
     var total_range: String = str(Utils.get_stat(Keys.stat_range_hash, player_index) * value2 / 100.0 + value)
-    var range_scaling_text: String = Utils.get_scaling_stat_icon_text(Keys.stat_range_hash, 0.5, player_index)
-    var range_text: String = "%s(+%s)" % [total_range, range_scaling_text]
+    var range_scaling_text: String = Utils.get_scaling_stat_icon_text(Keys.stat_range_hash, 0.5)
+    var range_text: String = "%s (%s)" % [total_range, range_scaling_text]
 
     return [cooldown_text, range_text, dmg_text]
 

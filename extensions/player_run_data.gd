@@ -53,7 +53,7 @@ static func init_stats(all_null_values: bool = false) -> Dictionary:
             Utils.stat_fantasy_decaying_slow_enemy_hash: 0,
             Utils.stat_fantasy_crit_damage_hash: 0,
             Utils.gain_stat_fantasy_crit_damage_hash: 0,
-            Utils.fantasy_pet_attack_speed_hash: 0,
+            Utils.stat_fantasy_pet_attack_speed_hash: 0,
 
         }
 

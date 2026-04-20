@@ -6,7 +6,7 @@
 [ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 85.5, 4 )
+extents = Vector2( 66.5, 5.5 )
 
 [node name="EnemyProjectile" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -20,7 +20,7 @@ texture = ExtResource( 2 )
 collision_layer = 16
 
 [node name="Collision" parent="Hitbox" index="0"]
-position = Vector2( 0.5, 0 )
+position = Vector2( 0.5, -0.5 )
 shape = SubResource( 1 )
 
 [connection signal="hit_something" from="Hitbox" to="." method="_on_Hitbox_hit_something"]

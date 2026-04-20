@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "fantasy_pet_attack_speed"
+key = "stat_fantasy_pet_attack_speed"
 text_key = ""
 value = 10
 custom_key = ""

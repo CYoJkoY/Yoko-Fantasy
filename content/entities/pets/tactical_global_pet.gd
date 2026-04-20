@@ -24,8 +24,7 @@ var pets_to_process: Dictionary = {
     "EgyptianCat": ["_cooldown"],
     "MagicSword": ["_cooldown"],
     "Nightingale": ["_cooldown"],
-    "WhiteFox": ["_cooldown"],
-    "WolfTotem": ["_cooldown"]
+    "WhiteFox": ["_cooldown"]
 
 }
 

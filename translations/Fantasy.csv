@@ -220,18 +220,18 @@ EFFECT_FANTASY_DECAYING_SLOW_ENEMY_WHEN_BELOW_HP,"Slows enemies by {2} for {1} s
 ITEM_FANTASY_SILVER_POCKET_WATCH,Silver Pocket Watch,银怀表
 ITEM_FANTASY_WOLF_TOTEM,Wolf Totem,狼图腾
 FANTASY_WOLF_TOTEM_NAME,Wolf God,狼神
-EFFECT_FANTASY_PET_WOLF_TOTEM,"Summons a Wolf God to deal {2} ({3}) damage to the healthiest enemy every {0}s. Killing an enemy resets all pets' cooldowns (including Wolf God)","召唤狼神跟随玩家, 每{0}秒对场上生命值最高的敌人造成造成{2}({3})伤害, 杀死敌人时, 立即重置所有宠物的冷却时间(包括狼神)"
-FANTASY_TACTICAL_GLOBAL_PET_BEHAVIOUR_DESCRIPTION,"Follows player. Deals damage to the healthiest enemy on the screen every {0}s. Killing an enemy resets the cooldown of all structures
+EFFECT_FANTASY_PET_WOLF_TOTEM,"Summons a Wolf God to deal {2} ({3}) damage to up to 8 enemies with the highest health every {0}s. Killing an enemy resets all pets' cooldowns (including Wolf God)","召唤狼神跟随玩家, 每{0}秒对场上至多8个生命值最高的敌人造成造成{2}({3})伤害, 杀死敌人时, 立即重置所有宠物的冷却时间(包括狼神)"
+FANTASY_TACTICAL_GLOBAL_PET_BEHAVIOUR_DESCRIPTION,"Follows the player. Attacks up to 8 enemies with the highest health on the screen every {0}s. Killing an enemy resets the cooldown of all pets (including itself)
 
-This pet scales with player :
-- % Life Steal
-- % Damage
-- % Crit Chance
-- Speed
-- Bounces
-- Piercing
-- % Piercing Damage
-- % Damage against bosses","跟随玩家,全屏攻击生命值最高的敌人,杀死敌人时会重置构筑物冷却
+This pet scales with the player's:
+% Life Steal
+% Damage
+% Crit Chance
+Speed
+Bounces
+Piercing
+% Piercing Damage
+% Damage to bosses","跟随玩家,全屏攻击至多8个生命值最高的敌人,杀死敌人时会重置所有宠物(包括自身)冷却
 
 这个宠物受到玩家以下属性的影响:
 - %生命窃取
@@ -468,3 +468,4 @@ EFFECT_FANTASY_DMG_WHEN_PICKUP_CONSUMABLE,"Picking up {0} deals {2} damage to up
 CHARACTER_FANTASY_PRIEST,Priest,牧师
 EFFECT_FANTASY_PERIODIC_RADIUS_DAMAGE,"Every {0} seconds, deals {2} damage to enemies within a range of {1}. Damage frequency is affected by %attack speed","每{0}秒对范围{1}内的敌人造成{2}伤害,攻速受%攻击速度影响"
 CHARACTER_FANTASY_PALADIN,Paladin,圣斗士
+STAT_FANTASY_PET_ATTACK_SPEED,% Pet Attack Speed ,%宠物攻击速度

@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 key = "level_upgrades_modifications"
 text_key = "EFFECT_LEVEL_UPGRADES_MODIFICATIONS"
-value = 20
+value = 10
 custom_key = ""
 storage_method = 0
 effect_sign = 3

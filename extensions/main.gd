@@ -191,36 +191,15 @@ func _fantasy_teleport_if_world_tree_enemy(players: Array) -> void:
 func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracking_key_hash: int) -> void:
     var enemies: Array = _entity_spawner.get_all_enemies(false)
     for enemy in enemies:
-        var enemy_current_hp: int = enemy.current_stats.health
         var enemy_max_hp: int = enemy.max_stats.health
 
-        if enemy_current_hp == 1: continue
-
         var full_dmg_value: int = 0
-        if enemy is Boss:
-            full_dmg_value += int(enemy_current_hp * bonus / 10.0)
-            enemy.current_stats.health -= full_dmg_value
-        else:
-            full_dmg_value += int(enemy_current_hp * bonus)
-            enemy.current_stats.health -= full_dmg_value
-        
-        RunData.add_tracked_value(player_index, tracking_key_hash, full_dmg_value)
-        enemy.emit_signal("health_updated", enemy, enemy.current_stats.health, enemy_max_hp)
+        if enemy is Boss: full_dmg_value += int(enemy_max_hp * bonus / 10.0)
+        else: full_dmg_value += int(enemy_max_hp * bonus)
 
         var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(player_index, Color("#FFA500"))
-        enemy.emit_signal(
-            "took_damage",
-            enemy,
-            full_dmg_value,
-            Vector2.ZERO,
-            false,
-            false,
-            false,
-            false,
-            damage_args,
-            HitType.NORMAL,
-            false
-        )
+        var take_damage_array: Array = enemy.take_damage(full_dmg_value, damage_args)
+        RunData.add_tracked_value(player_index, tracking_key_hash, take_damage_array[1])
 
 func fa_periodic_radius_damage(player_index: int, total_range: float, total_damage: int) -> void:
     var player: Player = _players[player_index]

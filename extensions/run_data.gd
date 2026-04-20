@@ -50,7 +50,7 @@ func _fantasy_update_specific_set_weapon_bonuses(player_index: int) -> void:
         if bonus == 0: continue
 
         old_specific_set_weapon_bonuses[stat] = old_specific_set_weapon_bonuses.get(stat, 0) + bonus
-        effects[stat] += stat_value
+        effects[stat] += bonus
 
 func _fantasy_update_limited_item_bonuses(player_index: int) -> void:
     var effects: Dictionary = get_player_effects(player_index)

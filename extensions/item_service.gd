@@ -133,7 +133,13 @@ func fa_get_jobs(stage: int, number: int = Utils.LARGE_NUMBER, way: int = Keys.e
     var source = jobs_by_stage.get(stage, [])
     var candidates = source
 
-    if way != Keys.empty_hash and way != Utils.job_fantasy_universal_hash:
+    if way == Utils.job_fantasy_universal_hash:
+        candidates = []
+        for upgrade in source:
+            if upgrade.upgrade_id_hash != Utils.job_fantasy_universal_hash: continue
+
+            candidates.append(upgrade)
+    elif way != Keys.empty_hash:
         candidates = []
         for upgrade in source:
             if upgrade.upgrade_id_hash != way and \

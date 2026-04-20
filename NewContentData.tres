@@ -70,7 +70,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/dmg_when_pickup_consumable/dmg_when_pickup_consumable_effect.gd" type="Script" id=68]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/nightingale_item.tres" type="Resource" id=69]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/erosion/erosion_effect.gd" type="Script" id=70]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/enemy/erosion_enemy_effect_behavior_data.tres" type="Resource" id=71]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/enemy/erosion/erosion_enemy_effect_behavior_data.tres" type="Resource" id=71]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/promotion_letter/promotion_letter_data.tres" type="Resource" id=75]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/melee_pet/melee_pet_effect.gd" type="Script" id=78]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/random_reload_when_pickup_gold/random_reload_when_pickup_gold_effect.gd" type="Script" id=79]
@@ -198,14 +198,15 @@ translation_keys_needing_operator = {
 "effect_fantasy_gain_stat_every_killed_enemies": [ 0 ],
 "effect_fantasy_gain_stat_for_every_limited_item": [ 1 ],
 "effect_fantasy_gain_temp_stat_every_killed_enemies": [ 0 ],
+"effect_fantasy_limited_item_bonuses": [ 0 ],
 "effect_fantasy_slow_cursed_enemy": [ 0 ],
 "effect_fantasy_soul_bonus": [ 0 ],
 "effect_fantasy_specific_set_weapon_bonuses": [ 0, 3 ],
 "info_pos_stat_fantasy_soul": [ 0, 1 ],
 "stat_fantasy_crit_damage": [ 0 ],
 "stat_fantasy_holy": [ 0 ],
-"stat_fantasy_soul": [ 0 ],
-"effect_fantasy_limited_item_bonuses": [ 0 ]
+"stat_fantasy_pet_attack_speed": [ 0 ],
+"stat_fantasy_soul": [ 0 ]
 }
 translation_keys_needing_percent = {
 "effect_fantasy_crit_overflow": [ 0, 2 ],

@@ -101,9 +101,6 @@ func _init() -> void:
 
         "end_run.gd",
         # Job System[ 6/6 ]
-    
-        "wave_manager.gd",
-        # EFFECTS: extra_elites_next_wave
 
         "linked_stats.gd",
         # EFFECTS: crit_overflow_stat
