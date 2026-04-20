@@ -5,9 +5,9 @@ BG_FANTASY_NIGHT,Fantasy-Night,幻界-夜
 FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
 FANTASY_LOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑,死亡时掉落一个箱子"
 FANTASY_LITTLE_SLIME_NAME,Small Slime,小史莱姆
-FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly pursues the player. Evolves after 10 combined instances of non-slime enemies dying or materials being picked up within a 100-unit range. Drops 50% of its gathered materials upon death","缓慢追击玩家,100范围内死亡的非史莱姆系敌人与其拾取的材料之和达到10个则进化,死亡时掉落50%拾取的材料"
+FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly pursues the player. Evolves after 10 combined instances of non-slime enemies dying or materials being picked up within a 100-unit range","缓慢追击玩家,100范围内死亡的非史莱姆系敌人与其拾取的材料之和达到10个则进化"
 FANTASY_MEDIUM_SLIME_NAME,Medium Slime,中史莱姆
-FANTASY_MEDIUM_SLIME_BEHAVIOUR_DESCRIPTION,"Drops only gathered materials. Slowly pursues the player. Summons 1 small slime per second. Splits into 3 small slimes upon death. Evolves after 24 instances of either non-slime enemies dying or materials being picked up within a 150-unit range. Drops 75% of its gathered materials upon death","仅掉落拾取的材料,缓慢追击玩家,每秒召唤1个小史莱姆,死亡时分裂成3个小史莱姆,150范围内死亡的非史莱姆系敌人与其拾取的材料之和达到24个则进化,死亡时掉落75%拾取的材料"
+FANTASY_MEDIUM_SLIME_BEHAVIOUR_DESCRIPTION,"Drops only gathered materials. Slowly pursues the player. Summons 1 small slime per second. Splits into 3 small slimes upon death. Evolves after 24 instances of either non-slime enemies dying or materials being picked up within a 150-unit range","仅掉落拾取的材料,缓慢追击玩家,每秒召唤1个小史莱姆,死亡时分裂成3个小史莱姆,150范围内死亡的非史莱姆系敌人与其拾取的材料之和达到24个则进化"
 FANTASY_BIG_SLIME_NAME,Big Slime,大史莱姆
 FANTASY_BIG_SLIME_BEHAVIOUR_DESCRIPTION,"No materials drop, slowly chases the player, summons 3 small slimes per second, splits into 2 medium slimes upon death, leaves a trail of slime residue lasting 5 seconds each second, slows player by 50% on contact","不掉落材料,缓慢追击玩家,每秒召唤3个小史莱姆,死亡时分裂成2个中史莱姆,每秒留下持续5秒的史莱姆粘液痕迹,玩家触碰时被减速50%"
 FANTASY_SLIME_KING_NAME,Slime King,史莱姆王

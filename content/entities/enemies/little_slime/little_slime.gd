@@ -3,7 +3,6 @@ extends Enemy
 export(String, FILE, "*.tscn") var evolution_target_path = ""
 var evolution_target: PackedScene = null
 export(int) var evovle_needed = 5
-export(float) var drop_rate = 0.5
 export(Array, String) var white_list = [
     "fantasy_little_slime", "fantasy_medium_slime",
     "fantasy_big_slime", "fantasy_slime_king"
@@ -22,9 +21,6 @@ func _ready() -> void:
 func respawn() -> void:
     .respawn()
     evolve_count = 0
-
-func get_stats_value() -> int:
-	return int(gold_count * drop_rate + stats.value)
 
 # =========================== Method =========================== #
 func fa_on_DetectionArea_body_entered(body: Enemy) -> void:
