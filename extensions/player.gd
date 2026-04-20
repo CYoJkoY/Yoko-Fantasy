@@ -177,10 +177,6 @@ func fa_set_periodic_radius(finall_range: int) -> void:
 
 func fa_on_PeriodicRadiusArea_enemy_entered(body: Node) -> void:
     enemies_in_perioidc_radius.append(body)
-    print("Entered")
-    print(enemies_in_perioidc_radius)
 
 func fa_on_PeriodicRadiusArea_enemy_exited(body: Node) -> void:
     enemies_in_perioidc_radius.erase(body)
-    print("Exited")
-    print(enemies_in_perioidc_radius)

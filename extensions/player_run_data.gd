@@ -7,7 +7,7 @@ var current_s2_job: UpgradeData = null
 
 # =========================== Extension =========================== #
 func duplicate(): # Avoid class problem
-    var copy :=.duplicate()
+    var copy =.duplicate()
     copy.jobs = jobs.duplicate()
     copy.current_s1_job = current_s1_job
     copy.current_s2_job = current_s2_job

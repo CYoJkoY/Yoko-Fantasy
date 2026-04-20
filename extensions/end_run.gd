@@ -4,7 +4,7 @@ extends "res://ui/menus/run/end_run.gd"
 const BUTTON_SHOW_JOB = preload("res://mods-unpacked/Yoko-Fantasy/extensions/jobs/button_show_job_scene.tscn")
 
 onready var h_container: HBoxContainer = _items_container.get_node("HBoxContainer")
-onready var sort_inventory_but: SortInventoryButton = h_container.get_node("Sort_Inventory_button")
+onready var sort_inventory_but: OptionButton = h_container.get_node("Sort_Inventory_button")
 
 # =========================== Extension =========================== #
 func _ready() -> void:

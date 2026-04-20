@@ -225,8 +225,6 @@ func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracki
 func fa_periodic_radius_damage(player_index: int, total_range: float, total_damage: int) -> void:
     var player: Player = _players[player_index]
     var enemies: Array = player.enemies_in_perioidc_radius
-    print("Damage")
-    print(enemies)
     for enemy in enemies:
         if !is_instance_valid(enemy) or enemy.dead: continue
 
