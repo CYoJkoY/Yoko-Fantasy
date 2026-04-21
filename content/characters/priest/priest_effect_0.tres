@@ -1,6 +1,23 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/periodic_radius_damage/periodic_radius_damage_effect.gd" type="Script" id=1]
+[ext_resource path="res://items/global/custom_arg.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+arg_index = 0
+arg_sign = 2
+arg_value = 0
+arg_format = 0
+arg_key = ""
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+arg_index = 1
+arg_sign = 2
+arg_value = 0
+arg_format = 0
+arg_key = ""
 
 [resource]
 script = ExtResource( 1 )
@@ -9,10 +26,11 @@ text_key = "EFFECT_FANTASY_PERIODIC_RADIUS_DAMAGE"
 value = 150
 custom_key = ""
 storage_method = 0
-effect_sign = 3
-custom_args = [  ]
+effect_sign = 2
+custom_args = [ SubResource( 1 ), SubResource( 2 ) ]
 value2 = 50
 sum_strategy = 0
 base_cooldown = 180
 base_damage = 10
 scaling_stats = [ [ "stat_fantasy_holy", 1.0 ] ]
+tracked_key = "character_fantasy_priest"

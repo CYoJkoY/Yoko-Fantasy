@@ -57,7 +57,7 @@ FANTASY_CRYSTALLINE_ELEMENTS_BEHAVIOUR_DESCRIPTION,"Teleports randomly within a 
 INFO_POS_STAT_FANTASY_HOLY,"Holy, Attribute. Increases damage dealt to Cursed enemies by {0}, increases Soul drop rate by {1}, and reduces all enemies' HP by {2}.","神圣,属性.额外增加对被诅咒敌人造成的伤害{0},增加敌人掉魂的概率{1},降低所有敌人的血量{2}"
 INFO_NEG_STAT_FANTASY_HOLY,"Holy, Attribute. Inactive when negative.","神圣,属性.负数时不生效."
 INFO_POS_STAT_FANTASY_SOUL,"Soul, a special drop. Upon pickup, increases damage by an additional 10% ({0} %damage) and attack speed by an additional 10% ({1} %attack speed). Each effect lasts 2 seconds","魂,特殊掉落物.拾取后%伤害额外增加10({0} %伤害),%攻击速度额外增加10({1} %攻击速度),每个持续2秒"
-INFO_NEG_STAT_FANTASY_SOUL,"Soul, a special drop. Upon pickup, increases damage by an additional 10 and attack speed by an additional 10. Each effect lasts 2 seconds","魂,特殊掉落物.拾取后%伤害额外增加10,%攻击速度额外增加10,每个持续2秒"
+INFO_NEG_STAT_FANTASY_SOUL,"Soul, a special drop. Upon pickup, increases damage by an additional 10% ({0} %damage) and attack speed by an additional 10% ({1} %attack speed). Each effect lasts 2 seconds","魂,特殊掉落物.拾取后%伤害额外增加10({0} %伤害),%攻击速度额外增加10({1} %攻击速度),每个持续2秒"
 STAT_FANTASY_HOLY,Holy,神圣
 CLASS_FANTASY_HOLY,Holy,神圣
 CLASS_FANTASY_FALLEN,Fallen,堕落
@@ -460,12 +460,12 @@ CHARACTER_FANTASY_SAGE,Sage,贤者
 CHARACTER_FANTASY_THIEF,Thief,盗贼
 EFFECT_FANTASY_MATERIAL_LOSS_ON_HIT,Lose {0} materials when hit,每次受伤失去{0}材料
 CHARACTER_FANTASY_NINJA,Ninja,忍者
-EFFECT_FANTASY_CRIT_OVERFLOW_STAT,"For every {2} excess %critical chance, {0} {1}","每溢出{2}%暴击率,{0}{1}"
+EFFECT_FANTASY_CRIT_OVERFLOW_STAT,"For every {2} excess %critical chance {0} {1}[{3}]","每溢出{2}%暴击率{0}{1}[{3}]"
 CHARACTER_FANTASY_PRINCESS,Princess,公主
-EFFECT_FANTASY_LIMITED_ITEM_BONUSES,"For every {2} limited item(s) owned, {0}{1}","每有{2}个限制道具,{0}{1}"
+EFFECT_FANTASY_LIMITED_ITEM_BONUSES,"For every {2} limited item(s) owned {0}{1}[{3}]","每有{2}个限制道具{0}{1}[{3}]"
 CHARACTER_FANTASY_APOSTLE,Apostle,使徒
 EFFECT_FANTASY_DMG_WHEN_PICKUP_CONSUMABLE,"Picking up {0} deals {2} damage to up to {1} random enemies","捡起{0}时,对随机最多{1}个敌人造成{2}伤害"
 CHARACTER_FANTASY_PRIEST,Priest,牧师
 EFFECT_FANTASY_PERIODIC_RADIUS_DAMAGE,"Every {0} seconds, deals {2} damage to enemies within a range of {1}. Damage frequency is affected by %attack speed","每{0}秒对范围{1}内的敌人造成{2}伤害,攻速受%攻击速度影响"
-CHARACTER_FANTASY_PALADIN,Paladin,圣斗士
+CHARACTER_FANTASY_PALADIN,Paladin,圣骑士
 STAT_FANTASY_PET_ATTACK_SPEED,% Pet Attack Speed ,%宠物攻击速度

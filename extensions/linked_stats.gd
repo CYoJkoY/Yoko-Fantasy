@@ -8,8 +8,10 @@ func reset_player(player_index: int) -> void:
 
 # =========================== Custom =========================== #
 func _fantasy_apply_cirt_overflow_stat(player_index: int) -> void:
-    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_crit_overflow_stat_hash, player_index)
+    var effects: Dictionary = RunData.get_player_effects(player_index)
+    var effect_items: Array = effects[Utils.fantasy_crit_overflow_stat_hash]
     if effect_items.empty(): return
+
     for effect_item in effect_items:
         var stat_hash: int = effect_item[0]
         var stat_add: int = effect_item[1]

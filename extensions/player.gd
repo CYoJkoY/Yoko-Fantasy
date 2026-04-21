@@ -13,7 +13,6 @@ var periodic_radius_shape: Shape2D = CircleShape2D.new()
 # =========================== Extension =========================== #
 func _ready() -> void:
     _fantasy_decaying_slow_enemy_when_below_hp_ready()
-    _fantasy_periodic_radius_damage_ready()
 
 func get_damage_value(dmg_value: int, _from_player_index: int, armor_applied := true, dodgeable := true, _is_crit := false, _hitbox: Hitbox = null, _is_burning := false) -> Unit.GetDamageValueResult:
     var result: Unit.GetDamageValueResult =.get_damage_value(dmg_value, _from_player_index, armor_applied, dodgeable, _is_crit, _hitbox, _is_burning)
@@ -147,21 +146,6 @@ func _fantasy_dmg_when_pickup_consumable(consumable_data: ConsumableData) -> voi
 
             if processed_count >= max_num: break
 
-func _fantasy_periodic_radius_damage_ready() -> void:
-    add_child(periodic_radius_area)
-    periodic_radius_area.name = "PeriodicRadiusArea"
-    periodic_radius_area.monitorable = false
-    periodic_radius_area.collision_layer = Utils.NO_COLLISION_BIT
-    periodic_radius_area.collision_mask = Utils.ENEMIES_BIT
-
-    periodic_radius_collision.set_shape(periodic_radius_shape)
-    periodic_radius_area.add_child(periodic_radius_collision)
-    
-    if !periodic_radius_area.is_connected("body_entered", self , "fa_on_PeriodicRadiusArea_enemy_entered"):
-        periodic_radius_area.connect("body_entered", self , "fa_on_PeriodicRadiusArea_enemy_entered")
-    if !periodic_radius_area.is_connected("body_exited", self , "fa_on_PeriodicRadiusArea_enemy_exited"):
-        periodic_radius_area.connect("body_exited", self , "fa_on_PeriodicRadiusArea_enemy_exited")
-
 # =========================== Method =========================== #
 func fa_on_soul_effect(damage_to_add: int, speed_to_add: int) -> void:
     var timer: SceneTreeTimer = get_tree().create_timer(2.0, false)
@@ -171,12 +155,3 @@ func fa_on_soul_effect_timer_timeout(damage_to_add: int, speed_to_add: int) -> v
     Utils.ncl_quiet_add_stat(Utils.stat_fantasy_soul_hash, -1, player_index)
     TempStats.remove_stat(Keys.stat_percent_damage_hash, damage_to_add, player_index)
     TempStats.remove_stat(Keys.stat_attack_speed_hash, speed_to_add, player_index)
-
-func fa_set_periodic_radius(finall_range: int) -> void:
-    periodic_radius_shape.radius = finall_range + 200
-
-func fa_on_PeriodicRadiusArea_enemy_entered(body: Node) -> void:
-    enemies_in_perioidc_radius.append(body)
-
-func fa_on_PeriodicRadiusArea_enemy_exited(body: Node) -> void:
-    enemies_in_perioidc_radius.erase(body)

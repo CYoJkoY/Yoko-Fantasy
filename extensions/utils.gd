@@ -44,6 +44,7 @@ var fantasy_slow_cursed_enemy_hash: int = Keys.generate_hash("fantasy_slow_curse
 var fantasy_extra_enemies_next_waves_hash: int = Keys.generate_hash("fantasy_extra_enemies_next_waves")
 var fantasy_material_loss_on_hit_hash: int = Keys.generate_hash("fantasy_material_loss_on_hit")
 var fantasy_crit_overflow_stat_hash: int = Keys.generate_hash("fantasy_crit_overflow_stat")
+var fantasy_limited_item_hash: int = Keys.generate_hash("fantasy_limited_item")
 var fantasy_old_limited_item_bonuses_hash: int = Keys.generate_hash("fantasy_old_limited_item_bonuses")
 var fantasy_limited_item_bonuses_hash: int = Keys.generate_hash("fantasy_limited_item_bonuses")
 var fantasy_dmg_when_pickup_consumable_hash: int = Keys.generate_hash("fantasy_dmg_when_pickup_consumable")

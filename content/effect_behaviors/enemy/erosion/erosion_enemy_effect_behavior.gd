@@ -112,10 +112,10 @@ func fa_on_Timer_timeout() -> void:
         fa_on_erosion_cd_timeout(erosion)
 
 func fa_on_erosion_cd_timeout(erosion: ActiveErosion) -> void:
-    var args: TakeDamageArgs = TakeDamageArgs.new(erosion.player_index)
-    args.set_meta("custom_color", Color("#33CC1A"))
+    var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(erosion.player_index, Color("#33CC1A"))
     erosion.damage = erosion.damage * erosion.crit_damage as int if Utils.get_chance_success(erosion.crit_chance) else erosion.damage
-    _parent.take_damage(erosion.damage, args)
+    var take_damage_array: Array = _parent.take_damage(erosion.damage, damage_args)
+    RunData.add_tracked_value(erosion.player_index, erosion.source_id, take_damage_array[1])
 
     erosion.times -= 1
     if erosion.times > 0: return

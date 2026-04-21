@@ -27,8 +27,7 @@ func _init() -> void:
         #          decaying_slow_enemy_when_below_hp[ 1/2 ]
         #          slow_cursed_enemy,
         #          time_bonus_current_health_damage
-        #          periodic_radius_damage[ 1/2 ]
-        
+    
         "item_service.gd",
         # Job System[ 2/6 ]
         # STATS: Soul[ 1/3 ], Holy[ 1/2 ]
@@ -41,7 +40,7 @@ func _init() -> void:
         "player_run_data.gd",
         # Job System[ 3/6 ]
         # EFFECTS' NAMES
-        
+
         "utils.gd",
         # Hashes
 
@@ -57,10 +56,9 @@ func _init() -> void:
         #          decaying_slow_enemy_when_below_hp[ 2/2 ]
         #          material_loss_on_hit
         #          dmg_when_pickup_consumable
-        #          periodic_radius_damage[ 2/2 ]
 
         "weapon_service.gd",
-        # STATS: Crit Damage
+        # STATS: Crit Damage, %Pet Attack Speed
         # EFFECTS: crit_overflow,
         #          structure_scaling_stats
 

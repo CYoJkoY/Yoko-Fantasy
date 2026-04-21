@@ -22,18 +22,11 @@ func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := t
 
 # =========================== Custom =========================== #
 func _fantasy_holy_reduce_health() -> void:
-    if applied_holy_reduce_health: return
-
     var holy_stat: int = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash) as int
     if holy_stat <= 0: return
-    
-    var reduction_factor: float = holy_stat / (holy_stat + 100.0)
-    if reduction_factor <= 0: return
 
-    var new_max_health = max(1, int(max_stats.health * reduction_factor))
-    
-    max_stats.health = new_max_health
-    applied_holy_reduce_health = true
+    var reduction_factor: float = holy_stat / (holy_stat + 100.0) * 100.0
+    reset_health_stat(int(reduction_factor))
 
 func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult) -> GetDamageValueResult:
     if dead: return dmg_value_result

@@ -2,8 +2,8 @@ extends "res://zones/wave_manager.gd"
 
 # =========================== Extension =========================== #
 func init(p_wave_timer: Timer, zone_data: ZoneData, wave_data: Resource) -> void:
-    .init(p_wave_timer, zone_data, wave_data)
     _fantasy_extra_elites_next_wave()
+    .init(p_wave_timer, zone_data, wave_data)
 
 # =========================== Custom =========================== #
 func _fantasy_extra_elites_next_wave():

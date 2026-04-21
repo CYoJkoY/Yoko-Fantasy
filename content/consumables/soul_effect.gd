@@ -5,6 +5,8 @@ var speed_to_add: int = 0
 
 # =========================== Extension =========================== #
 func apply(player_index: int) -> void:
+    if Utils.get_scene_node()._cleaning_up: return
+
     Utils.ncl_quiet_add_stat(Utils.stat_fantasy_soul_hash, value, player_index)
     
     var base_damage: float = Utils.get_stat(Keys.stat_percent_damage_hash, player_index)
