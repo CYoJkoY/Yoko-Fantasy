@@ -180,6 +180,7 @@ title_screen_backgrounds = [ ExtResource( 158 ) ]
 challenges = [  ]
 zones = [ ExtResource( 157 ) ]
 tracked_items = {
+"character_fantasy_apostle": 0,
 "character_fantasy_priest": 0,
 "item_fantasy_clock_tower_echo": 0,
 "item_fantasy_crimson_holy_shroud": 0,
@@ -196,7 +197,7 @@ tracked_effects = {
 "job_fantasy_dual_wielder": 0
 }
 translation_keys_needing_operator = {
-"effect_fantasy_crit_overflow_stat": [ 3, 3 ],
+"effect_fantasy_crit_overflow_stat": [ 0, 3 ],
 "effect_fantasy_decaying_slow_enemy_when_below_hp": [ 2 ],
 "effect_fantasy_erosion_speed": [ 0 ],
 "effect_fantasy_extra_curse_enemy": [ 0 ],

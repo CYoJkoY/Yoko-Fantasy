@@ -103,6 +103,7 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_limited_item_bonuses_hash: [],
             Utils.fantasy_dmg_when_pickup_consumable_hash: [],
             Utils.fantasy_periodic_radius_damage_hash: [],
+            Utils.fantays_base_chance_drop_soul_hash: 0,
 
         }
         

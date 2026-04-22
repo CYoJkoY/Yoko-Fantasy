@@ -14,3 +14,4 @@ custom_args = [  ]
 value2 = 1
 sum_strategy = 0
 scaling_stats = [ [ "stat_fantasy_holy", 1.0 ] ]
+tracked_key = "character_fantasy_apostle"

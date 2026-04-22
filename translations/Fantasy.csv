@@ -56,8 +56,7 @@ FANTASY_CRYSTALLINE_ELEMENTS_NAME,Crystalline Elements,元素结晶
 FANTASY_CRYSTALLINE_ELEMENTS_BEHAVIOUR_DESCRIPTION,"Teleports randomly within a range of 700 every 3 seconds, and each second summons a hexagonal cluster of six blade flashes around itself that contracts inward.","每3秒在700范围内随机传送,每秒在周围召唤由6个刀光构成的向内收缩的六边形刀光群"
 INFO_POS_STAT_FANTASY_HOLY,"Holy, Attribute. Increases damage dealt to Cursed enemies by {0}, increases Soul drop rate by {1}, and reduces all enemies' HP by {2}.","神圣,属性.额外增加对被诅咒敌人造成的伤害{0},增加敌人掉魂的概率{1},降低所有敌人的血量{2}"
 INFO_NEG_STAT_FANTASY_HOLY,"Holy, Attribute. Inactive when negative.","神圣,属性.负数时不生效."
-INFO_POS_STAT_FANTASY_SOUL,"Soul, a special drop. Upon pickup, increases damage by an additional 10% ({0} %damage) and attack speed by an additional 10% ({1} %attack speed). Each effect lasts 2 seconds","魂,特殊掉落物.拾取后%伤害额外增加10({0} %伤害),%攻击速度额外增加10({1} %攻击速度),每个持续2秒"
-INFO_NEG_STAT_FANTASY_SOUL,"Soul, a special drop. Upon pickup, increases damage by an additional 10% ({0} %damage) and attack speed by an additional 10% ({1} %attack speed). Each effect lasts 2 seconds","魂,特殊掉落物.拾取后%伤害额外增加10({0} %伤害),%攻击速度额外增加10({1} %攻击速度),每个持续2秒"
+INFO_POS_STAT_FANTASY_SOUL,"Soul, a unique drop. Only drops when Holy alignment is positive. Upon pickup, increases Damage by an additional 10% ({0}% damage) and Attack Speed by an additional 10% ({1}% attack speed). Each effect lasts 2 seconds","魂,特殊掉落物,仅在神圣属性为正时掉落.拾取后%伤害额外增加10({0} %伤害),%攻击速度额外增加10({1} %攻击速度),每个持续2秒"
 STAT_FANTASY_HOLY,Holy,神圣
 CLASS_FANTASY_HOLY,Holy,神圣
 CLASS_FANTASY_FALLEN,Fallen,堕落

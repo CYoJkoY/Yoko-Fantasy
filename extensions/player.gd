@@ -131,8 +131,8 @@ func _fantasy_dmg_when_pickup_consumable(consumable_data: ConsumableData) -> voi
         var max_num: int = effect_item[1]
         var scaling_stats: Array = effect_item[2]
         var base_damage: int = effect_item[3]
-        var scaling_dmg: float = Utils.ncl_get_scaling_stats_dmg(scaling_stats, player_index)
-        var total_damage: int = int(base_damage + scaling_dmg)
+        var tracked_key: int = effect_item[4]
+        var total_damage: int = Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, player_index)
         var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(player_index, Color("#F5D35E"))
 
         var processed_count = 0
@@ -141,7 +141,8 @@ func _fantasy_dmg_when_pickup_consumable(consumable_data: ConsumableData) -> voi
 
             if !is_instance_valid(enemy) or enemy.dead: continue
 
-            enemy.take_damage(total_damage, damage_args)
+            var take_damage_array: Array = enemy.take_damage(total_damage, damage_args)
+            RunData.add_tracked_value(player_index, tracked_key, take_damage_array[1])
             processed_count += 1
 
             if processed_count >= max_num: break

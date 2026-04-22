@@ -81,10 +81,8 @@ func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats:
             return
 
         erosion = ActiveErosion.new()
-        var percent_dmg_bonus: float = (1 + (Utils.get_stat(Keys.stat_percent_damage_hash, from_player_index) / 100.0))
-        var true_damage: float = percent_dmg_bonus * (Utils.ncl_get_scaling_stats_dmg(scaling_stats, from_player_index) + base_damage)
         erosion.player_index = from_player_index
-        erosion.damage = max(1, round(true_damage)) as int
+        erosion.damage = Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, from_player_index)
         erosion.chance = chance
         erosion.times = times
         erosion.cd = cd
@@ -113,7 +111,7 @@ func fa_on_Timer_timeout() -> void:
 
 func fa_on_erosion_cd_timeout(erosion: ActiveErosion) -> void:
     var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(erosion.player_index, Color("#33CC1A"))
-    erosion.damage = erosion.damage * erosion.crit_damage as int if Utils.get_chance_success(erosion.crit_chance) else erosion.damage
+    if Utils.get_chance_success(erosion.crit_chance): erosion.damage = int(erosion.crit_damage * erosion.crit_damage)
     var take_damage_array: Array = _parent.take_damage(erosion.damage, damage_args)
     RunData.add_tracked_value(erosion.player_index, erosion.source_id, take_damage_array[1])
 

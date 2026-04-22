@@ -1,5 +1,6 @@
 extends "res://singletons/item_service.gd"
 
+const BASE_CHANCE_DROP_SOUL: float = 0.01
 var jobs_by_stage: Dictionary = {0: [], 1: []}
 
 # =========================== Extension =========================== #
@@ -45,7 +46,8 @@ func get_icon_for_duplicate_shop_item(character: CharacterData, player_items: Ar
 # =========================== Custom =========================== #
 func _fantasy_get_soul_to_drop(consumable: ConsumableData) -> ConsumableData:
     var stat_holy: float = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
-    var chance_drop_soul: float = 0.01 * (1 + Utils.average_all_player_stats(Keys.stat_luck_hash) / 100.0)
+    var base_chance_drop_soul: float = BASE_CHANCE_DROP_SOUL + Utils.average_all_player_stats(Utils.fantays_base_chance_drop_soul_hash) / 100.0
+    var chance_drop_soul: float = base_chance_drop_soul + stat_holy * (1 + Utils.average_all_player_stats(Keys.stat_luck_hash) / 100.0)
     var chance_drop_soul_bonus: float = stat_holy / (stat_holy + 50.0) if stat_holy > 0 else -1.0
     if consumable == null and Utils.get_chance_success(chance_drop_soul * (1.0 + chance_drop_soul_bonus)):
         consumable = get_element(consumables, Utils.consumable_fantasy_soul_hash)

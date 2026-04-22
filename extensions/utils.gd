@@ -49,6 +49,7 @@ var fantasy_old_limited_item_bonuses_hash: int = Keys.generate_hash("fantasy_old
 var fantasy_limited_item_bonuses_hash: int = Keys.generate_hash("fantasy_limited_item_bonuses")
 var fantasy_dmg_when_pickup_consumable_hash: int = Keys.generate_hash("fantasy_dmg_when_pickup_consumable")
 var fantasy_periodic_radius_damage_hash: int = Keys.generate_hash("fantasy_periodic_radius_damage")
+var fantays_base_chance_drop_soul_hash: int = Keys.generate_hash("fantays_base_chance_drop_soul")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")
