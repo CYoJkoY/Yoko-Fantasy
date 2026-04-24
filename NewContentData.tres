@@ -42,7 +42,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy.tres" type="Resource" id=40]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/badge/badge_data.tres" type="Resource" id=41]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/soul_link/soul_link_data.tres" type="Resource" id=42]
-[ext_resource path="res://mods-unpacked/Yoko-NewContentLoader/NewContent.gd" type="Script" id=43]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/FantasyNewContent.gd" type="Script" id=43]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/crow/crow_data.tres" type="Resource" id=44]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/thief/thief_data.tres" type="Resource" id=45]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/ranged_pet/ranged_pet_effect.gd" type="Script" id=46]
@@ -172,7 +172,7 @@ items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 35 ), ExtResource( 
 weapons = [ ExtResource( 159 ), ExtResource( 161 ), ExtResource( 160 ), ExtResource( 162 ) ]
 effects = [ ExtResource( 54 ), ExtResource( 88 ), ExtResource( 70 ), ExtResource( 140 ), ExtResource( 86 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 46 ), ExtResource( 137 ), ExtResource( 139 ), ExtResource( 85 ), ExtResource( 141 ), ExtResource( 165 ), ExtResource( 68 ), ExtResource( 67 ), ExtResource( 72 ), ExtResource( 73 ) ]
 consumables = [ ExtResource( 39 ) ]
-upgrades = [ ExtResource( 97 ), ExtResource( 99 ), ExtResource( 100 ), ExtResource( 101 ), ExtResource( 102 ), ExtResource( 105 ), ExtResource( 109 ), ExtResource( 112 ), ExtResource( 110 ), ExtResource( 108 ), ExtResource( 107 ), ExtResource( 106 ), ExtResource( 103 ), ExtResource( 104 ), ExtResource( 111 ), ExtResource( 113 ), ExtResource( 114 ), ExtResource( 115 ), ExtResource( 116 ), ExtResource( 118 ), ExtResource( 119 ), ExtResource( 123 ), ExtResource( 125 ), ExtResource( 122 ), ExtResource( 127 ), ExtResource( 124 ), ExtResource( 126 ), ExtResource( 128 ), ExtResource( 121 ), ExtResource( 129 ), ExtResource( 130 ), ExtResource( 120 ), ExtResource( 131 ), ExtResource( 132 ) ]
+upgrades = [  ]
 sets = [ ExtResource( 163 ) ]
 difficulties = [  ]
 icons = [ ExtResource( 96 ), ExtResource( 49 ) ]
@@ -239,3 +239,5 @@ translation_keys_needing_percent = {
 scene_effect_behaviors = [  ]
 enemy_effect_behaviors = [ ExtResource( 71 ) ]
 player_effect_behaviors = [ ExtResource( 74 ) ]
+jobs = [ ExtResource( 97 ), ExtResource( 99 ), ExtResource( 100 ), ExtResource( 101 ), ExtResource( 102 ), ExtResource( 105 ), ExtResource( 109 ), ExtResource( 112 ), ExtResource( 110 ), ExtResource( 108 ), ExtResource( 107 ), ExtResource( 106 ), ExtResource( 103 ), ExtResource( 104 ), ExtResource( 111 ), ExtResource( 113 ), ExtResource( 114 ), ExtResource( 115 ), ExtResource( 116 ), ExtResource( 118 ), ExtResource( 119 ), ExtResource( 123 ), ExtResource( 125 ), ExtResource( 122 ), ExtResource( 127 ), ExtResource( 124 ), ExtResource( 126 ), ExtResource( 128 ), ExtResource( 121 ), ExtResource( 129 ), ExtResource( 130 ), ExtResource( 120 ), ExtResource( 131 ), ExtResource( 132 ) ]
+soul_data = ExtResource( 39 )

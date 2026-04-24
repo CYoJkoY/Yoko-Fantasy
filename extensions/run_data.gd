@@ -82,15 +82,8 @@ func _fantasy_update_limited_item_bonuses(player_index: int) -> void:
 
 # =========================== Method =========================== #
 func fa_add_job(job: UpgradeData, player_index: int) -> void:
-    match job.stage:
-        0: players_data[player_index].current_s1_job = job
-        1: players_data[player_index].current_s2_job = job
+    var job_stage: int = job.stage
+    players_data[player_index].jobs[job_stage] = job
 
-    players_data[player_index].jobs.append(job)
-
-func fa_get_current_job(stage: int, player_index: int) -> UpgradeData:
-    match stage:
-        0: return players_data[player_index].current_s1_job
-        1: return players_data[player_index].current_s2_job
-    
-    return null
+func fa_get_current_job(job_stage: int, player_index: int) -> UpgradeData:
+    return players_data[player_index].jobs.get(job_stage, null)

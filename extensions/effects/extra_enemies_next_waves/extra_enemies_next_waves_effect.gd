@@ -39,7 +39,7 @@ func get_args(_player_index: int) -> Array:
     var args: Array =.get_args(_player_index)
     var str_waves: String = "∞" if waves >= 999 else str(waves)
     var enemy_name: String = tr(name.to_upper())
-    var remaining_waves: int = RunData.ncl_get_effect_tracking_value(tracking_key_hash, _player_index)
+    var remaining_waves: int = RunData.ncl_get_effect_tracking_value(tracking_key_hash, _player_index) as int
     var tracking: String = Utils.ncl_create_tracking("TRACKING_REMAINING", remaining_waves)
     
     args.append(str_waves)

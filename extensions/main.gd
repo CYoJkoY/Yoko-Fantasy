@@ -92,11 +92,12 @@ func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
 func _fantasy_decaying_slow_enemy(enemy: Enemy) -> void:
     # For decaying slow new enemy
     for player_index in range(_players.size()):
-        var slow_percent: float = TempStats.get_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, player_index)
+        var slow_percent: int = TempStats.get_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, player_index) as int
         if slow_percent == 0: continue
 
         var player: Player = _players[player_index]
-        enemy.current_stats.speed += int(enemy.current_stats.speed * slow_percent / 100.0)
+        player._original_non_decaying_slow_speed_percent_modifier[enemy] = enemy._speed_percent_modifier
+        enemy.reset_speed_stat(slow_percent)
         match enemy.sprite.material == enemy.flash_mat:
             true: player._non_decaying_slow_material[enemy] = enemy._non_flash_material
             false: player._non_decaying_slow_material[enemy] = enemy.sprite.material

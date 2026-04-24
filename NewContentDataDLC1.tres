@@ -3,6 +3,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/apostle/apostle_data.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/rotten_plant/rotten_plant_data.tres" type="Resource" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/paladin/paladin_data.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/FantasyNewContent.gd" type="Script" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/overgrowth/overgrowth_data.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/nuclear_waste_drum/nuclear_waste_drum_data.tres" type="Resource" id=7]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/forbidden_spell/forbidden_spell_data.tres" type="Resource" id=9]
@@ -24,11 +25,10 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/cursed_coin/cursed_coin_data.tres" type="Resource" id=144]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/extra_curse_enemy/extra_curse_enemy_effect.gd" type="Script" id=151]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/extra_curse_item/extra_curse_item_effect.gd" type="Script" id=152]
-[ext_resource path="res://mods-unpacked/Yoko-NewContentLoader/NewContent.gd" type="Script" id=158]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/fallen/fallen_set_data.tres" type="Resource" id=166]
 
 [resource]
-script = ExtResource( 158 )
+script = ExtResource( 4 )
 my_id = ""
 groups_in_all_zones = [  ]
 music_tracks = [  ]
@@ -42,7 +42,7 @@ items = [ ExtResource( 132 ), ExtResource( 139 ), ExtResource( 144 ), ExtResourc
 weapons = [  ]
 effects = [ ExtResource( 151 ), ExtResource( 152 ), ExtResource( 83 ) ]
 consumables = [  ]
-upgrades = [ ExtResource( 23 ), ExtResource( 48 ) ]
+upgrades = [  ]
 sets = [ ExtResource( 166 ) ]
 difficulties = [  ]
 icons = [  ]
@@ -74,3 +74,4 @@ translation_keys_needing_percent = {
 scene_effect_behaviors = [  ]
 enemy_effect_behaviors = [  ]
 player_effect_behaviors = [  ]
+jobs = [ ExtResource( 23 ), ExtResource( 48 ) ]

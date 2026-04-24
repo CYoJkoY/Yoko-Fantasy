@@ -1,8 +1,5 @@
 extends "res://entities/units/enemies/enemy.gd"
 
-# stat_holy
-var applied_holy_reduce_health: bool = false
-
 # =========================== Extension =========================== #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)

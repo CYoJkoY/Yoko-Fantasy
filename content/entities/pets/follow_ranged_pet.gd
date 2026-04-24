@@ -85,7 +85,7 @@ func shoot() -> void:
 
 # =========================== Method =========================== #
 func _spawn_projectile(position: Vector2) -> void:
-    for i in range(_current_weapon_stats.nb_projectiles):
+    for _i in range(_current_weapon_stats.nb_projectiles):
         var spread: float = _current_weapon_stats.projectile_spread
         var proj_rotation: float = rand_range(_next_proj_rotation - spread, _next_proj_rotation + spread)
 

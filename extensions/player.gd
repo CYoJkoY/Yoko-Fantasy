@@ -2,6 +2,7 @@ extends "res://entities/units/player/player.gd"
 
 # decaying_slow_enemy_when_below_hp
 var decaying_slow_enemy_when_below_hp_triggers: Dictionary = {}
+var _original_non_decaying_slow_speed_percent_modifier: Dictionary = {}
 var _non_decaying_slow_material: Dictionary = {}
 
 # periodic_radius_damage
@@ -86,7 +87,8 @@ func _fantasy_decaying_slow_enemy_when_below_hp(dmg_taken: int) -> void:
         TempStats.add_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, stat_nb, player_index) # For main.gd to use
         var enemies: Array = Utils.get_scene_node()._entity_spawner.get_all_enemies(false)
         for enemy in enemies:
-            enemy.current_stats.speed += enemy.current_stats.speed * stat_nb / 100.0
+            _original_non_decaying_slow_speed_percent_modifier[enemy] = enemy._speed_percent_modifier
+            enemy.reset_speed_stat(stat_nb)
             match enemy.sprite.material == enemy.flash_mat:
                 true: _non_decaying_slow_material[enemy] = enemy._non_flash_material
                 false: _non_decaying_slow_material[enemy] = enemy.sprite.material
@@ -95,12 +97,13 @@ func _fantasy_decaying_slow_enemy_when_below_hp(dmg_taken: int) -> void:
         yield (get_tree().create_timer(duration, false), "timeout")
         if cleaning_up: return
 
-        TempStats.set_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, 0, player_index)
+        TempStats.remove_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, stat_nb, player_index)
         enemies = Utils.get_scene_node()._entity_spawner.get_all_enemies(false)
         for enemy in enemies:
-            enemy.current_stats.speed = enemy.max_stats.speed
+            enemy.reset_speed_stat(_original_non_decaying_slow_speed_percent_modifier[enemy])
             enemy.sprite.material = _non_decaying_slow_material[enemy]
-        
+
+        _original_non_decaying_slow_speed_percent_modifier = {} # Reset for next
         _non_decaying_slow_material = {} # Reset for next
         break # Once a time when take damage
 

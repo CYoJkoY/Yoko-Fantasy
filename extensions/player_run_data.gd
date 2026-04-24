@@ -1,44 +1,35 @@
 extends "res://singletons/player_run_data.gd"
 
 
-var jobs: Array = []
-var current_s1_job: UpgradeData = null
-var current_s2_job: UpgradeData = null
+var jobs: Dictionary = {}
 
 # =========================== Extension =========================== #
 func duplicate(): # Avoid class problem
     var copy =.duplicate()
     copy.jobs = jobs.duplicate()
-    copy.current_s1_job = current_s1_job
-    copy.current_s2_job = current_s2_job
 
     return copy
 
 func serialize() -> Dictionary:
     var serialized: Dictionary =.serialize()
 
-    var serialized_jobs: Array = []
-    for job in jobs: serialized_jobs.append(job.serialize())
+    var serialized_jobs: Dictionary = {}
+    for job_stage in jobs: serialized_jobs[job_stage] = jobs[job_stage].serialize()
 
     serialized.jobs = serialized_jobs
-    serialized.current_s1_job = current_s1_job.my_id if current_s1_job else ""
-    serialized.current_s2_job = current_s2_job.my_id if current_s2_job else ""
 
     return serialized
 
 func deserialize(data: Dictionary) -> PlayerRunData:
     .deserialize(data)
 
-    for job in data.jobs:
-        var job_data: Resource = ItemService.get_element_safe(ItemService.upgrades, job.my_id)
+    for job_stage in data.jobs:
+        var job_data: Resource = ItemService.get_element_safe(ItemService.upgrades, job_stage)
 
-        if job_data:
+        if job_data != null:
             job_data = job_data.duplicate()
-            job_data.deserialize_and_merge(job)
-            jobs.append(job_data)
-
-    current_s1_job = ItemService.get_element_safe(ItemService.upgrades, data.current_s1_job)
-    current_s2_job = ItemService.get_element_safe(ItemService.upgrades, data.current_s2_job)
+            job_data.deserialize_and_merge(data.jobs[job_stage])
+            jobs[job_stage] = job_data
 
     return self
 

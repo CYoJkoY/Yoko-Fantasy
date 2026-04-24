@@ -45,8 +45,9 @@ func fa_on_ItemPickUpArea_area_entered(area: Area2D) -> void:
 
     var gold: Gold = area
     gold_count += gold.value
-    gold.pickup(-1)
     evolve_count += 1
+    gold.pickup(-1)
+    
     if evolve_count < evovle_needed: return
 
     fa_evolve()

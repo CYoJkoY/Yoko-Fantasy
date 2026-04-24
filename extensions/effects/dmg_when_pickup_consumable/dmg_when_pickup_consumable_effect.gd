@@ -11,7 +11,7 @@ func duplicate(subresources := false) -> Resource:
         scaling_stats = Utils.convert_to_hash_array(scaling_stats)
     
     if tracked_key_hash == Keys.empty_hash and tracked_key != "":
-        tracked_key_hash = Keys.hash(tracked_key)
+        tracked_key_hash = Keys.generate_hash(tracked_key)
     
     duplication.scaling_stats = scaling_stats
     duplication.tracked_key_hash = tracked_key_hash
@@ -24,7 +24,7 @@ static func get_id() -> String:
 func _generate_hashes() -> void:
     ._generate_hashes()
     scaling_stats = Utils.convert_to_hash_array(scaling_stats)
-    tracked_key_hash = Keys.hash(tracked_key)
+    tracked_key_hash = Keys.generate_hash(tracked_key)
 
 func apply(player_index: int) -> void:
     if custom_key == "": return
@@ -40,7 +40,7 @@ func unapply(player_index: int) -> void:
 
 func get_args(player_index: int) -> Array:
     var scaling_dmg: float = Utils.ncl_get_scaling_stats_dmg(scaling_stats, player_index)
-    var total_damage: float = value2 + scaling_dmg
+    var total_damage: int = (value2 + scaling_dmg) as int
     var dmg_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(total_damage, scaling_stats, value2)
 
     return [tr(key.to_upper()), str(value), dmg_text]

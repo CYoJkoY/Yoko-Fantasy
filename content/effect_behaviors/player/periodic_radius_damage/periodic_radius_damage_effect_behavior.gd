@@ -38,7 +38,7 @@ func _fantasy_wait_time_ready() -> void:
 # =========================== Method =========================== #
 func fa_on_PeriodicRadiusTimer_timeout(base_range: int, range_rate: float, scaling_stats: Array, base_damage: int, tracked_key_hash: int) -> void:
     var total_range: float = Utils.ncl_get_range_with_detection(base_range, range_rate, _player_index)
-    var total_damage: int = Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, _player_index)
+    var total_damage: int = Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, _player_index) as int
 
     collision.shape.radius = total_range
     sprite_scale.scale = Vector2.ONE * (total_range / SPRITE_RANGE)
