@@ -10,7 +10,7 @@ func get_args(player_index: int) -> Array:
     var args: WeaponServiceInitStatsArgs = WeaponServiceInitStatsArgs.new()
     var _current_weapon_stats: RangedWeaponStats = WeaponService.init_ranged_pet_stats(weapon_stats, player_index, false, args)
     var scaling_stats_text: String = WeaponService.get_scaling_stats_icon_text(_current_weapon_stats.scaling_stats)
-    var cooldown_text: String = stepify(_current_weapon_stats.cooldown / 60.0, 0.1) as String
+    var cooldown_text: String = stepify(_current_weapon_stats.cooldown / 60.0, 0.01) as String
 
     return [cooldown_text, str(weapon_stats.max_range), str(_current_weapon_stats.damage), scaling_stats_text]
 

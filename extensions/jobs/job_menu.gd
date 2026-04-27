@@ -1,7 +1,5 @@
 extends PanelContainer
 
-const UI_JOB_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_ui.tscn")
-
 signal stat_focused(stat_button, stat_title, stat_value, player_index)
 signal stat_unfocused(player_index)
 signal stat_hovered(stat_button, stat_title, stat_value, player_index)
@@ -161,14 +159,11 @@ func _on_CrossButton_pressed() -> void:
 func on_stat_focused(stat_button, stat_title, stat_value, player_index) -> void:
     emit_signal("stat_focused", stat_button, stat_title, stat_value, player_index)
 
-
 func on_stat_unfocused(player_index) -> void:
     emit_signal("stat_unfocused", player_index)
 
-
 func on_stat_hovered(stat_button, stat_title, stat_value, player_index) -> void:
     emit_signal("stat_hovered", stat_button, stat_title, stat_value, player_index)
-
 
 func on_stat_unhovered(player_index) -> void:
     emit_signal("stat_unhovered", player_index)

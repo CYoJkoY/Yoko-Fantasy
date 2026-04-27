@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/scene/tree_radius_tempstats/tree_radius_tempstats_scene_effect_behavior.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/neutral/tree_radius_tempstats/tree_radius_tempstats_neutral_effect_behavior_data.tres" type="Resource" id=2]
+
+[node name="TreeRadiusTempstatsSceneEffectBehavior" type="Node"]
+script = ExtResource( 1 )
+tree_radius_tempstats_neutral_effect_behavior_data = ExtResource( 2 )

@@ -1,7 +1,8 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/periodic_radius_damage/periodic_radius_damage_effect.gd" type="Script" id=1]
 [ext_resource path="res://items/global/custom_arg.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/holy_light_hit/holy_light_hit.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
@@ -34,3 +35,5 @@ base_cooldown = 180
 base_damage = 10
 scaling_stats = [ [ "stat_fantasy_holy", 1.0 ] ]
 tracked_key = "character_fantasy_priest"
+damage_color = Color( 0.960784, 0.827451, 0.368627, 1 )
+hit_visual_scene = ExtResource( 3 )

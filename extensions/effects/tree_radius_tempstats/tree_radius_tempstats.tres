@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/tree_radius_tempstats/tree_radius_tempstats_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "stat_speed"
+text_key = "20"
+value = 0
+custom_key = "fantasy_tree_radius_tempstats"
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+radius = 200
+range_rate = 0.05

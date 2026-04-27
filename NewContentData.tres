@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=157 format=2]
+[gd_resource type="Resource" load_steps=160 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -73,10 +73,13 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/enemy/erosion/erosion_enemy_effect_behavior_data.tres" type="Resource" id=71]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/crit_overflow_stat/crit_overflow_stat_effect.gd" type="Script" id=72]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/limited_item_bonuses/limited_item_bonuses_effect.gd" type="Script" id=73]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/player/periodic_radius_damage/periodic_radius_damage_effect_behavior_data.tres" type="Resource" id=74]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/scene/periodic_radius_damage/periodic_radius_damage_scene_effect_behavior_data.tres" type="Resource" id=74]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/promotion_letter/promotion_letter_data.tres" type="Resource" id=75]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/elf/elf_data.tres" type="Resource" id=76]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/tree_radius_tempstats/tree_radius_tempstats_effect.gd" type="Script" id=77]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/melee_pet/melee_pet_effect.gd" type="Script" id=78]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/random_reload_when_pickup_gold/random_reload_when_pickup_gold_effect.gd" type="Script" id=79]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/scene/tree_radius_tempstats/tree_radius_tempstats_scene_effect_behavior_data.tres" type="Resource" id=80]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/holy_water/holy_water_data.tres" type="Resource" id=82]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/white_fox_item.tres" type="Resource" id=83]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/white_fox/white_fox_data.tres" type="Resource" id=84]
@@ -163,15 +166,15 @@ my_id = ""
 groups_in_all_zones = [ ExtResource( 25 ) ]
 music_tracks = [  ]
 backgrounds = [ ExtResource( 40 ), ExtResource( 156 ) ]
-characters = [ ExtResource( 37 ), ExtResource( 45 ), ExtResource( 48 ), ExtResource( 50 ), ExtResource( 51 ) ]
+characters = [ ExtResource( 37 ), ExtResource( 45 ), ExtResource( 48 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 76 ) ]
 entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 22 ), ExtResource( 2 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 18 ), ExtResource( 47 ), ExtResource( 56 ), ExtResource( 69 ), ExtResource( 83 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 133 ), ExtResource( 134 ), ExtResource( 135 ), ExtResource( 142 ), ExtResource( 143 ), ExtResource( 144 ), ExtResource( 34 ) ]
 elites = [ ExtResource( 151 ), ExtResource( 146 ), ExtResource( 150 ), ExtResource( 145 ), ExtResource( 152 ), ExtResource( 155 ), ExtResource( 147 ), ExtResource( 148 ), ExtResource( 149 ) ]
 bosses = [ ExtResource( 154 ), ExtResource( 153 ) ]
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]
 items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 75 ), ExtResource( 42 ), ExtResource( 82 ), ExtResource( 84 ), ExtResource( 87 ), ExtResource( 89 ), ExtResource( 90 ) ]
 weapons = [ ExtResource( 159 ), ExtResource( 161 ), ExtResource( 160 ), ExtResource( 162 ) ]
-effects = [ ExtResource( 54 ), ExtResource( 88 ), ExtResource( 70 ), ExtResource( 140 ), ExtResource( 86 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 46 ), ExtResource( 137 ), ExtResource( 139 ), ExtResource( 85 ), ExtResource( 141 ), ExtResource( 165 ), ExtResource( 68 ), ExtResource( 67 ), ExtResource( 72 ), ExtResource( 73 ) ]
-consumables = [ ExtResource( 39 ) ]
+effects = [ ExtResource( 54 ), ExtResource( 88 ), ExtResource( 70 ), ExtResource( 140 ), ExtResource( 86 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 46 ), ExtResource( 137 ), ExtResource( 139 ), ExtResource( 85 ), ExtResource( 141 ), ExtResource( 165 ), ExtResource( 68 ), ExtResource( 67 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 77 ) ]
+consumables = [  ]
 upgrades = [  ]
 sets = [ ExtResource( 163 ) ]
 difficulties = [  ]
@@ -209,6 +212,7 @@ translation_keys_needing_operator = {
 "effect_fantasy_slow_cursed_enemy": [ 0 ],
 "effect_fantasy_soul_bonus": [ 0 ],
 "effect_fantasy_specific_set_weapon_bonuses": [ 0, 3 ],
+"effect_fantasy_tree_radius_tempstats": [ 1 ],
 "info_pos_stat_fantasy_soul": [ 0, 1 ],
 "stat_fantasy_crit_damage": [ 0 ],
 "stat_fantasy_holy": [ 0 ],
@@ -236,8 +240,8 @@ translation_keys_needing_percent = {
 "info_pos_stat_fantasy_soul": [ 0, 1 ],
 "stat_fantasy_crit_damage": [ 0 ]
 }
-scene_effect_behaviors = [  ]
+scene_effect_behaviors = [ ExtResource( 80 ), ExtResource( 74 ) ]
 enemy_effect_behaviors = [ ExtResource( 71 ) ]
-player_effect_behaviors = [ ExtResource( 74 ) ]
+player_effect_behaviors = [  ]
 jobs = [ ExtResource( 97 ), ExtResource( 99 ), ExtResource( 100 ), ExtResource( 101 ), ExtResource( 102 ), ExtResource( 105 ), ExtResource( 109 ), ExtResource( 112 ), ExtResource( 110 ), ExtResource( 108 ), ExtResource( 107 ), ExtResource( 106 ), ExtResource( 103 ), ExtResource( 104 ), ExtResource( 111 ), ExtResource( 113 ), ExtResource( 114 ), ExtResource( 115 ), ExtResource( 116 ), ExtResource( 118 ), ExtResource( 119 ), ExtResource( 123 ), ExtResource( 125 ), ExtResource( 122 ), ExtResource( 127 ), ExtResource( 124 ), ExtResource( 126 ), ExtResource( 128 ), ExtResource( 121 ), ExtResource( 129 ), ExtResource( 130 ), ExtResource( 120 ), ExtResource( 131 ), ExtResource( 132 ) ]
 soul_data = ExtResource( 39 )

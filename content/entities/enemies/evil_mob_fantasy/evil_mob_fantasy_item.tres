@@ -6,11 +6,11 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "evil_mob"
+my_id = "evil_mob_fantasy"
 unlocked_by_default = false
 can_be_looted = true
 icon = ExtResource( 2 )
-name = "EVIL_MOB_NAME"
+name = "EVIL_MOB_FANTASY_NAME"
 tier = 0
 value = 1
 effects = [  ]
@@ -20,7 +20,7 @@ unlock_codex_descr_after_get_it = 1
 is_cursed = false
 curse_factor = 0.0
 stats = ExtResource( 3 )
-behaviour_description = "EVIL_MOB_BEHAVIOUR_DESCRIPTION"
+behaviour_description = "EVIL_MOB_FANTASY_BEHAVIOUR_DESCRIPTION"
 show_hp = true
 show_dammage = true
 show_speed = true

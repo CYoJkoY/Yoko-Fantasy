@@ -308,6 +308,7 @@ projectile_scene = ExtResource( 10 )
 projectile_speed = 600
 projectile_speed_randomization = 60
 cooldown = 180.0
+initial_cooldown = 180
 max_cd_randomization = 0
 damage_increase_each_wave = 0.5
 max_range = 99999

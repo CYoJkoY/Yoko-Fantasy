@@ -3,16 +3,7 @@ extends Pet
 export(int) var max_num: int = 8
 export(String) var damage_tracking_id
 var damage_tracking_id_hash: int = Keys.empty_hash
-
-var _base_weapon_stats: RangedWeaponStats = RangedWeaponStats.new()
-var _current_weapon_stats: RangedWeaponStats = RangedWeaponStats.new()
-
-var _cooldown: float = 0.0
-var _is_shooting: bool = false
-
-var wolf_totem_args: TakeDamageArgs = null
-
-var pets_to_process: Dictionary = {
+export(Dictionary) var pets_to_process = {
 
     "Blazemander": ["_current_cooldown", "_current_ranged_cooldown"],
     "BonkDog": ["_current_cooldown", "_current_ultime_cooldown"],
@@ -27,6 +18,15 @@ var pets_to_process: Dictionary = {
     "WhiteFox": ["_cooldown"]
 
 }
+export(Color) var damage_color = Color("#F5D35E")
+
+var _base_weapon_stats: RangedWeaponStats = RangedWeaponStats.new()
+var _current_weapon_stats: RangedWeaponStats = RangedWeaponStats.new()
+
+var _cooldown: float = 0.0
+var _is_shooting: bool = false
+
+var tactical_global_args: TakeDamageArgs = null
 
 # =========================== Extension =========================== #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
@@ -75,8 +75,8 @@ func shoot() -> void:
     var damage: int = _current_weapon_stats.damage
     if Utils.get_chance_success(crit_chance):
         damage = int(damage * crit_damage)
-        wolf_totem_args = Utils.ncl_create_custom_damage_args(player_index, Color.yellow)
-    else: wolf_totem_args = TakeDamageArgs.new(player_index)
+        tactical_global_args = Utils.ncl_create_custom_damage_args(player_index, damage_color)
+    else: tactical_global_args = TakeDamageArgs.new(player_index)
 
     enemies.sort_custom(self , "fa_sort_by_health_desc")
 
@@ -89,7 +89,7 @@ func shoot() -> void:
         if !enemy.is_connected("died", self , "fa_on_wolf_totem_killed_best_enemy"):
             enemy.connect("died", self , "fa_on_wolf_totem_killed_best_enemy", [entity_spawner], CONNECT_ONESHOT)
 
-        var take_damage_array: Array = enemy.take_damage(damage, wolf_totem_args)
+        var take_damage_array: Array = enemy.take_damage(damage, tactical_global_args)
         var actual_damage: int = take_damage_array[1]
         RunData.add_tracked_value(player_index, damage_tracking_id_hash, actual_damage)
         processed_count += 1
@@ -105,7 +105,7 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 
 func fa_on_wolf_totem_killed_best_enemy(_entity: Entity, _die_args: Entity.DieArgs, entity_spawner: EntitySpawner) -> void:
     for pet in entity_spawner.pets:
-        if !is_instance_valid(pet) or !(pet.name in pets_to_process): continue
+        if !is_instance_valid(pet) or !(Utils.ncl_get_validate_node_name(pet.name) in pets_to_process): continue
 
         var cooldown_var_names: Array = pets_to_process.get(pet.name)
         for cooldown_var_name in cooldown_var_names:

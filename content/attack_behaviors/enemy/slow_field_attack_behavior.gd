@@ -10,6 +10,8 @@ export(float) var speed_reduction = 0.5
 export(float) var size = 1.0
 export(SpawnPosition) var spawn_position = SpawnPosition.Self
 
+var custom_collision_mask: int = 0
+var custom_sprite_material: ShaderMaterial = null
 var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
@@ -22,6 +24,8 @@ func reset() -> void:
     set_deferred("monitoring", false)
     set_physics_process(false)
     scale = Vector2(1.0, 1.0)
+    custom_collision_mask = 0
+    custom_sprite_material = null
 
 func shoot() -> void:
     var slow_field: Node = main.get_node_from_pool(slow_field_pool_id, main._materials_container)
@@ -34,6 +38,12 @@ func shoot() -> void:
     slow_field.scale *= size
     slow_field.reduction = speed_reduction
     slow_field.already_recycle = false
+
+    if custom_collision_mask != 0:
+        slow_field.set_collision_mask(custom_collision_mask)
+
+    if custom_sprite_material:
+        slow_field.set_sprite_material(custom_sprite_material)
 
     match spawn_position:
         SpawnPosition.Self: slow_field.drop(global_position, slow_field_duration)

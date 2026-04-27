@@ -1,73 +1,96 @@
 extends DoubleValueEffect
 
+export(Array, Array) var scaling_stats = [["stat_fantasy_holy", 1.0]]
 export(int) var base_cooldown = 180
 export(int) var base_damage = 10
-export(Array, Array) var scaling_stats = [["stat_fantasy_holy", 1.0]]
 export(String) var tracked_key = ""
 var tracked_key_hash: int = Keys.empty_hash
+export(Color) var damage_color = Color.white
+var damage_color_hash: int = Keys.empty_hash
+export(PackedScene) var hit_visual_scene = null
+var hit_visual_scene_hash: int = Keys.empty_hash
 
 # =========================== Extension =========================== #
 func duplicate(subresources := false) -> Resource:
-	var duplication =.duplicate(subresources)
-	if !scaling_stats.empty():
-		scaling_stats = Utils.convert_to_hash_array(scaling_stats)
-	if tracked_key_hash == Keys.empty_hash and tracked_key != "":
-		tracked_key_hash = Keys.generate_hash(tracked_key)
+    var duplication =.duplicate(subresources)
+    if !scaling_stats.empty():
+        scaling_stats = Utils.convert_to_hash_array(scaling_stats)
+    if tracked_key_hash == Keys.empty_hash and tracked_key != "":
+        tracked_key_hash = Keys.generate_hash(tracked_key)
+    if damage_color_hash == Keys.empty_hash:
+        damage_color_hash = Keys.generate_hash(damage_color.to_html())
+    if hit_visual_scene_hash == Keys.empty_hash and hit_visual_scene != null:
+        hit_visual_scene_hash = Keys.generate_hash(hit_visual_scene.resource_path)
 
-	duplication.scaling_stats = scaling_stats
-	duplication.tracked_key_hash = tracked_key_hash
+    duplication.scaling_stats = scaling_stats
+    duplication.tracked_key_hash = tracked_key_hash
+    duplication.damage_color_hash = damage_color_hash
+    duplication.hit_visual_scene_hash = hit_visual_scene_hash
 
-	return duplication
+    return duplication
 
 static func get_id() -> String:
-	return "fantasy_periodic_radius_damage"
+    return "fantasy_periodic_radius_damage"
 
 func _generate_hashes() -> void:
-	._generate_hashes()
-	scaling_stats = Utils.convert_to_hash_array(scaling_stats)
-	tracked_key_hash = Keys.generate_hash(tracked_key)
+    ._generate_hashes()
+    scaling_stats = Utils.convert_to_hash_array(scaling_stats)
+    tracked_key_hash = Keys.generate_hash(tracked_key)
+    damage_color_hash = Keys.generate_hash(damage_color.to_html())
+    hit_visual_scene_hash = Keys.generate_hash(hit_visual_scene.resource_path)
 
 func apply(player_index: int) -> void:
-	if key == "": return
+    if key == "": return
 
-	var effects = RunData.get_player_effects(player_index)
-	effects[key_hash].append([value, value2, scaling_stats, base_cooldown, base_damage, tracked_key_hash])
+    var effects = RunData.get_player_effects(player_index)
+    effects[key_hash].append([value, value2, scaling_stats, base_cooldown, base_damage, tracked_key_hash, damage_color_hash, hit_visual_scene_hash])
 
 func unapply(player_index: int) -> void:
-	if key == "": return
+    if key == "": return
 
-	var effects = RunData.get_player_effects(player_index)
-	effects[key_hash].erase([value, value2, scaling_stats, base_cooldown, base_damage, tracked_key_hash])
+    var effects = RunData.get_player_effects(player_index)
+    effects[key_hash].erase([value, value2, scaling_stats, base_cooldown, base_damage, tracked_key_hash, damage_color_hash, hit_visual_scene_hash])
 
 func get_args(player_index: int) -> Array:
-	var scaling_dmg: float = Utils.ncl_get_scaling_stats_dmg(scaling_stats, player_index)
-	var total_damage: int = (base_damage + scaling_dmg) as int
-	var dmg_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(total_damage, scaling_stats, base_damage)
+    var scaling_dmg: float = Utils.ncl_get_scaling_stats_dmg(scaling_stats, player_index)
+    var total_damage: int = (base_damage + scaling_dmg) as int
+    var dmg_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(total_damage, scaling_stats, base_damage)
 
-	var attack_speed_mod: float = Utils.get_stat(Keys.stat_attack_speed_hash, player_index) / 100.0
-	var final_cooldown: float = WeaponService.apply_attack_speed_mod_to_cooldown(base_cooldown, attack_speed_mod)
-	var cooldown_text: String = "[color=%s]%s[/color]" % [Utils.ncl_get_signed_col(final_cooldown, base_cooldown, true), final_cooldown / 60.0]
+    var attack_speed_mod: float = Utils.get_stat(Keys.stat_attack_speed_hash, player_index) / 100.0
+    var final_cooldown: float = WeaponService.apply_attack_speed_mod_to_cooldown(base_cooldown, attack_speed_mod)
+    var cooldown_text: String = "[color=%s]%s[/color]" % [Utils.ncl_get_signed_col(final_cooldown, base_cooldown, true), stepify(final_cooldown / 60.0, 0.01)]
 
-	var range_rate: float = value2 / 100.0
-	var total_range: float = Utils.get_stat(Keys.stat_range_hash, player_index) * range_rate + value
-	var range_scaling_text: String = Utils.get_scaling_stat_icon_text(Keys.stat_range_hash, range_rate)
-	var range_text: String = "[color=%s]%s[/color] (%s)" % [Utils.ncl_get_signed_col(total_range, value), total_range, range_scaling_text]
+    var range_rate: float = value2 / 100.0
+    var total_range: int = (Utils.get_stat(Keys.stat_range_hash, player_index) * range_rate + value) as int
+    var range_scaling_text: String = Utils.get_scaling_stat_icon_text(Keys.stat_range_hash, range_rate)
+    var range_text: String = "[color=%s]%s[/color] (%s)" % [Utils.ncl_get_signed_col(total_range, value), total_range, range_scaling_text]
 
-	return [cooldown_text, range_text, dmg_text]
+    return [cooldown_text, range_text, dmg_text]
 
 func serialize() -> Dictionary:
-	var serialized: Dictionary =.serialize()
-	serialized.base_cooldown = base_cooldown
-	serialized.base_damage = base_damage
-	serialized.scaling_stats = scaling_stats
-	serialized.tracked_key = tracked_key
+    var serialized: Dictionary =.serialize()
+    serialized.base_cooldown = base_cooldown
+    serialized.base_damage = base_damage
+    serialized.scaling_stats = scaling_stats
+    serialized.tracked_key = tracked_key
+    serialized.damage_color = damage_color.to_html()
+    serialized.hit_visual_scene = hit_visual_scene.resource_path if hit_visual_scene else null
 
-	return serialized
+    return serialized
 
 func deserialize_and_merge(serialized: Dictionary) -> void:
-	.deserialize_and_merge(serialized)
-	base_cooldown = serialized.base_cooldown
-	base_damage = serialized.base_damage
-	scaling_stats = Utils.convert_to_hash_array(serialized.get("scaling_stats", [])) as Array
-	tracked_key = serialized.tracked_key
-	tracked_key_hash = Keys.generate_hash(tracked_key)
+    .deserialize_and_merge(serialized)
+    base_cooldown = serialized.base_cooldown as int
+    base_damage = serialized.base_damage as int
+    scaling_stats = Utils.convert_to_hash_array(serialized.get("scaling_stats", [])) as Array
+    tracked_key = serialized.tracked_key as String
+    tracked_key_hash = Keys.generate_hash(tracked_key) as int
+    damage_color = Color("#" + serialized.damage_color) as Color
+    damage_color_hash = Keys.generate_hash(serialized.damage_color)
+    if serialized.hit_visual_scene == null: return
+
+    var hit_visual_scene_path = serialized.hit_visual_scene as String
+    if hit_visual_scene_path == "": return
+
+    hit_visual_scene = load(hit_visual_scene_path) as PackedScene
+    hit_visual_scene_hash = Keys.generate_hash(hit_visual_scene_path)

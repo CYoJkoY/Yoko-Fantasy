@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/on_target_enemy_killed_buff_future_target_enemy/on_target_enemy_killed_buff_future_target_enemy_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "fantasy_on_target_enemy_killed_buff_future_target_enemy"
+text_key = "EFFECT_FANTASY_ON_TARGET_ENEMY_KILLED_BUFF_FUTURE_TARGET_ENEMY"
+value = 3
+custom_key = ""
+storage_method = 0
+effect_sign = 2
+custom_args = [  ]
+trigger_enemy_id = "fantasy_goblin_javelin_thrower"
+trigger_enemy_name_key = "FANTASY_GOBLIN_JAVELIN_THROWER_NAME"
+future_target_enemy_id = "fantasy_goblin_javelin_thrower"
+future_target_enemy_name_key = "FANTASY_GOBLIN_JAVELIN_THROWER_NAME"
+future_stat = "stat_max_hp"

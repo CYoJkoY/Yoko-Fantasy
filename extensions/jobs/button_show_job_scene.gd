@@ -1,8 +1,6 @@
 extends MyMenuButton
 
-# job_menu
-const JOB_MENU_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_menu.tscn")
-
+var job_menu_scene = load("res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_menu.tscn")
 var current_scene: Node = null
 var global_scene: Node = null
 
@@ -12,7 +10,7 @@ func on_pressed() -> void:
 
     var job_menu: PanelContainer = global_scene.get_node_or_null("JobMenu")
     if job_menu == null:
-        var JobMenuInstance: Node = JOB_MENU_SCENE.instance()
+        var JobMenuInstance: Node = job_menu_scene.instance()
         JobMenuInstance.scene_before_created = current_scene
         global_scene.add_child(JobMenuInstance)
         return

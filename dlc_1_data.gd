@@ -33,10 +33,13 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
                 new_effect.value = 0 if new_effect.value == 1 else new_effect.value # Second process
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier, {"step": 1})
 
+            ["fantasy_melee_pet", _, _], \
             ["fantasy_ranged_pet", _, _]:
                 new_effect.weapon_stats = _boost_weapon_stats_damage(new_effect.weapon_stats, effect_modifier)
 
-            ["fantasy_damage_clamp", _, _]:
+            ["fantasy_damage_clamp", _, _], \
+            ["fantasy_decaying_slow_enemy_when_below_hp", _, _], \
+            ["fantasy_change_weapon_every_killed_enemies", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"is_negative": true, "step": 1})
 
             ["fantasy_erosion", _, _], \
@@ -46,12 +49,6 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
                     scaling[1] = Utils.ncl_curse_effect_value(scaling[1], effect_modifier, {"process_negative": false})
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier)
                 new_effect.times = Utils.ncl_curse_effect_value(new_effect.times, effect_modifier)
-            
-            ["fantasy_decaying_slow_enemy_when_below_hp", _, _]:
-                new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"is_negative": true, "step": 1})
-
-            ["fantasy_change_weapon_every_killed_enemies", _, _]:
-                new_effect.value = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier, {"is_negative": true, "step": 1})
 
             ["fantasy_periodic_radius_damage", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"process_negative": false, "step": 1})
@@ -61,6 +58,9 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
                     scaling[1] = Utils.ncl_curse_effect_value(scaling[1], effect_modifier, {"process_negative": false})
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier)
                 new_effect.times = Utils.ncl_curse_effect_value(new_effect.times, effect_modifier)
+
+            ["fantasy_tree_radius_tempstats", _, _]:
+                new_effect.range_rate = Utils.ncl_curse_effect_value(new_effect.range_rate, effect_modifier, {"process_negative": false})
 
             [_, _, Utils.fantasy_curse_all_on_reroll_hash]:
                 new_effect.text_key += "_CURSED"

@@ -73,6 +73,8 @@ func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
     var random_weapon: Weapon = Utils.get_rand_element(_players[player_index].current_weapons)
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_random_reload_when_pickup_gold_hash, player_index)
 
+    if random_weapon == null: return
+
     for effect_item in effect_items:
         var chance: float = effect_item[1] / 100.0
 

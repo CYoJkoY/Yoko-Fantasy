@@ -24,10 +24,11 @@ func _init() -> void:
         # Job System[ 1/6 ]
         # STATS: Soul[ 1/3 ]
         # ENEMIES: World Tree
-        # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ],
+        # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ]
         #          decaying_slow_enemy_when_below_hp[ 1/2 ]
         #          slow_cursed_enemy,
         #          time_bonus_current_health_damage
+        #          random_reload_when_picked_up_gold
     
         "item_service.gd",
         # Job System[ 2/6 ]
@@ -60,29 +61,33 @@ func _init() -> void:
 
         "weapon_service.gd",
         # STATS: Crit Damage, %Pet Attack Speed
-        # EFFECTS: crit_overflow,
+        # EFFECTS: crit_overflow
         #          structure_scaling_stats
 
         "wave_manager.gd",
         # EFFECTS: extra_elites_next_wave
 
         "entity_spawner.gd",
+        # ENEMIES: Plant Enemies[ 1/3 ]
+        #          Enemies with detect ability
         # EFFECTS: gain_stat_every_killed_enemies[ 1/3 ]
 
         "melee_weapon.gd",
-        # EFFECTS: gain_stat_every_killed_enemies[ 2/3 ],
+        # EFFECTS: gain_stat_every_killed_enemies[ 2/3 ]
         #          reload_when_shoot[ 1/2 ]
         #          change_weapon_every_killed_enemies
+        #          cannot_damage_tree[ 1/4 ]
 
         "ranged_weapon.gd",
-        # EFFECTS: gain_stat_every_killed_enemies[ 3/3 ],
+        # EFFECTS: gain_stat_every_killed_enemies[ 3/3 ]
         #          reload_when_shoot[ 2/2 ]
+        #          cannot_damage_tree[ 2/4 ]
 
         "run_data.gd",
         # Job System[ 4/6 ]
         # STATS: Soul[ 3/3 ]
-        # EFFECTS: specific_set_weapon_bonuses,
-        #          shop_enter_stat_curse[ 2/2 ],
+        # EFFECTS: specific_set_weapon_bonuses
+        #          shop_enter_stat_curse[ 2/2 ]
         #          upgrade_specific_tier_weapons[ 2/2 ]
         #          limited_item_bonuses
 
@@ -103,6 +108,16 @@ func _init() -> void:
 
         "linked_stats.gd",
         # EFFECTS: crit_overflow_stat
+
+        "neutral.gd",
+        # EFFECTS: cannot_damage_tree[ 3/4 ]
+
+        "lootworm_target_behavior.gd",
+        # ENEMIES: Plant Enemies[ 2/3 ]
+        # EFFECTS: cannot_damage_tree[ 4/4 ]
+
+        "lootworm.gd",
+        # ENEMIES: Plant Enemies[ 3/3 ]
 
     ]
 

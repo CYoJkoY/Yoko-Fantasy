@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://effects/items/gain_stat_for_every_stat_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "stat_ranged_damage"
+text_key = "EFFECT_FANTASY_GAIN_STAT_FOR_NEGATIVE_SPEED"
+value = 1
+custom_key = ""
+storage_method = 0
+effect_sign = 0
+custom_args = [  ]
+nb_stat_scaled = -2
+stat_scaled = "stat_speed"
+perm_stats_only = true

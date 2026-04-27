@@ -4,6 +4,28 @@ BG_FANTASY,Fantasy,幻界
 BG_FANTASY_NIGHT,Fantasy-Night,幻界-夜
 FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
 FANTASY_LOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑,死亡时掉落一个箱子"
+EVIL_MOB_FANTASY_NAME,Gobbler,吞吞怪
+EVIL_MOB_FANTASY_BEHAVIOUR_DESCRIPTION,"Target materials to eat them, dealing damage on touch. Eating makes it grow.
+Has 3% chance to spawn 10 seconds into a wave.
+
+Mutation 0:
+Fast but fragile. Killing it makes it drop all the materials it ate.
+
+Mutation 1:
+Loses speed but gains max HP. Killing it makes it drop twice the amount of materials it ate.
+
+Mutation 2:
+Loses more speed but gains even more max HP. Killing it makes it drop three times the amount of materials it ate.","瞄准并吞噬材料，接触时造成伤害。吞噬材料时会变大。
+在每一波敌袭开始的10秒时有3%几率生成。
+
+异变0:
+迅速但脆弱。击杀时会掉落吞噬的所有材料。
+
+异变1:
+失去速度但获得最大生命。击杀时会掉落2倍吞噬的所有材料。
+
+异变2:
+失去更多速度但获得更多最大生命。击杀时会掉落3倍吞噬的所有材料。"
 FANTASY_LITTLE_SLIME_NAME,Small Slime,小史莱姆
 FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly pursues the player. Evolves after 10 combined instances of non-slime enemies dying or materials being picked up within a 100-unit range","缓慢追击玩家,100范围内死亡的非史莱姆系敌人与其拾取的材料之和达到10个则进化"
 FANTASY_MEDIUM_SLIME_NAME,Medium Slime,中史莱姆
@@ -74,7 +96,7 @@ ITEM_FANTASY_BRASS_GEAR,Brass Gear,黄铜齿轮
 ITEM_FANTASY_BRAVE_NECKLACE,Brave Necklace,勇者项链
 STAT_LEVELS,Levels,等级
 ITEM_FANTASY_CLOCK_TOWER_ECHO,Clock Tower Echo,时针塔的回响
-EFFECT_FANTASY_TIME_BONUS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the health of all enemies ({2} for bosses and elite enemies)",每{0}秒对所有敌人额外造成相当于其生命值的{1}的伤害(对头目和精英怪则为{2})
+EFFECT_FANTASY_TIME_BONUS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the max health of all enemies ({2} for bosses and elite enemies)",每{0}秒对所有敌人额外造成相当于其最大生命值的{1}的伤害(对头目和精英怪则为{2})
 ITEM_FANTASY_CONTRACT,Contract,契约
 EFFECT_FANTASY_SHOP_ENTER_STAT_CURSE,"Upon entering the shop, there is a {2} chance to spend {0} {1} to randomly curse {3} owned item or weapon
 {4}
@@ -468,3 +490,8 @@ CHARACTER_FANTASY_PRIEST,Priest,牧师
 EFFECT_FANTASY_PERIODIC_RADIUS_DAMAGE,"Every {0} seconds, deals {2} damage to enemies within a range of {1}. Damage frequency is affected by %attack speed","每{0}秒对范围{1}内的敌人造成{2}伤害,攻速受%攻击速度影响"
 CHARACTER_FANTASY_PALADIN,Paladin,圣骑士
 STAT_FANTASY_PET_ATTACK_SPEED,% Pet Attack Speed ,%宠物攻击速度
+CHARACTER_FANTASY_ELF,Elf,精灵
+EFFECT_FANTASY_TREE_RADIUS_TEMPSTATS,When within tree range {2} {1}{0},在树范围{2}内时有{1}{0}
+EFFECT_FANTASY_CANNOT_DAMAGE_TREE,Cannot damage trees,无法伤害树
+CHARACTER_FANTASY_SLAVE,Slave,奴隶
+CHARACTER_FANTASY_GOBLIN_SLAYER,Goblin Slayer,哥布林杀手

@@ -1,6 +1,9 @@
 extends "res://weapons/ranged/ranged_weapon.gd"
 
 # =========================== Extension =========================== #
+func _ready() -> void:
+    _fantasy_cannot_damage_tree()
+
 func shoot() -> void:
     .shoot()
     _fantasy_reload_when_shoot()
@@ -10,6 +13,11 @@ func on_killed_something(_thing_killed: Node, hitbox: Hitbox) -> void:
     _fantasy_gain_temp_stat_every_killed_enemies()
 
 # =========================== Custom =========================== #
+func _fantasy_cannot_damage_tree() -> void:
+    if !RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index): return
+
+    _range.collision_mask -= Utils.NEUTRAL_BIT
+
 func _fantasy_gain_temp_stat_every_killed_enemies() -> void:
     for effect in effects:
         if effect.get_id() != "fantasy_gain_temp_stat_every_killed_enemies" or \

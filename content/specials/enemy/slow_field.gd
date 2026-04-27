@@ -2,13 +2,14 @@ extends Area2D
 
 signal duration_timeout()
 
-onready var duration_timer: Timer = $Timer
+onready var duration_timer: Timer = $"Timer"
+onready var _sprite: Sprite = $"Sprite"
 
 var idle_time_after_pushed_back: float = 10.0
 var already_recycle: bool = false
 
 var reduction: float = 0.5
-var affected_players: Array = []
+var affected_units: Array = []
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -18,9 +19,17 @@ func reset() -> void:
     hide()
     set_deferred("monitoring", false)
     set_physics_process(false)
+    collision_mask = Utils.PLAYER_BIT
+    _sprite.material = null
     scale = Vector2(1.0, 1.0)
     idle_time_after_pushed_back = 10.0
-    affected_players.clear()
+    affected_units.clear()
+
+func set_collision_mask(value: int) -> void:
+	collision_mask = value
+
+func set_sprite_material(material: ShaderMaterial) -> void:
+	_sprite.material = material
 
 func drop(pos: Vector2, duration: float) -> void:
     global_position = pos
@@ -40,32 +49,24 @@ func fa_on_DurationTimerTimeout() -> void:
     emit_signal("duration_timeout")
     reset()
 
-    for body in affected_players:
+    for body in affected_units:
         fa_remove_effect_from_body(body)
 
 func fa_on_SlimeTrail_body_entered(body) -> void:
-    if affected_players.has(body): return
+    if affected_units.has(body): return
 
-    if !body or body.dead: return
+    if !is_instance_valid(body) or body.dead: return
 
-    var player_index: int = body.player_index
-    var effects: Dictionary = RunData.get_player_effects(player_index)
-    
-    var original_speed = effects[Utils.fantasy_original_speed_hash]
-    if body.current_stats.speed >= original_speed:
-        effects[Utils.fantasy_original_speed_hash] = body.current_stats.speed
-    
-    body.current_stats.speed *= 1 - reduction
-    affected_players.append(body)
+    body.reset_speed_stat(int(body._speed_percent_modifier * reduction))
+    affected_units.append(body)
 
 func fa_on_SlimeTrail_body_exited(body) -> void:
     fa_remove_effect_from_body(body)
 
 func fa_remove_effect_from_body(body) -> void:
-    if !affected_players.has(body): return
+    if !affected_units.has(body): return
 
-    if !body or body.dead: return
+    if !is_instance_valid(body) or body.dead: return
 
-    var player_index: int = body.player_index
-    body.current_stats.speed = RunData.get_player_effect(Utils.fantasy_original_speed_hash, player_index)
-    affected_players.erase(body)
+    body.reset_speed_stat(int(body._speed_percent_modifier / reduction))
+    affected_units.erase(body)

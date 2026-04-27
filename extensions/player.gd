@@ -5,12 +5,6 @@ var decaying_slow_enemy_when_below_hp_triggers: Dictionary = {}
 var _original_non_decaying_slow_speed_percent_modifier: Dictionary = {}
 var _non_decaying_slow_material: Dictionary = {}
 
-# periodic_radius_damage
-var enemies_in_perioidc_radius: Array = []
-var periodic_radius_area: Area2D = Area2D.new()
-var periodic_radius_collision: CollisionShape2D = CollisionShape2D.new()
-var periodic_radius_shape: Shape2D = CircleShape2D.new()
-
 # =========================== Extension =========================== #
 func _ready() -> void:
     _fantasy_decaying_slow_enemy_when_below_hp_ready()
@@ -135,8 +129,9 @@ func _fantasy_dmg_when_pickup_consumable(consumable_data: ConsumableData) -> voi
         var scaling_stats: Array = effect_item[2]
         var base_damage: int = effect_item[3]
         var tracked_key: int = effect_item[4]
+        var damage_color: Color = effect_item[5]
         var total_damage: int = Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, player_index)
-        var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(player_index, Color("#F5D35E"))
+        var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(player_index, damage_color)
 
         var processed_count = 0
         for i in range(min(max_num, enemies.size())):

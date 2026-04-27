@@ -3,7 +3,7 @@ extends Pet
 export(String) var damage_tracking_id = ""
 var _damage_tracking_id_hash: int = Keys.empty_hash
 
-onready var _target_behavior_shape := $TargetBehavior/Range/CollisionShape2D
+onready var _target_behavior_shape: Node = $"TargetBehavior/Range/CollisionShape2D"
 onready var _muzzle: Position2D = $"Muzzle"
 
 var _base_weapon_stats: RangedWeaponStats = RangedWeaponStats.new()
@@ -38,7 +38,6 @@ func reload_data():
     _current_weapon_stats.burning_data.from = self
     _target_behavior_shape.shape.radius = _base_weapon_stats.max_range
     
-
 func set_current_stats(stats: Array) -> void:
     _current_weapon_stats = stats[0]
     _current_weapon_stats.burning_data.from = self

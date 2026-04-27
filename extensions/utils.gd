@@ -16,7 +16,6 @@ var gain_stat_fantasy_crit_damage_hash: int = Keys.generate_hash("gain_stat_fant
 var stat_fantasy_pet_attack_speed_hash: int = Keys.generate_hash("stat_fantasy_pet_attack_speed")
 
 # Effects
-var fantasy_original_speed_hash: int = Keys.generate_hash("fantasy_original_speed")
 var fantasy_soul_bonus_hash: int = Keys.generate_hash("fantasy_soul_bonus")
 var fantasy_time_bonus_current_health_damage_hash: int = Keys.generate_hash("fantasy_time_bonus_current_health_damage")
 var fantasy_shop_enter_stat_curse_hash: int = Keys.generate_hash("fantasy_shop_enter_stat_curse")
@@ -50,6 +49,8 @@ var fantasy_limited_item_bonuses_hash: int = Keys.generate_hash("fantasy_limited
 var fantasy_dmg_when_pickup_consumable_hash: int = Keys.generate_hash("fantasy_dmg_when_pickup_consumable")
 var fantasy_periodic_radius_damage_hash: int = Keys.generate_hash("fantasy_periodic_radius_damage")
 var fantays_base_chance_drop_soul_hash: int = Keys.generate_hash("fantays_base_chance_drop_soul")
+var fantasy_tree_radius_tempstats_hash: int = Keys.generate_hash("fantasy_tree_radius_tempstats")
+var fantasy_cannot_damage_tree_hash: int = Keys.generate_hash("fantasy_cannot_damage_tree")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

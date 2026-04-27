@@ -3,6 +3,7 @@ extends DoubleValueEffect
 export(Array, Array) var scaling_stats = [["stat_fantasy_holy", 1.0]]
 export(String) var tracked_key = ""
 var tracked_key_hash: int = Keys.empty_hash
+export(Color) var damage_color = Color("#F5D35E")
 
 # =========================== Extension =========================== #
 func duplicate(subresources := false) -> Resource:
@@ -30,13 +31,13 @@ func apply(player_index: int) -> void:
     if custom_key == "": return
 
     var effects = RunData.get_player_effects(player_index)
-    effects[custom_key_hash].append([key_hash, value, scaling_stats, value2, tracked_key_hash])
+    effects[custom_key_hash].append([key_hash, value, scaling_stats, value2, tracked_key_hash, damage_color])
 
 func unapply(player_index: int) -> void:
     if custom_key == "": return
 
     var effects = RunData.get_player_effects(player_index)
-    effects[custom_key_hash].erase([key_hash, value, scaling_stats, value2, tracked_key_hash])
+    effects[custom_key_hash].erase([key_hash, value, scaling_stats, value2, tracked_key_hash, damage_color])
 
 func get_args(player_index: int) -> Array:
     var scaling_dmg: float = Utils.ncl_get_scaling_stats_dmg(scaling_stats, player_index)

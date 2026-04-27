@@ -1,6 +1,5 @@
 extends "res://singletons/player_run_data.gd"
 
-
 var jobs: Dictionary = {}
 
 # =========================== Extension =========================== #
@@ -60,8 +59,7 @@ static func init_effects() -> Dictionary:
         var vanilla_effects =.init_effects()
 
         var new_effects := {
-            
-            Utils.fantasy_original_speed_hash: 0.0,
+
             Utils.fantasy_time_bonus_current_health_damage_hash: [],
             Utils.fantasy_shop_enter_stat_curse_hash: [],
             Utils.fantasy_damage_clamp_hash: [],
@@ -95,6 +93,8 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_dmg_when_pickup_consumable_hash: [],
             Utils.fantasy_periodic_radius_damage_hash: [],
             Utils.fantays_base_chance_drop_soul_hash: 0,
+            Utils.fantasy_tree_radius_tempstats_hash: [],
+            Utils.fantasy_cannot_damage_tree_hash: 0,
 
         }
         
