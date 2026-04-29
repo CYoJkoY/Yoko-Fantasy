@@ -25,7 +25,7 @@ func unapply(player_index: int) -> void:
     if custom_key == "": return
 
     var effects: Dictionary = RunData.get_player_effects(player_index)
-    effects[custom_key].erase([key_hash, key2_hash, value, future_stat, value2, future_target_enemy_name])
+    effects[custom_key_hash].erase([key_hash, key2_hash, value, future_stat, value2, future_target_enemy_name])
 
 func get_args(_player_index: int) -> Array:
     var str_future_stat: String = ""

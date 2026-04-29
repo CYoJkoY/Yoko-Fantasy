@@ -18,16 +18,16 @@ func _on_EntitySpawner_players_spawned(players: Array) -> void:
     ._on_EntitySpawner_players_spawned(players)
     _fantasy_teleport_if_world_tree_enemy(players)
 
-func _on_EntitySpawner_enemy_spawned(enemy: Enemy) -> void:
+func _on_EntitySpawner_enemy_spawned(enemy) -> void:
     ._on_EntitySpawner_enemy_spawned(enemy)
     _fantasy_twin_connect(enemy)
 
-func _on_EntitySpawner_enemy_respawned(_enemy: Enemy) -> void:
+func _on_EntitySpawner_enemy_respawned(_enemy) -> void:
     ._on_EntitySpawner_enemy_respawned(_enemy)
     call_deferred("_fantasy_change_living_cursed_enemy", _enemy, true)
     _fantasy_decaying_slow_enemy(_enemy)
 
-func _on_enemy_died(enemy: Enemy, args: Entity.DieArgs) -> void:
+func _on_enemy_died(enemy, args: Entity.DieArgs) -> void:
     ._on_enemy_died(enemy, args)
     _fantasy_change_living_cursed_enemy(enemy, false)
 

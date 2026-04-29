@@ -21,7 +21,7 @@ func _fantasy_extra_elites_next_wave():
 
 func _fantasy_extra_enemies_each_wave_by_stat(current_wave_data: Resource) -> void:
     for player_index in range(RunData.get_player_count()):
-        var effect_items: Array = RunData.get_player_effect(Utils.fantasy_spawn_specific_group_each_wave_by_stat_hash, player_index)
+        var effect_items: Array = RunData.get_player_effect(Utils.fantasy_extra_enemies_each_wave_by_stat_hash, player_index)
         for effect in effect_items:
             var base_count: int = int(effect[0])
             var stat_ratio: float = float(effect[1]) / 100.0
@@ -30,9 +30,9 @@ func _fantasy_extra_enemies_each_wave_by_stat(current_wave_data: Resource) -> vo
 
             var scaled_count: float = Utils.get_stat(stat_hsh, player_index)
             var extra_count: int = base_count + int(scaled_count * stat_ratio)
-            var group_data: Resource = EXTRA_ENEMIES_GROUP_DATA.duplicate(true)
             enemy_data.min_number = extra_count
             enemy_data.max_number = extra_count
-            group_data.wave_unit_data.append(enemy_data)
+            var group_data: Resource = EXTRA_ENEMIES_GROUP_DATA.duplicate(true)
+            group_data.wave_units_data.append(enemy_data)
 
             current_wave_data.groups_data.append(group_data)
