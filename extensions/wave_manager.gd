@@ -5,8 +5,8 @@ const EXTRA_ENEMIES_GROUP_DATA = preload("res://mods-unpacked/Yoko-Fantasy/exten
 # =========================== Extension =========================== #
 func init(p_wave_timer: Timer, zone_data: ZoneData, wave_data: Resource) -> void:
     _fantasy_extra_elites_next_wave()
-    _fantasy_extra_enemies_each_wave_by_stat(wave_data)
     .init(p_wave_timer, zone_data, wave_data)
+    _fantasy_extra_enemies_each_wave_by_stat(wave_data)
 
 # =========================== Custom =========================== #
 func _fantasy_extra_elites_next_wave():
@@ -32,7 +32,7 @@ func _fantasy_extra_enemies_each_wave_by_stat(current_wave_data: Resource) -> vo
             var extra_count: int = base_count + int(scaled_count * stat_ratio)
             enemy_data.min_number = extra_count
             enemy_data.max_number = extra_count
-            var group_data: Resource = EXTRA_ENEMIES_GROUP_DATA.duplicate(true)
+            var group_data: Resource = EXTRA_ENEMIES_GROUP_DATA.duplicate()
             group_data.wave_units_data.append(enemy_data)
 
             current_wave_data.groups_data.append(group_data)

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://items/global/custom_arg.gd" type="Script" id=1]
+[ext_resource path="res://effects/items/double_value_effect.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 1 )
+arg_index = 2
+arg_sign = 0
+arg_value = 0
+arg_format = 0
+arg_key = ""
+
+[resource]
+script = ExtResource( 2 )
+key = "stat_curse"
+text_key = "EFFECT_GAIN_STATS_ON_REROLL"
+value = 1
+custom_key = "gain_stats_on_reroll"
+storage_method = 1
+effect_sign = 3
+custom_args = [ SubResource( 1 ) ]
+value2 = 33
+sum_strategy = 0

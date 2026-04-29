@@ -5,6 +5,7 @@ func _ready() -> void:
     if !RunData.fantasy_resumed_from_state_in_shop:
         _fantasy_shop_enter_stat_curse()
         _fantasy_upgrade_specific_tier_weapons()
+        _fantasy_scrap_specific_tier_weapons_for_items()
     else: RunData.fantasy_resumed_from_state_in_shop = false
 
 func fill_shop_items(player_locked_items: Array, player_index: int, just_entered_shop: bool = false) -> void:
@@ -142,6 +143,41 @@ func _fantasy_upgrade_specific_tier_weapons() -> void:
 
             for w in to_upgrade: _combine_weapon(w, player_index, true)
             for w_list in to_special_upgrade: Utils.ncl_change_weapon_within_shop(w_list[0], w_list[1], player_index, self )
+
+func _fantasy_scrap_specific_tier_weapons_for_items() -> void:
+    for player_index in range(RunData.get_player_count()):
+        var scrap_effects: Array = RunData.get_player_effect(Utils.fantasy_scrap_specific_tier_weapons_for_items_hash, player_index)
+        for effect_index in range(scrap_effects.size()):
+            var effects: Array = scrap_effects[effect_index]
+            if effects.empty(): continue
+
+            var tier: int = effect_index
+            var weapons: Array = RunData.get_player_weapons(player_index)
+            var weapons_to_remove: Array = []
+            var cursed_num: int = 0
+            for weapon in weapons:
+                if weapon.tier != tier: continue
+
+                weapons_to_remove.append(weapon)
+                if weapon.is_cursed: cursed_num += 1
+
+            if weapons_to_remove.empty(): continue
+
+            for effect in effects:
+                var gain_item_num: int = effect[0]
+                var weapon_num_need: int = effect[1]
+                var item_id: int = effect[2]
+                var item_num: int = weapons_to_remove.size() / weapon_num_need * gain_item_num
+                for _i in range(item_num - cursed_num): RunData.add_item(ItemService.get_element(ItemService.items, item_id), player_index)
+                for _i in range(cursed_num):
+                    var item: ItemData = ItemService.get_element(ItemService.items, item_id)
+                    Utils.ncl_curse_item(item, player_index)
+
+            for weapon in weapons_to_remove: RunData.remove_weapon(weapon, player_index)
+            _update_stats()
+            var player_gear_container: PlayerGearContainer = _get_gear_container(player_index)
+            player_gear_container.set_weapons_data(RunData.get_player_weapons(player_index))
+            player_gear_container.set_items_data(RunData.get_player_items(player_index))
 
 # =========================== Method =========================== #
 func fa_special_upgrade(weapon: WeaponData) -> Array:

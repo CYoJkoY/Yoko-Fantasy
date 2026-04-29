@@ -61,7 +61,7 @@ shader_param/speed = 5.0
 viewport_path = NodePath("Animation/Viewport")
 
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 109.5, 34 )
+extents = Vector2( 165.5, 34 )
 
 [sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 65, 19.5 )
@@ -264,7 +264,7 @@ curse_particles = ExtResource( 8 )
 damage_tracking_id = "item_fantasy_magic_sword"
 
 [node name="Animation" type="Node2D" parent="."]
-rotation = 6.28319
+rotation = 6.28311
 
 [node name="Viewport" type="Viewport" parent="Animation"]
 size = Vector2( 300, 300 )
@@ -300,7 +300,7 @@ collision_mask = 0
 script = ExtResource( 6 )
 
 [node name="Collision" type="CollisionShape2D" parent="Animation/Hitbox"]
-position = Vector2( 157.5, 0 )
+position = Vector2( 101.5, -4.65661e-10 )
 shape = SubResource( 12 )
 disabled = true
 

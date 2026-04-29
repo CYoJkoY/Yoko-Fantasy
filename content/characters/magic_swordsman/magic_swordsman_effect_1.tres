@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/scrap_specific_tier_weapons_for_items/scrap_specific_tier_weapons_for_items_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "item_fantasy_magic_sword"
+text_key = "EFFECT_FANTASY_SCRAP_SPECIFIC_TIER_WEAPONS_FOR_ITEMS"
+value = 1
+custom_key = "fantasy_scrap_specific_tier_weapons_for_items"
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+value2 = 1
+sum_strategy = 0
+tier = 1

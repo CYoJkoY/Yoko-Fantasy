@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/on_killed_cursed_enemy_trigger_effect/on_killed_cursed_enemy_trigger_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "stat_max_hp"
+text_key = "EFFECT_FANTASY_ON_KILLED_CURSED_ENEMY_HEALING_EFFECT"
+value = 1
+custom_key = "fantasy_on_killed_cursed_enemy_trigger_effect"
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+action_type = "healing_effect"
+tracking_key = ""

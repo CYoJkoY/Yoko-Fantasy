@@ -99,6 +99,8 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_extra_enemies_each_wave_by_stat_hash: [],
             Utils.fantasy_on_target_enemy_killed_buff_future_target_enemy_hash: [],
             Utils.fantasy_target_enemy_killed_hash: {},
+            Utils.fantasy_buff_future_target_enemy_hash: {},
+            Utils.fantasy_scrap_specific_tier_weapons_for_items_hash: [[], [], [], []],
 
         }
         

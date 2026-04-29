@@ -73,31 +73,14 @@ func _fantasy_bonus_drop(value: int) -> int:
 
 func _fantasy_buff_future_target() -> void:
     for player_index in range(players_ref.size()):
-        var effect_items: Array = RunData.get_player_effect(Utils.fantasy_on_target_enemy_killed_buff_future_target_enemy_hash, player_index)
-        var target_enemy_killed: Dictionary = RunData.get_player_effect(Utils.fantasy_target_enemy_killed_hash, player_index)
-        for effect_item in effect_items:
-            var trigger_enemy_id: int = effect_item[0]
-            var target_enemy_id: int = effect_item[1]
-            var trigger_need_num: int = effect_item[2]
-            var future_stat: int = effect_item[3]
-            var stat_num: int = effect_item[4]
-            var target_enemy_name: String = effect_item[5]
+        var target_enemy_buffed: Dictionary = RunData.get_player_effect(Utils.fantasy_buff_future_target_enemy_hash, player_index)
+        if !target_enemy_buffed.has(enemy_id_hash): continue
 
-            if target_enemy_id != enemy_id_hash: continue
-
-            var trigger_enemy_killed: int = target_enemy_killed[trigger_enemy_id]
-            var if_trigger: bool = trigger_enemy_killed % trigger_need_num != 0
-
-            if !if_trigger: continue
-
-            fa_apply_stat_to_both(future_stat, stat_num)
-
-            var stat_name: String = fa_get_stat_name(future_stat)
-
-            var floating_text_manager: FloatingTextManager = _entity_spawner_ref._main._floating_text_manager
-            var player: Player = players_ref[player_index]
-            floating_text_manager.display("FANTASY_BUFF_FUTURE_TARGET".format([target_enemy_name, str(stat_num), stat_name]),
-                                           player.global_position, Color(ProgressData.settings.negative_color), null, false)
+        var bonus_stats: Array = target_enemy_buffed[enemy_id_hash]
+        fa_apply_stat_to_both(0, bonus_stats[0])
+        fa_apply_stat_to_both(1, bonus_stats[1])
+        fa_apply_stat_to_both(2, bonus_stats[2])
+        fa_apply_stat_to_both(3, bonus_stats[3])
 
 # =========================== Method =========================== #
 func fa_apply_stat_to_both(target_stat: int, value: int) -> void:
@@ -114,11 +97,3 @@ func fa_apply_stat_to_both(target_stat: int, value: int) -> void:
         Utils.FANTASY_ENEMY_ARMOR:
             current_stats.armor += value
             max_stats.armor += value
-
-func fa_get_stat_name(target_stat: int) -> String:
-    match target_stat:
-        Utils.FANTASY_ENEMY_HP: return tr("STAT_MAX_HP")
-        Utils.FANTASY_ENEMY_SPEED: return tr("STAT_SPEED").replace("%", "")
-        Utils.FANTASY_ENEMY_DAMAGE: return tr("STAT_DAMAGE")
-        Utils.FANTASY_ENEMY_ARMOR: return tr("STAT_ARMOR")
-    return ""

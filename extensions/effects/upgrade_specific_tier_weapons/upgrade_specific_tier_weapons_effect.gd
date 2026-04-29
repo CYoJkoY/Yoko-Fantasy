@@ -1,8 +1,8 @@
 extends Effect
 
-enum Tier {COMMON, UNCOMMON, RARE, LEGENDARY, DANGER_4, DANGER_5}
+enum WeaponTier {I, II, III, IV}
 
-export(Tier) var tier = Tier.COMMON
+export(WeaponTier) var tier = WeaponTier.I
 
 # =========================== Extension =========================== #
 static func get_id() -> String:
