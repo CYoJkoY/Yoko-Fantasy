@@ -34,9 +34,10 @@ func fa_on_EntitySpawner_players_spawned(players: Array) -> void:
             var base_cooldown: int = radius_damage[3]
             var base_damage: int = radius_damage[4]
             var tracked_key: int = radius_damage[5]
-            var damage_color: Color = Color("#" + Keys.hash_to_string[radius_damage[6]])
+            var damage_color: Color = Color(Keys.hash_to_string[radius_damage[6]])
             var hit_visual_scene: PackedScene = load(Keys.hash_to_string[radius_damage[7]])
+            var can_light: bool = radius_damage[8]
             var player_effect_behaviors_node: Node = player.effect_behaviors
             var periodic_radius_damage_player_effect_behavior: Node = periodic_radius_damage_player_effect_behavior_data.scene.instance()
 
-            player_effect_behaviors_node.add_child(periodic_radius_damage_player_effect_behavior.init(player, base_range, range_rate, scaling_stats, base_cooldown, base_damage, tracked_key, damage_color, hit_visual_scene))
+            player_effect_behaviors_node.add_child(periodic_radius_damage_player_effect_behavior.init(player, base_range, range_rate, scaling_stats, base_cooldown, base_damage, tracked_key, damage_color, hit_visual_scene, can_light))

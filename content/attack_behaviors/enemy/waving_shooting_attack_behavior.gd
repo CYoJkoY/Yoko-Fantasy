@@ -126,7 +126,7 @@ func shoot() -> void:
         _fantasy_spawn_prediction_line(rot, pos, speed)
 
         # Waving projectiles
-        _projectile = spawn_projectile(rot, pos, rand_range(speed - projectile_speed_randomization, speed + projectile_speed_randomization) as int)
+        _projectile = spawn_projectile(rot, pos, int(rand_range(speed - projectile_speed_randomization, speed + projectile_speed_randomization)))
         active_projectiles.append(_projectile)
 
     _shots_taken += 1

@@ -37,18 +37,21 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
             ["fantasy_ranged_pet", _, _]:
                 new_effect.weapon_stats = _boost_weapon_stats_damage(new_effect.weapon_stats, effect_modifier)
 
-            ["fantasy_damage_clamp", _, _], \
-            ["fantasy_decaying_slow_enemy_when_below_hp", _, _], \
-            ["fantasy_change_weapon_every_killed_enemies", _, _]:
+            ["fantasy_damage_clamp", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"is_negative": true, "step": 1})
 
-            ["fantasy_erosion", _, _], \
-            ["fantasy_dmg_when_pickup_consumable", _, _]:
+            ["fantasy_erosion", _, _]:
                 var new_scaling_stats: Array = new_effect.scaling_stats.duplicate()
                 for scaling in new_scaling_stats:
                     scaling[1] = Utils.ncl_curse_effect_value(scaling[1], effect_modifier, {"process_negative": false})
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier)
                 new_effect.times = Utils.ncl_curse_effect_value(new_effect.times, effect_modifier)
+
+            ["fantasy_dmg_when_pickup_consumable", _, _]:
+                new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"process_negative": false, "step": 1})
+                var new_scaling_stats: Array = new_effect.scaling_stats.duplicate()
+                for scaling in new_scaling_stats:
+                    scaling[1] = Utils.ncl_curse_effect_value(scaling[1], effect_modifier, {"process_negative": false})
 
             ["fantasy_periodic_radius_damage", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"process_negative": false, "step": 1})
@@ -62,10 +65,17 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
             ["fantasy_tree_radius_tempstats", _, _]:
                 new_effect.range_rate = Utils.ncl_curse_effect_value(new_effect.range_rate, effect_modifier, {"process_negative": false})
 
+            ["fantasy_change_weapon_every_killed_enemies", _, _]:
+                new_effect.value = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier, {"is_negative": true})
+
+            ["fantasy_decaying_slow_enemy_when_below_hp", _, _]:
+                new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier)
+                new_effect.trigger_times = Utils.ncl_curse_effect_value(new_effect.trigger_times, effect_modifier)
+
             [_, _, Utils.fantasy_curse_all_on_reroll_hash]:
                 new_effect.text_key += "_CURSED"
                 new_item_data.replaced_by = ItemService.get_element(ItemService.items, new_effect.key_hash)
-            
+
             [_, _, Utils.fantasy_extra_curse_enemy_hash]:
                 var extra_effect: Effect = Effect.new()
                 extra_effect.key = "number_of_enemies"
@@ -76,7 +86,7 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
         new_effects.append(new_effect)
     new_item_data.effects = new_effects
 
-    return new_item_data as ItemParentData
+    return new_item_data
 
 # =========================== Method =========================== #
 func has_effect_fantasy(effects: Array) -> bool:

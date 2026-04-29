@@ -31,6 +31,12 @@ func get_icon_for_duplicate_shop_item(character: CharacterData, player_items: Ar
 
 	return icon
 
+func _get_rand_item_for_wave(wave: int, player_index: int, type: int, args: GetRandItemForWaveArgs) -> ItemParentData:
+    var item: ItemParentData =._get_rand_item_for_wave(wave, player_index, type, args)
+    item = _fantasy_can_spawn_erosion_related_item(item, wave, player_index, type, args)
+
+    return item
+
 # =========================== Custom =========================== #
 func _fantasy_extra_curse_item(item: ItemParentData, player_index: int) -> ItemParentData:
 	if item.is_cursed: return item
@@ -77,9 +83,9 @@ func _fantasy_get_stat_description_text(stat_description: String, stat_hash: int
 	match stat_hash:
 		Utils.stat_fantasy_holy_hash:
 			var stat_holy: float = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
-			var damage_bonus: int = stat_holy as int
-			var chance_drop_soul: int = (stat_holy / (stat_holy + 50.0) * 100) as int
-			var enemy_health_reduction: int = (stat_holy / (stat_holy + 100.0) * 100) as int
+			var damage_bonus: int = int(stat_holy)
+			var chance_drop_soul: int = int(stat_holy / (stat_holy + 50.0) * 100)
+			var enemy_health_reduction: int = int(stat_holy / (stat_holy + 100.0) * 100)
 			stat_description = Text.text(key, [str(damage_bonus), str(chance_drop_soul), str(enemy_health_reduction)])
 
 		Utils.stat_fantasy_soul_hash:
@@ -96,6 +102,25 @@ func _fantasy_get_icon_for_limited_shop_item(icon: Texture, character: Character
 	if is_princess and is_limited_item: return get_icon(Utils.icon_fantasy_princess_limited_hash).get_data()
 
 	return icon
+
+func _fantasy_can_spawn_erosion_related_item(item: ItemParentData, wave: int, player_index: int, type: int, args: GetRandItemForWaveArgs) -> ItemParentData:
+    if type != TierData.ITEMS: return item
+    
+    var is_erosion_related: bool = false
+    for effect in item.effects:
+        if effect.key != "fantasy_erosion_speed" and effect.key != "fantasy_erosion_can_crit": continue
+
+        is_erosion_related = true
+    
+    if !is_erosion_related: return item
+
+    var can_spawn: bool = false
+    var item_effects: Array = RunData.get_player_effct(Utils.fantasy_erosion_hash, player_index)
+    if !item_effects.empty(): can_spawn = true
+    
+    if !can_spawn: return _get_rand_item_for_wave(wave, player_index, type, args)
+
+    return item
 
 # =========================== Method =========================== #
 func fa_get_jobs(stage: int, number: int = Utils.LARGE_NUMBER, way: int = Keys.empty_hash) -> Array:

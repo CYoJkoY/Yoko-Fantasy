@@ -95,6 +95,10 @@ static func init_effects() -> Dictionary:
             Utils.fantays_base_chance_drop_soul_hash: 0,
             Utils.fantasy_tree_radius_tempstats_hash: [],
             Utils.fantasy_cannot_damage_tree_hash: 0,
+            Utils.fantasy_bonus_drop_from_target_hash: [],
+            Utils.fantasy_extra_enemies_each_wave_by_stat_hash: [],
+            Utils.fantasy_on_target_enemy_killed_buff_future_target_enemy_hash: [],
+            Utils.fantasy_target_enemy_killed_hash: {},
 
         }
         

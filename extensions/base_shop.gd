@@ -36,7 +36,7 @@ func _fantasy_shop_enter_stat_curse() -> void:
                 if !weapon.is_cursed:
                     all_gears.append(weapon)
             
-            var gear_count: int = min(effect[3], all_gears.size()) as int
+            var gear_count: int = int(min(effect[3], all_gears.size()))
             if gear_count <= 0: continue
             
             RunData.ncl_add_effect_tracking_value(effect[4], effect[1], player_index, 0)
@@ -123,10 +123,9 @@ func _fantasy_upgrade_specific_tier_weapons() -> void:
             var weapons: Array = RunData.get_player_weapons(player_index)
             var to_upgrade: Array = []
             var to_special_upgrade: Array = []
-            for w_index in range(weapons.size()):
+            for w in weapons:
                 if upgraded >= upgrade_num: break
 
-                var w: WeaponData = weapons[w_index]
                 var w_special_upgrade: Array = fa_special_upgrade(w)
                 var can_special_upgrade: bool = w_special_upgrade[0]
                 var new_weapon_id: int = w_special_upgrade[1]
@@ -135,10 +134,10 @@ func _fantasy_upgrade_specific_tier_weapons() -> void:
                 match [w.upgrades_into == null, !can_special_upgrade]:
                     [true, true]: continue
                     [false, true]: to_upgrade.append(w)
-                    [true, false]: to_special_upgrade.append([w_index, new_weapon_id])
+                    [true, false]: to_special_upgrade.append([w, new_weapon_id])
                     [false, false]:
                         if Utils.get_chance_success(0.5): to_upgrade.append(w)
-                        else: to_special_upgrade.append([w_index, new_weapon_id])
+                        else: to_special_upgrade.append([w, new_weapon_id])
                 upgraded += 1
 
             for w in to_upgrade: _combine_weapon(w, player_index, true)

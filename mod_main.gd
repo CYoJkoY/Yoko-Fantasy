@@ -32,12 +32,14 @@ func _init() -> void:
     
         "item_service.gd",
         # Job System[ 2/6 ]
+        # ITEMS: Erosion Items
         # STATS: Holy[ 1/2 ]
-        # EFFECTS: gain_stat_for_limited_item[]
+        # EFFECTS: gain_stat_for_limited_item
 
         "enemy.gd",
         # STATS: Holy[ 2/2 ]
         # EFFECTS: extra_curse_enemy
+        #          on_target_enemy_killed_buff_future_target_enemy[ 1/2 ]
         
         "player_run_data.gd",
         # Job System[ 3/6 ]
@@ -66,11 +68,13 @@ func _init() -> void:
 
         "wave_manager.gd",
         # EFFECTS: extra_elites_next_wave
+        #          extra_enemies_each_wave_by_stat
 
         "entity_spawner.gd",
         # ENEMIES: Plant Enemies[ 1/3 ]
         #          Enemies with detect ability
         # EFFECTS: gain_stat_every_killed_enemies[ 1/3 ]
+        #          on_target_enemy_killed_buff_future_target_enemy[ 2/2 ]
 
         "melee_weapon.gd",
         # EFFECTS: gain_stat_every_killed_enemies[ 2/3 ]

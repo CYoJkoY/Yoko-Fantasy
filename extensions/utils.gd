@@ -1,5 +1,11 @@
 extends "res://singletons/utils.gd"
 
+# Enemy Stats
+const FANTASY_ENEMY_HP: int = 0
+const FANTASY_ENEMY_SPEED: int = 1
+const FANTASY_ENEMY_DAMAGE: int = 2
+const FANTASY_ENEMY_ARMOR: int = 3
+
 # Jobs
 var job_fantasy_elemental_hash: int = Keys.generate_hash("job_fantasy_elemental")
 var job_fantasy_engineering_hash: int = Keys.generate_hash("job_fantasy_engineering")
@@ -51,6 +57,10 @@ var fantasy_periodic_radius_damage_hash: int = Keys.generate_hash("fantasy_perio
 var fantays_base_chance_drop_soul_hash: int = Keys.generate_hash("fantays_base_chance_drop_soul")
 var fantasy_tree_radius_tempstats_hash: int = Keys.generate_hash("fantasy_tree_radius_tempstats")
 var fantasy_cannot_damage_tree_hash: int = Keys.generate_hash("fantasy_cannot_damage_tree")
+var fantasy_bonus_drop_from_target_hash: int = Keys.generate_hash("fantasy_bonus_drop_from_target")
+var fantasy_extra_enemies_each_wave_by_stat_hash: int = Keys.generate_hash("fantasy_extra_enemies_each_wave_by_stat")
+var fantasy_on_target_enemy_killed_buff_future_target_enemy_hash: int = Keys.generate_hash("fantasy_on_target_enemy_killed_buff_future_target_enemy")
+var fantasy_target_enemy_killed_hash: int = Keys.generate_hash("fantasy_target_enemy_killed")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

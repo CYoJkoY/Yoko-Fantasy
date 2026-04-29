@@ -22,6 +22,7 @@ func _on_enemy_died(enemy: Node2D, _args: Entity.DieArgs) -> void:
     if !_cleaning_up:
         _fantasy_gain_stat_every_killed_enemies()
         if plant_enemies.has(enemy): plant_enemies.erase(enemy)
+        _fantasy_target_enemy_killed(enemy, _args)
 
 func on_enemy_charmed(enemy: Entity) -> void:
     .on_enemy_charmed(enemy)
@@ -30,7 +31,7 @@ func on_enemy_charmed(enemy: Entity) -> void:
 
 # =========================== Custom =========================== #
 func _fantasy_gain_stat_every_killed_enemies() -> void:
-    for player_index in range(RunData.get_player_count()):
+    for player_index in RunData.get_player_count():
         var effect_items: Array = RunData.get_player_effect(Utils.fantasy_gain_stat_every_killed_enemies_hash, player_index)
         gain_stat_ever_killed_enemies_killed_count[player_index] += 1
         for effect in effect_items:
@@ -56,6 +57,15 @@ func _fantasy_charm_enemy_with_detect_ability(enemy: Enemy) -> void:
         var new_shader: Resource = PROJECTILE_SHADER.duplicate()
         new_shader.set_shader_param("hue", Utils.CHARM_COLOR.h)
         attack_behavior.custom_sprite_material = new_shader
+
+func _fantasy_target_enemy_killed(enemy: Enemy, args: Entity.DieArgs) -> void:
+    var player_index: int = args.killed_by_player_index
+    if player_index < 0 or player_index == RunData.DUMMY_PLAYER_INDEX: return
+
+    var effects: Dictionary = RunData.get_player_effects(player_index)
+    var enemy_id: int = enemy.enemy_id_hash
+    var kill_count_hash: int = Utils.fantasy_target_enemy_killed_hash
+    effects[kill_count_hash][enemy_id] = effects[kill_count_hash].get(enemy_id, 0) + 1
 
 # =========================== Method =========================== #
 func fa_add_plant_enemy_on_enemy_respawned(enemy: Enemy) -> void:

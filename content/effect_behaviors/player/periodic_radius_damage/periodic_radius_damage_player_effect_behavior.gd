@@ -1,5 +1,6 @@
 extends UnitEffectBehavior
 
+const PLAYER_LIGHT_RANGE: float = 240.0
 const SPRITE_RANGE: float = 150.0
 
 var _player_index: int = -1
@@ -11,6 +12,10 @@ var _base_damage: int = 0
 var _tracked_key: int = 0
 var _damage_color: Color = Color.white
 var _hit_visual_scene: PackedScene = null
+var _can_light: bool = true
+
+var total_range: float = 0.0
+var total_cooldown: float = 0.0
 var enemies_in_aura: Array = []
 
 onready var animation_player: AnimationPlayer = $"AnimationPlayer"
@@ -20,7 +25,7 @@ onready var sprite_scale: Node2D = $"SpriteScale"
 onready var timer: Timer = $"Timer"
 
 # =========================== Extension =========================== #
-func init(parent: Player, base_range: int, range_rate: float, scaling_stats: Array, base_cooldown: int, base_damage: int, tracked_key: int, damage_color: Color, hit_visual_scene: PackedScene) -> UnitEffectBehavior:
+func init(parent: Player, base_range: int, range_rate: float, scaling_stats: Array, base_cooldown: int, base_damage: int, tracked_key: int, damage_color: Color, hit_visual_scene: PackedScene, can_light: bool) -> UnitEffectBehavior:
     _parent = parent
     _player_index = _parent.player_index
     _base_range = base_range
@@ -31,6 +36,7 @@ func init(parent: Player, base_range: int, range_rate: float, scaling_stats: Arr
     _tracked_key = tracked_key
     _damage_color = damage_color
     _hit_visual_scene = hit_visual_scene
+    _can_light = can_light
     return self
 
 func _ready() -> void:
@@ -43,17 +49,18 @@ func on_moved(_delta_position: Vector2) -> void:
 func _fantasy_wait_time_ready() -> void:
     var attack_speed_mod: float = Utils.get_stat(Keys.stat_attack_speed_hash, _player_index) / 100.0
 
-    var total_range: float = Utils.ncl_get_range_with_detection(_base_range, _range_rate, _player_index)
+    total_range = Utils.ncl_get_range_with_detection(_base_range, _range_rate, _player_index)
     collision.shape.radius = total_range
     sprite_scale.scale = Vector2.ONE * (total_range / SPRITE_RANGE)
     var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(_player_index, _damage_color)
-    
-    timer.wait_time = float(WeaponService.apply_attack_speed_mod_to_cooldown(_base_cooldown, attack_speed_mod)) / 60.0
+    total_cooldown = float(WeaponService.apply_attack_speed_mod_to_cooldown(_base_cooldown, attack_speed_mod)) / 60.0
+
+    timer.wait_time = total_cooldown
     timer.connect("timeout", self , "fa_on_PeriodicRadiusTimer_timeout", [damage_args])
 
 # =========================== Method =========================== #
 func fa_on_PeriodicRadiusTimer_timeout(damage_args: TakeDamageArgs) -> void:
-    var total_damage: int = Utils.ncl_get_dmg_with_scaling_stats(_base_damage, _scaling_stats, _player_index) as int
+    var total_damage: int = int(Utils.ncl_get_dmg_with_scaling_stats(_base_damage, _scaling_stats, _player_index))
 
     for enemy in enemies_in_aura:
         if !is_instance_valid(enemy) or enemy.dead: continue
@@ -64,6 +71,7 @@ func fa_on_PeriodicRadiusTimer_timeout(damage_args: TakeDamageArgs) -> void:
 
     animation_player.play("pulse")
     audio.play()
+    fa_pulse_fog_player_light()
 
 func fa_spawn_hit_visual(spawn_position: Vector2) -> void:
     var main: Node = Utils.get_scene_node()
@@ -82,3 +90,31 @@ func fa_on_Range_body_entered(body: Node) -> void:
 
 func fa_on_Range_body_exited(body: Node) -> void:
     enemies_in_aura.erase(body)
+
+func fa_pulse_fog_player_light() -> void:
+    if !_can_light: return
+
+    var main: Node = Utils.get_scene_node()
+    if main == null or !main.get("_is_fog_wave"): return
+
+    var fog_viewport = main.get("_fog_viewport")
+    if !is_instance_valid(fog_viewport): return
+
+    var player_light: Node2D = fog_viewport.player_lights[_player_index]
+    var base_scale: Vector2 = player_light.scale
+    var scale_multiplier: float = total_range / PLAYER_LIGHT_RANGE
+
+    var pulse_tween: Tween = player_light.get_node_or_null("FantasyLightPulseTween")
+    if pulse_tween == null:
+        pulse_tween = Tween.new()
+        pulse_tween.name = "FantasyLightPulseTween"
+        player_light.add_child(pulse_tween)
+
+    pulse_tween.stop_all()
+    pulse_tween.remove_all()
+
+    var half_duration: float = max(0.05, total_cooldown * 0.25)
+    var target_scale: Vector2 = base_scale * max(1.0, scale_multiplier)
+    pulse_tween.interpolate_property(player_light, "scale", player_light.scale, target_scale, half_duration, Tween.TRANS_SINE, Tween.EASE_OUT)
+    pulse_tween.interpolate_property(player_light, "scale", target_scale, base_scale, half_duration, Tween.TRANS_SINE, Tween.EASE_IN, half_duration)
+    pulse_tween.start()

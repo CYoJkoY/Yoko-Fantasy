@@ -3,37 +3,46 @@ extends "res://entities/units/enemies/enemy.gd"
 # =========================== Extension =========================== #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
-    _fantasy_holy_reduce_health()
     _fantasy_extra_curse_enemy()
+    _fantasy_holy_reduce_health()
+    _fantasy_buff_future_target()
 
 func respawn() -> void:
     .respawn()
-    _fantasy_holy_reduce_health()
     _fantasy_extra_curse_enemy()
+    _fantasy_holy_reduce_health()
+    _fantasy_buff_future_target()
+
+func get_stats_value() -> int:
+    var value: int =.get_stats_value()
+    value = _fantasy_bonus_drop(value)
+
+    return value
 
 func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := true, dodgeable := true, is_crit := false, hitbox: Hitbox = null, is_burning := false) -> GetDamageValueResult:
-    var dmg_value_result =.get_damage_value(dmg_value, from_player_index, armor_applied, dodgeable, is_crit, hitbox, is_burning)
+    var dmg_value_result: GetDamageValueResult =.get_damage_value(dmg_value, from_player_index, armor_applied, dodgeable, is_crit, hitbox, is_burning)
     dmg_value_result = _fantasy_apply_holy_damage_bonus(dmg_value_result)
 
     return dmg_value_result
 
 # =========================== Custom =========================== #
 func _fantasy_holy_reduce_health() -> void:
-    var holy_stat: int = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash) as int
+    var holy_stat: int = int(Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash))
     if holy_stat <= 0: return
 
-    var reduction_factor: float = holy_stat / (holy_stat + 100.0) * 100.0
-    reset_health_stat(int(reduction_factor))
+    var reduction_factor: float = holy_stat / (holy_stat + 100.0)
+    current_stats.health = int(current_stats.health * (1 - reduction_factor))
+    max_stats.health = current_stats.health
 
 func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult) -> GetDamageValueResult:
     if dead: return dmg_value_result
 
     if _outline_colors.has(Utils.CURSE_COLOR): return dmg_value_result
 
-    var holy_stat = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
+    var holy_stat: float = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
     if holy_stat <= 0: return dmg_value_result
 
-    var bonus_multiplier = 1.0 + (holy_stat / 100.0)
+    var bonus_multiplier: float = 1.0 + (holy_stat / 100.0)
     dmg_value_result.value = int(dmg_value_result.value * bonus_multiplier)
     
     return dmg_value_result
@@ -49,3 +58,67 @@ func _fantasy_extra_curse_enemy() -> void:
 
             Utils.ncl_curse_enemy(self )
             RunData.ncl_add_effect_tracking_value(effect_item[0], 1, player_index)
+
+func _fantasy_bonus_drop(value: int) -> int:
+    for player_index in range(players_ref.size()):
+        var effect_items: Array = RunData.get_player_effect(Utils.fantasy_bonus_drop_from_target_hash, player_index)
+        for effect_item in effect_items:
+            var target_id: int = effect_item[0]
+            var bonus_gold: int = effect_item[1]
+            if target_id != enemy_id_hash: continue
+
+            value += bonus_gold
+
+    return value
+
+func _fantasy_buff_future_target() -> void:
+    for player_index in range(players_ref.size()):
+        var effect_items: Array = RunData.get_player_effect(Utils.fantasy_on_target_enemy_killed_buff_future_target_enemy_hash, player_index)
+        var target_enemy_killed: Dictionary = RunData.get_player_effect(Utils.fantasy_target_enemy_killed_hash, player_index)
+        for effect_item in effect_items:
+            var trigger_enemy_id: int = effect_item[0]
+            var target_enemy_id: int = effect_item[1]
+            var trigger_need_num: int = effect_item[2]
+            var future_stat: int = effect_item[3]
+            var stat_num: int = effect_item[4]
+            var target_enemy_name: String = effect_item[5]
+
+            if target_enemy_id != enemy_id_hash: continue
+
+            var trigger_enemy_killed: int = target_enemy_killed[trigger_enemy_id]
+            var if_trigger: bool = trigger_enemy_killed % trigger_need_num != 0
+
+            if !if_trigger: continue
+
+            fa_apply_stat_to_both(future_stat, stat_num)
+
+            var stat_name: String = fa_get_stat_name(future_stat)
+
+            var floating_text_manager: FloatingTextManager = _entity_spawner_ref._main._floating_text_manager
+            var player: Player = players_ref[player_index]
+            floating_text_manager.display("FANTASY_BUFF_FUTURE_TARGET".format([target_enemy_name, str(stat_num), stat_name]),
+                                           player.global_position, Color(ProgressData.settings.negative_color), null, false)
+
+# =========================== Method =========================== #
+func fa_apply_stat_to_both(target_stat: int, value: int) -> void:
+    match target_stat:
+        Utils.FANTASY_ENEMY_HP:
+            current_stats.health += value
+            max_stats.health += value
+        Utils.FANTASY_ENEMY_SPEED:
+            current_stats.speed += value
+            max_stats.speed += value
+        Utils.FANTASY_ENEMY_DAMAGE:
+            current_stats.damage += value
+            max_stats.damage += value
+        Utils.FANTASY_ENEMY_ARMOR:
+            current_stats.armor += value
+            max_stats.armor += value
+
+func fa_get_stat_name(target_stat: int) -> String:
+    match target_stat:
+        Utils.FANTASY_ENEMY_HP: return tr("STAT_MAX_HP")
+        Utils.FANTASY_ENEMY_SPEED: return tr("STAT_SPEED").replace("%", "")
+        Utils.FANTASY_ENEMY_DAMAGE: return tr("STAT_DAMAGE")
+        Utils.FANTASY_ENEMY_ARMOR: return tr("STAT_ARMOR")
+    return ""

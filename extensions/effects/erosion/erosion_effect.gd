@@ -47,7 +47,7 @@ func get_args(player_index: int) -> Array:
     var args: Array = []
     var percent_dmg_bonus: float = (1 + (Utils.get_stat(Keys.stat_percent_damage_hash, player_index) / 100.0))
     var true_damage: float = percent_dmg_bonus * (Utils.ncl_get_scaling_stats_dmg(scaling_stats, player_index) + value)
-    var damage: int = max(1, round(true_damage)) as int
+    var damage: int = int(max(1, round(true_damage)))
     var dmg_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(damage, scaling_stats, value, {"nb": times, "show_initial": false})
 
     args.append(str(chance))

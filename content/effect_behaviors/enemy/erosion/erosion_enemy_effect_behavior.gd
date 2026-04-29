@@ -82,7 +82,7 @@ func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats:
 
         erosion = ActiveErosion.new()
         erosion.player_index = from_player_index
-        erosion.damage = Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, from_player_index) as int
+        erosion.damage = int(Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, from_player_index))
         erosion.chance = chance
         erosion.times = times
         erosion.cd = cd

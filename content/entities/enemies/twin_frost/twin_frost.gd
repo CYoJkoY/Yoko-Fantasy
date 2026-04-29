@@ -30,7 +30,7 @@ func fa_change_state(boss: Boss) -> void:
 func fa_died_change_state(boss: Boss, args: Entity.DieArgs = Utils.default_die_args) -> void:
     if args.cleaning_up: return
 
-    var _new_state: int = clamp(boss._current_state + 1, 0, _states.size() - 1) as int
+    var _new_state: int = int(clamp(boss._current_state + 1, 0, _states.size() - 1))
     if _new_state <= _current_state: return
 
     SoundManager.play(change_state_sound, 0, 0, true)

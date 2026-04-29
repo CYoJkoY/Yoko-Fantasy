@@ -1,14 +1,15 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/reverse_stat_modifiers/reverse_stat_modifiers_effect.gd" type="Script" id=1]
+[ext_resource path="res://effects/items/stat_gains_modification_effect.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
-key = "fantasy_reverse_stat_modifiers"
-text_key = "EFFECT_FANTASY_REVERSE_STAT_MODIFIERS"
-value = 1
+key = "effect_reduce_stat_gains"
+text_key = ""
+value = -200
 custom_key = ""
 storage_method = 0
-effect_sign = 2
+effect_sign = 3
 custom_args = [  ]
-target_stat = "stat_speed"
+stat_displayed = "stat_speed"
+stats_modified = [ "stat_speed" ]

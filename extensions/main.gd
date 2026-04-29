@@ -39,6 +39,7 @@ func on_gold_picked_up(gold: Node, player_index: int) -> void:
 func clean_up_room() -> void:
     for timer in FaTimers: timer.stop()
     .clean_up_room()
+    _fantasy_clear_living_cursed_enemy()
 
 # =========================== Custom =========================== #
 func _fantasy_start_time_bonus_current_health_damage_timer() -> void:
@@ -69,6 +70,12 @@ func _fantasy_change_living_cursed_enemy(enemy: Enemy, is_add: bool) -> void:
         Utils.ncl_quiet_add_stat(Utils.fantasy_living_cursed_enemy_hash, num, player_index)
         LinkedStats.reset_player(player_index)
 
+func _fantasy_clear_living_cursed_enemy() -> void:
+    cursed_enemies.clear()
+    for player_index in range(_players.size()):
+        Utils.ncl_quiet_set_stat(Utils.fantasy_living_cursed_enemy_hash, 0, player_index)
+        LinkedStats.reset_player(player_index)
+
 func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
     var random_weapon: Weapon = Utils.get_rand_element(_players[player_index].current_weapons)
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_random_reload_when_pickup_gold_hash, player_index)
@@ -94,7 +101,7 @@ func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
 func _fantasy_decaying_slow_enemy(enemy: Enemy) -> void:
     # For decaying slow new enemy
     for player_index in range(_players.size()):
-        var slow_percent: int = TempStats.get_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, player_index) as int
+        var slow_percent: int = int(TempStats.get_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, player_index))
         if slow_percent == 0: continue
 
         var player: Player = _players[player_index]

@@ -8,7 +8,6 @@ export(float) var wave_range = 120.0
 export(float) var air_resistance = 0.2
 export(bool) var from_top = true
 
-
 var map_zero: Vector2 = ZoneService.current_zone_min_position
 var map_max: Vector2 = ZoneService.current_zone_max_position
 var map_size_quarter: Vector2 = map_max * 0.25
@@ -63,7 +62,7 @@ func shoot() -> void:
         if speed_change_after_each_projectile != 0:
             speed += speed_change_after_each_projectile * i
 
-        active_projectiles.append(spawn_projectile(random_angle, spawn_pos, speed as int))
+        active_projectiles.append(spawn_projectile(random_angle, spawn_pos, int(speed)))
 
     _shots_taken += 1
 

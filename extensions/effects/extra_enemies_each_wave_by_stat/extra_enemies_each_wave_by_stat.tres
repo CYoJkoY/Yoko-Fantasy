@@ -6,9 +6,9 @@
 [resource]
 script = ExtResource( 1 )
 key = "stat_max_hp"
-text_key = "EFFECT_FANTASY_EXTRA_ENEMIES_EACH_WAVE_BY_STAT"
+text_key = "EFFECT_FANTASY_SPAWN_SPECIFIC_GROUP_EACH_WAVE_BY_STAT"
 value = 1
-custom_key = "fantasy_extra_enemies_each_wave_by_stat"
+custom_key = "fantasy_spawn_specific_group_each_wave_by_stat"
 storage_method = 0
 effect_sign = 2
 custom_args = [  ]
