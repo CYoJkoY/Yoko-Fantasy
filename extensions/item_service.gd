@@ -32,10 +32,10 @@ func get_icon_for_duplicate_shop_item(character: CharacterData, player_items: Ar
 	return icon
 
 func _get_rand_item_for_wave(wave: int, player_index: int, type: int, args: GetRandItemForWaveArgs) -> ItemParentData:
-    var item: ItemParentData =._get_rand_item_for_wave(wave, player_index, type, args)
-    item = _fantasy_can_spawn_erosion_related_item(item, wave, player_index, type, args)
+	var item: ItemParentData =._get_rand_item_for_wave(wave, player_index, type, args)
+	item = _fantasy_can_spawn_erosion_related_item(item, wave, player_index, type, args)
 
-    return item
+	return item
 
 # =========================== Custom =========================== #
 func _fantasy_extra_curse_item(item: ItemParentData, player_index: int) -> ItemParentData:
@@ -104,23 +104,23 @@ func _fantasy_get_icon_for_limited_shop_item(icon: Texture, character: Character
 	return icon
 
 func _fantasy_can_spawn_erosion_related_item(item: ItemParentData, wave: int, player_index: int, type: int, args: GetRandItemForWaveArgs) -> ItemParentData:
-    if type != TierData.ITEMS: return item
-    
-    var is_erosion_related: bool = false
-    for effect in item.effects:
-        if effect.key != "fantasy_erosion_speed" and effect.key != "fantasy_erosion_can_crit": continue
+	if type != TierData.ITEMS: return item
+	
+	var is_erosion_related: bool = false
+	for effect in item.effects:
+		if effect.key != "fantasy_erosion_speed" and effect.key != "fantasy_erosion_can_crit": continue
 
-        is_erosion_related = true
-    
-    if !is_erosion_related: return item
+		is_erosion_related = true
+	
+	if !is_erosion_related: return item
 
-    var can_spawn: bool = false
-    var item_effects: Array = RunData.get_player_effct(Utils.fantasy_erosion_hash, player_index)
-    if !item_effects.empty(): can_spawn = true
-    
-    if !can_spawn: return _get_rand_item_for_wave(wave, player_index, type, args)
+	var can_spawn: bool = false
+	var item_effects: Array = RunData.get_player_effect(Utils.fantasy_erosion_hash, player_index)
+	if !item_effects.empty(): can_spawn = true
+	
+	if !can_spawn: return _get_rand_item_for_wave(wave, player_index, type, args)
 
-    return item
+	return item
 
 # =========================== Method =========================== #
 func fa_get_jobs(stage: int, number: int = Utils.LARGE_NUMBER, way: int = Keys.empty_hash) -> Array:

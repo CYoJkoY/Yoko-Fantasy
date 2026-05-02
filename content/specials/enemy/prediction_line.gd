@@ -4,8 +4,6 @@ signal duration_timeout()
 
 onready var duration_timer: Timer = $"Timer"
 
-var already_recycle: bool = false
-
 # =========================== Extension =========================== #
 func _ready() -> void:
     reset()

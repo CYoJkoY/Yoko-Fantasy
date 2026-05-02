@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bg_fantasy_night_icon.webp-4c79ea2796ab1a9cc8f9f4f77815bb8d.stex"
+path="res://.import/bg_forestland_night_icon.webp-5205e922f6670ae46b34abacc34276c0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/maps/pics/bg_fantasy_night_icon.webp"
-dest_files=[ "res://.import/bg_fantasy_night_icon.webp-4c79ea2796ab1a9cc8f9f4f77815bb8d.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/maps/pics/bg_forestland_night_icon.webp"
+dest_files=[ "res://.import/bg_forestland_night_icon.webp-5205e922f6670ae46b34abacc34276c0.stex" ]
 
 [params]
 

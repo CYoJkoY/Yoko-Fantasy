@@ -9,5 +9,5 @@ text_key = "EFFECT_FANTASY_EXTRA_CURSE_ENEMY"
 value = 10
 custom_key = "fantasy_extra_curse_enemy"
 storage_method = 4
-effect_sign = 3
+effect_sign = 5
 custom_args = [  ]

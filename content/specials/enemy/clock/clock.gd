@@ -1,7 +1,7 @@
 extends Node2D
 
 export(bool) var with_prediction = false
-export(PackedScene) var prediction_line_scene = null
+export(PackedScene) var prediction_line_scene = preload("res://mods-unpacked/Yoko-Fantasy/content/specials/enemy/prediction_line/prediction_line.tscn")
 export(Color) var prediction_line_color = Color("#3E68DA")
 export(float) var prediction_line_width = 40.0
 export(int) var prediction_line_points_num = 64
@@ -58,7 +58,6 @@ func _fantasy_spawn_prediction_line() -> void:
         prediction_points.append(prediction_point)
 
     prediction_line = prediction_line_scene.instance()
-    main.add_effect(prediction_line)
     prediction_line.points = prediction_points
     prediction_line.default_color = prediction_line_color
     prediction_line.width = prediction_line_width

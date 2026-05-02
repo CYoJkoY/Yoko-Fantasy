@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=28 format=2]
+[gd_resource type="Resource" load_steps=30 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/apostle/apostle_data.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/rotten_plant/rotten_plant_data.tres" type="Resource" id=2]
@@ -7,12 +7,14 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/magic_swordsman/magic_swordsman_data.tres" type="Resource" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/overgrowth/overgrowth_data.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/nuclear_waste_drum/nuclear_waste_drum_data.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/cultist/cultist_data.tres" type="Resource" id=8]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/forbidden_spell/forbidden_spell_data.tres" type="Resource" id=9]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/rusty_arrow/rusty_arrow_data.tres" type="Resource" id=10]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/magic_sword/magic_sword_data.tres" type="Resource" id=11]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/sacrificial_offering/sacrificial_offering_data.tres" type="Resource" id=12]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/hex_bug/hex_bug_data.tres" type="Resource" id=13]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/magic_sword_item.tres" type="Resource" id=14]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/cursed_kill_healing/cursed_kill_healing_effect.gd" type="Script" id=15]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/elemental/dark_mage/dark_mage_data.tres" type="Resource" id=23]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/abyssal_cultist/abyssal_cultist_data.tres" type="Resource" id=48]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/shop_enter_stat_curse/shop_enter_stat_curse_effect.gd" type="Script" id=83]
@@ -34,14 +36,14 @@ my_id = ""
 groups_in_all_zones = [  ]
 music_tracks = [  ]
 backgrounds = [  ]
-characters = [ ExtResource( 114 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 5 ) ]
+characters = [ ExtResource( 114 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 8 ) ]
 entities = [ ExtResource( 14 ) ]
 elites = [  ]
 bosses = [  ]
 stats = [  ]
 items = [ ExtResource( 132 ), ExtResource( 139 ), ExtResource( 144 ), ExtResource( 2 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 88 ), ExtResource( 87 ), ExtResource( 86 ), ExtResource( 85 ) ]
 weapons = [  ]
-effects = [ ExtResource( 151 ), ExtResource( 152 ), ExtResource( 83 ) ]
+effects = [ ExtResource( 151 ), ExtResource( 152 ), ExtResource( 83 ), ExtResource( 15 ) ]
 consumables = [  ]
 upgrades = [  ]
 sets = [ ExtResource( 166 ) ]
@@ -54,6 +56,8 @@ tracked_items = {
 "item_fantasy_magic_sword": 0
 }
 tracked_effects = {
+"character_fantasy_cultist": 0,
+"character_fantasy_cultist_2": 0,
 "item_fantasy_contract": [ 0, 0 ],
 "item_fantasy_demon_eye": 0,
 "item_fantasy_demon_hunter_blade": 0,
@@ -61,8 +65,8 @@ tracked_effects = {
 "job_fantasy_abyssal_cultist": 0
 }
 translation_keys_needing_operator = {
+"effect_fantasy_cursed_kill_healing": [ 0 ],
 "effect_fantasy_extra_curse_enemy": [ 0 ],
-"effect_fantasy_extra_curse_enemy_cursed": [ 0 ],
 "effect_fantasy_slow_cursed_enemy": [ 0 ]
 }
 translation_keys_needing_percent = {

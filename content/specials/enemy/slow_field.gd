@@ -9,7 +9,7 @@ var idle_time_after_pushed_back: float = 10.0
 var already_recycle: bool = false
 
 var reduction: float = 0.5
-var affected_units: Array = []
+var affected_units: Dictionary = {}
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -57,8 +57,9 @@ func fa_on_SlimeTrail_body_entered(body) -> void:
 
     if !is_instance_valid(body) or body.dead: return
 
-    body.reset_speed_stat(int(body._speed_percent_modifier * reduction))
-    affected_units.append(body)
+    var original_speed: int = body.current_stats.speed
+    body.current_stats.speed = int(original_speed * reduction)
+    affected_units.set(body, original_speed)
 
 func fa_on_SlimeTrail_body_exited(body) -> void:
     fa_remove_effect_from_body(body)
@@ -68,5 +69,5 @@ func fa_remove_effect_from_body(body) -> void:
 
     if !is_instance_valid(body) or body.dead: return
 
-    body.reset_speed_stat(int(body._speed_percent_modifier / reduction))
+    body.current_stats.speed = affected_units[body]
     affected_units.erase(body)

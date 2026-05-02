@@ -9,5 +9,5 @@ text_key = "EFFECT_GOLD_ON_CURSED_ENEMY_KILL"
 value = 2
 custom_key = ""
 storage_method = 0
-effect_sign = 3
+effect_sign = 5
 custom_args = [  ]

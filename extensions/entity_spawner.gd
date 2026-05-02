@@ -23,6 +23,7 @@ func _on_enemy_died(enemy: Node2D, _args: Entity.DieArgs) -> void:
         _fantasy_gain_stat_every_killed_enemies()
         if plant_enemies.has(enemy): plant_enemies.erase(enemy)
         _fantasy_target_enemy_killed(enemy, _args)
+        if enemy._outline_colors.has(Utils.CURSE_COLOR): _fantasy_cursed_kill_healing(_args)
 
 func on_enemy_charmed(enemy: Entity) -> void:
     .on_enemy_charmed(enemy)
@@ -98,6 +99,17 @@ func _fantasy_target_enemy_killed(enemy: Enemy, args: Entity.DieArgs) -> void:
             target_enemy_buffed[target_enemy_id] = [0, 0, 0, 0]
             target_enemy_buffed[target_enemy_id][future_stat] = stat_num
         else: target_enemy_buffed[target_enemy_id][future_stat] += stat_num
+
+func _fantasy_cursed_kill_healing(args: Entity.DieArgs) -> void:
+    var player_index: int = args.killed_by_player_index
+    if player_index < 0 or player_index == RunData.DUMMY_PLAYER_INDEX: return
+
+    var cursed_kill_healing_effects: Array = RunData.get_player_effect(Utils.fantasy_cursed_kill_healing_hash, player_index)
+    for cursed_kill_healing in cursed_kill_healing_effects:
+        if cursed_kill_healing[0] <= 0: continue
+
+        RunData.emit_signal("healing_effect", cursed_kill_healing[0], player_index, Keys.empty_hash)
+        RunData.ncl_add_effect_tracking_value(cursed_kill_healing[1], cursed_kill_healing[0], player_index)
 
 # =========================== Method =========================== #
 func fa_add_plant_enemy_on_enemy_respawned(enemy: Enemy) -> void:

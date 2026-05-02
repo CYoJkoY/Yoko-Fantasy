@@ -137,7 +137,7 @@ func _fantasy_spawn_prediction_line(rot: float, pos: Vector2, spd: int) -> void:
     if !is_instance_valid(prediction_line):
         prediction_line = prediction_line_scene.instance()
         main.add_effect(prediction_line)
-        var _error = prediction_line.connect("duration_timeout", self , "fa_on_DurationTimer_timeout", [prediction_line])
+        var _error: int = prediction_line.connect("duration_timeout", self , "fa_on_DurationTimer_timeout", [prediction_line])
 
     prediction_line.already_recycle = false
     var velocity: Vector2 = Vector2.RIGHT.rotated(rot) * spd * RunData.current_run_accessibility_settings.speed

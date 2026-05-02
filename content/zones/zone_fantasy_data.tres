@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=49 format=2]
 
 [ext_resource path="res://items/all/insanity/insanity_icon.png" type="Texture" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_forestland.tres" type="Resource" id=2]
 [ext_resource path="res://zones/zone_data.gd" type="Script" id=3]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_fantasy_night.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/maps/bg_forestland_night.tres" type="Resource" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/000_all/group_2.tres" type="Resource" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/000_all/group_1.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/zones/groups/000_all/group_3.tres" type="Resource" id=7]

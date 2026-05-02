@@ -31,7 +31,7 @@ func _fantasy_holy_reduce_health() -> void:
     if holy_stat <= 0: return
 
     var reduction_factor: float = holy_stat / (holy_stat + 100.0)
-    current_stats.health = int(current_stats.health * (1 - reduction_factor))
+    current_stats.health -= int(current_stats.health * reduction_factor)
     max_stats.health = current_stats.health
 
 func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult) -> GetDamageValueResult:

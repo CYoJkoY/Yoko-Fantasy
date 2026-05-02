@@ -2,7 +2,7 @@ extends "res://entities/units/player/player.gd"
 
 # decaying_slow_enemy_when_below_hp
 var decaying_slow_enemy_when_below_hp_triggers: Dictionary = {}
-var _original_non_decaying_slow_speed_percent_modifier: Dictionary = {}
+var _original_non_decaying_slow_speed: Dictionary = {}
 var _non_decaying_slow_material: Dictionary = {}
 
 # =========================== Extension =========================== #
@@ -81,8 +81,8 @@ func _fantasy_decaying_slow_enemy_when_below_hp(dmg_taken: int) -> void:
         TempStats.add_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, stat_nb, player_index) # For main.gd to use
         var enemies: Array = Utils.get_scene_node()._entity_spawner.get_all_enemies(false)
         for enemy in enemies:
-            _original_non_decaying_slow_speed_percent_modifier[enemy] = enemy._speed_percent_modifier
-            enemy.reset_speed_stat(stat_nb)
+            _original_non_decaying_slow_speed[enemy] = enemy.current_stats.speed
+            enemy.current_stats.speed += enemy.current_stats.speed * stat_nb / 100.0
             match enemy.sprite.material == enemy.flash_mat:
                 true: _non_decaying_slow_material[enemy] = enemy._non_flash_material
                 false: _non_decaying_slow_material[enemy] = enemy.sprite.material
@@ -94,10 +94,12 @@ func _fantasy_decaying_slow_enemy_when_below_hp(dmg_taken: int) -> void:
         TempStats.remove_stat(Utils.stat_fantasy_decaying_slow_enemy_hash, stat_nb, player_index)
         enemies = Utils.get_scene_node()._entity_spawner.get_all_enemies(false)
         for enemy in enemies:
-            enemy.reset_speed_stat(_original_non_decaying_slow_speed_percent_modifier[enemy])
+            if !_original_non_decaying_slow_speed.has(enemy): continue
+
+            enemy.current_stats.speed = _original_non_decaying_slow_speed[enemy]
             enemy.sprite.material = _non_decaying_slow_material[enemy]
 
-        _original_non_decaying_slow_speed_percent_modifier = {} # Reset for next
+        _original_non_decaying_slow_speed = {} # Reset for next
         _non_decaying_slow_material = {} # Reset for next
         break # Once a time when take damage
 

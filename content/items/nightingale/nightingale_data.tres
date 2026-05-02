@@ -22,4 +22,4 @@ is_cursed = false
 curse_factor = 0.0
 max_nb = -1
 item_appearances = [  ]
-tags = [ "structure", "pet", "stat_elemental_damage" ]
+tags = [ "pet", "stat_elemental_damage" ]

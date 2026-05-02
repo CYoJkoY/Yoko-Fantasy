@@ -1,7 +1,7 @@
 ﻿keys,en,zh
 ZONE_FANTASY,Fantasy,幻界
-BG_FANTASY,Fantasy,幻界
-BG_FANTASY_NIGHT,Fantasy-Night,幻界-夜
+BG_FORESTLAND,Forestland,树海
+BG_FORESTLAND_NIGHT,Forestland-Night,树海-夜
 FANTASY_LOOTING_GOBLIN_NAME,Looting Goblin,搜刮哥布林
 FANTASY_LOOTING_GOBLIN_BEHAVIOUR_DESCRIPTION,"Runs around, drops a crate on death","四处奔跑,死亡时掉落一个箱子"
 EVIL_MOB_FANTASY_NAME,Gobbler,吞吞怪
@@ -241,7 +241,7 @@ EFFECT_FANTASY_DECAYING_SLOW_ENEMY_WHEN_BELOW_HP,"Slows enemies by {2} for {1} s
 ITEM_FANTASY_SILVER_POCKET_WATCH,Silver Pocket Watch,银怀表
 ITEM_FANTASY_WOLF_TOTEM,Wolf Totem,狼图腾
 FANTASY_WOLF_TOTEM_NAME,Wolf God,狼神
-EFFECT_FANTASY_PET_WOLF_TOTEM,"Summons a Wolf God to deal {2} ({3}) damage to up to 8 enemies with the highest health every {0}s. Killing an enemy resets all pets' cooldowns (including Wolf God)","召唤狼神跟随玩家, 每{0}秒对场上至多8个生命值最高的敌人造成造成{2}({3})伤害, 杀死敌人时, 立即重置所有宠物的冷却时间(包括狼神)"
+EFFECT_FANTASY_PET_WOLF_TOTEM,"Summons a Wolf God to deal {2} ({3}) damage to up to 8 enemies with the highest health every {0}s. Killing an enemy resets all pets' cooldowns (not including Wolf God)","召唤狼神跟随玩家, 每{0}秒对场上至多8个生命值最高的敌人造成造成{2}({3})伤害, 杀死敌人时, 立即重置所有宠物的冷却时间(不包括狼神)"
 FANTASY_TACTICAL_GLOBAL_PET_BEHAVIOUR_DESCRIPTION,"Follows the player. Attacks up to 8 enemies with the highest health on the screen every {0}s. Killing an enemy resets the cooldown of all pets (including itself)
 
 This pet scales with the player's:
@@ -342,10 +342,6 @@ JOB_UNIVERSAL,Job: Universal {0},职业: 通用 {0}
 COOP_S1_JOB,S1 Job(Wave 5),一阶职业(第5波)
 COOP_S2_JOB,S2 Job(Wave 15),二阶职业(第15波)
 JOB,Job,职业
-EFFECT_FANTASY_EXTRA_ENEMIES_NEXT_WAVES,"{3} will appear in {2} future waves
-{4}","未来 {2} 波次出现{3}
-{4}"
-TRACKING_REMAINING,Remaining: {0},剩余: {0}
 FANTASY_TWIN_BLAZE_NAME,Blaze,炎
 FANTASY_TWIN_BLAZE_BEHAVIOUR_DESCRIPTION,"Mutation 0:
 Moves randomly. Upon death or mutation, causes Frost to mutate. Fires 4 serpentine flame projectiles with warning per second. After firing twice, fires a ring of 12 outward-spreading flame projectiles around itself
@@ -502,4 +498,6 @@ FANTASY_BUFF_FUTURE_TARGET_ENEMY,{0} {1}{2},{0}{1}{2}
 CHARACTER_FANTASY_MAGIC_SWORDSMAN,Magic Swordsman,魔剑士
 EFFECT_FANTASY_SCRAP_SPECIFIC_TIER_WEAPONS_FOR_ITEMS,"Upon entering the shop, destroy all Tier {0} weapons. Gain {1} {3} for every {2} destroyed","进入商店时,销毁所有{0}级武器,每销毁{2}把获得{1}个{3}"
 CHARACTER_FANTASY_CULTIST,Cultist,邪教徒
-EFFECT_FANTASY_CHANCE_HEAL_ON_KILL_CURSED_ENEMY,{0} chance to heal {1} HP upon killing a cursed enemy,击杀被诅咒的敌人时有{0}概率恢复{1}生命值
+EFFECT_FANTASY_CURSED_KILL_HEALING,"{0} HP on cursed enemy killed
+{1}","击杀被诅咒的敌人时{0} HP
+{1}"

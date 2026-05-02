@@ -26,7 +26,7 @@ func get_args(_player_index: int) -> Array:
     elif tier == 2: tier_text = "TIER_III"
     elif tier == 3: tier_text = "TIER_IV"
 
-    return [tr(tier_text), str(value), str(value), tr(key.to_upper())]
+    return [tr(tier_text), str(value), str(value2), tr(key.to_upper())]
 
 func serialize() -> Dictionary:
     var serialized =.serialize()

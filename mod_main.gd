@@ -21,7 +21,7 @@ func _init() -> void:
     var extensions: Array = [
 
         "main.gd",
-        # Job System[ 1/6 ]
+        # SYSTEMS: Job[ 1/6 ]
         # STATS: Soul[ 1/3 ]
         # ENEMIES: World Tree
         # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ]
@@ -31,7 +31,7 @@ func _init() -> void:
         #          random_reload_when_picked_up_gold
     
         "item_service.gd",
-        # Job System[ 2/6 ]
+        # SYSTEMS: Job[ 2/6 ]
         # ITEMS: Erosion Items
         # STATS: Holy[ 1/2 ]
         # EFFECTS: gain_stat_for_limited_item
@@ -42,11 +42,11 @@ func _init() -> void:
         #          on_target_enemy_killed_buff_future_target_enemy[ 1/2 ]
         
         "player_run_data.gd",
-        # Job System[ 3/6 ]
+        # SYSTEMS: Job[ 3/6 ]
         # EFFECTS' NAMES
 
         "utils.gd",
-        # Hashes
+        # HASHES
 
         "base_shop.gd",
         # EFFECTS: shop_enter_stat_curse[ 1/2 ],
@@ -76,6 +76,7 @@ func _init() -> void:
         #          Enemies with detect ability
         # EFFECTS: gain_stat_every_killed_enemies[ 1/3 ]
         #          on_target_enemy_killed_buff_future_target_enemy[ 2/2 ]
+        #          cursed_kill_healing
 
         "melee_weapon.gd",
         # EFFECTS: gain_stat_every_killed_enemies[ 2/3 ]
@@ -89,7 +90,7 @@ func _init() -> void:
         #          cannot_damage_tree[ 2/4 ]
 
         "run_data.gd",
-        # Job System[ 4/6 ]
+        # SYSTEMS: Job[ 4/6 ]
         # STATS: Soul[ 3/3 ]
         # EFFECTS: specific_set_weapon_bonuses
         #          shop_enter_stat_curse[ 2/2 ]
@@ -106,10 +107,10 @@ func _init() -> void:
         # EFFECTS: turret_can_pursue_target[ 3/3 ]
 
         "ingame_main_menu.gd",
-        # Job System[ 5/6 ]
+        # SYSTEMS: Job[ 5/6 ]
 
         "end_run.gd",
-        # Job System[ 6/6 ]
+        # SYSTEMS: Job[ 6/6 ]
 
         "linked_stats.gd",
         # EFFECTS: crit_overflow_stat

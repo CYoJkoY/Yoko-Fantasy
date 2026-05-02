@@ -1,15 +1,30 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/on_killed_cursed_enemy_trigger_effect/on_killed_cursed_enemy_trigger_effect.gd" type="Script" id=1]
+[ext_resource path="res://items/global/effect.gd" type="Script" id=1]
+[ext_resource path="res://items/global/custom_arg.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+arg_index = 0
+arg_sign = 1
+arg_value = 0
+arg_format = 0
+arg_key = ""
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+arg_index = 1
+arg_sign = 2
+arg_value = 0
+arg_format = 0
+arg_key = ""
 
 [resource]
 script = ExtResource( 1 )
-key = "stat_max_hp"
-text_key = "EFFECT_FANTASY_ON_KILLED_CURSED_ENEMY_HEALING_EFFECT"
-value = 1
-custom_key = "fantasy_on_killed_cursed_enemy_trigger_effect"
-storage_method = 0
-effect_sign = 3
-custom_args = [  ]
-action_type = "healing_effect"
-tracking_key = ""
+key = "stat_fantasy_holy"
+text_key = "EFFECT_WEAPON_SCALING_STATS"
+value = -25
+custom_key = "weapon_scaling_stats"
+storage_method = 1
+effect_sign = 0
+custom_args = [ SubResource( 1 ), SubResource( 2 ) ]
