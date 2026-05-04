@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/extra_curse_enemy/extra_curse_enemy_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "character_fantasy_cardinal"
+text_key = "EFFECT_FANTASY_EXTRA_CURSE_ENEMY"
+value = 50
+custom_key = "fantasy_extra_curse_enemy"
+storage_method = 4
+effect_sign = 3
+custom_args = [  ]

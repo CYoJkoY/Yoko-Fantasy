@@ -12,11 +12,20 @@ func on_killed_something(_thing_killed: Node, hitbox: Hitbox) -> void:
     .on_killed_something(_thing_killed, hitbox)
     _fantasy_gain_temp_stat_every_killed_enemies()
 
+func _on_Range_body_entered(body: Node) -> void:
+    if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index) and Utils.plant_enemies_ids.has(body.get("enemy_id_hash")): return
+    ._on_Range_body_entered(body)
+
+func _on_Range_body_exited(body: Node) -> void:
+    if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index) and Utils.plant_enemies_ids.has(body.get("enemy_id_hash")): return
+    ._on_Range_body_exited(body)
+
 # =========================== Custom =========================== #
 func _fantasy_cannot_damage_tree() -> void:
     if !RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index): return
 
     _range.collision_mask -= Utils.NEUTRAL_BIT
+    return
 
 func _fantasy_gain_temp_stat_every_killed_enemies() -> void:
     for effect in effects:

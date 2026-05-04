@@ -16,12 +16,12 @@ func _on_TreeArea2D_body_exited(body):
 
 # =========================== Custom =========================== #
 func _fantasy_on_plant_enemy_entered(body) -> void:
-    if !(body is Enemy) or !_entity_spawner_ref.plant_enemies_ids.has(body.enemy_id): return
+    if !(body is Enemy) or !Utils.plant_enemies_ids.has(body.enemy_id_hash): return
 
     if body.max_stats.health > _hitbox.damage * tree_damage_ratio: _hitbox.damage = body.max_stats.health / tree_damage_ratio
     if !_closed_trees.has(body): _closed_trees.append(body)
 
 func _fantasy_on_plant_enemy_exited(body) -> void:
-    if !(body is Enemy) or !_entity_spawner_ref.plant_enemies_ids.has(body.enemy_id): return
+    if !(body is Enemy) or !Utils.plant_enemies_ids.has(body.enemy_id_hash): return
 
     if _closed_trees.has(body): _closed_trees.erase(body)

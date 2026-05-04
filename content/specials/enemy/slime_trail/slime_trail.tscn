@@ -21,6 +21,6 @@ shape = SubResource( 1 )
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_entered" from="." to="." method="fa_on_SlimeTrail_body_entered"]
-[connection signal="body_exited" from="." to="." method="fa_on_SlimeTrail_body_exited"]
+[connection signal="body_entered" from="." to="." method="fa_on_SlowField_body_entered"]
+[connection signal="body_exited" from="." to="." method="fa_on_SlowField_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="fa_on_DurationTimerTimeout"]

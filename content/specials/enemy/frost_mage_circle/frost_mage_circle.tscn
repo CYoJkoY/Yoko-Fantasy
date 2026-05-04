@@ -7,8 +7,8 @@
 blend_mode = 1
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 42.0001
-height = 130.0
+radius = 57.0004
+height = 115.999
 
 [node name="FrostMageCircle" type="Area2D"]
 collision_layer = 0
@@ -21,13 +21,12 @@ material = SubResource( 2 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 rotation = 1.57079
 shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_entered" from="." to="." method="fa_on_SlimeTrail_body_entered"]
-[connection signal="body_exited" from="." to="." method="fa_on_SlimeTrail_body_exited"]
+[connection signal="body_entered" from="." to="." method="fa_on_SlowField_body_entered"]
+[connection signal="body_exited" from="." to="." method="fa_on_SlowField_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="fa_on_DurationTimerTimeout"]

@@ -5,13 +5,8 @@ const PROJECTILE_SHADER = preload("res://resources/shaders/hue_shift_shadermat.t
 # EFFECT: gain_stat_every_killed_enemies
 var gain_stat_ever_killed_enemies_killed_count: Array = [0, 0, 0, 0]
 
-# EFFECT: fantasy_lootworm
+# EFFECT: cannot_damage_tree
 var plant_enemies: Array = []
-var plant_enemies_ids: Array = [
-    "fantasy_tree_spirit",
-    "fantasy_vine_stranger",
-    "fantasy_flower_spirit"
-]
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -113,7 +108,7 @@ func _fantasy_cursed_kill_healing(args: Entity.DieArgs) -> void:
 
 # =========================== Method =========================== #
 func fa_add_plant_enemy_on_enemy_respawned(enemy: Enemy) -> void:
-    if !plant_enemies_ids.has(enemy.enemy_id): return
+    if !Utils.plant_enemies_ids.has(enemy.enemy_id_hash): return
 
     plant_enemies.append(enemy)
 

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/specific_set_weapon_bonuses/specific_set_weapon_bonuses_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "stat_harvesting"
+text_key = "EFFECT_FANTASY_SPECIFIC_SET_WEAPON_BONUSES"
+value = 5
+custom_key = "fantasy_specific_set_weapon_bonuses"
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+set_id = "set_musical"
+need_num = 1

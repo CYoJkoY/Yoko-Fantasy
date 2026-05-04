@@ -15,17 +15,17 @@ Mutation 1:
 Loses speed but gains max HP. Killing it makes it drop twice the amount of materials it ate.
 
 Mutation 2:
-Loses more speed but gains even more max HP. Killing it makes it drop three times the amount of materials it ate.","瞄准并吞噬材料，接触时造成伤害。吞噬材料时会变大。
-在每一波敌袭开始的10秒时有3%几率生成。
+Loses more speed but gains even more max HP. Killing it makes it drop three times the amount of materials it ate.","瞄准并吞噬材料,接触时造成伤害.吞噬材料时会变大.
+在每一波敌袭开始的10秒时有3%几率生成.
 
 异变0:
-迅速但脆弱。击杀时会掉落吞噬的所有材料。
+迅速但脆弱.击杀时会掉落吞噬的所有材料.
 
 异变1:
-失去速度但获得最大生命。击杀时会掉落2倍吞噬的所有材料。
+失去速度但获得最大生命.击杀时会掉落2倍吞噬的所有材料.
 
 异变2:
-失去更多速度但获得更多最大生命。击杀时会掉落3倍吞噬的所有材料。"
+失去更多速度但获得更多最大生命.击杀时会掉落3倍吞噬的所有材料."
 FANTASY_LITTLE_SLIME_NAME,Small Slime,小史莱姆
 FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,"Slowly pursues the player. Evolves after 10 combined instances of non-slime enemies dying or materials being picked up within a 100-unit range","缓慢追击玩家,100范围内死亡的非史莱姆系敌人与其拾取的材料之和达到10个则进化"
 FANTASY_MEDIUM_SLIME_NAME,Medium Slime,中史莱姆
@@ -96,7 +96,7 @@ ITEM_FANTASY_BRASS_GEAR,Brass Gear,黄铜齿轮
 ITEM_FANTASY_BRAVE_NECKLACE,Brave Necklace,勇者项链
 STAT_LEVELS,Levels,等级
 ITEM_FANTASY_CLOCK_TOWER_ECHO,Clock Tower Echo,时针塔的回响
-EFFECT_FANTASY_TIME_BONUS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the max health of all enemies ({2} for bosses and elite enemies)",每{0}秒对所有敌人额外造成相当于其最大生命值的{1}的伤害(对头目和精英怪则为{2})
+EFFECT_FANTASY_TIME_BONUS_CURRENT_HEALTH_DAMAGE,"Every {0} seconds, deal additional damage equal to {1} of the max health of all enemies ({2} for elites and bosses)",每{0}秒对所有敌人额外造成相当于其最大生命值的{1}的伤害(对精英和头目则为{2})
 ITEM_FANTASY_CONTRACT,Contract,契约
 EFFECT_FANTASY_SHOP_ENTER_STAT_CURSE,"Upon entering the shop, there is a {2} chance to spend {0} {1} to randomly curse {3} owned item or weapon
 {4}
@@ -501,3 +501,8 @@ CHARACTER_FANTASY_CULTIST,Cultist,邪教徒
 EFFECT_FANTASY_CURSED_KILL_HEALING,"{0} HP on cursed enemy killed
 {1}","击杀被诅咒的敌人时{0} HP
 {1}"
+EFFECT_FANTASY_LOSE_HP_PER_SECOND_MIN_HP,"When taking damage per second, keep at least {0} HP","每秒受到伤害时, 至少保留{0} HP"
+CHARACTER_FANTASY_CARDINAL,Cardinal,主教
+EFFECT_FANTASY_SACRIFICIAL_CIRCLE,"A ritual area with radius {0} exists at the center of the map. Every {1} enemies killed within the ritual area {2} {3}, and spawn {4} materials and {5} {6} at the ritual center","地图中心存在半径为{0}的仪式区域.每在仪式区域内击杀{1}名敌人 {2}{3},并在仪式中心生成{4}材料和{5}{6}"
+CHARACTER_FANTASY_BARD,Bard,吟游诗人
+EFFECT_FANTASY_DANCE,"After {0} hits on an enemy, it dances for {1} seconds ({2} seconds for elites and bosses). While dancing, it moves away from you, cannot target you, and sways from side to side.","第{0}次命中敌人后让敌人跳舞{1}秒(精英和头目为{2}秒),期间敌人会远离你、无法索敌你,并且会左右摇晃"

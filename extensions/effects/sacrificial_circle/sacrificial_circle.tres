@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/sacrificial_circle/sacrificial_circle_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "stat_fantasy_holy"
+text_key = "EFFECT_FANTASY_SACRIFICIAL_CIRCLE"
+value = 400
+custom_key = "fantasy_sacrificial_circle"
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+value2 = 50
+sum_strategy = 0
+killed_need = 16
+stat_num = 1
+gold_num = 8
+consumable_id = "consumable_fantasy_soul"
+consumable_num = 1

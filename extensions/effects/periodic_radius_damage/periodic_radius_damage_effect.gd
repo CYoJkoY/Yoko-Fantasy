@@ -54,7 +54,7 @@ func unapply(player_index: int) -> void:
 
 func get_args(player_index: int) -> Array:
 	var scaling_dmg: float = Utils.ncl_get_scaling_stats_dmg(scaling_stats, player_index)
-	var total_damage: int = (base_damage + scaling_dmg) as int
+	var total_damage: int = int(base_damage + scaling_dmg)
 	var dmg_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(total_damage, scaling_stats, base_damage)
 
 	var attack_speed_mod: float = Utils.get_stat(Keys.stat_attack_speed_hash, player_index) / 100.0
@@ -62,7 +62,7 @@ func get_args(player_index: int) -> Array:
 	var cooldown_text: String = "[color=%s]%s[/color]" % [Utils.ncl_get_signed_col(final_cooldown, base_cooldown, true), stepify(final_cooldown / 60.0, 0.01)]
 
 	var range_rate: float = value2 / 100.0
-	var total_range: int = (Utils.get_stat(Keys.stat_range_hash, player_index) * range_rate + value) as int
+	var total_range: int = int(Utils.get_stat(Keys.stat_range_hash, player_index) * range_rate + value)
 	var range_scaling_text: String = Utils.get_scaling_stat_icon_text(Keys.stat_range_hash, range_rate)
 	var range_text: String = "[color=%s]%s[/color] (%s)" % [Utils.ncl_get_signed_col(total_range, value), total_range, range_scaling_text]
 

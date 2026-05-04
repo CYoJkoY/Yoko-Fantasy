@@ -36,7 +36,7 @@ static func init_stats(all_null_values: bool = false) -> Dictionary:
     if (Utils != null):
         var vanilla_stats =.init_stats(all_null_values)
 
-        var new_stats := {
+        var new_stats: Dictionary = {
             
             Utils.stat_fantasy_holy_hash: 0,
             Utils.stat_fantasy_soul_hash: 0,
@@ -58,7 +58,7 @@ static func init_effects() -> Dictionary:
         var mod_stats = init_stats()
         var vanilla_effects =.init_effects()
 
-        var new_effects := {
+        var new_effects: Dictionary = {
 
             Utils.fantasy_time_bonus_current_health_damage_hash: [],
             Utils.fantasy_shop_enter_stat_curse_hash: [],
@@ -102,6 +102,9 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_buff_future_target_enemy_hash: {},
             Utils.fantasy_scrap_specific_tier_weapons_for_items_hash: [[], [], [], []],
             Utils.fantasy_cursed_kill_healing_hash: [],
+            Utils.fantasy_lose_hp_per_second_min_hp_hash: 0,
+            Utils.fantasy_sacrificial_circle_hash: [],
+            Utils.fantasy_dance_hash: [],
 
         }
         

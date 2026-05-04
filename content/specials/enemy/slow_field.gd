@@ -52,7 +52,7 @@ func fa_on_DurationTimerTimeout() -> void:
     for body in affected_units:
         fa_remove_effect_from_body(body)
 
-func fa_on_SlimeTrail_body_entered(body) -> void:
+func fa_on_SlowField_body_entered(body) -> void:
     if affected_units.has(body): return
 
     if !is_instance_valid(body) or body.dead: return
@@ -61,7 +61,7 @@ func fa_on_SlimeTrail_body_entered(body) -> void:
     body.current_stats.speed = int(original_speed * reduction)
     affected_units.set(body, original_speed)
 
-func fa_on_SlimeTrail_body_exited(body) -> void:
+func fa_on_SlowField_body_exited(body) -> void:
     fa_remove_effect_from_body(body)
 
 func fa_remove_effect_from_body(body) -> void:

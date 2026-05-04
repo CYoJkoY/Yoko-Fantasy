@@ -15,6 +15,10 @@ func get_damage_value(dmg_value: int, _from_player_index: int, armor_applied := 
 
     return result
 
+func _on_LoseHealthTimer_timeout() -> void:
+    if _fantasy_lose_hp_per_second_min_hp(): return
+    ._on_LoseHealthTimer_timeout()
+
 func take_damage(value: int, args: TakeDamageArgs) -> Array:
     var take_damage_array: Array =.take_damage(value, args)
     _fantasy_damage_reflect(take_damage_array[0], args)
@@ -146,6 +150,23 @@ func _fantasy_dmg_when_pickup_consumable(consumable_data: ConsumableData) -> voi
             processed_count += 1
 
             if processed_count >= max_num: break
+
+func _fantasy_lose_hp_per_second_min_hp() -> bool:
+    var lose_hp_per_second_min_hp: int = RunData.get_player_effect(Utils.fantasy_lose_hp_per_second_min_hp_hash, player_index)
+    if lose_hp_per_second_min_hp <= 0: return false
+
+    _take_damage_args.dodgeable = false
+    _take_damage_args.armor_applied = false
+    _take_damage_args.bypass_invincibility = true
+    _take_damage_args.from = self
+    var lose_hp_per_second = RunData.get_player_effect(Keys.lose_hp_per_second_hash, player_index)
+    if current_stats.health <= lose_hp_per_second + lose_hp_per_second_min_hp: lose_hp_per_second = current_stats.health - lose_hp_per_second_min_hp
+
+    if lose_hp_per_second > 0: var _dmg_taken: Array = take_damage(lose_hp_per_second, _take_damage_args)
+    elif lose_hp_per_second == 0: pass
+    else: var _healed: int = on_healing_effect(-lose_hp_per_second)
+    
+    return true
 
 # =========================== Method =========================== #
 func fa_on_soul_effect(damage_to_add: int, speed_to_add: int) -> void:

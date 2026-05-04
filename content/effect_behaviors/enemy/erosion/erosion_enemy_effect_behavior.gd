@@ -44,7 +44,9 @@ func on_hurt(hitbox: Hitbox) -> void:
     var from_player_index: int = from.player_index if (from.player_index != -1) else RunData.DUMMY_PLAYER_INDEX
     var item_effects: Array = RunData.get_player_effect(Utils.fantasy_erosion_hash, from_player_index)
     var speed_boost: float = 1.0 + RunData.get_player_effect(Utils.fantasy_erosion_speed_hash, from_player_index) / 100.0
-    var erosion_crit: float = Utils.get_capped_stat(Keys.stat_crit_chance_hash, from_player_index) / 100.0 if RunData.get_player_effect_bool(Utils.fantasy_erosion_can_crit_hash, from_player_index) else 0.0
+    var erosion_crit: float = Utils.get_capped_stat(Keys.stat_crit_chance_hash, from_player_index) / 100.0 \
+        if RunData.get_player_effect_bool(Utils.fantasy_erosion_can_crit_hash, from_player_index) else 0.0
+
     for item_effect in item_effects:
         var base_damage: int = item_effect[0]
         var scaling_stats: Array = item_effect[1]
@@ -70,7 +72,7 @@ func on_hurt(hitbox: Hitbox) -> void:
         fa_try_add_erosion(from_player_index, base_damage, scaling_stats, chance, times, cd, crit_chance, crit_damage, source_id)
 
 # =========================== Method =========================== #
-func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats: Array, chance: float, times: int, cd: float, crit_chance: float, crit_damage: float, source_id: int):
+func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats: Array, chance: float, times: int, cd: float, crit_chance: float, crit_damage: float, source_id: int) -> void:
         if !Utils.get_chance_success(chance): return
 
         var erosion: ActiveErosion = null

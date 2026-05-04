@@ -40,6 +40,7 @@ func _init() -> void:
         # STATS: Holy[ 2/2 ]
         # EFFECTS: extra_curse_enemy
         #          on_target_enemy_killed_buff_future_target_enemy[ 1/2 ]
+        #          cannot_damage_tree[ 1/5 ]
         
         "player_run_data.gd",
         # SYSTEMS: Job[ 3/6 ]
@@ -82,12 +83,12 @@ func _init() -> void:
         # EFFECTS: gain_stat_every_killed_enemies[ 2/3 ]
         #          reload_when_shoot[ 1/2 ]
         #          change_weapon_every_killed_enemies
-        #          cannot_damage_tree[ 1/4 ]
+        #          cannot_damage_tree[ 2/5 ]
 
         "ranged_weapon.gd",
         # EFFECTS: gain_stat_every_killed_enemies[ 3/3 ]
         #          reload_when_shoot[ 2/2 ]
-        #          cannot_damage_tree[ 2/4 ]
+        #          cannot_damage_tree[ 3/5 ]
 
         "run_data.gd",
         # SYSTEMS: Job[ 4/6 ]
@@ -116,11 +117,11 @@ func _init() -> void:
         # EFFECTS: crit_overflow_stat
 
         "neutral.gd",
-        # EFFECTS: cannot_damage_tree[ 3/4 ]
+        # EFFECTS: cannot_damage_tree[ 4/5 ]
 
         "lootworm_target_behavior.gd",
         # ENEMIES: Plant Enemies[ 2/3 ]
-        # EFFECTS: cannot_damage_tree[ 4/4 ]
+        # EFFECTS: cannot_damage_tree[ 5/5 ]
 
         "lootworm.gd",
         # ENEMIES: Plant Enemies[ 3/3 ]

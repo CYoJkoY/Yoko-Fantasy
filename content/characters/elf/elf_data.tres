@@ -10,7 +10,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/elf/elf_effect_4.tres" type="Resource" id=8]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/elf/elf_effect_5.tres" type="Resource" id=9]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/elf/elf_effect_6.tres" type="Resource" id=10]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/elf/elf_effect_7.tres" type="Resource" id=11]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/elf/elf_effect_0b.tres" type="Resource" id=11]
 [ext_resource path="res://weapons/melee/hand/1/hand_data.tres" type="Resource" id=12]
 [ext_resource path="res://weapons/melee/stick/1/stick_data.tres" type="Resource" id=13]
 [ext_resource path="res://weapons/melee/dagger/1/dagger_data.tres" type="Resource" id=14]
@@ -31,7 +31,7 @@ icon = ExtResource( 2 )
 name = "CHARACTER_FANTASY_ELF"
 tier = 0
 value = 1
-effects = [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ]
+effects = [ ExtResource( 4 ), ExtResource( 11 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
 tracking_text = ""
 is_lockable = true
 unlock_codex_descr_after_get_it = 1

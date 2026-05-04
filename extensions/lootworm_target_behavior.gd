@@ -59,14 +59,14 @@ func _fantasy_update_cannot_damage_tree() -> bool:
 
 # =========================== Method =========================== #
 func fa_cleanup_previous_plant_enemy_target() -> bool:
-    if !(_parent.current_target is Enemy) or !_entity_spawner.plant_enemies_ids.has(_parent.current_target.enemy_id): return false
+    if !(_parent.current_target is Enemy) or !Utils.plant_enemies_ids.has(_parent.current_target.enemy_id_hash): return false
     
     _parent.current_target.disconnect("died", self , "fa_on_dead_plant_enemy")
     _parent.current_target = null
     return true
 
 func fa_on_plant_enemy_spawned(enemy: Enemy) -> void:
-    if !_entity_spawner.plant_enemies_ids.has(enemy.enemy_id): return
+    if !Utils.plant_enemies_ids.has(enemy.enemy_id_hash): return
 
     if _parent.current_target == null: return
 

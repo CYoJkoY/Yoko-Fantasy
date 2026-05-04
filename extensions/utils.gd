@@ -64,12 +64,23 @@ var fantasy_target_enemy_killed_hash: int = Keys.generate_hash("fantasy_target_e
 var fantasy_buff_future_target_enemy_hash: int = Keys.generate_hash("fantasy_buff_future_target_enemy")
 var fantasy_scrap_specific_tier_weapons_for_items_hash: int = Keys.generate_hash("fantasy_scrap_specific_tier_weapons_for_items")
 var fantasy_cursed_kill_healing_hash: int = Keys.generate_hash("fantasy_cursed_kill_healing")
+var fantasy_lose_hp_per_second_min_hp_hash: int = Keys.generate_hash("fantasy_lose_hp_per_second_min_hp")
+var fantasy_sacrificial_circle_hash: int = Keys.generate_hash("fantasy_sacrificial_circle")
+var fantasy_dance_hash: int = Keys.generate_hash("fantasy_dance")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")
 
 # Enemies
 var fantasy_great_demon_lord_hash: int = Keys.generate_hash("fantasy_great_demon_lord")
+var fantasy_tree_spirit_hash: int = Keys.generate_hash("fantasy_tree_spirit")
+var fantasy_vine_stranger_hash: int = Keys.generate_hash("fantasy_vine_stranger")
+var fantasy_flower_spirit_hash: int = Keys.generate_hash("fantasy_flower_spirit")
+var plant_enemies_ids: Array = [
+    fantasy_tree_spirit_hash,
+    fantasy_vine_stranger_hash,
+    fantasy_flower_spirit_hash,
+]
 
 # Characters
 var character_fantasy_princess_hash = Keys.generate_hash("character_fantasy_princess")
@@ -77,3 +88,23 @@ var character_fantasy_princess_hash = Keys.generate_hash("character_fantasy_prin
 # Icons
 var icon_fantasy_job_to_process_hash: int = Keys.generate_hash("icon_fantasy_job_to_process")
 var icon_fantasy_princess_limited_hash = Keys.generate_hash("icon_fantasy_princess_limited")
+
+# =========================== Method =========================== #
+func fa_spawn_soul(num: int, pos: Vector2, spread: int) -> void:
+    var main: Main = get_scene_node()
+    for _i in range(num):
+        var consumable_to_spawn: ConsumableData = ProgressData.get_dlc_data("Yoko-Fantasy").soul_data
+        var consumable: Consumable = main.get_node_from_pool(main._consumable_pool_id, main._consumables_container)
+        if consumable == null:
+            consumable = main.consumable_scene.instance()
+            main._consumables_container.call_deferred("add_child", consumable)
+            var _error = consumable.connect("picked_up", main, "on_consumable_picked_up")
+            yield (consumable, "ready")
+
+        consumable.already_picked_up = false
+        consumable.consumable_data = consumable_to_spawn
+        consumable.set_texture(consumable_to_spawn.icon)
+        var dist = rand_range(50, 100 + spread)
+        var push_back_destination = ZoneService.get_rand_pos_in_area(pos, dist, 0)
+        consumable.drop(pos, 0, push_back_destination)
+        main._consumables.push_back(consumable)

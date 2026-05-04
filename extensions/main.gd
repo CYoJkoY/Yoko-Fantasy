@@ -1,5 +1,7 @@
 extends "res://main.gd"
 
+const SACRIFICIAL_CIRCLE_SCENE_PATH: String = "res://mods-unpacked/Yoko-Fantasy/content/specials/player/sacrificial_circle/sacrificial_circle.tscn"
+
 var FaTimers: Array = []
 var summoned_twins: Array = []
 var cursed_enemies: Array = []
@@ -17,6 +19,7 @@ func on_upgrade_selected(upgrade_data: UpgradeData, upgrade: UpgradesUI.UpgradeT
 func _on_EntitySpawner_players_spawned(players: Array) -> void:
     ._on_EntitySpawner_players_spawned(players)
     _fantasy_teleport_if_world_tree_enemy(players)
+    _fantasy_sacrificial_circle(players)
 
 func _on_EntitySpawner_enemy_spawned(enemy: Enemy) -> void:
     ._on_EntitySpawner_enemy_spawned(enemy)
@@ -179,6 +182,17 @@ func _fantasy_teleport_if_world_tree_enemy(players: Array) -> void:
                     )
                 else:
                     players[player_index].global_position = base_pos
+
+func _fantasy_sacrificial_circle(players: Array) -> void:
+    var player_count: int = players.size()
+    for player_index in range(player_count):
+        var sacrificial_circles: Array = RunData.get_player_effect(Utils.fantasy_sacrificial_circle_hash, player_index)
+        if sacrificial_circles.empty(): continue
+        
+        for sacrificial_circle in sacrificial_circles:
+            var sacrificial_circle_node: Area2D = load(SACRIFICIAL_CIRCLE_SCENE_PATH).instance()
+            var center_pos: Vector2 = ZoneService.get_map_center()
+            _materials_container.add_child(sacrificial_circle_node.init(self , player_index, center_pos, sacrificial_circle))
 
 # =========================== Method =========================== #
 func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracking_key_hash: int) -> void:

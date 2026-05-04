@@ -13,6 +13,10 @@ func respawn() -> void:
     _fantasy_holy_reduce_health()
     _fantasy_buff_future_target()
 
+func _on_Hurtbox_area_entered(hitbox: Area2D) -> void:
+    if Utils.plant_enemies_ids.has(enemy_id_hash): _fantasy_cannot_damage_tree(hitbox)
+    ._on_Hurtbox_area_entered(hitbox)
+
 func get_stats_value() -> int:
     var value: int =.get_stats_value()
     value = _fantasy_bonus_drop(value)
@@ -81,6 +85,15 @@ func _fantasy_buff_future_target() -> void:
         fa_apply_stat_to_both(1, bonus_stats[1])
         fa_apply_stat_to_both(2, bonus_stats[2])
         fa_apply_stat_to_both(3, bonus_stats[3])
+
+func _fantasy_cannot_damage_tree(hitbox: Area2D) -> void:
+    if !is_instance_valid(hitbox) or \
+    !is_instance_valid(hitbox.from) or \
+    hitbox.from.player_index == -1 or \
+    hitbox.from.player_index == RunData.DUMMY_PLAYER_INDEX: return
+
+    var player_index: int = hitbox.from.player_index
+    if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, player_index): hitbox.ignored_objects.append(self )
 
 # =========================== Method =========================== #
 func fa_apply_stat_to_both(target_stat: int, value: int) -> void:
