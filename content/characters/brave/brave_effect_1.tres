@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "stat_melee_damage"
+key = "stat_percent_damage"
 text_key = "EFFECT_STAT_ON_LEVEL_UP"
-value = 1
+value = 3
 custom_key = "stats_on_level_up"
 storage_method = 1
 effect_sign = 3

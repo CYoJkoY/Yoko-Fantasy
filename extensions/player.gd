@@ -27,6 +27,10 @@ func take_damage(value: int, args: TakeDamageArgs) -> Array:
 
     return take_damage_array
 
+func _on_ItemAttractArea_area_entered(item: Item) -> void:
+    ._on_ItemAttractArea_area_entered(item)
+    _fantasy_on_soul_entered(item)
+
 func on_consumable_picked_up(consumable_data: ConsumableData) -> void:
     .on_consumable_picked_up(consumable_data)
     _fantasy_dmg_when_pickup_consumable(consumable_data)
@@ -167,6 +171,16 @@ func _fantasy_lose_hp_per_second_min_hp() -> bool:
     else: var _healed: int = on_healing_effect(-lose_hp_per_second)
     
     return true
+
+func _fantasy_on_soul_entered(item: Item) -> void:
+    if !(item is Consumable): return
+
+    var consumable_data: ConsumableData = item.consumable_data
+    if consumable_data.my_id_hash != Utils.consumable_fantasy_soul_hash: return
+
+    if item.attracted_by == null:
+        item.attracted_by = self
+        item.set_physics_process(true)
 
 # =========================== Method =========================== #
 func fa_on_soul_effect(damage_to_add: int, speed_to_add: int) -> void:

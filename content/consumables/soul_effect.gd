@@ -4,6 +4,9 @@ var damage_to_add: int = 0
 var speed_to_add: int = 0
 
 # =========================== Extension =========================== #
+static func get_id() -> String:
+	return "fantasy_soul_effect"
+
 func apply(player_index: int) -> void:
     if Utils.get_scene_node()._cleaning_up: return
 

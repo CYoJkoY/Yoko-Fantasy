@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=166 format=2]
+[gd_resource type="Resource" load_steps=168 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -165,6 +165,8 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/holy/holy_set_data.tres" type="Resource" id=163]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/bard/bard_data.tres" type="Resource" id=164]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/change_weapon_every_killed_enemies/change_weapon_every_killed_enemies_effect.gd" type="Script" id=165]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/sacrificial_circle/sacrificial_circle_effect.gd" type="Script" id=166]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/dance/dance_effect.gd" type="Script" id=167]
 
 [resource]
 script = ExtResource( 43 )
@@ -179,7 +181,7 @@ bosses = [ ExtResource( 154 ), ExtResource( 153 ) ]
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]
 items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 75 ), ExtResource( 42 ), ExtResource( 82 ), ExtResource( 84 ), ExtResource( 87 ), ExtResource( 89 ), ExtResource( 90 ) ]
 weapons = [ ExtResource( 159 ), ExtResource( 161 ), ExtResource( 160 ), ExtResource( 162 ) ]
-effects = [ ExtResource( 54 ), ExtResource( 88 ), ExtResource( 70 ), ExtResource( 86 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 46 ), ExtResource( 137 ), ExtResource( 139 ), ExtResource( 85 ), ExtResource( 141 ), ExtResource( 165 ), ExtResource( 68 ), ExtResource( 67 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 77 ), ExtResource( 136 ), ExtResource( 117 ), ExtResource( 138 ) ]
+effects = [ ExtResource( 54 ), ExtResource( 88 ), ExtResource( 70 ), ExtResource( 86 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 46 ), ExtResource( 137 ), ExtResource( 139 ), ExtResource( 85 ), ExtResource( 141 ), ExtResource( 165 ), ExtResource( 68 ), ExtResource( 67 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 77 ), ExtResource( 136 ), ExtResource( 117 ), ExtResource( 138 ), ExtResource( 166 ), ExtResource( 167 ) ]
 consumables = [  ]
 upgrades = [  ]
 sets = [ ExtResource( 163 ) ]
@@ -206,6 +208,7 @@ tracked_effects = {
 "job_fantasy_dual_wielder": 0
 }
 translation_keys_needing_operator = {
+"effect_fantasy_base_chance_drop_soul": [ 0 ],
 "effect_fantasy_crit_overflow_stat": [ 0, 3 ],
 "effect_fantasy_decaying_slow_enemy_when_below_hp": [ 2 ],
 "effect_fantasy_erosion_speed": [ 0 ],

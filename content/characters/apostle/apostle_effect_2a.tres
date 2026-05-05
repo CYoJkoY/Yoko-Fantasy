@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "stat_attack_speed"
-text_key = "EFFECT_STAT_ON_LEVEL_UP"
-value = 3
-custom_key = "stats_on_level_up"
-storage_method = 1
+key = "fantasy_base_chance_drop_soul"
+text_key = "EFFECT_FANTASY_BASE_CHANCE_DROP_SOUL"
+value = 5
+custom_key = ""
+storage_method = 0
 effect_sign = 3
 custom_args = [  ]
