@@ -6,12 +6,24 @@ func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [
     _fantasy_extra_curse_enemy()
     _fantasy_holy_reduce_health()
     _fantasy_buff_future_target()
+    if Utils.plant_enemies_ids.has(enemy_id_hash): _fantasy_cannot_tree_damage()
 
 func respawn() -> void:
     .respawn()
     _fantasy_extra_curse_enemy()
     _fantasy_holy_reduce_health()
     _fantasy_buff_future_target()
+    if Utils.plant_enemies_ids.has(enemy_id_hash): _fantasy_cannot_tree_damage()
+
+func update_target() -> void:
+    .update_target()
+    if Utils.plant_enemies_ids.has(enemy_id_hash): _fantasy_update_cannot_tree_damage_target()
+
+func is_playing_shoot_animation() -> bool:
+    var is_playing_shoot: bool =.is_playing_shoot_animation()
+    if Utils.plant_enemies_ids.has(enemy_id_hash): is_playing_shoot = _fantasy_is_playing_shoot_animation_cannot_tree_damage(is_playing_shoot)
+
+    return is_playing_shoot
 
 func _on_Hurtbox_area_entered(hitbox: Area2D) -> void:
     if Utils.plant_enemies_ids.has(enemy_id_hash): _fantasy_cannot_damage_tree(hitbox)
@@ -81,10 +93,36 @@ func _fantasy_buff_future_target() -> void:
         if !target_enemy_buffed.has(enemy_id_hash): continue
 
         var bonus_stats: Array = target_enemy_buffed[enemy_id_hash]
-        fa_apply_stat_to_both(0, bonus_stats[0])
-        fa_apply_stat_to_both(1, bonus_stats[1])
-        fa_apply_stat_to_both(2, bonus_stats[2])
-        fa_apply_stat_to_both(3, bonus_stats[3])
+        fa_apply_stat_to_both(Utils.FANTASY_ENEMY_HP, bonus_stats[0])
+        fa_apply_stat_to_both(Utils.FANTASY_ENEMY_SPEED, bonus_stats[1])
+        fa_apply_stat_to_both(Utils.FANTASY_ENEMY_DAMAGE, bonus_stats[2])
+        fa_apply_stat_to_both(Utils.FANTASY_ENEMY_ARMOR, bonus_stats[3])
+
+func _fantasy_cannot_tree_damage() -> void:
+    for player_index in range(players_ref.size()):
+        if !RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, player_index): continue
+
+        _hitbox.ignored_objects.append(players_ref[player_index])
+
+func _fantasy_update_cannot_tree_damage_target() -> void:
+    for player_index in range(players_ref.size()):
+        if !RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, player_index): continue
+
+        if current_target != players_ref[player_index]: continue
+
+        current_target.disconnect("died", self , "_on_target_died")
+        current_target = null
+        break
+
+func _fantasy_is_playing_shoot_animation_cannot_tree_damage(is_playing_shoot: bool) -> bool:
+    for player_index in range(players_ref.size()):
+        if !RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, player_index): continue
+
+        if current_target == null:
+            update_target()
+            return true
+
+    return is_playing_shoot
 
 func _fantasy_cannot_damage_tree(hitbox: Area2D) -> void:
     if !is_instance_valid(hitbox) or \

@@ -10,7 +10,8 @@ func shoot() -> void:
 
 func on_killed_something(_thing_killed: Node, hitbox: Hitbox) -> void:
     .on_killed_something(_thing_killed, hitbox)
-    _fantasy_gain_temp_stat_every_killed_enemies()
+    _fantasy_gain_stat_every_killed_enemies()
+    _fantasy_change_weapon_every_killed_enemies()
 
 func _on_Range_body_entered(body: Node) -> void:
     if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index) and Utils.plant_enemies_ids.has(body.get("enemy_id_hash")): return
@@ -27,12 +28,13 @@ func _fantasy_cannot_damage_tree() -> void:
     _range.collision_mask -= Utils.NEUTRAL_BIT
     return
 
-func _fantasy_gain_temp_stat_every_killed_enemies() -> void:
+func _fantasy_gain_stat_every_killed_enemies() -> void:
     for effect in effects:
-        if effect.get_id() != "fantasy_gain_temp_stat_every_killed_enemies" or \
+        if effect.get_id() != "fantasy_gain_stat_every_killed_enemies" or \
         _enemies_killed_this_wave_count % effect.value != 0: continue
 
-        TempStats.add_stat(effect.stat_hash, effect.stat_nb, player_index)
+        if effect.is_temp: TempStats.add_stat(effect.stat_hash, effect.stat_nb, player_index)
+        else: RunData.add_stat(effect.stat_hash, effect.stat_nb, player_index)
 
         # Update when first add hit_protection
         if effect.stat_hash == Keys.hit_protection_hash:
@@ -56,3 +58,10 @@ func _fantasy_reload_when_shoot() -> void:
             Tween.TRANS_SINE, Tween.EASE_IN_OUT
         )
         tween_animation.start()
+
+func _fantasy_change_weapon_every_killed_enemies() -> void:
+    for effect in effects:
+        if effect.get_id() != "fantasy_change_weapon_every_killed_enemies" or \
+        _enemies_killed_this_wave_count != effect.value: continue
+
+        Utils.ncl_change_weapon_within_run(weapon_pos, effect.key_hash, player_index)

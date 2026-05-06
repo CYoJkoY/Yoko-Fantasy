@@ -34,7 +34,7 @@ func reload_data():
     _current_weapon_stats = WeaponService.init_melee_pet_stats(_base_weapon_stats, player_index, args)
     _hitbox.projectiles_on_hit = []
     _current_weapon_stats.burning_data.from = self
-    _target_behavior_shape.shape.radius = _current_weapon_stats.min_range
+    _target_behavior_shape.shape.radius = Utils.ncl_get_range_with_detection(_current_weapon_stats.min_range)
 
     var hitbox_args := Hitbox.HitboxArgs.new().set_from_weapon_stats(_current_weapon_stats)
     _hitbox.effect_scale = _current_weapon_stats.effect_scale
@@ -47,7 +47,7 @@ func set_current_stats(stats: Array) -> void:
 
     _hitbox.projectiles_on_hit = []
     _current_weapon_stats.burning_data.from = self
-    _target_behavior_shape.shape.radius = _current_weapon_stats.min_range
+    _target_behavior_shape.shape.radius = Utils.ncl_get_range_with_detection(_current_weapon_stats.min_range)
 
     var hitbox_args := Hitbox.HitboxArgs.new().set_from_weapon_stats(_current_weapon_stats)
     _hitbox.effect_scale = _current_weapon_stats.effect_scale

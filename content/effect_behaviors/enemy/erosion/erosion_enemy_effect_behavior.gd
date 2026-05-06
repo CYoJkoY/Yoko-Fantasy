@@ -1,9 +1,11 @@
 extends EnemyEffectBehavior
 
 class ActiveErosion:
+    var marked_for_removal: bool = false
     var player_index: int = -1
     var damage: int = 0
     var chance: float = 0.25
+    var current_times: int = 3
     var times: int = 3
     var cd: float = 0.5
     var current_cd: float = 0.5
@@ -44,8 +46,7 @@ func on_hurt(hitbox: Hitbox) -> void:
     var from_player_index: int = from.player_index if (from.player_index != -1) else RunData.DUMMY_PLAYER_INDEX
     var item_effects: Array = RunData.get_player_effect(Utils.fantasy_erosion_hash, from_player_index)
     var speed_boost: float = 1.0 + RunData.get_player_effect(Utils.fantasy_erosion_speed_hash, from_player_index) / 100.0
-    var erosion_crit: float = Utils.get_capped_stat(Keys.stat_crit_chance_hash, from_player_index) / 100.0 \
-        if RunData.get_player_effect_bool(Utils.fantasy_erosion_can_crit_hash, from_player_index) else 0.0
+    var erosion_crit: float = Utils.get_capped_stat(Keys.stat_crit_chance_hash, from_player_index) / 100.0 if RunData.get_player_effect_bool(Utils.fantasy_erosion_can_crit_hash, from_player_index) else 0.0
 
     for item_effect in item_effects:
         var base_damage: int = item_effect[0]
@@ -75,17 +76,18 @@ func on_hurt(hitbox: Hitbox) -> void:
 func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats: Array, chance: float, times: int, cd: float, crit_chance: float, crit_damage: float, source_id: int) -> void:
         if !Utils.get_chance_success(chance): return
 
-        var erosion: ActiveErosion = null
         for existing_erosion in active_erosions:
             if existing_erosion.source_id != source_id: continue
 
             existing_erosion.stacks += 1
+            existing_erosion.marked_for_removal = false
             return
 
-        erosion = ActiveErosion.new()
+        var erosion: ActiveErosion = ActiveErosion.new()
         erosion.player_index = from_player_index
         erosion.damage = int(Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, from_player_index))
         erosion.chance = chance
+        erosion.current_times = times
         erosion.times = times
         erosion.cd = cd
         erosion.current_cd = cd
@@ -104,23 +106,28 @@ func fa_on_Timer_timeout() -> void:
         return
 
     erosion_particles.emitting = true
-    for erosion in active_erosions:
+    for i in range(active_erosions.size() - 1, -1, -1):
+        var erosion: ActiveErosion = active_erosions[i]
         erosion.current_cd -= 0.1
         if erosion.current_cd > 0: continue
         
         erosion.current_cd = erosion.cd
         fa_on_erosion_cd_timeout(erosion)
 
+        if erosion.marked_for_removal: active_erosions.remove(i)
+
 func fa_on_erosion_cd_timeout(erosion: ActiveErosion) -> void:
     var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(erosion.player_index, Color("#33CC1A"))
-    if Utils.get_chance_success(erosion.crit_chance): erosion.damage = int(erosion.crit_damage * erosion.crit_damage)
-    var take_damage_array: Array = _parent.take_damage(erosion.damage, damage_args)
+    var final_damage: int = erosion.damage
+    if Utils.get_chance_success(erosion.crit_chance): final_damage = int(erosion.damage * erosion.crit_damage)
+    var take_damage_array: Array = _parent.take_damage(final_damage, damage_args)
     RunData.add_tracked_value(erosion.player_index, erosion.source_id, take_damage_array[1])
 
-    erosion.times -= 1
-    if erosion.times > 0: return
+    erosion.current_times -= 1
+    if erosion.current_times > 0: return
 
     erosion.stacks -= 1
     if erosion.stacks > 0: return
+    erosion.current_times = erosion.times
 
-    active_erosions.erase(erosion)
+    erosion.marked_for_removal = true

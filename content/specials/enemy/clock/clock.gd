@@ -58,6 +58,7 @@ func _fantasy_spawn_prediction_line() -> void:
         prediction_points.append(prediction_point)
 
     prediction_line = prediction_line_scene.instance()
+    main.add_effect(prediction_line)
     prediction_line.points = prediction_points
     prediction_line.default_color = prediction_line_color
     prediction_line.width = prediction_line_width

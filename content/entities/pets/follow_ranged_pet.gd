@@ -36,12 +36,12 @@ func reload_data():
     var args := WeaponServiceInitStatsArgs.new()
     _current_weapon_stats = WeaponService.init_ranged_pet_stats(_base_weapon_stats, player_index, false, args)
     _current_weapon_stats.burning_data.from = self
-    _target_behavior_shape.shape.radius = _base_weapon_stats.max_range
+    _target_behavior_shape.shape.radius = Utils.ncl_get_range_with_detection(_base_weapon_stats.max_range)
     
 func set_current_stats(stats: Array) -> void:
     _current_weapon_stats = stats[0]
     _current_weapon_stats.burning_data.from = self
-    _target_behavior_shape.shape.radius = _base_weapon_stats.max_range
+    _target_behavior_shape.shape.radius = Utils.ncl_get_range_with_detection(_base_weapon_stats.max_range)
 
 func get_stats() -> Array:
     return [_current_weapon_stats]

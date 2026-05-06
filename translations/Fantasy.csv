@@ -488,10 +488,10 @@ CHARACTER_FANTASY_PALADIN,Paladin,圣骑士
 STAT_FANTASY_PET_ATTACK_SPEED,% Pet Attack Speed ,%宠物攻击速度
 CHARACTER_FANTASY_ELF,Elf,精灵
 EFFECT_FANTASY_TREE_RADIUS_TEMPSTATS,When within tree range {2} {1}{0},在树范围{2}内时有{1}{0}
-EFFECT_FANTASY_CANNOT_DAMAGE_TREE,Cannot damage trees,无法伤害树
+EFFECT_FANTASY_CANNOT_DAMAGE_TREE,"Cannot damage trees, nor can trees damage you","无法伤害树,树也不会伤害你"
 CHARACTER_FANTASY_SLAVE,Slave,奴隶
 CHARACTER_FANTASY_GOBLIN_SLAYER,Goblin Slayer,哥布林杀手
-EFFECT_FANTASY_BONUS_DROP_FROM_TARGET,{3} extra drop{0} materials,{3}额外掉落{0}个材料
+EFFECT_FANTASY_BONUS_DROP_FROM_TARGET,{3} extra drop {0} materials,{3}额外掉落{0}个材料
 EFFECT_FANTASY_EXTRA_ENEMIES_EACH_WAVE_BY_STAT,Additional {0} {1} spawned per wave,每波额外生成{0}个{1}
 EFFECT_FANTASY_ON_TARGET_ENEMY_KILLED_BUFF_FUTURE_TARGET_ENEMY,"For every {2} kills of {0}, all future {1} {4}{3}","每击杀{2}个{0},未来所有{1}{4}{3}"
 FANTASY_BUFF_FUTURE_TARGET_ENEMY,{0} {1}{2},{0}{1}{2}
@@ -507,3 +507,4 @@ EFFECT_FANTASY_SACRIFICIAL_CIRCLE,"A ritual area with radius {0} exists at the c
 CHARACTER_FANTASY_BARD,Bard,吟游诗人
 EFFECT_FANTASY_DANCE,"After {0} hits on an enemy, it dances for {1} seconds ({2} seconds for elites and bosses). While dancing, it moves away from you, cannot target you, and sways from side to side.","第{0}次命中敌人后让敌人跳舞{1}秒(精英和头目为{2}秒),期间敌人会远离你、无法索敌你,并且会左右摇晃"
 EFFECT_FANTASY_BASE_CHANCE_DROP_SOUL,{0} % base soul drop rate,{0} %魂的基础掉率
+WEAPON_FANTASY_BRAVE_SWORD,Brave Sword,勇者之剑

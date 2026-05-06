@@ -29,13 +29,13 @@ arg_key = ""
 
 [resource]
 script = ExtResource( 1 )
-key = "fantasy_gain_stat_every_killed_enemies"
+key = ""
 text_key = "EFFECT_FANTASY_GAIN_TEMP_STAT_EVERY_KILLED_ENEMIES"
-value = 100
+value = 1
 custom_key = ""
 storage_method = 0
 effect_sign = 1
 custom_args = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ]
-stat = "hit_protection"
+stat = "stat_attack_speed"
 stat_nb = 1
 is_temp = true

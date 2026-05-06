@@ -6,10 +6,9 @@ var range_rate: float = 0.0
 var player_indexes: Array = []
 
 onready var collision: CollisionShape2D = $"%Collision"
-onready var timer: Timer = $"Timer"
 
 # =========================== Extension =========================== #
-func init(tree: Neutral, stat: int, stat_num: int, _radius: int, _range_rate: float, player_index: int) -> UnitEffectBehavior:
+func init(tree: Unit, stat: int, stat_num: int, _radius: int, _range_rate: float, player_index: int) -> UnitEffectBehavior:
     _parent = tree
     tempstats.append([stat, stat_num])
     radius = _radius
@@ -22,6 +21,12 @@ func _ready() -> void:
 
 func get_bonus_damage(_hitbox: Hitbox, _from_player_index: int) -> int:
     return 0
+
+func on_burned(_burning_data: BurningData, _from_player_index: int) -> void:
+	pass
+
+func update_target() -> void:
+	pass
 
 # =========================== Method =========================== #
 func fa_add_temp_stat(stat: int, stat_num: int, player_index: int) -> void:

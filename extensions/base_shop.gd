@@ -171,7 +171,7 @@ func _fantasy_scrap_specific_tier_weapons_for_items() -> void:
                 for _i in range(item_num - cursed_num): RunData.add_item(ItemService.get_element(ItemService.items, item_id), player_index)
                 for _i in range(cursed_num):
                     var item: ItemData = ItemService.get_element(ItemService.items, item_id)
-                    Utils.ncl_curse_item(item, player_index)
+                    RunData.add_item(Utils.ncl_curse_item(item, player_index), player_index)
 
             for weapon in weapons_to_remove: RunData.remove_weapon(weapon, player_index)
             _update_stats()

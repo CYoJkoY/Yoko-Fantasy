@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/elder_shadow/elder_clocks.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/elder_shadow_projectile/elder_shadow_projectile_rotating.tscn" type="PackedScene" id=3]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/enemy/prediction_line/prediction_line.tscn" type="PackedScene" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/enemy/clock/clock.tscn" type="PackedScene" id=5]
 
 [node name="ElderClocks" type="Node2D"]
@@ -25,7 +24,6 @@ damage_increase_each_wave = 1.5
 
 [node name="MinuteClock" parent="." instance=ExtResource( 5 )]
 with_prediction = true
-prediction_line_scene = ExtResource( 4 )
 fixed_start_rotation = true
 start_rotation = 270.0
 tick_time = 1.0
