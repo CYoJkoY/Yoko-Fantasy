@@ -7,9 +7,9 @@ export(float) var prediction_line_precision = 0.1
 export(float) var prediction_line_duration = 1.0
 export(Color) var prediction_line_color = Color.red
 export(float) var prediction_line_width = 30.0
-
 export(float) var wave_range = 100.0
 export(float) var wave_speed = 1.0
+export(int) var bullets_per_frame = 2
 
 var active_projectiles: Array = []
 var _time_passed: float = 0.0
@@ -18,12 +18,14 @@ var pre_forward = Vector2.ZERO
 var _perpendicular: Vector2 = Vector2.ZERO
 
 var main: Main = Utils.get_scene_node()
+var _shooting_cancelled: bool = false
 
 # =========================== Extension =========================== #
 func _ready() -> void:
     if prediction_line_scene: prediction_line_pool_id = Keys.generate_hash(prediction_line_scene.resource_path)
 
 func reset() -> void:
+    _shooting_cancelled = true
     _time_passed = 0.0
     active_projectiles.clear()
 
@@ -42,8 +44,6 @@ func physics_process(delta: float) -> void:
             pre_forward = _forward
             _perpendicular = _forward.rotated(PI / 2.0)
 
-        # offset(t) = wave_range * sin(wave_speed * TAU * t)
-        # d(offset) / dt = wave_range * cos(wave_speed * TAU * t) * (wave_speed * TAU)
         var delta_wave_offset: Vector2 = _perpendicular * wave_range * cos(_time_passed * wave_speed * TAU) * wave_speed * TAU * delta
         p.position += delta_wave_offset
 
@@ -53,48 +53,51 @@ func physics_process(delta: float) -> void:
 
     _current_cd = _current_cd - Utils.physics_one(delta)
 
-    if not _parent.is_playing_shoot_animation() and _current_cd <= 0 and Utils.is_between(_parent.global_position.distance_to(_parent.current_target.global_position), min_range, max_range):
+    if !_parent.is_playing_shoot_animation() and _current_cd <= 0 and Utils.is_between(_parent.global_position.distance_to(_parent.current_target.global_position), min_range, max_range):
         _parent._animation_player.playback_speed = attack_anim_speed
         _parent._animation_player.play(_parent.shoot_animation_name)
         emit_signal("shot")
 
 func shoot() -> void:
+    _shooting_cancelled = true
+
     var target_pos = _parent.current_target.global_position
     var base_randomization = rand_range(-base_direction_randomization, base_direction_randomization)
 
     if base_direction_constant_spread:
         if alternate_between_base_direction_spread:
-            if _last_base_direction_spread < 0:
-                base_randomization = base_direction_randomization
-            else:
-                base_randomization = - base_direction_randomization
-        else:
-            base_randomization = Utils.get_rand_element([-base_direction_randomization, base_direction_randomization])
+            if _last_base_direction_spread < 0: base_randomization = base_direction_randomization
+            else: base_randomization = - base_direction_randomization
+        else: base_randomization = Utils.get_rand_element([-base_direction_randomization, base_direction_randomization])
         _last_base_direction_spread = base_randomization
 
-    if shoot_in_unit_direction:
-        target_pos = _parent.global_position + _parent.get_movement()
+    if shoot_in_unit_direction: target_pos = _parent.global_position + _parent.get_movement()
 
     var base_pos = 0.0
 
-    if constant_spread_rand_base_pos > 0.0:
-        base_pos = rand_range(0.0, constant_spread_rand_base_pos)
+    if constant_spread_rand_base_pos > 0.0: base_pos = rand_range(0.0, constant_spread_rand_base_pos)
 
     var rand_rot = rand_range(-random_rotation, random_rotation)
+    _current_cd = cooldown
+    _shooting_cancelled = false
+    _fantasy_distribute_shots(target_pos, base_randomization, base_pos, rand_rot)
+
+# =========================== Custom =========================== #
+func _fantasy_distribute_shots(target_pos: Vector2, base_randomization: float, base_pos: float, rand_rot: float) -> void:
     var speed: int = 0
-    var _projectile: Node = null
+    var bullets_this_frame = 0
 
     for i in range(number_projectiles):
+        if _shooting_cancelled: return
+
         var pos: Vector2 = get_projectile_spawn_pos(target_pos, i, base_pos)
-
         var base_rot = (target_pos - _parent.global_position).angle() + base_randomization
-
         var rot = rand_range(base_rot - projectile_spread, base_rot + projectile_spread)
         
         speed = projectile_speed
+        if speed_change_after_each_projectile != 0: speed += speed_change_after_each_projectile * i
 
-        if random_direction:
-            rot = rand_range(-PI, PI)
+        if random_direction: rot = rand_range(-PI, PI)
 
         if constant_spread and number_projectiles > 1:
             var chunk = (2 * projectile_spread) / (number_projectiles - 1)
@@ -102,36 +105,35 @@ func shoot() -> void:
             rot = start + (i * chunk)
 
         if shoot_away_from_unit:
-            target_pos = pos
-            if rand_rot != 0.0:
-                target_pos = get_new_target_pos(target_pos, rand_rot)
-            rot = (target_pos - _parent.global_position).angle()
+            var away_pos = pos
+            if rand_rot != 0.0: away_pos = get_new_target_pos(away_pos, rand_rot)
+            rot = (away_pos - _parent.global_position).angle()
 
         if shoot_towards_unit:
-            target_pos = _parent.global_position
-            if rand_rot != 0.0:
-                target_pos = get_new_target_pos(target_pos, rand_rot)
-            rot = (target_pos - pos).angle()
+            var towards_pos = _parent.global_position
+            if rand_rot != 0.0: towards_pos = get_new_target_pos(towards_pos, rand_rot)
+            rot = (towards_pos - pos).angle()
 
         if shoot_from_proj_pos_towards_player:
-            target_pos = _parent.current_target.global_position
-            if rand_rot != 0.0:
-                target_pos = get_new_target_pos(target_pos, rand_rot)
-            rot = (target_pos - pos).angle()
+            var player_pos = _parent.current_target.global_position
+            if rand_rot != 0.0: player_pos = get_new_target_pos(player_pos, rand_rot)
+            rot = (player_pos - pos).angle()
 
-        if speed_change_after_each_projectile != 0:
-            speed += speed_change_after_each_projectile * i
-        
-        # Prediction lines
         _fantasy_spawn_prediction_line(rot, pos, speed)
 
-        # Waving projectiles
-        _projectile = spawn_projectile(rot, pos, int(rand_range(speed - projectile_speed_randomization, speed + projectile_speed_randomization)))
-        active_projectiles.append(_projectile)
+        var spd_with_random = int(rand_range(speed - projectile_speed_randomization, speed + projectile_speed_randomization))
+        var _projectile = spawn_projectile(rot, pos, spd_with_random)
+        if _projectile: active_projectiles.append(_projectile)
 
-    _shots_taken += 1
+        bullets_this_frame += 1
 
-# =========================== Custom =========================== #
+        if bullets_this_frame < bullets_per_frame: continue
+
+        yield (get_tree(), "idle_frame")
+        bullets_this_frame = 0
+
+    if !_shooting_cancelled: _shots_taken += 1
+
 func _fantasy_spawn_prediction_line(rot: float, pos: Vector2, spd: int) -> void:
     var prediction_line: Node = main.get_node_from_pool(prediction_line_pool_id, main._effects)
     if !is_instance_valid(prediction_line):

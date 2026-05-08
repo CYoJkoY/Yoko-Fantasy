@@ -381,6 +381,7 @@ specific_projectiles = {
 22: [ 390, 5.76, 0.52 ],
 23: [ 390, 0.52, 1.57 ]
 }
+bullets_per_frame = 4
 
 [node name="MageCircleAttackBehavior" type="Node2D" parent="States/State1"]
 unique_name_in_owner = true

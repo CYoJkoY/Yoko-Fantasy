@@ -7,7 +7,6 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/twin_blaze/twin_blaze_stats.tres" type="Resource" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/enemy/prediction_line/prediction_line.tscn" type="PackedScene" id=6]
 [ext_resource path="res://entities/units/enemies/boss/boss_state.tscn" type="PackedScene" id=7]
-[ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=8]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=9]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/blaze_projectile/blaze_projectile.tscn" type="PackedScene" id=10]
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=11]
@@ -34,6 +33,7 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=32]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=33]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=34]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/better_shooting_attack_behavior.gd" type="Script" id=35]
 [ext_resource path="res://entities/units/movement_behaviors/target_rand_pos_movement_behavior.gd" type="Script" id=36]
 [ext_resource path="res://entities/units/movement_behaviors/target_rand_pos_around_player_movement_behavior.gd" type="Script" id=37]
 
@@ -306,7 +306,7 @@ shoot_from_proj_pos_towards_player = true
 rotate_projectile = false
 
 [node name="SpreadAttackBehavior" type="Node2D" parent="."]
-script = ExtResource( 8 )
+script = ExtResource( 35 )
 projectile_scene = ExtResource( 10 )
 projectile_speed = 250
 damage_increase_each_wave = 1.15
@@ -363,10 +363,11 @@ prediction_line_color = Color( 1, 0, 0, 1 )
 prediction_line_width = 30.0
 wave_range = 100.0
 wave_speed = 1.0
+bullets_per_frame = 2
 
 [node name="SpreadAttackBehavior2" type="Node2D" parent="States/State1"]
 unique_name_in_owner = true
-script = ExtResource( 8 )
+script = ExtResource( 35 )
 projectile_scene = ExtResource( 10 )
 projectile_speed = 250
 damage_increase_each_wave = 1.15
