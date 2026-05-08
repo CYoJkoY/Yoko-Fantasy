@@ -17,7 +17,7 @@ func on_upgrade_selected(upgrade_data: UpgradeData, upgrade: UpgradesUI.UpgradeT
 func _on_EntitySpawner_players_spawned(players: Array) -> void:
     ._on_EntitySpawner_players_spawned(players)
     _fantasy_teleport_if_world_tree_enemy(players)
-    # This signal is called before fog wave adjustment
+    # This signal is called before fog wave judgment
     call_deferred("_fantasy_sacrificial_circle", players)
 
 func _on_EntitySpawner_enemy_spawned(enemy: Enemy) -> void:
@@ -183,9 +183,6 @@ func _fantasy_teleport_if_world_tree_enemy(players: Array) -> void:
                     players[player_index].global_position = base_pos
 
 func _fantasy_sacrificial_circle(players: Array) -> void:
-    print(RunData.events_fog_of_war)
-    print(RunData.get_player_effect(Keys.fog_of_war_event_hash, 0))
-    print(_is_fog_wave)
     var player_count: int = players.size()
     for player_index in range(player_count):
         var sacrificial_circles: Array = RunData.get_player_effect(Utils.fantasy_sacrificial_circle_hash, player_index)
