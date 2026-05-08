@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 key = "stat_fantasy_holy"
 text_key = "EFFECT_FANTASY_SACRIFICIAL_CIRCLE"
-value = 600
+value = 300
 custom_key = "fantasy_sacrificial_circle"
 storage_method = 0
 effect_sign = 3

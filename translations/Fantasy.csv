@@ -507,4 +507,5 @@ EFFECT_FANTASY_SACRIFICIAL_CIRCLE,"A ritual area with radius {0} exists at the c
 CHARACTER_FANTASY_BARD,Bard,吟游诗人
 EFFECT_FANTASY_DANCE,"After {0} hits on an enemy, it dances for {1} seconds ({2} seconds for elites and bosses). While dancing, it moves away from you, cannot target you, and sways from side to side.","第{0}次命中敌人后让敌人跳舞{1}秒(精英和头目为{2}秒),期间敌人会远离你、无法索敌你,并且会左右摇晃"
 EFFECT_FANTASY_BASE_CHANCE_DROP_SOUL,{0} % base soul drop rate,{0} %魂的基础掉率
+WEAPON_FANTASY_FAKE_BRAVE_SWORD,Fake Brave Sword,伪·勇者之剑
 WEAPON_FANTASY_BRAVE_SWORD,Brave Sword,勇者之剑

@@ -1,7 +1,6 @@
 extends UnitEffectBehavior
 
 const PLAYER_LIGHT_RANGE: float = 240.0
-const SPRITE_RANGE: float = 150.0
 
 var _player_index: int = -1
 var _base_range: int = 0
@@ -17,11 +16,13 @@ var _can_light: bool = true
 var total_range: float = 0.0
 var total_cooldown: float = 0.0
 var enemies_in_aura: Array = []
+var sprite_range: float = 0.0
 
 onready var animation_player: AnimationPlayer = $"AnimationPlayer"
 onready var collision: CollisionShape2D = $"%Collision"
 onready var audio: AudioStreamPlayer2D = $"Audio"
 onready var sprite_scale: Node2D = $"SpriteScale"
+onready var sprite: Sprite = $"%Sprite"
 onready var timer: Timer = $"Timer"
 
 # =========================== Extension =========================== #
@@ -44,7 +45,8 @@ func _ready() -> void:
 
     total_range = Utils.ncl_get_range_with_detection(_base_range, _range_rate, _player_index)
     collision.shape.radius = total_range
-    sprite_scale.scale = Vector2.ONE * (total_range / SPRITE_RANGE)
+    sprite_range = sprite.texture.get_width() / 2.0
+    sprite_scale.scale = Vector2.ONE * (total_range / sprite_range)
     var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(_player_index, _damage_color)
     total_cooldown = float(WeaponService.apply_attack_speed_mod_to_cooldown(_base_cooldown, attack_speed_mod)) / 60.0
 
@@ -91,11 +93,9 @@ func fa_pulse_fog_player_light() -> void:
     if !_can_light: return
 
     var main: Node = Utils.get_scene_node()
-    if main == null or !main.get("_is_fog_wave"): return
+    if !main._is_fog_wave: return
 
-    var fog_viewport = main.get("_fog_viewport")
-    if !is_instance_valid(fog_viewport): return
-
+    var fog_viewport: FogViewport = main._fog_viewport
     var player_light: Node2D = fog_viewport.player_lights[_player_index]
     var base_scale: Vector2 = player_light.scale
     var scale_multiplier: float = total_range / PLAYER_LIGHT_RANGE
@@ -111,6 +111,16 @@ func fa_pulse_fog_player_light() -> void:
 
     var half_duration: float = max(0.05, total_cooldown * 0.2)
     var target_scale: Vector2 = base_scale * max(1.0, scale_multiplier)
-    pulse_tween.interpolate_property(player_light, "scale", player_light.scale, target_scale, half_duration, Tween.TRANS_SINE, Tween.EASE_OUT)
-    pulse_tween.interpolate_property(player_light, "scale", target_scale, base_scale, half_duration, Tween.TRANS_SINE, Tween.EASE_IN, half_duration)
+    pulse_tween.interpolate_property(
+        player_light, "scale",
+        player_light.scale, target_scale,
+        half_duration, Tween.TRANS_SINE, Tween.EASE_OUT
+    )
+
+    pulse_tween.interpolate_property(
+        player_light, "scale",
+        target_scale, base_scale,
+        half_duration, Tween.TRANS_SINE, Tween.EASE_IN, half_duration
+    )
+    
     pulse_tween.start()

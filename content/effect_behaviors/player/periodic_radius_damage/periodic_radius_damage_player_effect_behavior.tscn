@@ -100,6 +100,7 @@ shape = SubResource( 4 )
 [node name="SpriteScale" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="SpriteScale"]
+unique_name_in_owner = true
 visible = false
 self_modulate = Color( 1, 1, 1, 0.392157 )
 position = Vector2( 0, 5.96046e-08 )

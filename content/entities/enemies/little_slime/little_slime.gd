@@ -30,10 +30,7 @@ func fa_on_DetectionArea_body_exited(body: Enemy) -> void:
     body.disconnect("died", self , "fa_on_enemy_died")
 
 func fa_on_ItemAttractArea_area_entered(item: Item) -> void:
-    if dead: return
-
-    var should_attract_item: bool = item is Gold
-    if !should_attract_item: return
+    if dead or !(item is Gold) or evolution_target_path == "": return
 
     var item_already_attracted_by_player: bool = item.attracted_by != null
     if item_already_attracted_by_player: return
@@ -41,20 +38,21 @@ func fa_on_ItemAttractArea_area_entered(item: Item) -> void:
     item.attracted_by = self
 
 func fa_on_ItemPickUpArea_area_entered(area: Area2D) -> void:
-    if dead or !(area is Gold) or !evolution_target_path: return
+    if dead or !(area is Gold) or evolution_target_path == "": return
 
     var gold: Gold = area
     gold_count += gold.value
     evolve_count += 1
     gold.pickup(-1)
-    
+    RunData.add_bonus_gold(gold.value)
+
     if evolve_count < evovle_needed: return
 
     fa_evolve()
 
 func fa_on_enemy_died(enemy: Enemy, _die_args: Entity.DieArgs) -> void:
-    if dead or !evolution_target_path or white_list.has(enemy.enemy_id): return
-    
+    if dead or evolution_target_path == "" or white_list.has(enemy.enemy_id): return
+
     evolve_count += 1
     if evolve_count < evovle_needed: return
     

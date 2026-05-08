@@ -1,30 +1,29 @@
-[gd_resource type="Resource" load_steps=9 format=2]
+[gd_resource type="Resource" load_steps=8 format=2]
 
 [ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/brave_sword/brave_sword.tscn" type="PackedScene" id=2]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/brave_sword/4/brave_sword_4_stats.tres" type="Resource" id=3]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/brave_sword/brave_sword_icon.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/fake_brave_sword/fake_brave_sword.tscn" type="PackedScene" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/fake_brave_sword/4/fake_brave_sword_4_stats.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/fake_brave_sword/fake_brave_sword_icon.webp" type="Texture" id=4]
 [ext_resource path="res://items/sets/medieval/medieval_set_data.tres" type="Resource" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/holy/holy_set_data.tres" type="Resource" id=6]
 [ext_resource path="res://items/sets/legendary/legendary_set_data.tres" type="Resource" id=7]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/brave_sword/4/brave_sword_4_effect_1.tres" type="Resource" id=10]
 
 [resource]
 script = ExtResource( 1 )
-my_id = "weapon_fantasy_brave_sword_4"
+my_id = "weapon_fantasy_fake_brave_sword_4"
 unlocked_by_default = true
 can_be_looted = false
 icon = ExtResource( 4 )
-name = "WEAPON_FANTASY_BRAVE_SWORD"
+name = "WEAPON_FANTASY_FAKE_BRAVE_SWORD"
 tier = 3
-value = 230
-effects = [ ExtResource( 10 ) ]
+value = 160
+effects = [  ]
 tracking_text = ""
 is_lockable = true
 unlock_codex_descr_after_get_it = 1
 is_cursed = false
 curse_factor = 0.0
-weapon_id = "weapon_fantasy_brave_sword"
+weapon_id = "weapon_fantasy_fake_brave_sword"
 type = 0
 sets = [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ]
 scene = ExtResource( 2 )

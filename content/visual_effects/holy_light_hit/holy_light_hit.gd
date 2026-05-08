@@ -30,10 +30,30 @@ func play(at_position: Vector2, main_node: Node = null, pool_id: int = Keys.empt
 
     tween.stop_all()
     tween.remove_all()
-    tween.interpolate_property(sprite, "scale", START_SCALE * visual_scale, PEAK_SCALE * visual_scale, DURATION_IN, Tween.TRANS_QUAD, Tween.EASE_OUT)
-    tween.interpolate_property(sprite, "modulate", Color(1.0, 0.96, 0.72, START_ALPHA), Color(1.0, 1.0, 0.88, PEAK_ALPHA), DURATION_IN, Tween.TRANS_QUAD, Tween.EASE_OUT)
-    tween.interpolate_property(sprite, "scale", PEAK_SCALE * visual_scale, END_SCALE * visual_scale, DURATION_OUT, Tween.TRANS_SINE, Tween.EASE_OUT, DURATION_IN)
-    tween.interpolate_property(sprite, "modulate", Color(1.0, 1.0, 0.88, PEAK_ALPHA), Color(1.0, 1.0, 0.9, 0.0), DURATION_OUT, Tween.TRANS_SINE, Tween.EASE_IN, DURATION_IN)
+    tween.interpolate_property(
+        sprite, "scale",
+        START_SCALE * visual_scale, PEAK_SCALE * visual_scale,
+        DURATION_IN, Tween.TRANS_QUAD, Tween.EASE_OUT
+    )
+
+    tween.interpolate_property(
+        sprite, "modulate",
+        Color(1.0, 0.96, 0.72, START_ALPHA), Color(1.0, 1.0, 0.88, PEAK_ALPHA),
+        DURATION_IN, Tween.TRANS_QUAD, Tween.EASE_OUT
+    )
+
+    tween.interpolate_property(
+        sprite, "scale",
+        PEAK_SCALE * visual_scale, END_SCALE * visual_scale,
+        DURATION_OUT, Tween.TRANS_SINE, Tween.EASE_OUT, DURATION_IN
+    )
+
+    tween.interpolate_property(
+        sprite, "modulate",
+        Color(1.0, 1.0, 0.88, PEAK_ALPHA), Color(1.0, 1.0, 0.9, 0.0),
+        DURATION_OUT, Tween.TRANS_SINE, Tween.EASE_IN, DURATION_IN
+    )
+
     tween.start()
 
 # =========================== Method =========================== #

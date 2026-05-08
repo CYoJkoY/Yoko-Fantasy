@@ -2,6 +2,8 @@ extends Line2D
 
 signal duration_timeout()
 
+var already_recycle: bool = false
+
 onready var duration_timer: Timer = $"Timer"
 
 # =========================== Extension =========================== #
