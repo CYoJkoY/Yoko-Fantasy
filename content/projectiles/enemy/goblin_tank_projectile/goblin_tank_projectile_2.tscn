@@ -146,9 +146,10 @@ tracks/3/keys = {
 
 [node name="EnemyProjectile" type="Node2D"]
 script = ExtResource( 3 )
-child_projectiles_num = 8
+child_projectiles_num = 4
 child_init_rotation = 0
-child_rotation_change_after_each = 45
+child_rotation_change_after_each = 90
+is_symmetrical = false
 spawn_cooldown = 99999
 child_projectile = ExtResource( 11 )
 power = 0.75

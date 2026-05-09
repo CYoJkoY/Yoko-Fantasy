@@ -54,6 +54,7 @@ func _init() -> void:
         #          curse_all_on_reroll,
         #          upgrade_specific_tier_weapons[ 1/2 ]
         #          scrap_specific_tier_weapons_for_items
+        #          shop_enter_synthesis
 
         "player.gd",
         # STATS: Soul[ 2/3 ]

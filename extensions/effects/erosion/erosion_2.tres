@@ -21,7 +21,7 @@ arg_key = ""
 
 [resource]
 script = ExtResource( 1 )
-key = "fantasy_erosion"
+key = ""
 text_key = "EFFECT_FANTASY_EROSION"
 value = 1
 custom_key = ""
@@ -34,4 +34,4 @@ times = 3
 cd = 30
 crit_chance = 0
 crit_damage = 1.5
-source_id = ""
+source_id = "item_fantasy_nuclear_drum"

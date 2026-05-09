@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/dance/dance_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "character_fantasy_bard"
+text_key = "EFFECT_FANTASY_DANCE"
+value = 180
+custom_key = ""
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+need_times = 4
+speed = 300.0

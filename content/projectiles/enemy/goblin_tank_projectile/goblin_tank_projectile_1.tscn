@@ -149,6 +149,7 @@ script = ExtResource( 3 )
 child_projectiles_num = 8
 child_init_rotation = 0
 child_rotation_change_after_each = 45
+is_symmetrical = false
 spawn_cooldown = 99999
 child_projectile = ExtResource( 11 )
 power = 0.75

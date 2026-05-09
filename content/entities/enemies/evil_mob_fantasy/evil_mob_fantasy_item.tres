@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource( 1 )
-my_id = "evil_mob_fantasy"
+my_id = "evil_mob"
 unlocked_by_default = false
 can_be_looted = true
 icon = ExtResource( 2 )

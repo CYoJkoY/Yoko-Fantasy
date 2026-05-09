@@ -294,7 +294,7 @@ position = Vector2( 213, -130 )
 script = ExtResource( 10 )
 projectile_scene = ExtResource( 11 )
 projectile_speed = 600
-cooldown = 300.0
+cooldown = 180.0
 max_cd_randomization = 0
 max_range = 800
 shoot_from_proj_pos_towards_player = true
@@ -320,9 +320,13 @@ projectile_scene = ExtResource( 6 )
 projectile_speed = 600
 cooldown = 30.0
 max_cd_randomization = 0
-long_cooldown_every_x_shoots = 3
+long_cooldown_every_x_shoots = 5
 long_cooldown = 300
 max_range = 800
+number_projectiles = 2
+projectile_spawn_spread = 240
+projectile_spawn_only_on_borders = true
+constant_spread = true
 delete_projectile_on_death = true
 
 [node name="CheckStateTimer" type="Timer" parent="."]

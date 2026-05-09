@@ -71,7 +71,7 @@ func _fantasy_target_enemy_killed(enemy: Enemy, args: Entity.DieArgs) -> void:
         var trigger_need_num: int = effect_item[2]
         var future_stat: int = effect_item[3]
         var stat_num: int = effect_item[4]
-        var target_enemy_name: String = Keys.hash_to_string[effect_item[5]]
+        var tracking_key: int = effect_item[5]
 
         if trigger_enemy_id != enemy_id: continue
 
@@ -79,15 +79,8 @@ func _fantasy_target_enemy_killed(enemy: Enemy, args: Entity.DieArgs) -> void:
         var if_trigger: bool = trigger_enemy_killed % trigger_need_num == 0
 
         if !if_trigger: continue
-
-        var stat_name: String = fa_get_stat_name(future_stat)
-        var floating_text_manager: FloatingTextManager = _main._floating_text_manager
-        var player: Player = _players[player_index]
-        var str_stat_num: String = "+" + str(stat_num) if stat_num > 0 else str(stat_num)
-
-        floating_text_manager.display(tr("FANTASY_BUFF_FUTURE_TARGET_ENEMY").format([tr(target_enemy_name), str_stat_num, stat_name]),
-                                      player.global_position, Color(ProgressData.settings.color_negative), null, 0.75,
-                                      false, Vector2.UP, false, Vector2(0.5, 0.5), player_index, false)
+        
+        RunData.ncl_add_effect_tracking_value(tracking_key, stat_num, player_index)
 
         var target_enemy_buffed: Dictionary = effects[Utils.fantasy_buff_future_target_enemy_hash]
         if !target_enemy_buffed.has(target_enemy_id):
@@ -111,11 +104,3 @@ func fa_add_plant_enemy_on_enemy_respawned(enemy: Enemy) -> void:
     if !Utils.plant_enemies_ids.has(enemy.enemy_id_hash): return
 
     plant_enemies.append(enemy)
-
-func fa_get_stat_name(target_stat: int) -> String:
-    match target_stat:
-        Utils.FANTASY_ENEMY_HP: return tr("STAT_MAX_HP")
-        Utils.FANTASY_ENEMY_SPEED: return tr("STAT_SPEED").replace("%", "")
-        Utils.FANTASY_ENEMY_DAMAGE: return tr("STAT_DAMAGE")
-        Utils.FANTASY_ENEMY_ARMOR: return tr("STAT_ARMOR")
-    return ""

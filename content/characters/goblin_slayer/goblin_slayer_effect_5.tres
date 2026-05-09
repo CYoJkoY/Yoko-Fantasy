@@ -16,3 +16,4 @@ value2 = 3
 trigger_enemy_name = "FANTASY_GOBLIN_JAVELIN_THROWER_NAME"
 future_target_enemy_name = "FANTASY_GOBLIN_JAVELIN_THROWER_NAME"
 future_stat = 0
+tracking_key = "character_fantasy_goblin_slayer"

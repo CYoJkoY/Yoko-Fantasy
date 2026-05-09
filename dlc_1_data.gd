@@ -5,8 +5,7 @@ func curse_item(item_data: ItemParentData, player_index: int, turn_randomization
     if item_data.is_cursed: return item_data
     
     var new_item_data: ItemParentData =.curse_item(item_data, player_index, turn_randomization_off, min_modifier)
-    if has_effect_fantasy(item_data.effects):
-        new_item_data = _fantasy_curse_item(new_item_data, player_index, turn_randomization_off, min_modifier)
+    if has_effect_fantasy(item_data.effects): new_item_data = _fantasy_curse_item(new_item_data, player_index, turn_randomization_off, min_modifier)
     return new_item_data
     
 # =========================== Custom =========================== #

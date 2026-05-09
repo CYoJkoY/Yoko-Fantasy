@@ -298,7 +298,7 @@ charge_duration = 0.3
 script = ExtResource( 11 )
 projectile_scene = ExtResource( 10 )
 projectile_speed = 600
-damage_increase_each_wave = 1.5
+damage_increase_each_wave = 1.1
 max_range = 99999
 number_projectiles = 5
 projectile_spread = 1.6
@@ -309,8 +309,7 @@ script = ExtResource( 8 )
 projectile_scene = ExtResource( 9 )
 projectile_speed = 400
 max_cd_randomization = 0
-damage = 2
-damage_increase_each_wave = 3.0
+damage_increase_each_wave = 1.1
 max_range = 99999
 
 [node name="BurningTimer" type="Timer" parent="."]

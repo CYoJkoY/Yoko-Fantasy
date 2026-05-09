@@ -10,6 +10,10 @@ func _ready() -> void:
     _fantasy_queue_job_upgrades()
     _fantasy_start_time_bonus_current_health_damage_timer()
 
+func on_bonus_gold_changed(value: int) -> void:
+    .on_bonus_gold_changed(value)
+    if value != 0: _ui_bonus_gold.show()
+
 func on_upgrade_selected(upgrade_data: UpgradeData, upgrade: UpgradesUI.UpgradeToProcess) -> void:
     .on_upgrade_selected(upgrade_data, upgrade)
     _fantasy_add_job(upgrade_data, upgrade.player_index)

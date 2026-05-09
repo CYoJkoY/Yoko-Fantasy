@@ -29,7 +29,7 @@ arg_key = ""
 
 [resource]
 script = ExtResource( 1 )
-key = "fantasy_gain_stat_every_killed_enemies"
+key = ""
 text_key = "EFFECT_FANTASY_GAIN_TEMP_STAT_EVERY_KILLED_ENEMIES"
 value = 100
 custom_key = ""
