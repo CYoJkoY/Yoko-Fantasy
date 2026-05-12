@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=171 format=2]
+[gd_resource type="Resource" load_steps=179 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -170,6 +170,14 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/brave_sword/4/brave_sword_4_data.tres" type="Resource" id=168]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/fake_brave_sword/4/fake_brave_sword_4_data.tres" type="Resource" id=169]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/shop_enter_synthesis/shop_enter_synthesis_effect.gd" type="Script" id=170]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/moonlight_rapier/1/moonlight_rapier_data.tres" type="Resource" id=171]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/moonlight_rapier/4/moonlight_rapier_4_data.tres" type="Resource" id=172]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/moonlight_rapier/2/moonlight_rapier_2_data.tres" type="Resource" id=173]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/moonlight_rapier/3/moonlight_rapier_3_data.tres" type="Resource" id=174]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/holy_battleaxe/1/holy_battleaxe_data.tres" type="Resource" id=175]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/holy_battleaxe/2/holy_battleaxe_2_data.tres" type="Resource" id=176]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/holy_battleaxe/3/holy_battleaxe_3_data.tres" type="Resource" id=177]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/holy_battleaxe/4/holy_battleaxe_4_data.tres" type="Resource" id=178]
 
 [resource]
 script = ExtResource( 43 )
@@ -183,7 +191,7 @@ elites = [ ExtResource( 151 ), ExtResource( 146 ), ExtResource( 150 ), ExtResour
 bosses = [ ExtResource( 154 ), ExtResource( 153 ) ]
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]
 items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 75 ), ExtResource( 42 ), ExtResource( 82 ), ExtResource( 84 ), ExtResource( 87 ), ExtResource( 89 ), ExtResource( 90 ) ]
-weapons = [ ExtResource( 159 ), ExtResource( 161 ), ExtResource( 160 ), ExtResource( 162 ), ExtResource( 169 ), ExtResource( 168 ) ]
+weapons = [ ExtResource( 159 ), ExtResource( 161 ), ExtResource( 160 ), ExtResource( 162 ), ExtResource( 169 ), ExtResource( 168 ), ExtResource( 171 ), ExtResource( 173 ), ExtResource( 174 ), ExtResource( 172 ), ExtResource( 175 ), ExtResource( 176 ), ExtResource( 177 ), ExtResource( 178 ) ]
 effects = [ ExtResource( 54 ), ExtResource( 88 ), ExtResource( 70 ), ExtResource( 86 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 46 ), ExtResource( 137 ), ExtResource( 139 ), ExtResource( 85 ), ExtResource( 141 ), ExtResource( 165 ), ExtResource( 68 ), ExtResource( 67 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 77 ), ExtResource( 136 ), ExtResource( 117 ), ExtResource( 138 ), ExtResource( 166 ), ExtResource( 167 ), ExtResource( 170 ) ]
 consumables = [  ]
 upgrades = [  ]

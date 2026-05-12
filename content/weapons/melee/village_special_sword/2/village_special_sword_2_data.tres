@@ -16,7 +16,7 @@ text_key = "EFFECT_FANTASY_CANTCOMBINE"
 value = 0
 custom_key = ""
 storage_method = 0
-effect_sign = 1
+effect_sign = 3
 custom_args = [  ]
 
 [resource]

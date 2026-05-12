@@ -5,10 +5,6 @@ export(int) var bullets_per_frame = 2
 var _shooting_cancelled: bool = false
 
 # =========================== Extension =========================== #
-func reset() -> void:
-    .reset()
-    _shooting_cancelled = true
-
 func shoot() -> void:
     _shooting_cancelled = true
 
@@ -36,7 +32,7 @@ func shoot() -> void:
 
 func _fantasy_distribute_shots(target_pos: Vector2, base_randomization: float, base_pos: float, rand_rot: float) -> void:
     var speed: int = projectile_speed
-    var bullets_this_frame = 0
+    var bullets_this_frame: int = 0
 
     for i in range(number_projectiles):
         if _shooting_cancelled: return

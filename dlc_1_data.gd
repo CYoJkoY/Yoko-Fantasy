@@ -41,35 +41,32 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
 
             ["fantasy_erosion", _, _]:
                 var new_scaling_stats: Array = new_effect.scaling_stats.duplicate()
-                for scaling in new_scaling_stats:
-                    scaling[1] = Utils.ncl_curse_effect_value(scaling[1], effect_modifier, {"process_negative": false})
+                new_effect.scaling_stats = _boost_scaling_sats(new_scaling_stats, effect_modifier)
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier)
                 new_effect.times = Utils.ncl_curse_effect_value(new_effect.times, effect_modifier)
 
             ["fantasy_dmg_when_pickup_consumable", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"process_negative": false, "step": 1})
                 var new_scaling_stats: Array = new_effect.scaling_stats.duplicate()
-                for scaling in new_scaling_stats:
-                    scaling[1] = Utils.ncl_curse_effect_value(scaling[1], effect_modifier, {"process_negative": false})
+                new_effect.scaling_stats = _boost_scaling_sats(new_scaling_stats, effect_modifier)
 
             ["fantasy_periodic_radius_damage", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"process_negative": false, "step": 1})
                 new_effect.base_cooldown = Utils.ncl_curse_effect_value(new_effect.base_cooldown, effect_modifier, {"is_negative": true, "step": 1})
                 var new_scaling_stats: Array = new_effect.scaling_stats.duplicate()
-                for scaling in new_scaling_stats:
-                    scaling[1] = Utils.ncl_curse_effect_value(scaling[1], effect_modifier, {"process_negative": false})
+                new_effect.scaling_stats = _boost_scaling_sats(new_scaling_stats, effect_modifier)
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier)
                 new_effect.times = Utils.ncl_curse_effect_value(new_effect.times, effect_modifier)
 
             ["fantasy_tree_radius_tempstats", _, _]:
                 new_effect.range_rate = Utils.ncl_curse_effect_value(new_effect.range_rate, effect_modifier, {"process_negative": false})
 
-            ["fantasy_change_weapon_every_killed_enemies", _, _]:
-                new_effect.value = Utils.ncl_curse_effect_value(new_effect.value, effect_modifier, {"is_negative": true})
-
             ["fantasy_decaying_slow_enemy_when_below_hp", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier)
                 new_effect.trigger_times = Utils.ncl_curse_effect_value(new_effect.trigger_times, effect_modifier)
+
+            ["fantasy_projectiles_every_x_melee_shoot", _, _]:
+                new_effect.projectile_stats = _boost_weapon_stats_damage(new_effect.projectile_stats, effect_modifier)
 
             [_, _, Utils.fantasy_curse_all_on_reroll_hash]:
                 new_effect.text_key += "_CURSED"

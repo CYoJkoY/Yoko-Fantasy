@@ -77,7 +77,8 @@ func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
 
 # =========================== Custom =========================== #
 func _fantasy_distribute_shots(target_pos: Vector2, base_rot: float) -> void:
-    var bullets_this_frame = 0
+    var bullets_this_frame: int = 0
+
     for i in range(number_projectiles):
         if _shooting_cancelled: return
 

@@ -53,8 +53,8 @@ func serialize() -> Dictionary:
 
     return serialized
 
-func deserialize(serialized: Dictionary) -> void:
-    .deserialize(serialized)
+func deserialize_and_merge(serialized: Dictionary) -> void:
+    .deserialize_and_merge(serialized)
     materials = Utils.convert_to_hash_array(serialized.get("materials", []))
     result_id = serialized.result_id as String
     result_id_hash = Keys.generate_hash(result_id)

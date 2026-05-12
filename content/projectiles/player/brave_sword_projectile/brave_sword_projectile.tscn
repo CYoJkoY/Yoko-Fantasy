@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://projectiles/projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/brave_sword_projectile/brave_sword_projectile.webp" type="Texture" id=2]
+[ext_resource path="res://projectiles/bullet_rail_gun/rail_gun_projectile.gd" type="Script" id=3]
+[ext_resource path="res://particles/sprites/particle_15.png" type="Texture" id=4]
+[ext_resource path="res://resources/shaders/shader_double_color.gdshader" type="Shader" id=5]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 5 )
+shader_param/color_A = Color( 0.317647, 0.317647, 0.317647, 1 )
+shader_param/color_B = Color( 1, 1, 1, 1 )
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 398.502
+
+[node name="BraveSwordProjectile" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+clear_material_when_pooled = false
+rotation_speed = 0
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="0"]
+unique_name_in_owner = true
+modulate = Color( 1, 0.929412, 0.329412, 1 )
+material = SubResource( 2 )
+position = Vector2( 1, 0 )
+amount = 120
+lifetime = 0.2
+local_coords = false
+texture = ExtResource( 4 )
+emission_shape = 1
+emission_sphere_radius = 366.42
+gravity = Vector2( 0, 0 )
+angle = 720.0
+angle_random = 1.0
+scale_amount = 0.2
+scale_amount_random = 0.45
+color = Color( 0.298039, 0.298039, 0.298039, 1 )
+color_ramp = SubResource( 3 )
+
+[node name="Sprite" parent="." index="1"]
+material = SubResource( 4 )
+texture = ExtResource( 2 )
+
+[node name="Hitbox" parent="." index="2"]
+visible = false
+collision_layer = 8
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( -27, -20 )
+shape = SubResource( 1 )
+
+[connection signal="critically_hit_something" from="Hitbox" to="." method="_on_Hitbox_critically_hit_something"]
+[connection signal="hit_something" from="Hitbox" to="." method="_on_Hitbox_hit_something"]
+
+[editable path="Hitbox"]

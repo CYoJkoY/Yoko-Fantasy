@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/village_special_sword.tscn" type="PackedScene" id=2]
@@ -6,6 +6,18 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/village_special_sword_icon.webp" type="Texture" id=4]
 [ext_resource path="res://items/sets/medieval/medieval_set_data.tres" type="Resource" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/holy/holy_set_data.tres" type="Resource" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/village_special_sword/4/village_special_sword_4_effect.tres" type="Resource" id=7]
+[ext_resource path="res://effects/weapons/null_effect.gd" type="Script" id=8]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 8 )
+key = ""
+text_key = "EFFECT_FANTASY_CANTCOMBINE"
+value = 0
+custom_key = ""
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
 
 [resource]
 script = ExtResource( 1 )
@@ -16,7 +28,7 @@ icon = ExtResource( 4 )
 name = "WEAPON_FANTASY_VILLAGE_SPECIAL_SWORD"
 tier = 3
 value = 140
-effects = [  ]
+effects = [ SubResource( 1 ), ExtResource( 7 ) ]
 tracking_text = ""
 is_lockable = true
 unlock_codex_descr_after_get_it = 1

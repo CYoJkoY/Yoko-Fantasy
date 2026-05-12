@@ -29,7 +29,7 @@ func serialize() -> Dictionary:
 
     return serialized
 
-func deserialize(serialized: Dictionary) -> void:
-    .deserialize(serialized)
+func deserialize_and_merge(serialized: Dictionary) -> void:
+    .deserialize_and_merge(serialized)
     need_times = serialized.need_times
     speed = serialized.speed

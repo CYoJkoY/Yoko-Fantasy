@@ -53,9 +53,12 @@ func unapply(player_index: int) -> void:
 	effects[key_hash].erase([value, value2, scaling_stats, base_cooldown, base_damage, tracked_key_hash, damage_color_hash, hit_visual_scene_hash, can_light])
 
 func get_args(player_index: int) -> Array:
-	var scaling_dmg: float = Utils.ncl_get_scaling_stats_dmg(scaling_stats, player_index)
-	var total_damage: int = int(base_damage + scaling_dmg)
-	var dmg_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(total_damage, scaling_stats, base_damage)
+	var dmg_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(
+        base_damage, scaling_stats,
+        {
+            "player_index": player_index
+        }
+    )
 
 	var attack_speed_mod: float = Utils.get_stat(Keys.stat_attack_speed_hash, player_index) / 100.0
 	var final_cooldown: float = WeaponService.apply_attack_speed_mod_to_cooldown(base_cooldown, attack_speed_mod)

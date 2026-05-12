@@ -1,16 +1,25 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
-[ext_resource path="res://effects/weapons/projectiles_on_hit_effect.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/projectiles_every_x_melee_shoot/projectiles_every_x_melee_shoot_effect.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/brave_sword/4/brave_sword_4_projectile.tres" type="Resource" id=2]
+[ext_resource path="res://items/global/custom_arg.gd" type="Script" id=3]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 3 )
+arg_index = 0
+arg_sign = 0
+arg_value = 0
+arg_format = 0
+arg_key = ""
 
 [resource]
 script = ExtResource( 1 )
-key = "effect_projectiles_on_hit"
-text_key = ""
-value = 1
+key = ""
+text_key = "EFFECT_FANTASY_PROJECTILES_EVERY_X_MELEE_SHOOT"
+value = 6
 custom_key = ""
 storage_method = 0
-effect_sign = 3
-custom_args = [  ]
-weapon_stats = ExtResource( 2 )
-auto_target_enemy = false
+effect_sign = 1
+custom_args = [ SubResource( 1 ) ]
+projectiles_per_frame = 3
+projectile_stats = ExtResource( 2 )

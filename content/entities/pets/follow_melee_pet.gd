@@ -30,7 +30,7 @@ func should_data_be_reload() -> bool:
     return true
 
 func reload_data():
-    var args := WeaponServiceInitStatsArgs.new()
+    var args: WeaponServiceInitStatsArgs = WeaponServiceInitStatsArgs.new()
     _current_weapon_stats = WeaponService.init_melee_pet_stats(_base_weapon_stats, player_index, args)
     _hitbox.projectiles_on_hit = []
     _current_weapon_stats.burning_data.from = self

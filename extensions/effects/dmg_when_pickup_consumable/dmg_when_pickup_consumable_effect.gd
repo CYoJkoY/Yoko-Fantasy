@@ -40,9 +40,12 @@ func unapply(player_index: int) -> void:
     effects[custom_key_hash].erase([key_hash, value, scaling_stats, value2, tracked_key_hash, damage_color])
 
 func get_args(player_index: int) -> Array:
-    var scaling_dmg: float = Utils.ncl_get_scaling_stats_dmg(scaling_stats, player_index)
-    var total_damage: int = (value2 + scaling_dmg) as int
-    var dmg_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(total_damage, scaling_stats, value2)
+    var dmg_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(
+        value2, scaling_stats,
+        {
+            "player_index": player_index
+        }
+    )
 
     return [tr(key.to_upper()), str(value), dmg_text]
 
