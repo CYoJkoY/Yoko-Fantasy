@@ -14,8 +14,15 @@ func _init() -> void:
     ext_dir = dir + "extensions/"
     
     # Add translations
-    ModLoaderMod.add_translation(trans_dir + "Fantasy.en.translation")
-    ModLoaderMod.add_translation(trans_dir + "Fantasy.zh.translation")
+    var translations: Array = [
+        "en", "fr", "zh", "ja",
+        "ko", "zh_TW", "ru", "pl",
+        "es", "pt", "de", "tr", "it"
+    ]
+
+    for lang in translations:
+        var translation_path = trans_dir + "Fantasy." + lang + ".translation"
+        ModLoaderMod.add_translation(translation_path)
 
     # Add extensions
     var extensions: Array = [
