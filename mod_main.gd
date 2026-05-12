@@ -5,24 +5,11 @@ const MYMODNAME_LOG: String = "Yoko-Fantasy"
 
 var dir: String = ""
 var ext_dir: String = ""
-var trans_dir: String = ""
 
 # =========================== Extension =========================== #
 func _init() -> void:
     dir = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR
-    trans_dir = dir + "translations/"
     ext_dir = dir + "extensions/"
-    
-    # Add translations
-    var translations: Array = [
-        "en", "fr", "zh", "ja",
-        "ko", "zh_TW", "ru", "pl",
-        "es", "pt", "de", "tr", "it"
-    ]
-
-    for lang in translations:
-        var translation_path = trans_dir + "Fantasy." + lang + ".translation"
-        ModLoaderMod.add_translation(translation_path)
 
     # Add extensions
     var extensions: Array = [
@@ -138,5 +125,5 @@ func _init() -> void:
     ]
 
     for path in extensions:
-        var extension_path = ext_dir + path
+        var extension_path: String = ext_dir + path
         ModLoaderMod.install_script_extension(extension_path)
