@@ -26,17 +26,13 @@ script = ExtResource( 9 )
 outline_shader_mat = SubResource( 2 )
 
 [node name="Sprite" parent="." index="0"]
-position = Vector2( 0, -15 )
 texture = ExtResource( 3 )
 
 [node name="Hitbox" parent="Sprite" index="0"]
 visible = false
 
 [node name="Muzzle" parent="Sprite" index="1"]
-position = Vector2( 28, 15 )
-
-[node name="Attach" parent="Sprite" index="2"]
-position = Vector2( 0, 15 )
+position = Vector2( 28, 0 )
 
 [node name="CollisionShape2D" parent="Range" index="0"]
 shape = SubResource( 1 )

@@ -69,6 +69,7 @@ var fantasy_sacrificial_circle_hash: int = Keys.generate_hash("fantasy_sacrifici
 var fantasy_dance_hash: int = Keys.generate_hash("fantasy_dance")
 var fantasy_shop_enter_synthesis_hash: int = Keys.generate_hash("fantasy_shop_enter_synthesis")
 var fantasy_projectiles_every_x_melee_shoot_hash: int = Keys.generate_hash("fantasy_projectiles_every_x_melee_shoot")
+var fantasy_reload_when_critically_hit_hash: int = Keys.generate_hash("fantasy_reload_when_critically_hit")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

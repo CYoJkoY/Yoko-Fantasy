@@ -79,12 +79,14 @@ func _init() -> void:
         #          reload_when_shoot[ 1/2 ]
         #          change_weapon_every_killed_enemies[ 1/2]
         #          cannot_damage_tree[ 2/5 ]
+        #          reload_when_critically_hit[ 1/2 ]
 
         "ranged_weapon.gd",
         # EFFECTS: gain_stat_every_killed_enemies[ 3/3 ]
         #          reload_when_shoot[ 2/2 ]
         #          change_weapon_every_killed_enemies[ 2/2]
         #          cannot_damage_tree[ 3/5 ]
+        #          reload_when_critically_hit[ 2/2 ]
 
         "run_data.gd",
         # SYSTEMS: Job[ 4/6 ]

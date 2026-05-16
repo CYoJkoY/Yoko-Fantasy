@@ -1,0 +1,34 @@
+[gd_resource type="Resource" load_steps=10 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/wind_bow/wind_bow.tscn" type="PackedScene" id=1]
+[ext_resource path="res://items/global/weapon_data.gd" type="Script" id=2]
+[ext_resource path="res://items/sets/precise/precise_set_data.tres" type="Resource" id=3]
+[ext_resource path="res://items/sets/medieval/medieval_set_data.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/wind_bow/3/wind_bow_3_effect_2.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/wind_bow/3/wind_bow_3_stats.tres" type="Resource" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/wind_bow/3/wind_bow_3_effect_1.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/wind_bow/4/wind_bow_4_data.tres" type="Resource" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/wind_bow/wind_bow_icon.webp" type="Texture" id=9]
+
+[resource]
+script = ExtResource( 2 )
+my_id = "weapon_fantasy_wind_bow_3"
+unlocked_by_default = true
+can_be_looted = true
+icon = ExtResource( 9 )
+name = "WEAPON_FANTASY_WIND_BOW"
+tier = 2
+value = 72
+effects = [ ExtResource( 7 ), ExtResource( 5 ) ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+weapon_id = "weapon_fantasy_wind_bow"
+type = 1
+sets = [ ExtResource( 3 ), ExtResource( 4 ) ]
+scene = ExtResource( 1 )
+stats = ExtResource( 6 )
+upgrades_into = ExtResource( 8 )
+add_to_chars_as_starting = [  ]

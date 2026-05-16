@@ -24,6 +24,10 @@ func _on_Range_body_exited(body: Node) -> void:
     if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index) and Utils.plant_enemies_ids.has(body.get("enemy_id_hash")): return
     ._on_Range_body_exited(body)
 
+func _on_weapon_critically_hit_something(_thing_hit, _damage_dealt) -> void:
+    ._on_weapon_critically_hit_something(_thing_hit, _damage_dealt)
+    _fantasy_reload_when_critically_hit()
+
 # =========================== Custom =========================== #
 func _fantasy_cannot_damage_tree() -> void:
     if !RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index): return
@@ -128,3 +132,18 @@ func _fantasy_spawn_melee_projectils(proj_stats: RangedWeaponStats, proj_pos: Ve
 
             yield (get_tree(), "idle_frame")
             projs_this_frame = 0
+
+func _fantasy_reload_when_critically_hit() -> void:
+    for effect in effects:
+        if effect.custom_key_hash != Utils.fantasy_reload_when_critically_hit_hash: continue
+
+        var chance: float = effect.value / 100.0
+
+        if !Utils.get_chance_success(chance): continue
+
+        _current_cooldown = 0
+        tween_animation.interpolate_property(
+            sprite, "self_modulate",
+            Color("#3E68DA"), Color.white, 0.48,
+            Tween.TRANS_SINE, Tween.EASE_IN_OUT, 0.64
+        )
