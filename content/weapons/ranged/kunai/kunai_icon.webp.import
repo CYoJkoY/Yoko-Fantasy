@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/crow.webp-a306eb1d8b20137246e1d1c0ba2fd9cc.stex"
+path="res://.import/kunai_icon.webp-5e7ea05db6286c951eab972b2b34b2c5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/crow.webp"
-dest_files=[ "res://.import/crow.webp-a306eb1d8b20137246e1d1c0ba2fd9cc.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/kunai/kunai_icon.webp"
+dest_files=[ "res://.import/kunai_icon.webp-5e7ea05db6286c951eab972b2b34b2c5.stex" ]
 
 [params]
 

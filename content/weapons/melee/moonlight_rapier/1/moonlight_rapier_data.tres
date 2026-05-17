@@ -1,23 +1,13 @@
-[gd_resource type="Resource" load_steps=10 format=2]
+[gd_resource type="Resource" load_steps=9 format=2]
 
 [ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/moonlight_rapier/1/moonlight_rapier_stats.tres" type="Resource" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/moonlight_rapier/moonlight_rapier.tscn" type="PackedScene" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/moonlight_rapier/moonlight_rapier_icon.webp" type="Texture" id=4]
-[ext_resource path="res://effects/weapons/null_effect.gd" type="Script" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/moonlight_rapier/moonlight_rapier_effect_0.tres" type="Resource" id=5]
 [ext_resource path="res://items/sets/precise/precise_set_data.tres" type="Resource" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/moonlight_rapier/2/moonlight_rapier_2_data.tres" type="Resource" id=7]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/holy/holy_set_data.tres" type="Resource" id=8]
-
-[sub_resource type="Resource" id=1]
-script = ExtResource( 5 )
-key = ""
-text_key = "EFFECT_FANTASY_SLOW_ENEMY_ON_CRIT"
-value = 0
-custom_key = ""
-storage_method = 0
-effect_sign = 3
-custom_args = [  ]
 
 [resource]
 script = ExtResource( 1 )
@@ -28,7 +18,7 @@ icon = ExtResource( 4 )
 name = "WEAPON_FANTASY_MOONLIGHT_RAPIER"
 tier = 0
 value = 16
-effects = [ SubResource( 1 ) ]
+effects = [ ExtResource( 5 ) ]
 tracking_text = ""
 is_lockable = true
 unlock_codex_descr_after_get_it = 1

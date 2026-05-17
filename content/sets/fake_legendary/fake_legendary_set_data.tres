@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=7 format=2]
+
+[ext_resource path="res://items/sets/set_data.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/fake_legendary/4/set_4_effect_1.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/fake_legendary/6/set_6_effect_1.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/fake_legendary/5/set_5_effect_1.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/fake_legendary/2/set_2_effect_1.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/fake_legendary/3/set_3_effect_1.tres" type="Resource" id=6]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "set_fantasy_fake_legendary"
+name = "WEAPON_CLASS_FANTASY_FAKE_LEGENDARY"
+set_bonuses = [ [ ExtResource( 5 ) ], [ ExtResource( 6 ) ], [ ExtResource( 2 ) ], [ ExtResource( 4 ) ], [ ExtResource( 3 ) ] ]

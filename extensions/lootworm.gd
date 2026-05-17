@@ -4,7 +4,8 @@ onready var tree_area: Area2D = $"TreeArea2D"
 
 # =========================== Extension =========================== #
 func _ready() -> void:
-    tree_area.collision_mask += Utils.ENEMIES_BIT
+    tree_area.collision_mask = Utils.NEUTRAL_BIT + Utils.ENEMIES_BIT
+    if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, player_index): tree_area.collision_mask = Utils.NO_COLLISION_BIT
 
 func _on_TreeArea2D_body_entered(body):
     ._on_TreeArea2D_body_entered(body)

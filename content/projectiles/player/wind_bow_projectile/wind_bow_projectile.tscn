@@ -5,14 +5,14 @@
 [ext_resource path="res://projectiles/player_projectile.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 48.5, 9 )
+extents = Vector2( 41, 8 )
 
 [node name="WindBowProjectile" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 rotation_speed = 0
 
 [node name="Sprite" parent="." index="0"]
-position = Vector2( 46, 1 )
+position = Vector2( 40, 1 )
 texture = ExtResource( 2 )
 
 [node name="Hitbox" parent="." index="1"]
@@ -20,7 +20,7 @@ position = Vector2( 22, 1 )
 collision_layer = 8
 
 [node name="Collision" parent="Hitbox" index="0"]
-position = Vector2( 24.5, -1 )
+position = Vector2( 19, -1 )
 shape = SubResource( 4 )
 
 [connection signal="critically_hit_something" from="Hitbox" to="." method="_on_Hitbox_critically_hit_something"]

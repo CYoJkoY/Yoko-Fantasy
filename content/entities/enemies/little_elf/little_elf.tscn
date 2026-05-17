@@ -281,11 +281,11 @@ wait_time = 0.1
 
 [node name="MovementBehavior" type="Node2D" parent="."]
 script = ExtResource( 4 )
-range_around_player = 400
+range_around_player = 300
 
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 7 )
-projectile_speed = 400
+projectile_speed = 300
 projectile_speed_randomization = 40
 cooldown = 18.0
 initial_cooldown = 18

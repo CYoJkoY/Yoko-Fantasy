@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/crow_attack.webp-acc1aa485c5a7c2bdacee79614d803fd.stex"
+path="res://.import/salted_duck_egg_icon.webp-2aaa61d2cd373a532e4dfa6f12639716.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/crow_attack.webp"
-dest_files=[ "res://.import/crow_attack.webp-acc1aa485c5a7c2bdacee79614d803fd.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/items/salted_duck_egg/salted_duck_egg_icon.webp"
+dest_files=[ "res://.import/salted_duck_egg_icon.webp-2aaa61d2cd373a532e4dfa6f12639716.stex" ]
 
 [params]
 

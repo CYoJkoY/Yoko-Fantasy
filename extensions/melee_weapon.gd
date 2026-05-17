@@ -81,7 +81,9 @@ func _fantasy_projectiles_every_x_melee_shoot() -> void:
         melee_shooting_cancelled = true
         var projs_per_frame: int = effect.projectiles_per_frame
 
-        var proj_stats: RangedWeaponStats = effect.projectile_stats
+        var args: WeaponServiceInitStatsArgs = WeaponServiceInitStatsArgs.new()
+        args.effects = effects
+        var proj_stats: RangedWeaponStats = WeaponService.init_ranged_stats(effect.projectile_stats, player_index, false, args)
         var proj_args: WeaponServiceSpawnProjectileArgs = WeaponServiceSpawnProjectileArgs.new()
         var proj_pos: Vector2 = muzzle.global_position
 

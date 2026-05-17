@@ -44,7 +44,14 @@ func get_args(_player_index: int) -> Array:
     var materials_text: String = ", ".join(parts)
     var result_text: String = Utils.ncl_get_gear_name_from_id(result_id_hash)
 
-    return [str(value), materials_text, result_text]
+    var pity_text: String = ""
+    var pity_id: String = Utils.fa_get_synthesis_pity_id(materials, result_id_hash)
+    var fail_count: int = Utils.fa_get_synthesis_fail_count(pity_id, _player_index)
+    if fail_count > 0:
+        var multiplier: float = Utils.fa_get_synthesis_pity_multiplier(value, pity_id, materials, result_id_hash, _player_index)
+        pity_text = "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("FANTASY_PITY_MULTIPLIER").format([str(stepify(multiplier, 0.1))])]
+
+    return [str(value), materials_text, result_text, pity_text]
 
 func serialize() -> Dictionary:
     var serialized: Dictionary =.serialize()

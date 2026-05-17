@@ -1,11 +1,13 @@
 extends "res://singletons/player_run_data.gd"
-
+	
 var jobs: Dictionary = {}
+var fantasy_synthesis_pity_data: Dictionary = {}
 
 # =========================== Extension =========================== #
 func duplicate(): # Avoid class problem
 	var copy =.duplicate()
 	copy.jobs = jobs.duplicate()
+	copy.fantasy_synthesis_pity_data = fantasy_synthesis_pity_data.duplicate()
 
 	return copy
 
@@ -16,19 +18,22 @@ func serialize() -> Dictionary:
 	for job_stage in jobs: serialized_jobs[job_stage] = jobs[job_stage].serialize()
 
 	serialized.jobs = serialized_jobs
+	serialized.fantasy_synthesis_pity_data = fantasy_synthesis_pity_data.duplicate()
 
 	return serialized
 
 func deserialize(data: Dictionary) -> PlayerRunData:
 	.deserialize(data)
 
-	for job_stage in data.jobs:
+	for job_stage in data.get("jobs", {}):
 		var job_data: Resource = ItemService.get_element_safe(ItemService.upgrades, job_stage)
 
 		if job_data != null:
 			job_data = job_data.duplicate()
 			job_data.deserialize_and_merge(data.jobs[job_stage])
 			jobs[job_stage] = job_data
+
+	fantasy_synthesis_pity_data = data.get("fantasy_synthesis_pity_data", {}).duplicate()
 
 	return self
 

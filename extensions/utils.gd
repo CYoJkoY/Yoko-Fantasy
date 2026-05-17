@@ -6,6 +6,12 @@ const FANTASY_ENEMY_SPEED: int = 1
 const FANTASY_ENEMY_DAMAGE: int = 2
 const FANTASY_ENEMY_ARMOR: int = 3
 
+# Synthesis Pity Config
+const FANTASY_SYNTHESIS_BASE_GROWTH: float = 0.01
+const FANTASY_SYNTHESIS_CAP: float = 0.318 # 68.2% ** 6 ≈ 10%
+const FANTASY_SYNTHESIS_MATERIAL_WEIGHT: float = 0.07
+const FANTASY_SYNTHESIS_RESULT_TIER_WEIGHT: float = 0.05
+
 # Jobs
 var job_fantasy_elemental_hash: int = Keys.generate_hash("job_fantasy_elemental")
 var job_fantasy_engineering_hash: int = Keys.generate_hash("job_fantasy_engineering")
@@ -70,6 +76,7 @@ var fantasy_dance_hash: int = Keys.generate_hash("fantasy_dance")
 var fantasy_shop_enter_synthesis_hash: int = Keys.generate_hash("fantasy_shop_enter_synthesis")
 var fantasy_projectiles_every_x_melee_shoot_hash: int = Keys.generate_hash("fantasy_projectiles_every_x_melee_shoot")
 var fantasy_reload_when_critically_hit_hash: int = Keys.generate_hash("fantasy_reload_when_critically_hit")
+var fantasy_synthesis_pity_data_hash: int = Keys.generate_hash("fantasy_synthesis_pity_data")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")
@@ -92,7 +99,73 @@ var character_fantasy_princess_hash = Keys.generate_hash("character_fantasy_prin
 var icon_fantasy_job_to_process_hash: int = Keys.generate_hash("icon_fantasy_job_to_process")
 var icon_fantasy_princess_limited_hash = Keys.generate_hash("icon_fantasy_princess_limited")
 
-# =========================== Method =========================== #
+# =========================== Synthesis Pity =========================== #
+func fa_get_synthesis_pity_id(materials: Array, result_id_hash: int) -> String:
+    var material_ids: Array = []
+    for m in materials: material_ids.append(m[0])
+    material_ids.sort()
+    var content_key: String = str(material_ids) + "_" + str(result_id_hash)
+    return content_key.md5_text()
+
+func fa_get_synthesis_pity_data(player_index: int) -> Dictionary:
+    return RunData.players_data[player_index].fantasy_synthesis_pity_data
+
+func fa_calc_synthesis_pity(base_chance: float, materials: Array, result_id_hash: int) -> Dictionary:
+    var norm_chance: float = max(base_chance / 100.0, 0.01)
+    
+    var total_tier: int = 0
+    var material_count: int = 0
+    for material in materials:
+        var material_id: int = material[0]
+        var tier: int = 0
+        if ItemService.is_item_id(material_id): tier = ItemService.get_item_from_id(material_id).tier
+        else: tier = ItemService.ncl_get_weapon_from_id(material_id).tier
+        total_tier += tier
+        material_count += 1
+    var avg_tier: float = float(total_tier) / max(material_count, 1)
+    var material_bonus: float = (avg_tier / 4.0) * FANTASY_SYNTHESIS_MATERIAL_WEIGHT
+
+    var result_tier: int = 0
+    if ItemService.is_item_id(result_id_hash): result_tier = ItemService.get_item_from_id(result_id_hash).tier
+    else: result_tier = ItemService.ncl_get_weapon_from_id(result_id_hash).tier
+    var result_bonus: float = (float(result_tier) / 4.0) * FANTASY_SYNTHESIS_RESULT_TIER_WEIGHT
+    
+    var growth_rate: float = FANTASY_SYNTHESIS_BASE_GROWTH / norm_chance + material_bonus + result_bonus
+    var max_multiplier: float = FANTASY_SYNTHESIS_CAP / norm_chance
+
+    return {"growth_rate": growth_rate, "max_multiplier": max_multiplier}
+
+func fa_get_synthesis_effective_chance(base_chance: float, pity_id: String, materials: Array, result_id_hash: int, player_index: int) -> float:
+    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+    var fail_count: int = pity_data.get(pity_id, 0)
+    if fail_count == 0: return base_chance / 100.0
+
+    var calc: Dictionary = fa_calc_synthesis_pity(base_chance, materials, result_id_hash)
+    var multiplier: float = min(1.0 + fail_count * calc.growth_rate, calc.max_multiplier)
+    var effective: float = min((base_chance / 100.0) * multiplier, FANTASY_SYNTHESIS_CAP)
+    return effective
+
+func fa_record_synthesis_fail(pity_id: String, player_index: int) -> void:
+    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+    pity_data[pity_id] = pity_data.get(pity_id, 0) + 1
+
+func fa_record_synthesis_success(pity_id: String, player_index: int) -> void:
+    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+    pity_data.erase(pity_id)
+
+func fa_get_synthesis_fail_count(pity_id: String, player_index: int) -> int:
+    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+    return pity_data.get(pity_id, 0)
+
+func fa_get_synthesis_pity_multiplier(base_chance: float, pity_id: String, materials: Array, result_id_hash: int, player_index: int) -> float:
+    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+    var fail_count: int = pity_data.get(pity_id, 0)
+    if fail_count == 0: return 1.0
+
+    var calc: Dictionary = fa_calc_synthesis_pity(base_chance, materials, result_id_hash)
+    return min(1.0 + fail_count * calc.growth_rate, calc.max_multiplier)
+
+# =========================== Soul =========================== #
 func fa_spawn_soul(num: int, pos: Vector2, spread: int) -> void:
     var main: Main = get_scene_node()
     for _i in range(num):

@@ -21,6 +21,8 @@ func on_neutral_spawned(entity: Entity):
 
 # =========================== Custom =========================== #    
 func _fantasy_update_target_plant_enemy() -> bool:
+    if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index): return false
+
     var min_dist_squared: int = Utils.LARGE_NUMBER
     var enemy_list: Array = _entity_spawner.plant_enemies
 
