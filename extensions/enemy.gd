@@ -51,9 +51,7 @@ func _fantasy_holy_reduce_health() -> void:
     max_stats.health = current_stats.health
 
 func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult) -> GetDamageValueResult:
-    if dead: return dmg_value_result
-
-    if _outline_colors.has(Utils.CURSE_COLOR): return dmg_value_result
+    if dead or !_outline_colors.has(Utils.CURSE_COLOR): return dmg_value_result
 
     var holy_stat: float = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
     if holy_stat <= 0: return dmg_value_result

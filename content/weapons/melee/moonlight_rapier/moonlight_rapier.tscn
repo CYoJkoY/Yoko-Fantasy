@@ -6,7 +6,7 @@
 [ext_resource path="res://weapons/shooting_behaviors/melee_weapon_shooting_behavior.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 98.5, 17.5 )
+extents = Vector2( 90, 17.5 )
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 122.102
@@ -23,7 +23,7 @@ texture = ExtResource( 2 )
 offset = Vector2( 33, 0 )
 
 [node name="Collision" parent="Sprite/Hitbox" index="0"]
-position = Vector2( 10.5, 7.5 )
+position = Vector2( 12, 7.5 )
 shape = SubResource( 4 )
 
 [node name="Muzzle" parent="Sprite" index="1"]

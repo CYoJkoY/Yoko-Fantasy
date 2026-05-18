@@ -10,10 +10,9 @@ func duplicate(subresources := false) -> Resource:
     var duplication =.duplicate(subresources)
     if !scaling_stats.empty():
         scaling_stats = Utils.convert_to_hash_array(scaling_stats)
-    
     if tracked_key_hash == Keys.empty_hash and tracked_key != "":
         tracked_key_hash = Keys.generate_hash(tracked_key)
-    
+
     duplication.scaling_stats = scaling_stats
     duplication.tracked_key_hash = tracked_key_hash
 
@@ -53,6 +52,7 @@ func serialize() -> Dictionary:
     var serialized: Dictionary =.serialize()
     serialized.scaling_stats = scaling_stats
     serialized.tracked_key = tracked_key
+    serialized.damage_color = damage_color.to_html()
 
     return serialized
 
@@ -61,3 +61,4 @@ func deserialize_and_merge(serialized: Dictionary) -> void:
     scaling_stats = Utils.convert_to_hash_array(serialized.get("scaling_stats", [])) as Array
     tracked_key = serialized.tracked_key as String
     tracked_key_hash = Keys.generate_hash(serialized.tracked_key) as int
+    damage_color = Color(serialized.damage_color)
