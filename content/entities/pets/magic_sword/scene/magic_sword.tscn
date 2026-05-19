@@ -262,6 +262,7 @@ stats = ExtResource( 5 )
 flash_mat = SubResource( 1 )
 curse_particles = ExtResource( 8 )
 damage_tracking_id = "item_fantasy_magic_sword"
+has_shoot_anim = true
 
 [node name="Animation" type="Node2D" parent="."]
 rotation = 6.28319

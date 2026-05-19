@@ -19,6 +19,7 @@ export(Dictionary) var pets_to_process = {
 
 }
 export(Color) var damage_color = Color("#F5D35E")
+export(bool) var has_shoot_anim = false
 
 var _base_weapon_stats: RangedWeaponStats = RangedWeaponStats.new()
 var _current_weapon_stats: RangedWeaponStats = RangedWeaponStats.new()
@@ -61,8 +62,10 @@ func _physics_process(delta) -> void:
 
     _cooldown -= Utils.physics_one(delta)
 
-    if _cooldown <= 0 and !_is_shooting:
-        _animation_player.play("shoot")
+    if _cooldown > 0 or _is_shooting: return
+
+    if has_shoot_anim: _animation_player.play("shoot")
+    else: shoot()
 
 func shoot() -> void:
     _is_shooting = true
@@ -95,6 +98,11 @@ func shoot() -> void:
         processed_count += 1
 
         if processed_count >= max_num: break
+    
+    if has_shoot_anim: return
+
+    _cooldown = _current_weapon_stats.cooldown
+    _is_shooting = false
 
 # =========================== Method =========================== #
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:

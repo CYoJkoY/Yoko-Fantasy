@@ -375,6 +375,7 @@ flash_mat = SubResource( 1 )
 curse_particles = ExtResource( 8 )
 shoot_projectiles = true
 damage_tracking_id = "item_fantasy_white_fox"
+has_shoot_anim = true
 
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -23.9975 )

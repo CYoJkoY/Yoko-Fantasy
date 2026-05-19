@@ -1,9 +1,10 @@
 extends Pet
 
-export(float) var radius = 280.0
+export(float) var radius = 320.0
 export(float) var rotation_speed = 0.7
 export(String) var damage_tracking_id = ""
 var _damage_tracking_id_hash: int = Keys.empty_hash
+export(bool) var has_shoot_anim = false
 
 onready var _muzzle: Position2D = $"Muzzle"
 
@@ -49,9 +50,9 @@ func set_current_stats(stats: Array) -> void:
 func get_stats() -> Array:
     return [_current_weapon_stats]
 
-func _physics_process(delta) -> void:
+func _physics_process(delta: float) -> void:
     if dead: return
-    
+
     _angle += delta * rotation_speed
     var player_position: Vector2 = _players[player_index].global_position
     var nex_position: Vector2 = Vector2(
@@ -66,8 +67,10 @@ func _physics_process(delta) -> void:
     _cooldown -= Utils.physics_one(delta)
     _current_target = Utils.get_nearest(_targets_in_range, _muzzle.global_position, _current_weapon_stats.min_range)
 
-    if should_shoot(_cooldown, _current_target):
-        _animation_player.play("shoot")
+    if !should_shoot(_cooldown, _current_target): return
+
+    if has_shoot_anim: _animation_player.play("shoot")
+    else: shoot()
 
 func should_shoot(cooldown: float, current_target: Array) -> bool:
     return (cooldown <= 0 and
@@ -91,8 +94,13 @@ func shoot() -> void:
     var accuracy: float = _current_weapon_stats.accuracy
     var accuracy_factor = rand_range(-1 + accuracy, 1 - accuracy)
     _next_proj_rotation = target_dir + accuracy_factor
-    
+
     _spawn_projectile(weapon_point)
+
+    if has_shoot_anim: return
+
+    _cooldown = _current_weapon_stats.cooldown
+    _is_shooting = false
 
 # =========================== Method =========================== #
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:

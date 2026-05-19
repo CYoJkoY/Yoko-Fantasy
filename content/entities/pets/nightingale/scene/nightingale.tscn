@@ -1,11 +1,11 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=1]
 [ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=3]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=4]
 [ext_resource path="res://entities/units/movement_behaviors/movement_behavior.gd" type="Script" id=5]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wandering_ranged_pet.gd" type="Script" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale.gd" type="Script" id=6]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_05.wav" type="AudioStream" id=7]
 [ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_03.wav" type="AudioStream" id=8]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=9]
@@ -27,11 +27,11 @@
 [ext_resource path="res://entities/units/target_behavior/target_behavior.gd" type="Script" id=25]
 [ext_resource path="res://particles/curse/curse_enemy_particles.tscn" type="PackedScene" id=26]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/crow_stats.tres" type="Resource" id=27]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_body.webp" type="Texture" id=28]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_head.webp" type="Texture" id=29]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_left_wing.webp" type="Texture" id=30]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_right_wing.webp" type="Texture" id=31]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_healing_head.webp" type="Texture" id=32]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_tail.webp" type="Texture" id=28]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_left_wing.webp" type="Texture" id=29]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_body.webp" type="Texture" id=30]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_right_wing_blocked.webp" type="Texture" id=31]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_right_wing.webp" type="Texture" id=32]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -142,7 +142,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ) ]
+"values": [ Vector2( -50, -1 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("Animation/Viewport/Offset/Body/RightWing:rotation_degrees")
@@ -169,7 +169,7 @@ tracks/8/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Animation/Viewport/Offset/Body/Head:visible")
+tracks/9/path = NodePath("Animation/Viewport/Offset/Body/LeftWing:scale")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -177,11 +177,11 @@ tracks/9/enabled = true
 tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Animation/Viewport/Offset/HealingHead:visible")
+tracks/10/path = NodePath("Animation/Viewport/Offset/Body/LeftWing:rotation_degrees")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -189,11 +189,11 @@ tracks/10/enabled = true
 tracks/10/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
+"update": 0,
+"values": [ 0.0 ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("Animation/Sprite:scale")
+tracks/11/path = NodePath("Animation/Viewport/Offset/Body/LeftWing:position")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -202,10 +202,10 @@ tracks/11/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ Vector2( -40, -70 ) ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("Animation/Sprite:rotation_degrees")
+tracks/12/path = NodePath("Animation/Viewport/Offset/Body/RightWing:texture")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -214,19 +214,7 @@ tracks/12/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
-}
-tracks/13/type = "value"
-tracks/13/path = NodePath("Animation/Sprite:modulate")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ ExtResource( 32 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -249,42 +237,6 @@ tracks/0/keys = {
 "method": "death_animation_finished"
 } ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("Animation/Sprite:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 360.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Animation/Sprite:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 0.341 ),
-"update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 0, 0 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Sprite:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 0.297 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.34902, 0.34902, 0.34902, 1 ) ]
-}
 
 [sub_resource type="Animation" id=5]
 length = 2.0
@@ -296,134 +248,135 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
+"times": PoolRealArray( 0, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.5 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 0.8, 1.3 ), Vector2( 1, 0.7 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Animation/Viewport/Offset/Body/LeftWing:position")
+tracks/1/path = NodePath("Animation:position")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1.52947 ),
 "update": 0,
-"values": [ Vector2( 0, 2.5 ), Vector2( 0, 0 ), Vector2( 0, 2.5 ) ]
+"values": [ Vector2( 20, -24 ), Vector2( 20, -18 ), Vector2( 20, -24 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Animation:position")
+tracks/2/path = NodePath("Animation/Viewport/Offset/Body/RightWing:rotation_degrees")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 1, 1.52947, 1 ),
+"times": PoolRealArray( 0, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -24 ), Vector2( 0, -18 ), Vector2( 0, -24 ) ]
+"values": [ 0.0, -30.0, 10.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Viewport/Offset/Body:scale")
+tracks/3/path = NodePath("Animation/Viewport/Offset/Body/RightWing:scale")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
-"transitions": PoolRealArray( 1, 1.52, 1 ),
+"times": PoolRealArray( 0, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.05, 0.9 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 0.9, 1.5 ), Vector2( 1, 0.8 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Viewport/Offset/Body/RightWing:position")
-tracks/4/interp = 2
+tracks/4/path = NodePath("Animation/Viewport/Offset/Body/LeftWing:rotation_degrees")
+tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
+"times": PoolRealArray( 0, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -1.91967, 1.10626 ), Vector2( 0, 0 ) ]
+"values": [ 0.0, 30.0, -10.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/Viewport/Offset/Body/RightWing:rotation_degrees")
-tracks/5/interp = 2
+tracks/5/path = NodePath("Animation/Viewport/Offset/Body/RightWing:texture")
+tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
+"times": PoolRealArray( 0, 0.4, 1.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, -10.0, 0.0 ]
+"update": 1,
+"values": [ ExtResource( 32 ), ExtResource( 31 ), ExtResource( 32 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Animation/Viewport/Offset/Body/RightWing:scale")
-tracks/6/interp = 2
+tracks/6/path = NodePath("Animation/Viewport/Offset/Body/LeftWing:position")
+tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 1, 2 ),
+"times": PoolRealArray( 0, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 0.6 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( -40, -70 ), Vector2( 0, -70 ), Vector2( -40, -55 ) ]
 }
-
-[sub_resource type="Animation" id=8]
-tracks/0/type = "value"
-tracks/0/path = NodePath("Animation:scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.8, 1 ),
-"transitions": PoolRealArray( 1, 2.82843, 1, 1 ),
+tracks/7/type = "value"
+tracks/7/path = NodePath("Animation/Viewport/Offset/Body/Tail:rotation_degrees")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1.1, 0.9 ), Vector2( 0.663, 1 ), Vector2( 1.5, 1 ), Vector2( 1, 1 ) ]
+"values": [ 0.0, 30.0, -30.0, 20.0, -20.0, 10.0, -10.0 ]
 }
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.6 ),
+tracks/8/type = "value"
+tracks/8/path = NodePath("Animation/Viewport/Offset/Body/RightWing:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -50, -1 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Muzzle:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 1, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 20, -10 ), Vector2( 20, -10 ) ]
+}
+tracks/10/type = "method"
+tracks/10/path = NodePath(".")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 1, 1.3 ),
+"transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
-"method": "shoot"
+"method": "_fantasy_nightingale_boost_speed"
+}, {
+"args": [  ],
+"method": "_fantasy_nightingale_reduce_speed"
 } ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Animation/Viewport/Offset/Body/Head:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Viewport/Offset/HealingHead:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0.3, 0.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
 }
 
 [sub_resource type="CircleShape2D" id=9]
@@ -445,15 +398,15 @@ stats = ExtResource( 27 )
 flash_mat = SubResource( 1 )
 curse_particles = ExtResource( 26 )
 shoot_projectiles = true
-radius = 150.0
-rotation_speed = 1.2
+radius = 160.0
+rotation_speed = 1.0
 damage_tracking_id = "item_fantasy_nightingale"
 
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -24 )
 
 [node name="Viewport" type="Viewport" parent="Animation"]
-size = Vector2( 160, 160 )
+size = Vector2( 210, 210 )
 transparent_bg = true
 hdr = false
 disable_3d = true
@@ -462,26 +415,31 @@ render_target_v_flip = true
 render_target_update_mode = 3
 
 [node name="Offset" type="Node2D" parent="Animation/Viewport"]
-position = Vector2( 80, 80 )
+position = Vector2( 105, 105 )
+scale = Vector2( 0.55, 0.55 )
 
 [node name="Body" type="Sprite" parent="Animation/Viewport/Offset"]
-texture = ExtResource( 28 )
-
-[node name="Head" type="Sprite" parent="Animation/Viewport/Offset/Body"]
-texture = ExtResource( 29 )
-
-[node name="LeftWing" type="Sprite" parent="Animation/Viewport/Offset/Body"]
-position = Vector2( 0, 2.5 )
 texture = ExtResource( 30 )
 
-[node name="RightWing" type="Sprite" parent="Animation/Viewport/Offset/Body"]
-texture = ExtResource( 31 )
+[node name="LeftWing" type="Sprite" parent="Animation/Viewport/Offset/Body"]
+position = Vector2( -40, -70 )
+z_index = -1
+texture = ExtResource( 29 )
 
-[node name="HealingHead" type="Sprite" parent="Animation/Viewport/Offset"]
-visible = false
+[node name="RightWing" type="Sprite" parent="Animation/Viewport/Offset/Body"]
+position = Vector2( -50, -1 )
 texture = ExtResource( 32 )
+offset = Vector2( 15, 70 )
+
+[node name="Tail" type="Sprite" parent="Animation/Viewport/Offset/Body"]
+position = Vector2( -90, 0 )
+rotation = -0.100202
+scale = Vector2( 0.95, 0.95 )
+z_index = -1
+texture = ExtResource( 28 )
 
 [node name="Sprite" type="Sprite" parent="Animation"]
+position = Vector2( -20, 24 )
 texture = SubResource( 10 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
@@ -497,7 +455,6 @@ autoplay = "idle"
 anims/RESET = SubResource( 3 )
 anims/death = SubResource( 4 )
 anims/idle = SubResource( 5 )
-anims/shoot = SubResource( 8 )
 
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -519,7 +476,7 @@ emitting = false
 [node name="EffectBehaviors" type="Node2D" parent="."]
 
 [node name="Muzzle" type="Position2D" parent="."]
-position = Vector2( 55, 0 )
+position = Vector2( 20, -10 )
 
 [node name="TargetTriggerZone" type="Area2D" parent="."]
 visible = false

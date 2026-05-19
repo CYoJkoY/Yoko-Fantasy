@@ -2,6 +2,7 @@ extends Pet
 
 export(String) var damage_tracking_id = ""
 var _damage_tracking_id_hash: int = Keys.empty_hash
+export(bool) var has_shoot_anim = false
 
 onready var _target_behavior_shape: CollisionShape2D = $"TargetBehavior/Range/CollisionShape2D"
 onready var _hitbox: Hitbox = $"Animation/Hitbox"
@@ -65,8 +66,10 @@ func _physics_process(delta) -> void:
 
     _cooldown -= Utils.physics_one(delta)
 
-    if should_shoot(_cooldown, current_target):
-        _animation_player.play("shoot")
+    if !should_shoot(_cooldown, current_target): return
+    
+    if has_shoot_anim: _animation_player.play("shoot")
+    else: shoot()
 
 func should_shoot(cooldown: float, current_target: Node) -> bool:
     return (cooldown <= 0 and
@@ -80,6 +83,12 @@ func should_shoot(cooldown: float, current_target: Node) -> bool:
 func shoot() -> void:
     _is_shooting = true
     _hitbox.enable()
+
+    if has_shoot_anim: return
+
+    _hitbox.ignored_objects.clear()
+    _hitbox.disable()
+    _cooldown = _current_weapon_stats.cooldown
 
 func update_animation(movement: Vector2) -> void:
     .update_animation(movement)

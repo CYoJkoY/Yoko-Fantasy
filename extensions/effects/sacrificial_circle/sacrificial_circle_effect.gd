@@ -1,6 +1,6 @@
 extends DoubleValueEffect
 
-export(int) var killed_need = 16
+export(int) var killed_need = 12
 export(int) var stat_num = 1
 export(int) var gold_num = 8
 export(String) var consumable_id = "consumable_fantasy_soul"

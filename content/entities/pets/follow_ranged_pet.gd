@@ -2,6 +2,7 @@ extends Pet
 
 export(String) var damage_tracking_id = ""
 var _damage_tracking_id_hash: int = Keys.empty_hash
+export(bool) var has_shoot_anim = false
 
 onready var _target_behavior_shape: Node = $"TargetBehavior/Range/CollisionShape2D"
 onready var _muzzle: Position2D = $"Muzzle"
@@ -54,8 +55,10 @@ func _physics_process(delta) -> void:
     _cooldown -= Utils.physics_one(delta)
     _current_target = Utils.get_nearest(_targets_in_range, _muzzle.global_position, _current_weapon_stats.min_range)
 
-    if should_shoot(_cooldown, _current_target):
-        _animation_player.play("shoot")
+    if !should_shoot(_cooldown, _current_target): return
+    
+    if has_shoot_anim: _animation_player.play("shoot")
+    else: shoot()
 
 func should_shoot(cooldown: float, current_target: Array) -> bool:
     return (cooldown <= 0 and
@@ -81,6 +84,11 @@ func shoot() -> void:
     _next_proj_rotation = target_dir + accuracy_factor
     
     _spawn_projectile(weapon_point)
+
+    if has_shoot_anim: return
+
+    _cooldown = _current_weapon_stats.cooldown
+    _is_shooting = false
 
 # =========================== Method =========================== #
 func _spawn_projectile(position: Vector2) -> void:
