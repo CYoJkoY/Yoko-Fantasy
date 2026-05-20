@@ -244,7 +244,7 @@ flash_mat = SubResource( 1 )
 enemy_id = "fantasy_flower_spirit"
 
 [node name="Animation" type="Node2D" parent="."]
-position = Vector2( 0, -22.8748 )
+position = Vector2( 0, -24 )
 
 [node name="Sprite" type="Sprite" parent="Animation"]
 texture = ExtResource( 1 )

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/lightning_arc/lightning_arc.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/lightning_chain_on_hit/lightning_chain_on_hit_effect.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+key = ""
+text_key = "EFFECT_FANTASY_LIGHTNING_CHAIN_ON_HIT_NO_CHANCE"
+value = 4
+custom_key = ""
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+base_chance = 1.0
+damage_scaling_stats = [ [ "stat_elemental_damage", 0.4 ] ]
+base_chain_targets = 2
+targets_scaling_stats = [ [ "stat_elemental_damage", 0.1 ] ]
+chain_damage_mult = 1.0
+arc_width = 4.0
+arc_jaggedness = 20.0
+arc_color = Color( 0.329412, 0.721569, 0.890196, 1 )
+arc_glow_color = Color( 0.333333, 0.533333, 1, 1 )
+arc_duration = 0.3
+arc_scene = ExtResource( 1 )

@@ -1,9 +1,9 @@
 extends "res://entities/units/player/player.gd"
 
-# decaying_slow_enemy_when_below_hp
 var decaying_slow_enemy_when_below_hp_triggers: Dictionary = {}
 var _original_non_decaying_slow_speed: Dictionary = {}
 var _non_decaying_slow_material: Dictionary = {}
+var consumables_picked_up_this_run: Dictionary = {}
 
 # =========================== Extension =========================== #
 func _ready() -> void:
@@ -34,6 +34,7 @@ func _on_ItemAttractArea_area_entered(item: Item) -> void:
 func on_consumable_picked_up(consumable_data: ConsumableData) -> void:
     .on_consumable_picked_up(consumable_data)
     _fantasy_dmg_when_pickup_consumable(consumable_data)
+    _fantasy_add_stat_when_pickup_consumable(consumable_data)
 
 # =========================== Custom =========================== #
 func _fantasy_damage_clamp(result: Unit.GetDamageValueResult) -> Unit.GetDamageValueResult:
@@ -181,6 +182,23 @@ func _fantasy_on_soul_entered(item: Item) -> void:
     if item.attracted_by == null:
         item.attracted_by = self
         item.set_physics_process(true)
+
+func _fantasy_add_stat_when_pickup_consumable(consumable_data: ConsumableData) -> void:
+    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_add_stat_when_pickup_consumable_hash, player_index)
+    if effect_items.empty(): return
+
+    for effect_item in effect_items:
+        var consumable_id: int = effect_item[0]
+
+        if consumable_data.my_id_hash != consumable_id: continue
+
+        consumables_picked_up_this_run[consumable_id] = consumables_picked_up_this_run.get(consumable_id, 0) + 1
+        var need_consumable_nb: int = effect_item[1]
+        if consumables_picked_up_this_run[consumable_id] % need_consumable_nb != 0: continue
+
+        var stat: int = effect_item[2]
+        var stat_nb: int = effect_item[3]
+        RunData.add_stat(stat, stat_nb, player_index)
 
 # =========================== Method =========================== #
 func fa_on_soul_effect(damage_to_add: int, speed_to_add: int) -> void:

@@ -33,7 +33,7 @@ func shoot() -> void:
     if !is_instance_valid(slow_field):
         slow_field = slow_field_scene.instance()
         main._materials_container.add_child(slow_field)
-        var _error = slow_field.connect("duration_timeout", self , "fa_on_DurationTimer_timeout", [slow_field])
+        var _error: int = slow_field.connect("duration_timeout", self , "fa_on_DurationTimer_timeout", [slow_field])
 
     slow_field.scale *= size
     slow_field.reduction = speed_reduction

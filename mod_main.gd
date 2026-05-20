@@ -52,11 +52,13 @@ func _init() -> void:
 
         "player.gd",
         # STATS: Soul[ 2/3 ]
+        # CONSUMABLES: Attract Soul
         # EFFECTS: damage_clamp,
         #          damage_reflect,
         #          decaying_slow_enemy_when_below_hp[ 2/2 ]
         #          material_loss_on_hit
         #          dmg_when_pickup_consumable
+        #          add_stat_when_pickup_consumable
 
         "weapon_service.gd",
         # STATS: Crit Damage, %Pet Attack Speed
@@ -80,6 +82,7 @@ func _init() -> void:
         #          change_weapon_every_killed_enemies[ 1/2]
         #          cannot_damage_tree[ 2/5 ]
         #          reload_when_critically_hit[ 1/2 ]
+        #          lightning_chain_on_hit[ 1/2 ]
 
         "ranged_weapon.gd",
         # EFFECTS: gain_stat_every_killed_enemies[ 3/3 ]
@@ -87,6 +90,7 @@ func _init() -> void:
         #          change_weapon_every_killed_enemies[ 2/2]
         #          cannot_damage_tree[ 3/5 ]
         #          reload_when_critically_hit[ 2/2 ]
+        #          lightning_chain_on_hit[ 2/2 ]
 
         "run_data.gd",
         # SYSTEMS: Job[ 4/6 ]

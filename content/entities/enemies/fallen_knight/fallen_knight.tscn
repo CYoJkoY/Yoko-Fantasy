@@ -293,7 +293,7 @@ script = ExtResource( 14 )
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 10 )
 projectile_scene = ExtResource( 38 )
-projectile_speed = 1500
+projectile_speed = 1000
 cooldown = 120.0
 initial_cooldown = 120
 max_cd_randomization = 0
@@ -304,7 +304,7 @@ shoot_from_proj_pos_towards_player = true
 [node name="AttackBehavior2" type="Node2D" parent="."]
 script = ExtResource( 37 )
 projectile_scene = ExtResource( 39 )
-projectile_speed = 800
+projectile_speed = 500
 cooldown = 120.0
 initial_cooldown = 120
 max_cd_randomization = 0
@@ -321,10 +321,10 @@ pos_base_on_centerx = false
 specific_projectiles = {
 8: [ 200, 5.38, 5.38 ],
 9: [ 200, 5.64, 5.64 ],
-10: [ 200, 5.90, 5.90 ],
+10: [ 200, 5.9, 5.9 ],
 11: [ 200, 6.16, 6.16 ],
 12: [ 200, 6.42, 6.42 ],
-13: [ 200, 0.40, 0.40 ],
+13: [ 200, 0.4, 0.4 ],
 14: [ 200, 0.66, 0.66 ]
 }
 

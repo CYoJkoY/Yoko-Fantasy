@@ -44,7 +44,7 @@ func fa_on_ItemPickUpArea_area_entered(area: Area2D) -> void:
     gold_count += gold.value
     evolve_count += 1
     gold.pickup(-1)
-    var gold_value: int = int(min(gold.value, RunData.bonus_gold))
+    var gold_value: int = gold.value + 1 if RunData.bonus_gold > 0 else gold.value
     RunData.add_bonus_gold(gold_value, false)
 
     if evolve_count < evovle_needed: return

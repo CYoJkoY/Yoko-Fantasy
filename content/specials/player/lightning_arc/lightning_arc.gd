@@ -1,78 +1,146 @@
 extends Node2D
 
-signal chain_finished
+var start_point: Vector2
+var end_point: Vector2
+var width: float = 4.0
+var jaggedness: float = 20.0
+var color: Color = Color.white
+var glow_color: Color = Color.white
+var duration: float = 0.3
 
-export var max_bounces: int = 4
-export var bounce_range: float = 200.0
-export var arc_width: float = 2.0
-export var jaggedness: float = 12.0
-export var arc_color: Color = Color(0.4, 0.7, 1.0)
-export var bounce_delay: float = 0.08
-export var damage_falloff: float = 0.7
+onready var line: Line2D = $"Line"
+onready var glow_line: Line2D = $"GlowLine"
+onready var duration_timer: Timer = $"Timer"
 
-var _source: Node2D
-var _targets: Array = []
-var _hit_targets: Array = []
-var _bounce_count: int = 0
-var _current_from: Vector2
-var _arc_scene: PackedScene = null
+# =========================== Extension =========================== #
+func _ready() -> void:
+    reset()
 
-func start(source: Node2D, initial_target: Node2D) -> void:
-	_source = source
-	_current_from = source.global_position
-	_hit_targets.append(initial_target)
-	_bounce_count = 0
-	_create_arc(_current_from, initial_target.global_position)
-	_next_bounce()
+func reset() -> void:
+    hide()
+    set_process(false)
+    set_as_toplevel(true)
+    position = Vector2.ZERO
+    modulate.a = 1.0
+    start_point = Vector2.ZERO
+    end_point = Vector2.ZERO
+    line.points = PoolVector2Array()
+    glow_line.points = PoolVector2Array()
 
-func _next_bounce() -> void:
-	_bounce_count += 1
-	if _bounce_count > max_bounces:
-		emit_signal("chain_finished")
-		return
+func link(
+    enemies: Array,
+    damage: int,
+    chain_damage_mult: float,
+    player_index: int,
+    _width: float,
+    _jaggedness: float,
+    _color: Color,
+    _glow_color: Color,
+    _duration: float,
+    parent_effects: Array,
+    damage_scaling_stats: Array
+) -> void:
+    if enemies.size() < 2: return
 
-	var timer = get_tree().create_timer(bounce_delay)
-	timer.connect("timeout", self , "_do_bounce")
+    width = _width
+    jaggedness = _jaggedness
+    color = _color
+    glow_color = _glow_color
+    duration = _duration
 
-func _do_bounce() -> void:
-	var last_target = _hit_targets.back()
-	if last_target == null:
-		emit_signal("chain_finished")
-		return
+    var dmg_args: TakeDamageArgs = TakeDamageArgs.new(player_index)
+    dmg_args.set_meta("custom_color", color)
 
-	var next_target = _find_next_target(last_target.global_position)
-	if next_target == null:
-		emit_signal("chain_finished")
-		return
+    for i in range(1, enemies.size()):
+        var enemy: Enemy = enemies[i]
+        if !is_instance_valid(enemy) or enemy.dead: continue
 
-	_hit_targets.append(next_target)
-	_current_from = last_target.global_position
-	_create_arc(_current_from, next_target.global_position)
+        var final_damage = damage * pow(chain_damage_mult, i - 1)
+        enemy.take_damage(final_damage, dmg_args)
 
-	var damage_mult = pow(damage_falloff, _bounce_count - 1)
-	_apply_damage(next_target, damage_mult)
+        var effects: Array = []
+        var item_effects: Array = RunData.get_player_effect(Keys.enemy_percent_damage_taken_hash, player_index)
+        effects.append_array(item_effects)
+        
+        for effect in parent_effects:
+            if effect.custom_key_hash == Keys.enemy_percent_damage_taken_hash:
+                effects.push_back(effect.to_array())
 
-	_next_bounce()
+        for effect_behavior in enemy.effect_behaviors.get_children():
+            if !(effect_behavior is PercentDamageTakenEnemyEffectBehavior): continue
 
-func _find_next_target(from_pos: Vector2) -> Node2D:
-	var best: Node2D = null
-	var best_dist: float = bounce_range
+            effect_behavior.try_add_effects(effects, damage_scaling_stats)
 
-	var enemies = get_tree().get_nodes_in_group("enemies")
-	for enemy in enemies:
-		if enemy in _hit_targets:
-			continue
-		var dist = from_pos.distance_to(enemy.global_position)
-		if dist <= best_dist:
-			best_dist = dist
-			best = enemy
-	return best
+    _fantasy_update_chain_arc(enemies)
+    duration_timer.wait_time = duration
+    duration_timer.start()
+    show()
+    set_process(true)
 
-func _create_arc(from: Vector2, to: Vector2) -> void:
-	var arc = _arc_scene.instance()
-	arc.init(from, to, arc_color, arc_width, jaggedness)
-	add_child(arc)
+func _process(_delta: float) -> void:
+    var time_left = duration_timer.time_left
+    if time_left > 0: modulate.a = time_left / duration
+    else: modulate.a = 0.0
 
-func _apply_damage(target: Node2D, base_damage: float, multiplier: float) -> void:
-	if target.has_method("take_damage"):
-		target.take_damage(base_damage * multiplier)
+# =========================== Custom =========================== #
+func _fantasy_update_chain_arc(enemies: Array) -> void:
+    var points = PoolVector2Array()
+
+    var seg_points = _fantasy_generate_lightning_segment(
+        enemies[0].global_position,
+        enemies[1].global_position,
+        3,
+        jaggedness
+    )
+    points.append_array(seg_points)
+
+    for i in range(1, enemies.size() - 1):
+        var from = enemies[i].global_position
+        var to = enemies[i + 1].global_position
+
+        seg_points = _fantasy_generate_lightning_segment(from, to, 3, jaggedness)
+        for j in range(1, seg_points.size()):
+            points.append(seg_points[j])
+
+    line.points = points
+    line.width = width
+    line.default_color = color
+
+    glow_line.points = points
+    glow_line.width = width * 2.5
+    glow_line.default_color = glow_color
+
+func _fantasy_generate_lightning_segment(
+    from: Vector2,
+    to: Vector2,
+    depth: int,
+    roughness: float
+) -> PoolVector2Array:
+    var points = PoolVector2Array()
+    points.append(from)
+    _fantasy_subdivide_lightning(points, from, to, depth, roughness)
+    points.append(to)
+    return points
+
+func _fantasy_subdivide_lightning(
+    points: PoolVector2Array,
+    p1: Vector2,
+    p2: Vector2,
+    depth: int,
+    roughness: float
+) -> void:
+    if depth <= 0:
+        return
+
+    var mid = (p1 + p2) * 0.5
+    var displacement = (p2 - p1).length() * 0.2 * roughness
+    mid += Vector2(rand_range(-1, 1), rand_range(-1, 1)) * displacement
+
+    _fantasy_subdivide_lightning(points, p1, mid, depth - 1, roughness * 0.5)
+    points.append(mid)
+    _fantasy_subdivide_lightning(points, mid, p2, depth - 1, roughness * 0.5)
+
+# =========================== Method =========================== #
+func fa_on_DurationTimerTimeout() -> void:
+    Utils.get_scene_node().add_node_to_pool(get_meta("pool_id"))
+    reset()
