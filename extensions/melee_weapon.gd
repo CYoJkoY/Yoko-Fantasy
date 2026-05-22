@@ -196,6 +196,8 @@ func _fantasy_lightning_chain_on_hit(thing_hit: Node) -> void:
             effect.arc_color,
             effect.arc_glow_color,
             effect.arc_duration,
+            effect.arc_crit_chance,
+            effect.arc_crit_damage,
             effects,
             effect.damage_scaling_stats
         )
@@ -215,7 +217,9 @@ func _fantasy_lightning_chain_on_hit(thing_hit: Node) -> void:
         var arc_color: Color = Color(effect_item[8])
         var arc_glow_color: Color = Color(effect_item[9])
         var arc_duration: float = effect_item[10]
-        var arc_scene_path: String = effect_item[11]
+        var arc_crit_chance: float = effect_item[11]
+        var arc_crit_damage: float = effect_item[12]
+        var arc_scene_path: String = effect_item[13]
 
         if !Utils.get_chance_success(chance): continue
 
@@ -254,6 +258,8 @@ func _fantasy_lightning_chain_on_hit(thing_hit: Node) -> void:
             arc_color,
             arc_glow_color,
             arc_duration,
+            arc_crit_chance,
+            arc_crit_damage,
             effects,
             damage_scaling_stats
         )

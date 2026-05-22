@@ -299,7 +299,8 @@ translation_keys_needing_percent = {
 "effect_reload_when_critically_hit": [ 0 ],
 "info_pos_stat_fantasy_holy": [ 0, 1, 2 ],
 "info_pos_stat_fantasy_soul": [ 0, 1 ],
-"stat_fantasy_crit_damage": [ 0 ]
+"stat_fantasy_crit_damage": [ 0 ],
+"fantasy_chain_damage_mult_formatted": [ 1 ]
 }
 scene_effect_behaviors = [ ExtResource( 80 ), ExtResource( 74 ) ]
 enemy_effect_behaviors = [ ExtResource( 71 ), ExtResource( 140 ) ]

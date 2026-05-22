@@ -10,6 +10,8 @@ export(float) var arc_jaggedness = 20.0
 export(Color) var arc_color = Color("#54b8e3")
 export(Color) var arc_glow_color = Color("#5588ff")
 export(float) var arc_duration = 0.3
+export(float) var arc_crit_chance = 0.0
+export(float) var arc_crit_damage = 1.5
 export(PackedScene) var arc_scene = preload("res://mods-unpacked/Yoko-Fantasy/content/specials/player/lightning_arc/lightning_arc.tscn")
 
 # =========================== Extension =========================== #
@@ -40,7 +42,7 @@ func apply(player_index: int) -> void:
     effects[custom_key_hash].append([base_chance, value, damage_scaling_stats,
         base_chain_targets, targets_scaling_stats, chain_damage_mult,
         arc_width, arc_jaggedness, arc_color.to_html(), arc_glow_color.to_html(),
-        arc_duration, arc_scene.resource_path])
+        arc_duration, arc_crit_chance, arc_crit_damage, arc_scene.resource_path])
 
 func unapply(player_index: int) -> void:
     if custom_key_hash == Keys.empty_hash: return
@@ -49,7 +51,7 @@ func unapply(player_index: int) -> void:
     effects[custom_key_hash].erase([key_hash, base_chance, value, damage_scaling_stats,
         base_chain_targets, targets_scaling_stats, chain_damage_mult,
         arc_width, arc_jaggedness, arc_color.to_html(), arc_glow_color.to_html(),
-        arc_duration, arc_scene.resource_path])
+        arc_duration, arc_crit_chance, arc_crit_damage, arc_scene.resource_path])
 
 func get_args(player_index: int) -> Array:
     var chain_damage_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(
@@ -66,11 +68,32 @@ func get_args(player_index: int) -> Array:
             "show_initial": false
         }
     )
-    var chain_targets_text: String = "[color=%s]%s:[/color]  %s" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("FANTASY_CHAIN_TARGETS"), chain_targets_count_text]
 
-    var chain_damage_mult_text: String = "[color=%s]%s:[/color]  %s" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("FANTASY_CHAIN_DAMAGE_MULT"), str(int(chain_damage_mult * 100)) + "%"]
+    var chain_targets_text: String = Text.text(
+        "FANTASY_CHAIN_TARGETS_FORMATTED",
+        [
+            "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("FANTASY_CHAIN_TARGETS")],
+            chain_targets_count_text
+        ]
+    )
 
-    return [str(int(base_chance * 100)), chain_damage_text, chain_targets_text, chain_damage_mult_text]
+    var chain_damage_mult_text: String = Text.text(
+        "FANTASY_CHAIN_DAMAGE_MULT_FORMATTED",
+        [
+            "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("FANTASY_CHAIN_DAMAGE_MULT")],
+            "x" + str(chain_damage_mult * 100.0)
+        ]
+    )
+
+    var chain_crit_text: String = Text.text(
+        "CRITICAL_FORMATTED",
+        [
+            "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("CRITICAL")],
+            "x" + str(arc_crit_damage), str(max(arc_crit_chance * 100.0, 0))
+        ]
+    )
+
+    return [str(int(base_chance * 100)), chain_damage_text, chain_targets_text, chain_damage_mult_text, chain_crit_text]
 
 func serialize() -> Dictionary:
     var serialized =.serialize()
@@ -84,6 +107,8 @@ func serialize() -> Dictionary:
     serialized.arc_color = arc_color.to_html()
     serialized.arc_glow_color = arc_glow_color.to_html()
     serialized.arc_duration = arc_duration
+    serialized.arc_crit_chance = arc_crit_chance
+    serialized.arc_crit_damage = arc_crit_damage
     serialized.arc_scene = arc_scene.resource_path
     return serialized
 
@@ -99,4 +124,6 @@ func deserialize_and_merge(serialized: Dictionary) -> void:
     arc_color = Color(serialized.arc_color)
     arc_glow_color = Color(serialized.arc_glow_color)
     arc_duration = serialized.arc_duration as float
+    arc_crit_chance = serialized.arc_crit_chance as float
+    arc_crit_damage = serialized.arc_crit_damage as float
     arc_scene = load(serialized.arc_scene) as PackedScene

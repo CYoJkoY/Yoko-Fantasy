@@ -150,6 +150,7 @@ child_projectiles_num = 4
 child_init_rotation = 0
 child_rotation_change_after_each = 90
 is_symmetrical = false
+init_spawn_cooldown = 36
 spawn_cooldown = 99999
 child_projectile = ExtResource( 11 )
 power = 0.75
@@ -157,12 +158,12 @@ power = 0.75
 [node name="Sprite" type="Sprite" parent="."]
 unique_name_in_owner = true
 material = ExtResource( 10 )
-position = Vector2( 165, 0 )
+position = Vector2( -180, 0 )
 texture = ExtResource( 9 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 1 )]
 unique_name_in_owner = true
-position = Vector2( 165, -15 )
+position = Vector2( -180, -15 )
 collision_layer = 16
 
 [node name="Collision" parent="Hitbox" index="0"]

@@ -79,6 +79,7 @@ var fantasy_reload_when_critically_hit_hash: int = Keys.generate_hash("fantasy_r
 var fantasy_synthesis_pity_data_hash: int = Keys.generate_hash("fantasy_synthesis_pity_data")
 var fantasy_lightning_chain_on_hit_hash: int = Keys.generate_hash("fantasy_lightning_chain_on_hit")
 var fantasy_add_stat_when_pickup_consumable_hash: int = Keys.generate_hash("fantasy_add_stat_when_pickup_consumable")
+var fantasy_lightning_chain_can_crit_hash: int = Keys.generate_hash("fantasy_lightning_chain_can_crit")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")

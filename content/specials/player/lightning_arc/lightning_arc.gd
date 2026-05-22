@@ -7,6 +7,8 @@ var jaggedness: float = 20.0
 var color: Color = Color.white
 var glow_color: Color = Color.white
 var duration: float = 0.3
+var crit_chance: float = 0.0
+var crit_damage: float = 1.5
 
 onready var line: Line2D = $"Line"
 onready var glow_line: Line2D = $"GlowLine"
@@ -37,6 +39,8 @@ func link(
     _color: Color,
     _glow_color: Color,
     _duration: float,
+    _crit_chance: float,
+    _crit_damage: float,
     parent_effects: Array,
     damage_scaling_stats: Array
 ) -> int:
@@ -48,6 +52,10 @@ func link(
     color = _color
     glow_color = _glow_color
     duration = _duration
+    crit_chance = _crit_chance
+    crit_chance += Utils.get_capped_stat(Keys.stat_crit_chance_hash, player_index) / 100.0 \
+        if RunData.get_player_effect_bool(Utils.fantasy_lightning_chain_can_crit_hash, player_index) else 0.0
+    crit_damage = _crit_damage
 
     var dmg_args: TakeDamageArgs = TakeDamageArgs.new(player_index)
     dmg_args.set_meta("custom_color", color)
@@ -56,8 +64,19 @@ func link(
         var enemy: Enemy = enemies[i]
         if !is_instance_valid(enemy) or enemy.dead: continue
 
-        var final_damage: int = int(damage * pow(chain_damage_mult, i - 1))
-        var damage_taken: Array = enemy.take_damage(final_damage, dmg_args)
+        var final_damage: float = damage * pow(chain_damage_mult, i - 1)
+
+        if Utils.get_chance_success(crit_chance):
+            final_damage *= crit_damage
+
+            var gold_on_crit_kill_effects: Array = RunData.get_player_effect(Keys.gold_on_crit_kill_hash, player_index)
+            for effect in gold_on_crit_kill_effects:
+                if !Utils.get_chance_success(effect[1] / 100.0): continue
+
+                RunData.add_gold(1, player_index)
+                RunData.add_tracked_value(player_index, Keys.item_hunting_trophy_hash, 1)
+
+        var damage_taken: Array = enemy.take_damage(int(final_damage), dmg_args)
         true_damage += damage_taken[1]
 
         var effects: Array = []

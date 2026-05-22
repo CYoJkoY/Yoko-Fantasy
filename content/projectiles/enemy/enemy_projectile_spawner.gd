@@ -5,6 +5,7 @@ export(int) var child_init_rotation = 90
 export(int) var child_rotation_change_after_each = 0
 export(bool) var is_symmetrical = true
 export(int) var offset_distance = 30
+export(int) var init_spawn_cooldown = 0
 export(int) var spawn_cooldown = 30
 export(PackedScene) var child_projectile = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_projectile_small.tscn")
 var child_projectile_pool_id: int = Keys.empty_hash
@@ -25,11 +26,11 @@ func _ready() -> void:
 
     child_init_rotation = deg2rad(child_init_rotation)
     child_rotation_change_after_each = deg2rad(child_rotation_change_after_each)
+    _spawn_cooldwon = init_spawn_cooldown
 
 func _return_to_pool() -> void:
     ._return_to_pool()
-
-    _spawn_cooldwon = 0.0
+    _spawn_cooldwon = init_spawn_cooldown
 
 func _physics_process(delta) -> void:
     _spawn_cooldwon -= Utils.physics_one(delta)

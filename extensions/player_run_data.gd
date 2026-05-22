@@ -112,6 +112,7 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_shop_enter_synthesis_hash: [],
             Utils.fantasy_lightning_chain_on_hit_hash: [],
             Utils.fantasy_add_stat_when_pickup_consumable_hash: [],
+            Utils.fantasy_lightning_chain_can_crit_hash: 0,
 
         }
         

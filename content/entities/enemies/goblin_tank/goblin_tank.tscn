@@ -290,10 +290,9 @@ wait_time = 0.1
 script = ExtResource( 14 )
 
 [node name="AttackBehavior" type="Node2D" parent="."]
-position = Vector2( 213, -130 )
 script = ExtResource( 10 )
 projectile_scene = ExtResource( 11 )
-projectile_speed = 600
+projectile_speed = 1000
 cooldown = 180.0
 max_cd_randomization = 0
 max_range = 800
@@ -315,9 +314,8 @@ hp_start = 0.5
 timer_start = 40.0
 
 [node name="AttackBehavior" parent="States/State1" index="1"]
-position = Vector2( 213, -130 )
 projectile_scene = ExtResource( 6 )
-projectile_speed = 600
+projectile_speed = 1000
 cooldown = 30.0
 max_cd_randomization = 0
 long_cooldown_every_x_shoots = 5

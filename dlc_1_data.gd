@@ -2,12 +2,9 @@ extends "res://dlcs/dlc_1/dlc_1_data.gd"
 
 # =========================== Extension =========================== #
 func curse_item(item_data: ItemParentData, player_index: int, turn_randomization_off: bool = false, min_modifier: float = 0.0) -> ItemParentData:
-    print("TEST4")
     if item_data.is_cursed: return item_data
-    print("TEST3")
     var new_item_data: ItemParentData =.curse_item(item_data, player_index, turn_randomization_off, min_modifier)
     if !has_effect_fantasy(item_data.effects): return new_item_data
-    print("TEST5")
     new_item_data = _fantasy_curse_item(new_item_data, player_index, turn_randomization_off, min_modifier)
     return new_item_data
     

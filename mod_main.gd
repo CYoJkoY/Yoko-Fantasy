@@ -18,6 +18,7 @@ func _init() -> void:
         # SYSTEMS: Job[ 1/6 ]
         # STATS: Soul[ 1/3 ]
         # ENEMIES: World Tree
+        #          Slime
         # EFFECTS: gain_stat_for_every_stat[ living_cursed_enemy ]
         #          decaying_slow_enemy_when_below_hp[ 1/2 ]
         #          slow_cursed_enemy,

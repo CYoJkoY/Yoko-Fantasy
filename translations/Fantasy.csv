@@ -1950,59 +1950,86 @@ ITEM_FANTASY_SALTED_DUCK_EGG,"Salted Duck Egg","Œuf de cane salé","咸鸭蛋",
 FANTASY_PITY_MULTIPLIER,"Pity Multiplier: x {0}","Multiplicateur de pitié : x {0}","怜悯倍率：x {0}","憐れみ倍率：x {0}","연민 배율: x {0}","憐憫倍率：x {0}","Множитель жалости: x {0}","Mnożnik litości: x {0}","Multiplicador de piedad: x {0}","Multiplicador de piedade: x {0}","Mitleid-Multiplikator: x {0}","Merhamet Çarpanı: x {0}","Moltiplicatore pietà: x {0}"
 WEAPON_FANTASY_KUNAI,"Kunai","Kunaï","苦无","クナイ","쿠나이","苦無","Кунай","Kunai","Kunai","Kunai","Kunai","Kunai","Kunai"
 FANTASY_CHAIN_DAMAGE_MULT,"Chain Mod","Mod. Chaîne","链变","連鎖倍率","연쇄 배율","鏈變","Мод. цепи","Modyf. łańcucha","Mod. de cadena","Mod. de corrente","Kettenmod.","Zincir Mod.","Mod. catena"
+FANTASY_CHAIN_DAMAGE_MULT_FORMATTED,"{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}"
 FANTASY_CHAIN_TARGETS,"Chain Targets","Cibles en chaîne","连锁","連鎖","연쇄 대상","連鎖","Цели цепи","Cele łańcucha","Objetivos de cadena","Alvos em cadeia","Kettenziele","Zincir Hedefleri","Obiettivi a catena"
+FANTASY_CHAIN_TARGETS_FORMATTED,"{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}"
 EFFECT_FANTASY_LIGHTNING_CHAIN_ON_HIT,"After hitting an enemy, there is a {0} chance to deal {1} lightning chain damage
 {2}
-{3}","Après avoir touché un ennemi, {0} de chances d'infliger {1} dégâts de chaîne d'éclairs
+{3}
+{4}","Après avoir touché un ennemi, {0} de chances d'infliger {1} dégâts de chaîne d'éclairs
 {2}
 {3}","击中敌人后{0}概率造成{1}的闪电链伤害
 {2}
-{3}","敵に命中した時、{0}の確率で{1}の連鎖雷ダメージを与える
+{3}
+{4}","敵に命中した時、{0}の確率で{1}の連鎖雷ダメージを与える
 {2}
-{3}","적 명중 시 {0} 확률로 {1}의 연쇄 번개 피해
+{3}
+{4}","적 명중 시 {0} 확률로 {1}의 연쇄 번개 피해
 {2}
-{3}","擊中敵人後{0}機率造成{1}的閃電鏈傷害
+{3}
+{4}","擊中敵人後{0}機率造成{1}的閃電鏈傷害
 {2}
-{3}","При попадании по врагу с вероятностью {0} наносит {1} урона цепной молнией
+{3}
+{4}","При попадании по врагу с вероятностью {0} наносит {1} урона цепной молнией
 {2}
-{3}","Po trafieniu wroga, {0} szans na zadanie {1} obrażeń łańcuchem błyskawic
+{3}
+{4}","Po trafieniu wroga, {0} szans na zadanie {1} obrażeń łańcuchem błyskawic
 {2}
-{3}","Al golpear a un enemigo, {0} de probabilidad de infligir {1} de daño de cadena de rayos
+{3}
+{4}","Al golpear a un enemigo, {0} de probabilidad de infligir {1} de daño de cadena de rayos
 {2}
-{3}","Ao atingir um inimigo, {0} de chance de causar {1} de dano em cadeia de raios
+{3}
+{4}","Ao atingir um inimigo, {0} de chance de causar {1} de dano em cadeia de raios
 {2}
-{3}","Beim Treffen eines Gegners besteht eine {0} Chance, {1} Blitzkettenschaden zu verursachen
+{3}
+{4}","Beim Treffen eines Gegners besteht eine {0} Chance, {1} Blitzkettenschaden zu verursachen
 {2}
-{3}","Düşmana vurduğunda {0} ihtimalle {1} zincirli yıldırım hasarı verir
+{3}
+{4}","Düşmana vurduğunda {0} ihtimalle {1} zincirli yıldırım hasarı verir
 {2}
-{3}","Colpendo un nemico, {0} probabilità di infliggere {1} danni a catena di fulmini
+{3}
+{4}","Colpendo un nemico, {0} probabilità di infliggere {1} danni a catena di fulmini
 {2}
-{3}"
+{3}
+{4}"
 EFFECT_FANTASY_LIGHTNING_CHAIN_ON_HIT_NO_CHANCE,"After hitting an enemy, deal {1} lightning chain damage
 {2}
-{3}","Après avoir touché un ennemi, inflige {1} dégâts de chaîne d'éclairs
+{3}
+{4}","Après avoir touché un ennemi, inflige {1} dégâts de chaîne d'éclairs
 {2}
-{3}","击中敌人后造成{1}的闪电链伤害
+{3}
+{4}","击中敌人后造成{1}的闪电链伤害
 {2}
-{3}","敵に命中した時、{1}の連鎖雷ダメージを与える
+{3}
+{4}","敵に命中した時、{1}の連鎖雷ダメージを与える
 {2}
-{3}","적 명중 시 {1}의 연쇄 번개 피해
+{3}
+{4}","적 명중 시 {1}의 연쇄 번개 피해
 {2}
-{3}","擊中敵人後造成{1}的閃電鏈傷害
+{3}
+{4}","擊中敵人後造成{1}的閃電鏈傷害
 {2}
-{3}","При попадании по врагу наносит {1} урона цепной молнией
+{3}
+{4}","При попадании по врагу наносит {1} урона цепной молнией
 {2}
-{3}","Po trafieniu wroga, zadaje {1} obrażeń łańcuchem błyskawic
+{3}
+{4}","Po trafieniu wroga, zadaje {1} obrażeń łańcuchem błyskawic
 {2}
-{3}","Al golpear a un enemigo, inflige {1} de daño de cadena de rayos
+{3}
+{4}","Al golpear a un enemigo, inflige {1} de daño de cadena de rayos
 {2}
-{3}","Ao atingir um inimigo, causa {1} de dano em cadeia de raios
+{3}
+{4}","Ao atingir um inimigo, causa {1} de dano em cadeia de raios
 {2}
-{3}","Beim Treffen eines Gegners verursacht {1} Blitzkettenschaden
+{3}
+{4}","Beim Treffen eines Gegners verursacht {1} Blitzkettenschaden
 {2}
-{3}","Düşmana vurduğunda {1} zincirli yıldırım hasarı verir
+{3}
+{4}","Düşmana vurduğunda {1} zincirli yıldırım hasarı verir
 {2}
-{3}","Colpendo un nemico, infligge {1} danni a catena di fulmini
+{3}
+{4}","Colpendo un nemico, infligge {1} danni a catena di fulmini
 {2}
-{3}"
+{3}
+{4}"
 WEAPON_FANTASY_MYRIAD_THUNDER,"Myriad Thunder","Myriade de tonnerre","雷鸣万丈","万雷轟鳴","무수한 천둥","雷鳴萬丈","Мириады грома","Niezliczone grzmoty","Miríada de truenos","Miríade de trovões","Unzählige Donner","Sayısız Yıldırım","Miriade di tuoni"
