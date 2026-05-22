@@ -14,7 +14,7 @@ export(bool) var will_spawn_entity = false
 export(int) var entity_spawn_num = 1
 export(Array, String, FILE, "*.tscn") var entity_scenes = []
 
-var _spawn_cooldwon: float = 0.0
+var _spawn_cooldown: float = 0.0
 
 onready var main: Main = Utils.get_scene_node()
 onready var entity_spawner: EntitySpawner = main._entity_spawner
@@ -26,15 +26,15 @@ func _ready() -> void:
 
     child_init_rotation = deg2rad(child_init_rotation)
     child_rotation_change_after_each = deg2rad(child_rotation_change_after_each)
-    _spawn_cooldwon = init_spawn_cooldown
+    _spawn_cooldown = init_spawn_cooldown
 
 func _return_to_pool() -> void:
     ._return_to_pool()
-    _spawn_cooldwon = init_spawn_cooldown
+    _spawn_cooldown = init_spawn_cooldown
 
 func _physics_process(delta) -> void:
-    _spawn_cooldwon -= Utils.physics_one(delta)
-    if _spawn_cooldwon > 0: return
+    _spawn_cooldown -= Utils.physics_one(delta)
+    if _spawn_cooldown > 0: return
 
     for i in range(child_projectiles_num): spawn_perpendicular_projectiles(i)
     
@@ -43,7 +43,7 @@ func _physics_process(delta) -> void:
         var entity_scene: PackedScene = load(Utils.get_rand_element(entity_scenes))
         for _i in range(entity_spawn_num): entity_spawner.spawn_entity(entity_scene, args)
 
-    _spawn_cooldwon = spawn_cooldown
+    _spawn_cooldown = spawn_cooldown
 
 func spawn_perpendicular_projectiles(index: int) -> void:
     var new_projectile: EnemyProjectile = main.get_node_from_pool(child_projectile_pool_id, main._enemy_projectiles)
