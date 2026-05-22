@@ -32,8 +32,8 @@ func _fantasy_shop_enter_synthesis() -> void:
 
         # Effects
         for effect in effect_items:
-            var pid: String = Utils.fa_get_synthesis_pity_id(effect[2], effect[3])
-            if !pity_chances.has(pid): pity_chances[pid] = Utils.fa_get_synthesis_effective_chance(effect[1], pid, effect[2], effect[3], player_index)
+            var pid: String = Utils.fa_get_synthesis_pity_id(effect[1], effect[2])
+            if !pity_chances.has(pid): pity_chances[pid] = Utils.fa_get_synthesis_effective_chance(effect[0], pid, effect[1], effect[2], player_index)
 
         # Items
         for item in player_items:
@@ -51,22 +51,21 @@ func _fantasy_shop_enter_synthesis() -> void:
                 if !pity_chances.has(pid): pity_chances[pid] = Utils.fa_get_synthesis_effective_chance(effect.value, pid, effect.materials, effect.result_id_hash, player_index)
                 break
 
-        # Phase 2: Process all syntheses using pre-computed chances; track success/fail per pity_id
+        # Phase 2: Process all syntheses using pre-computed chances, track success/fail per pity_id
         var pity_success: Dictionary = {}
 
         # Effects
         for effect in effect_items:
-            var pid: String = Utils.fa_get_synthesis_pity_id(effect[2], effect[3])
+            var pid: String = Utils.fa_get_synthesis_pity_id(effect[1], effect[2])
             if !Utils.get_chance_success(pity_chances[pid]):
-                if !pity_success.has(pid): pity_success[pid] = false
+                pity_success[pid] = false
                 continue
-            pity_success[pid] = true
+           
+            if _fantasy_synthesis(effect[1], effect[2], player_index):
+                pity_success[pid] = true
+                updated_any_gear = true
+            else: pity_success[pid] = false
 
-            var source_id: int = effect[0]
-            Utils.ncl_remove_gear_by_id(source_id, player_index)
-            _fantasy_synthesis(effect[2], effect[3], player_index)
-            updated_any_gear = true
-        
         # Items
         for item_index in range(player_items.size() - 1, -1, -1):
             var item: ItemData = player_items[item_index]
@@ -75,12 +74,11 @@ func _fantasy_shop_enter_synthesis() -> void:
                 
                 var pid: String = Utils.fa_get_synthesis_pity_id(effect.materials, effect.result_id_hash)
                 if !Utils.get_chance_success(pity_chances[pid]):
-                    if !pity_success.has(pid): pity_success[pid] = false
+                    pity_success[pid] = false
                     continue
-                pity_success[pid] = true
 
-                items_to_remove.append(item)
-                _fantasy_synthesis(effect.materials, effect.result_id_hash, player_index)
+                pity_success[pid] = true
+                if _fantasy_synthesis(effect.materials, effect.result_id_hash, player_index, item.my_id_hash): items_to_remove.append(item)
                 break
 
         # Weapons
@@ -90,14 +88,12 @@ func _fantasy_shop_enter_synthesis() -> void:
                 if effect.get_id() != "fantasy_shop_enter_synthesis": continue
                 
                 var pid: String = Utils.fa_get_synthesis_pity_id(effect.materials, effect.result_id_hash)
-
                 if !Utils.get_chance_success(pity_chances[pid]):
-                    if !pity_success.has(pid): pity_success[pid] = false
+                    pity_success[pid] = false
                     continue
-                pity_success[pid] = true
 
-                weapons_to_remove.append(weapon)
-                _fantasy_synthesis(effect.materials, effect.result_id_hash, player_index)
+                pity_success[pid] = true
+                if _fantasy_synthesis(effect.materials, effect.result_id_hash, player_index, weapon.my_id_hash): weapons_to_remove.append(weapon)
                 break
 
         # Phase 3: Update pity data once per unique pity_id
@@ -122,18 +118,30 @@ func _fantasy_shop_enter_synthesis() -> void:
             player_gear_container.set_weapons_data(RunData.get_player_weapons(player_index))
             player_gear_container.set_items_data(RunData.get_player_items(player_index))
 
-func _fantasy_synthesis(synthesis_materials: Array, synthesis_result_id: int, player_index: int) -> void:
+func _fantasy_synthesis(
+    synthesis_materials: Array,
+    synthesis_result_id: int,
+    player_index: int,
+    exclude_gear_id: int = -1
+) -> bool:
+    # All materials must meet the requirements, otherwise, the synthesis will be interrupted.
     for material in synthesis_materials:
         var material_id: int = material[0]
         var material_count: int = material[1]
         var true_material_count: int = Utils.ncl_get_nb_gear(material_id, player_index)
-        if true_material_count < material_count: return
+
+        # Since the actual weapon or item itself was not deleted earlier,
+        # it will still be counted here,
+        # This handling is to prevent discrepancies with the actual requirements
+        if exclude_gear_id != -1 and material_id == exclude_gear_id: true_material_count -= 1
+        if true_material_count < material_count: return false
 
     for material in synthesis_materials:
         var material_id: int = material[0]
         var material_count: int = material[1]
         Utils.ncl_remove_gear_by_id(material_id, player_index, material_count)
     Utils.ncl_add_gear_by_id(synthesis_result_id, player_index)
+    return true
 
 func _fantasy_shop_enter_stat_curse() -> void:
     for player_index in range(RunData.get_player_count()):

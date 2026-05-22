@@ -9,10 +9,11 @@ export(Array, String) var white_list = [
 ]
 
 var evovle_args: Entity.DieArgs = Utils.default_die_args
-var main: Main = Utils.get_scene_node()
 
 var gold_count: int = 0
 var evolve_count: int = 0
+
+onready var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
 func _ready() -> void:

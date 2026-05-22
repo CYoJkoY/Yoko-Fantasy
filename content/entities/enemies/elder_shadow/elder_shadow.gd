@@ -9,18 +9,17 @@ export(float) var heal_increase_each_wave = 5.0
 export(float) var player_heal = 0.5
 export(float) var player_heal_increase_each_wave = 0.25
 
-onready var _healing_zone: Area2D = $"%HealingZone"
-onready var _healing_collision: CollisionShape2D = $"%HealingCollision"
-onready var _healing_timer: Timer = $"%HealingTimer"
-
-var main: Main = null
 var particles: Node = null
 var clocks: Node = null
 var entities_in_zone: Array = []
 
+onready var _healing_zone: Area2D = $"%HealingZone"
+onready var _healing_collision: CollisionShape2D = $"%HealingCollision"
+onready var _healing_timer: Timer = $"%HealingTimer"
+onready var main: Main = Utils.get_scene_node()
+
 # =========================== Extension =========================== #
 func _ready() -> void:
-    main = Utils.get_scene_node()
     particles = PARTICLES.instance()
     clocks = clocks_scene.instance()
     main.add_child(particles)

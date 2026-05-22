@@ -2,10 +2,13 @@ extends "res://dlcs/dlc_1/dlc_1_data.gd"
 
 # =========================== Extension =========================== #
 func curse_item(item_data: ItemParentData, player_index: int, turn_randomization_off: bool = false, min_modifier: float = 0.0) -> ItemParentData:
+    print("TEST4")
     if item_data.is_cursed: return item_data
-    
+    print("TEST3")
     var new_item_data: ItemParentData =.curse_item(item_data, player_index, turn_randomization_off, min_modifier)
-    if has_effect_fantasy(item_data.effects): new_item_data = _fantasy_curse_item(new_item_data, player_index, turn_randomization_off, min_modifier)
+    if !has_effect_fantasy(item_data.effects): return new_item_data
+    print("TEST5")
+    new_item_data = _fantasy_curse_item(new_item_data, player_index, turn_randomization_off, min_modifier)
     return new_item_data
     
 # =========================== Custom =========================== #
@@ -13,7 +16,6 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
     var max_effect_modifier: float = 0.0
     var new_item_data: ItemParentData = item_data.duplicate()
     var new_effects: Array = []
-
     for effect in item_data.effects:
         if !is_effect_fantasy(effect):
             new_effects.append(effect)
@@ -26,10 +28,10 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
         var id: String = new_effect.get_id()
         var key: int = new_effect.key_hash
         var cskey: int = new_effect.custom_key_hash
-
         match [id, key, cskey]:
             ["fantasy_shop_enter_stat_curse", _, _]:
-                new_effect.value = 0 if new_effect.value == 1 else new_effect.value # Second process
+                # Second process
+                new_effect.value = 0 if new_effect.value == 1 else new_effect.value
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier, {"step": 1})
 
             ["fantasy_melee_pet", _, _], \
@@ -87,8 +89,9 @@ func _fantasy_curse_item(item_data: ItemParentData, _player_index: int, turn_ran
 # =========================== Method =========================== #
 func has_effect_fantasy(effects: Array) -> bool:
     for effect in effects:
-        if is_effect_fantasy(effect):
-            return true
+        if !is_effect_fantasy(effect): continue
+        
+        return true
     return false
 
 func is_effect_fantasy(effect: Effect) -> bool:

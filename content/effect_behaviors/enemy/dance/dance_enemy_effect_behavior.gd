@@ -10,7 +10,6 @@ class ActiveDance:
     var stacks: int = 0
     var source_id: int = Keys.empty_hash
 
-var main: Main = null
 var _elapsed: float = 0.0
 var _previous_sprite_rotation: float = 0.0
 
@@ -21,10 +20,10 @@ var dance_id: int = Keys.empty_hash
 var dance_speed: float = 300.0
 
 onready var timer: Timer = $"Timer"
+onready var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
 func _ready() -> void:
-    main = Utils.get_scene_node()
     _previous_sprite_rotation = _parent.sprite.rotation_degrees
 
     for player_index in range(RunData.get_player_count()):

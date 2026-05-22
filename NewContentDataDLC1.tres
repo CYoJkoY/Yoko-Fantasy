@@ -35,7 +35,7 @@
 [resource]
 script = ExtResource( 4 )
 my_id = ""
-groups_in_all_zones = [  ]
+groups_in_all_zones_paths = [  ]
 music_tracks = [  ]
 backgrounds = [  ]
 characters = [ ExtResource( 114 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 16 ) ]
@@ -52,6 +52,7 @@ sets = [ ExtResource( 166 ) ]
 difficulties = [  ]
 icons = [  ]
 title_screen_backgrounds = [  ]
+translations = [  ]
 challenges = [  ]
 zones = [  ]
 tracked_items = {

@@ -53,7 +53,7 @@ func fa_on_Range_body_exited(body: Node) -> void:
 
     if !player_indexes.has(player_index): return
 
-    # Check dead to avoid excessive reduction from cleanup;
+    # Check dead to avoid excessive reduction from cleanup
     # Check _pending_die to ensure proper handling when the tree dies
     if _parent.dead and !_parent._pending_die: return
 

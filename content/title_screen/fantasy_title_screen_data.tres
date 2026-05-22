@@ -7,6 +7,17 @@
 [resource]
 script = ExtResource( 1 )
 my_id = "KEYART_FANTASY"
+index_priority = 99
 scene = ExtResource( 2 )
 logo_scene = ExtResource( 3 )
 last_update = false
+start_date = {
+"day": 1,
+"month": 1,
+"year": 2023
+}
+end_date = {
+"day": 1,
+"month": 1,
+"year": 9999
+}

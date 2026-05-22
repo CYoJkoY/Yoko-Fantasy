@@ -16,7 +16,8 @@ onready var timer: Timer = $"Timer"
 
 var tick_angle: float = TAU / float(tick_num)
 var prediction_line: Line2D = null
-var main: Main = Utils.get_scene_node()
+
+onready var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
 func _ready() -> void:

@@ -39,8 +39,9 @@ func link(
     _duration: float,
     parent_effects: Array,
     damage_scaling_stats: Array
-) -> void:
-    if enemies.size() < 2: return
+) -> int:
+    var true_damage: int = 0
+    if enemies.size() < 2: return true_damage
 
     width = _width
     jaggedness = _jaggedness
@@ -55,8 +56,9 @@ func link(
         var enemy: Enemy = enemies[i]
         if !is_instance_valid(enemy) or enemy.dead: continue
 
-        var final_damage = damage * pow(chain_damage_mult, i - 1)
-        enemy.take_damage(final_damage, dmg_args)
+        var final_damage: int = int(damage * pow(chain_damage_mult, i - 1))
+        var damage_taken: Array = enemy.take_damage(final_damage, dmg_args)
+        true_damage += damage_taken[1]
 
         var effects: Array = []
         var item_effects: Array = RunData.get_player_effect(Keys.enemy_percent_damage_taken_hash, player_index)
@@ -76,6 +78,8 @@ func link(
     duration_timer.start()
     show()
     set_process(true)
+
+    return true_damage
 
 func _process(_delta: float) -> void:
     var time_left = duration_timer.time_left

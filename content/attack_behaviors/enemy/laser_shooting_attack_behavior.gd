@@ -1,8 +1,9 @@
 extends ShootingAttackBehavior
 
+onready var main: Main = Utils.get_scene_node()
+
 # =========================== Extension =========================== #
 func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
-    var main: Main = Utils.get_scene_node()
     var projectile: Node = main.get_node_from_pool(projectile_pool_id, main._enemy_projectiles)
     
     if !is_instance_valid(projectile):

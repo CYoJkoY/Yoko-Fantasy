@@ -14,16 +14,15 @@ export(int) var entity_spawn_num = 1
 export(Array, String, FILE, "*.tscn") var entity_scenes = []
 
 var _spawn_cooldwon: float = 0.0
-var main: Main = null
-var entity_spawner: EntitySpawner = null
+
+onready var main: Main = Utils.get_scene_node()
+onready var entity_spawner: EntitySpawner = main._entity_spawner
 
 # =========================== Extension =========================== #
 func _ready() -> void:
     if child_projectile != null:
         child_projectile_pool_id = Keys.generate_hash(child_projectile.resource_path)
-    
-    main = Utils.get_scene_node()
-    entity_spawner = main._entity_spawner
+
     child_init_rotation = deg2rad(child_init_rotation)
     child_rotation_change_after_each = deg2rad(child_rotation_change_after_each)
 

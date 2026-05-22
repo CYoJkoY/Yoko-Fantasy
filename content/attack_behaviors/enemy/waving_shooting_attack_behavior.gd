@@ -17,8 +17,9 @@ var _forward = Vector2.ZERO
 var pre_forward = Vector2.ZERO
 var _perpendicular: Vector2 = Vector2.ZERO
 
-var main: Main = Utils.get_scene_node()
 var _shooting_cancelled: bool = false
+
+onready var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
 func _ready() -> void:

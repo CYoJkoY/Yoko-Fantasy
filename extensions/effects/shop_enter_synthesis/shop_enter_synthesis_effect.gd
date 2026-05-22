@@ -30,13 +30,13 @@ func apply(player_index: int) -> void:
     if custom_key_hash == Keys.empty_hash: return
 
     var effects = RunData.get_player_effects(player_index)
-    effects[custom_key_hash].append([key_hash, value, materials, result_id_hash])
+    effects[custom_key_hash].append([value, materials, result_id_hash])
 
 func unapply(player_index: int) -> void:
     if custom_key_hash == Keys.empty_hash: return
 
     var effects = RunData.get_player_effects(player_index)
-    effects.erase([key_hash, value, materials, result_id_hash])
+    effects.erase([value, materials, result_id_hash])
 
 func get_args(_player_index: int) -> Array:
     var parts: Array = []

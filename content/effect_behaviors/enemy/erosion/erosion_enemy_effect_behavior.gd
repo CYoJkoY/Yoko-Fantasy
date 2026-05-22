@@ -46,7 +46,8 @@ func on_hurt(hitbox: Hitbox) -> void:
     var from_player_index: int = from.player_index if (from.player_index != -1) else RunData.DUMMY_PLAYER_INDEX
     var item_effects: Array = RunData.get_player_effect(Utils.fantasy_erosion_hash, from_player_index)
     var speed_boost: float = 1.0 + RunData.get_player_effect(Utils.fantasy_erosion_speed_hash, from_player_index) / 100.0
-    var erosion_crit: float = Utils.get_capped_stat(Keys.stat_crit_chance_hash, from_player_index) / 100.0 if RunData.get_player_effect_bool(Utils.fantasy_erosion_can_crit_hash, from_player_index) else 0.0
+    var erosion_crit: float = Utils.get_capped_stat(Keys.stat_crit_chance_hash, from_player_index) / 100.0 \
+        if RunData.get_player_effect_bool(Utils.fantasy_erosion_can_crit_hash, from_player_index) else 0.0
 
     for item_effect in item_effects:
         var base_damage: int = item_effect[0]
@@ -119,7 +120,16 @@ func fa_on_Timer_timeout() -> void:
 func fa_on_erosion_cd_timeout(erosion: ActiveErosion) -> void:
     var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(erosion.player_index, Color("#33CC1A"))
     var final_damage: int = erosion.damage
-    if Utils.get_chance_success(erosion.crit_chance): final_damage = int(erosion.damage * erosion.crit_damage)
+    if Utils.get_chance_success(erosion.crit_chance):
+        final_damage = int(erosion.damage * erosion.crit_damage)
+
+        var gold_on_crit_kill_effects: Array = RunData.get_player_effect(Keys.gold_on_crit_kill_hash, erosion.player_index)
+        for effect in gold_on_crit_kill_effects:
+            if !Utils.get_chance_success(effect[1] / 100.0): continue
+
+            RunData.add_gold(1, erosion.player_index)
+            RunData.add_tracked_value(erosion.player_index, Keys.item_hunting_trophy_hash, 1)
+
     var take_damage_array: Array = _parent.take_damage(final_damage, damage_args)
     RunData.add_tracked_value(erosion.player_index, erosion.source_id, take_damage_array[1])
 

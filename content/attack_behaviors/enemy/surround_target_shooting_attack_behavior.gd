@@ -15,13 +15,12 @@ export(Dictionary) var specific_projectiles = {}
 export(int) var bullets_per_frame = 4
 
 onready var map_center: Vector2 = ZoneService.get_map_center()
+onready var main: Main = Utils.get_scene_node()
 
-var main: Main = null
 var true_number_projectiles: int = 0
 var _shooting_cancelled: bool = false
 
 func _ready() -> void:
-    main = Utils.get_scene_node()
     true_number_projectiles = number_projectiles - specific_projectiles.size()
 
 func shoot() -> void:

@@ -12,7 +12,8 @@ export(SpawnPosition) var spawn_position = SpawnPosition.Self
 
 var custom_collision_mask: int = 0
 var custom_sprite_material: ShaderMaterial = null
-var main: Main = Utils.get_scene_node()
+
+onready var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
 func _ready() -> void:

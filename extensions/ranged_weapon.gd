@@ -121,7 +121,7 @@ func _fantasy_lightning_chain_on_hit(thing_hit: Node) -> void:
             current_pos = next_target.global_position
             available.erase(next_target)
 
-        arc.link(
+        var arc_damage: int = arc.link(
             chain_enemies,
             final_damage,
             effect.chain_damage_mult,
@@ -134,6 +134,8 @@ func _fantasy_lightning_chain_on_hit(thing_hit: Node) -> void:
             effects,
             effect.damage_scaling_stats
         )
+
+        RunData.add_weapon_dmg_dealt(weapon_pos, arc_damage, _parent.player_index)
 
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_lightning_chain_on_hit_hash, player_index)
     for effect_item in effect_items:
@@ -177,7 +179,7 @@ func _fantasy_lightning_chain_on_hit(thing_hit: Node) -> void:
             current_pos = next_target.global_position
             available.erase(next_target)
 
-        arc.link(
+        var arc_damage: int = arc.link(
             chain_enemies,
             damage,
             chain_damage_mult,
@@ -190,3 +192,5 @@ func _fantasy_lightning_chain_on_hit(thing_hit: Node) -> void:
             effects,
             damage_scaling_stats
         )
+
+        RunData.add_weapon_dmg_dealt(weapon_pos, arc_damage, _parent.player_index)

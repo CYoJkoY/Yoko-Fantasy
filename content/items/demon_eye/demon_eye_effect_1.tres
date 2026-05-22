@@ -9,5 +9,5 @@ text_key = "EFFECT_FANTASY_CURSE_ALL_ON_REROLL"
 value = 1
 custom_key = "fantasy_curse_all_on_reroll"
 storage_method = 4
-effect_sign = 3
+effect_sign = 5
 custom_args = [  ]

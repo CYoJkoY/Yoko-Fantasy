@@ -13,10 +13,10 @@ var map_max: Vector2 = ZoneService.current_zone_max_position
 var map_size_quarter: Vector2 = map_max * 0.25
 var map_size_three_quarter: Vector2 = map_max * 0.75
 
-var main: Main = Utils.get_scene_node()
-
 var _time_passed: float = 0.0
 var active_projectiles: Array = []
+
+onready var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
 func reset() -> void:
