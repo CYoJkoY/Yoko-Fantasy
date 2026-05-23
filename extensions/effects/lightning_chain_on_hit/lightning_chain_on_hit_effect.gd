@@ -61,7 +61,7 @@ func get_args(player_index: int) -> Array:
         }
     )
 
-    var chain_targets_count_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(
+    var chain_targets_count_text: String = Utils.ncl_get_num_text_with_scaling_stats(
         base_chain_targets, targets_scaling_stats,
         {
             "player_index": player_index,
@@ -77,23 +77,35 @@ func get_args(player_index: int) -> Array:
         ]
     )
 
-    var chain_damage_mult_text: String = Text.text(
-        "FANTASY_CHAIN_DAMAGE_MULT_FORMATTED",
-        [
-            "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("FANTASY_CHAIN_DAMAGE_MULT")],
-            "x" + str(chain_damage_mult * 100.0)
-        ]
-    )
+    var chain_damage_mult_text: String = ""
+    if !is_equal_approx(chain_damage_mult, 1.0):
+        chain_damage_mult_text = Text.text(
+            "FANTASY_CHAIN_DAMAGE_MULT_FORMATTED",
+            [
+                "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("FANTASY_CHAIN_DAMAGE_MULT")],
+                "[color=%s]x%s[/color]" % ["white", str(chain_damage_mult)]
+            ]
+        )
 
-    var chain_crit_text: String = Text.text(
-        "CRITICAL_FORMATTED",
-        [
-            "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("CRITICAL")],
-            "x" + str(arc_crit_damage), str(max(arc_crit_chance * 100.0, 0))
-        ]
-    )
+    var chain_crit_text: String = ""
+    if arc_crit_chance > 0:
+        chain_crit_text = Text.text(
+            "CRITICAL_FORMATTED",
+            [
+                "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("CRITICAL")],
+                "[color=%s]x%s[/color]" % ["white", str(arc_crit_damage)],
+                "[color=%s]%s[/color]" % ["white", str(max(arc_crit_chance * 100.0, 0))]
+            ]
+        )
 
-    return [str(int(base_chance * 100)), chain_damage_text, chain_targets_text, chain_damage_mult_text, chain_crit_text]
+    return [
+        str(int(base_chance * 100)),
+        chain_damage_text,
+        chain_targets_text,
+        chain_damage_mult_text,
+        chain_crit_text,
+        arc_color.to_html()
+    ]
 
 func serialize() -> Dictionary:
     var serialized =.serialize()

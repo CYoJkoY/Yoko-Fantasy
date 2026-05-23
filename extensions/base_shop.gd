@@ -213,13 +213,15 @@ func _fantasy_curse_all_on_reroll(player_index: int, just_entered_shop: bool = f
                 effect.value != curse_all_effect[1]: continue
 
                 source_item = player_item
-                SoundManager.play(load("res://ui/sounds/goldfish.wav"), 0, 0.2)
                 break
+            
+            if source_item != null: break
 
-        if source_item == null: break
+        if source_item == null: continue
 
         RunData.remove_item(source_item, player_index)
         _get_gear_container(player_index).set_items_data(RunData.get_player_items(player_index))
+        SoundManager.play(load("res://ui/sounds/goldfish.wav"), 0, 0.2)
         break
 
     var new_shop_items: Array = []
