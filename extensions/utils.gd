@@ -71,6 +71,7 @@ var fantasy_buff_future_target_enemy_hash: int = Keys.generate_hash("fantasy_buf
 var fantasy_scrap_specific_tier_weapons_for_items_hash: int = Keys.generate_hash("fantasy_scrap_specific_tier_weapons_for_items")
 var fantasy_cursed_kill_healing_hash: int = Keys.generate_hash("fantasy_cursed_kill_healing")
 var fantasy_lose_hp_per_second_min_hp_hash: int = Keys.generate_hash("fantasy_lose_hp_per_second_min_hp")
+var fantasy_lose_hp_per_second_stop_threshold_hash: int = Keys.generate_hash("fantasy_lose_hp_per_second_stop_threshold")
 var fantasy_sacrificial_circle_hash: int = Keys.generate_hash("fantasy_sacrificial_circle")
 var fantasy_dance_hash: int = Keys.generate_hash("fantasy_dance")
 var fantasy_shop_enter_synthesis_hash: int = Keys.generate_hash("fantasy_shop_enter_synthesis")
