@@ -300,7 +300,8 @@ translation_keys_needing_percent = {
 "info_pos_stat_fantasy_holy": [ 0, 1, 2 ],
 "info_pos_stat_fantasy_soul": [ 0, 1 ],
 "stat_fantasy_crit_damage": [ 0 ],
-"fantasy_chain_damage_mult_formatted": [ 1 ]
+"effect_fantasy_lose_hp_per_second_stop_threshold": [ 0 ],
+"effect_fantasy_lightning_chain_on_death": [ 0 ]
 }
 scene_effect_behaviors = [ ExtResource( 80 ), ExtResource( 74 ) ]
 enemy_effect_behaviors = [ ExtResource( 71 ), ExtResource( 140 ) ]

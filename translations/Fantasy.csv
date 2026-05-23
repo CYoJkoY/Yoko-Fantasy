@@ -1901,10 +1901,11 @@ EFFECT_FANTASY_CURSED_KILL_HEALING,"{0} HP on cursed enemy killed
 {1}","{0} PV uccidendo un nemico maledetto
 {1}"
 EFFECT_FANTASY_LOSE_HP_PER_SECOND_MIN_HP,"When taking damage per second, keep at least {0} HP","En subissant des dégâts par seconde, conservez au moins {0} PV","每秒受到伤害时, 至少保留{0} HP","毎秒ダメージを受ける際,最小HPは{0}を下回らない","초당 피해를 받을 때, 최소 {0} HP는 유지합니다","每秒受到傷害時,至少保留{0} HP","При получении урона в секунду, сохраняется минимум {0} ОЗ","Otrzymując obrażenia na sekundę, zachowaj przynajmniej {0} PŻ","Al recibir daño por segundo, mantén al menos {0} de Vida","Ao sofrer dano por segundo, mantenha pelo menos {0} de PV","Beim Erleiden von Schaden pro Sekunde mindestens {0} LP behalten","Saniyede hasar alırken en az {0} Can tut","Quando subisci danni al secondo, mantieni almeno {0} PV"
+EFFECT_FANTASY_LOSE_HP_PER_SECOND_STOP_THRESHOLD,"Immune to taking damage per second when current HP is below {0} of max HP","Immunité aux dégâts par seconde lorsque les PV actuels sont inférieurs à {0} des PV max","当前生命值低于{0}最大生命值时，免疫每秒受到伤害的效果","現在のHPが最大HPの{0}を下回ると、毎秒受けるダメージを無効化","현재 체력이 최대 체력의 {0} 미만일 때, 초당 피해 효과를 면역","當前生命值低於{0}最大生命值時，免疫每秒受到傷害的效果","Иммунитет к получению урона в секунду, если текущее здоровье ниже {0} от максимального","Odporność na obrażenia co sekundę, gdy obecne HP jest poniżej {0} maksymalnego HP","Inmune al daño por segundo cuando la vida actual está por debajo de {0} de la vida máxima","Imune a dano por segundo quando a vida atual estiver abaixo de {0} da vida máxima","Immun gegen Schaden pro Sekunde, wenn die aktuellen LP unter {0} der maximalen LP liegen","Mevcut can maksimum canın {0} altındayken saniye başına hasar alma etkisine bağışıklık","Immunità ai danni al secondo quando i PV attuali sono inferiori a {0} dei PV massimi"
 CHARACTER_FANTASY_CARDINAL,Cardinal,Cardinal,主教,カーディナル,추기경,主教,Кардинал,Kardynał,Cardenal,Cardeal,Kardinal,Kardinal,Cardinale
 EFFECT_FANTASY_SACRIFICIAL_CIRCLE,"A ritual area with radius {0} exists at the center of the map. Every {1} enemies killed within the ritual area {2} {3}, and spawn {4} materials and {5} {6} at the ritual center","Une zone rituelle d'un rayon de {0} existe au centre de la carte. Tous les {1} ennemis tués dans la zone rituelle {2} {3}, et fait apparaître {4} matériaux et {5} {6} au centre du rituel","地图中心存在半径为{0}的仪式区域.每在仪式区域内击杀{1}名敌人 {2}{3},并在仪式中心生成{4}材料和{5}{6}","マップ中央に半径{0}の儀式エリアが存在する.儀式エリア内で敵を{1}体倒すごとに{2}{3},儀式の中心に{4}素材と{5}{6}が出現する","맵 중앙에 반경 {0}의 의식 구역이 있습니다. 의식 구역 내에서 적 {1}마리를 처치할 때마다 {2}{3}하고, 의식 중심에 {4} 재료와 {5} {6}이(가) 생성됩니다","地圖中心存在半徑為{0}的儀式區域.每在儀式區域內擊殺{1}名敵人 {2}{3},並在儀式中心生成{4}材料和{5}{6}","Ритуальная зона радиусом {0} существует в центре карты. За каждые {1} врагов, убитых в ритуальной зоне, {2} {3}, и появляется {4} материалов и {5} {6} в центре ритуала","W centrum mapy istnieje obszar rytualny o promieniu {0}. Co {1} wrogów zabitych w obszarze rytualnym {2} {3}, i pojawia się {4} materiałów i {5} {6} w centrum rytuału","Existe un área ritual de radio {0} en el centro del mapa. Cada {1} enemigos asesinados dentro del área ritual {2} {3}, y aparecen {4} materiales y {5} {6} en el centro ritual","Uma área ritual com raio {0} existe no centro do mapa. A cada {1} inimigos mortos dentro da área ritual {2} {3}, e gera {4} materiais e {5} {6} no centro do ritual","Ein Ritualbereich mit Radius {0} existiert in der Kartenmitte. Jede {1} im Ritualbereich getöteten Gegner {2} {3}, und es erscheinen {4} Materialien und {5} {6} im Ritualzentrum","Haritanın merkezinde yarıçapı {0} olan bir ritüel alanı vardır. Ritüel alanında öldürülen her {1} düşman {2} {3} ve ritüel merkezinde {4} malzeme ve {5} {6} belirir","Un'area rituale di raggio {0} esiste al centro della mappa. Ogni {1} nemici uccisi nell'area rituale {2} {3}, e compaiono {4} materiali e {5} {6} al centro rituale"
-EFFECT_FANTASY_SACRIFICIAL_CIRCLE_NO_STAT,"A ritual area with a radius of {0} exists at the center of the map. For every {1} enemies killed within the ritual area, {4} materials and {5}{6} are spawned at the ritual center.","Une zone rituelle d'un rayon de {0} se trouve au centre de la carte. Tous les {1} ennemis tués dans la zone rituelle font apparaître {4} matériaux et {5}{6} au centre du rituel.","地图中心存在半径为{0}的仪式区域.每在仪式区域内击杀{1}名敌人,则在仪式中心生成{4}材料和{5}{6}","マップ中央に半径{0}の儀式エリアが存在する。儀式エリア内で敵を{1}体倒すごとに、儀式の中心に{4}の素材と{5}{6}を生成する","맵 중앙에 반경 {0}의 의식 구역이 존재합니다. 의식 구역 내에서 적을 {1}마리 처치할 때마다 의식 중앙에 {4}개의 재료와 {5}{6}이(가) 생성됩니다.","地圖中心存在半徑為{0}的儀式區域。每在儀式區域內擊殺{1}名敵人，則在儀式中心生成{4}材料和{5}{6}","В центре карты существует ритуальная зона радиусом {0}. За каждые {1} убитых врагов в зоне ритуала в центре появляется {4} материалов и {5}{6}","Na środku mapy znajduje się obszar rytualny o promieniu {0}. Co {1} zabitych wrogów w obszarze rytualnym, w jego centrum pojawia się {4} materiałów i {5}{6}","En el centro del mapa hay un área ritual de radio {0}. Cada {1} enemigos asesinados en el área ritual genera {4} materiales y {5}{6} en el centro del ritual.","No centro do mapa existe uma área ritual de raio {0}. A cada {1} inimigos mortos na área ritual, {4} materiais e {5}{6} são gerados no centro do ritual.","Im Zentrum der Karte existiert ein Ritualbereich mit einem Radius von {0}. Für je {1} im Ritualbereich getötete Gegner erscheinen {4} Materialien und {5}{6} im Ritualzentrum.","Haritanın merkezinde yarıçapı {0} olan bir ritüel alanı bulunur. Ritüel alanında öldürülen her {1} düşman için, ritüel merkezinde {4} malzeme ve {5}{6} oluşur.","Al centro della mappa esiste un'area rituale di raggio {0}. Ogni {1} nemici uccisi nell'area rituale fa apparire {4} materiali e {5}{6} al centro del rituale."
-EFFECT_FANTASY_ADD_STAT_WHEN_PICKUP_CONSUMABLE,"Every time you pick up {0} {1}, {2}{3}","Chaque fois que vous ramassez {0} {1}, {2}{3}","每捡起{0}个{1},则{2}{3}","{0}個の{1}を拾うたびに{2}{3}","{0}개의 {1}을(를) 획득할 때마다 {2}{3}","每撿起{0}個{1}，則{2}{3}","Каждый раз, когда вы подбираете {0} {1}, {2}{3}","Za każdym razem, gdy zbierzesz {0} {1}, {2}{3}","Cada vez que recoges {0} {1}, {2}{3}","Cada vez que você pega {0} {1}, {2}{3}","Jedes Mal, wenn du {0} {1} aufsammelst, {2}{3}","Her {0} {1} aldığınızda {2}{3}","Ogni volta che raccogli {0} {1}, {2}{3}"
+EFFECT_FANTASY_SACRIFICIAL_CIRCLE_NO_STAT,"A ritual area with a radius of {0} exists at the center of the map. For every {1} enemies killed within the ritual area, {4} materials and {5}{6} are spawned at the ritual center.","Une zone rituelle d'un rayon de {0} se trouve au centre de la carte. Tous les {1} ennemis tués dans la zone rituelle font apparaître {4} matériaux et {5}{6} au centre du rituel.","地图中心存在半径为{0}的仪式区域.每在仪式区域内击杀{1}名敌人,则在仪式中心生成{4}材料和{5}{6}","マップ中央に半径{0}の儀式エリアが存在する.儀式エリア内で敵を{1}体倒すごとに,儀式の中心に{4}の素材と{5}{6}を生成する","맵 중앙에 반경 {0}의 의식 구역이 존재합니다. 의식 구역 내에서 적을 {1}마리 처치할 때마다 의식 중앙에 {4}개의 재료와 {5}{6}이(가) 생성됩니다.","地圖中心存在半徑為{0}的儀式區域.每在儀式區域內擊殺{1}名敵人,則在儀式中心生成{4}材料和{5}{6}","В центре карты существует ритуальная зона радиусом {0}. За каждые {1} убитых врагов в зоне ритуала в центре появляется {4} материалов и {5}{6}","Na środku mapy znajduje się obszar rytualny o promieniu {0}. Co {1} zabitych wrogów w obszarze rytualnym, w jego centrum pojawia się {4} materiałów i {5}{6}","En el centro del mapa hay un área ritual de radio {0}. Cada {1} enemigos asesinados en el área ritual genera {4} materiales y {5}{6} en el centro del ritual.","No centro do mapa existe uma área ritual de raio {0}. A cada {1} inimigos mortos na área ritual, {4} materiais e {5}{6} são gerados no centro do ritual.","Im Zentrum der Karte existiert ein Ritualbereich mit einem Radius von {0}. Für je {1} im Ritualbereich getötete Gegner erscheinen {4} Materialien und {5}{6} im Ritualzentrum.","Haritanın merkezinde yarıçapı {0} olan bir ritüel alanı bulunur. Ritüel alanında öldürülen her {1} düşman için, ritüel merkezinde {4} malzeme ve {5}{6} oluşur.","Al centro della mappa esiste un'area rituale di raggio {0}. Ogni {1} nemici uccisi nell'area rituale fa apparire {4} materiali e {5}{6} al centro del rituale."
+EFFECT_FANTASY_ADD_STAT_WHEN_PICKUP_CONSUMABLE,"Every time you pick up {0} {1}, {2}{3}","Chaque fois que vous ramassez {0} {1}, {2}{3}","每捡起{0}个{1},则{2}{3}","{0}個の{1}を拾うたびに{2}{3}","{0}개의 {1}을(를) 획득할 때마다 {2}{3}","每撿起{0}個{1},則{2}{3}","Каждый раз, когда вы подбираете {0} {1}, {2}{3}","Za każdym razem, gdy zbierzesz {0} {1}, {2}{3}","Cada vez que recoges {0} {1}, {2}{3}","Cada vez que você pega {0} {1}, {2}{3}","Jedes Mal, wenn du {0} {1} aufsammelst, {2}{3}","Her {0} {1} aldığınızda {2}{3}","Ogni volta che raccogli {0} {1}, {2}{3}"
 CHARACTER_FANTASY_BARD,Bard,Barde,吟游诗人,吟遊詩人,음유시인,吟遊詩人,Бард,Bard,Bardo,Bardo,Barde,Ozan,Bardo
 EFFECT_FANTASY_DANCE,"After {0} hits on an enemy, it dances for {1} seconds ({2} seconds for elites and bosses). While dancing, it moves away from you, cannot target you, and sways from side to side.","Après {0} coups sur un ennemi, il danse pendant {1} secondes ({2} secondes pour les élites et les boss). En dansant, il s'éloigne de vous, ne peut pas vous cibler et oscille de gauche à droite.","第{0}次命中敌人后让敌人跳舞{1}秒(精英和头目为{2}秒),期间敌人会远离你,无法索敌你,并且会左右摇晃","敵に{0}回命中した後,その敵は{1}秒間踊る(エリートとボスは{2}秒).踊っている間,敵はあなたから離れ,あなたを標的にできず,左右に揺れる.","적에게 {0}회 공격을 적중시키면, 적이 {1}초 동안 춤을 춥니다(엘리트와 보스는 {2}초). 춤추는 동안 적은 당신에게서 멀어지고, 당신을 대상으로 삼을 수 없으며, 좌우로 흔들립니다.","第{0}次命中敵人後讓敵人跳舞{1}秒(菁英和頭目為{2}秒),期間敵人會遠離你,無法索敵你,並且會左右搖晃","После {0} попаданий по врагу он танцует {1} секунд ({2} секунд для элит и боссов). Во время танца он отходит от вас, не может вас выбрать целью и покачивается из стороны в сторону.","Po {0} trafieniach we wroga, tańczy on przez {1} sekund ({2} sekund dla elit i bossów). Podczas tańca odsuwa się od ciebie, nie może cię obrać za cel i kołysze się na boki.","Después de {0} impactos a un enemigo, este baila durante {1} segundos ({2} segundos para élites y jefes). Mientras baila, se aleja de ti, no puede apuntarte y se balancea de un lado a otro.","Após {0} acertos em um inimigo, ele dança por {1} segundos ({2} segundos para elites e chefes). Enquanto dança, ele se afasta de você, não pode mirar em você e balança de um lado para o outro.","Nach {0} Treffern auf einen Gegner tanzt dieser für {1} Sekunden ({2} Sekunden für Eliten und Bosse). Während des Tanzens entfernt er sich von dir, kann dich nicht ins Visier nehmen und schwankt hin und her.","Bir düşmana {0} isabet, {1} saniyeliğine dans etmesini sağlar (elitler ve bosslar için {2} saniye). Dans ederken sizden uzaklaşır, sizi hedef alamaz ve iki yana sallanır.","Dopo {0} colpi su un nemico, questo balla per {1} secondi ({2} secondi per élite e boss). Mentre balla, si allontana da te, non può prenderti di mira e ondeggia a destra e sinistra."
 EFFECT_FANTASY_BASE_CHANCE_DROP_SOUL,{0} % base soul drop rate,{0} % de chances de base de butin d'âme,{0} %魂的基础掉率,{0}% 基本魂ドロップ率,{0}% 기본 영혼 드롭률,{0}%魂的基礎掉率,{0} % базовая вероятность выпадения души,{0}% podstawowej szansy na duszę,{0}% de tasa base de almas,{0}% de chance base de drop de alma,{0} % Grundseelen-Fundchance,{0}% temel ruh düşürme oranı,{0}% tasso base di drop anime
@@ -1944,15 +1945,15 @@ EFFECT_FANTASY_SLOW_ENEMY_ON_CRIT,"Slow surrounding enemies on crit","Ralentit l
 WEAPON_FANTASY_HOLY_BATTLEAXE,Holy Battleaxe,Hache de bataille sacrée,圣战斧,聖戦斧,성스러운 전투도끼,聖戰斧,Священная секира,Święty topór bojowy,Hacha de batalla sagrada,Machado de batalha sagrado,Heilige Streitaxt,Kutsal Savaş Baltası,Ascia da battaglia sacra
 WEAPON_FANTASY_WIND_BOW,Wind Bow,Arc du vent,风之弓,風の弓,바람의 활,風之弓,Лук Ветра,Łuk Wiatru,Arco del Viento,Arco do Vento,Windbogen,Rüzgar Yayı,Arco del Vento
 WEAPON_FANTASY_SLEEVE_ARROW,Sleeve Arrow,Flèche de manche,袖箭,袖矢,팔뚝 수갑화살,袖箭,Рукавная стрела,Strzała z rękawa,Flecha de manga,Flecha de Punho,Ärmelpfeil,Kol Oku,Freccia da Polso
-EFFECT_RELOAD_WHEN_CRITICALLY_HIT,"On critical hit, there is a {0} chance to reset cooldown.","En cas de coup critique, il y a {0} de chances de réinitialiser le temps de recharge.","暴击时有{0}概率重置冷却","クリティカルヒット時、{0}の確率でクールダウンをリセットする。","치명타 시 {0} 확률로 재사용 대기시간이 초기화됩니다.","暴擊時有{0}機率重置冷卻","При критическом попадании с шансом {0} сбрасывает перезарядку.","Przy trafieniu krytycznym, {0} szans na zresetowanie czasu odnowienia.","Al asestar un golpe crítico, hay un {0} de probabilidad de reiniciar el enfriamiento.","Ao causar um acerto crítico, há {0} de chance de reiniciar o tempo de recarga.","Bei einem kritischen Treffer besteht eine {0} Chance, die Abklingzeit zurückzusetzen.","Kritik vuruşta, {0} ihtimalle bekleme süresi sıfırlanır.","Con un colpo critico, {0} di probabilità di azzerare il tempo di ricarica."
+EFFECT_RELOAD_WHEN_CRITICALLY_HIT,"On critical hit, there is a {0} chance to reset cooldown.","En cas de coup critique, il y a {0} de chances de réinitialiser le temps de recharge.","暴击时有{0}概率重置冷却","クリティカルヒット時,{0}の確率でクールダウンをリセットする.","치명타 시 {0} 확률로 재사용 대기시간이 초기화됩니다.","暴擊時有{0}機率重置冷卻","При критическом попадании с шансом {0} сбрасывает перезарядку.","Przy trafieniu krytycznym, {0} szans na zresetowanie czasu odnowienia.","Al asestar un golpe crítico, hay un {0} de probabilidad de reiniciar el enfriamiento.","Ao causar um acerto crítico, há {0} de chance de reiniciar o tempo de recarga.","Bei einem kritischen Treffer besteht eine {0} Chance, die Abklingzeit zurückzusetzen.","Kritik vuruşta, {0} ihtimalle bekleme süresi sıfırlanır.","Con un colpo critico, {0} di probabilità di azzerare il tempo di ricarica."
 WEAPON_CLASS_FANTASY_FAKE_LEGENDARY,"Fake Legendary","Faux légendaire","伪传奇","偽レジェンダリー","가짜 전설","偽傳奇","Поддельный легендарный","Fałszywy legendarny","Falso legendario","Falso Lendário","Gefälscht Legendär","Sahte Efsanevi","Falso Leggendario"
 ITEM_FANTASY_SALTED_DUCK_EGG,"Salted Duck Egg","Œuf de cane salé","咸鸭蛋","アヒルの塩漬け卵","오리알 염장","鹹鴨蛋","Солёное утиное яйцо","Solone jajko kaczki","Huevo de pato salgado","Ovo de pato salgado","Gesalzenes Entenei","Tuzlu ördek yumurtası","Uovo di anatra salato"
-FANTASY_PITY_MULTIPLIER,"Pity Multiplier: x {0}","Multiplicateur de pitié : x {0}","怜悯倍率：x {0}","憐れみ倍率：x {0}","연민 배율: x {0}","憐憫倍率：x {0}","Множитель жалости: x {0}","Mnożnik litości: x {0}","Multiplicador de piedad: x {0}","Multiplicador de piedade: x {0}","Mitleid-Multiplikator: x {0}","Merhamet Çarpanı: x {0}","Moltiplicatore pietà: x {0}"
+FANTASY_PITY_MULTIPLIER,"Pity Multiplier: x {0}","Multiplicateur de pitié: x {0}","怜悯倍率: x {0}","憐れみ倍率: x {0}","연민 배율: x {0}","憐憫倍率: x {0}","Множитель жалости: x {0}","Mnożnik litości: x {0}","Multiplicador de piedad: x {0}","Multiplicador de piedade: x {0}","Mitleid-Multiplikator: x {0}","Merhamet Çarpanı: x {0}","Moltiplicatore pietà: x {0}"
 WEAPON_FANTASY_KUNAI,"Kunai","Kunaï","苦无","クナイ","쿠나이","苦無","Кунай","Kunai","Kunai","Kunai","Kunai","Kunai","Kunai"
-FANTASY_CHAIN_DAMAGE_MULT,"Chain Mod","Mod. Chaîne","链变","連鎖倍率","연쇄 배율","鏈變","Мод. цепи","Modyf. łańcucha","Mod. de cadena","Mod. de corrente","Kettenmod.","Zincir Mod.","Mod. catena"
-FANTASY_CHAIN_DAMAGE_MULT_FORMATTED,"{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}"
-FANTASY_CHAIN_TARGETS,"Chain Targets","Cibles en chaîne","连锁","連鎖","연쇄 대상","連鎖","Цели цепи","Cele łańcucha","Objetivos de cadena","Alvos em cadeia","Kettenziele","Zincir Hedefleri","Obiettivi a catena"
-FANTASY_CHAIN_TARGETS_FORMATTED,"{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}","{0}: {1}"
+FANTASY_CHAIN_DAMAGE_MULT,"Chain Mod: ","Mod. Chaîne: ","链变: ","連鎖倍率: ","연쇄 배율: ","鏈變: ","Мод. цепи: ","Modyf. łańcucha: ","Mod. de cadena: ","Mod. de corrente: ","Kettenmod.: ","Zincir Mod.: ","Mod. catena: "
+FANTASY_CHAIN_DAMAGE_MULT_FORMATTED,"{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}"
+FANTASY_CHAIN_TARGETS,"Chain Targets: ","Cibles en chaîne: ","连锁: ","連鎖: ","연쇄 대상: ","連鎖: ","Цели цепи: ","Cele łańcucha: ","Objetivos de cadena: ","Alvos em cadeia: ","Kettenziele: ","Zincir Hedefleri: ","Obiettivi a catena: "
+FANTASY_CHAIN_TARGETS_FORMATTED,"{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}","{0}{1}"
 EFFECT_FANTASY_LIGHTNING_CHAIN_ON_HIT,"After hitting an enemy, there is a {0} chance to deal {1} lightning chain damage
 {2}
 {3}
@@ -1961,7 +1962,7 @@ EFFECT_FANTASY_LIGHTNING_CHAIN_ON_HIT,"After hitting an enemy, there is a {0} ch
 {3}","击中敌人后{0}概率造成{1}的闪电链伤害
 {2}
 {3}
-{4}","敵に命中した時、{0}の確率で{1}の連鎖雷ダメージを与える
+{4}","敵に命中した時, {0}の確率で{1}の連鎖雷ダメージを与える
 {2}
 {3}
 {4}","적 명중 시 {0} 확률로 {1}의 연쇄 번개 피해
@@ -2001,7 +2002,7 @@ EFFECT_FANTASY_LIGHTNING_CHAIN_ON_HIT_NO_CHANCE,"After hitting an enemy, deal {1
 {4}","击中敌人后造成{1}的闪电链伤害
 {2}
 {3}
-{4}","敵に命中した時、{1}の連鎖雷ダメージを与える
+{4}","敵に命中した時, {1}の連鎖雷ダメージを与える
 {2}
 {3}
 {4}","적 명중 시 {1}의 연쇄 번개 피해
@@ -2033,3 +2034,83 @@ EFFECT_FANTASY_LIGHTNING_CHAIN_ON_HIT_NO_CHANCE,"After hitting an enemy, deal {1
 {3}
 {4}"
 WEAPON_FANTASY_MYRIAD_THUNDER,"Myriad Thunder","Myriade de tonnerre","雷鸣万丈","万雷轟鳴","무수한 천둥","雷鳴萬丈","Мириады грома","Niezliczone grzmoty","Miríada de truenos","Miríade de trovões","Unzählige Donner","Sayısız Yıldırım","Miriade di tuoni"
+EFFECT_FANTASY_LIGHTNING_CHAIN_CAN_CRIT,"Lightning Chain can crit","La Chaîne d'éclairs peut infliger un coup critique","闪电链可以暴击","ライトニングチェーンはクリティカル可能","체인 라이트닝은 치명타가 가능합니다","閃電鏈可以暴擊","Цепная молния может критовать","Piorun łańcuchowy może zadać cios krytyczny","La cadena de rayos puede hacer crítico","A Cadeia de Raios pode causar crítico","Blitzkette kann kritisch treffen","Zincir Yıldırım kritik yapabilir","La catena di fulmini può fare critico"
+EFFECT_FANTASY_LIGHTNING_CHAIN_ON_DEATH,"When an enemy dies, {0} chance to deal {1} lightning chain damage
+{2}
+{3}
+{4}","Lorsqu'un ennemi meurt, {0} de chances d'infliger {1} dégâts de chaîne d'éclairs
+{2}
+{3}
+{4}","敌人死亡时，{0}概率造成{1}的闪电链伤害
+{2}
+{3}
+{4}","敵が死亡した時、{0}の確率で{1}の雷撃連鎖ダメージを与える
+{2}
+{3}
+{4}","적이 사망할 때, {0} 확률로 {1}의 번개 사슬 피해를 입힙니다
+{2}
+{3}
+{4}","敵人死亡時，{0}機率造成{1}的閃電鏈傷害
+{2}
+{3}
+{4}","Когда враг умирает, {0} шанс нанести {1} урона цепной молнией
+{2}
+{3}
+{4}","Gdy wróg umrze, {0} szansy na zadanie {1} obrażeń łańcucha błyskawic
+{2}
+{3}
+{4}","Cuando un enemigo muere, {0} probabilidad de infligir {1} de daño de cadena de relámpagos
+{2}
+{3}
+{4}","Quando um inimigo morre, {0} de chance de causar {1} de dano de corrente elétrica
+{2}
+{3}
+{4}","Wenn ein Feind stirbt, {0} Chance, {1} Blitzkettenschaden zu verursachen
+{2}
+{3}
+{4}","Bir düşman öldüğünde, {0} ihtimalle {1} yıldırım zinciri hasarı verir
+{2}
+{3}
+{4}","Quando un nemico muore, {0} probabilità di infliggere {1} danni da catena di fulmini
+{2}
+{3}
+{4}"
+EFFECT_FANTASY_LIGHTNING_CHAIN_ON_DEATH_NO_CHANCE,"When an enemy dies, deals {1} lightning chain damage
+{2}
+{3}
+{4}","Lorsqu'un ennemi meurt, inflige {1} dégâts de chaîne d'éclairs
+{2}
+{3}
+{4}","敌人死亡时，造成{1}的闪电链伤害
+{2}
+{3}
+{4}","敵が死亡した時、{1}の雷撃連鎖ダメージを与える
+{2}
+{3}
+{4}","적이 사망할 때, {1}의 번개 사슬 피해를 입힙니다
+{2}
+{3}
+{4}","敵人死亡時，造成{1}的閃電鏈傷害
+{2}
+{3}
+{4}","Когда враг умирает, наносит {1} урона цепной молнией
+{2}
+{3}
+{4}","Gdy wróg umrze, zadaje {1} obrażeń łańcucha błyskawic
+{2}
+{3}
+{4}","Cuando un enemigo muere, inflige {1} de daño de cadena de relámpagos
+{2}
+{3}
+{4}","Quandoo um inimigo morre, causa {1} de dano de corrente elétrica{2}
+{3}
+{4}","Wenn ein Feind stirbt, verursacht {1} Blitzkettenschaden
+{2}
+{3}
+{4}","Bir düşman öldüğünde, {1} yıldırım zinciri hasarı verir
+{2}
+{3}
+{4}","Quando un nemico muore, infligge {1} danni da catena di fulmini
+{2}
+{3}
+{4}"

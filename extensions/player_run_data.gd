@@ -107,6 +107,7 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_scrap_specific_tier_weapons_for_items_hash: [[], [], [], []],
             Utils.fantasy_cursed_kill_healing_hash: [],
             Utils.fantasy_lose_hp_per_second_min_hp_hash: 0,
+            Utils.fantasy_lose_hp_per_second_stop_threshold_hash: 0,
             Utils.fantasy_sacrificial_circle_hash: [],
             Utils.fantasy_dance_hash: [],
             Utils.fantasy_shop_enter_synthesis_hash: [],

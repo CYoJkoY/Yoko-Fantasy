@@ -60,6 +60,8 @@ func _init() -> void:
         #          material_loss_on_hit
         #          dmg_when_pickup_consumable
         #          add_stat_when_pickup_consumable
+        #          lose_hp_per_second_min_hp
+        #          lose_hp_per_second_stop_threshold
 
         "weapon_service.gd",
         # STATS: Crit Damage, %Pet Attack Speed

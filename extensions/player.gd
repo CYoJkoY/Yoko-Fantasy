@@ -17,6 +17,7 @@ func get_damage_value(dmg_value: int, _from_player_index: int, armor_applied := 
 
 func _on_LoseHealthTimer_timeout() -> void:
     if _fantasy_lose_hp_per_second_min_hp(): return
+    if _fantasy_lose_hp_per_second_stop_threshold(): return
     ._on_LoseHealthTimer_timeout()
 
 func take_damage(value: int, args: TakeDamageArgs) -> Array:
@@ -199,6 +200,15 @@ func _fantasy_add_stat_when_pickup_consumable(consumable_data: ConsumableData) -
         var stat: int = effect_item[2]
         var stat_nb: int = effect_item[3]
         RunData.add_stat(stat, stat_nb, player_index)
+
+func _fantasy_lose_hp_per_second_stop_threshold() -> bool:
+    var lose_hp_per_second_stop_threshold: int = RunData.get_player_effect(Utils.fantasy_lose_hp_per_second_stop_threshold_hash, player_index)
+    if lose_hp_per_second_stop_threshold <= 0: return false
+
+    var current_hp_percent: int = int(float(current_stats.health) / float(max_stats.health) * 100.0)
+    if current_hp_percent >= lose_hp_per_second_stop_threshold: return false
+
+    return true
 
 # =========================== Method =========================== #
 func fa_on_soul_effect(damage_to_add: int, speed_to_add: int) -> void:
