@@ -1,0 +1,16 @@
+# Godot local/editor cache
+.godot/
+.import/
+
+# Logs and crash dumps
+*.log
+*.tmp
+*.temp
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~

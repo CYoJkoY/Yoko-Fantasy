@@ -1,0 +1,33 @@
+——————————————————————————————————————平衡、参数修改：
+1.哥布林弓手，投掷物改旋转子母箭；
+	新增：
+		skeleton_archer_orbit_child_projectile.gd
+		
+	修改：
+		enemy_projectile_spawner.gd
+		skeleton_archer_projectile_big.tscn
+		skeleton_archer_projectile_small.tscn
+		skeleton_archer.tscn，参数，projectile_speed，500改为300
+		
+		
+2.	结晶元素，死亡投掷物同步消失
+	修改：
+		surround_target_shooting_attack_behavior.gd，死亡信号连接投掷物
+		crystalline_elements.tscn，加了开关
+
+
+3.史莱姆，魅惑状态帮玩家拾取材料
+	修改：
+		little_slime.gd，调用gold.pickup(charmed_by)
+		
+		
+		
+		
+——————————————————————————————————————BUG修复：
+1.雷鸣万丈商店刷新出来闪退，指向不能为nil；
+	修改：
+		myriad_thunder_effect.tres，null参数改为合法默认值
+		
+		
+
+	

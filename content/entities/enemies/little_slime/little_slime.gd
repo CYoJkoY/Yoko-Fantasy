@@ -42,6 +42,17 @@ func fa_on_ItemPickUpArea_area_entered(area: Area2D) -> void:
     if dead or !(area is Gold) or evolution_target_path == "": return
 
     var gold: Gold = area
+    var charmed_by: int = get_charmed_by_player_index()
+
+    if charmed_by != -1:
+        evolve_count += 1
+        gold.pickup(charmed_by)
+
+        if evolve_count < evovle_needed: return
+
+        fa_evolve()
+        return
+
     gold_count += gold.value
     evolve_count += 1
     gold.pickup(-1)
