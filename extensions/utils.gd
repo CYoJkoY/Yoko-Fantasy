@@ -15,9 +15,18 @@ const FANTASY_SYNTHESIS_RESULT_TIER_WEIGHT: float = 0.05
 # Jobs
 var job_fantasy_elemental_hash: int = Keys.generate_hash("job_fantasy_elemental")
 var job_fantasy_engineering_hash: int = Keys.generate_hash("job_fantasy_engineering")
+var job_fantasy_luck_hash: int = Keys.generate_hash("job_fantasy_luck")
 var job_fantasy_melee_hash: int = Keys.generate_hash("job_fantasy_melee")
 var job_fantasy_ranged_hash: int = Keys.generate_hash("job_fantasy_ranged")
 var job_fantasy_universal_hash: int = Keys.generate_hash("job_fantasy_universal")
+
+func fa_is_damage_job_way(way_hash: int) -> bool:
+    return [
+        job_fantasy_elemental_hash,
+        job_fantasy_engineering_hash,
+        job_fantasy_melee_hash,
+        job_fantasy_ranged_hash,
+    ].has(way_hash)
 
 # Stats
 var stat_fantasy_holy_hash: int = Keys.generate_hash("stat_fantasy_holy")
@@ -79,8 +88,16 @@ var fantasy_projectiles_every_x_melee_shoot_hash: int = Keys.generate_hash("fant
 var fantasy_reload_when_critically_hit_hash: int = Keys.generate_hash("fantasy_reload_when_critically_hit")
 var fantasy_synthesis_pity_data_hash: int = Keys.generate_hash("fantasy_synthesis_pity_data")
 var fantasy_lightning_chain_on_hit_hash: int = Keys.generate_hash("fantasy_lightning_chain_on_hit")
+var fantasy_lightning_chain_on_death_hash: int = Keys.generate_hash("fantasy_lightning_chain_on_death")
 var fantasy_add_stat_when_pickup_consumable_hash: int = Keys.generate_hash("fantasy_add_stat_when_pickup_consumable")
 var fantasy_lightning_chain_can_crit_hash: int = Keys.generate_hash("fantasy_lightning_chain_can_crit")
+var fantasy_stationary_temp_stats_per_interval_hash: int = Keys.generate_hash("fantasy_stationary_temp_stats_per_interval")
+var fantasy_stationary_percent_stat_per_interval_hash: int = Keys.generate_hash("fantasy_stationary_percent_stat_per_interval")
+var fantasy_cannot_attack_while_stationary_hash: int = Keys.generate_hash("fantasy_cannot_attack_while_stationary")
+var fantasy_add_weapon_set_hash: int = Keys.generate_hash("fantasy_add_weapon_set")
+var fantasy_gain_item_on_reroll_hash: int = Keys.generate_hash("fantasy_gain_item_on_reroll")
+var fantasy_guaranteed_set_weapons_in_shop_hash: int = Keys.generate_hash("fantasy_guaranteed_set_weapons_in_shop")
+var fantasy_weapon_hit_proc_hash: int = Keys.generate_hash("fantasy_weapon_hit_proc")
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")
@@ -98,6 +115,48 @@ var plant_enemies_ids: Array = [
 
 # Characters
 var character_fantasy_princess_hash = Keys.generate_hash("character_fantasy_princess")
+
+func fa_get_job_category_text(job_data: UpgradeData) -> String:
+    var category_text: String = "JOB"
+    match job_data.upgrade_id_hash:
+        job_fantasy_elemental_hash: category_text = "JOB_ELEMENTAL"
+        job_fantasy_engineering_hash: category_text = "JOB_ENGINEERING"
+        job_fantasy_luck_hash: category_text = "JOB_LUCK"
+        job_fantasy_melee_hash: category_text = "JOB_MELEE"
+        job_fantasy_ranged_hash: category_text = "JOB_RANGED"
+        job_fantasy_universal_hash: category_text = "JOB_UNIVERSAL"
+
+    var stage_text: String = ""
+    match job_data.stage:
+        0: stage_text = "I"
+        1: stage_text = "II"
+
+    return tr(category_text).format([stage_text])
+
+func fa_get_pause_menu_focus_emulator(_player_index: int, root: Node = get_scene_node()) -> FocusEmulator:
+	var pause_menu: Node = root.find_node("PauseMenu", true, false)
+	if pause_menu == null or !pause_menu.is_visible_in_tree():
+		return null
+
+	var focus_emulator: FocusEmulator = pause_menu.get_node_or_null("FocusEmulator") as FocusEmulator
+	if focus_emulator == null:
+		return null
+
+	return focus_emulator
+
+func fa_get_menu_focus_emulator(player_index: int, root: Node = get_scene_node()) -> FocusEmulator:
+	if RunData.is_coop_run:
+		var pause_focus_emulator: FocusEmulator = fa_get_pause_menu_focus_emulator(player_index, root)
+		if pause_focus_emulator != null:
+			return pause_focus_emulator
+
+	return get_focus_emulator(player_index, root)
+
+func fa_focus_menu_control(control: Control, player_index: int, root: Node = get_scene_node()) -> void:
+	Utils.focus_player_control(control, player_index, fa_get_menu_focus_emulator(player_index, root))
+
+func fa_get_menu_focused_control(some_control: Control, player_index: int, root: Node = get_scene_node()) -> Control:
+	return Utils.get_player_focused_control(some_control, player_index, fa_get_menu_focus_emulator(player_index, root))
 
 # Icons
 var icon_fantasy_job_to_process_hash: int = Keys.generate_hash("icon_fantasy_job_to_process")

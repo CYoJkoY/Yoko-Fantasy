@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ui/menus/shop/inventory_container.gd" type="Script" id=1]
+[ext_resource path="res://ui/menus/shop/inventory.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/themes/separator/separator_horizontal_white_small.png" type="Texture" id=3]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 128, 8 )
+margin_left = 10.0
+margin_right = 10.0
+margin_top = 5.0
+margin_bottom = 5.0
+modulate_color = Color( 1, 1, 1, 0.0313726 )
+
+[node name="JobInventoryContainer" type="VBoxContainer"]
+margin_right = 116.0
+margin_bottom = 261.0
+custom_constants/separation = 25
+script = ExtResource( 1 )
+authorize_sorting = true
+display_locked_icon = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 318.0
+margin_bottom = 45.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+margin_top = 15.0
+margin_right = 39.0
+margin_bottom = 29.0
+text = "LABEL"
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer"]
+margin_left = 43.0
+margin_right = 46.0
+margin_bottom = 45.0
+size_flags_horizontal = 3
+custom_styles/separator = SubResource( 1 )
+
+[node name="ScrollSizeContainer" type="Control" parent="."]
+unique_name_in_owner = true
+margin_top = 70.0
+margin_right = 318.0
+margin_bottom = 281.0
+rect_min_size = Vector2( 116, 211 )
+rect_clip_content = true
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ScrollSizeContainer"]
+unique_name_in_owner = true
+anchor_right = 1.0
+rect_min_size = Vector2( 0, 211 )
+follow_focus = true
+
+[node name="Elements" parent="ScrollSizeContainer/ScrollContainer" instance=ExtResource( 2 )]
+unique_name_in_owner = true
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+columns = 1
+
+[connection signal="elements_changed" from="ScrollSizeContainer/ScrollContainer/Elements" to="." method="_on_Elements_elements_changed"]

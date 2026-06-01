@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/gain_item_on_reroll/gain_item_on_reroll_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = ""
+text_key = "EFFECT_FANTASY_GAIN_ITEM_ON_REROLL"
+value = 10
+custom_key = "fantasy_gain_item_on_reroll"
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+item_id = "item_goldfish"
+sound_path = ""

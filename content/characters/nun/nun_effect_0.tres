@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/stationary_temp_stats_per_interval/stationary_temp_stats_per_interval_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "stat_percent_damage"
+text_key = "EFFECT_FANTASY_STATIONARY_TEMP_STATS_PER_INTERVAL"
+value = 4
+custom_key = "fantasy_stationary_temp_stats_per_interval"
+storage_method = 1
+effect_sign = 3
+custom_args = [  ]
+interval = 1
+show_floating_text = false
+floating_text_db_mod = -15.0

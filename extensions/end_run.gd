@@ -19,4 +19,4 @@ func _fantasy_job_button_display() -> void:
     ButtonShowJobInstance.current_scene = $"MarginContainer/VBoxContainer"
     ButtonShowJobInstance.global_scene = self
 
-    if !_items_container.authorize_sorting and is_instance_valid(ButtonShowJobInstance): ButtonShowJobInstance.hide()
+    if !_items_container.authorize_sorting: ButtonShowJobInstance.hide()

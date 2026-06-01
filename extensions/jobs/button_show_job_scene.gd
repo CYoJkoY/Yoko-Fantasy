@@ -4,16 +4,15 @@ var job_menu_scene = load("res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_
 var current_scene: Node = null
 var global_scene: Node = null
 
-# =========================== Extension =========================== #
 func on_pressed() -> void:
     .on_pressed()
 
     var job_menu: PanelContainer = global_scene.get_node_or_null("JobMenu")
     if job_menu == null:
-        var JobMenuInstance: Node = job_menu_scene.instance()
-        JobMenuInstance.scene_before_created = current_scene
-        global_scene.add_child(JobMenuInstance)
+        job_menu = job_menu_scene.instance()
+        job_menu.hide()
+        global_scene.add_child(job_menu)
+        job_menu.call_deferred("open_menu", current_scene)
         return
 
-    job_menu.scene_before_created = current_scene
-    job_menu.show()
+    job_menu.call("open_menu", current_scene)

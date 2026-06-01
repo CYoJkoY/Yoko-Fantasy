@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/idol_jp.mp3-762a11b9e618403b90ccbe6691deef01.mp3str"
+
+[deps]
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/jobs/luck/idol/idol_jp.mp3"
+dest_files=[ "res://.import/idol_jp.mp3-762a11b9e618403b90ccbe6691deef01.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -44,6 +44,9 @@ func _init() -> void:
         "utils.gd",
         # HASHES
 
+        "music_manager.gd",
+        # SYSTEMS: one-shot job theme override
+
         "base_shop.gd",
         # EFFECTS: shop_enter_stat_curse[ 1/2 ],
         #          curse_all_on_reroll,
@@ -68,6 +71,9 @@ func _init() -> void:
         # EFFECTS: crit_overflow
         #          structure_scaling_stats
 
+        "weapon.gd",
+        # EFFECTS: cannot_attack_while_stationary
+
         "wave_manager.gd",
         # EFFECTS: extra_elites_next_wave
         #          extra_enemies_each_wave_by_stat
@@ -86,6 +92,7 @@ func _init() -> void:
         #          cannot_damage_tree[ 2/5 ]
         #          reload_when_critically_hit[ 1/2 ]
         #          lightning_chain_on_hit[ 1/2 ]
+        #          weapon_hit_proc[ 1/2 ]
 
         "ranged_weapon.gd",
         # EFFECTS: gain_stat_every_killed_enemies[ 3/3 ]
@@ -94,6 +101,7 @@ func _init() -> void:
         #          cannot_damage_tree[ 3/5 ]
         #          reload_when_critically_hit[ 2/2 ]
         #          lightning_chain_on_hit[ 2/2 ]
+        #          weapon_hit_proc[ 2/2 ]
 
         "run_data.gd",
         # SYSTEMS: Job[ 4/6 ]
@@ -114,6 +122,18 @@ func _init() -> void:
 
         "ingame_main_menu.gd",
         # SYSTEMS: Job[ 5/6 ]
+
+        "menu_confirm.gd",
+        "menu_restart.gd",
+        "menu_end_run.gd",
+        "menu_codex.gd",
+        # UI: pause menu coop focus
+
+        "upgrades_ui_player_container.gd",
+        # SYSTEMS: Job[ skip job selection ]
+
+        "upgrades_ui.gd",
+        # SYSTEMS: Job[ skip job selection ]
 
         "end_run.gd",
         # SYSTEMS: Job[ 6/6 ]

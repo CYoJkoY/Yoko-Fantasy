@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 chance = 0.25
 damage = 1
-duration = 5
+duration = 6
 spread = 0
 scaling_stats = [ [ "stat_elemental_damage", 1.0 ] ]
 is_global_burn = true

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/weapon_hit_proc/weapon_hit_proc_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = ""
+text_key = "EFFECT_FANTASY_WEAPON_HIT_PROC_DROP_MATERIAL"
+value = 10
+custom_key = "fantasy_weapon_hit_proc"
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+set_id = ""
+proc_type = "drop_material"
+proc_value = 1

@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 key = "stat_ranged_damage"
 text_key = "EFFECT_FANTASY_SPECIFIC_SET_WEAPON_BONUSES"
-value = 3
+value = 2
 custom_key = "fantasy_specific_set_weapon_bonuses"
 storage_method = 0
 effect_sign = 3
