@@ -751,7 +751,7 @@ script = ExtResource( 5 )
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 4 )
 projectile_scene = ExtResource( 6 )
-projectile_speed = 500
+projectile_speed = 300
 cooldown = 180.0
 max_cd_randomization = 18
 damage = 3

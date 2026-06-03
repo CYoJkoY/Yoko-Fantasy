@@ -1,5 +1,7 @@
 extends "res://weapons/melee/melee_weapon.gd"
 
+const LightningChainService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/lightning_chain_service.gd")
+
 var melee_shooting_cancelled: bool = true
 
 # =========================== Extension =========================== #
@@ -26,6 +28,7 @@ func _on_Range_body_exited(body: Node) -> void:
 
 func on_weapon_hit_something(thing_hit: Node, damage_dealt: int, hitbox: Hitbox) -> void:
     .on_weapon_hit_something(thing_hit, damage_dealt, hitbox)
+    _fantasy_weapon_hit_proc(thing_hit, damage_dealt)
     _fantasy_lightning_chain_on_hit(thing_hit)
 
 func _on_weapon_critically_hit_something(_thing_hit, _damage_dealt) -> void:
@@ -154,114 +157,63 @@ func _fantasy_reload_when_critically_hit() -> void:
             Tween.TRANS_SINE, Tween.EASE_IN_OUT, 0.64
         )
 
-func _fantasy_lightning_chain_on_hit(thing_hit: Node) -> void:
-    for effect in effects:
-        if effect.get_id() != "fantasy_lightning_chain_on_hit": continue
+func _fantasy_weapon_hit_proc(thing_hit: Node, damage_dealt: int) -> void:
+    if damage_dealt <= 0 or !(thing_hit is Enemy) or !is_instance_valid(thing_hit):
+        return
 
-        if !Utils.get_chance_success(effect.base_chance): continue
-
-        var damage: int = Utils.ncl_get_dmg_with_scaling_stats(effect.value, effect.damage_scaling_stats, player_index)
-        var chain_targets: int = Utils.ncl_get_dmg_with_scaling_stats(effect.base_chain_targets, effect.targets_scaling_stats, player_index)
-        var final_damage: int = round(damage * effect.chain_damage_mult) as int
-        var arc_pool_id: int = Keys.generate_hash(effect.arc_scene.resource_path)
-        var main: Main = Utils.get_scene_node()
-        var arc: Node = main.get_node_from_pool(arc_pool_id, main._effects)
-
-        if !is_instance_valid(arc):
-            arc = effect.arc_scene.instance()
-            main.add_effect(arc)
-            arc.set_meta("pool_id", arc_pool_id)
-        
-        var chain_enemies: Array = [thing_hit]
-        var all_enemies: Array = main._entity_spawner.get_all_enemies(false)
-        var available: Array = all_enemies.duplicate()
-        available.erase(thing_hit)
-
-        var current_pos: Vector2 = thing_hit.global_position
-        for _i in range(chain_targets):
-            var next_target = Utils.get_nearest_no_max_no_dist(available, current_pos)
-            if next_target == null or !is_instance_valid(next_target) or next_target.dead: break
-
-            chain_enemies.append(next_target)
-            current_pos = next_target.global_position
-            available.erase(next_target)
-
-        var arc_damage: int = arc.link(
-            chain_enemies,
-            final_damage,
-            effect.chain_damage_mult,
-            player_index,
-            effect.arc_width,
-            effect.arc_jaggedness,
-            effect.arc_color,
-            effect.arc_glow_color,
-            effect.arc_duration,
-            effect.arc_crit_chance,
-            effect.arc_crit_damage,
-            effects,
-            effect.damage_scaling_stats
-        )
-
-        RunData.add_weapon_dmg_dealt(weapon_pos, arc_damage, _parent.player_index)
-
-    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_lightning_chain_on_hit_hash, player_index)
+    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_weapon_hit_proc_hash, player_index)
     for effect_item in effect_items:
         var chance: float = effect_item[0]
-        var base_damage: int = effect_item[1]
-        var damage_scaling_stats: Array = effect_item[2]
-        var base_chain_targets: int = effect_item[3]
-        var targets_scaling_stats: Array = effect_item[4]
-        var chain_damage_mult: float = effect_item[5]
-        var arc_width: float = effect_item[6]
-        var arc_jaggedness: float = effect_item[7]
-        var arc_color: Color = Color(effect_item[8])
-        var arc_glow_color: Color = Color(effect_item[9])
-        var arc_duration: float = effect_item[10]
-        var arc_crit_chance: float = effect_item[11]
-        var arc_crit_damage: float = effect_item[12]
-        var arc_scene_path: String = effect_item[13]
+        var set_id_hash: int = effect_item[1]
+        var proc_type: String = effect_item[2]
+        var proc_value: int = effect_item[3]
 
-        if !Utils.get_chance_success(chance): continue
+        if set_id_hash != Keys.empty_hash and !_fantasy_weapon_has_set(set_id_hash):
+            continue
 
-        var damage: int = Utils.ncl_get_dmg_with_scaling_stats(base_damage, damage_scaling_stats, player_index)
-        var chain_targets: int = Utils.ncl_get_dmg_with_scaling_stats(base_chain_targets, targets_scaling_stats, player_index)
-        var arc_pool_id: int = Keys.generate_hash(arc_scene_path)
-        var main: Main = Utils.get_scene_node()
-        var arc: Node = main.get_node_from_pool(arc_pool_id, main._effects)
+        if !Utils.get_chance_success(chance):
+            continue
 
-        if !is_instance_valid(arc):
-            arc = load(arc_scene_path).instance()
-            main.add_effect(arc)
-            arc.set_meta("pool_id", arc_pool_id)
+        match proc_type:
+            "slow_enemy":
+                thing_hit.add_decaying_speed(proc_value)
+            "drop_material":
+                var main: Main = Utils.get_scene_node()
+                if main != null:
+                    main.spawn_gold(proc_value, thing_hit.global_position, 0)
 
-        var chain_enemies: Array = [thing_hit]
-        var all_enemies: Array = main._entity_spawner.get_all_enemies(false)
-        var available: Array = all_enemies.duplicate()
-        available.erase(thing_hit)
+func _fantasy_weapon_has_set(set_id_hash: int) -> bool:
+    for weapon_set in weapon_sets:
+        if weapon_set != null and weapon_set.my_id_hash == set_id_hash:
+            return true
 
-        var current_pos: Vector2 = thing_hit.global_position
-        for _i in range(chain_targets):
-            var next_target = Utils.get_nearest_no_max_no_dist(available, current_pos)
-            if next_target == null or !is_instance_valid(next_target) or next_target.dead: break
+    return false
 
-            chain_enemies.append(next_target)
-            current_pos = next_target.global_position
-            available.erase(next_target)
+func _fantasy_lightning_chain_on_hit(thing_hit: Node) -> void:
+    var main: Main = Utils.get_scene_node()
+    if main == null or !(thing_hit is Enemy) or !is_instance_valid(thing_hit):
+        return
 
-        var arc_damage: int = arc.link(
-            chain_enemies,
-            damage,
-            chain_damage_mult,
+    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_lightning_chain_on_hit_hash, player_index)
+    var params_list: Array = LightningChainService.collect_triggered_hit_params(effects, effect_items, player_index)
+    for params in params_list:
+        var arc_damage: int = LightningChainService.spawn_lightning_chain(
+            main,
+            thing_hit,
             player_index,
-            arc_width,
-            arc_jaggedness,
-            arc_color,
-            arc_glow_color,
-            arc_duration,
-            arc_crit_chance,
-            arc_crit_damage,
+            params.damage,
+            params.chain_targets,
+            params.chain_damage_mult,
+            params.arc_width,
+            params.arc_jaggedness,
+            params.arc_color,
+            params.arc_glow_color,
+            params.arc_duration,
+            params.arc_crit_chance,
+            params.arc_crit_damage,
             effects,
-            damage_scaling_stats
+            params.damage_scaling_stats,
+            params.arc_scene_path
         )
 
         RunData.add_weapon_dmg_dealt(weapon_pos, arc_damage, _parent.player_index)

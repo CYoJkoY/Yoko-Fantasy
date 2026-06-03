@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://projectiles/projectile.tscn" type="PackedScene" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/enemy_projectile_limit_time.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_orbit_child_projectile.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/skeleton_archer_projectile/skeleton_archer_projectile.webp" type="Texture" id=3]
 [ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=4]
 
@@ -20,7 +20,7 @@ step = 0.02
 [node name="EnemyProjectile" instance=ExtResource( 1 )]
 scale = Vector2( 0.6, 0.6 )
 script = ExtResource( 2 )
-lifetime = 1.5
+lifetime = 0.0
 reset_alpa = false
 reset_alpha = 0
 

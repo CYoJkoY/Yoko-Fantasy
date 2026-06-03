@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/guaranteed_set_weapons_in_shop/guaranteed_set_weapons_in_shop_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = ""
+text_key = "EFFECT_FANTASY_GUARANTEED_SET_WEAPONS_IN_SHOP"
+value = 1
+custom_key = "fantasy_guaranteed_set_weapons_in_shop"
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+set_id = "set_musical"

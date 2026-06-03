@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/player/stationary_stat_interval/stationary_stat_interval_player_effect_behavior.gd" type="Script" id=1]
+
+[node name="StationaryStatIntervalPlayerEffectBehavior" type="Node2D"]
+script = ExtResource( 1 )

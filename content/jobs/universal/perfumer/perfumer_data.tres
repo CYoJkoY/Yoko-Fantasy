@@ -1,10 +1,11 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/job_data.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/perfumer/perfumer_icon.webp" type="Texture" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/perfumer/perfumer_effect_3.tres" type="Resource" id=3]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/perfumer/perfumer_effect_2.tres" type="Resource" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/perfumer/perfumer_effect_1.tres" type="Resource" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/perfumer/perfumer_effect_4.tres" type="Resource" id=6]
 
 [resource]
 script = ExtResource( 1 )
@@ -15,7 +16,7 @@ icon = ExtResource( 2 )
 name = "JOB_FANTASY_PERFUMER"
 tier = 0
 value = 1
-effects = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ]
+effects = [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ) ]
 tracking_text = ""
 is_lockable = true
 unlock_codex_descr_after_get_it = 1

@@ -23,5 +23,5 @@ curse_factor = 0.0
 max_nb = 1
 item_appearances = [  ]
 tags = [  ]
-upgrade_id = "job_fantasy_universal"
+upgrade_id = "job_fantasy_luck"
 stage = 0

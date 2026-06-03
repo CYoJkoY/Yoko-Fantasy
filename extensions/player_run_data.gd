@@ -26,12 +26,18 @@ func deserialize(data: Dictionary) -> PlayerRunData:
     .deserialize(data)
 
     for job_stage in data.get("jobs", {}):
-        var job_data: Resource = ItemService.get_element_safe(ItemService.upgrades, job_stage)
+        var serialized_job_data = data.jobs[job_stage]
+        if !(serialized_job_data is Dictionary): continue
+
+        var serialized_job: Dictionary = serialized_job_data
+        if !serialized_job.has("my_id"): continue
+
+        var job_data: Resource = ItemService.get_element_safe(ItemService.jobs, serialized_job.my_id)
 
         if job_data != null:
             job_data = job_data.duplicate()
-            job_data.deserialize_and_merge(data.jobs[job_stage])
-            jobs[job_stage] = job_data
+            job_data.deserialize_and_merge(serialized_job)
+            jobs[int(job_stage)] = job_data
 
     fantasy_synthesis_pity_data = data.get("fantasy_synthesis_pity_data", {}).duplicate()
 
@@ -112,8 +118,16 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_dance_hash: [],
             Utils.fantasy_shop_enter_synthesis_hash: [],
             Utils.fantasy_lightning_chain_on_hit_hash: [],
+            Utils.fantasy_lightning_chain_on_death_hash: [],
             Utils.fantasy_add_stat_when_pickup_consumable_hash: [],
             Utils.fantasy_lightning_chain_can_crit_hash: 0,
+            Utils.fantasy_stationary_temp_stats_per_interval_hash: [],
+            Utils.fantasy_stationary_percent_stat_per_interval_hash: [],
+            Utils.fantasy_cannot_attack_while_stationary_hash: 0,
+            Utils.fantasy_add_weapon_set_hash: [],
+            Utils.fantasy_gain_item_on_reroll_hash: [],
+            Utils.fantasy_guaranteed_set_weapons_in_shop_hash: [],
+            Utils.fantasy_weapon_hit_proc_hash: [],
 
         }
         

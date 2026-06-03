@@ -6,7 +6,7 @@
 [ext_resource path="res://resources/themes/base_theme.tres" type="Theme" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_ui.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/menus/global/cross_icon..png" type="Texture" id=6]
-[ext_resource path="res://ui/menus/shop/inventory_container.tscn" type="PackedScene" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_inventory_container.tscn" type="PackedScene" id=7]
 [ext_resource path="res://ui/menus/global/popup_manager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ui/menus/shop/item_popup.tscn" type="PackedScene" id=9]
 [ext_resource path="res://ui/menus/global/triangle_down_icon.png" type="Texture" id=10]
@@ -239,6 +239,61 @@ margin_bottom = 862.0
 [node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
+[node name="JobUi3" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont" instance=ExtResource( 5 )]
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 470.0
+margin_bottom = 992.0
+size_flags_vertical = 3
+
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3" index="0"]
+margin_right = 465.0
+margin_bottom = 987.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer" index="0"]
+margin_right = 445.0
+margin_bottom = 967.0
+
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 952.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription" index="0"]
+margin_right = 430.0
+
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
+margin_right = 430.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
+margin_right = 355.0
+
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+margin_right = 355.0
+
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+margin_right = 355.0
+
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 952.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 862.0
+
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 862.0
+
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
+margin_right = 430.0
+
+
 [node name="JobPlayerCont2" type="ScrollContainer" parent="JobCont/TabContainer"]
 unique_name_in_owner = true
 visible = false
@@ -365,6 +420,61 @@ margin_bottom = 355.0
 
 [node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
+
+[node name="JobUi3" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont" instance=ExtResource( 5 )]
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 507.0
+margin_right = 470.0
+margin_bottom = 992.0
+size_flags_vertical = 3
+
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3" index="0"]
+margin_right = 465.0
+margin_bottom = 480.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer" index="0"]
+margin_right = 445.0
+margin_bottom = 460.0
+
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 445.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription" index="0"]
+margin_right = 430.0
+
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
+margin_right = 430.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
+margin_right = 355.0
+
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+margin_right = 355.0
+
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+margin_right = 355.0
+
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 445.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 355.0
+
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 355.0
+
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
+margin_right = 430.0
+
 
 [node name="JobPlayerCont3" type="ScrollContainer" parent="JobCont/TabContainer"]
 unique_name_in_owner = true
@@ -493,6 +603,61 @@ margin_bottom = 355.0
 [node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
+[node name="JobUi3" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont" instance=ExtResource( 5 )]
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 507.0
+margin_right = 470.0
+margin_bottom = 992.0
+size_flags_vertical = 3
+
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3" index="0"]
+margin_right = 465.0
+margin_bottom = 480.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer" index="0"]
+margin_right = 445.0
+margin_bottom = 460.0
+
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 445.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription" index="0"]
+margin_right = 430.0
+
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
+margin_right = 430.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
+margin_right = 355.0
+
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+margin_right = 355.0
+
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+margin_right = 355.0
+
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 445.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 355.0
+
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 355.0
+
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
+margin_right = 430.0
+
+
 [node name="JobPlayerCont4" type="ScrollContainer" parent="JobCont/TabContainer"]
 unique_name_in_owner = true
 visible = false
@@ -619,6 +784,61 @@ margin_bottom = 355.0
 
 [node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
+
+[node name="JobUi3" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont" instance=ExtResource( 5 )]
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 507.0
+margin_right = 470.0
+margin_bottom = 992.0
+size_flags_vertical = 3
+
+[node name="MarginContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3" index="0"]
+margin_right = 465.0
+margin_bottom = 480.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer" index="0"]
+margin_right = 445.0
+margin_bottom = 460.0
+
+[node name="JobDescription" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 445.0
+
+[node name="HBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription" index="0"]
+margin_right = 430.0
+
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer" index="1"]
+margin_right = 430.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer" index="0"]
+margin_right = 355.0
+
+[node name="Name" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="0"]
+margin_right = 355.0
+
+[node name="Category" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/HBoxContainer/ScrollContainer/VBoxContainer" index="1"]
+margin_right = 355.0
+
+[node name="ScrollContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription" index="2"]
+margin_right = 430.0
+margin_bottom = 445.0
+
+[node name="VBoxContainer" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer" index="0"]
+margin_right = 430.0
+margin_bottom = 355.0
+
+[node name="Effects_scrolled" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer" index="2"]
+margin_right = 430.0
+margin_bottom = 355.0
+
+[node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
+margin_right = 430.0
+
 
 [node name="Others" type="Control" parent="."]
 margin_left = 5.0
@@ -901,7 +1121,6 @@ margin_bottom = -20.0
 margin_right = 1292.0
 margin_bottom = 438.0
 size_flags_vertical = 3
-authorize_sorting = true
 reserve_column_count = 12
 
 [node name="HBoxContainer" parent="Others/JobsContainer/JobsCont1/Jobs1" index="0"]
@@ -919,18 +1138,6 @@ margin_left = 133.0
 margin_right = 1020.0
 margin_bottom = 51.0
 
-[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont1/Jobs1/HBoxContainer" index="2"]
-margin_left = 1024.0
-margin_right = 1243.0
-margin_bottom = 51.0
-items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
-sort_by_when_got_it = false
-
-[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont1/Jobs1/HBoxContainer" index="3"]
-margin_left = 1247.0
-margin_right = 1292.0
-margin_bottom = 51.0
-
 [node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont1/Jobs1" index="1"]
 margin_top = 76.0
 margin_right = 1292.0
@@ -945,7 +1152,6 @@ margin_top = 442.0
 margin_right = 1292.0
 margin_bottom = 881.0
 size_flags_vertical = 3
-authorize_sorting = true
 reserve_column_count = 12
 
 [node name="HBoxContainer" parent="Others/JobsContainer/JobsCont1/Jobs2" index="0"]
@@ -961,18 +1167,6 @@ text = "Jobs 2"
 [node name="HSeparator" parent="Others/JobsContainer/JobsCont1/Jobs2/HBoxContainer" index="1"]
 margin_left = 135.0
 margin_right = 1020.0
-margin_bottom = 51.0
-
-[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont1/Jobs2/HBoxContainer" index="2"]
-margin_left = 1024.0
-margin_right = 1243.0
-margin_bottom = 51.0
-items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
-sort_by_when_got_it = false
-
-[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont1/Jobs2/HBoxContainer" index="3"]
-margin_left = 1247.0
-margin_right = 1292.0
 margin_bottom = 51.0
 
 [node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont1/Jobs2" index="1"]
@@ -998,7 +1192,6 @@ margin_bottom = -20.0
 margin_right = 1292.0
 margin_bottom = 438.0
 size_flags_vertical = 3
-authorize_sorting = true
 reserve_column_count = 12
 
 [node name="HBoxContainer" parent="Others/JobsContainer/JobsCont2/Jobs1" index="0"]
@@ -1016,18 +1209,6 @@ margin_left = 133.0
 margin_right = 1020.0
 margin_bottom = 51.0
 
-[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont2/Jobs1/HBoxContainer" index="2"]
-margin_left = 1024.0
-margin_right = 1243.0
-margin_bottom = 51.0
-items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
-sort_by_when_got_it = false
-
-[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont2/Jobs1/HBoxContainer" index="3"]
-margin_left = 1247.0
-margin_right = 1292.0
-margin_bottom = 51.0
-
 [node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont2/Jobs1" index="1"]
 margin_top = 76.0
 margin_right = 1292.0
@@ -1042,7 +1223,6 @@ margin_top = 442.0
 margin_right = 1292.0
 margin_bottom = 881.0
 size_flags_vertical = 3
-authorize_sorting = true
 reserve_column_count = 12
 
 [node name="HBoxContainer" parent="Others/JobsContainer/JobsCont2/Jobs2" index="0"]
@@ -1058,18 +1238,6 @@ text = "Jobs 2"
 [node name="HSeparator" parent="Others/JobsContainer/JobsCont2/Jobs2/HBoxContainer" index="1"]
 margin_left = 135.0
 margin_right = 1020.0
-margin_bottom = 51.0
-
-[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont2/Jobs2/HBoxContainer" index="2"]
-margin_left = 1024.0
-margin_right = 1243.0
-margin_bottom = 51.0
-items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
-sort_by_when_got_it = false
-
-[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont2/Jobs2/HBoxContainer" index="3"]
-margin_left = 1247.0
-margin_right = 1292.0
 margin_bottom = 51.0
 
 [node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont2/Jobs2" index="1"]
@@ -1095,7 +1263,6 @@ margin_bottom = -20.0
 margin_right = 1292.0
 margin_bottom = 438.0
 size_flags_vertical = 3
-authorize_sorting = true
 reserve_column_count = 12
 
 [node name="HBoxContainer" parent="Others/JobsContainer/JobsCont3/Jobs1" index="0"]
@@ -1113,18 +1280,6 @@ margin_left = 133.0
 margin_right = 1020.0
 margin_bottom = 51.0
 
-[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont3/Jobs1/HBoxContainer" index="2"]
-margin_left = 1024.0
-margin_right = 1243.0
-margin_bottom = 51.0
-items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
-sort_by_when_got_it = false
-
-[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont3/Jobs1/HBoxContainer" index="3"]
-margin_left = 1247.0
-margin_right = 1292.0
-margin_bottom = 51.0
-
 [node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont3/Jobs1" index="1"]
 margin_top = 76.0
 margin_right = 1292.0
@@ -1139,7 +1294,6 @@ margin_top = 442.0
 margin_right = 1292.0
 margin_bottom = 881.0
 size_flags_vertical = 3
-authorize_sorting = true
 reserve_column_count = 12
 
 [node name="HBoxContainer" parent="Others/JobsContainer/JobsCont3/Jobs2" index="0"]
@@ -1155,18 +1309,6 @@ text = "Jobs 2"
 [node name="HSeparator" parent="Others/JobsContainer/JobsCont3/Jobs2/HBoxContainer" index="1"]
 margin_left = 135.0
 margin_right = 1020.0
-margin_bottom = 51.0
-
-[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont3/Jobs2/HBoxContainer" index="2"]
-margin_left = 1024.0
-margin_right = 1243.0
-margin_bottom = 51.0
-items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
-sort_by_when_got_it = false
-
-[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont3/Jobs2/HBoxContainer" index="3"]
-margin_left = 1247.0
-margin_right = 1292.0
 margin_bottom = 51.0
 
 [node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont3/Jobs2" index="1"]
@@ -1192,7 +1334,6 @@ margin_bottom = -20.0
 margin_right = 1292.0
 margin_bottom = 438.0
 size_flags_vertical = 3
-authorize_sorting = true
 reserve_column_count = 12
 
 [node name="HBoxContainer" parent="Others/JobsContainer/JobsCont4/Jobs1" index="0"]
@@ -1210,18 +1351,6 @@ margin_left = 133.0
 margin_right = 1020.0
 margin_bottom = 51.0
 
-[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont4/Jobs1/HBoxContainer" index="2"]
-margin_left = 1024.0
-margin_right = 1243.0
-margin_bottom = 51.0
-items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
-sort_by_when_got_it = false
-
-[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont4/Jobs1/HBoxContainer" index="3"]
-margin_left = 1247.0
-margin_right = 1292.0
-margin_bottom = 51.0
-
 [node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont4/Jobs1" index="1"]
 margin_top = 76.0
 margin_right = 1292.0
@@ -1236,7 +1365,6 @@ margin_top = 442.0
 margin_right = 1292.0
 margin_bottom = 881.0
 size_flags_vertical = 3
-authorize_sorting = true
 reserve_column_count = 12
 
 [node name="HBoxContainer" parent="Others/JobsContainer/JobsCont4/Jobs2" index="0"]
@@ -1252,18 +1380,6 @@ text = "Jobs 2"
 [node name="HSeparator" parent="Others/JobsContainer/JobsCont4/Jobs2/HBoxContainer" index="1"]
 margin_left = 135.0
 margin_right = 1020.0
-margin_bottom = 51.0
-
-[node name="Sort_Inventory_button" parent="Others/JobsContainer/JobsCont4/Jobs2/HBoxContainer" index="2"]
-margin_left = 1024.0
-margin_right = 1243.0
-margin_bottom = 51.0
-items = [ "sort_by_name", null, false, 1, null, "sort_by_tier", null, false, 0, null, "sort_by_name", null, false, 1, null ]
-sort_by_when_got_it = false
-
-[node name="button_reverse_order" parent="Others/JobsContainer/JobsCont4/Jobs2/HBoxContainer" index="3"]
-margin_left = 1247.0
-margin_right = 1292.0
 margin_bottom = 51.0
 
 [node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont4/Jobs2" index="1"]
@@ -1311,6 +1427,14 @@ unique_name_in_owner = true
 [editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2"]
 [editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3"]
+[editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3"]
+[editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3"]
+[editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3"]
+[editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="Others/JobsContainer/JobsCont1/Jobs1"]
 [editable path="Others/JobsContainer/JobsCont1/Jobs2"]
 [editable path="Others/JobsContainer/JobsCont2/Jobs1"]
