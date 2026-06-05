@@ -35,7 +35,7 @@
 [resource]
 script = ExtResource( 4 )
 my_id = ""
-groups_in_all_zones_paths = [  ]
+groups_in_all_zones = [  ]
 music_tracks = [  ]
 backgrounds = [  ]
 characters = [ ExtResource( 114 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 8 ), ExtResource( 16 ) ]
@@ -68,6 +68,9 @@ tracked_effects = {
 "item_fantasy_sacrificial_offering": 0,
 "job_fantasy_abyssal_cultist": 0
 }
+primary_stats_list = [  ]
+effect_keys_full_serialization = [  ]
+effect_keys_with_weapon_stats = [  ]
 translation_keys_needing_operator = {
 "effect_fantasy_cursed_kill_healing": [ 0 ],
 "effect_fantasy_extra_curse_enemy": [ 0 ],
