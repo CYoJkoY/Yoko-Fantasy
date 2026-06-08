@@ -1,7 +1,7 @@
 extends "res://main.gd"
 
-const UpgradeHooks = preload("res://mods-unpacked/Yoko-Fantasy/extensions/upgrade_hooks.gd")
-const LightningChainService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/lightning_chain_service.gd")
+const UpgradeHooks = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/upgrade_hooks.gd")
+const LightningChainService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_service.gd")
 
 var FaTimers: Array = []
 var summoned_twins: Array = []
@@ -27,6 +27,7 @@ func _on_EntitySpawner_players_spawned(players: Array) -> void:
 	_fantasy_teleport_if_world_tree_enemy(players)
 	# This signal is called before fog wave judgment
 	call_deferred("_fantasy_sacrificial_circle", players)
+	call_deferred("_fantasy_clock_tower_area", players)
 
 func _on_EntitySpawner_enemy_spawned(enemy: Enemy) -> void:
 	._on_EntitySpawner_enemy_spawned(enemy)
@@ -309,6 +310,20 @@ func _fantasy_sacrificial_circle(players: Array) -> void:
 			var sacrificial_circle_node: Area2D = load("res://mods-unpacked/Yoko-Fantasy/content/specials/player/sacrificial_circle/sacrificial_circle.tscn").instance()
 			var center_pos: Vector2 = ZoneService.get_map_center()
 			_materials_container.add_child(sacrificial_circle_node.init(self , player_index, center_pos, sacrificial_circle))
+
+func _fantasy_clock_tower_area(players: Array) -> void:
+	var player_count: int = players.size()
+	for player_index in range(player_count):
+		var clock_tower_areas: Array = RunData.get_player_effect(Utils.fantasy_clock_tower_area_hash, player_index)
+		if clock_tower_areas.empty(): continue
+
+		for clock_tower_area in clock_tower_areas:
+			var base_range: int = clock_tower_area[0]
+			var range_rate: float = clock_tower_area[1] / 100.0
+			var total_range: float = Utils.fa_get_clock_tower_area_radius(base_range, range_rate, player_index)
+			var clock_tower_area_node: Area2D = load("res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_tower_area.tscn").instance()
+			var center_pos: Vector2 = ZoneService.get_map_center()
+			_materials_container.add_child(clock_tower_area_node.init(self , player_index, center_pos, total_range, base_range, range_rate))
 
 # =========================== Method =========================== #
 func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracking_key_hash: int) -> void:

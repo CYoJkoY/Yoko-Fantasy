@@ -1,0 +1,125 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_tower_area.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_base_color.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_shadow_3.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_shadow_2.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_shadow_1.webp" type="Texture" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_gear_bottom_center_l.webp" type="Texture" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_gear_middle_bottom_m.webp" type="Texture" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_gear_middle_left_m.webp" type="Texture" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_gear_middle_top_s.webp" type="Texture" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_gear_middle_right_s.webp" type="Texture" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_gear_top_left_l.webp" type="Texture" id=11]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_gear_upper_lower_m.webp" type="Texture" id=12]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_gear_top_right_s.webp" type="Texture" id=13]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_gear_top_center_s.webp" type="Texture" id=14]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_area_top_ring.webp" type="Texture" id=15]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 150.0
+
+[node name="ClockTowerArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 20
+monitorable = false
+script = ExtResource( 1 )
+
+[node name="Visual" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0.9 )
+
+[node name="BaseColor" type="Sprite" parent="Visual"]
+texture = ExtResource( 2 )
+
+[node name="Shadows" type="Node2D" parent="Visual"]
+
+[node name="Shadow3" type="Sprite" parent="Visual/Shadows"]
+modulate = Color( 1, 1, 1, 0.18 )
+texture = ExtResource( 3 )
+
+[node name="Shadow2" type="Sprite" parent="Visual/Shadows"]
+modulate = Color( 1, 1, 1, 0.28 )
+texture = ExtResource( 4 )
+
+[node name="Shadow1" type="Sprite" parent="Visual/Shadows"]
+modulate = Color( 1, 1, 1, 0.38 )
+texture = ExtResource( 5 )
+
+[node name="Gears" type="Node2D" parent="Visual"]
+
+[node name="GearBottomCenterL" type="Node2D" parent="Visual/Gears"]
+position = Vector2( -0.5, -0.5 )
+
+[node name="Sprite" type="Sprite" parent="Visual/Gears/GearBottomCenterL"]
+position = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+
+[node name="GearMiddleBottomM" type="Node2D" parent="Visual/Gears"]
+position = Vector2( -89.5, 85 )
+scale = Vector2( 0.94, 0.94 )
+
+[node name="Sprite" type="Sprite" parent="Visual/Gears/GearMiddleBottomM"]
+position = Vector2( 107.5, -103 )
+texture = ExtResource( 7 )
+
+[node name="GearMiddleLeftM" type="Node2D" parent="Visual/Gears"]
+position = Vector2( -79, -87.5 )
+
+[node name="Sprite" type="Sprite" parent="Visual/Gears/GearMiddleLeftM"]
+position = Vector2( 79, 87.5 )
+texture = ExtResource( 8 )
+
+[node name="GearMiddleTopS" type="Node2D" parent="Visual/Gears"]
+position = Vector2( 25.5, -95 )
+
+[node name="Sprite" type="Sprite" parent="Visual/Gears/GearMiddleTopS"]
+position = Vector2( -25.5, 95 )
+texture = ExtResource( 9 )
+
+[node name="GearMiddleRightS" type="Node2D" parent="Visual/Gears"]
+position = Vector2( 140, 6.5 )
+
+[node name="Sprite" type="Sprite" parent="Visual/Gears/GearMiddleRightS"]
+position = Vector2( -140, -6.5 )
+texture = ExtResource( 10 )
+
+[node name="GearTopLeftL" type="Node2D" parent="Visual/Gears"]
+position = Vector2( -92, -32 )
+scale = Vector2( 0.84, 0.84 )
+
+[node name="Sprite" type="Sprite" parent="Visual/Gears/GearTopLeftL"]
+position = Vector2( 127, 45 )
+texture = ExtResource( 11 )
+
+[node name="GearUpperLowerM" type="Node2D" parent="Visual/Gears"]
+position = Vector2( 40, 88 )
+scale = Vector2( 0.88, 0.88 )
+
+[node name="Sprite" type="Sprite" parent="Visual/Gears/GearUpperLowerM"]
+position = Vector2( -69, -116 )
+texture = ExtResource( 12 )
+
+[node name="GearTopRightS" type="Node2D" parent="Visual/Gears"]
+position = Vector2( 89.5, -70 )
+
+[node name="Sprite" type="Sprite" parent="Visual/Gears/GearTopRightS"]
+position = Vector2( -89.5, 70 )
+texture = ExtResource( 13 )
+
+[node name="GearTopCenterS" type="Node2D" parent="Visual/Gears"]
+position = Vector2( -0.5, -0.5 )
+
+[node name="Sprite" type="Sprite" parent="Visual/Gears/GearTopCenterS"]
+position = Vector2( 0.5, 0.5 )
+texture = ExtResource( 14 )
+
+[node name="TopRing" type="Sprite" parent="Visual"]
+texture = ExtResource( 15 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[connection signal="area_entered" from="." to="." method="fa_on_ClockTowerArea_area_entered"]
+[connection signal="area_exited" from="." to="." method="fa_on_ClockTowerArea_area_exited"]
+[connection signal="body_entered" from="." to="." method="fa_on_ClockTowerArea_body_entered"]
+[connection signal="body_exited" from="." to="." method="fa_on_ClockTowerArea_body_exited"]

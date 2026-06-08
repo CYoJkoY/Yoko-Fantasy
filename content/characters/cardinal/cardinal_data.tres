@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=16 format=2]
+[gd_resource type="Resource" load_steps=18 format=2]
 
 [ext_resource path="res://items/characters/character_data.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/cardinal/cardinal_icon.webp" type="Texture" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://weapons/ranged/crossbow/1/crossbow_data.tres" type="Resource" id=15]
 [ext_resource path="res://weapons/ranged/slingshot/1/slingshot_data.tres" type="Resource" id=16]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/cardinal/cardinal_appearance.tres" type="Resource" id=17]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/cardinal/cardinal_effect_4.tres" type="Resource" id=18]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/cardinal/cardinal_effect_5.tres" type="Resource" id=19]
 
 [resource]
 script = ExtResource( 1 )
@@ -25,7 +27,7 @@ icon = ExtResource( 2 )
 name = "CHARACTER_FANTASY_CARDINAL"
 tier = 0
 value = 1
-effects = [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 3 ) ]
+effects = [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 3 ), ExtResource( 18 ), ExtResource( 19 ) ]
 tracking_text = ""
 is_lockable = true
 unlock_codex_descr_after_get_it = 1

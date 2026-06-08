@@ -18,13 +18,16 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-self_modulate = Color( 1, 1, 1, 0.333333 )
+self_modulate = Color( 1, 1, 1, 0.1 )
 texture = ExtResource( 1 )
 
 [node name="BreathTween" type="Tween" parent="Sprite"]
 unique_name_in_owner = true
 repeat = true
 playback/repeat = true
+
+[node name="ProgressTween" type="Tween" parent="Sprite"]
+unique_name_in_owner = true
 
 [node name="RewardTween" type="Tween" parent="Sprite"]
 unique_name_in_owner = true

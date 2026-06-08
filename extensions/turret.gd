@@ -4,6 +4,7 @@ const TURRET_BASE_SPEED = 225
 
 # =========================== Extension =========================== #
 func _physics_process(delta: float) -> void:
+    ._physics_process(delta)
     _fantasy_pursue_target(delta)
 
 # =========================== Custom =========================== #
@@ -15,3 +16,9 @@ func _fantasy_pursue_target(delta: float) -> void:
 
     var traget_position: Vector2 = _current_target[0].global_position
     global_position = global_position.move_toward(traget_position, TURRET_BASE_SPEED * delta)
+
+func should_shoot() -> bool:
+    if Utils.fa_has_clock_tower_area(player_index) and !Utils.fa_is_clock_tower_player_in_area(player_index):
+        return false
+
+    return .should_shoot()

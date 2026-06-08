@@ -21,12 +21,12 @@ var job_fantasy_ranged_hash: int = Keys.generate_hash("job_fantasy_ranged")
 var job_fantasy_universal_hash: int = Keys.generate_hash("job_fantasy_universal")
 
 func fa_is_damage_job_way(way_hash: int) -> bool:
-    return [
-        job_fantasy_elemental_hash,
-        job_fantasy_engineering_hash,
-        job_fantasy_melee_hash,
-        job_fantasy_ranged_hash,
-    ].has(way_hash)
+	return [
+		job_fantasy_elemental_hash,
+		job_fantasy_engineering_hash,
+		job_fantasy_melee_hash,
+		job_fantasy_ranged_hash,
+	].has(way_hash)
 
 # Stats
 var stat_fantasy_holy_hash: int = Keys.generate_hash("stat_fantasy_holy")
@@ -82,6 +82,7 @@ var fantasy_cursed_kill_healing_hash: int = Keys.generate_hash("fantasy_cursed_k
 var fantasy_lose_hp_per_second_min_hp_hash: int = Keys.generate_hash("fantasy_lose_hp_per_second_min_hp")
 var fantasy_lose_hp_per_second_stop_threshold_hash: int = Keys.generate_hash("fantasy_lose_hp_per_second_stop_threshold")
 var fantasy_sacrificial_circle_hash: int = Keys.generate_hash("fantasy_sacrificial_circle")
+var fantasy_clock_tower_area_hash: int = Keys.generate_hash("fantasy_clock_tower_area")
 var fantasy_dance_hash: int = Keys.generate_hash("fantasy_dance")
 var fantasy_shop_enter_synthesis_hash: int = Keys.generate_hash("fantasy_shop_enter_synthesis")
 var fantasy_projectiles_every_x_melee_shoot_hash: int = Keys.generate_hash("fantasy_projectiles_every_x_melee_shoot")
@@ -99,6 +100,84 @@ var fantasy_gain_item_on_reroll_hash: int = Keys.generate_hash("fantasy_gain_ite
 var fantasy_guaranteed_set_weapons_in_shop_hash: int = Keys.generate_hash("fantasy_guaranteed_set_weapons_in_shop")
 var fantasy_weapon_hit_proc_hash: int = Keys.generate_hash("fantasy_weapon_hit_proc")
 
+# Clock Tower Guardian runtime state. Kept outside RunData so the area can act
+# like a temporary battlefield object instead of changing permanent stats.
+var fantasy_clock_tower_players_in_area: Dictionary = {}
+
+func fa_set_clock_tower_player_in_area(player_index: int, in_area: bool) -> void:
+	if in_area:
+		fantasy_clock_tower_players_in_area[player_index] = true
+	else:
+		fantasy_clock_tower_players_in_area.erase(player_index)
+
+func fa_is_clock_tower_player_in_area(player_index: int) -> bool:
+	return fantasy_clock_tower_players_in_area.has(player_index)
+
+func fa_has_clock_tower_area(player_index: int) -> bool:
+	return !RunData.get_player_effect(fantasy_clock_tower_area_hash, player_index).empty()
+
+func fa_get_permanent_stat(stat_hash: int, player_index: int) -> float:
+	if player_index < 0 or player_index == RunData.DUMMY_PLAYER_INDEX:
+		return 0.0
+
+	return RunData.get_stat(stat_hash, player_index)
+
+func fa_get_clock_tower_area_radius(base_range: int, range_rate: float, player_index: int) -> float:
+	var radius: float = base_range
+	if range_rate != 0.0 and player_index != -1:
+		radius += fa_get_permanent_stat(Keys.stat_range_hash, player_index) * range_rate
+	var zone_rect: Rect2 = ZoneService.get_current_zone_rect()
+	var map_limit: float = min(zone_rect.size.x, zone_rect.size.y) * 0.75 * 0.5
+	if map_limit <= 0.0:
+		return radius
+
+	return min(radius, map_limit)
+
+func fa_get_clock_tower_structure_attack_speed_bonus(player_index: int) -> int:
+	return 20 + int(fa_get_permanent_stat(stat_fantasy_holy_hash, player_index) * 4)
+
+func fa_get_clock_tower_enemy_speed_percent(player_index: int) -> int:
+	return int(max(-70, -20 - int(fa_get_permanent_stat(Keys.stat_engineering_hash, player_index) * 0.5)))
+
+func fa_get_clock_tower_scaling_stat_icon_text(stat_hash: int, scaling: float = 1.0, show_plus_prefix: bool = true) -> String:
+	var icon_size: float = 15 * ProgressData.settings.font_size
+	var prefix: String = "+" if show_plus_prefix and scaling > 0.0 else ""
+	var color: String = "#" + ProgressData.settings.color_positive if scaling > 0.0 else "#" + ProgressData.settings.color_negative
+	var scaling_text: String = "[color=%s]%s%s%%[/color]" % [color, prefix, str(round(scaling * 100.0))]
+	var small_icon: Texture = ItemService.get_stat_small_icon(stat_hash)
+	return "%s[img=%sx%s]%s[/img]" % [scaling_text, icon_size, icon_size, small_icon.resource_path]
+
+func fa_get_clock_tower_signed_color(value: int, base_value: int = 0, reverse: bool = false) -> String:
+	var comparison: int = int(sign(value - base_value))
+	if comparison == 0:
+		return "white"
+	if !reverse:
+		return "#" + ProgressData.settings.color_positive if comparison > 0 else "#" + ProgressData.settings.color_negative
+	return "#" + ProgressData.settings.color_negative if comparison > 0 else "#" + ProgressData.settings.color_positive
+
+func fa_get_clock_tower_signed_text(value: int, base_value: int = 0, show_plus_prefix: bool = false) -> String:
+	var prefix: String = "+" if show_plus_prefix and value > 0 else ""
+	return "[color=%s]%s%s[/color]" % [fa_get_clock_tower_signed_color(value, base_value), prefix, str(value)]
+
+func fa_get_clock_tower_area_text_args(base_range: int, range_rate: float, player_index: int) -> Dictionary:
+	var total_range: int = int(fa_get_clock_tower_area_radius(base_range, range_rate, player_index))
+	var range_scaling_text: String = fa_get_clock_tower_scaling_stat_icon_text(Keys.stat_range_hash, range_rate)
+	var range_text: String = fa_get_clock_tower_signed_text(total_range, base_range) + " (" + range_scaling_text + ")"
+	var structure_attack_speed: int = fa_get_clock_tower_structure_attack_speed_bonus(player_index)
+	var structure_attack_speed_text: String = fa_get_clock_tower_signed_text(structure_attack_speed, 0, true)
+	var holy_scaling_text: String = fa_get_clock_tower_scaling_stat_icon_text(stat_fantasy_holy_hash, 4.0)
+	var enemy_slow: int = fa_get_clock_tower_enemy_speed_percent(player_index)
+	var enemy_slow_text: String = fa_get_clock_tower_signed_text(enemy_slow)
+	var engineering_scaling_text: String = fa_get_clock_tower_scaling_stat_icon_text(Keys.stat_engineering_hash, -0.5)
+
+	return {
+		"range_text": range_text,
+		"structure_attack_speed_text": structure_attack_speed_text,
+		"holy_scaling_text": holy_scaling_text,
+		"enemy_slow_text": enemy_slow_text,
+		"engineering_scaling_text": engineering_scaling_text,
+	}
+
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")
 
@@ -108,30 +187,31 @@ var fantasy_tree_spirit_hash: int = Keys.generate_hash("fantasy_tree_spirit")
 var fantasy_vine_stranger_hash: int = Keys.generate_hash("fantasy_vine_stranger")
 var fantasy_flower_spirit_hash: int = Keys.generate_hash("fantasy_flower_spirit")
 var plant_enemies_ids: Array = [
-    fantasy_tree_spirit_hash,
-    fantasy_vine_stranger_hash,
-    fantasy_flower_spirit_hash,
+	fantasy_tree_spirit_hash,
+	fantasy_vine_stranger_hash,
+	fantasy_flower_spirit_hash,
 ]
 
 # Characters
 var character_fantasy_princess_hash = Keys.generate_hash("character_fantasy_princess")
+var character_fantasy_clock_tower_guardian_hash = Keys.generate_hash("character_fantasy_clock_tower_guardian")
 
 func fa_get_job_category_text(job_data: UpgradeData) -> String:
-    var category_text: String = "JOB"
-    match job_data.upgrade_id_hash:
-        job_fantasy_elemental_hash: category_text = "JOB_ELEMENTAL"
-        job_fantasy_engineering_hash: category_text = "JOB_ENGINEERING"
-        job_fantasy_luck_hash: category_text = "JOB_LUCK"
-        job_fantasy_melee_hash: category_text = "JOB_MELEE"
-        job_fantasy_ranged_hash: category_text = "JOB_RANGED"
-        job_fantasy_universal_hash: category_text = "JOB_UNIVERSAL"
+	var category_text: String = "JOB"
+	match job_data.upgrade_id_hash:
+		job_fantasy_elemental_hash: category_text = "JOB_ELEMENTAL"
+		job_fantasy_engineering_hash: category_text = "JOB_ENGINEERING"
+		job_fantasy_luck_hash: category_text = "JOB_LUCK"
+		job_fantasy_melee_hash: category_text = "JOB_MELEE"
+		job_fantasy_ranged_hash: category_text = "JOB_RANGED"
+		job_fantasy_universal_hash: category_text = "JOB_UNIVERSAL"
 
-    var stage_text: String = ""
-    match job_data.stage:
-        0: stage_text = "I"
-        1: stage_text = "II"
+	var stage_text: String = ""
+	match job_data.stage:
+		0: stage_text = "I"
+		1: stage_text = "II"
 
-    return tr(category_text).format([stage_text])
+	return tr(category_text).format([stage_text])
 
 func fa_get_pause_menu_focus_emulator(_player_index: int, root: Node = get_scene_node()) -> FocusEmulator:
 	var pause_menu: Node = root.find_node("PauseMenu", true, false)
@@ -164,86 +244,86 @@ var icon_fantasy_princess_limited_hash = Keys.generate_hash("icon_fantasy_prince
 
 # =========================== Synthesis Pity =========================== #
 func fa_get_synthesis_pity_id(materials: Array, result_id_hash: int) -> String:
-    var material_ids: Array = []
-    for m in materials: material_ids.append(m[0])
-    material_ids.sort()
-    var content_key: String = str(material_ids) + "_" + str(result_id_hash)
-    return content_key.md5_text()
+	var material_ids: Array = []
+	for m in materials: material_ids.append(m[0])
+	material_ids.sort()
+	var content_key: String = str(material_ids) + "_" + str(result_id_hash)
+	return content_key.md5_text()
 
 func fa_get_synthesis_pity_data(player_index: int) -> Dictionary:
-    return RunData.players_data[player_index].fantasy_synthesis_pity_data
+	return RunData.players_data[player_index].fantasy_synthesis_pity_data
 
 func fa_calc_synthesis_pity(base_chance: float, materials: Array, result_id_hash: int) -> Dictionary:
-    var norm_chance: float = max(base_chance / 100.0, 0.01)
-    
-    var total_tier: int = 0
-    var material_count: int = 0
-    for material in materials:
-        var material_id: int = material[0]
-        var tier: int = 0
-        if ItemService.is_item_id(material_id): tier = ItemService.get_item_from_id(material_id).tier
-        else: tier = ItemService.ncl_get_weapon_from_id(material_id).tier
-        total_tier += tier
-        material_count += 1
-    var avg_tier: float = float(total_tier) / max(material_count, 1)
-    var material_bonus: float = (avg_tier / 4.0) * FANTASY_SYNTHESIS_MATERIAL_WEIGHT
+	var norm_chance: float = max(base_chance / 100.0, 0.01)
 
-    var result_tier: int = 0
-    if ItemService.is_item_id(result_id_hash): result_tier = ItemService.get_item_from_id(result_id_hash).tier
-    else: result_tier = ItemService.ncl_get_weapon_from_id(result_id_hash).tier
-    var result_bonus: float = (float(result_tier) / 4.0) * FANTASY_SYNTHESIS_RESULT_TIER_WEIGHT
-    
-    var growth_rate: float = FANTASY_SYNTHESIS_BASE_GROWTH / norm_chance + material_bonus + result_bonus
-    var max_multiplier: float = FANTASY_SYNTHESIS_CAP / norm_chance
+	var total_tier: int = 0
+	var material_count: int = 0
+	for material in materials:
+		var material_id: int = material[0]
+		var tier: int = 0
+		if ItemService.is_item_id(material_id): tier = ItemService.get_item_from_id(material_id).tier
+		else: tier = ItemService.ncl_get_weapon_from_id(material_id).tier
+		total_tier += tier
+		material_count += 1
+	var avg_tier: float = float(total_tier) / max(material_count, 1)
+	var material_bonus: float = (avg_tier / 4.0) * FANTASY_SYNTHESIS_MATERIAL_WEIGHT
 
-    return {"growth_rate": growth_rate, "max_multiplier": max_multiplier}
+	var result_tier: int = 0
+	if ItemService.is_item_id(result_id_hash): result_tier = ItemService.get_item_from_id(result_id_hash).tier
+	else: result_tier = ItemService.ncl_get_weapon_from_id(result_id_hash).tier
+	var result_bonus: float = (float(result_tier) / 4.0) * FANTASY_SYNTHESIS_RESULT_TIER_WEIGHT
+
+	var growth_rate: float = FANTASY_SYNTHESIS_BASE_GROWTH / norm_chance + material_bonus + result_bonus
+	var max_multiplier: float = FANTASY_SYNTHESIS_CAP / norm_chance
+
+	return {"growth_rate": growth_rate, "max_multiplier": max_multiplier}
 
 func fa_get_synthesis_effective_chance(base_chance: float, pity_id: String, materials: Array, result_id_hash: int, player_index: int) -> float:
-    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
-    var fail_count: int = pity_data.get(pity_id, 0)
-    if fail_count == 0: return base_chance / 100.0
+	var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+	var fail_count: int = pity_data.get(pity_id, 0)
+	if fail_count == 0: return base_chance / 100.0
 
-    var calc: Dictionary = fa_calc_synthesis_pity(base_chance, materials, result_id_hash)
-    var multiplier: float = min(1.0 + fail_count * calc.growth_rate, calc.max_multiplier)
-    var effective: float = min((base_chance / 100.0) * multiplier, FANTASY_SYNTHESIS_CAP)
-    return effective
+	var calc: Dictionary = fa_calc_synthesis_pity(base_chance, materials, result_id_hash)
+	var multiplier: float = min(1.0 + fail_count * calc.growth_rate, calc.max_multiplier)
+	var effective: float = min((base_chance / 100.0) * multiplier, FANTASY_SYNTHESIS_CAP)
+	return effective
 
 func fa_record_synthesis_fail(pity_id: String, player_index: int) -> void:
-    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
-    pity_data[pity_id] = pity_data.get(pity_id, 0) + 1
+	var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+	pity_data[pity_id] = pity_data.get(pity_id, 0) + 1
 
 func fa_record_synthesis_success(pity_id: String, player_index: int) -> void:
-    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
-    pity_data.erase(pity_id)
+	var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+	pity_data.erase(pity_id)
 
 func fa_get_synthesis_fail_count(pity_id: String, player_index: int) -> int:
-    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
-    return pity_data.get(pity_id, 0)
+	var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+	return pity_data.get(pity_id, 0)
 
 func fa_get_synthesis_pity_multiplier(base_chance: float, pity_id: String, materials: Array, result_id_hash: int, player_index: int) -> float:
-    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
-    var fail_count: int = pity_data.get(pity_id, 0)
-    if fail_count == 0: return 1.0
+	var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+	var fail_count: int = pity_data.get(pity_id, 0)
+	if fail_count == 0: return 1.0
 
-    var calc: Dictionary = fa_calc_synthesis_pity(base_chance, materials, result_id_hash)
-    return min(1.0 + fail_count * calc.growth_rate, calc.max_multiplier)
+	var calc: Dictionary = fa_calc_synthesis_pity(base_chance, materials, result_id_hash)
+	return min(1.0 + fail_count * calc.growth_rate, calc.max_multiplier)
 
 # =========================== Soul =========================== #
 func fa_spawn_soul(num: int, pos: Vector2, spread: int) -> void:
-    var main: Main = get_scene_node()
-    for _i in range(num):
-        var consumable_to_spawn: ConsumableData = ProgressData.get_dlc_data("Yoko-Fantasy").soul_data
-        var consumable: Consumable = main.get_node_from_pool(main._consumable_pool_id, main._consumables_container)
-        if consumable == null:
-            consumable = main.consumable_scene.instance()
-            main._consumables_container.call_deferred("add_child", consumable)
-            var _error = consumable.connect("picked_up", main, "on_consumable_picked_up")
-            yield (consumable, "ready")
+	var main: Main = get_scene_node()
+	for _i in range(num):
+		var consumable_to_spawn: ConsumableData = ProgressData.get_dlc_data("Yoko-Fantasy").soul_data
+		var consumable: Consumable = main.get_node_from_pool(main._consumable_pool_id, main._consumables_container)
+		if consumable == null:
+			consumable = main.consumable_scene.instance()
+			main._consumables_container.call_deferred("add_child", consumable)
+			var _error = consumable.connect("picked_up", main, "on_consumable_picked_up")
+			yield (consumable, "ready")
 
-        consumable.already_picked_up = false
-        consumable.consumable_data = consumable_to_spawn
-        consumable.set_texture(consumable_to_spawn.icon)
-        var dist = rand_range(50, 100 + spread)
-        var push_back_destination = ZoneService.get_rand_pos_in_area(pos, dist, 0)
-        consumable.drop(pos, 0, push_back_destination)
-        main._consumables.push_back(consumable)
+		consumable.already_picked_up = false
+		consumable.consumable_data = consumable_to_spawn
+		consumable.set_texture(consumable_to_spawn.icon)
+		var dist = rand_range(50, 100 + spread)
+		var push_back_destination = ZoneService.get_rand_pos_in_area(pos, dist, 0)
+		consumable.drop(pos, 0, push_back_destination)
+		main._consumables.push_back(consumable)

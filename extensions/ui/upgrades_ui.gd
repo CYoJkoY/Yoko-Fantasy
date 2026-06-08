@@ -1,20 +1,20 @@
 extends "res://ui/menus/ingame/upgrades_ui.gd"
 
-const UpgradeHooks = preload("res://mods-unpacked/Yoko-Fantasy/extensions/upgrade_hooks.gd")
+const UpgradeHooks = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/upgrade_hooks.gd")
 
 signal fantasy_jobs_processed
 
 # =========================== Extension =========================== #
 func _ready() -> void:
-	._ready()
-
 	if RunData.is_coop_run != is_coop_ui:
 		return
 
 	for player_index in RunData.get_player_count():
 		var player_container = _get_player_container(player_index)
-		player_container.connect("fantasy_job_selected", self, "_fantasy_on_job_selected")
-		player_container.connect("fantasy_job_skipped", self, "_fantasy_on_job_skipped")
+		if !player_container.is_connected("fantasy_job_selected", self, "_fantasy_on_job_selected"):
+			player_container.connect("fantasy_job_selected", self, "_fantasy_on_job_selected")
+		if !player_container.is_connected("fantasy_job_skipped", self, "_fantasy_on_job_skipped"):
+			player_container.connect("fantasy_job_skipped", self, "_fantasy_on_job_skipped")
 
 # =========================== Method =========================== #
 func show_fantasy_job_options() -> bool:

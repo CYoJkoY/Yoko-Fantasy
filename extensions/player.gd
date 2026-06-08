@@ -4,10 +4,24 @@ var decaying_slow_enemy_when_below_hp_triggers: Dictionary = {}
 var _original_non_decaying_slow_speed: Dictionary = {}
 var _non_decaying_slow_material: Dictionary = {}
 var consumables_picked_up_this_run: Dictionary = {}
+var _fantasy_clock_tower_hat_sprite: Sprite = null
+var _fantasy_clock_tower_hat_tween: Tween = null
+var _fantasy_clock_tower_hat_material: ShaderMaterial = null
+var _fantasy_clock_tower_hat_in_area: bool = false
+var _fantasy_is_clock_tower_guardian_character: bool = false
+
+const FANTASY_CLOCK_TOWER_HAT_PATH: String = "res://mods-unpacked/Yoko-Fantasy/content/characters/clock_tower_guardian/clock_tower_guardian_hat.webp"
+const FANTASY_CLOCK_TOWER_HAT_TWEEN_TIME: float = 0.35
+const FANTASY_CLOCK_TOWER_HAT_IN_AREA_EFFECT: float = 1.0
 
 # =========================== Extension =========================== #
 func _ready() -> void:
     _fantasy_decaying_slow_enemy_when_below_hp_ready()
+    _fantasy_is_clock_tower_guardian_character = _fantasy_is_clock_tower_guardian()
+
+func _physics_process(delta: float) -> void:
+    ._physics_process(delta)
+    _fantasy_update_clock_tower_hat_color()
 
 func get_damage_value(dmg_value: int, _from_player_index: int, armor_applied := true, dodgeable := true, _is_crit := false, _hitbox: Hitbox = null, _is_burning := false) -> Unit.GetDamageValueResult:
     var result: Unit.GetDamageValueResult =.get_damage_value(dmg_value, _from_player_index, armor_applied, dodgeable, _is_crit, _hitbox, _is_burning)
@@ -50,6 +64,101 @@ func _fantasy_damage_clamp(result: Unit.GetDamageValueResult) -> Unit.GetDamageV
         result.value = max_taken_dmg
 
     return result
+
+func _fantasy_update_clock_tower_hat_color() -> void:
+    if !_fantasy_is_clock_tower_guardian_character:
+        return
+
+    var has_clock_tower_area: bool = Utils.fa_has_clock_tower_area(player_index)
+    if !has_clock_tower_area:
+        if _fantasy_clock_tower_hat_in_area:
+            _fantasy_set_clock_tower_hat_in_area(false)
+        return
+
+    var in_area: bool = Utils.fa_is_clock_tower_player_in_area(player_index)
+    if in_area == _fantasy_clock_tower_hat_in_area:
+        return
+
+    _fantasy_set_clock_tower_hat_in_area(in_area)
+
+func _fantasy_is_clock_tower_guardian() -> bool:
+    var character_data: CharacterData = RunData.get_player_character(player_index)
+    return character_data != null and character_data.my_id_hash == Utils.character_fantasy_clock_tower_guardian_hash
+
+func _fantasy_set_clock_tower_hat_in_area(in_area: bool) -> void:
+    var hat_sprite: Sprite = _fantasy_get_clock_tower_hat_sprite()
+    if hat_sprite == null:
+        return
+
+    _fantasy_clock_tower_hat_in_area = in_area
+    var target_effect: float = FANTASY_CLOCK_TOWER_HAT_IN_AREA_EFFECT if in_area else 0.0
+    _fantasy_tween_clock_tower_hat(target_effect)
+
+func _fantasy_get_clock_tower_hat_sprite() -> Sprite:
+    if is_instance_valid(_fantasy_clock_tower_hat_sprite):
+        return _fantasy_clock_tower_hat_sprite
+
+    for appearance_sprite in _item_appearances:
+        if !(appearance_sprite is Sprite):
+            continue
+        var sprite: Sprite = appearance_sprite
+        if sprite.texture == null:
+            continue
+        if sprite.texture.resource_path != FANTASY_CLOCK_TOWER_HAT_PATH:
+            continue
+
+        _fantasy_clock_tower_hat_sprite = sprite
+        _fantasy_prepare_clock_tower_hat_material(sprite)
+        return _fantasy_clock_tower_hat_sprite
+
+    return null
+
+func _fantasy_prepare_clock_tower_hat_material(hat_sprite: Sprite) -> void:
+    if is_instance_valid(_fantasy_clock_tower_hat_material):
+        return
+
+    var shader: Shader = Shader.new()
+    shader.code = "shader_type canvas_item;\n" \
+        + "uniform float effect_amount = 0.0;\n" \
+        + "void fragment() {\n" \
+        + "\tvec4 tex = texture(TEXTURE, UV);\n" \
+        + "\tfloat luma = dot(tex.rgb, vec3(0.299, 0.587, 0.114));\n" \
+        + "\tvec3 shadow_blue = vec3(0.12, 0.20, 0.34);\n" \
+        + "\tvec3 brass_gold = vec3(1.0, 0.76, 0.26);\n" \
+        + "\tvec3 contrast = mix(shadow_blue, brass_gold, smoothstep(0.14, 0.92, luma));\n" \
+        + "\tvec3 color_shift = mix(tex.rgb, contrast, 0.48);\n" \
+        + "\tfloat scan = smoothstep(0.035, 0.0, abs(fract(UV.y * 2.45 - TIME * 0.55) - 0.5));\n" \
+        + "\tcolor_shift += brass_gold * scan * 0.28 * tex.a;\n" \
+        + "\tfloat pulse = 0.88 + 0.12 * sin(TIME * 3.4);\n" \
+        + "\tcolor_shift *= pulse;\n" \
+        + "\tCOLOR = vec4(mix(tex.rgb, color_shift, effect_amount), tex.a) * COLOR;\n" \
+        + "}"
+
+    _fantasy_clock_tower_hat_material = ShaderMaterial.new()
+    _fantasy_clock_tower_hat_material.shader = shader
+    _fantasy_clock_tower_hat_material.set_shader_param("effect_amount", 0.0)
+    hat_sprite.material = _fantasy_clock_tower_hat_material
+
+func _fantasy_tween_clock_tower_hat(target_effect: float) -> void:
+    if !is_instance_valid(_fantasy_clock_tower_hat_material):
+        return
+
+    if !is_instance_valid(_fantasy_clock_tower_hat_tween):
+        _fantasy_clock_tower_hat_tween = Tween.new()
+        add_child(_fantasy_clock_tower_hat_tween)
+
+    _fantasy_clock_tower_hat_tween.stop_all()
+    _fantasy_clock_tower_hat_tween.remove_all()
+    _fantasy_clock_tower_hat_tween.interpolate_property(
+        _fantasy_clock_tower_hat_material,
+        "shader_param/effect_amount",
+        _fantasy_clock_tower_hat_material.get_shader_param("effect_amount"),
+        target_effect,
+        FANTASY_CLOCK_TOWER_HAT_TWEEN_TIME,
+        Tween.TRANS_SINE,
+        Tween.EASE_IN_OUT
+    )
+    _fantasy_clock_tower_hat_tween.start()
 
 func _fantasy_damage_reflect(full_dmg_value: int, args: TakeDamageArgs) -> void:
     if !is_instance_valid(args.hitbox) or !is_instance_valid(args.hitbox.from): return

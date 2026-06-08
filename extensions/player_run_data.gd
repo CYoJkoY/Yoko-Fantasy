@@ -115,6 +115,7 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_lose_hp_per_second_min_hp_hash: 0,
             Utils.fantasy_lose_hp_per_second_stop_threshold_hash: 0,
             Utils.fantasy_sacrificial_circle_hash: [],
+            Utils.fantasy_clock_tower_area_hash: [],
             Utils.fantasy_dance_hash: [],
             Utils.fantasy_shop_enter_synthesis_hash: [],
             Utils.fantasy_lightning_chain_on_hit_hash: [],

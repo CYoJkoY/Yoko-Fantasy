@@ -8,6 +8,17 @@ var gain_stat_ever_killed_enemies_killed_count: Array = [0, 0, 0, 0]
 # EFFECT: cannot_damage_tree
 var plant_enemies: Array = []
 
+# EFFECT: clock_tower_area
+var _fantasy_clock_tower_structure_spawn_counts: Dictionary = {}
+var _fantasy_clock_tower_starting_offsets: Array = [
+    Vector2(-1, -181), #↑
+    Vector2(157, -92), #↗
+    Vector2(158, 92), #↘
+    Vector2(1, 183),  #↓
+    Vector2(-157, 95), #↙
+    Vector2(-158, -90), #↖
+]
+
 # =========================== Extension =========================== #
 func _ready() -> void:
     var _err: int = connect("enemy_respawned", self , "fa_add_plant_enemy_on_enemy_respawned")
@@ -25,7 +36,42 @@ func on_enemy_charmed(enemy: Entity) -> void:
     if plant_enemies.has(enemy): plant_enemies.erase(enemy)
     _fantasy_charm_enemy_with_detect_ability(enemy)
 
+func spawn_entity_birth(
+    type: int,
+    scene: PackedScene,
+    pos: Vector2,
+    data: Resource = null,
+    player_index: = - 1,
+    source = null,
+    charmed_by: = - 1
+    ) -> void:
+    if type == EntityType.STRUCTURE:
+        pos = _fantasy_get_clock_tower_structure_pos(player_index, pos)
+
+    .spawn_entity_birth(type, scene, pos, data, player_index, source, charmed_by)
+
 # =========================== Custom =========================== #
+func _fantasy_get_clock_tower_structure_pos(player_index: int, fallback_pos: Vector2) -> Vector2:
+    var clock_tower_areas: Array = RunData.get_player_effect(Utils.fantasy_clock_tower_area_hash, player_index)
+    if clock_tower_areas.empty():
+        return fallback_pos
+
+    var clock_tower_area: Array = clock_tower_areas[0]
+    var base_range: int = clock_tower_area[0]
+    var range_rate: float = clock_tower_area[1] / 100.0
+    var radius: float = Utils.fa_get_clock_tower_area_radius(base_range, range_rate, player_index)
+    var center_pos: Vector2 = ZoneService.get_map_center()
+    var angle: float = rand_range(0.0, TAU)
+    var spawn_count: int = _fantasy_clock_tower_structure_spawn_counts.get(player_index, 0)
+
+    if spawn_count < 6:
+        var visual_scale: float = radius / 236.0
+        _fantasy_clock_tower_structure_spawn_counts[player_index] = spawn_count + 1
+        return center_pos + _fantasy_clock_tower_starting_offsets[spawn_count] * visual_scale
+
+    _fantasy_clock_tower_structure_spawn_counts[player_index] = spawn_count + 1
+    return center_pos + Vector2.RIGHT.rotated(angle) * radius
+
 func _fantasy_gain_stat_every_killed_enemies() -> void:
     for player_index in RunData.get_player_count():
         var effect_items: Array = RunData.get_player_effect(Utils.fantasy_gain_stat_every_killed_enemies_hash, player_index)
