@@ -1,6 +1,19 @@
 extends UnitEffectBehavior
 
 const PLAYER_LIGHT_RANGE: float = 240.0
+const AURA_ALPHA_MIN: float = 0.04
+const AURA_ALPHA_MAX: float = 0.07
+const AURA_BREATH_DURATION: float = 1.4
+const HOLY_PULSE_START_SCALE: float = 0.72
+const HOLY_PULSE_TARGET_SCALE: float = 1.08
+const HOLY_PULSE_FADE_IN_DURATION: float = 0.17
+const HOLY_PULSE_FADE_OUT_DURATION: float = 0.32
+const HOLY_PULSE_ALPHA: float = 0.55
+const FOG_LIGHT_PULSE_START_SCALE: float = 0.9
+const FOG_LIGHT_PULSE_MIN_SCALE: float = 1.65
+const FOG_LIGHT_PULSE_FADE_IN_DURATION: float = 0.35
+const FOG_LIGHT_PULSE_FADE_OUT_DURATION: float = 0.80
+const FOG_LIGHT_PULSE_ALPHA: float = 0.80
 
 var _player_index: int = -1
 var _base_range: int = 0
@@ -18,10 +31,12 @@ var total_cooldown: float = 0.0
 var enemies_in_aura: Array = []
 var sprite_range: float = 0.0
 
-onready var animation_player: AnimationPlayer = $"AnimationPlayer"
 onready var collision: CollisionShape2D = $"%Collision"
 onready var audio: AudioStreamPlayer2D = $"Audio"
 onready var sprite_scale: Node2D = $"SpriteScale"
+onready var aura_sprite: Sprite = $"%AuraSprite"
+onready var aura_tween: Tween = $"AuraTween"
+onready var pulse_tween: Tween = $"PulseTween"
 onready var sprite: Sprite = $"%Sprite"
 onready var timer: Timer = $"Timer"
 
@@ -52,11 +67,72 @@ func _ready() -> void:
 
     timer.wait_time = total_cooldown
     timer.connect("timeout", self , "fa_on_PeriodicRadiusTimer_timeout", [damage_args])
+    fa_start_aura_breath()
 
 func on_moved(_delta_position: Vector2) -> void:
     pass
 
 # =========================== Method =========================== #
+func fa_start_aura_breath() -> void:
+    aura_tween.stop_all()
+    aura_tween.remove_all()
+    aura_sprite.self_modulate.a = AURA_ALPHA_MIN
+
+    aura_tween.interpolate_property(
+        aura_sprite, "self_modulate:a",
+        AURA_ALPHA_MIN, AURA_ALPHA_MAX,
+        AURA_BREATH_DURATION, Tween.TRANS_SINE, Tween.EASE_IN_OUT
+    )
+
+    aura_tween.interpolate_property(
+        aura_sprite, "self_modulate:a",
+        AURA_ALPHA_MAX, AURA_ALPHA_MIN,
+        AURA_BREATH_DURATION, Tween.TRANS_SINE, Tween.EASE_IN_OUT, AURA_BREATH_DURATION
+    )
+
+    aura_tween.set_repeat(true)
+    aura_tween.start()
+
+func fa_play_holy_aura_pulse() -> void:
+    pulse_tween.stop_all()
+    pulse_tween.remove_all()
+
+    sprite.visible = true
+    sprite.scale = Vector2.ONE * HOLY_PULSE_START_SCALE
+    sprite.modulate = Color(1.0, 0.96, 0.72, 0.0)
+
+    pulse_tween.interpolate_property(
+        sprite, "scale",
+        sprite.scale, Vector2.ONE * HOLY_PULSE_TARGET_SCALE,
+        HOLY_PULSE_FADE_IN_DURATION, Tween.TRANS_SINE, Tween.EASE_OUT
+    )
+
+    pulse_tween.interpolate_property(
+        sprite, "scale",
+        Vector2.ONE * HOLY_PULSE_TARGET_SCALE, Vector2.ONE,
+        HOLY_PULSE_FADE_OUT_DURATION, Tween.TRANS_SINE, Tween.EASE_IN_OUT, HOLY_PULSE_FADE_IN_DURATION
+    )
+
+    pulse_tween.interpolate_property(
+        sprite, "modulate:a",
+        0.0, HOLY_PULSE_ALPHA,
+        HOLY_PULSE_FADE_IN_DURATION, Tween.TRANS_SINE, Tween.EASE_OUT
+    )
+
+    pulse_tween.interpolate_property(
+        sprite, "modulate:a",
+        HOLY_PULSE_ALPHA, 0.0,
+        HOLY_PULSE_FADE_OUT_DURATION, Tween.TRANS_SINE, Tween.EASE_IN, HOLY_PULSE_FADE_IN_DURATION
+    )
+
+    pulse_tween.interpolate_callback(
+        sprite,
+        HOLY_PULSE_FADE_IN_DURATION + HOLY_PULSE_FADE_OUT_DURATION,
+        "hide"
+    )
+
+    pulse_tween.start()
+
 func fa_on_PeriodicRadiusTimer_timeout(damage_args: TakeDamageArgs) -> void:
     var total_damage: int = int(Utils.ncl_get_dmg_with_scaling_stats(_base_damage, _scaling_stats, _player_index))
 
@@ -67,7 +143,7 @@ func fa_on_PeriodicRadiusTimer_timeout(damage_args: TakeDamageArgs) -> void:
         RunData.add_tracked_value(_player_index, _tracked_key, take_damage_array[1])
         if take_damage_array[1] > 0 and _hit_visual_scene != null: fa_spawn_hit_visual(enemy.global_position)
 
-    animation_player.play("pulse")
+    fa_play_holy_aura_pulse()
     audio.play()
     fa_pulse_fog_player_light()
 
@@ -93,34 +169,55 @@ func fa_pulse_fog_player_light() -> void:
     if !_can_light: return
 
     var main: Node = Utils.get_scene_node()
-    if !main._is_fog_wave: return
+    if main == null or !main._is_fog_wave: return
 
     var fog_viewport: FogViewport = main._fog_viewport
+    if fog_viewport == null or _player_index < 0 or _player_index >= fog_viewport.player_lights.size(): return
+
     var player_light: Node2D = fog_viewport.player_lights[_player_index]
-    var base_scale: Vector2 = player_light.scale
+    if player_light == null or !is_instance_valid(player_light): return
+    if fog_viewport.player_light_in_shadow_scene == null: return
+
+    var pulse_light: Node2D = fog_viewport.player_light_in_shadow_scene.instance()
+    player_light.add_child(pulse_light)
+
     var scale_multiplier: float = total_range / PLAYER_LIGHT_RANGE
+    pulse_light.scale = Vector2.ONE * FOG_LIGHT_PULSE_START_SCALE
+    pulse_light.modulate = Color(1.0, 1.0, 1.0, 0.0)
 
-    var pulse_tween: Tween = player_light.get_node_or_null("FantasyLightPulseTween")
-    if pulse_tween == null:
-        pulse_tween = Tween.new()
-        pulse_tween.name = "FantasyLightPulseTween"
-        player_light.add_child(pulse_tween)
+    var fog_pulse_tween: Tween = Tween.new()
+    fog_pulse_tween.name = "FantasyLightPulseTween"
+    pulse_light.add_child(fog_pulse_tween)
 
-    pulse_tween.stop_all()
-    pulse_tween.remove_all()
-
-    var half_duration: float = max(0.05, total_cooldown * 0.2)
-    var target_scale: Vector2 = base_scale * max(1.0, scale_multiplier)
-    pulse_tween.interpolate_property(
-        player_light, "scale",
-        player_light.scale, target_scale,
-        half_duration, Tween.TRANS_SINE, Tween.EASE_OUT
+    var target_scale: Vector2 = Vector2.ONE * max(FOG_LIGHT_PULSE_MIN_SCALE, scale_multiplier)
+    fog_pulse_tween.interpolate_property(
+        pulse_light, "scale",
+        pulse_light.scale, target_scale,
+        FOG_LIGHT_PULSE_FADE_IN_DURATION, Tween.TRANS_SINE, Tween.EASE_OUT
     )
 
-    pulse_tween.interpolate_property(
-        player_light, "scale",
-        target_scale, base_scale,
-        half_duration, Tween.TRANS_SINE, Tween.EASE_IN, half_duration
+    fog_pulse_tween.interpolate_property(
+        pulse_light, "scale",
+        target_scale, Vector2.ONE,
+        FOG_LIGHT_PULSE_FADE_OUT_DURATION, Tween.TRANS_SINE, Tween.EASE_IN_OUT, FOG_LIGHT_PULSE_FADE_IN_DURATION
+    )
+
+    fog_pulse_tween.interpolate_property(
+        pulse_light, "modulate:a",
+        0.0, FOG_LIGHT_PULSE_ALPHA,
+        FOG_LIGHT_PULSE_FADE_IN_DURATION, Tween.TRANS_SINE, Tween.EASE_OUT
+    )
+
+    fog_pulse_tween.interpolate_property(
+        pulse_light, "modulate:a",
+        FOG_LIGHT_PULSE_ALPHA, 0.0,
+        FOG_LIGHT_PULSE_FADE_OUT_DURATION, Tween.TRANS_SINE, Tween.EASE_IN, FOG_LIGHT_PULSE_FADE_IN_DURATION
+    )
+
+    fog_pulse_tween.interpolate_callback(
+        pulse_light,
+        FOG_LIGHT_PULSE_FADE_IN_DURATION + FOG_LIGHT_PULSE_FADE_OUT_DURATION,
+        "queue_free"
     )
     
-    pulse_tween.start()
+    fog_pulse_tween.start()

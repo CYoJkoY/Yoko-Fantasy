@@ -6,14 +6,14 @@
 script = ExtResource( 1 )
 key = ""
 text_key = "EFFECT_FANTASY_SACRIFICIAL_CIRCLE_NO_STAT"
-value = 300
+value = 350
 custom_key = "fantasy_sacrificial_circle"
 storage_method = 0
 effect_sign = 3
 custom_args = [  ]
 value2 = 50
 sum_strategy = 0
-killed_need = 16
+killed_need = 20
 stat_num = 1
 gold_num = 8
 consumable_id = "consumable_fantasy_soul"

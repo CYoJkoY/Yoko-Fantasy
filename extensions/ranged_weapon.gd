@@ -1,154 +1,35 @@
 extends "res://weapons/ranged/ranged_weapon.gd"
 
-const LightningChainService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/lightning_chain_service.gd")
-
 # =========================== Extension =========================== #
 func _ready() -> void:
-    _fantasy_cannot_damage_tree()
+	WeaponService.fantasy_cannot_damage_tree(self)
+
+func should_shoot() -> bool:
+	if WeaponService.fantasy_cannot_attack_while_stationary(self):
+		return false
+
+	return .should_shoot()
 
 func shoot() -> void:
-    .shoot()
-    _fantasy_reload_when_shoot()
+	.shoot()
+	WeaponService.fantasy_on_shoot(self)
 
 func on_killed_something(_thing_killed: Node, hitbox: Hitbox) -> void:
-    .on_killed_something(_thing_killed, hitbox)
-    _fantasy_gain_stat_every_killed_enemies()
-    _fantasy_change_weapon_every_killed_enemies()
+	.on_killed_something(_thing_killed, hitbox)
+	WeaponService.fantasy_on_killed_something(self)
 
 func _on_Range_body_entered(body: Node) -> void:
-    if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index) and Utils.plant_enemies_ids.has(body.get("enemy_id_hash")): return
-    ._on_Range_body_entered(body)
+	if WeaponService.fantasy_should_ignore_tree_body(self, body): return
+	._on_Range_body_entered(body)
 
 func _on_Range_body_exited(body: Node) -> void:
-    if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index) and Utils.plant_enemies_ids.has(body.get("enemy_id_hash")): return
-    ._on_Range_body_exited(body)
+	if WeaponService.fantasy_should_ignore_tree_body(self, body): return
+	._on_Range_body_exited(body)
 
 func on_weapon_hit_something(thing_hit: Node, damage_dealt: int, hitbox: Hitbox) -> void:
-    .on_weapon_hit_something(thing_hit, damage_dealt, hitbox)
-    _fantasy_weapon_hit_proc(thing_hit, damage_dealt)
-    _fantasy_lightning_chain_on_hit(thing_hit)
+	.on_weapon_hit_something(thing_hit, damage_dealt, hitbox)
+	WeaponService.fantasy_on_weapon_hit(self, thing_hit, damage_dealt, hitbox)
 
 func _on_weapon_critically_hit_something(_thing_hit, _damage_dealt) -> void:
-    ._on_weapon_critically_hit_something(_thing_hit, _damage_dealt)
-    _fantasy_reload_when_critically_hit()
-
-# =========================== Custom =========================== #
-func _fantasy_cannot_damage_tree() -> void:
-    if !RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index): return
-
-    _range.collision_mask -= Utils.NEUTRAL_BIT
-    return
-
-func _fantasy_gain_stat_every_killed_enemies() -> void:
-    for effect in effects:
-        if effect.get_id() != "fantasy_gain_stat_every_killed_enemies" or \
-        _enemies_killed_this_wave_count % effect.value != 0: continue
-
-        if effect.is_temp: TempStats.add_stat(effect.stat_hash, effect.stat_nb, player_index)
-        else: RunData.add_stat(effect.stat_hash, effect.stat_nb, player_index)
-
-        # Update when first add hit_protection
-        if effect.stat_hash == Keys.hit_protection_hash:
-            _parent._hit_protection += effect.stat_nb
-
-func _fantasy_reload_when_shoot() -> void:
-    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_reload_when_shoot_hash, player_index)
-
-    for effect_item in effect_items:
-        var chance: float = effect_item[1] / 100.0
-
-        if !Utils.get_chance_success(chance): continue
-
-        var tracking_key_hash: int = effect_item[0]
-        RunData.ncl_add_effect_tracking_value(tracking_key_hash, 1, player_index)
-
-        _current_cooldown = 0
-        tween_animation.interpolate_property(
-            sprite, "self_modulate",
-            Color("#3E68DA"), Color.white, 0.48,
-            Tween.TRANS_SINE, Tween.EASE_IN_OUT
-        )
-        tween_animation.start()
-
-func _fantasy_change_weapon_every_killed_enemies() -> void:
-    for effect in effects:
-        if effect.get_id() != "fantasy_change_weapon_every_killed_enemies" or \
-        _enemies_killed_this_wave_count != effect.value: continue
-
-        Utils.ncl_change_weapon_within_run(weapon_pos, effect.key_hash, player_index)
-
-func _fantasy_reload_when_critically_hit() -> void:
-    for effect in effects:
-        if effect.custom_key_hash != Utils.fantasy_reload_when_critically_hit_hash: continue
-
-        var chance: float = effect.value / 100.0
-
-        if !Utils.get_chance_success(chance): continue
-
-        _current_cooldown = 0
-        tween_animation.interpolate_property(
-            sprite, "self_modulate",
-            Color("#3E68DA"), Color.white, 0.48,
-            Tween.TRANS_SINE, Tween.EASE_IN_OUT, 0.64
-        )
-
-func _fantasy_weapon_hit_proc(thing_hit: Node, damage_dealt: int) -> void:
-    if damage_dealt <= 0 or !(thing_hit is Enemy) or !is_instance_valid(thing_hit):
-        return
-
-    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_weapon_hit_proc_hash, player_index)
-    for effect_item in effect_items:
-        var chance: float = effect_item[0]
-        var set_id_hash: int = effect_item[1]
-        var proc_type: String = effect_item[2]
-        var proc_value: int = effect_item[3]
-
-        if set_id_hash != Keys.empty_hash and !_fantasy_weapon_has_set(set_id_hash):
-            continue
-
-        if !Utils.get_chance_success(chance):
-            continue
-
-        match proc_type:
-            "slow_enemy":
-                thing_hit.add_decaying_speed(proc_value)
-            "drop_material":
-                var main: Main = Utils.get_scene_node()
-                if main != null:
-                    main.spawn_gold(proc_value, thing_hit.global_position, 0)
-
-func _fantasy_weapon_has_set(set_id_hash: int) -> bool:
-    for weapon_set in weapon_sets:
-        if weapon_set != null and weapon_set.my_id_hash == set_id_hash:
-            return true
-
-    return false
-
-func _fantasy_lightning_chain_on_hit(thing_hit: Node) -> void:
-    var main: Main = Utils.get_scene_node()
-    if main == null or !(thing_hit is Enemy) or !is_instance_valid(thing_hit):
-        return
-
-    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_lightning_chain_on_hit_hash, player_index)
-    var params_list: Array = LightningChainService.collect_triggered_hit_params(effects, effect_items, player_index)
-    for params in params_list:
-        var arc_damage: int = LightningChainService.spawn_lightning_chain(
-            main,
-            thing_hit,
-            player_index,
-            params.damage,
-            params.chain_targets,
-            params.chain_damage_mult,
-            params.arc_width,
-            params.arc_jaggedness,
-            params.arc_color,
-            params.arc_glow_color,
-            params.arc_duration,
-            params.arc_crit_chance,
-            params.arc_crit_damage,
-            effects,
-            params.damage_scaling_stats,
-            params.arc_scene_path
-        )
-
-        RunData.add_weapon_dmg_dealt(weapon_pos, arc_damage, _parent.player_index)
+	._on_weapon_critically_hit_something(_thing_hit, _damage_dealt)
+	WeaponService.fantasy_on_weapon_critically_hit(self)

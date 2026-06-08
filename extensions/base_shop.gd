@@ -96,7 +96,7 @@ func _fantasy_get_replaceable_shop_item_index(player_index: int, set_id_hash: in
 func _fantasy_get_random_set_weapon_for_shop(player_index: int, set_id_hash: int) -> WeaponData:
     var min_weapon_tier: int = RunData.get_player_effect(Keys.min_weapon_tier_hash, player_index)
     var max_weapon_tier: int = RunData.get_player_effect(Keys.max_weapon_tier_hash, player_index)
-    var target_tier: int = clamp(ItemService.get_tier_from_wave(RunData.current_wave, player_index), min_weapon_tier, max_weapon_tier)
+    var target_tier: int = int(clamp(ItemService.get_tier_from_wave(RunData.current_wave, player_index), min_weapon_tier, max_weapon_tier))
     var tier_order: Array = [target_tier]
 
     for offset in range(1, max_weapon_tier - min_weapon_tier + 1):
@@ -111,7 +111,7 @@ func _fantasy_get_random_set_weapon_for_shop(player_index: int, set_id_hash: int
         var candidates: Array = _fantasy_get_set_weapon_candidates_for_tier(player_index, set_id_hash, weapon_tier)
         if candidates.empty(): continue
 
-        return ItemService.apply_item_effect_modifications(Utils.get_rand_element(candidates), player_index)
+        return ItemService.apply_item_effect_modifications(Utils.get_rand_element(candidates), player_index) as WeaponData
 
     return null
 
