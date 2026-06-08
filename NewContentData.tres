@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=229 format=2]
+[gd_resource type="Resource" load_steps=230 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -229,6 +229,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/lightning_chain_on_death/lightning_chain_on_death_effect.gd" type="Script" id=227]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/clock_tower_guardian/clock_tower_guardian_data.tres" type="Resource" id=228]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/clock_tower_area/clock_tower_area_effect.gd" type="Script" id=229]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/prism_tower_data.tres" type="Resource" id=230]
 
 [resource]
 script = ExtResource( 43 )
@@ -241,7 +242,7 @@ entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource
 elites = [ ExtResource( 151 ), ExtResource( 146 ), ExtResource( 150 ), ExtResource( 145 ), ExtResource( 152 ), ExtResource( 155 ), ExtResource( 147 ), ExtResource( 148 ), ExtResource( 149 ) ]
 bosses = [ ExtResource( 154 ), ExtResource( 153 ) ]
 stats = [ ExtResource( 26 ), ExtResource( 24 ) ]
-items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 75 ), ExtResource( 42 ), ExtResource( 82 ), ExtResource( 84 ), ExtResource( 87 ), ExtResource( 89 ), ExtResource( 90 ), ExtResource( 200 ) ]
+items = [ ExtResource( 41 ), ExtResource( 23 ), ExtResource( 35 ), ExtResource( 29 ), ExtResource( 32 ), ExtResource( 28 ), ExtResource( 31 ), ExtResource( 30 ), ExtResource( 33 ), ExtResource( 27 ), ExtResource( 36 ), ExtResource( 38 ), ExtResource( 44 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 55 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 75 ), ExtResource( 42 ), ExtResource( 82 ), ExtResource( 84 ), ExtResource( 87 ), ExtResource( 89 ), ExtResource( 90 ), ExtResource( 200 ), ExtResource( 230 ) ]
 weapons = [ ExtResource( 159 ), ExtResource( 161 ), ExtResource( 160 ), ExtResource( 162 ), ExtResource( 169 ), ExtResource( 168 ), ExtResource( 171 ), ExtResource( 173 ), ExtResource( 174 ), ExtResource( 172 ), ExtResource( 175 ), ExtResource( 176 ), ExtResource( 177 ), ExtResource( 178 ), ExtResource( 179 ), ExtResource( 195 ), ExtResource( 194 ), ExtResource( 193 ), ExtResource( 199 ), ExtResource( 196 ), ExtResource( 197 ), ExtResource( 198 ), ExtResource( 202 ), ExtResource( 205 ), ExtResource( 204 ), ExtResource( 203 ), ExtResource( 206 ), ExtResource( 209 ), ExtResource( 210 ), ExtResource( 208 ) ]
 effects = [ ExtResource( 54 ), ExtResource( 88 ), ExtResource( 70 ), ExtResource( 86 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 46 ), ExtResource( 137 ), ExtResource( 139 ), ExtResource( 85 ), ExtResource( 141 ), ExtResource( 165 ), ExtResource( 68 ), ExtResource( 67 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 77 ), ExtResource( 136 ), ExtResource( 117 ), ExtResource( 138 ), ExtResource( 166 ), ExtResource( 167 ), ExtResource( 170 ), ExtResource( 207 ), ExtResource( 213 ), ExtResource( 214 ), ExtResource( 215 ), ExtResource( 216 ), ExtResource( 217 ), ExtResource( 218 ), ExtResource( 222 ), ExtResource( 223 ), ExtResource( 224 ), ExtResource( 227 ), ExtResource( 229 ) ]
 consumables = [  ]
