@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://entities/structures/turret/turret.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/prism_tower_body.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/structure/prism_tower.gd" type="Script" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/structure/prism_tower_shoot_animation.tres" type="Animation" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/structure/prism_tower_idle_animation.tres" type="Animation" id=5]
+[ext_resource path="res://particles/sprites/particle_30.png" type="Texture" id=6]
+
+[sub_resource type="CircleShape2D" id=1]
+resource_local_to_scene = true
+radius = 430.0
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[node name="PrismTower" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+can_be_boosted = true
+
+[node name="Sprite" parent="Animation" index="0"]
+texture = ExtResource( 2 )
+
+[node name="Muzzle" parent="Animation" index="1"]
+position = Vector2( 0, -19 )
+
+[node name="PrismAura" type="Node2D" parent="Animation" index="2"]
+position = Vector2( 0, -16 )
+z_index = 7
+
+[node name="WaveA" type="Sprite" parent="Animation/PrismAura"]
+material = SubResource( 2 )
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 6 )
+
+[node name="WaveB" type="Sprite" parent="Animation/PrismAura"]
+material = SubResource( 2 )
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 6 )
+
+[node name="WaveC" type="Sprite" parent="Animation/PrismAura"]
+material = SubResource( 2 )
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 6 )
+
+[node name="AnimationPlayer" parent="." index="2"]
+anims/idle = ExtResource( 5 )
+anims/shoot = ExtResource( 4 )
+
+[node name="CollisionShape2D" parent="Range" index="0"]
+shape = SubResource( 1 )

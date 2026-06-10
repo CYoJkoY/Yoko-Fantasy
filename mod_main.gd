@@ -78,6 +78,9 @@ func _init() -> void:
 		# EFFECTS: extra_elites_next_wave
 		#          extra_enemies_each_wave_by_stat
 
+		"entity_service.gd",
+		# ITEMS: Prism Tower turret ordering
+
 		"entity_spawner.gd",
 		# ENEMIES: Plant Enemies[ 1/3 ]
 		#          Enemies with detect ability

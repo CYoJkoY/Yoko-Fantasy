@@ -1967,6 +1967,10 @@ FANTASY_CHAIN_DAMAGE_MULT,Chain Mod: ,Mod. Chaîne: ,链变: ,連鎖倍率: ,연
 FANTASY_CHAIN_DAMAGE_MULT_FORMATTED,{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1}
 FANTASY_CHAIN_TARGETS,Chain Targets: ,Cibles en chaîne: ,连锁: ,連鎖: ,연쇄 대상: ,連鎖: ,Цели цепи: ,Cele łańcucha: ,Objetivos de cadena: ,Alvos em cadeia: ,Kettenziele: ,Zincir Hedefleri: ,Obiettivi a catena: 
 FANTASY_CHAIN_TARGETS_FORMATTED,{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1}
+FANTASY_SCATTER_TARGETS,Scatter: ,Dispersion: ,散射: ,散射: ,산란: ,散射: ,Рассеивание: ,Rozproszenie: ,Dispersión: ,Dispersão: ,Streuung: ,Saçılma: ,Dispersione: 
+FANTASY_PRISM_TOWER_MAIN,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,生成一座光棱塔。七彩光束: {0}伤害。,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,生成一座光棱塔。七彩光束: {0}傷害。,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.
+FANTASY_PRISM_TOWER_RESONANCE,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0}座及以上会有共鸣效果,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0}座及以上會有共鳴效果,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.
+EFFECT_FANTASY_PRISM_TOWER_SCATTER,{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0}
 EFFECT_FANTASY_LIGHTNING_CHAIN_ON_HIT,"After hitting an enemy, there is a {0} chance to deal {1} lightning chain damage
 {2}
 {3}

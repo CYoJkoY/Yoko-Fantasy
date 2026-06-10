@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "item_turret"
+key = "item_fantasy_prism_tower"
 text_key = "effect_starting_item"
 value = 6
 custom_key = "starting_item"
