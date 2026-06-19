@@ -15,6 +15,7 @@ func _init() -> void:
 	var extensions: Array = [
 
 		"main.gd",
+		"singletons/debug_service.gd",
 		# SYSTEMS: Job[ 1/6 ]
 		# STATS: Soul[ 1/3 ]
 		# ENEMIES: World Tree
@@ -31,12 +32,15 @@ func _init() -> void:
 		# STATS: Holy[ 1/2 ]
 		# EFFECTS: gain_stat_for_limited_item
 
+		"charging_attack_behavior.gd",
+		# ENEMIES: stop delayed charge unlock signals after death/cleanup
+
 		"enemy.gd",
 		# STATS: Holy[ 2/2 ]
 		# EFFECTS: extra_curse_enemy
 		#          on_target_enemy_killed_buff_future_target_enemy[ 1/2 ]
 		#          cannot_damage_tree[ 1/5 ]
-		
+
 		"player_run_data.gd",
 		# SYSTEMS: Job[ 3/6 ]
 		# EFFECTS' NAMES

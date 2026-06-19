@@ -65,9 +65,7 @@ func get_args(player_index: int) -> Array:
 	var cooldown_text: String = "[color=%s]%s[/color]" % [Utils.ncl_get_signed_col(final_cooldown, base_cooldown, true), stepify(final_cooldown / 60.0, 0.01)]
 
 	var range_rate: float = value2 / 100.0
-	var total_range: int = int(Utils.get_stat(Keys.stat_range_hash, player_index) * range_rate + value)
-	var range_scaling_text: String = Utils.get_scaling_stat_icon_text(Keys.stat_range_hash, range_rate)
-	var range_text: String = "[color=%s]%s[/color] (%s)" % [Utils.ncl_get_signed_col(total_range, value), total_range, range_scaling_text]
+	var range_text: String = Utils.ncl_get_range_text_with_scaling(value, range_rate, player_index)
 
 	return [cooldown_text, range_text, dmg_text]
 

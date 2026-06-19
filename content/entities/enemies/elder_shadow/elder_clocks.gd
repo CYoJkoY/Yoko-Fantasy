@@ -19,4 +19,5 @@ func _fantasy_get_all_top_positions(is_hour: bool) -> Array:
 
 # =========================== Method =========================== #
 func fa_remove_prediction_line() -> void:
-    minute_clock.prediction_line.queue_free()
+    if is_instance_valid(minute_clock.prediction_line):
+        minute_clock.prediction_line.queue_free()

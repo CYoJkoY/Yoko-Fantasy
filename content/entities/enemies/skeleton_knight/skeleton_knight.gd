@@ -16,7 +16,10 @@ func _ready() -> void:
     register_attack_behavior(_charging_shoot_attack_behavior)
 
 func _physics_process(delta: float) -> void:
-    if _move_locked and !dead:
+    ._physics_process(delta)
+    if dead: return
+
+    if _move_locked:
         current_projectiles_cooldown -= Utils.physics_one(delta)
 
         if current_projectiles_cooldown <= 0.0:

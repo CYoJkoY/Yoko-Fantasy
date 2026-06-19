@@ -29,6 +29,8 @@ func reset() -> void:
     custom_sprite_material = null
 
 func shoot() -> void:
+    if !_has_live_slow_field_context(): return
+
     var slow_field: Node = main.get_node_from_pool(slow_field_pool_id, main._materials_container)
 
     if !is_instance_valid(slow_field):
@@ -55,4 +57,13 @@ func fa_on_DurationTimer_timeout(slow_field: Area2D) -> void:
     if slow_field.already_recycle: return
 
     slow_field.already_recycle = true
+    if !is_instance_valid(main) or !is_instance_valid(main._materials_container): return
+
     main.add_node_to_pool(slow_field, slow_field_pool_id)
+
+func _has_live_slow_field_context() -> bool:
+    return is_instance_valid(_parent) and \
+    !_parent.dead and \
+    _parent.is_inside_tree() and \
+    is_instance_valid(main) and \
+    is_instance_valid(main._materials_container)

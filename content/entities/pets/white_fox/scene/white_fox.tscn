@@ -1,7 +1,7 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/follow_ranged_pet.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/white_fox_stats.tres" type="Resource" id=3]
 [ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox_shadow.webp" type="Texture" id=5]
@@ -38,6 +38,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox_head.webp" type="Texture" id=36]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox_tail2.webp" type="Texture" id=37]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox_tail3.webp" type="Texture" id=38]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox.png" type="Texture" id=39]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -57,9 +58,6 @@ shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
 shader = ExtResource( 1 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_modifier = 1.0
-
-[sub_resource type="ViewportTexture" id=10]
-viewport_path = NodePath("Animation/Viewport")
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 47.0106
@@ -103,7 +101,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Viewport/Offset/Normal:visible")
+tracks/3/path = NodePath("Animation/Offset/Normal:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -115,7 +113,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Viewport/Offset/Attack:visible")
+tracks/4/path = NodePath("Animation/Offset/Attack:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -127,7 +125,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/Viewport/Offset/Normal/Tail1:rotation_degrees")
+tracks/5/path = NodePath("Animation/Offset/Normal/Tail1:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -139,7 +137,7 @@ tracks/5/keys = {
 "values": [ 0.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Animation/Viewport/Offset/Normal/Tail2:rotation_degrees")
+tracks/6/path = NodePath("Animation/Offset/Normal/Tail2:rotation_degrees")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -151,7 +149,7 @@ tracks/6/keys = {
 "values": [ 0.0 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Animation/Viewport/Offset/Normal/Tail3:rotation_degrees")
+tracks/7/path = NodePath("Animation/Offset/Normal/Tail3:rotation_degrees")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -263,7 +261,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5, 1 )
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Viewport/Offset/Normal/Tail1:rotation_degrees")
+tracks/4/path = NodePath("Animation/Offset/Normal/Tail1:rotation_degrees")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -275,7 +273,7 @@ tracks/4/keys = {
 "values": [ 0.0, -10.0, 0.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/Viewport/Offset/Normal/Tail2:rotation_degrees")
+tracks/5/path = NodePath("Animation/Offset/Normal/Tail2:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -287,7 +285,7 @@ tracks/5/keys = {
 "values": [ 0.0, -16.0, 0.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Animation/Viewport/Offset/Normal/Tail3:rotation_degrees")
+tracks/6/path = NodePath("Animation/Offset/Normal/Tail3:rotation_degrees")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -329,7 +327,7 @@ tracks/1/keys = {
 } ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Animation/Viewport/Offset/Normal:visible")
+tracks/2/path = NodePath("Animation/Offset/Normal:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -341,7 +339,7 @@ tracks/2/keys = {
 "values": [ true, false, true ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Viewport/Offset/Attack:visible")
+tracks/3/path = NodePath("Animation/Offset/Attack:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -380,58 +378,50 @@ has_shoot_anim = true
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -23.9975 )
 
-[node name="Viewport" type="Viewport" parent="Animation"]
-size = Vector2( 180, 180 )
-transparent_bg = true
-hdr = false
-disable_3d = true
-usage = 0
-render_target_v_flip = true
-render_target_update_mode = 3
+[node name="Offset" type="Node2D" parent="Animation"]
+position = Vector2( 0, 0 )
 
-[node name="Offset" type="Node2D" parent="Animation/Viewport"]
-position = Vector2( 90, 90 )
-
-[node name="Shadow" type="Sprite" parent="Animation/Viewport/Offset"]
+[node name="Shadow" type="Sprite" parent="Animation/Offset"]
 texture = ExtResource( 5 )
 
-[node name="Normal" type="Node2D" parent="Animation/Viewport/Offset"]
+[node name="Normal" type="Node2D" parent="Animation/Offset"]
 
-[node name="Tail1" type="Sprite" parent="Animation/Viewport/Offset/Normal"]
+[node name="Tail1" type="Sprite" parent="Animation/Offset/Normal"]
 texture = ExtResource( 34 )
 
-[node name="Tail2" type="Sprite" parent="Animation/Viewport/Offset/Normal"]
+[node name="Tail2" type="Sprite" parent="Animation/Offset/Normal"]
 texture = ExtResource( 37 )
 
-[node name="Tail3" type="Sprite" parent="Animation/Viewport/Offset/Normal"]
+[node name="Tail3" type="Sprite" parent="Animation/Offset/Normal"]
 texture = ExtResource( 38 )
 
-[node name="Body" type="Sprite" parent="Animation/Viewport/Offset/Normal"]
+[node name="Body" type="Sprite" parent="Animation/Offset/Normal"]
 texture = ExtResource( 35 )
 
-[node name="Head" type="Sprite" parent="Animation/Viewport/Offset/Normal/Body"]
+[node name="Head" type="Sprite" parent="Animation/Offset/Normal/Body"]
 texture = ExtResource( 36 )
 
-[node name="Attack" type="Node2D" parent="Animation/Viewport/Offset"]
+[node name="Attack" type="Node2D" parent="Animation/Offset"]
 visible = false
 
-[node name="AttackTail1" type="Sprite" parent="Animation/Viewport/Offset/Attack"]
+[node name="AttackTail1" type="Sprite" parent="Animation/Offset/Attack"]
 texture = ExtResource( 33 )
 
-[node name="AttackTail2" type="Sprite" parent="Animation/Viewport/Offset/Attack"]
+[node name="AttackTail2" type="Sprite" parent="Animation/Offset/Attack"]
 texture = ExtResource( 32 )
 
-[node name="AttackTail3" type="Sprite" parent="Animation/Viewport/Offset/Attack"]
+[node name="AttackTail3" type="Sprite" parent="Animation/Offset/Attack"]
 texture = ExtResource( 31 )
 
-[node name="AttackBody" type="Sprite" parent="Animation/Viewport/Offset/Attack"]
+[node name="AttackBody" type="Sprite" parent="Animation/Offset/Attack"]
 texture = ExtResource( 6 )
 
-[node name="AttackHead" type="Sprite" parent="Animation/Viewport/Offset/Attack/AttackBody"]
+[node name="AttackHead" type="Sprite" parent="Animation/Offset/Attack/AttackBody"]
 texture = ExtResource( 30 )
 
 [node name="Sprite" type="Sprite" parent="Animation"]
-texture = SubResource( 10 )
+visible = false
+texture = ExtResource( 39 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false

@@ -19,7 +19,24 @@ func shoot() -> void:
     _attack_times += 1
     if _attack_times % 2 == 0: _can_attack = true
 
-func _physics_process(_delta) -> void:
+func _physics_process(delta) -> void:
+    if dead: return
+
+    var potential_target_count = players_ref.size() + _entity_spawner_ref.targetable_pets.size()
+    if potential_target_count > 1 or collision_layer == Utils.PETS_BIT:
+        update_target_timer += delta
+        if update_target_timer >= UPDATE_TARGET_DELAY:
+            update_target_timer = 0.0
+            update_target()
+
+    _current_attack_cd = max(_current_attack_cd - 60 * delta, 0)
+    var is_being_knocked_back = get_knockback_value().length_squared() > get_move_input().length_squared()
+
+    if not _hitbox.is_disabled() and is_being_knocked_back:
+        _hitbox.disable()
+    elif _hitbox.is_disabled() and not is_being_knocked_back:
+        _hitbox.enable()
+
     if _can_attack and _current_state == -1:
         _can_attack = false
         _spread_shooting_attack_behavior.shoot()

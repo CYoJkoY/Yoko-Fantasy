@@ -5,8 +5,13 @@ export(int) var bullets_per_frame = 2
 var _shooting_cancelled: bool = false
 
 # =========================== Extension =========================== #
+func reset() -> void:
+    .reset()
+    _shooting_cancelled = true
+
 func shoot() -> void:
     _shooting_cancelled = true
+    if !_has_live_shooting_context(): return
 
     var target_pos = _parent.current_target.global_position
     var base_randomization = rand_range(-base_direction_randomization, base_direction_randomization)
@@ -30,12 +35,28 @@ func shoot() -> void:
     _shooting_cancelled = false
     _fantasy_distribute_shots(target_pos, base_randomization, base_pos, rand_rot)
 
+func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
+    if !_can_continue_shooting(): return null
+
+    return .spawn_projectile(rot, pos, spd)
+
+func _has_live_shooting_context() -> bool:
+    var main: Main = Utils.get_scene_node()
+    return is_instance_valid(_parent) and \
+    !_parent.dead and \
+    _parent.is_inside_tree() and \
+    is_instance_valid(main) and \
+    is_instance_valid(main._enemy_projectiles)
+
+func _can_continue_shooting() -> bool:
+    return !_shooting_cancelled and _has_live_shooting_context()
+
 func _fantasy_distribute_shots(target_pos: Vector2, base_randomization: float, base_pos: float, rand_rot: float) -> void:
     var speed: int = projectile_speed
     var bullets_this_frame: int = 0
 
     for i in range(number_projectiles):
-        if _shooting_cancelled: return
+        if !_can_continue_shooting(): return
 
         var pos: Vector2 = get_projectile_spawn_pos(target_pos, i, base_pos)
         var base_rot = (target_pos - _parent.global_position).angle() + base_randomization
@@ -72,6 +93,7 @@ func _fantasy_distribute_shots(target_pos: Vector2, base_randomization: float, b
         if bullets_this_frame < bullets_per_frame: continue
 
         yield (get_tree(), "idle_frame")
+        if !_can_continue_shooting(): return
         bullets_this_frame = 0
 
     if !_shooting_cancelled: _shots_taken += 1

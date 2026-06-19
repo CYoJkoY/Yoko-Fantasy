@@ -1,8 +1,11 @@
 extends "res://entities/units/enemies/enemy.gd"
 
+const FANTASY_MAP_RANGE_SENTINEL: int = 99999
+
 # =========================== Extension =========================== #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
+    _fantasy_normalize_map_range_attack_behaviors()
     _fantasy_extra_curse_enemy()
     _fantasy_holy_reduce_health()
     _fantasy_buff_future_target()
@@ -10,6 +13,7 @@ func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [
 
 func respawn() -> void:
     .respawn()
+    _fantasy_normalize_map_range_attack_behaviors()
     _fantasy_extra_curse_enemy()
     _fantasy_holy_reduce_health()
     _fantasy_buff_future_target()
@@ -18,6 +22,10 @@ func respawn() -> void:
 func update_target() -> void:
     .update_target()
     if Utils.plant_enemies_ids.has(enemy_id_hash): _fantasy_update_cannot_tree_damage_target()
+
+func register_attack_behavior(p_attack_behavior: AttackBehavior) -> void:
+    .register_attack_behavior(p_attack_behavior)
+    _fantasy_normalize_map_range_attack_behavior(p_attack_behavior)
 
 func is_playing_shoot_animation() -> bool:
     var is_playing_shoot: bool =.is_playing_shoot_animation()
@@ -42,6 +50,14 @@ func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := t
     return dmg_value_result
 
 # =========================== Custom =========================== #
+func _fantasy_normalize_map_range_attack_behaviors() -> void:
+    for attack_behavior in _all_attack_behaviors:
+        _fantasy_normalize_map_range_attack_behavior(attack_behavior)
+
+func _fantasy_normalize_map_range_attack_behavior(attack_behavior: AttackBehavior) -> void:
+    if attack_behavior is ShootingAttackBehavior and attack_behavior.max_range >= FANTASY_MAP_RANGE_SENTINEL:
+        attack_behavior.max_range = int(ceil(ZoneService.get_current_zone_rect().size.length()))
+
 func _fantasy_holy_reduce_health() -> void:
     var holy_stat: int = int(Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash))
     if holy_stat <= 0: return

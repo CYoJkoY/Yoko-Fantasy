@@ -63,6 +63,7 @@ func serialize() -> Dictionary:
     serialized.scaling_stats = scaling_stats
     serialized.chance = chance
     serialized.times = times
+    serialized.cd = cd
     serialized.crit_chance = crit_chance
     serialized.crit_damage = crit_damage
     serialized.source_id = source_id
@@ -74,6 +75,7 @@ func deserialize_and_merge(serialized: Dictionary) -> void:
     scaling_stats = Utils.convert_to_hash_array(serialized.get("scaling_stats", []))
     chance = serialized.chance as int
     times = serialized.times as int
+    cd = serialized.cd as int
     crit_chance = serialized.crit_chance as int
     crit_damage = serialized.crit_damage as float
     source_id = serialized.source_id as String

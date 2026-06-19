@@ -137,7 +137,7 @@ func fa_on_erosion_cd_timeout(erosion: ActiveErosion) -> void:
     if erosion.current_times > 0: return
 
     erosion.stacks -= 1
-    if erosion.stacks > 0: return
     erosion.current_times = erosion.times
+    if erosion.stacks > 0: return
 
     erosion.marked_for_removal = true

@@ -24,20 +24,23 @@ func _ready() -> void:
     register_attack_behavior(_slime_trail_attack_behavior)
 
 func _physics_process(delta) -> void:
+    ._physics_process(delta)
+    if dead: return
+
     # Mutation 1: Plus Mutation 0 attack behavior
     if _current_state == 0:
         current_spawn_cooldown_0 = current_spawn_cooldown_0 - Utils.physics_one(delta)
-        if current_spawn_cooldown_0 <= 0 and !dead:
+        if current_spawn_cooldown_0 <= 0:
             current_spawn_cooldown_0 = COOLDOWN_0
             _attack_behavior.shoot()
     
     current_spawn_cooldown_1 = current_spawn_cooldown_1 - Utils.physics_one(delta)
-    if current_spawn_cooldown_1 <= 0 and !dead:
+    if current_spawn_cooldown_1 <= 0:
         current_spawn_cooldown_1 = COOLDOWN_1
         _spawning_attack_behavior.shoot()
     
     current_slime_trail_cooldown_2 = current_slime_trail_cooldown_2 - Utils.physics_one(delta)
-    if current_slime_trail_cooldown_2 <= 0 and !dead:
+    if current_slime_trail_cooldown_2 <= 0:
         current_slime_trail_cooldown_2 = COOLDOWN_2
         _slime_trail_attack_behavior.shoot()
 

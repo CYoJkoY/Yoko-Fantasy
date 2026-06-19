@@ -1,6 +1,6 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=40 format=2]
 
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/tactical_global_pet.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/scene/wolf_totem.gd" type="Script" id=1]
 [ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=2]
 [ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=4]
@@ -52,9 +52,6 @@ shader = ExtResource( 31 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_modifier = 1.0
 
-[sub_resource type="ViewportTexture" id=9]
-viewport_path = NodePath("Animation/Viewport")
-
 [sub_resource type="CircleShape2D" id=11]
 radius = 108.042
 
@@ -97,7 +94,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Viewport/Offset/Normal:visible")
+tracks/3/path = NodePath("Animation/Offset/Normal:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -109,7 +106,7 @@ tracks/3/keys = {
 "values": [ true ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Viewport/Offset/Attack:visible")
+tracks/4/path = NodePath("Animation/Offset/Attack:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -121,7 +118,7 @@ tracks/4/keys = {
 "values": [ false ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/Viewport/Offset/Normal/Body/Head:rotation_degrees")
+tracks/5/path = NodePath("Animation/Offset/Normal/Body/Head:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -233,7 +230,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5, 1 )
 }
 tracks/4/type = "bezier"
-tracks/4/path = NodePath("Animation/Viewport/Offset/Normal/Body/Head:rotation_degrees")
+tracks/4/path = NodePath("Animation/Offset/Normal/Body/Head:rotation_degrees")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -273,7 +270,7 @@ tracks/1/keys = {
 } ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Animation/Viewport/Offset/Normal:visible")
+tracks/2/path = NodePath("Animation/Offset/Normal:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -285,7 +282,7 @@ tracks/2/keys = {
 "values": [ true, false, true ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Viewport/Offset/Attack:visible")
+tracks/3/path = NodePath("Animation/Offset/Attack:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -319,40 +316,32 @@ has_shoot_anim = true
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -22.615 )
 
-[node name="Viewport" type="Viewport" parent="Animation"]
-size = Vector2( 300, 300 )
-transparent_bg = true
-hdr = false
-disable_3d = true
-usage = 0
-render_target_v_flip = true
-render_target_update_mode = 3
+[node name="Offset" type="Node2D" parent="Animation"]
+position = Vector2( 0, 0 )
 
-[node name="Offset" type="Node2D" parent="Animation/Viewport"]
-position = Vector2( 150, 150 )
-
-[node name="Shadow" type="Sprite" parent="Animation/Viewport/Offset"]
+[node name="Shadow" type="Sprite" parent="Animation/Offset"]
 texture = ExtResource( 6 )
 
-[node name="Normal" type="Node2D" parent="Animation/Viewport/Offset"]
+[node name="Normal" type="Node2D" parent="Animation/Offset"]
 
-[node name="Body" type="Sprite" parent="Animation/Viewport/Offset/Normal"]
+[node name="Body" type="Sprite" parent="Animation/Offset/Normal"]
 texture = ExtResource( 7 )
 
-[node name="Head" type="Sprite" parent="Animation/Viewport/Offset/Normal/Body"]
+[node name="Head" type="Sprite" parent="Animation/Offset/Normal/Body"]
 texture = ExtResource( 8 )
 
-[node name="Attack" type="Node2D" parent="Animation/Viewport/Offset"]
+[node name="Attack" type="Node2D" parent="Animation/Offset"]
 visible = false
 
-[node name="AttackBody" type="Sprite" parent="Animation/Viewport/Offset/Attack"]
+[node name="AttackBody" type="Sprite" parent="Animation/Offset/Attack"]
 texture = ExtResource( 10 )
 
-[node name="AttackHead" type="Sprite" parent="Animation/Viewport/Offset/Attack/AttackBody"]
+[node name="AttackHead" type="Sprite" parent="Animation/Offset/Attack/AttackBody"]
 texture = ExtResource( 9 )
 
 [node name="Sprite" type="Sprite" parent="Animation"]
-texture = SubResource( 9 )
+visible = false
+texture = ExtResource( 7 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false

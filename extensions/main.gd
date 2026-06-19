@@ -2,6 +2,8 @@ extends "res://main.gd"
 
 const UpgradeHooks = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/upgrade_hooks.gd")
 const LightningChainService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_service.gd")
+const FANTASY_END_WAVE_BEFORE_REWARDS: String = "before_wave_rewards"
+const FANTASY_END_WAVE_BEFORE_END_RUN_SCENE: String = "before_end_run_scene"
 
 var FaTimers: Array = []
 var summoned_twins: Array = []
@@ -9,6 +11,8 @@ var cursed_enemies: Array = []
 
 # =========================== Extension =========================== #
 func _ready() -> void:
+	call("ncl_register_end_wave_hook", FANTASY_END_WAVE_BEFORE_REWARDS, self, "_fantasy_process_job_options", 100)
+	call("ncl_register_end_wave_hook", FANTASY_END_WAVE_BEFORE_END_RUN_SCENE, self, "_fantasy_before_end_run_scene", 100)
 	_fantasy_connect_effect()
 	_fantasy_queue_job_upgrades()
 	_fantasy_start_time_bonus_current_health_damage_timer()
@@ -53,75 +57,21 @@ func clean_up_room() -> void:
 	.clean_up_room()
 	_fantasy_clear_living_cursed_enemy()
 
-func _on_EndWaveTimer_timeout() -> void:
-	_coop_upgrades_ui.propagate_call("set_process_input", [true])
-	DebugService.log_data("_on_EndWaveTimer_timeout")
-	SoundManager.clear_queue()
-	SoundManager2D.clear_queue()
-	InputService.set_gamepad_echo_processing(true)
-
-	_end_wave_timer_timedout = true
-
-	if _is_wave_failed and RunData.current_wave > 0:
-		_retry_wave.show()
-		_pause_menu.enabled = false
-		return
-
-	_wave_cleared_label.hide()
-	_wave_timer_label.hide()
-
-	_camera.move_speed_factor = 0.0
-	_camera.zoom_in_speed_factor = 0.0
-	_camera.zoom_out_speed_factor = 0.0
-
-	RunData.on_wave_end()
-	LinkedStats.reset()
-
-	var scene: String
-	var _args: Entity.DieArgs = Utils.default_die_args
-	if _is_run_lost or _is_run_won:
-		DebugService.log_data("end run...")
-		MusicManager.fa_clear_override()
-		scene = RunData.get_end_run_scene_path()
-	else:
-		DebugService.log_data("process fantasy jobs, consumables and upgrades...")
-		MusicManager.tween( - 8)
-
-		if RunData.is_coop_run:
-			_hud.hide()
-			if _coop_upgrades_ui.call("show_fantasy_job_options"):
-				yield(_coop_upgrades_ui, "fantasy_jobs_processed")
-			_fantasy_clear_job_process_icons()
-			if _coop_upgrades_ui.show_options(_consumables_to_process, _upgrades_to_process):
-				yield(_coop_upgrades_ui, "options_processed")
-			_coop_upgrades_ui.hide()
-		else:
-			if _upgrades_ui.call("show_fantasy_job_options"):
-				yield(_upgrades_ui, "fantasy_jobs_processed")
-			_fantasy_clear_job_process_icons()
-			if _upgrades_ui.show_options(_consumables_to_process, _upgrades_to_process):
-				var things_to_process_player_container = _things_to_process_player_containers[0]
-				var ui_consumables_to_process = things_to_process_player_container.consumables
-				var ui_upgrades_to_process = things_to_process_player_container.upgrades
-				while not ui_consumables_to_process.is_empty():
-					var consumable = yield(_upgrades_ui, "consumable_selected")
-					ui_consumables_to_process.remove_element(consumable.consumable_data)
-				while not ui_upgrades_to_process.is_empty():
-					var args = yield(_upgrades_ui, "upgrade_selected")
-					var upgrade = args[1]
-					ui_upgrades_to_process.remove_element(upgrade.level)
-				yield(_upgrades_ui, "options_processed")
-			_upgrades_ui.hide()
-
-		DebugService.log_data("display challenge ui...")
-		if _is_chal_ui_displayed:
-			yield(_challenge_completed_ui, "finished")
-
-		scene = RunData.get_shop_scene_path()
-
-	_change_scene(scene)
-
 # =========================== Custom =========================== #
+func _fantasy_process_job_options() -> void:
+	if RunData.is_coop_run:
+		_hud.hide()
+		if _coop_upgrades_ui.call("show_fantasy_job_options"):
+			yield(_coop_upgrades_ui, "fantasy_jobs_processed")
+	else:
+		if _upgrades_ui.call("show_fantasy_job_options"):
+			yield(_upgrades_ui, "fantasy_jobs_processed")
+
+	_fantasy_clear_job_process_icons()
+
+func _fantasy_before_end_run_scene() -> void:
+	MusicManager.fa_clear_override()
+
 func _fantasy_start_time_bonus_current_health_damage_timer() -> void:
 	for player_index in range(_players.size()):
 		var effect_items: Array = RunData.get_player_effect(Utils.fantasy_time_bonus_current_health_damage_hash, player_index)
@@ -170,13 +120,7 @@ func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
 		var tracking_key_hash: int = effect_item[0]
 		RunData.ncl_add_effect_tracking_value(tracking_key_hash, 1, player_index)
 
-		random_weapon._current_cooldown = 0
-		random_weapon.tween_animation.interpolate_property(
-			random_weapon.sprite, "self_modulate",
-			Color("#3E68DA"), Color.white, 0.48,
-			Tween.TRANS_SINE, Tween.EASE_IN_OUT
-		)
-		random_weapon.tween_animation.start()
+		WeaponService.fantasy_reset_weapon_cooldown(random_weapon)
 
 func _fantasy_lightning_chain_on_death(enemy: Enemy) -> void:
 	if enemy == null:

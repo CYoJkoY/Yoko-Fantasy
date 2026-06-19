@@ -18,9 +18,12 @@ func _ready() -> void:
     register_attack_behavior(_charging_shoot_attack_behavior)
 
 func _physics_process(delta: float) -> void:
+    ._physics_process(delta)
+    if dead: return
+
     current_projectiles_cooldown -= Utils.physics_one(delta)
  
-    if _move_locked and current_projectiles_cooldown <= 0.0 and !dead:
+    if _move_locked and current_projectiles_cooldown <= 0.0:
         current_projectiles_cooldown = COOLDOWN
         _charging_shoot_attack_behavior.shoot()
         sprite.texture = STAND_SPRITE
@@ -28,7 +31,7 @@ func _physics_process(delta: float) -> void:
         _hurtbox.position.y = 11
         _hitbox.position.y = 26
 
-    if _animation_player.current_animation == "idle" and !_move_locked and !dead:
+    if _animation_player.current_animation == "idle" and !_move_locked:
         sprite.texture = STAND_FOUR_SPRITE
         _collision.position.y = -17
         _hurtbox.position.y = -16
