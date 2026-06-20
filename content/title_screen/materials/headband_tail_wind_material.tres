@@ -1,0 +1,37 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec2 uv = UV;
+	float t = TIME;
+	float body_band = smoothstep(0.48, 0.54, uv.y) * (1.0 - smoothstep(0.70, 0.80, uv.y));
+	float fixed_root = smoothstep(0.56, 0.32, uv.x);
+	float tail_area = smoothstep(0.14, 0.28, uv.x) * (1.0 - smoothstep(0.55, 0.68, uv.x)) * body_band;
+	float loose_tip = tail_area * fixed_root;
+	float tip_power = pow(clamp((0.58 - uv.x) / 0.44, 0.0, 1.0), 1.22);
+	float strand_mask = 0.70 + 0.30 * sin(uv.y * 86.0 + uv.x * 17.0);
+	float breeze = 0.74 + 0.26 * sin(t * 0.86 + 0.4);
+	float wind_phase = t * 2.65 - uv.x * 18.0 + uv.y * 6.8;
+	float wave_a = sin(wind_phase);
+	float wave_b = sin(t * 1.90 - uv.x * 13.0 - uv.y * 5.8 + 1.2);
+	float wave_c = sin(t * 3.80 - uv.x * 34.0 + uv.y * 12.5);
+	float wave_d = sin(t * 5.60 - uv.x * 58.0 - uv.y * 25.0);
+	float fold = (0.55 * wave_a + 0.28 * wave_b + 0.12 * wave_c + 0.05 * wave_d) * strand_mask;
+	vec2 drift = vec2(
+		(-0.020 * (0.62 + 0.38 * wave_b) - 0.0065 * wave_c - 0.0030 * wave_d) * (0.36 + 0.64 * tip_power) * breeze,
+		(0.0130 * fold + 0.0048 * wave_c + 0.0022 * wave_d) * (0.28 + 0.72 * tip_power) * breeze
+	);
+	vec4 tex = texture(TEXTURE, uv + drift * loose_tip);
+	vec3 warm = vec3(1.10, 0.95, 0.82);
+	vec3 cool = vec3(0.86, 0.94, 1.05);
+	float mixv = clamp(0.5 + wave_a * 0.5, 0.0, 1.0);
+	tex.rgb *= mix(vec3(1.0), mix(warm, cool, mixv), loose_tip * 0.24);
+	tex.a *= 1.0 - loose_tip * (0.018 + 0.012 * sin(t * 2.8 - uv.x * 11.0));
+	COLOR = tex * COLOR;
+}
+"
+
+[resource]
+shader = SubResource( 1 )

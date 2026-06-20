@@ -1,5 +1,7 @@
 extends Effect
 
+const LightningChainDescriptionService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_description_service.gd")
+
 export(float) var base_chance = 0.5
 export(Array) var damage_scaling_stats = [["stat_elemental_damage", 0.4]]
 export(int) var base_chain_targets = 2
@@ -48,64 +50,24 @@ func unapply(player_index: int) -> void:
     if custom_key_hash == Keys.empty_hash: return
 
     var effects: Dictionary = RunData.get_player_effects(player_index)
-    effects[custom_key_hash].erase([key_hash, base_chance, value, damage_scaling_stats,
+    effects[custom_key_hash].erase([base_chance, value, damage_scaling_stats,
         base_chain_targets, targets_scaling_stats, chain_damage_mult,
         arc_width, arc_jaggedness, arc_color.to_html(), arc_glow_color.to_html(),
         arc_duration, arc_crit_chance, arc_crit_damage, arc_scene.resource_path])
 
 func get_args(player_index: int) -> Array:
-    var chain_damage_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(
-        value, damage_scaling_stats,
-        {
-            "player_index": player_index
-        }
+    return LightningChainDescriptionService.get_args(
+        base_chance,
+        value,
+        damage_scaling_stats,
+        base_chain_targets,
+        targets_scaling_stats,
+        chain_damage_mult,
+        arc_crit_chance,
+        arc_crit_damage,
+        arc_color,
+        player_index
     )
-
-    var chain_targets_count_text: String = Utils.ncl_get_num_text_with_scaling_stats(
-        base_chain_targets, targets_scaling_stats,
-        {
-            "player_index": player_index,
-            "show_initial": false
-        }
-    )
-
-    var chain_targets_text: String = Text.text(
-        "FANTASY_CHAIN_TARGETS_FORMATTED",
-        [
-            "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("FANTASY_CHAIN_TARGETS")],
-            chain_targets_count_text
-        ]
-    )
-
-    var chain_damage_mult_text: String = ""
-    if !is_equal_approx(chain_damage_mult, 1.0):
-        chain_damage_mult_text = Text.text(
-            "FANTASY_CHAIN_DAMAGE_MULT_FORMATTED",
-            [
-                "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("FANTASY_CHAIN_DAMAGE_MULT")],
-                "[color=%s]x%s[/color]" % ["white", str(chain_damage_mult)]
-            ]
-        )
-
-    var chain_crit_text: String = ""
-    if arc_crit_chance > 0:
-        chain_crit_text = Text.text(
-            "CRITICAL_FORMATTED",
-            [
-                "[color=%s]%s[/color]" % [Utils.SECONDARY_FONT_COLOR_HTML, tr("CRITICAL")],
-                "[color=%s]x%s[/color]" % ["white", str(arc_crit_damage)],
-                "[color=%s]%s[/color]" % ["white", str(max(arc_crit_chance * 100.0, 0))]
-            ]
-        )
-
-    return [
-        str(int(base_chance * 100)),
-        chain_damage_text,
-        chain_targets_text,
-        chain_damage_mult_text,
-        chain_crit_text,
-        arc_color.to_html()
-    ]
 
 func serialize() -> Dictionary:
     var serialized =.serialize()

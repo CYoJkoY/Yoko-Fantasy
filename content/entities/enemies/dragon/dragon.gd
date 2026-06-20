@@ -9,10 +9,13 @@ var pivots: Node2D = null
 
 # =========================== Extension =========================== #
 func _physics_process(delta: float) -> void:
+    ._physics_process(delta)
+    if dead: return
+
     # Mutation 2: Plus Mutation 0 attack behavior
     if _current_state == 1:
         cooldown_0 -= Utils.physics_one(delta)
-        if _move_locked and cooldown_0 <= 0.0 and !dead:
+        if _move_locked and cooldown_0 <= 0.0:
             cooldown_0 = COOLDOWN_0
             _attack_behavior.shoot()
 
@@ -30,4 +33,6 @@ func on_state_changed(new_state: int) -> void:
 func die(args := Utils.default_die_args) -> void:
     .die(args)
 
-    if pivots != null: pivots.free_pivots()
+    if is_instance_valid(pivots):
+        pivots.free_pivots()
+        pivots = null

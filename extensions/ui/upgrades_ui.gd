@@ -32,6 +32,7 @@ func _fantasy_show_next_job_options() -> bool:
 			player_container.call("_fantasy_finish_job_selection_phase")
 			continue
 
+		player_container.update_inventory()
 		player_container.call("show_fantasy_job_selection", job_selection)
 		_update_player_stats(player_index)
 		show()

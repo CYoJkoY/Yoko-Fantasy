@@ -25,10 +25,12 @@ func respawn() -> void:
 
 # =========================== Method =========================== #
 func fa_on_DetectionArea_body_entered(body: Enemy) -> void:
-    body.connect("died", self , "fa_on_enemy_died")
+    if !body.is_connected("died", self , "fa_on_enemy_died"):
+        body.connect("died", self , "fa_on_enemy_died")
 
 func fa_on_DetectionArea_body_exited(body: Enemy) -> void:
-    body.disconnect("died", self , "fa_on_enemy_died")
+    if body.is_connected("died", self , "fa_on_enemy_died"):
+        body.disconnect("died", self , "fa_on_enemy_died")
 
 func fa_on_ItemAttractArea_area_entered(item: Item) -> void:
     if dead or !(item is Gold) or evolution_target_path == "": return
@@ -50,7 +52,7 @@ func fa_on_ItemPickUpArea_area_entered(area: Area2D) -> void:
 
         if evolve_count < evovle_needed: return
 
-        fa_evolve()
+        call_deferred("fa_evolve")
         return
 
     gold_count += gold.value
@@ -61,7 +63,7 @@ func fa_on_ItemPickUpArea_area_entered(area: Area2D) -> void:
 
     if evolve_count < evovle_needed: return
 
-    fa_evolve()
+    call_deferred("fa_evolve")
 
 func fa_on_enemy_died(enemy: Enemy, _die_args: Entity.DieArgs) -> void:
     if dead or evolution_target_path == "" or white_list.has(enemy.enemy_id): return
@@ -69,7 +71,7 @@ func fa_on_enemy_died(enemy: Enemy, _die_args: Entity.DieArgs) -> void:
     evolve_count += 1
     if evolve_count < evovle_needed: return
     
-    fa_evolve()
+    call_deferred("fa_evolve")
 
 func fa_evolve() -> void:
     var charmed_by = get_charmed_by_player_index()

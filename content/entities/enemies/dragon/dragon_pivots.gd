@@ -8,7 +8,8 @@ func _ready():
         p.direction = specific_direction
 
 func free_pivots() -> void:
-    bullets.queue_free()
+    if is_instance_valid(bullets):
+        bullets.queue_free()
 
 
 func get_bullets() -> Array:

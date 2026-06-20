@@ -20,9 +20,12 @@ func _ready() -> void:
     register_attack_behavior(maple_shoot_attack_behavior)
 
 func _physics_process(delta: float) -> void:
+    ._physics_process(delta)
+    if dead: return
+
     current_projectiles_cooldown -= Utils.physics_one(delta)
 
-    if _move_locked and current_projectiles_cooldown <= 0.0 and !dead:
+    if _move_locked and current_projectiles_cooldown <= 0.0:
         current_projectiles_cooldown = COOLDOWN
         maple_pos = _charging_shoot_attack_behavior.global_position
         _charging_shoot_attack_behavior.shoot()

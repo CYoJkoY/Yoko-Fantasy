@@ -13,6 +13,11 @@ func fa_slow_enemy_on_crit() -> void:
 
 func fa_on_SlowArea_body_entered(body: Node) -> void:
     enemies_in_slow_area.append(body)
+    body.connect("died", self, "fa_on_slow_area_enemy_died")
 
 func fa_on_SlowArea_body_exited(body: Node) -> void:
     enemies_in_slow_area.erase(body)
+    body.disconnect("died", self, "fa_on_slow_area_enemy_died")
+
+func fa_on_slow_area_enemy_died(enemy: Node, _die_args: Entity.DieArgs) -> void:
+    enemies_in_slow_area.erase(enemy)

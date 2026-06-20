@@ -29,6 +29,10 @@ func physics_process(delta: float) -> void:
     for i in range(active_projectiles.size() - 1, -1, -1):
         var p: EnemyProjectile = active_projectiles[i]
 
+        if !is_instance_valid(p):
+            active_projectiles.remove(i)
+            continue
+
         if !p._hitbox.active:
             active_projectiles.remove(i)
             continue
@@ -49,6 +53,8 @@ func physics_process(delta: float) -> void:
         emit_signal("shot")
 
 func shoot() -> void:
+    if !_has_live_shooting_context(): return
+
     var speed: float = 0
 
     for i in range(projectiles_per_time):
@@ -67,6 +73,8 @@ func shoot() -> void:
     _shots_taken += 1
 
 func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
+    if !_has_live_shooting_context(): return null
+
     var projectile: EnemyProjectile = main.get_node_from_pool(projectile_pool_id, main._enemy_projectiles)
     if !is_instance_valid(projectile):
         projectile = projectile_scene.instance()
@@ -93,3 +101,10 @@ func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
 
     projectile.shoot()
     return projectile
+
+func _has_live_shooting_context() -> bool:
+    return is_instance_valid(_parent) and \
+    !_parent.dead and \
+    _parent.is_inside_tree() and \
+    is_instance_valid(main) and \
+    is_instance_valid(main._enemy_projectiles)

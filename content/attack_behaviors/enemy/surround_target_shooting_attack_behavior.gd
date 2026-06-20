@@ -25,6 +25,7 @@ func _ready() -> void:
 
 func shoot() -> void:
     _shooting_cancelled = true
+    if !_has_live_shooting_context(): return
 
     var target_pos: Vector2
     match target_class:
@@ -50,6 +51,8 @@ func shoot() -> void:
     _fantasy_distribute_shots(target_pos, base_rot)
 
 func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
+    if !_can_continue_shooting(): return null
+
     var projectile = main.get_node_from_pool(projectile_pool_id, main._enemy_projectiles)
     if !is_instance_valid(projectile):
         projectile = projectile_scene.instance()
@@ -78,11 +81,21 @@ func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
     return projectile
 
 # =========================== Custom =========================== #
+func _has_live_shooting_context() -> bool:
+    return is_instance_valid(_parent) and \
+    !_parent.dead and \
+    _parent.is_inside_tree() and \
+    is_instance_valid(main) and \
+    is_instance_valid(main._enemy_projectiles)
+
+func _can_continue_shooting() -> bool:
+    return !_shooting_cancelled and _has_live_shooting_context()
+
 func _fantasy_distribute_shots(target_pos: Vector2, base_rot: float) -> void:
     var bullets_this_frame: int = 0
 
     for i in range(number_projectiles):
-        if _shooting_cancelled: return
+        if !_can_continue_shooting(): return
 
         var angle: float = 0.0
         var spawn_pos: Vector2 = Vector2.ZERO
@@ -104,4 +117,5 @@ func _fantasy_distribute_shots(target_pos: Vector2, base_rot: float) -> void:
         if bullets_this_frame < bullets_per_frame: continue
 
         yield (get_tree(), "idle_frame")
+        if !_can_continue_shooting(): return
         bullets_this_frame = 0

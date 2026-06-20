@@ -299,7 +299,7 @@ script = ExtResource( 11 )
 projectile_scene = ExtResource( 10 )
 projectile_speed = 600
 damage_increase_each_wave = 1.1
-max_range = 99999
+max_range = 2560
 number_projectiles = 5
 projectile_spread = 1.6
 constant_spread = true
@@ -310,7 +310,7 @@ projectile_scene = ExtResource( 9 )
 projectile_speed = 400
 max_cd_randomization = 0
 damage_increase_each_wave = 1.1
-max_range = 99999
+max_range = 2560
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5

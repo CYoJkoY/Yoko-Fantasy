@@ -9,6 +9,7 @@ var _fantasy_clock_tower_hat_tween: Tween = null
 var _fantasy_clock_tower_hat_material: ShaderMaterial = null
 var _fantasy_clock_tower_hat_in_area: bool = false
 var _fantasy_is_clock_tower_guardian_character: bool = false
+var _fantasy_active_soul_effects: Array = []
 
 const FANTASY_CLOCK_TOWER_HAT_PATH: String = "res://mods-unpacked/Yoko-Fantasy/content/characters/clock_tower_guardian/clock_tower_guardian_hat.webp"
 const FANTASY_CLOCK_TOWER_HAT_TWEEN_TIME: float = 0.35
@@ -50,6 +51,14 @@ func on_consumable_picked_up(consumable_data: ConsumableData) -> void:
     .on_consumable_picked_up(consumable_data)
     _fantasy_dmg_when_pickup_consumable(consumable_data)
     _fantasy_add_stat_when_pickup_consumable(consumable_data)
+
+func die(args = Utils.default_die_args) -> void:
+    _fantasy_clear_soul_effects()
+    .die(args)
+
+func on_room_cleanup() -> void:
+    _fantasy_clear_soul_effects()
+    .on_room_cleanup()
 
 # =========================== Custom =========================== #
 func _fantasy_damage_clamp(result: Unit.GetDamageValueResult) -> Unit.GetDamageValueResult:
@@ -321,10 +330,27 @@ func _fantasy_lose_hp_per_second_stop_threshold() -> bool:
 
 # =========================== Method =========================== #
 func fa_on_soul_effect(damage_to_add: int, speed_to_add: int) -> void:
+    var soul_effect: Dictionary = {
+        "damage": damage_to_add,
+        "speed": speed_to_add,
+    }
+    _fantasy_active_soul_effects.append(soul_effect)
     var timer: SceneTreeTimer = get_tree().create_timer(2.0, false)
-    var _e: int = timer.connect("timeout", self , "fa_on_soul_effect_timer_timeout", [damage_to_add, speed_to_add])
+    var _e: int = timer.connect("timeout", self , "fa_on_soul_effect_timer_timeout", [soul_effect])
 
-func fa_on_soul_effect_timer_timeout(damage_to_add: int, speed_to_add: int) -> void:
+func fa_on_soul_effect_timer_timeout(soul_effect: Dictionary) -> void:
+    if !_fantasy_active_soul_effects.has(soul_effect): return
+
+    _fantasy_remove_soul_effect(soul_effect)
+
+func _fantasy_remove_soul_effect(soul_effect: Dictionary) -> void:
+    var damage_to_remove: int = soul_effect.damage
+    var speed_to_remove: int = soul_effect.speed
+    _fantasy_active_soul_effects.erase(soul_effect)
     Utils.ncl_quiet_add_stat(Utils.stat_fantasy_soul_hash, -1, player_index)
-    TempStats.remove_stat(Keys.stat_percent_damage_hash, damage_to_add, player_index)
-    TempStats.remove_stat(Keys.stat_attack_speed_hash, speed_to_add, player_index)
+    TempStats.remove_stat(Keys.stat_percent_damage_hash, damage_to_remove, player_index)
+    TempStats.remove_stat(Keys.stat_attack_speed_hash, speed_to_remove, player_index)
+
+func _fantasy_clear_soul_effects() -> void:
+    for soul_effect in _fantasy_active_soul_effects.duplicate():
+        _fantasy_remove_soul_effect(soul_effect)

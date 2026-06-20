@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/enemy_projectile_laser.gd" type="Script" id=2]
@@ -8,16 +8,13 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/laser_shoot_enemy_projectile/laser_shoot_enemy_projectile_line.webp" type="Texture" id=6]
 [ext_resource path="res://resources/shaders/projectile_outline_shadermat.tres" type="Material" id=7]
 
-[sub_resource type="ViewportTexture" id=4]
-viewport_path = NodePath("Viewport")
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 11.5 )
 
 [sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/Offset/Contents:scale")
+tracks/0/path = NodePath("LaserVisuals/Contents:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -29,7 +26,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Viewport/Offset/EndContainer:scale")
+tracks/1/path = NodePath("LaserVisuals/EndContainer:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -41,7 +38,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/Offset/StartContainer:scale")
+tracks/2/path = NodePath("LaserVisuals/StartContainer:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -53,7 +50,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Viewport/Offset/Line/line:visible")
+tracks/3/path = NodePath("LaserVisuals/Line/line:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -69,7 +66,7 @@ tracks/3/keys = {
 resource_name = "fire"
 length = 2.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Viewport/Offset/Contents:scale")
+tracks/0/path = NodePath("LaserVisuals/Contents:scale")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -101,7 +98,7 @@ tracks/1/keys = {
 } ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Viewport/Offset/EndContainer:scale")
+tracks/2/path = NodePath("LaserVisuals/EndContainer:scale")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -113,7 +110,7 @@ tracks/2/keys = {
 "values": [ Vector2( 1, 0 ), Vector2( 1, 0 ), Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Viewport/Offset/StartContainer:scale")
+tracks/3/path = NodePath("LaserVisuals/StartContainer:scale")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -125,7 +122,7 @@ tracks/3/keys = {
 "values": [ Vector2( 1, 0 ), Vector2( 1, 0 ), Vector2( 1, 1 ), Vector2( 1, 1e-05 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Viewport/Offset/Line/line:visible")
+tracks/4/path = NodePath("LaserVisuals/Line/line:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -141,57 +138,51 @@ tracks/4/keys = {
 script = ExtResource( 2 )
 destroy_on_leaving_screen = false
 
-[node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 4800, 60 )
-transparent_bg = true
-handle_input_locally = false
-hdr = false
-disable_3d = true
-usage = 0
-render_target_v_flip = true
-render_target_update_mode = 3
+[node name="LaserVisuals" type="Node2D" parent="."]
 
-[node name="Offset" type="Node2D" parent="Viewport"]
-position = Vector2( 2400, 30 )
-
-[node name="StartContainer" type="Node2D" parent="Viewport/Offset"]
+[node name="StartContainer" type="Node2D" parent="LaserVisuals"]
 unique_name_in_owner = true
 position = Vector2( -100, 0 )
 
-[node name="StartProjectile" type="Sprite" parent="Viewport/Offset/StartContainer"]
+[node name="StartProjectile" type="Sprite" parent="LaserVisuals/StartContainer"]
+material = ExtResource( 7 )
 position = Vector2( 0, -16 )
 texture = ExtResource( 3 )
 centered = false
 
-[node name="EndContainer" type="Node2D" parent="Viewport/Offset"]
+[node name="EndContainer" type="Node2D" parent="LaserVisuals"]
 unique_name_in_owner = true
 position = Vector2( 100, 0 )
 
-[node name="EndProjectile" type="Sprite" parent="Viewport/Offset/EndContainer"]
+[node name="EndProjectile" type="Sprite" parent="LaserVisuals/EndContainer"]
+material = ExtResource( 7 )
 position = Vector2( 0, -16 )
 texture = ExtResource( 4 )
 centered = false
 
-[node name="Contents" type="Node2D" parent="Viewport/Offset"]
+[node name="Contents" type="Node2D" parent="LaserVisuals"]
 unique_name_in_owner = true
 
-[node name="Content" type="Sprite" parent="Viewport/Offset/Contents"]
+[node name="Content" type="Sprite" parent="LaserVisuals/Contents"]
+material = ExtResource( 7 )
 position = Vector2( 0, -16 )
 texture = ExtResource( 5 )
 centered = false
 
-[node name="Line" type="Node2D" parent="Viewport/Offset"]
+[node name="Line" type="Node2D" parent="LaserVisuals"]
 unique_name_in_owner = true
 
-[node name="line" type="Sprite" parent="Viewport/Offset/Line"]
+[node name="line" type="Sprite" parent="LaserVisuals/Line"]
+material = ExtResource( 7 )
 position = Vector2( 0, -16 )
 texture = ExtResource( 6 )
 centered = false
 
 [node name="Sprite" type="Sprite" parent="."]
 unique_name_in_owner = true
+visible = false
 material = ExtResource( 7 )
-texture = SubResource( 4 )
+texture = ExtResource( 6 )
 
 [node name="Hitbox" parent="." instance=ExtResource( 1 )]
 unique_name_in_owner = true
@@ -203,7 +194,6 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
-autoplay = "fire"
 anims/RESET = SubResource( 2 )
 anims/fire = SubResource( 3 )
 

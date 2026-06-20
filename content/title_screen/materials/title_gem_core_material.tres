@@ -1,0 +1,28 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec2 gem_center = vec2(0.500, 0.219);
+
+void fragment() {
+	vec2 uv = UV;
+	float t = TIME;
+	vec2 p = uv - gem_center;
+	p.x *= 1.78;
+	float d = length(p);
+	float pulse = 0.62 + 0.38 * sin(t * 2.05 + 0.6);
+	float facet_a = sin((uv.x - uv.y) * 125.0 + t * 2.1);
+	float facet_b = sin((uv.x + uv.y) * 92.0 - t * 1.6);
+	float facet_c = sin(atan(p.y, p.x) * 7.0 + t * 1.15);
+	float facet = clamp(0.55 + 0.26 * facet_a + 0.18 * facet_b + 0.16 * facet_c, 0.0, 1.0);
+	float gem = smoothstep(0.045, 0.006, d);
+	float hot = smoothstep(0.020, 0.000, length((uv - gem_center - vec2(-0.010, -0.006)) * vec2(1.78, 1.0)));
+	float alpha = gem * (0.20 + 0.15 * pulse) * facet + hot * (0.18 + 0.24 * pulse);
+	vec3 color = mix(vec3(1.0, 0.02, 0.05), vec3(1.0, 0.82, 0.36), hot + facet * 0.24);
+	COLOR = vec4(color, alpha) * COLOR;
+}
+"
+
+[resource]
+shader = SubResource( 1 )

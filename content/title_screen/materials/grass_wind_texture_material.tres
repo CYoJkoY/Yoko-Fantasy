@@ -1,0 +1,60 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+float hash(vec2 p) {
+	return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+float noise(vec2 p) {
+	vec2 i = floor(p);
+	vec2 f = fract(p);
+	vec2 u = f * f * (3.0 - 2.0 * f);
+	float a = hash(i);
+	float b = hash(i + vec2(1.0, 0.0));
+	float c = hash(i + vec2(0.0, 1.0));
+	float d = hash(i + vec2(1.0, 1.0));
+	return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+
+float fbm(vec2 p) {
+	float value = 0.0;
+	float amp = 0.5;
+	value += amp * noise(p);
+	p = vec2(p.x * 1.72 + p.y * 0.38, p.x * -0.32 + p.y * 1.58);
+	amp *= 0.5;
+	value += amp * noise(p);
+	p = vec2(p.x * 1.62 + p.y * 0.30, p.x * -0.28 + p.y * 1.54);
+	amp *= 0.5;
+	value += amp * noise(p);
+	return value;
+}
+
+void fragment() {
+	vec2 uv = UV;
+	float t = TIME;
+	vec4 tex = texture(TEXTURE, uv);
+	float band = smoothstep(0.32, 0.84, uv.y) * (1.0 - smoothstep(0.94, 1.0, uv.y));
+	float gust = sin(t * 2.05 + uv.x * 18.0 + uv.y * 7.0);
+	float wave = gust * 0.0042;
+	float fine = sin(t * 3.80 + uv.x * 54.0 + uv.y * 16.0) * 0.0014;
+	vec4 moved = texture(TEXTURE, uv + vec2((wave + fine) * band, 0.0));
+	vec4 color = moved;
+	color.rgb += band * (0.015 + 0.020 * (0.5 + 0.5 * gust)) * vec3(0.34, 0.72, 0.16);
+	float line_band = smoothstep(0.34, 0.80, uv.y) * (1.0 - smoothstep(0.91, 0.99, uv.y)) * moved.a;
+	vec2 flow_uv = vec2(uv.x * 2.35 + uv.y * 0.86 - t * 0.34, uv.y * 5.30 - uv.x * 0.42 + t * 0.12);
+	float broad = fbm(flow_uv);
+	float detail = fbm(flow_uv * 2.15 + vec2(2.7, -1.4));
+	float wake = smoothstep(0.47, 0.78, broad) * (1.0 - smoothstep(0.79, 0.96, detail));
+	float broken_edge = smoothstep(0.30, 0.72, fbm(flow_uv * 3.4 + vec2(0.0, t * 0.18)));
+	float slope_flicker = 0.74 + 0.26 * sin(t * 1.65 + uv.x * 8.0 + uv.y * 3.5);
+	float line_alpha = wake * broken_edge * line_band * slope_flicker;
+	color.rgb += vec3(0.56, 0.92, 0.16) * clamp(line_alpha * 0.42, 0.0, 0.34);
+	color.rgb -= vec3(0.02, 0.04, 0.00) * clamp((1.0 - wake) * broken_edge * line_band * 0.16, 0.0, 0.10);
+	COLOR = color * COLOR;
+}
+"
+
+[resource]
+shader = SubResource( 1 )

@@ -4,31 +4,40 @@ onready var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
 func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
-    var projectile: Node = main.get_node_from_pool(projectile_pool_id, main._enemy_projectiles)
-    
-    if !is_instance_valid(projectile):
-        projectile = projectile_scene.instance()
-        main.add_enemy_projectile(projectile)
-        projectile.set_meta("pool_id", projectile_pool_id)
+	if !_has_live_shooting_context(): return null
 
-    projectile.global_position = pos
-    projectile.set_from(_parent)
-    projectile.velocity = Vector2.RIGHT.rotated(rot) * spd * RunData.current_run_accessibility_settings.speed
-    projectile.set_range(min_range, max_range) # For Laser Extends
+	var projectile: Node = main.get_node_from_pool(projectile_pool_id, main._enemy_projectiles)
+	
+	if !is_instance_valid(projectile):
+		projectile = projectile_scene.instance()
+		main.add_enemy_projectile(projectile)
+		projectile.set_meta("pool_id", projectile_pool_id)
 
-    if rotate_projectile:
-        projectile.rotation = rot
+	projectile.global_position = pos
+	projectile.set_from(_parent)
+	projectile.velocity = Vector2.RIGHT.rotated(rot) * spd * RunData.current_run_accessibility_settings.speed
+	projectile.set_range(min_range, max_range)
 
-    if delete_projectile_on_death and !_parent.is_connected("died", projectile, "on_entity_died"):
-        var _error_died = _parent.connect("died", projectile, "on_entity_died")
+	if rotate_projectile:
+		projectile.rotation = rot
 
-    projectile.set_damage(projectile_damage)
+	if delete_projectile_on_death and !_parent.is_connected("died", projectile, "on_entity_died"):
+		var _error_died = _parent.connect("died", projectile, "on_entity_died")
 
-    if custom_collision_layer != 0:
-        projectile.set_collision_layer(custom_collision_layer)
+	projectile.set_damage(projectile_damage)
 
-    if custom_sprite_material:
-        projectile.set_sprite_material(custom_sprite_material)
+	if custom_collision_layer != 0:
+		projectile.set_collision_layer(custom_collision_layer)
 
-    projectile.shoot()
-    return projectile
+	if custom_sprite_material:
+		projectile.set_sprite_material(custom_sprite_material)
+
+	projectile.shoot()
+	return projectile
+
+func _has_live_shooting_context() -> bool:
+	return is_instance_valid(_parent) and \
+	!_parent.dead and \
+	_parent.is_inside_tree() and \
+	is_instance_valid(main) and \
+	is_instance_valid(main._enemy_projectiles)

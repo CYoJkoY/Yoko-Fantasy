@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec4 base_color = COLOR;
+	vec2 centered = UV - vec2(0.5, 0.5);
+	centered.x *= 1.45;
+	float edge = smoothstep(0.36, 0.86, length(centered));
+	float top = smoothstep(0.24, 0.0, UV.y) * 0.24;
+	float bottom = smoothstep(0.74, 1.0, UV.y) * 0.08;
+	COLOR = vec4(0.0, 0.01, 0.0, clamp(edge * 0.64 + top + bottom, 0.0, 0.70) * base_color.a);
+}
+"
+
+[resource]
+shader = SubResource( 1 )

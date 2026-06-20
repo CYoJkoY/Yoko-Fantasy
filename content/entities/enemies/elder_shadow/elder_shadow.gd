@@ -1,5 +1,6 @@
 extends Boss
 
+const VisualPartsSync = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/visual_parts_sync.gd")
 const PARTICLES = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/elder_shadow/elder_shadow_particles.tscn")
 
 export(PackedScene) var clocks_scene = null
@@ -12,6 +13,8 @@ export(float) var player_heal_increase_each_wave = 0.25
 var particles: Node = null
 var clocks: Node = null
 var entities_in_zone: Array = []
+onready var _parts_offset: Node2D = $Animation/Offset
+var _visual_parts_sync = VisualPartsSync.new()
 
 onready var _healing_zone: Area2D = $"%HealingZone"
 onready var _healing_collision: CollisionShape2D = $"%HealingCollision"
@@ -20,6 +23,8 @@ onready var main: Main = Utils.get_scene_node()
 
 # =========================== Extension =========================== #
 func _ready() -> void:
+    _visual_parts_sync.setup(_parts_offset)
+    _visual_parts_sync.sync(sprite.material)
     particles = PARTICLES.instance()
     clocks = clocks_scene.instance()
     main.add_child(particles)
@@ -66,11 +71,40 @@ func on_state_changed(_new_state: int) -> void:
 
 func die(args := Utils.default_die_args) -> void:
     .die(args)
-    particles.queue_free()
-    clocks.fa_remove_prediction_line()
-    clocks.queue_free()
+    _healing_timer.stop()
+    if _healing_zone.is_connected("body_entered", self , "fa_on_HealingZone_body_entered"):
+        _healing_zone.disconnect("body_entered", self , "fa_on_HealingZone_body_entered")
+    if _healing_zone.is_connected("body_exited", self , "fa_on_HealingZone_body_exited"):
+        _healing_zone.disconnect("body_exited", self , "fa_on_HealingZone_body_exited")
     _healing_collision.set_deferred("disabled", true)
     entities_in_zone.clear()
+    if is_instance_valid(particles):
+        particles.queue_free()
+        particles = null
+    if is_instance_valid(clocks):
+        clocks.fa_remove_prediction_line()
+        clocks.queue_free()
+        clocks = null
+
+func free_entity() -> void:
+    .free_entity()
+    _visual_parts_sync.sync(sprite.material)
+
+func update_animation(movement: Vector2) -> void:
+    .update_animation(movement)
+    _parts_offset.scale.x = sprite.scale.x
+
+func flash() -> void:
+    .flash()
+    _visual_parts_sync.sync(sprite.material)
+
+func _on_FlashTimer_timeout() -> void:
+    ._on_FlashTimer_timeout()
+    _visual_parts_sync.sync(sprite.material)
+
+func _set_outlines(alpha: float = 1.0, desaturation: float = 0.0) -> void:
+    ._set_outlines(alpha, desaturation)
+    _visual_parts_sync.sync(sprite.material)
 
 # =========================== Method =========================== #
 func fa_on_HealingZone_body_entered(body: Node) -> void:

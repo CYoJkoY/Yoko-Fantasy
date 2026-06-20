@@ -25,12 +25,15 @@ func _ready() -> void:
     register_attack_behavior(_slime_trail_attack_behavior)
 
 func _physics_process(delta) -> void:
+    ._physics_process(delta)
+    if dead: return
+
     current_projectiles_cooldown_0 -= Utils.physics_one(delta)
-    if current_projectiles_cooldown_0 <= 0.0 and !dead:
+    if current_projectiles_cooldown_0 <= 0.0:
         current_projectiles_cooldown_0 = COOLDOWN0
         _shoot_projectiles_behavior.shoot()
     
     current_slime_trail_cooldown_1 -= Utils.physics_one(delta)
-    if current_slime_trail_cooldown_1 <= 0 and !dead:
+    if current_slime_trail_cooldown_1 <= 0:
         current_slime_trail_cooldown_1 = COOLDOWN1
         _slime_trail_attack_behavior.shoot()

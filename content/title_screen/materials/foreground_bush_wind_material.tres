@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec2 uv = UV;
+	float t = TIME;
+	float bush = smoothstep(0.50, 0.67, uv.x) * smoothstep(0.48, 0.66, uv.y);
+	float top_edge = 1.0 - smoothstep(0.74, 0.96, uv.y);
+	float mask = bush * top_edge;
+	float wave = sin(t * 1.65 + uv.x * 20.0 + uv.y * 6.0);
+	float fine = sin(t * 2.80 + uv.x * 43.0) * 0.35;
+	vec2 offset = vec2((wave + fine) * 0.0024, sin(t * 1.25 + uv.x * 9.0) * 0.0009) * mask;
+	vec4 tex = texture(TEXTURE, uv + offset);
+	COLOR = tex * COLOR;
+}
+"
+
+[resource]
+shader = SubResource( 1 )

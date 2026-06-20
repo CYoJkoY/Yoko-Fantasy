@@ -1,5 +1,7 @@
 extends Boss
 
+const VisualPartsSync = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/visual_parts_sync.gd")
+
 onready var _crescent_shooting_attack_behavior: ShootingAttackBehavior = $"CrescentShootingAttackBehavior"
 onready var _projectile_shooting_attack_behavior: ShootingAttackBehavior = $"ProjectileShootingAttackBehavior"
 
@@ -16,9 +18,14 @@ var current_cooldown_1: float = 0.0
 onready var _horizontal_global_shooting_attack_behavior_3: ShootingAttackBehavior = $"%HorizontalGlobalShootingAttackBehavior3"
 onready var _vertical_global_shooting_attack_behavior_3: ShootingAttackBehavior = $"%VerticalGlobalShootingAttackBehavior3"
 
+var _mutation_2_slash_shoot_token: int = 0
+onready var _parts_offset: Node2D = $Animation/Offset
+var _visual_parts_sync = VisualPartsSync.new()
 
 # =========================== Extension =========================== #
 func _ready() -> void:
+    _visual_parts_sync.setup(_parts_offset)
+    _visual_parts_sync.sync(sprite.material)
     _crescent_shooting_attack_behavior.init(self )
     _projectile_shooting_attack_behavior.init(self )
     _crescent_shooting_attack_behavior_1.init(self )
@@ -38,8 +45,11 @@ func _ready() -> void:
     register_attack_behavior(_vertical_global_shooting_attack_behavior_3)
 
 func _physics_process(delta: float) -> void:
+    ._physics_process(delta)
+    if dead: return
+
     # Mutation 1 Dash:  Shoot Slashes and Projectiles
-    if _current_state == 0 and _move_locked and !dead:
+    if _current_state == 0 and _move_locked:
         current_cooldown_0 = current_cooldown_0 - Utils.physics_one(delta)
         if current_cooldown_0 <= 0:
             current_cooldown_0 = COOLDOWN_0
@@ -47,7 +57,7 @@ func _physics_process(delta: float) -> void:
             _projectile_shooting_attack_behavior_1.shoot()
 
     # Mutation 3 Dash: Shoot random direction Slashes
-    elif _current_state == 2 and _move_locked and !dead:
+    elif _current_state == 2 and _move_locked:
         current_cooldown_1 = current_cooldown_1 - Utils.physics_one(delta)
         if current_cooldown_1 <= 0:
             current_cooldown_1 = COOLDOWN_1
@@ -56,20 +66,48 @@ func _physics_process(delta: float) -> void:
 func shoot() -> void:
     .shoot()
     # Mutation 2: Async operation
-    if _current_state == 1: mutation_2_slash_shoot()
+    if _current_state == 1:
+        _mutation_2_slash_shoot_token += 1
+        mutation_2_slash_shoot(_mutation_2_slash_shoot_token)
+
+func die(args := Utils.default_die_args) -> void:
+    _mutation_2_slash_shoot_token += 1
+    .die(args)
+
+func free_entity() -> void:
+    .free_entity()
+    _visual_parts_sync.sync(sprite.material)
+
+func update_animation(movement: Vector2) -> void:
+    .update_animation(movement)
+    _parts_offset.scale.x = sprite.scale.x
+
+func flash() -> void:
+    .flash()
+    _visual_parts_sync.sync(sprite.material)
+
+func _on_FlashTimer_timeout() -> void:
+    ._on_FlashTimer_timeout()
+    _visual_parts_sync.sync(sprite.material)
+
+func _set_outlines(alpha: float = 1.0, desaturation: float = 0.0) -> void:
+    ._set_outlines(alpha, desaturation)
+    _visual_parts_sync.sync(sprite.material)
 
 func on_state_changed(_new_state: int) -> void:
     .on_state_changed(_new_state)
+    if _new_state != 1: _mutation_2_slash_shoot_token += 1
     # Mutation 2 Change: Stand still when shoot and speed up
     if _new_state == 1:
         shoot_animation_name = "shoot_stand"
         reset_speed_stat(50)
 
 # =========================== Custom =========================== #
-func mutation_2_slash_shoot() -> void:
+func mutation_2_slash_shoot(token: int) -> void:
     for i in range(3):
+        if dead or token != _mutation_2_slash_shoot_token or !is_inside_tree(): return
         _crescent_shooting_attack_behavior_2.shoot()
-        if i < 2: yield (get_tree().create_timer(0.2), "timeout")
+        if i < 2: yield(get_tree().create_timer(0.2), "timeout")
 
 # =========================== Method =========================== #
 func switch_can_move(can_move: bool) -> void:

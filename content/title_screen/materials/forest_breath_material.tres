@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+void fragment() {
+	vec2 uv = UV;
+	float t = TIME;
+	float canopy = 1.0 - smoothstep(0.16, 0.88, uv.y);
+	float crossing = smoothstep(0.34, 0.56, uv.y) * (1.0 - smoothstep(0.70, 0.86, uv.y));
+	float beam_a = 1.0 - smoothstep(0.00, 0.125, abs(uv.x * 0.80 + uv.y * 0.40 - (0.52 + 0.045 * sin(t * 0.58))));
+	float beam_b = 1.0 - smoothstep(0.00, 0.105, abs(uv.x * 0.70 - uv.y * 0.28 - (0.10 + 0.038 * sin(t * 0.50 + 2.0))));
+	float ribbon = 1.0 - smoothstep(0.00, 0.16, abs(uv.y - (0.56 + 0.035 * sin(t * 0.62 + uv.x * 3.5))));
+	float breathe = 0.55 + 0.45 * sin(t * 0.90 + uv.x * 4.0);
+	float alpha = (beam_a * 0.070 + beam_b * 0.056) * canopy + ribbon * crossing * 0.060 * breathe;
+	COLOR = vec4(0.68, 0.94, 0.24, clamp(alpha, 0.0, 0.18) * COLOR.a);
+}
+"
+
+[resource]
+shader = SubResource( 1 )

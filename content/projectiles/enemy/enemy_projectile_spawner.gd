@@ -22,6 +22,8 @@ export(Array, String, FILE, "*.tscn") var entity_scenes = []
 
 var _spawn_cooldwon: float = 0.0
 var _has_spawned_orbit_children: bool = false
+var _child_init_rotation_rad: float = 0.0
+var _child_rotation_change_after_each_rad: float = 0.0
 var main: Main = null
 var entity_spawner: EntitySpawner = null
 
@@ -32,8 +34,8 @@ func _ready() -> void:
 
     main = Utils.get_scene_node()
     entity_spawner = main._entity_spawner
-    child_init_rotation = deg2rad(child_init_rotation)
-    child_rotation_change_after_each = deg2rad(child_rotation_change_after_each)
+    _child_init_rotation_rad = deg2rad(child_init_rotation)
+    _child_rotation_change_after_each_rad = deg2rad(child_rotation_change_after_each)
 
 func _return_to_pool() -> void:
     ._return_to_pool()
@@ -42,6 +44,8 @@ func _return_to_pool() -> void:
     _has_spawned_orbit_children = false
 
 func _physics_process(delta) -> void:
+    if !_has_live_spawn_context(): return
+
     if move_with_velocity:
         position += velocity * delta
 
@@ -62,6 +66,8 @@ func _physics_process(delta) -> void:
     _spawn_cooldwon = spawn_cooldown
 
 func spawn_perpendicular_projectiles(index: int) -> void:
+    if !_has_live_spawn_context(): return
+
     var new_projectile: EnemyProjectile = main.get_node_from_pool(child_projectile_pool_id, main._enemy_projectiles)
     if !is_instance_valid(new_projectile):
         new_projectile = child_projectile.instance()
@@ -72,9 +78,9 @@ func spawn_perpendicular_projectiles(index: int) -> void:
     var child_velocity: Vector2 = velocity * child_speed_multiplier
     if child_motion_mode == "perpendicular":
         match [is_symmetrical, index % 2 == 1]:
-            [false, _]: child_velocity = child_velocity.rotated(child_init_rotation + index * child_rotation_change_after_each)
-            [true, false]: child_velocity = child_velocity.rotated(child_init_rotation + index * child_rotation_change_after_each)
-            [true, true]: child_velocity = child_velocity.rotated(- (child_init_rotation + (index - 1) * child_rotation_change_after_each))
+            [false, _]: child_velocity = child_velocity.rotated(_child_init_rotation_rad + index * _child_rotation_change_after_each_rad)
+            [true, false]: child_velocity = child_velocity.rotated(_child_init_rotation_rad + index * _child_rotation_change_after_each_rad)
+            [true, true]: child_velocity = child_velocity.rotated(- (_child_init_rotation_rad + (index - 1) * _child_rotation_change_after_each_rad))
 
     var child_rotation: float = child_velocity.angle()
     new_projectile.global_position = global_position + parent_direction * offset_distance
@@ -91,7 +97,14 @@ func spawn_perpendicular_projectiles(index: int) -> void:
         new_projectile.set_sprite_material(_sprite.material)
 
     if child_motion_mode == "orbit_parent" and new_projectile.has_method("setup_orbit_parent"):
-        var orbit_angle: float = child_init_rotation + PI * 2.0 * float(index) / max(1.0, float(child_projectiles_num))
+        var orbit_angle: float = _child_init_rotation_rad + PI * 2.0 * float(index) / max(1.0, float(child_projectiles_num))
         new_projectile.setup_orbit_parent(self, orbit_angle, child_orbit_radius, child_orbit_radius_growth, child_orbit_speed, child_speed_multiplier, child_forward_lag_limit)
     
     new_projectile.shoot()
+
+func _has_live_spawn_context() -> bool:
+    return is_instance_valid(main) and \
+    is_instance_valid(main._enemy_projectiles) and \
+    is_instance_valid(entity_spawner) and \
+    is_instance_valid(_hitbox.from) and \
+    !_hitbox.from.dead

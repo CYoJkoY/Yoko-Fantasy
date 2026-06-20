@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/great_demon_lord/great_demon_lord.gd" type="Script" id=2]
@@ -41,6 +41,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/great_demon_lord_projectile/great_demon_lord_crescent_projectile.tscn" type="PackedScene" id=39]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/great_demon_lord_projectile/great_demon_lord_ball_projectile.tscn" type="PackedScene" id=40]
 [ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=41]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/great_demon_lord/great_demon_lord.png" type="Texture" id=42]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -83,9 +84,6 @@ shader = ExtResource( 38 )
 shader_param/speed = 5.072
 shader_param/frequency = 2.0
 shader_param/amplitude = 10.319
-
-[sub_resource type="ViewportTexture" id=15]
-viewport_path = NodePath("Animation/Viewport")
 
 [sub_resource type="CircleShape2D" id=14]
 radius = 80.5047
@@ -281,33 +279,25 @@ can_be_charmed = false
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -24 )
 
-[node name="Viewport" type="Viewport" parent="Animation"]
-size = Vector2( 360, 360 )
-transparent_bg = true
-hdr = false
-disable_3d = true
-usage = 0
-render_target_v_flip = true
-render_target_update_mode = 3
+[node name="Offset" type="Node2D" parent="Animation"]
+position = Vector2( -1, -67 )
 
-[node name="Offset" type="Node2D" parent="Animation/Viewport"]
-position = Vector2( 180, 180 )
-
-[node name="Flames" type="Sprite" parent="Animation/Viewport/Offset"]
+[node name="Flames" type="Sprite" parent="Animation/Offset"]
 material = SubResource( 16 )
 texture = ExtResource( 14 )
 
-[node name="RedEyes" type="Sprite" parent="Animation/Viewport/Offset"]
+[node name="RedEyes" type="Sprite" parent="Animation/Offset"]
 material = SubResource( 17 )
 texture = ExtResource( 3 )
 
-[node name="Body" type="Sprite" parent="Animation/Viewport/Offset"]
+[node name="Body" type="Sprite" parent="Animation/Offset"]
 material = SubResource( 18 )
 texture = ExtResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="Animation"]
+visible = false
 position = Vector2( -1, -67 )
-texture = SubResource( 15 )
+texture = ExtResource( 42 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 0 )
@@ -454,7 +444,7 @@ projectile_speed = 500
 cooldown = 180.0
 max_cd_randomization = 0
 damage_increase_each_wave = 1.5
-max_range = 99999
+max_range = 2560
 number_projectiles = 3
 target_class = 0
 towards_player = true
@@ -514,7 +504,7 @@ projectile_speed = 600
 cooldown = 12.0
 max_cd_randomization = 0
 damage_increase_each_wave = 1.5
-max_range = 99999
+max_range = 2560
 number_projectiles = 6
 projectile_spread = 1.1
 projectile_spawn_spread = 500
@@ -527,7 +517,7 @@ script = ExtResource( 9 )
 projectile_scene = ExtResource( 11 )
 projectile_speed = 0
 damage_increase_each_wave = 1.5
-max_range = 99999
+max_range = 2560
 random_direction = true
 number_projectiles = 8
 pos_base_on_centery = true
@@ -548,7 +538,7 @@ script = ExtResource( 9 )
 projectile_scene = ExtResource( 11 )
 projectile_speed = 0
 damage_increase_each_wave = 1.5
-max_range = 99999
+max_range = 2560
 random_direction = true
 number_projectiles = 9
 pos_base_on_centery = true

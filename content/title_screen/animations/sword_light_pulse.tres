@@ -1,0 +1,19 @@
+[gd_resource type="Animation" format=2]
+
+[resource]
+resource_name = "sword_pulse"
+length = 12.5
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.7, 5.1, 8.4, 10.2, 10.5, 12.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.96, 0.58, 0.00 ), Color( 1, 0.98, 0.48, 0.18 ), Color( 1, 1, 0.7, 0.30 ), Color( 0.9, 1, 0.45, 0.14 ), Color( 1, 0.92, 0.35, 0.26 ), Color( 1, 0.96, 0.58, 0.00 ), Color( 1, 0.96, 0.58, 0.00 ) ]
+}

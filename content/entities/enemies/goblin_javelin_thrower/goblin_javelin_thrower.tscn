@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/goblin_javelin_thrower/goblin_javelin_thrower_stats.tres" type="Resource" id=1]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=2]
@@ -9,7 +9,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/goblin_javelin_thrower/goblin_javelin_thrower_projectile.webp" type="Texture" id=7]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/goblin_javelin_thrower/goblin_javelin_thrower_sprite.webp" type="Texture" id=8]
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=9]
-[ext_resource path="res://entities/units/enemies/enemy.gd" type="Script" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/goblin_javelin_thrower/goblin_javelin_thrower.gd" type="Script" id=10]
 [ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=11]
 [ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=12]
 [ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_05.wav" type="AudioStream" id=13]
@@ -51,9 +51,6 @@ shader = ExtResource( 4 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_modifier = 1.0
 
-[sub_resource type="ViewportTexture" id=15]
-viewport_path = NodePath("Animation/Viewport")
-
 [sub_resource type="CircleShape2D" id=12]
 radius = 37.0
 
@@ -90,7 +87,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Animation/Viewport/Offset/Arm:rotation_degrees")
+tracks/2/path = NodePath("Animation/Offset/Arm:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -102,7 +99,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Viewport/Offset/ArmProjectile:rotation_degrees")
+tracks/3/path = NodePath("Animation/Offset/ArmProjectile:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -114,7 +111,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Viewport/Offset/Arm:scale")
+tracks/4/path = NodePath("Animation/Offset/Arm:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -126,7 +123,7 @@ tracks/4/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/Viewport/Offset/ArmProjectile:scale")
+tracks/5/path = NodePath("Animation/Offset/ArmProjectile:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -138,7 +135,7 @@ tracks/5/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Animation/Viewport/Offset/Body:scale")
+tracks/6/path = NodePath("Animation/Offset/Body:scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -150,7 +147,7 @@ tracks/6/keys = {
 "values": [ Vector2( 1, 1 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Animation/Viewport/Offset/ArmProjectile:visible")
+tracks/7/path = NodePath("Animation/Offset/ArmProjectile:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -268,7 +265,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5, 1 )
 }
 tracks/2/type = "bezier"
-tracks/2/path = NodePath("Animation/Viewport/Offset/Body:scale:x")
+tracks/2/path = NodePath("Animation/Offset/Body:scale:x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -278,7 +275,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1 )
 }
 tracks/3/type = "bezier"
-tracks/3/path = NodePath("Animation/Viewport/Offset/Body:scale:y")
+tracks/3/path = NodePath("Animation/Offset/Body:scale:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -328,7 +325,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Viewport/Offset/Arm:rotation_degrees")
+tracks/3/path = NodePath("Animation/Offset/Arm:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -340,7 +337,7 @@ tracks/3/keys = {
 "values": [ 0.0, -36.0, 24.0, 0.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Viewport/Offset/ArmProjectile:rotation_degrees")
+tracks/4/path = NodePath("Animation/Offset/ArmProjectile:rotation_degrees")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -352,7 +349,7 @@ tracks/4/keys = {
 "values": [ 0.0, -36.0, 24.0, 0.0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Animation/Viewport/Offset/Body:scale")
+tracks/5/path = NodePath("Animation/Offset/Body:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -364,7 +361,7 @@ tracks/5/keys = {
 "values": [ Vector2( 1.1, 0.9 ), Vector2( 0.8, 1.2 ), Vector2( 1.2, 0.8 ), Vector2( 1, 1 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Animation/Viewport/Offset/ArmProjectile:visible")
+tracks/6/path = NodePath("Animation/Offset/ArmProjectile:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -408,7 +405,7 @@ tracks/1/keys = {
 } ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Animation/Viewport/Offset/Arm:rotation_degrees")
+tracks/2/path = NodePath("Animation/Offset/Arm:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -420,7 +417,7 @@ tracks/2/keys = {
 "values": [ 0.0, -36.0, 24.0, 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Animation/Viewport/Offset/ArmProjectile:rotation_degrees")
+tracks/3/path = NodePath("Animation/Offset/ArmProjectile:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -432,7 +429,7 @@ tracks/3/keys = {
 "values": [ 0.0, -36.0, 24.0, 0.0 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Animation/Viewport/Offset/Body:scale")
+tracks/4/path = NodePath("Animation/Offset/Body:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -464,29 +461,21 @@ enemy_id = "fantasy_goblin_javelin_thrower"
 [node name="Animation" type="Node2D" parent="."]
 position = Vector2( 0, -24 )
 
-[node name="Viewport" type="Viewport" parent="Animation"]
-size = Vector2( 200, 200 )
-transparent_bg = true
-hdr = false
-disable_3d = true
-usage = 0
-render_target_v_flip = true
-render_target_update_mode = 3
+[node name="Offset" type="Node2D" parent="Animation"]
+position = Vector2( 0, 0 )
 
-[node name="Offset" type="Node2D" parent="Animation/Viewport"]
-position = Vector2( 100, 100 )
-
-[node name="ArmProjectile" type="Sprite" parent="Animation/Viewport/Offset"]
+[node name="ArmProjectile" type="Sprite" parent="Animation/Offset"]
 texture = ExtResource( 7 )
 
-[node name="Arm" type="Sprite" parent="Animation/Viewport/Offset"]
+[node name="Arm" type="Sprite" parent="Animation/Offset"]
 texture = ExtResource( 6 )
 
-[node name="Body" type="Sprite" parent="Animation/Viewport/Offset"]
+[node name="Body" type="Sprite" parent="Animation/Offset"]
 texture = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="Animation"]
-texture = SubResource( 15 )
+visible = false
+texture = ExtResource( 8 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( -16, 19 )

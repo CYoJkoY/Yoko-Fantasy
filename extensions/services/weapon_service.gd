@@ -65,6 +65,17 @@ func _fantasy_apply_structure_scaling_stat_effects(scaling_stats: Array, player_
     return new_scaling_stats
 
 # =========================== Weapon Runtime Effects =========================== #
+func fantasy_reset_weapon_cooldown(weapon: Node) -> void:
+    weapon._current_cooldown = 0
+    weapon.tween_animation.remove(weapon.sprite, "self_modulate")
+    weapon.sprite.self_modulate = Color("#70CFFF")
+    weapon.tween_animation.interpolate_property(
+        weapon.sprite, "self_modulate",
+        Color("#70CFFF"), Color.white, 0.22,
+        Tween.TRANS_SINE, Tween.EASE_OUT
+    )
+    weapon.tween_animation.start()
+
 func fantasy_cannot_attack_while_stationary(weapon: Node) -> bool:
     if RunData.get_player_effect(Utils.fantasy_cannot_attack_while_stationary_hash, weapon.player_index) <= 0:
         return false
@@ -126,13 +137,7 @@ func _fantasy_reload_when_shoot(weapon: Node) -> void:
         var tracking_key_hash: int = effect_item[0]
         RunData.ncl_add_effect_tracking_value(tracking_key_hash, 1, weapon.player_index)
 
-        weapon._current_cooldown = 0
-        weapon.tween_animation.interpolate_property(
-            weapon.sprite, "self_modulate",
-            Color("#3E68DA"), Color.white, 0.48,
-            Tween.TRANS_SINE, Tween.EASE_IN_OUT
-        )
-        weapon.tween_animation.start()
+        fantasy_reset_weapon_cooldown(weapon)
 
 func _fantasy_change_weapon_every_killed_enemies(weapon: Node) -> void:
     for effect in weapon.effects:
@@ -149,12 +154,7 @@ func _fantasy_reload_when_critically_hit(weapon: Node) -> void:
 
         if !Utils.get_chance_success(chance): continue
 
-        weapon._current_cooldown = 0
-        weapon.tween_animation.interpolate_property(
-            weapon.sprite, "self_modulate",
-            Color("#3E68DA"), Color.white, 0.48,
-            Tween.TRANS_SINE, Tween.EASE_IN_OUT, 0.64
-        )
+        fantasy_reset_weapon_cooldown(weapon)
 
 func _fantasy_weapon_hit_proc(weapon: Node, thing_hit: Node, damage_dealt: int) -> void:
     if damage_dealt <= 0 or !(thing_hit is Enemy) or !is_instance_valid(thing_hit):
