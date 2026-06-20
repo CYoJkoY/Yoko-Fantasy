@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+void fragment() {
+	vec2 uv = UV;
+	float t = TIME;
+	float phase = mod(t, 12.5);
+	float active = 1.0 - step(10.5, phase);
+	float cycle_raw = clamp(phase / 10.5, 0.0, 1.0);
+	float cycle = cycle_raw * cycle_raw * (3.0 - 2.0 * cycle_raw);
+	float sword_area = 1.0 - smoothstep(0.06, 0.46, distance(uv, vec2(0.43, 0.39)));
+	float tip = smoothstep(0.58, 0.76, cycle) * (1.0 - smoothstep(0.94, 1.0, cycle));
+	float shimmer = 0.5 + 0.5 * sin(t * 4.4 + uv.y * 30.0);
+	vec4 tex = texture(TEXTURE, uv);
+	float boost = tip * sword_area * active * (1.02 + 0.34 * shimmer);
+	COLOR = vec4(tex.rgb * (0.70 + boost * 1.22), tex.a * (0.42 + boost * 0.64)) * COLOR;
+}
+"
+
+[resource]
+shader = SubResource( 1 )

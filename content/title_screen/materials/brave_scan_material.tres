@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec2 uv = UV;
+	float t = TIME;
+	vec4 tex = texture(TEXTURE, uv);
+	float phase = mod(t, 12.5);
+	float active = 1.0 - step(10.5, phase);
+	float cycle_raw = clamp(phase / 10.5, 0.0, 1.0);
+	float cycle = cycle_raw * cycle_raw * (3.0 - 2.0 * cycle_raw);
+	float path = (1.0 - uv.y) * 0.76 + (0.62 - uv.x) * 0.24;
+	float scan = 1.0 - smoothstep(0.00, 0.034, abs(path - cycle));
+	float hero_mask = smoothstep(0.29, 0.36, uv.x) * (1.0 - smoothstep(0.60, 0.70, uv.x)) * smoothstep(0.18, 0.32, uv.y) * (1.0 - smoothstep(0.78, 0.88, uv.y));
+	float sword_focus = 1.0 - smoothstep(0.04, 0.28, distance(uv, vec2(0.43, 0.38)));
+	float rise_alpha = mix(0.45, 1.0, clamp(path, 0.0, 1.0));
+	float energy = max(scan * hero_mask * rise_alpha, scan * sword_focus * 0.82) * active;
+	vec3 gold = vec3(1.0, 0.76, 0.22);
+	tex.rgb = mix(tex.rgb, tex.rgb + gold * (0.68 + 0.26 * sin(t * 3.8 + uv.y * 18.0)), clamp(energy * tex.a, 0.0, 0.68));
+	COLOR = tex * COLOR;
+}
+"
+
+[resource]
+shader = SubResource( 1 )

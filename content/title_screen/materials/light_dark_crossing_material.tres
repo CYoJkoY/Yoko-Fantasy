@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+void fragment() {
+	vec2 uv = UV;
+	float t = TIME;
+	float band = smoothstep(0.38, 0.54, uv.y) * (1.0 - smoothstep(0.78, 0.94, uv.y));
+	float edge = 1.0 - smoothstep(0.00, 0.14, abs(uv.y - (0.62 - uv.x * 0.11 + 0.032 * sin(t * 0.70 + uv.x * 5.0))));
+	float pool = 1.0 - smoothstep(0.08, 0.46, distance(uv, vec2(0.46, 0.63)));
+	float pulse = 0.72 + 0.28 * sin(t * 1.35 + uv.x * 5.0);
+	float alpha = (edge * 0.15 + pool * 0.095) * band * pulse;
+	COLOR = vec4(0.82, 1.0, 0.28, clamp(alpha, 0.0, 0.20) * COLOR.a);
+}
+"
+
+[resource]
+shader = SubResource( 1 )

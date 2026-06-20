@@ -1,392 +1,546 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=57 format=2]
 
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/fantasy_light.webp" type="Texture" id=2]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/titlescreen_fantasy_character_2.webp" type="Texture" id=3]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/titlescreen_fantasy_character_1.webp" type="Texture" id=4]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/titlescreen_fantasy_ground.webp" type="Texture" id=5]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/titlescreen_fantasy_monster_2.webp" type="Texture" id=6]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/titlescreen_fantasy_monster_1.webp" type="Texture" id=7]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/titlescreen_fantasy_background.webp" type="Texture" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/deep_green_mist.webp" type="Texture" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/background_tree_a.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/background_tree_b.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/background_tree_c.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/watching_eyes.webp" type="Texture" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/grass.webp" type="Texture" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/brave_shadow.webp" type="Texture" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/mage_shadow.webp" type="Texture" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/brave.webp" type="Texture" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/mage.webp" type="Texture" id=11]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/stone.webp" type="Texture" id=12]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/foreground_bush.webp" type="Texture" id=13]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/sword_light.webp" type="Texture" id=14]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/headband_tail.webp" type="Texture" id=41]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/title_text_face.webp" type="Texture" id=44]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/title_text_back.webp" type="Texture" id=45]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/title_line.webp" type="Texture" id=46]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/title_badge_frame.webp" type="Texture" id=47]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/forest_ui/title_badge_inner.webp" type="Texture" id=48]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/watching_eyes_add_material.tres" type="CanvasItemMaterial" id=15]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/sword_light_scan_material.tres" type="ShaderMaterial" id=16]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/magic_glow_pool_material.tres" type="ShaderMaterial" id=17]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/vignette_material.tres" type="ShaderMaterial" id=18]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/living_highlights_material.tres" type="ShaderMaterial" id=19]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/forest_breath_material.tres" type="ShaderMaterial" id=20]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/mage_shadow_bob_material.tres" type="ShaderMaterial" id=21]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/labyrinth_veil_material.tres" type="ShaderMaterial" id=22]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/grass_wind_lines_material.tres" type="ShaderMaterial" id=23]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/brave_scan_material.tres" type="ShaderMaterial" id=25]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/mage_float_material.tres" type="ShaderMaterial" id=26]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/grass_wind_texture_material.tres" type="ShaderMaterial" id=27]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/forest_dark_grade_material.tres" type="ShaderMaterial" id=28]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/light_dark_crossing_material.tres" type="ShaderMaterial" id=29]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/foreground_bush_wind_material.tres" type="ShaderMaterial" id=30]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/headband_tail_wind_material.tres" type="ShaderMaterial" id=43]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/title_gem_glow_material.tres" type="ShaderMaterial" id=49]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/title_gem_core_material.tres" type="ShaderMaterial" id=50]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/title_gem_shine_material.tres" type="ShaderMaterial" id=51]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/title_gem_starburst_material.tres" type="ShaderMaterial" id=52]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/materials/title_gem_prism_dots_material.tres" type="ShaderMaterial" id=53]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/animations/watching_eyes_reset.tres" type="Animation" id=31]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/animations/watching_eyes_watch.tres" type="Animation" id=32]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/animations/sword_light_reset.tres" type="Animation" id=33]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/animations/sword_light_pulse.tres" type="Animation" id=34]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/animations/magic_glow_reset.tres" type="Animation" id=35]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/animations/magic_glow_pulse.tres" type="Animation" id=36]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/animations/vignette_reset.tres" type="Animation" id=37]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/animations/vignette_shade.tres" type="Animation" id=38]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/animations/forest_color_reset.tres" type="Animation" id=39]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/title_screen/animations/forest_color_breathe.tres" type="Animation" id=40]
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.18, 0.78, 1 )
+colors = PoolColorArray( 1, 0.980392, 0.533333, 0, 1, 0.941176, 0.333333, 0.34, 0.65098, 1, 0.352941, 0.18, 0.65098, 1, 0.352941, 0 )
 
-[sub_resource type="Animation" id=5]
-resource_name = "Idle"
-length = 5.0
-loop = true
-tracks/0/type = "bezier"
-tracks/0/path = NodePath("Monster1:rect_position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 12, -0.25, 0, 0.25, 0, 30, -0.25, 0, 0.25, 0, 12, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 2.5, 5 )
-}
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("Monster1:rect_position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"points": PoolRealArray( 200, -0.25, 0, 0.25, 0, 200, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 5 )
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath("Monster2:rect_position:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 7, -0.25, 0, 0.25, 0, -30, -0.25, 0, 0.25, 0, 7, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 2.5, 5 )
-}
-tracks/3/type = "bezier"
-tracks/3/path = NodePath("Monster2:rect_position:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"points": PoolRealArray( 471, -0.25, 0, 0.25, 0, 471, -0.25, 0, 0.25, 0, 471, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 2.5, 5 )
-}
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+width = 96
 
-[sub_resource type="Animation" id=6]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/path = NodePath("Monster1:rect_position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 12, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/1/type = "bezier"
-tracks/1/path = NodePath("Monster1:rect_position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"points": PoolRealArray( 200, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath("Monster2:rect_position:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 7, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/3/type = "bezier"
-tracks/3/path = NodePath("Monster2:rect_position:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"points": PoolRealArray( 471, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0, 0.22, 0.82, 1 )
+colors = PoolColorArray( 0.780392, 1, 0.27451, 0, 0.760784, 1, 0.27451, 0.28, 1, 0.941176, 0.352941, 0.18, 1, 0.941176, 0.352941, 0 )
 
-[sub_resource type="Animation" id=3]
-resource_name = "Idle"
-length = 1.5
-loop = true
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:rect_scale:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1.07, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.75, 1.5 )
-}
-tracks/1/type = "bezier"
-tracks/1/path = NodePath(".:rect_scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.93, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.75, 1.5 )
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath(".:rect_position:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 873, -0.25, 0, 0.25, 0, 861, -0.25, 0, 0.25, 0, 873, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.75, 1.5 )
-}
-tracks/3/type = "bezier"
-tracks/3/path = NodePath(".:rect_position:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"points": PoolRealArray( 387, -0.25, 0, 0.25, 0, 420, -0.25, 0, 0.25, 0, 387, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.75, 1.5 )
-}
-tracks/4/type = "bezier"
-tracks/4/path = NodePath("../Character2:rect_scale:x")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1.03, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.75, 1.5 )
-}
-tracks/5/type = "bezier"
-tracks/5/path = NodePath("../Character2:rect_scale:y")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.97, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.75, 1.5 )
-}
-tracks/6/type = "bezier"
-tracks/6/path = NodePath("../Character2:rect_position:x")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"points": PoolRealArray( 463, -0.25, 0, 0.25, 0, 453, -0.25, 0, 0.25, 0, 463, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.75, 1.5 )
-}
-tracks/7/type = "bezier"
-tracks/7/path = NodePath("../Character2:rect_position:y")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"points": PoolRealArray( 531, -0.25, 0, 0.25, 0, 540, -0.25, 0, 0.25, 0, 531, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.75, 1.5 )
-}
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
+width = 96
 
-[sub_resource type="Animation" id=4]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:rect_scale:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/1/type = "bezier"
-tracks/1/path = NodePath(".:rect_scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath("..:rect_position:x")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/3/type = "bezier"
-tracks/3/path = NodePath("..:rect_position:y")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/4/type = "bezier"
-tracks/4/path = NodePath(".:rect_position:x")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"points": PoolRealArray( 873, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/5/type = "bezier"
-tracks/5/path = NodePath(".:rect_position:y")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"points": PoolRealArray( 387, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/6/type = "bezier"
-tracks/6/path = NodePath("../Character2:rect_scale:x")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/7/type = "bezier"
-tracks/7/path = NodePath("../Character2:rect_scale:y")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"points": PoolRealArray( 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/8/type = "bezier"
-tracks/8/path = NodePath("../Character2:rect_position:x")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"points": PoolRealArray( 463, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/9/type = "bezier"
-tracks/9/path = NodePath("../Character2:rect_position:y")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
-"points": PoolRealArray( 531, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
+[sub_resource type="Gradient" id=31]
+offsets = PoolRealArray( 0, 0.3, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 0.941176, 0.333333, 0.8, 1, 1, 1, 0 )
 
-[sub_resource type="Animation" id=1]
-resource_name = "Play"
-length = 4.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 2, 4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=2]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
+[sub_resource type="GradientTexture" id=32]
+gradient = SubResource( 31 )
+width = 16
 
 [node name="FantasyTitleScreenBackground" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Ground" type="TextureRect" parent="."]
-margin_right = 1920.0
-margin_bottom = 1080.0
-rect_pivot_offset = Vector2( 960, 540 )
+[node name="Stage" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -405.0
+margin_top = -190.0
+margin_right = 405.0
+margin_bottom = 285.0
+rect_pivot_offset = Vector2( 1365, 730 )
+
+[node name="ForestColorAnimation" type="AnimationPlayer" parent="Stage"]
+autoplay = "forest_color_breathe"
+anims/RESET = ExtResource( 39 )
+anims/forest_color_breathe = ExtResource( 40 )
+
+[node name="BaseBlack" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -360.0
+margin_top = -240.0
+margin_right = 2280.0
+margin_bottom = 1320.0
+z_index = 0
+z_as_relative = false
+color = Color( 0, 0, 0, 1 )
+
+[node name="WatchingEyes" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+modulate = Color( 1, 1, 1, 0 )
+material = ExtResource( 15 )
+z_index = 20
+z_as_relative = false
 texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
 
-[node name="Monster" type="Control" parent="."]
-margin_right = 1920.0
-margin_bottom = 1080.0
-rect_pivot_offset = Vector2( 960, 540 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Stage/WatchingEyes"]
+autoplay = "watch"
+anims/RESET = ExtResource( 31 )
+anims/watch = ExtResource( 32 )
 
-[node name="Monster1" type="TextureRect" parent="Monster"]
-margin_left = 12.0
-margin_top = 200.0
-margin_right = 1932.0
-margin_bottom = 898.0
-texture = ExtResource( 7 )
-
-[node name="Monster2" type="TextureRect" parent="Monster"]
-margin_left = 7.0
-margin_top = 471.0
-margin_right = 1927.0
-margin_bottom = 1048.0
-texture = ExtResource( 6 )
-
-[node name="Background" type="TextureRect" parent="Monster"]
-margin_right = 40.0
-margin_bottom = 40.0
-texture = ExtResource( 8 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Monster"]
-autoplay = "Idle"
-anims/Idle = SubResource( 5 )
-anims/RESET = SubResource( 6 )
-
-[node name="Character" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Character1" type="TextureRect" parent="Character"]
-margin_left = 873.0
-margin_top = 387.0
-margin_right = 1235.03
-margin_bottom = 868.012
+[node name="TreeC" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+modulate = Color( 0.05, 0.08, 0.05, 0.90 )
+z_index = 30
+z_as_relative = false
 texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
 
-[node name="Character2" type="TextureRect" parent="Character"]
-margin_left = 463.0
-margin_top = 531.0
-margin_right = 850.0
-margin_bottom = 1012.0
+[node name="TreeB" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+modulate = Color( 0.12, 0.17, 0.11, 0.90 )
+z_index = 40
+z_as_relative = false
 texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Character"]
-root_node = NodePath("../Character1")
-autoplay = "Idle"
-anims/Idle = SubResource( 3 )
-anims/RESET = SubResource( 4 )
-
-[node name="Light" type="TextureRect" parent="."]
-margin_right = 1920.0
-margin_bottom = 1080.0
-rect_pivot_offset = Vector2( 960, 540 )
+[node name="TreeA" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+modulate = Color( 0.20, 0.24, 0.16, 0.94 )
+z_index = 50
+z_as_relative = false
 texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Light"]
-autoplay = "Play"
-anims/Play = SubResource( 1 )
-anims/RESET = SubResource( 2 )
+[node name="BackMist" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 960, 540 )
+modulate = Color( 0.16, 0.34, 0.16, 0.12 )
+z_index = 60
+z_as_relative = false
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="ForestBreath" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -360.0
+margin_top = -240.0
+margin_right = 2280.0
+margin_bottom = 1320.0
+material = ExtResource( 20 )
+z_index = 65
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="LabyrinthVeil" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -520.0
+margin_top = -320.0
+margin_right = 2460.0
+margin_bottom = 1460.0
+material = ExtResource( 22 )
+z_index = 95
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="Grass" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ExtResource( 27 )
+z_index = 70
+z_as_relative = false
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="GrassWindLines" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -360.0
+margin_top = -240.0
+margin_right = 2280.0
+margin_bottom = 1320.0
+material = ExtResource( 23 )
+z_index = 99
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="ForestDarkGrade" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -360.0
+margin_top = -240.0
+margin_right = 2280.0
+margin_bottom = 1320.0
+material = ExtResource( 28 )
+z_index = 93
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="LightDarkCrossing" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -360.0
+margin_top = -240.0
+margin_right = 2280.0
+margin_bottom = 1320.0
+material = ExtResource( 29 )
+z_index = 98
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="MageShadow" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+modulate = Color( 1, 1, 1, 0.86 )
+material = ExtResource( 21 )
+z_index = 80
+z_as_relative = false
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+
+[node name="BraveShadow" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+modulate = Color( 1, 1, 1, 0.88 )
+z_index = 90
+z_as_relative = false
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+
+[node name="Stone" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+z_index = 100
+z_as_relative = false
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="GreenSparks" type="CPUParticles2D" parent="Stage"]
+position = Vector2( 1320, 690 )
+z_index = 105
+z_as_relative = false
+amount = 8
+lifetime = 4.6
+preprocess = 4.6
+randomness = 0.56
+local_coords = false
+emission_shape = 2
+emission_rect_extents = Vector2( 620, 260 )
+gravity = Vector2( -14, -40 )
+initial_velocity = 28.0
+initial_velocity_random = 0.9
+angular_velocity = 16.0
+angular_velocity_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 2.8
+scale_amount_random = 1.0
+color = Color( 0.760784, 1, 0.27451, 0.22 )
+color_ramp = SubResource( 10 )
+texture = SubResource( 32 )
+
+[node name="StaffFireflies" type="CPUParticles2D" parent="Stage"]
+position = Vector2( 1740, 410 )
+z_index = 108
+z_as_relative = false
+amount = 10
+lifetime = 4.2
+preprocess = 4.2
+randomness = 0.68
+local_coords = false
+emission_shape = 2
+emission_rect_extents = Vector2( 260, 170 )
+gravity = Vector2( -14, -30 )
+initial_velocity = 26.0
+initial_velocity_random = 1.0
+angular_velocity = 20.0
+angular_velocity_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 2.5
+scale_amount_random = 1.0
+color = Color( 0.62, 1, 0.34, 0.24 )
+color_ramp = SubResource( 10 )
+texture = SubResource( 32 )
+
+[node name="Mage" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ExtResource( 26 )
+z_index = 110
+z_as_relative = false
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+
+[node name="MagicGlow" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -360.0
+margin_top = -240.0
+margin_right = 2280.0
+margin_bottom = 1320.0
+modulate = Color( 0.82, 1, 0.56, 0.18 )
+material = ExtResource( 17 )
+z_index = 115
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Stage/MagicGlow"]
+autoplay = "glow"
+anims/RESET = ExtResource( 35 )
+anims/glow = ExtResource( 36 )
+
+[node name="LivingHighlights" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -360.0
+margin_top = -240.0
+margin_right = 2280.0
+margin_bottom = 1320.0
+material = ExtResource( 19 )
+z_index = 118
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="HeadbandTail" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ExtResource( 43 )
+z_index = 119
+z_as_relative = false
+texture = ExtResource( 41 )
+expand = true
+stretch_mode = 6
+
+[node name="LightDust" type="CPUParticles2D" parent="Stage"]
+position = Vector2( 1010, 525 )
+z_index = 125
+z_as_relative = false
+amount = 52
+lifetime = 5.0
+preprocess = 5.0
+randomness = 0.44
+local_coords = false
+emission_shape = 2
+emission_rect_extents = Vector2( 980, 360 )
+gravity = Vector2( 20, -34 )
+initial_velocity = 38.0
+initial_velocity_random = 0.82
+angular_velocity = 8.0
+angular_velocity_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 2.3
+scale_amount_random = 0.9
+color = Color( 1, 0.941176, 0.333333, 0.38 )
+color_ramp = SubResource( 7 )
+texture = SubResource( 32 )
+
+[node name="Brave" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ExtResource( 25 )
+z_index = 130
+z_as_relative = false
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+
+[node name="SwordLight" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 960, 540 )
+modulate = Color( 1, 0.96, 0.58, 0.00 )
+material = ExtResource( 16 )
+z_index = 140
+z_as_relative = false
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Stage/SwordLight"]
+autoplay = "sword_pulse"
+anims/RESET = ExtResource( 33 )
+anims/sword_pulse = ExtResource( 34 )
+
+[node name="ForegroundBush" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ExtResource( 30 )
+z_index = 150
+z_as_relative = false
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 6
+
+[node name="ForegroundFireflies" type="CPUParticles2D" parent="Stage"]
+position = Vector2( 1710, 860 )
+z_index = 155
+z_as_relative = false
+amount = 7
+lifetime = 5.8
+preprocess = 5.8
+randomness = 0.72
+local_coords = false
+emission_shape = 2
+emission_rect_extents = Vector2( 620, 250 )
+gravity = Vector2( -8, -24 )
+initial_velocity = 22.0
+initial_velocity_random = 1.0
+angular_velocity = 12.0
+angular_velocity_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 1.8
+scale_amount_random = 1.0
+color = Color( 0.58, 1, 0.22, 0.16 )
+color_ramp = SubResource( 10 )
+texture = SubResource( 32 )
+
+[node name="Vignette" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -360.0
+margin_top = -240.0
+margin_right = 2280.0
+margin_bottom = 1320.0
+material = ExtResource( 18 )
+z_index = 200
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Stage/Vignette"]
+autoplay = "shade"
+anims/RESET = ExtResource( 37 )
+anims/shade = ExtResource( 38 )
+
+[node name="TitleBadgeInner" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+z_index = 251
+z_as_relative = false
+texture = ExtResource( 48 )
+expand = true
+stretch_mode = 6
+
+[node name="TitleGemGlow" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ExtResource( 49 )
+z_index = 252
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="TitleBadgeFrame" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+z_index = 253
+z_as_relative = false
+texture = ExtResource( 47 )
+expand = true
+stretch_mode = 6
+
+[node name="TitleGemCore" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ExtResource( 50 )
+z_index = 254
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="TitleGemShine" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ExtResource( 51 )
+z_index = 255
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="TitleGemStarburst" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ExtResource( 52 )
+z_index = 256
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="TitleGemPrismDots" type="ColorRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+material = ExtResource( 53 )
+z_index = 257
+z_as_relative = false
+color = Color( 1, 1, 1, 1 )
+
+[node name="TitleLine" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+z_index = 258
+z_as_relative = false
+texture = ExtResource( 46 )
+expand = true
+stretch_mode = 6
+
+[node name="TitleTextBack" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+z_index = 259
+z_as_relative = false
+texture = ExtResource( 45 )
+expand = true
+stretch_mode = 6
+
+[node name="TitleTextFace" type="TextureRect" parent="Stage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+z_index = 260
+z_as_relative = false
+texture = ExtResource( 44 )
+expand = true
+stretch_mode = 6

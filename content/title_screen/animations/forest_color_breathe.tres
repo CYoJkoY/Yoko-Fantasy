@@ -1,0 +1,55 @@
+[gd_resource type="Animation" format=2]
+
+[resource]
+resource_name = "forest_color_breathe"
+length = 8.8
+loop = true
+step = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("TreeA:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.8, 5.6, 8.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.18, 0.22, 0.14, 0.92 ), Color( 0.23, 0.28, 0.17, 0.98 ), Color( 0.15, 0.19, 0.13, 0.90 ), Color( 0.18, 0.22, 0.14, 0.92 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TreeB:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2.8, 5.6, 8.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.10, 0.15, 0.09, 0.88 ), Color( 0.15, 0.21, 0.12, 0.94 ), Color( 0.08, 0.12, 0.08, 0.86 ), Color( 0.10, 0.15, 0.09, 0.88 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TreeC:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.8, 5.6, 8.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.04, 0.07, 0.04, 0.88 ), Color( 0.07, 0.11, 0.06, 0.94 ), Color( 0.03, 0.05, 0.03, 0.86 ), Color( 0.04, 0.07, 0.04, 0.88 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("BackMist:modulate")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.8, 5.6, 8.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.14, 0.30, 0.14, 0.10 ), Color( 0.22, 0.44, 0.18, 0.16 ), Color( 0.11, 0.24, 0.12, 0.08 ), Color( 0.14, 0.30, 0.14, 0.10 ) ]
+}

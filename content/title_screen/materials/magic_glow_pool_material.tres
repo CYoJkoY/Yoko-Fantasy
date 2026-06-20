@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+void fragment() {
+	vec4 base_color = COLOR;
+	vec2 uv = UV;
+	float sword = 1.0 - smoothstep(0.0, 0.72, distance(uv, vec2(0.43, 0.50)));
+	float grass = 1.0 - smoothstep(0.0, 0.48, distance(uv, vec2(0.67, 0.70)));
+	float glow = max(sword * 0.30, grass * 0.18);
+	COLOR = vec4(0.74, 1.0, 0.22, glow * base_color.a);
+}
+"
+
+[resource]
+shader = SubResource( 1 )

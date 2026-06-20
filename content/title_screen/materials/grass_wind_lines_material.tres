@@ -1,0 +1,49 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+float hash(vec2 p) {
+	return fract(sin(dot(p, vec2(41.7, 289.3))) * 19345.43);
+}
+
+float noise(vec2 p) {
+	vec2 i = floor(p);
+	vec2 f = fract(p);
+	vec2 u = f * f * (3.0 - 2.0 * f);
+	float a = hash(i);
+	float b = hash(i + vec2(1.0, 0.0));
+	float c = hash(i + vec2(0.0, 1.0));
+	float d = hash(i + vec2(1.0, 1.0));
+	return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
+
+float fbm(vec2 p) {
+	float value = 0.0;
+	float amp = 0.54;
+	value += amp * noise(p);
+	p = vec2(p.x * 1.68 + p.y * 0.42, p.x * -0.36 + p.y * 1.52);
+	amp *= 0.48;
+	value += amp * noise(p);
+	p = vec2(p.x * 1.58 + p.y * 0.28, p.x * -0.24 + p.y * 1.46);
+	amp *= 0.48;
+	value += amp * noise(p);
+	return value;
+}
+
+void fragment() {
+	vec2 uv = UV;
+	float t = TIME;
+	float grass_band = smoothstep(0.36, 0.82, uv.y) * (1.0 - smoothstep(0.94, 1.0, uv.y));
+	vec2 flow = vec2(uv.x * 2.4 + uv.y * 0.9 - t * 0.34, uv.y * 5.0 - uv.x * 0.36 + t * 0.10);
+	float wake = smoothstep(0.50, 0.80, fbm(flow));
+	float gaps = smoothstep(0.24, 0.78, fbm(flow * 3.2 + vec2(3.0, t * 0.18)));
+	float shimmer = 0.72 + 0.28 * sin(t * 1.8 + uv.x * 9.0 + uv.y * 5.0);
+	float alpha = wake * gaps * grass_band * shimmer * 0.22;
+	COLOR = vec4(0.78, 1.0, 0.30, clamp(alpha, 0.0, 0.24));
+}
+"
+
+[resource]
+shader = SubResource( 1 )
