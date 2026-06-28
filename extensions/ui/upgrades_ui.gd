@@ -1,7 +1,5 @@
 extends "res://ui/menus/ingame/upgrades_ui.gd"
 
-const UpgradeHooks = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/upgrade_hooks.gd")
-
 signal fantasy_jobs_processed
 
 # =========================== Extension =========================== #

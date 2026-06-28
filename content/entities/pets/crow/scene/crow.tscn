@@ -5,7 +5,7 @@
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=3]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=4]
 [ext_resource path="res://entities/units/movement_behaviors/movement_behavior.gd" type="Script" id=5]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow.gd" type="Script" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/crow.gd" type="Script" id=6]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_05.wav" type="AudioStream" id=7]
 [ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_03.wav" type="AudioStream" id=8]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=9]
@@ -31,6 +31,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow_right_wing.webp" type="Texture" id=30]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow_left_wing.webp" type="Texture" id=31]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow.png" type="Texture" id=32]
+
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

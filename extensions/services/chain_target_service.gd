@@ -1,3 +1,4 @@
+class_name ChainTargetService
 extends Reference
 
 static func get_scaled_target_count(
@@ -8,7 +9,7 @@ static func get_scaled_target_count(
 ) -> int:
 	var target_count: int = Utils.ncl_get_num_with_scaling_stats(base_targets, targets_scaling_stats, player_index)
 	if max_targets > 0:
-		target_count = min(target_count, max_targets)
+		target_count = int(min(target_count, max_targets))
 	return int(max(1, target_count))
 
 static func get_scaled_target_count_text(

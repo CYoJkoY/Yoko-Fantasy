@@ -1,3 +1,4 @@
+class_name VisualPartsSync
 extends Reference
 
 var _sprites: Array = []
@@ -13,7 +14,7 @@ func setup_from(root: Node, source_sprite: Sprite) -> void:
 	sync_from(source_sprite)
 
 func sync_from(source_sprite: Sprite) -> void:
-	sync(source_sprite.material)
+	sync (source_sprite.material)
 
 func sync(material: Material) -> void:
 	for sprite in _sprites:

@@ -1,3 +1,4 @@
+class_name UpgradeHooks
 extends Node
 
 static func fa_handle_selected_upgrade_hooks(upgrade_data: UpgradeData, player_index: int, source: String = "") -> void:

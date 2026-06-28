@@ -1,6 +1,5 @@
 extends Boss
 
-const VisualPartsSync = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/visual_parts_sync.gd")
 const PARTICLES = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/elder_shadow/elder_shadow_particles.tscn")
 
 export(PackedScene) var clocks_scene = null
@@ -24,7 +23,7 @@ onready var main: Main = Utils.get_scene_node()
 # =========================== Extension =========================== #
 func _ready() -> void:
     _visual_parts_sync.setup(_parts_offset)
-    _visual_parts_sync.sync(sprite.material)
+    _visual_parts_sync.sync (sprite.material)
     particles = PARTICLES.instance()
     clocks = clocks_scene.instance()
     main.add_child(particles)
@@ -44,17 +43,17 @@ func on_state_changed(_new_state: int) -> void:
     
     # Mutation 2:
     if _new_state == 1:
-        _healing_zone.connect("body_entered", self , "fa_on_HealingZone_body_entered")
-        _healing_zone.connect("body_exited", self , "fa_on_HealingZone_body_exited")
+        _healing_zone.connect("body_entered", self, "fa_on_HealingZone_body_entered")
+        _healing_zone.connect("body_exited", self, "fa_on_HealingZone_body_exited")
         _healing_timer.start()
     
     # Mutation 3:
     if _new_state == 2:
         _healing_timer.stop()
-        if _healing_zone.is_connected("body_entered", self , "fa_on_HealingZone_body_entered"):
-            _healing_zone.disconnect("body_entered", self , "fa_on_HealingZone_body_entered")
-        if _healing_zone.is_connected("body_exited", self , "fa_on_HealingZone_body_exited"):
-            _healing_zone.disconnect("body_exited", self , "fa_on_HealingZone_body_exited")
+        if _healing_zone.is_connected("body_entered", self, "fa_on_HealingZone_body_entered"):
+            _healing_zone.disconnect("body_entered", self, "fa_on_HealingZone_body_entered")
+        if _healing_zone.is_connected("body_exited", self, "fa_on_HealingZone_body_exited"):
+            _healing_zone.disconnect("body_exited", self, "fa_on_HealingZone_body_exited")
         _healing_collision.set_deferred("disabled", true)
         entities_in_zone.clear()
         _healing_timer.start()
@@ -64,18 +63,18 @@ func on_state_changed(_new_state: int) -> void:
 
             entities_in_zone.append(boss)
         
-        if !main._entity_spawner.charmed_enemies.has(self ): return
+        if !main._entity_spawner.charmed_enemies.has(self): return
 
         var player_index = get_charmed_by_player_index()
         entities_in_zone.append(main._players[player_index])
 
-func die(args := Utils.default_die_args) -> void:
+func die(args:=Utils.default_die_args) -> void:
     .die(args)
     _healing_timer.stop()
-    if _healing_zone.is_connected("body_entered", self , "fa_on_HealingZone_body_entered"):
-        _healing_zone.disconnect("body_entered", self , "fa_on_HealingZone_body_entered")
-    if _healing_zone.is_connected("body_exited", self , "fa_on_HealingZone_body_exited"):
-        _healing_zone.disconnect("body_exited", self , "fa_on_HealingZone_body_exited")
+    if _healing_zone.is_connected("body_entered", self, "fa_on_HealingZone_body_entered"):
+        _healing_zone.disconnect("body_entered", self, "fa_on_HealingZone_body_entered")
+    if _healing_zone.is_connected("body_exited", self, "fa_on_HealingZone_body_exited"):
+        _healing_zone.disconnect("body_exited", self, "fa_on_HealingZone_body_exited")
     _healing_collision.set_deferred("disabled", true)
     entities_in_zone.clear()
     if is_instance_valid(particles):
@@ -88,7 +87,7 @@ func die(args := Utils.default_die_args) -> void:
 
 func free_entity() -> void:
     .free_entity()
-    _visual_parts_sync.sync(sprite.material)
+    _visual_parts_sync.sync (sprite.material)
 
 func update_animation(movement: Vector2) -> void:
     .update_animation(movement)
@@ -96,15 +95,15 @@ func update_animation(movement: Vector2) -> void:
 
 func flash() -> void:
     .flash()
-    _visual_parts_sync.sync(sprite.material)
+    _visual_parts_sync.sync (sprite.material)
 
 func _on_FlashTimer_timeout() -> void:
     ._on_FlashTimer_timeout()
-    _visual_parts_sync.sync(sprite.material)
+    _visual_parts_sync.sync (sprite.material)
 
 func _set_outlines(alpha: float = 1.0, desaturation: float = 0.0) -> void:
     ._set_outlines(alpha, desaturation)
-    _visual_parts_sync.sync(sprite.material)
+    _visual_parts_sync.sync (sprite.material)
 
 # =========================== Method =========================== #
 func fa_on_HealingZone_body_entered(body: Node) -> void:
@@ -129,4 +128,4 @@ func fa_on_HealingTimer_timeout() -> void:
                 entity.emit_signal("healed", heal_value, entity.player_index)
             else:
                 entity.emit_signal("healed", entity)
-            emit_signal("healed", self )
+            emit_signal("healed", self)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/elder_shadow/elder_shadow.gd" type="Script" id=2]
@@ -758,7 +758,6 @@ player_heal_increase_each_wave = 1.0
 position = Vector2( 0, -20 )
 
 [node name="Offset" type="Node2D" parent="Animation"]
-position = Vector2( 0, 0 )
 
 [node name="GearBackground" type="Sprite" parent="Animation/Offset"]
 texture = ExtResource( 52 )

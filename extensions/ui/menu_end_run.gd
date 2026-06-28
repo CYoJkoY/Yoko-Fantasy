@@ -2,7 +2,7 @@ extends "res://ui/menus/pages/menu_end_run.gd"
 
 func init() -> void:
 	focus_before_created = Utils.fa_get_menu_focused_control(self, 0)
-	Utils.fa_focus_menu_control($Buttons / ConfirmButton, 0)
+	Utils.fa_focus_menu_control($Buttons/ConfirmButton, 0)
 
 func _input(event):
 	if self.visible and event.is_action_released("ui_cancel"):

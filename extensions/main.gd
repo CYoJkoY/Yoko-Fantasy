@@ -1,7 +1,5 @@
 extends "res://main.gd"
 
-const UpgradeHooks = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/upgrade_hooks.gd")
-const LightningChainService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_service.gd")
 const FANTASY_END_WAVE_BEFORE_REWARDS: String = "before_wave_rewards"
 const FANTASY_END_WAVE_BEFORE_END_RUN_SCENE: String = "before_end_run_scene"
 
@@ -62,10 +60,10 @@ func _fantasy_process_job_options() -> void:
 	if RunData.is_coop_run:
 		_hud.hide()
 		if _coop_upgrades_ui.call("show_fantasy_job_options"):
-			yield(_coop_upgrades_ui, "fantasy_jobs_processed")
+			yield (_coop_upgrades_ui, "fantasy_jobs_processed")
 	else:
 		if _upgrades_ui.call("show_fantasy_job_options"):
-			yield(_upgrades_ui, "fantasy_jobs_processed")
+			yield (_upgrades_ui, "fantasy_jobs_processed")
 
 	_fantasy_clear_job_process_icons()
 
@@ -79,7 +77,7 @@ func _fantasy_start_time_bonus_current_health_damage_timer() -> void:
 			var timer: Timer = Timer.new()
 			timer.wait_time = effect[1]
 			timer.autostart = true
-			timer.connect("timeout", self , "fa_time_bonus_current_health_damage", [effect[2] / 100.0, player_index, effect[0]])
+			timer.connect("timeout", self, "fa_time_bonus_current_health_damage", [effect[2] / 100.0, player_index, effect[0]])
 			add_child(timer)
 			FaTimers.append(timer)
 
@@ -205,7 +203,7 @@ func _fantasy_add_job(job_data: UpgradeData, player_index: int) -> void:
 	RunData.fa_add_job(job_data, player_index)
 
 func _fantasy_connect_effect() -> void:
-	var _error_on_soul_effect: int = RunData.connect("on_soul_effect", self , "fa_on_soul_effect")
+	var _error_on_soul_effect: int = RunData.connect("on_soul_effect", self, "fa_on_soul_effect")
 
 func _fantasy_queue_job_upgrades() -> void:
 	for player_index in range(_players.size()):
@@ -253,7 +251,7 @@ func _fantasy_sacrificial_circle(players: Array) -> void:
 		for sacrificial_circle in sacrificial_circles:
 			var sacrificial_circle_node: Area2D = load("res://mods-unpacked/Yoko-Fantasy/content/specials/player/sacrificial_circle/sacrificial_circle.tscn").instance()
 			var center_pos: Vector2 = ZoneService.get_map_center()
-			_materials_container.add_child(sacrificial_circle_node.init(self , player_index, center_pos, sacrificial_circle))
+			_materials_container.add_child(sacrificial_circle_node.init(self, player_index, center_pos, sacrificial_circle))
 
 func _fantasy_clock_tower_area(players: Array) -> void:
 	var player_count: int = players.size()
@@ -267,7 +265,7 @@ func _fantasy_clock_tower_area(players: Array) -> void:
 			var total_range: float = Utils.fa_get_clock_tower_area_radius(base_range, range_rate, player_index)
 			var clock_tower_area_node: Area2D = load("res://mods-unpacked/Yoko-Fantasy/content/specials/player/clock_tower_area/clock_tower_area.tscn").instance()
 			var center_pos: Vector2 = ZoneService.get_map_center()
-			_materials_container.add_child(clock_tower_area_node.init(self , player_index, center_pos, total_range, base_range, range_rate))
+			_materials_container.add_child(clock_tower_area_node.init(self, player_index, center_pos, total_range, base_range, range_rate))
 
 # =========================== Method =========================== #
 func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracking_key_hash: int) -> void:

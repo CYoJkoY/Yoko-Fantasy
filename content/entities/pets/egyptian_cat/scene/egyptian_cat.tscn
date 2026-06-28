@@ -1,7 +1,7 @@
 [gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/scene/egyptian_cat.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/egyptian_cat.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/scene/egyptian_cat_attack_head.webp" type="Texture" id=3]
 [ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/egyptian_cat_stats.tres" type="Resource" id=5]
@@ -32,6 +32,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/scene/egyptian_cat_head.webp" type="Texture" id=30]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/scene/egyptian_cat_shadow.webp" type="Texture" id=31]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/egyptian_cat/scene/egyptian_cat.png" type="Texture" id=32]
+
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

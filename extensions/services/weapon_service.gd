@@ -1,9 +1,7 @@
 extends "res://singletons/weapon_service.gd"
 
-const LightningChainService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_service.gd")
-
 # =========================== Extension =========================== #
-func init_base_stats(from_stats: WeaponStats, player_index: int, args: WeaponServiceInitStatsArgs = _init_stats_args_service, is_structure := false, is_special_spawn := false, is_pet := false) -> WeaponStats:
+func init_base_stats(from_stats: WeaponStats, player_index: int, args: WeaponServiceInitStatsArgs = _init_stats_args_service, is_structure:=false, is_special_spawn:=false, is_pet:=false) -> WeaponStats:
     var base_stats: WeaponStats =.init_base_stats(from_stats, player_index, args, is_structure, is_special_spawn, is_pet)
     base_stats.crit_damage = _fantasy_add_crit_damage(base_stats.crit_damage, player_index)
     base_stats.crit_damage = _fantasy_crit_overflow(base_stats.crit_chance, base_stats.crit_damage, player_index)
@@ -14,17 +12,17 @@ func init_structure_stats(from_stats: RangedWeaponStats, player_index: int, args
     structure_stats.scaling_stats = _fantasy_apply_structure_scaling_stat_effects(structure_stats.scaling_stats, player_index)
     return structure_stats
 
-func init_melee_pet_stats(from_stats: MeleeWeaponStats, player_index: int, args := WeaponServiceInitStatsArgs.new()) -> MeleeWeaponStats:
+func init_melee_pet_stats(from_stats: MeleeWeaponStats, player_index: int, args:=WeaponServiceInitStatsArgs.new()) -> MeleeWeaponStats:
     var melee_pet_stats: MeleeWeaponStats =.init_melee_pet_stats(from_stats, player_index, args)
     melee_pet_stats.cooldown = apply_attack_speed_mod_to_cooldown(melee_pet_stats.cooldown, Utils.get_stat(Utils.stat_fantasy_pet_attack_speed_hash, player_index) / 100.0)
     return melee_pet_stats
 
-func init_ranged_pet_stats(from_stats: RangedWeaponStats, player_index: int, is_special_spawn := false, args := WeaponServiceInitStatsArgs.new()) -> RangedWeaponStats:
+func init_ranged_pet_stats(from_stats: RangedWeaponStats, player_index: int, is_special_spawn:=false, args:=WeaponServiceInitStatsArgs.new()) -> RangedWeaponStats:
     var ranged_pet_stats: RangedWeaponStats =.init_ranged_pet_stats(from_stats, player_index, is_special_spawn, args)
     ranged_pet_stats.cooldown = apply_attack_speed_mod_to_cooldown(ranged_pet_stats.cooldown, Utils.get_stat(Utils.stat_fantasy_pet_attack_speed_hash, player_index) / 100.0)
     return ranged_pet_stats
 
-func init_structure_pet_stats(from_stats: RangedWeaponStats, player_index: int, args := WeaponServiceInitStatsArgs.new()) -> RangedWeaponStats:
+func init_structure_pet_stats(from_stats: RangedWeaponStats, player_index: int, args:=WeaponServiceInitStatsArgs.new()) -> RangedWeaponStats:
     var structure_pet_stats: RangedWeaponStats =.init_structure_pet_stats(from_stats, player_index, args)
     structure_pet_stats.scaling_stats = _fantasy_apply_structure_scaling_stat_effects(structure_pet_stats.scaling_stats, player_index)
     structure_pet_stats.cooldown = apply_attack_speed_mod_to_cooldown(structure_pet_stats.cooldown, Utils.get_stat(Utils.stat_fantasy_pet_attack_speed_hash, player_index) / 100.0)
@@ -194,9 +192,9 @@ func _fantasy_lightning_chain_on_hit(weapon: Node, thing_hit: Node) -> void:
         return
 
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_lightning_chain_on_hit_hash, weapon.player_index)
-    var params_list: Array = LightningChainService.collect_triggered_hit_params(weapon.effects, effect_items, weapon.player_index)
+    var params_list: Array = LightningChainService.new().collect_triggered_hit_params(weapon.effects, effect_items, weapon.player_index)
     for params in params_list:
-        var arc_damage: int = LightningChainService.spawn_lightning_chain(
+        var arc_damage: int = LightningChainService.new().spawn_lightning_chain(
             main,
             thing_hit,
             weapon.player_index,

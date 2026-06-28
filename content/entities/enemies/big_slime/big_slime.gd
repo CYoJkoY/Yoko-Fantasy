@@ -1,4 +1,4 @@
-extends "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/medium_slime/medium_slime.gd"
+extends MediumSlime
 
 onready var _shoot_projectiles_behavior: ShootingAttackBehavior = $ShootAttackBehavior
 onready var INITIAL_COOLDOWN0: float = _shoot_projectiles_behavior.initial_cooldown
@@ -18,8 +18,8 @@ func respawn() -> void:
 func _ready() -> void:
     current_projectiles_cooldown_0 = INITIAL_COOLDOWN0
 
-    _shoot_projectiles_behavior.init(self )
-    _slime_trail_attack_behavior.init(self )
+    _shoot_projectiles_behavior.init(self)
+    _slime_trail_attack_behavior.init(self)
 
     register_attack_behavior(_shoot_projectiles_behavior)
     register_attack_behavior(_slime_trail_attack_behavior)

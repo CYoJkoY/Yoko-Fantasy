@@ -1,7 +1,7 @@
 [gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/white_fox.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/white_fox_stats.tres" type="Resource" id=3]
 [ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox_shadow.webp" type="Texture" id=5]
@@ -39,6 +39,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox_tail2.webp" type="Texture" id=37]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox_tail3.webp" type="Texture" id=38]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/white_fox/scene/white_fox.png" type="Texture" id=39]
+
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

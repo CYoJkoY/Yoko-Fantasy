@@ -1,7 +1,7 @@
 [gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/scene/magic_sword.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/magic_sword.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/scene/magic_sword.webp" type="Texture" id=3]
 [ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/magic_sword_stats.tres" type="Resource" id=5]
@@ -31,6 +31,7 @@
 [ext_resource path="res://entities/units/target_behavior/closest_enemy_target_behavior.gd" type="Script" id=29]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/x_flow.gdshader" type="Shader" id=30]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/scene/magic_sword_shadow.webp" type="Texture" id=31]
+
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

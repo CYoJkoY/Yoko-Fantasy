@@ -1,3 +1,4 @@
+class_name LittleSlime
 extends Enemy
 
 export(String, FILE, "*.tscn") var evolution_target_path = ""
@@ -25,12 +26,12 @@ func respawn() -> void:
 
 # =========================== Method =========================== #
 func fa_on_DetectionArea_body_entered(body: Enemy) -> void:
-    if !body.is_connected("died", self , "fa_on_enemy_died"):
-        body.connect("died", self , "fa_on_enemy_died")
+    if !body.is_connected("died", self, "fa_on_enemy_died"):
+        body.connect("died", self, "fa_on_enemy_died")
 
 func fa_on_DetectionArea_body_exited(body: Enemy) -> void:
-    if body.is_connected("died", self , "fa_on_enemy_died"):
-        body.disconnect("died", self , "fa_on_enemy_died")
+    if body.is_connected("died", self, "fa_on_enemy_died"):
+        body.disconnect("died", self, "fa_on_enemy_died")
 
 func fa_on_ItemAttractArea_area_entered(item: Item) -> void:
     if dead or !(item is Gold) or evolution_target_path == "": return
@@ -76,6 +77,6 @@ func fa_on_enemy_died(enemy: Enemy, _die_args: Entity.DieArgs) -> void:
 func fa_evolve() -> void:
     var charmed_by = get_charmed_by_player_index()
 
-    emit_signal("wanted_to_spawn_an_enemy", evolution_target, global_position, self , charmed_by)
+    emit_signal("wanted_to_spawn_an_enemy", evolution_target, global_position, self, charmed_by)
     
     die(evovle_args)

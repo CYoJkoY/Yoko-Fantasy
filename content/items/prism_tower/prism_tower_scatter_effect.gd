@@ -1,13 +1,11 @@
 extends Effect
 
-const ChainTargetService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/chain_target_service.gd")
-
 export(int) var base_chain_targets = 3
 export(Array) var targets_scaling_stats = [["stat_fantasy_holy", 0.1]]
 export(int) var max_chain_targets = 7
 
 func duplicate(subresources: bool = false) -> Resource:
-	var duplication = .duplicate(subresources)
+	var duplication =.duplicate(subresources)
 	if !targets_scaling_stats.empty():
 		targets_scaling_stats = Utils.convert_to_hash_array(targets_scaling_stats)
 	duplication.targets_scaling_stats = targets_scaling_stats
@@ -39,7 +37,7 @@ func get_args(player_index: int) -> Array:
 	)]
 
 func serialize() -> Dictionary:
-	var serialized = .serialize()
+	var serialized =.serialize()
 	serialized.base_chain_targets = base_chain_targets
 	serialized.targets_scaling_stats = targets_scaling_stats
 	serialized.max_chain_targets = max_chain_targets

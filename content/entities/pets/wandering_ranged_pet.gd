@@ -1,3 +1,4 @@
+class_name WanderingRangedPet
 extends Pet
 
 export(float) var radius = 320.0
@@ -22,7 +23,7 @@ var _players: Array = []
 var _angle: float = rand_range(0, TAU)
 
 # =========================== Extension =========================== #
-func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
+func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref=null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
     _players = p_players_ref
     _damage_tracking_id_hash = Keys.generate_hash(damage_tracking_id)
@@ -119,15 +120,15 @@ func _spawn_projectile(position: Vector2) -> void:
         args.from_player_index = player_index
         args.damage_tracking_key_hash = _damage_tracking_id_hash
         
-        WeaponService.spawn_projectile(position, _current_weapon_stats, proj_rotation, self , args)
+        WeaponService.spawn_projectile(position, _current_weapon_stats, proj_rotation, self, args)
 
 func _on_TargetTriggerZone_body_entered(body):
     _targets_in_range.push_back(body)
-    var _error = body.connect("died", self , "on_target_died")
+    var _error = body.connect("died", self, "on_target_died")
 
 func _on_TargetTriggerZone_body_exited(body):
     _targets_in_range.erase(body)
-    body.disconnect("died", self , "on_target_died")
+    body.disconnect("died", self, "on_target_died")
 
 func on_target_died(target: Node2D, _args: Entity.DieArgs) -> void:
     _targets_in_range.erase(target)

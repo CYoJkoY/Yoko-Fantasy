@@ -1,7 +1,5 @@
 extends Boss
 
-const VisualPartsSync = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/visual_parts_sync.gd")
-
 onready var _crescent_shooting_attack_behavior: ShootingAttackBehavior = $"CrescentShootingAttackBehavior"
 onready var _projectile_shooting_attack_behavior: ShootingAttackBehavior = $"ProjectileShootingAttackBehavior"
 
@@ -25,15 +23,15 @@ var _visual_parts_sync = VisualPartsSync.new()
 # =========================== Extension =========================== #
 func _ready() -> void:
     _visual_parts_sync.setup(_parts_offset)
-    _visual_parts_sync.sync(sprite.material)
-    _crescent_shooting_attack_behavior.init(self )
-    _projectile_shooting_attack_behavior.init(self )
-    _crescent_shooting_attack_behavior_1.init(self )
-    _projectile_shooting_attack_behavior_1.init(self )
-    _crescent_shooting_attack_behavior_2.init(self )
-    _charging_slash_shooting_attack_behavior_3.init(self )
-    _horizontal_global_shooting_attack_behavior_3.init(self )
-    _vertical_global_shooting_attack_behavior_3.init(self )
+    _visual_parts_sync.sync (sprite.material)
+    _crescent_shooting_attack_behavior.init(self)
+    _projectile_shooting_attack_behavior.init(self)
+    _crescent_shooting_attack_behavior_1.init(self)
+    _projectile_shooting_attack_behavior_1.init(self)
+    _crescent_shooting_attack_behavior_2.init(self)
+    _charging_slash_shooting_attack_behavior_3.init(self)
+    _horizontal_global_shooting_attack_behavior_3.init(self)
+    _vertical_global_shooting_attack_behavior_3.init(self)
 
     register_attack_behavior(_crescent_shooting_attack_behavior)
     register_attack_behavior(_projectile_shooting_attack_behavior)
@@ -70,13 +68,13 @@ func shoot() -> void:
         _mutation_2_slash_shoot_token += 1
         mutation_2_slash_shoot(_mutation_2_slash_shoot_token)
 
-func die(args := Utils.default_die_args) -> void:
+func die(args:=Utils.default_die_args) -> void:
     _mutation_2_slash_shoot_token += 1
     .die(args)
 
 func free_entity() -> void:
     .free_entity()
-    _visual_parts_sync.sync(sprite.material)
+    _visual_parts_sync.sync (sprite.material)
 
 func update_animation(movement: Vector2) -> void:
     .update_animation(movement)
@@ -84,15 +82,15 @@ func update_animation(movement: Vector2) -> void:
 
 func flash() -> void:
     .flash()
-    _visual_parts_sync.sync(sprite.material)
+    _visual_parts_sync.sync (sprite.material)
 
 func _on_FlashTimer_timeout() -> void:
     ._on_FlashTimer_timeout()
-    _visual_parts_sync.sync(sprite.material)
+    _visual_parts_sync.sync (sprite.material)
 
 func _set_outlines(alpha: float = 1.0, desaturation: float = 0.0) -> void:
     ._set_outlines(alpha, desaturation)
-    _visual_parts_sync.sync(sprite.material)
+    _visual_parts_sync.sync (sprite.material)
 
 func on_state_changed(_new_state: int) -> void:
     .on_state_changed(_new_state)
@@ -107,7 +105,7 @@ func mutation_2_slash_shoot(token: int) -> void:
     for i in range(3):
         if dead or token != _mutation_2_slash_shoot_token or !is_inside_tree(): return
         _crescent_shooting_attack_behavior_2.shoot()
-        if i < 2: yield(get_tree().create_timer(0.2), "timeout")
+        if i < 2: yield (get_tree().create_timer(0.2), "timeout")
 
 # =========================== Method =========================== #
 func switch_can_move(can_move: bool) -> void:

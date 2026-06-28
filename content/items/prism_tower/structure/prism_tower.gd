@@ -4,7 +4,6 @@ const BEAM_SCENE_PATH = "res://mods-unpacked/Yoko-Fantasy/content/items/prism_to
 const HOLY_COLUMN_SCENE_PATH = "res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/effects/prism_holy_column.tscn"
 const RESONANCE_FOCUS_SCENE_PATH = "res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/effects/prism_resonance_focus.tscn"
 const RESONANCE_BURST_SCENE_PATH = "res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/effects/prism_resonance_burst.tscn"
-const ChainTargetService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/chain_target_service.gd")
 var MAIN_BEAM_COLOR: Color = Color("#fff0a6")
 var MAIN_GLOW_COLOR: Color = Color(0.65, 0.35, 1.0, 0.32)
 var SCATTER_COLORS: Array = [
@@ -134,7 +133,7 @@ func _scatter_from(primary_target: Node, base_damage: int) -> void:
 		player_index,
 		SCATTER_MAX_TARGETS
 	)
-	target_count = min(target_count, SCATTER_DAMAGE_MULTS.size())
+	target_count = int(min(target_count, SCATTER_DAMAGE_MULTS.size()))
 	var targets: Array = _get_nearby_targets(primary_target.global_position, [primary_target], _get_scatter_radius(), target_count)
 	for i in range(targets.size()):
 		var enemy: Node = targets[i]
@@ -172,7 +171,7 @@ func _spawn_resonance(primary_target: Node, base_damage: int, tower_count: int) 
 	call_deferred("_spawn_resonance_refractions", judgement_target, damage, judgement_target.global_position)
 
 func _spawn_resonance_refractions(primary_target: Node, base_damage: int, origin_pos: Vector2) -> void:
-	yield(get_tree().create_timer(RESONANCE_JUDGEMENT_DELAY), "timeout")
+	yield (get_tree().create_timer(RESONANCE_JUDGEMENT_DELAY), "timeout")
 	if is_instance_valid(primary_target):
 		origin_pos = primary_target.global_position
 

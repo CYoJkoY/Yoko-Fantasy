@@ -1,6 +1,6 @@
 [gd_scene load_steps=40 format=2]
 
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/scene/wolf_totem.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/wolf_totem.gd" type="Script" id=1]
 [ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=2]
 [ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=4]
@@ -32,6 +32,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wolf_totem/wolf_totem_stats.tres" type="Resource" id=30]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=31]
 [ext_resource path="res://particles/curse/curse_enemy_particles.tscn" type="PackedScene" id=32]
+
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

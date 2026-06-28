@@ -1,6 +1,4 @@
-extends "res://mods-unpacked/Yoko-Fantasy/content/entities/pets/wandering_ranged_pet.gd"
-
-const VisualPartsSync = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/visual_parts_sync.gd")
+extends WanderingRangedPet
 
 onready var _parts_offset: Node2D = $Animation/Offset
 var _visual_parts_sync = VisualPartsSync.new()
@@ -12,7 +10,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
     _angle = wrapf(_angle, 0.0, 2.0 * PI)
     sprite.flip_h = _angle > 0.0 and _angle < PI
-    _parts_offset.scale.x = -abs(_parts_offset.scale.x) if sprite.flip_h else abs(_parts_offset.scale.x)
+    _parts_offset.scale.x = - abs(_parts_offset.scale.x) if sprite.flip_h else abs(_parts_offset.scale.x)
 
 func _set_outlines(alpha: float = 1.0, desaturation: float = 0.0) -> void:
     ._set_outlines(alpha, desaturation)

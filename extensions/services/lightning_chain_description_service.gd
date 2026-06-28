@@ -1,3 +1,4 @@
+class_name LightningChainDescriptionService
 extends Reference
 
 static func get_args(

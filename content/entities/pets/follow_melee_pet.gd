@@ -1,3 +1,4 @@
+class_name FollowMeleePet
 extends Pet
 
 export(String) var damage_tracking_id = ""
@@ -14,7 +15,7 @@ var _cooldown: float = 0.0
 var _is_shooting: bool = false
 
 # =========================== Extension =========================== #
-func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
+func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref=null) -> void:
 	.init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
 	_damage_tracking_id_hash = Keys.generate_hash(damage_tracking_id)
 	_hitbox.from = self

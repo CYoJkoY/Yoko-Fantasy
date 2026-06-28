@@ -1,7 +1,5 @@
 extends Effect
 
-const LightningChainDescriptionService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_description_service.gd")
-
 export(float) var base_chance = 1.0
 export(Array) var damage_scaling_stats = [["stat_elemental_damage", 0.8]]
 export(int) var base_chain_targets = 4
@@ -18,7 +16,7 @@ export(PackedScene) var arc_scene = preload("res://mods-unpacked/Yoko-Fantasy/co
 
 # =========================== Extension =========================== #
 func duplicate(subresources: bool = false) -> Resource:
-	var duplication = .duplicate(subresources)
+	var duplication =.duplicate(subresources)
 	if !damage_scaling_stats.empty():
 		damage_scaling_stats = Utils.convert_to_hash_array(damage_scaling_stats)
 	if !targets_scaling_stats.empty():
@@ -76,7 +74,7 @@ func get_args(player_index: int) -> Array:
 	)
 
 func serialize() -> Dictionary:
-	var serialized = .serialize()
+	var serialized =.serialize()
 	serialized.damage_scaling_stats = damage_scaling_stats
 	serialized.base_chance = base_chance
 	serialized.base_chain_targets = base_chain_targets

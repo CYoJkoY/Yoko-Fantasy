@@ -32,6 +32,7 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=30]
 [ext_resource path="res://entities/units/player/item_attract_area.gd" type="Script" id=31]
 
+
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
 

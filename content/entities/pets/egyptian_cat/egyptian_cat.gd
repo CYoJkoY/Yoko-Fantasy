@@ -1,6 +1,4 @@
-extends "res://mods-unpacked/Yoko-Fantasy/content/entities/pets/tactical_global_pet.gd"
-
-const VisualPartsSync = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/visual_parts_sync.gd")
+extends FollowRangedPet
 
 onready var _parts_offset: Node2D = $Animation/Offset
 var _visual_parts_sync = VisualPartsSync.new()

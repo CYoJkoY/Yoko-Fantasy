@@ -1,7 +1,5 @@
 extends Effect
 
-const LightningChainDescriptionService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_description_service.gd")
-
 export(float) var base_chance = 0.5
 export(Array) var damage_scaling_stats = [["stat_elemental_damage", 0.4]]
 export(int) var base_chain_targets = 2
