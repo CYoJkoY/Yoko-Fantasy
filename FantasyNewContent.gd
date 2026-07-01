@@ -7,12 +7,12 @@ export(Array, Resource) var jobs = []
 export(Resource) var soul_data
 
 # =========================== Extension =========================== #
-func add_resources() -> void:
-    .add_resources()
+func add_custom_resources() -> void:
+    .add_custom_resources()
     add_if_not_null(ItemService.jobs, jobs)
 
-func remove_resources() -> void:
-    .remove_resources()
+func remove_custom_resources() -> void:
+    .remove_custom_resources()
     erase_if_not_null(ItemService.jobs, jobs)
 
 func ncl_update_consumable_to_get(base_consumable_data: ConsumableData) -> ConsumableData:

@@ -97,7 +97,18 @@ func _init() -> void:
 
     ]
 
-    ModLoaderMod.register_global_classes_from_array(classes)
+    var registered_classes: Array = ProjectSettings.get_setting("_global_script_classes")
+    var registered_names: Dictionary = {}
+    for old_class in registered_classes:
+        registered_names[old_class.class ] = true
+
+    var classes_to_register: Array = []
+    for new_class in classes:
+        if !registered_names.has(new_class.class ):
+            classes_to_register.append(new_class)
+
+    if !classes_to_register.empty():
+        ModLoaderMod.register_global_classes_from_array(classes_to_register)
 
     # Add Extensions
     var extensions: Array = [
