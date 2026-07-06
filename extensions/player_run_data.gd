@@ -4,7 +4,7 @@ var jobs: Dictionary = {}
 var fantasy_synthesis_pity_data: Dictionary = {}
 
 # =========================== Extension =========================== #
-func duplicate(): # Avoid class problem
+func duplicate(): # ! Avoid class problem
     var copy =.duplicate()
     copy.jobs = jobs.duplicate()
     copy.fantasy_synthesis_pity_data = fantasy_synthesis_pity_data.duplicate()
@@ -22,7 +22,7 @@ func serialize() -> Dictionary:
 
     return serialized
 
-func deserialize(data: Dictionary) -> PlayerRunData:
+func deserialize(data: Dictionary): # ! Avoid class problem
     .deserialize(data)
 
     for job_stage in data.get("jobs", {}):
