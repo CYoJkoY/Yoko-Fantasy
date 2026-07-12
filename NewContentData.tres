@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=230 format=2]
+[gd_resource type="Resource" load_steps=231 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -273,7 +273,9 @@ tracked_effects = {
 "item_fantasy_world_tree_seed": 0,
 "job_fantasy_dual_wielder": 0
 }
-quiet_stat_keys = [ "stat_fantasy_soul", "fantasy_living_cursed_enemy" ]
+primary_stats_list = [  ]
+effect_keys_full_serialization = [  ]
+effect_keys_with_weapon_stats = [  ]
 translation_keys_needing_operator = {
 "effect_fantasy_add_stat_when_pickup_consumable": [ 2 ],
 "effect_fantasy_base_chance_drop_soul": [ 0 ],
@@ -308,9 +310,11 @@ translation_keys_needing_percent = {
 "effect_fantasy_extra_curse_enemy": [ 0 ],
 "effect_fantasy_extra_curse_enemy_cursed": [ 0 ],
 "effect_fantasy_extra_curse_item": [ 0 ],
-"effect_fantasy_gear_shop_enter_synthesis": [ 0 ],
 "effect_fantasy_gain_item_on_reroll": [ 0 ],
+"effect_fantasy_gear_shop_enter_synthesis": [ 0 ],
+"effect_fantasy_lightning_chain_on_death": [ 0 ],
 "effect_fantasy_lightning_chain_on_hit": [ 0 ],
+"effect_fantasy_lose_hp_per_second_stop_threshold": [ 0 ],
 "effect_fantasy_random_reload_when_pickup_gold": [ 0 ],
 "effect_fantasy_reload_when_shoot": [ 0 ],
 "effect_fantasy_shop_enter_stat_curse": [ 2 ],
@@ -322,9 +326,7 @@ translation_keys_needing_percent = {
 "effect_reload_when_critically_hit": [ 0 ],
 "info_pos_stat_fantasy_holy": [ 0, 1, 2 ],
 "info_pos_stat_fantasy_soul": [ 0, 1 ],
-"stat_fantasy_crit_damage": [ 0 ],
-"effect_fantasy_lose_hp_per_second_stop_threshold": [ 0 ],
-"effect_fantasy_lightning_chain_on_death": [ 0 ]
+"stat_fantasy_crit_damage": [ 0 ]
 }
 scene_effect_behaviors = [ ExtResource( 80 ), ExtResource( 74 ) ]
 enemy_effect_behaviors = [ ExtResource( 71 ), ExtResource( 140 ) ]

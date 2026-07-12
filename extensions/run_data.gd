@@ -75,7 +75,7 @@ func _fantasy_update_specific_set_weapon_bonuses(player_index: int) -> void:
         var stat: int = effect[0]
         var stat_value: int = effect[1]
         var nb_scaled: int = effect[3]
-        var bonus: int = int(stat_value * (set_count / float(nb_scaled)))
+        var bonus: int = stat_value * set_count / nb_scaled
         if bonus == 0: continue
 
         old_specific_set_weapon_bonuses[stat] = old_specific_set_weapon_bonuses.get(stat, 0) + bonus
@@ -102,8 +102,8 @@ func _fantasy_update_limited_item_bonuses(player_index: int) -> void:
     for effect in effects[Utils.fantasy_limited_item_bonuses_hash]:
         var stat: int = effect[0]
         var stat_value: int = effect[1]
-        var nb_scaled: float = effect[2]
-        var bonus: int = stat_value * int((limited_item_count / nb_scaled))
+        var nb_scaled: int = effect[2]
+        var bonus: int = stat_value * limited_item_count / nb_scaled
         if bonus == 0: continue
 
         old_limited_unique_item_bonuses[stat] = old_limited_unique_item_bonuses.get(stat, 0) + bonus
