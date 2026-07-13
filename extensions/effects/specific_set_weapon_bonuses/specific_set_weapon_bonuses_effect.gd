@@ -5,7 +5,7 @@ var set_id_hash: int = Keys.empty_hash
 export(int) var need_num = 1
 
 # =========================== Extension =========================== #
-func duplicate(subresources := false) -> Resource:
+func duplicate(subresources:=false) -> Resource:
     var duplication =.duplicate(subresources)
 
     if set_id_hash == Keys.empty_hash and set_id != "":
@@ -55,9 +55,10 @@ func get_args(_player_index: int) -> Array:
         if set.my_id_hash != set_id_hash: continue
 
         nb_specific_set_weapons += 1
-        bonus_value = value * nb_specific_set_weapons
 
-    return [str(value), tr(key.to_upper()), tr(set_data.name.to_upper()), str(bonus_value), str(need_num)]
+    bonus_value = value * nb_specific_set_weapons / need_num
+
+    return [str(value), Utils.ncl_get_true_stat_name(key), tr(set_data.name.to_upper()), str(bonus_value), str(need_num)]
 
 func serialize() -> Dictionary:
     var serialized: Dictionary =.serialize()
