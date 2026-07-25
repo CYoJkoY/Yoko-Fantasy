@@ -22,6 +22,13 @@ func _init() -> void:
     pet_dir = entity_dir + "pets/"
 
     # Add Classes
+    install_script_classes()
+
+    # Add Extensions
+    install_script_extensions()
+
+# =========================== Custom =========================== #
+func install_script_classes() -> void:
     var classes: Array = [
         # Services
         {
@@ -110,7 +117,7 @@ func _init() -> void:
     if !classes_to_register.empty():
         ModLoaderMod.register_global_classes_from_array(classes_to_register)
 
-    # Add Extensions
+func install_script_extensions() -> void:
     var extensions: Array = [
 
         "main.gd",
