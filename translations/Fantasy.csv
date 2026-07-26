@@ -620,138 +620,10 @@ ITEM_FANTASY_PROMOTION_LETTER,Promotion Letter,Lettre de promotion,晋升文书,
 EFFECT_FANTASY_EXTRA_ELITES_NEXT_WAVE,"When the next wave begins, spawn {0} extra elite enemy","Au début de la prochaine vague, fait apparaître {0} ennemi d'élite supplémentaire","下一波敌袭开始时,额外生成{0}只精英怪","次のウェーブ開始時,エリート敵が追加で{0}体出現する","다음 웨이브 시작 시, 추가로 엘리트 적을 {0}마리 생성합니다","下一波敵襲開始時,額外生成{0}隻菁英怪",В начале следующей волны появляется дополнительно {0} элитных врагов,"Gdy zaczyna się następna fala, pojawia się {0} dodatkowych elitarnych wrogów","Cuando comience la siguiente oleada, aparecen {0} enemigos de élite extra","Quando a próxima onda começar, gera {0} inimigo de elite extra",Zu Beginn der nächsten Welle erscheinen {0} zusätzliche Elitegegner,Bir sonraki dalga başladığında fazladan {0} elit düşman ortaya çıkar,"All'inizio della prossima ondata, genera {0} nemici d'élite extra"
 ITEM_FANTASY_MAGIC_SWORD,Magic Sword,Épée magique,魔剑,マジックソード,마법검,魔劍,Волшебный меч,Magiczny miecz,Espada mágica,Espada mágica,Magisches Schwert,Sihirli Kılıç,Spada magica
 FANTASY_MAGIC_SWORD_NAME,Magic Sword,Épée magique,魔剑,マジックソード,마법검,魔劍,Волшебный меч,Magiczny miecz,Espada mágica,Espada mágica,Magisches Schwert,Sihirli Kılıç,Spada magica
-EFFECT_FANTASY_PET_MAGIC_SWORD,"Summons a magic sword that pursues enemies within a range of {1}, striking nearby enemies every {0} seconds and dealing {2} ({3}) damage","Invoque une épée magique qui poursuit les ennemis dans un rayon de {1}, frappant les ennemis proches toutes les {0} secondes et infligeant {2} ({3}) dégâts","召唤一把魔剑追击范围{1}内的敌人,每{0}秒劈砍周围敌人,造成{2}({3})伤害","範囲{1}内の敵を追跡するマジックソードを召喚.{0}秒ごとに近くの敵を斬りつけ,{2}({3})ダメージを与える",범위 {1} 내의 적을 추적하는 마법검을 소환합니다. {0}초마다 근처 적을 베어 {2}({3}) 피해를 줍니다,"召喚一把魔劍追擊範圍{1}內的敵人,每{0}秒劈砍周圍敵人,造成{2}({3})傷害","Призывает волшебный меч, преследующий врагов в радиусе {1}, раз в {0} секунд поражая ближайших врагов и нанося {2} ({3}) урона","Przywołuje magiczny miecz, który ściga wrogów w zasięgu {1}, uderzając pobliskich wrogów co {0} sekund i zadając {2} ({3}) obrażeń","Invoca una espada mágica que persigue a los enemigos dentro de un rango de {1}, golpeando a los enemigos cercanos cada {0} segundos e infligiendo {2} ({3}) de daño","Invoca uma espada mágica que persegue inimigos em um raio de {1}, golpeando inimigos próximos a cada {0} segundos e causando {2} ({3}) de dano","Beschwört ein magisches Schwert, das Gegner in Reichweite von {1} verfolgt, alle {0} Sekunden nahe Gegner schlägt und {2} ({3}) Schaden verursacht","{1} menzilindeki düşmanları kovalayan sihirli bir kılıç çağırır, her {0} saniyede bir yakın düşmanlara vurarak {2} ({3}) hasar verir","Evoca una spada magica che insegue i nemici entro un raggio di {1}, colpendo i nemici vicini ogni {0} secondi e infliggendo {2} ({3}) danni"
-FANTASY_FOLLOW_MELEE_PET_BEHAVIOUR_DESCRIPTION,"Chases enemies within range, melee attack them, and returns to the player's side if beyond the range
-
-This pet scales with player :
-- % Life Steal
-- % Damage
-- % Crit Chance
-- Speed
-- Bounces
-- Piercing
-- % Piercing Damage
-- % Damage against bosses","Poursuit les ennemis à portée, les attaque au corps à corps, et retourne aux côtés du joueur s'il est hors de portée
-
-Ce familier évolue avec le joueur :
-- % Vol de vie
-- % Dégâts
-- % Crit
-- Vitesse
-- Rebonds
-- Perforation
-- % Dégâts de perforation
-- % Dégâts contre les boss","追击范围内的敌人,近战攻击敌人,超出范围回到玩家身边
-
-这个宠物受到玩家以下属性的影响:
-- %生命窃取
-- %伤害
-- %暴击率
-- 速度
-- 弹跳
-- 贯通
-- %贯通伤害
-- %对头目伤害","範囲内の敵を追跡し,近接攻撃を行う.範囲外に出るとプレイヤーの元に戻る
-
-このペットはプレイヤーの以下のステータスの影響を受ける:
-- %生命吸収
-- %ダメージ
-- %クリティカル率
-- 速度
-- バウンス
-- 貫通
-- %貫通ダメージ
-- %ボスダメージ","범위 내의 적을 쫓아, 근접 공격합니다. 범위를 벗어나면 플레이어 곁으로 돌아옵니다
-
-이 펫은 플레이어의 다음 능력치에 따라 성장합니다:
-- % 생명력 흡수
-- % 피해
-- % 치명타 확률
-- 속도
-- 튕김
-- 관통
-- % 관통 피해
-- % 보스 피해","追擊範圍內的敵人,近戰攻擊敵人,超出範圍回到玩家身邊
-
-這個寵物受到玩家以下屬性的影響:
-- %生命竊取
-- %傷害
-- %暴擊率
-- 速度
-- 彈跳
-- 貫通
-- %貫通傷害
-- %對頭目傷害","Преследует врагов в радиусе, атакует их в ближнем бою и возвращается к игроку, если выходит за пределы радиуса
-
-Этот питомец зависит от характеристик игрока:
-- % Кражи жизни
-- % Урона
-- % Шанс крита
-- Скорость
-- Отскоки
-- Пробивание
-- % Урона от пробивания
-- % Урона по боссам","Goni wrogów w zasięgu, atakuje ich wręcz i wraca do gracza, jeśli znajdzie się poza zasięgiem
-
-Ten towarzysz skaluje się z graczem:
-- % Kradzieży życia
-- % Obrażeń
-- % Szansy na krytyczne
-- Prędkość
-- Odbicia
-- Przebijanie
-- % Obrażeń od przebicia
-- % Obrażeń przeciwko bossom","Persigue a los enemigos dentro del alcance, los ataca cuerpo a cuerpo y regresa al lado del jugador si se sale del alcance
-
-Esta mascota escala con el jugador:
-- % Robo de vida
-- % Daño
-- % Prob. de crítico
-- Velocidad
-- Rebotes
-- Perforación
-- % Daño de perforación
-- % Daño contra jefes","Persegue inimigos dentro do alcance, ataca-os corpo a corpo e retorna para perto do jogador se estiver fora do alcance
-
-Este pet escala com o jogador:
-- % Roubo de vida
-- % Dano
-- % Chance de Crítico
-- Velocidade
-- Ricochetes
-- Perfuração
-- % Dano de perfuração
-- % Dano contra chefes","Verfolgt Gegner in Reichweite, greift sie im Nahkampf an und kehrt zum Spieler zurück, wenn außer Reichweite
-
-Dieses Haustier skaliert mit dem Spieler:
-- % Lebensraub
-- % Schaden
-- % Krit-Chance
-- Tempo
-- Abpraller
-- Durchschlag
-- % Durchschlagsschaden
-- % Schaden gegen Bosse","Menzildeki düşmanları kovalar, yakın dövüşle saldırır ve menzil dışına çıkarsa oyuncunun yanına döner
-
-Bu evcil hayvan oyuncunun şu özelliklerinden etkilenir:
-- % Yaşam Çalma
-- % Hasar
-- % Kritik Şansı
-- Hız
-- Sektirme
-- Delme
-- % Delme Hasarı
-- % Bosslara Karşı Hasar","Insegue i nemici entro il raggio d'azione, li attacca in mischia e torna al fianco del giocatore se oltre il raggio
-
-Questo famiglio scala con il giocatore:
-- % Risucchio vitale
-- % Danno
-- % Prob. critico
-- Velocità
-- Rimbalzi
-- Perforazione
-- % Danno da perforazione
-- % Danno contro i boss"
+FANTASY_MAGIC_SWORD_BEHAVIOUR_DESCRIPTION,"Guards the player and chains up to 3 flying slashes against nearby enemies. Each magic sword summons 1 guard blade that thrusts at enemies within 350 range every 1.5 seconds.","Protège le joueur et enchaîne jusqu'à 3 entailles volantes contre les ennemis proches. Chaque épée magique invoque 1 lame gardienne qui transperce les ennemis à 350 de portée toutes les 1,5 secondes.","护卫玩家,对附近敌人最多连续飞斩3次。每把魔剑会召唤1把护卫子剑,子剑每1.5秒突刺350范围内的敌人。","プレイヤーを護衛し,近くの敵に最大3回の連続飛翔斬りを行う。魔剣1本につき護衛剣を1本召喚し,1.5秒ごとに350範囲内の敵を突き刺す。","플레이어를 호위하며 주변 적에게 최대 3회의 연속 비행 참격을 가합니다. 마법검 하나마다 호위검 1개를 소환하며, 호위검은 1.5초마다 350 범위 내 적을 찌릅니다.","護衛玩家,對附近敵人最多連續飛斬3次。每把魔劍會召喚1把護衛子劍,子劍每1.5秒突刺350範圍內的敵人。","Охраняет игрока и выполняет до 3 летящих атак подряд по ближайшим врагам. Каждый волшебный меч призывает 1 клинок-страж, который раз в 1,5 секунды пронзает врагов в радиусе 350.","Chroni gracza i wykonuje do 3 kolejnych latających cięć przeciw pobliskim wrogom. Każdy magiczny miecz przywołuje 1 ostrze strażnicze, które co 1,5 sekundy przebija wrogów w zasięgu 350.","Protege al jugador y encadena hasta 3 tajos voladores contra enemigos cercanos. Cada espada mágica invoca 1 espada guardiana que perfora enemigos a 350 de alcance cada 1,5 segundos.","Protege o jogador e encadeia até 3 cortes voadores contra inimigos próximos. Cada espada mágica invoca 1 lâmina guardiã que perfura inimigos a 350 de alcance a cada 1,5 segundos.","Beschützt den Spieler und führt bis zu 3 fliegende Kettenhiebe gegen nahe Gegner aus. Jedes magische Schwert beschwört 1 Wächterklinge, die alle 1,5 Sekunden Gegner in 350 Reichweite durchbohrt.","Oyuncuyu korur ve yakındaki düşmanlara en fazla 3 zincirleme uçan kesiş yapar. Her sihirli kılıç, 1,5 saniyede bir 350 menzildeki düşmanları delen 1 muhafız kılıç çağırır.","Protegge il giocatore e concatena fino a 3 fendenti volanti contro i nemici vicini. Ogni spada magica evoca 1 lama guardiana che trafigge i nemici entro 350 ogni 1,5 secondi."
+FANTASY_PET_AFFECTED_PLAYER_STATS,This pet is affected by the following player stats:,Ce familier est affecté par les statistiques suivantes du joueur:,这个宠物受到玩家以下属性的影响:,このペットはプレイヤーの以下のステータスの影響を受ける:,이 펫은 플레이어의 다음 능력치에 영향을 받습니다:,這個寵物受到玩家以下屬性的影響:,На этого питомца влияют следующие характеристики игрока:,Na tego towarzysza wpływają następujące statystyki gracza:,Esta mascota se ve afectada por las siguientes estadísticas del jugador:,Este pet é afetado pelos seguintes atributos do jogador:,Dieses Haustier wird von den folgenden Spielerwerten beeinflusst:,Bu evcil hayvan oyuncunun şu özelliklerinden etkilenir:,Questo famiglio è influenzato dalle seguenti statistiche del giocatore:
+FANTASY_PET_STAT_SCOPE_PRIMARY_ATTACK,(primary attack only),(attaque principale uniquement),(仅主剑),(主剣のみ),(주 검만),(僅主劍),(только основной клинок),(tylko główny atak),(solo ataque principal),(apenas ataque principal),(nur Hauptangriff),(yalnızca ana saldırı),(solo attacco principale)
+EFFECT_FANTASY_PET_MAGIC_SWORD,"Summons a magic sword that chains up to 3 flying slashes against enemies within {1} range, dealing {2} ({3}) damage. Its guard blade thrusts within 350 range every 1.5 seconds with 30 knockback.","Invoque une épée magique qui enchaîne jusqu'à 3 entailles volantes contre les ennemis à {1} de portée, infligeant {2} ({3}) dégâts. Sa lame gardienne transperce les ennemis à 350 de portée toutes les 1,5 secondes avec 30 de recul.","召唤一把魔剑,对{1}范围内的敌人最多连续飞斩3次,造成{2}({3})伤害。护卫子剑每1.5秒突刺350范围内的敌人,击退30。","魔剣を召喚し,{1}の範囲内の敵に最大3回の連続飛翔斬りで{2}({3})ダメージを与える。護衛剣は1.5秒ごとに350の範囲内を突き刺し,ノックバック30。","마법검을 소환하여 {1} 범위 내 적에게 최대 3회의 연속 비행 참격으로 {2}({3}) 피해를 줍니다. 호위검은 1.5초마다 350 범위 내 적을 찌르고 30만큼 밀쳐냅니다.","召喚一把魔劍,對{1}範圍內的敵人最多連續飛斬3次,造成{2}({3})傷害。護衛子劍每1.5秒突刺350範圍內的敵人,擊退30。","Призывает волшебный меч, который выполняет до 3 летящих атак по врагам в радиусе {1} и наносит {2} ({3}) урона. Клинок-страж раз в 1,5 секунды пронзает врагов в радиусе 350 с отбрасыванием 30.","Przywołuje magiczny miecz, który wykonuje do 3 latających cięć przeciw wrogom w zasięgu {1} i zadaje {2} ({3}) obrażeń. Ostrze strażnicze co 1,5 sekundy przebija wrogów w zasięgu 350 z odrzutem 30.","Invoca una espada mágica que encadena hasta 3 tajos voladores contra enemigos a {1} de alcance e inflige {2} ({3}) de daño. Su espada guardiana perfora a enemigos a 350 de alcance cada 1,5 segundos con 30 de retroceso.","Invoca uma espada mágica que encadeia até 3 cortes voadores contra inimigos a {1} de alcance e causa {2} ({3}) de dano. Sua lâmina guardiã perfura inimigos a 350 de alcance a cada 1,5 segundos com 30 de recuo.","Beschwört ein magisches Schwert, das Gegner in {1} Reichweite mit bis zu 3 fliegenden Kettenhieben trifft und {2} ({3}) Schaden verursacht. Seine Wächterklinge durchbohrt alle 1,5 Sekunden Gegner in 350 Reichweite mit 30 Rückstoß.","{1} menzildeki düşmanlara en fazla 3 zincirleme uçan kesişle {2} ({3}) hasar veren bir sihirli kılıç çağırır. Muhafız kılıç her 1,5 saniyede 350 menzildeki düşmanları 30 geri itmeyle deler.","Evoca una spada magica che concatena fino a 3 fendenti volanti contro i nemici entro {1} di portata, infliggendo {2} ({3}) danni. La lama guardiana trafigge i nemici entro 350 ogni 1,5 secondi con 30 di contraccolpo."
 ITEM_FANTASY_SACRIFICIAL_OFFERING,Sacrificial Offering,Offrande sacrificielle,仪式祭品,生贄の供物,제물,儀式祭品,Жертвенное подношение,Ofiara sakralna,Ofrenda sacrificial,Oferenda sacrificial,Opfergabe,Kurban Adağı,Offerta sacrificale
 EFFECT_FANTASY_EXTRA_CURSE_ITEM,"Items and weapons have an additional {0} chance to be cursed
 {1}","Les objets et les armes ont {0} de chances supplémentaires d'être maudits
@@ -1083,7 +955,7 @@ EFFECT_FANTASY_RELOAD_WHEN_SHOOT,"There is a {0} chance to reset cooldown after 
 JOB_FANTASY_HOLY_SWORDSMAN,Holy Swordsman,Saint épéiste,圣剑使,聖剣士,성검사,聖劍使,Святой мечник,Święty szermierz,Espadachín sagrado,Espadachim sagrado,Heiliger Schwertkämpfer,Kutsal Kılıç Ustası,Spadaccino sacro
 JOB_FANTASY_WANDERING_SAMURAI,Wandering Samurai,Samouraï errant,流浪武士,流浪の侍,방랑 사무라이,流浪武士,Бродячий самурай,Wędrowny samuraj,Samurái errante,Samurai errante,Wander-Samurai,Gezgin Samuray,Samurai errante
 JOB_FANTASY_ASSASSIN,Assassin,Assassin,暗杀者,アサシン,암살자,暗殺者,Ассасин,Skrytobójca,Asesino,Assassino,Assassine,Suikastçı,Assassino
-STAT_FANTASY_CRIT_DAMAGE,Crit Damage,Dégâts critiques,暴击伤害,クリティカルダメージ,치명타 피해,暴擊傷害,Крит. урон,Obrażenia krytyczne,Daño crítico,Dano crítico,Kritischer Schaden,Kritik Hasar,Danno critico
+STAT_FANTASY_CRIT_DAMAGE,% Crit Damage,% Dégâts critiques,%暴击伤害,%クリティカルダメージ,% 치명타 피해,%暴擊傷害,% Крит. урон,% Obrażenia krytyczne,% Daño crítico,% Dano crítico,% Kritischer Schaden,% Kritik Hasar,% Danno critico
 JOB_FANTASY_DIVINE_ARCHER,Divine Archer,Archer divin,神弓手,神弓使い,신성한 궁수,神弓手,Божественный лучник,Boski łucznik,Arquero divino,Arqueiro divino,Göttlicher Bogenschütze,İlahi Okçu,Arciere divino
 JOB_FANTASY_WIND_WALKER,Wind Walker,Marchevent,风行者,風の行者,바람 걷는 자,風行者,Ходящий по ветру,Chodzący z wiatrem,Caminante del viento,Andarilho do vento,Windgänger,Rüzgar Yürüyücüsü,Camminatore del vento
 JOB_FANTASY_CANNONIER,Cannonier,Canonnier,炮手,砲手,포수,炮手,Канонир,Kanonier,Cañonero,Canhoneiro,Kanonier,Topçu,Cannoniere

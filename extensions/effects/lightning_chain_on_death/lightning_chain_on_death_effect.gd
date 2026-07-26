@@ -1,5 +1,7 @@
 extends Effect
 
+const LightningChainDescriptionService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_description_service.gd")
+
 export(float) var base_chance = 1.0
 export(Array) var damage_scaling_stats = [["stat_elemental_damage", 0.8]]
 export(int) var base_chain_targets = 4
@@ -16,92 +18,92 @@ export(PackedScene) var arc_scene = preload("res://mods-unpacked/Yoko-Fantasy/co
 
 # =========================== Extension =========================== #
 func duplicate(subresources: bool = false) -> Resource:
-	var duplication =.duplicate(subresources)
-	if !damage_scaling_stats.empty():
-		damage_scaling_stats = Utils.convert_to_hash_array(damage_scaling_stats)
-	if !targets_scaling_stats.empty():
-		targets_scaling_stats = Utils.convert_to_hash_array(targets_scaling_stats)
+    var duplication = .duplicate(subresources)
+    if !damage_scaling_stats.empty():
+        damage_scaling_stats = Utils.convert_to_hash_array(damage_scaling_stats)
+    if !targets_scaling_stats.empty():
+        targets_scaling_stats = Utils.convert_to_hash_array(targets_scaling_stats)
 
-	duplication.damage_scaling_stats = damage_scaling_stats
-	duplication.targets_scaling_stats = targets_scaling_stats
+    duplication.damage_scaling_stats = damage_scaling_stats
+    duplication.targets_scaling_stats = targets_scaling_stats
 
-	return duplication
+    return duplication
 
 static func get_id() -> String:
-	return "fantasy_lightning_chain_on_death"
+    return "fantasy_lightning_chain_on_death"
 
 func _generate_hashes() -> void:
-	._generate_hashes()
-	damage_scaling_stats = Utils.convert_to_hash_array(damage_scaling_stats)
-	targets_scaling_stats = Utils.convert_to_hash_array(targets_scaling_stats)
+    ._generate_hashes()
+    damage_scaling_stats = Utils.convert_to_hash_array(damage_scaling_stats)
+    targets_scaling_stats = Utils.convert_to_hash_array(targets_scaling_stats)
 
 func apply(player_index: int) -> void:
-	if custom_key_hash == Keys.empty_hash:
-		return
+    if custom_key_hash == Keys.empty_hash:
+        return
 
-	var effects: Dictionary = RunData.get_player_effects(player_index)
-	effects[custom_key_hash].append([
-		base_chance, value, damage_scaling_stats,
-		base_chain_targets, targets_scaling_stats, chain_damage_mult,
-		arc_width, arc_jaggedness, arc_color.to_html(), arc_glow_color.to_html(),
-		arc_duration, arc_crit_chance, arc_crit_damage, arc_scene.resource_path
-	])
+    var effects: Dictionary = RunData.get_player_effects(player_index)
+    effects[custom_key_hash].append([
+        base_chance, value, damage_scaling_stats,
+        base_chain_targets, targets_scaling_stats, chain_damage_mult,
+        arc_width, arc_jaggedness, arc_color.to_html(), arc_glow_color.to_html(),
+        arc_duration, arc_crit_chance, arc_crit_damage, arc_scene.resource_path
+    ])
 
 func unapply(player_index: int) -> void:
-	if custom_key_hash == Keys.empty_hash:
-		return
+    if custom_key_hash == Keys.empty_hash:
+        return
 
-	var effects: Dictionary = RunData.get_player_effects(player_index)
-	effects[custom_key_hash].erase([
-		base_chance, value, damage_scaling_stats,
-		base_chain_targets, targets_scaling_stats, chain_damage_mult,
-		arc_width, arc_jaggedness, arc_color.to_html(), arc_glow_color.to_html(),
-		arc_duration, arc_crit_chance, arc_crit_damage, arc_scene.resource_path
-	])
+    var effects: Dictionary = RunData.get_player_effects(player_index)
+    effects[custom_key_hash].erase([
+        base_chance, value, damage_scaling_stats,
+        base_chain_targets, targets_scaling_stats, chain_damage_mult,
+        arc_width, arc_jaggedness, arc_color.to_html(), arc_glow_color.to_html(),
+        arc_duration, arc_crit_chance, arc_crit_damage, arc_scene.resource_path
+    ])
 
 func get_args(player_index: int) -> Array:
-	return LightningChainDescriptionService.get_args(
-		base_chance,
-		value,
-		damage_scaling_stats,
-		base_chain_targets,
-		targets_scaling_stats,
-		chain_damage_mult,
-		arc_crit_chance,
-		arc_crit_damage,
-		arc_color,
-		player_index
-	)
+    return LightningChainDescriptionService.get_args(
+        base_chance,
+        value,
+        damage_scaling_stats,
+        base_chain_targets,
+        targets_scaling_stats,
+        chain_damage_mult,
+        arc_crit_chance,
+        arc_crit_damage,
+        arc_color,
+        player_index
+    )
 
 func serialize() -> Dictionary:
-	var serialized =.serialize()
-	serialized.damage_scaling_stats = damage_scaling_stats
-	serialized.base_chance = base_chance
-	serialized.base_chain_targets = base_chain_targets
-	serialized.targets_scaling_stats = targets_scaling_stats
-	serialized.chain_damage_mult = chain_damage_mult
-	serialized.arc_width = arc_width
-	serialized.arc_jaggedness = arc_jaggedness
-	serialized.arc_color = arc_color.to_html()
-	serialized.arc_glow_color = arc_glow_color.to_html()
-	serialized.arc_duration = arc_duration
-	serialized.arc_crit_chance = arc_crit_chance
-	serialized.arc_crit_damage = arc_crit_damage
-	serialized.arc_scene = arc_scene.resource_path
-	return serialized
+    var serialized = .serialize()
+    serialized.damage_scaling_stats = damage_scaling_stats
+    serialized.base_chance = base_chance
+    serialized.base_chain_targets = base_chain_targets
+    serialized.targets_scaling_stats = targets_scaling_stats
+    serialized.chain_damage_mult = chain_damage_mult
+    serialized.arc_width = arc_width
+    serialized.arc_jaggedness = arc_jaggedness
+    serialized.arc_color = arc_color.to_html()
+    serialized.arc_glow_color = arc_glow_color.to_html()
+    serialized.arc_duration = arc_duration
+    serialized.arc_crit_chance = arc_crit_chance
+    serialized.arc_crit_damage = arc_crit_damage
+    serialized.arc_scene = arc_scene.resource_path
+    return serialized
 
 func deserialize_and_merge(serialized: Dictionary) -> void:
-	.deserialize_and_merge(serialized)
-	damage_scaling_stats = Utils.convert_to_hash_array(serialized.get("damage_scaling_stats", []))
-	base_chance = serialized.base_chance as float
-	base_chain_targets = serialized.base_chain_targets as int
-	targets_scaling_stats = Utils.convert_to_hash_array(serialized.get("targets_scaling_stats", []))
-	chain_damage_mult = serialized.chain_damage_mult as float
-	arc_width = serialized.arc_width as float
-	arc_jaggedness = serialized.arc_jaggedness as float
-	arc_color = Color(serialized.arc_color)
-	arc_glow_color = Color(serialized.arc_glow_color)
-	arc_duration = serialized.arc_duration as float
-	arc_crit_chance = serialized.arc_crit_chance as float
-	arc_crit_damage = serialized.arc_crit_damage as float
-	arc_scene = load(serialized.arc_scene) as PackedScene
+    .deserialize_and_merge(serialized)
+    damage_scaling_stats = Utils.convert_to_hash_array(serialized.get("damage_scaling_stats", []))
+    base_chance = serialized.base_chance as float
+    base_chain_targets = serialized.base_chain_targets as int
+    targets_scaling_stats = Utils.convert_to_hash_array(serialized.get("targets_scaling_stats", []))
+    chain_damage_mult = serialized.chain_damage_mult as float
+    arc_width = serialized.arc_width as float
+    arc_jaggedness = serialized.arc_jaggedness as float
+    arc_color = Color(serialized.arc_color)
+    arc_glow_color = Color(serialized.arc_glow_color)
+    arc_duration = serialized.arc_duration as float
+    arc_crit_chance = serialized.arc_crit_chance as float
+    arc_crit_damage = serialized.arc_crit_damage as float
+    arc_scene = load(serialized.arc_scene) as PackedScene

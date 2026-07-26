@@ -8,11 +8,11 @@ uniform vec4 center_color : hint_color = vec4(1.0, 1.0, 0.92, 1.0);
 uniform float tint_strength : hint_range(0.0, 1.0) = 0.45;
 
 void fragment() {
-	vec4 tex = texture(TEXTURE, UV);
-	float center = 1.0 - smoothstep(0.0, 0.42, abs(UV.x - 0.5));
-	vec3 holy_color = mix(tint_color.rgb, center_color.rgb, center);
-	vec3 final_rgb = mix(tex.rgb, holy_color, tint_strength);
-	COLOR = vec4(final_rgb, tex.a * COLOR.a);
+    vec4 tex = texture(TEXTURE, UV);
+    float center = 1.0 - smoothstep(0.0, 0.42, abs(UV.x - 0.5));
+    vec3 holy_color = mix(tint_color.rgb, center_color.rgb, center);
+    vec3 final_rgb = mix(tex.rgb, holy_color, tint_strength);
+    COLOR = vec4(final_rgb, tex.a * COLOR.a);
 }"
 
 [resource]

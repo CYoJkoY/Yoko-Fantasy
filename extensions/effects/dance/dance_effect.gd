@@ -5,7 +5,7 @@ export(float) var speed: float = 300.0
 
 # =========================== Extension =========================== #
 static func get_id() -> String:
-	return "fantasy_dance"
+    return "fantasy_dance"
 
 func apply(player_index: int) -> void:
     if custom_key_hash == Keys.empty_hash: return
@@ -20,7 +20,7 @@ func unapply(player_index: int) -> void:
     effects[custom_key_hash].erase([speed, need_times, value, key_hash])
 
 func get_args(_player_index: int) -> Array:
-	return [str(need_times), str(stepify(value / 60.0, 0.1)), str(stepify(value / 180.0, 0.1))]
+    return [str(need_times), str(stepify(value / 60.0, 0.1)), str(stepify(value / 180.0, 0.1))]
 
 func serialize() -> Dictionary:
     var serialized: Dictionary =.serialize()

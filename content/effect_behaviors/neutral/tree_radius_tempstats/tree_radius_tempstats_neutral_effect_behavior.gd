@@ -23,10 +23,10 @@ func get_bonus_damage(_hitbox: Hitbox, _from_player_index: int) -> int:
     return 0
 
 func on_burned(_burning_data: BurningData, _from_player_index: int) -> void:
-	pass
+    pass
 
 func update_target() -> void:
-	pass
+    pass
 
 # =========================== Method =========================== #
 func fa_add_temp_stat(stat: int, stat_num: int, player_index: int) -> void:

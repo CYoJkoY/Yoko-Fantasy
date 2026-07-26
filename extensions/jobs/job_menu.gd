@@ -142,8 +142,8 @@ func _on_StatsButton_pressed() -> void:
 
         _:
             _tween.interpolate_property(stat_container, "rect_position",
-                                        Vector2(0, 0), Vector2(0, -1080), 0.2,
-                                        Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+                                       Vector2(0, 0), Vector2(0, -1080), 0.2,
+                                       Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
             _tween.start()
             yield (_tween, "tween_completed")
             job_container.show()

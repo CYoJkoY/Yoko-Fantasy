@@ -12,7 +12,7 @@ func get_args(player_index: int) -> Array:
     var scaling_stats_text: String = WeaponService.get_scaling_stats_icon_text(_current_weapon_stats.scaling_stats)
     var cooldown_text: String = stepify(_current_weapon_stats.cooldown / 60.0, 0.01) as String
 
-    return [cooldown_text, str(weapon_stats.max_range), str(_current_weapon_stats.damage), scaling_stats_text]
+    return [cooldown_text, str(_current_weapon_stats.max_range), str(_current_weapon_stats.damage), scaling_stats_text]
 
 func serialize() -> Dictionary:
     var serialized =.serialize()

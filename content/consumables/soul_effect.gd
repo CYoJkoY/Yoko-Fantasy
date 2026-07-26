@@ -2,7 +2,7 @@ extends NullEffect
 
 # =========================== Extension =========================== #
 static func get_id() -> String:
-	return "fantasy_soul_effect"
+    return "fantasy_soul_effect"
 
 func apply(player_index: int) -> void:
     if Utils.get_scene_node()._cleaning_up: return

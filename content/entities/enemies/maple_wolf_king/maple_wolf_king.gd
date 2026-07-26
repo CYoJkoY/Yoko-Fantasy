@@ -36,7 +36,7 @@ func on_state_changed(_new_state: int) -> void:
 
 func is_playing_shoot_animation() -> bool:
     # Avoid "shoot" animation interrupt "howling" animation
-	return _animation_player.current_animation == "shoot" or \
+    return _animation_player.current_animation == "shoot" or \
     _animation_player.current_animation == "shoot_charmed" or \
     _animation_player.current_animation == "howling"
 

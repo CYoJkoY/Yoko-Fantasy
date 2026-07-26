@@ -15,12 +15,12 @@ var job_fantasy_ranged_hash: int = Keys.generate_hash("job_fantasy_ranged")
 var job_fantasy_universal_hash: int = Keys.generate_hash("job_fantasy_universal")
 
 func fa_is_damage_job_way(way_hash: int) -> bool:
-	return [
-		job_fantasy_elemental_hash,
-		job_fantasy_engineering_hash,
-		job_fantasy_melee_hash,
-		job_fantasy_ranged_hash,
-	].has(way_hash)
+    return [
+        job_fantasy_elemental_hash,
+        job_fantasy_engineering_hash,
+        job_fantasy_melee_hash,
+        job_fantasy_ranged_hash,
+    ].has(way_hash)
 
 # Stats
 var stat_fantasy_holy_hash: int = Keys.generate_hash("stat_fantasy_holy")
@@ -99,39 +99,39 @@ var fantasy_weapon_hit_proc_hash: int = Keys.generate_hash("fantasy_weapon_hit_p
 var fantasy_clock_tower_players_in_area: Dictionary = {}
 
 func fa_set_clock_tower_player_in_area(player_index: int, in_area: bool) -> void:
-	if in_area:
-		fantasy_clock_tower_players_in_area[player_index] = true
-	else:
-		fantasy_clock_tower_players_in_area.erase(player_index)
+    if in_area:
+        fantasy_clock_tower_players_in_area[player_index] = true
+    else:
+        fantasy_clock_tower_players_in_area.erase(player_index)
 
 func fa_is_clock_tower_player_in_area(player_index: int) -> bool:
-	return fantasy_clock_tower_players_in_area.has(player_index)
+    return fantasy_clock_tower_players_in_area.has(player_index)
 
 func fa_has_clock_tower_area(player_index: int) -> bool:
-	return !RunData.get_player_effect(fantasy_clock_tower_area_hash, player_index).empty()
+    return !RunData.get_player_effect(fantasy_clock_tower_area_hash, player_index).empty()
 
 func fa_get_permanent_stat(stat_hash: int, player_index: int) -> float:
-	if player_index < 0 or player_index == RunData.DUMMY_PLAYER_INDEX:
-		return 0.0
+    if player_index < 0 or player_index == RunData.DUMMY_PLAYER_INDEX:
+        return 0.0
 
-	return RunData.get_stat(stat_hash, player_index)
+    return RunData.get_stat(stat_hash, player_index)
 
 func fa_get_clock_tower_area_radius(base_range: int, range_rate: float, player_index: int) -> float:
-	var radius: float = base_range
-	if range_rate != 0.0 and player_index != -1:
-		radius += fa_get_permanent_stat(Keys.stat_range_hash, player_index) * range_rate
-	var zone_rect: Rect2 = ZoneService.get_current_zone_rect()
-	var map_limit: float = min(zone_rect.size.x, zone_rect.size.y) * 0.75 * 0.5
-	if map_limit <= 0.0:
-		return radius
+    var radius: float = base_range
+    if range_rate != 0.0 and player_index != -1:
+        radius += fa_get_permanent_stat(Keys.stat_range_hash, player_index) * range_rate
+    var zone_rect: Rect2 = ZoneService.get_current_zone_rect()
+    var map_limit: float = min(zone_rect.size.x, zone_rect.size.y) * 0.75 * 0.5
+    if map_limit <= 0.0:
+        return radius
 
-	return min(radius, map_limit)
+    return min(radius, map_limit)
 
 func fa_get_clock_tower_structure_attack_speed_bonus(player_index: int) -> int:
-	return 20 + int(fa_get_permanent_stat(stat_fantasy_holy_hash, player_index) * 4)
+    return 20 + int(fa_get_permanent_stat(stat_fantasy_holy_hash, player_index) * 4)
 
 func fa_get_clock_tower_enemy_speed_percent(player_index: int) -> int:
-	return int(max(-70, -20 - int(fa_get_permanent_stat(Keys.stat_engineering_hash, player_index) * 0.5)))
+    return int(max(-70, -20 - int(fa_get_permanent_stat(Keys.stat_engineering_hash, player_index) * 0.5)))
 
 # Consumables
 var consumable_fantasy_soul_hash: int = Keys.generate_hash("consumable_fantasy_soul")
@@ -142,9 +142,9 @@ var fantasy_tree_spirit_hash: int = Keys.generate_hash("fantasy_tree_spirit")
 var fantasy_vine_stranger_hash: int = Keys.generate_hash("fantasy_vine_stranger")
 var fantasy_flower_spirit_hash: int = Keys.generate_hash("fantasy_flower_spirit")
 var plant_enemies_ids: Array = [
-	fantasy_tree_spirit_hash,
-	fantasy_vine_stranger_hash,
-	fantasy_flower_spirit_hash,
+    fantasy_tree_spirit_hash,
+    fantasy_vine_stranger_hash,
+    fantasy_flower_spirit_hash,
 ]
 
 # Characters
@@ -152,46 +152,46 @@ var character_fantasy_princess_hash = Keys.generate_hash("character_fantasy_prin
 var character_fantasy_clock_tower_guardian_hash = Keys.generate_hash("character_fantasy_clock_tower_guardian")
 
 func fa_get_job_category_text(job_data: UpgradeData) -> String:
-	var category_text: String = "JOB"
-	match job_data.upgrade_id_hash:
-		job_fantasy_elemental_hash: category_text = "JOB_ELEMENTAL"
-		job_fantasy_engineering_hash: category_text = "JOB_ENGINEERING"
-		job_fantasy_luck_hash: category_text = "JOB_LUCK"
-		job_fantasy_melee_hash: category_text = "JOB_MELEE"
-		job_fantasy_ranged_hash: category_text = "JOB_RANGED"
-		job_fantasy_universal_hash: category_text = "JOB_UNIVERSAL"
+    var category_text: String = "JOB"
+    match job_data.upgrade_id_hash:
+        job_fantasy_elemental_hash: category_text = "JOB_ELEMENTAL"
+        job_fantasy_engineering_hash: category_text = "JOB_ENGINEERING"
+        job_fantasy_luck_hash: category_text = "JOB_LUCK"
+        job_fantasy_melee_hash: category_text = "JOB_MELEE"
+        job_fantasy_ranged_hash: category_text = "JOB_RANGED"
+        job_fantasy_universal_hash: category_text = "JOB_UNIVERSAL"
 
-	var stage_text: String = ""
-	match job_data.stage:
-		0: stage_text = "I"
-		1: stage_text = "II"
+    var stage_text: String = ""
+    match job_data.stage:
+        0: stage_text = "I"
+        1: stage_text = "II"
 
-	return tr(category_text).format([stage_text])
+    return tr(category_text).format([stage_text])
 
 func fa_get_pause_menu_focus_emulator(_player_index: int, root: Node = get_scene_node()) -> FocusEmulator:
-	var pause_menu: Node = root.find_node("PauseMenu", true, false)
-	if pause_menu == null or !pause_menu.is_visible_in_tree():
-		return null
+    var pause_menu: Node = root.find_node("PauseMenu", true, false)
+    if pause_menu == null or !pause_menu.is_visible_in_tree():
+        return null
 
-	var focus_emulator: FocusEmulator = pause_menu.get_node_or_null("FocusEmulator") as FocusEmulator
-	if focus_emulator == null:
-		return null
+    var focus_emulator: FocusEmulator = pause_menu.get_node_or_null("FocusEmulator") as FocusEmulator
+    if focus_emulator == null:
+        return null
 
-	return focus_emulator
+    return focus_emulator
 
 func fa_get_menu_focus_emulator(player_index: int, root: Node = get_scene_node()) -> FocusEmulator:
-	if RunData.is_coop_run:
-		var pause_focus_emulator: FocusEmulator = fa_get_pause_menu_focus_emulator(player_index, root)
-		if pause_focus_emulator != null:
-			return pause_focus_emulator
+    if RunData.is_coop_run:
+        var pause_focus_emulator: FocusEmulator = fa_get_pause_menu_focus_emulator(player_index, root)
+        if pause_focus_emulator != null:
+            return pause_focus_emulator
 
-	return get_focus_emulator(player_index, root)
+    return get_focus_emulator(player_index, root)
 
 func fa_focus_menu_control(control: Control, player_index: int, root: Node = get_scene_node()) -> void:
-	Utils.focus_player_control(control, player_index, fa_get_menu_focus_emulator(player_index, root))
+    Utils.focus_player_control(control, player_index, fa_get_menu_focus_emulator(player_index, root))
 
 func fa_get_menu_focused_control(some_control: Control, player_index: int, root: Node = get_scene_node()) -> Control:
-	return Utils.get_player_focused_control(some_control, player_index, fa_get_menu_focus_emulator(player_index, root))
+    return Utils.get_player_focused_control(some_control, player_index, fa_get_menu_focus_emulator(player_index, root))
 
 # Icons
 var icon_fantasy_job_to_process_hash: int = Keys.generate_hash("icon_fantasy_job_to_process")
@@ -199,54 +199,54 @@ var icon_fantasy_princess_limited_hash = Keys.generate_hash("icon_fantasy_prince
 
 # =========================== Synthesis Pity =========================== #
 func fa_get_synthesis_pity_id(materials: Array, result_id_hash: int) -> String:
-	var material_keys: Array = []
-	for material in materials:
-		material_keys.append(str(material[0]) + ":" + str(material[1]))
-	material_keys.sort()
-	var content_key: String = str(material_keys) + "_" + str(result_id_hash)
-	return content_key.md5_text()
+    var material_keys: Array = []
+    for material in materials:
+        material_keys.append(str(material[0]) + ":" + str(material[1]))
+    material_keys.sort()
+    var content_key: String = str(material_keys) + "_" + str(result_id_hash)
+    return content_key.md5_text()
 
 func fa_get_synthesis_pity_data(player_index: int) -> Dictionary:
-	return RunData.players_data[player_index].fantasy_synthesis_pity_data
+    return RunData.players_data[player_index].fantasy_synthesis_pity_data
 
 func fa_get_synthesis_effective_chance(base_chance: float, pity_id: String, pity_chance_step: float, player_index: int) -> float:
-	var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
-	var fail_count: int = pity_data.get(pity_id, 0)
-	return min(base_chance / 100.0 + fail_count * pity_chance_step / 100.0, 1.0)
+    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+    var fail_count: int = pity_data.get(pity_id, 0)
+    return min(base_chance / 100.0 + fail_count * pity_chance_step / 100.0, 1.0)
 
 func fa_record_synthesis_fail(pity_id: String, player_index: int) -> void:
-	var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
-	pity_data[pity_id] = pity_data.get(pity_id, 0) + 1
+    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+    pity_data[pity_id] = pity_data.get(pity_id, 0) + 1
 
 func fa_record_synthesis_success(pity_id: String, player_index: int) -> void:
-	var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
-	pity_data.erase(pity_id)
+    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+    pity_data.erase(pity_id)
 
 func fa_get_synthesis_fail_count(pity_id: String, player_index: int) -> int:
-	var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
-	return pity_data.get(pity_id, 0)
+    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+    return pity_data.get(pity_id, 0)
 
 func fa_get_synthesis_pity_bonus_chance(pity_id: String, pity_chance_step: float, player_index: int) -> float:
-	var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
-	var fail_count: int = pity_data.get(pity_id, 0)
-	return fail_count * pity_chance_step
+    var pity_data: Dictionary = fa_get_synthesis_pity_data(player_index)
+    var fail_count: int = pity_data.get(pity_id, 0)
+    return fail_count * pity_chance_step
 
 # =========================== Soul =========================== #
 func fa_spawn_soul(num: int, pos: Vector2, spread: int) -> void:
-	var main: Main = get_scene_node()
-	for _i in range(num):
-		var consumable_to_spawn: ConsumableData = ProgressData.get_dlc_data("Yoko-Fantasy").soul_data
-		var consumable: Consumable = main.get_node_from_pool(main._consumable_pool_id, main._consumables_container)
-		if consumable == null:
-			consumable = main.consumable_scene.instance()
-			main._consumables_container.call_deferred("add_child", consumable)
-			var _error = consumable.connect("picked_up", main, "on_consumable_picked_up")
-			yield (consumable, "ready")
+    var main: Main = get_scene_node()
+    for _i in range(num):
+        var consumable_to_spawn: ConsumableData = ProgressData.get_dlc_data("Yoko-Fantasy").soul_data
+        var consumable: Consumable = main.get_node_from_pool(main._consumable_pool_id, main._consumables_container)
+        if consumable == null:
+            consumable = main.consumable_scene.instance()
+            main._consumables_container.call_deferred("add_child", consumable)
+            var _error = consumable.connect("picked_up", main, "on_consumable_picked_up")
+            yield (consumable, "ready")
 
-		consumable.already_picked_up = false
-		consumable.consumable_data = consumable_to_spawn
-		consumable.set_texture(consumable_to_spawn.icon)
-		var dist = rand_range(50, 100 + spread)
-		var push_back_destination = ZoneService.get_rand_pos_in_area(pos, dist, 0)
-		consumable.drop(pos, 0, push_back_destination)
-		main._consumables.push_back(consumable)
+        consumable.already_picked_up = false
+        consumable.consumable_data = consumable_to_spawn
+        consumable.set_texture(consumable_to_spawn.icon)
+        var dist = rand_range(50, 100 + spread)
+        var push_back_destination = ZoneService.get_rand_pos_in_area(pos, dist, 0)
+        consumable.drop(pos, 0, push_back_destination)
+        main._consumables.push_back(consumable)

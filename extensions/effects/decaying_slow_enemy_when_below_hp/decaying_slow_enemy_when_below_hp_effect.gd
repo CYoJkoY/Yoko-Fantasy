@@ -5,7 +5,7 @@ export(int) var trigger_times = 1
 
 # =========================== Extension =========================== #
 static func get_id() -> String:
-	return "fantasy_decaying_slow_enemy_when_below_hp"
+    return "fantasy_decaying_slow_enemy_when_below_hp"
 
 func apply(player_index: int) -> void:
     if key == "": return
