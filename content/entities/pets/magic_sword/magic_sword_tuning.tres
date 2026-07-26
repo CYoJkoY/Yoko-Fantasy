@@ -1,0 +1,67 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/flying_blade_pet_tuning.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+target_refresh_ticks = 4.0
+guard_radius = 105.0
+guard_orbit_speed = 3.0
+guard_speed = 1280.0
+return_speed = 1320.0
+return_curve_distance = 148.0
+aim_ticks = 4.0
+windup_ticks = 5.0
+slash_ticks = 9.0
+chain_ticks = 2.0
+approach_distance = 82.0
+exit_distance = 132.0
+curve_side_distance = 126.0
+aim_snap_distance = 200.0
+sweep_width = 38.0
+max_chain_hits = 3
+chain_search_radius = 280.0
+arc_radius = 82.0
+slash_color = Color( 0.64, 0.28, 0.96, 0.44 )
+trail_color = Color( 0.42, 0.20, 0.82, 0.30 )
+trail_secondary_color = Color( 0.20, 0.68, 0.88, 0.14 )
+trail_core_color = Color( 0.76, 0.86, 1, 0.24 )
+satellite_trail_color = Color( 0.40, 0.20, 0.86, 0.20 )
+satellite_trail_secondary_color = Color( 0.22, 0.72, 0.92, 0.15 )
+attack_fragment_color = Color( 0.58, 0.24, 0.94, 0.28 )
+attack_fragment_secondary_color = Color( 0.20, 0.68, 0.90, 0.20 )
+slash_width = 17.0
+trail_width = 7.2
+trail_aura_width = 18.0
+trail_core_width = 1.35
+trail_max_points = 5
+trail_sample_min_distance = 16.0
+attack_fragment_lifetime = 0.13
+attack_fragment_interval_ticks = 3.4
+attack_fragment_width = 4.6
+blade_afterimage_lifetime = 0.13
+blade_afterimage_alpha = 0.22
+blade_afterimage_min_distance = 26.0
+guard_breathe_scale = 0.035
+guard_wave_height = 22.0
+guard_wave_speed = 2.8
+guard_tilt_strength = 0.24
+hit_flash_alpha = 0.38
+satellite_attack_range = 350.0
+satellite_attack_cooldown_ticks = 90.0
+satellite_attack_ticks = 15.0
+satellite_return_ticks = 14.0
+satellite_attack_distance = 58.0
+satellite_hitbox_length = 112.0
+satellite_hitbox_width = 14.0
+satellite_knockback = 30.0
+satellite_guard_orbit_width = 2.5
+satellite_guard_orbit_core_width = 0.8
+satellite_guard_orbit_segment_width = 6.6
+target_angle_weight = 0.12
+target_origin_weight = 0.58
+target_player_weight = 0.17
+target_follow_through_weight = 0.10
+max_active_main_attacks = 0
+max_active_satellite_attacks = 0
+max_attack_dispatches_per_tick = 2

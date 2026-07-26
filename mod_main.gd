@@ -198,6 +198,9 @@ func install_script_extensions() -> void:
         #          on_target_enemy_killed_buff_future_target_enemy[ 2/2 ]
         #          cursed_kill_healing
 
+        "ui/entity_description.gd",
+        # UI: reusable localized pet stat descriptions
+
         "melee_weapon.gd",
         # EFFECTS: gain_stat_every_killed_enemies[ 2/3 ]
         #          reload_when_shoot[ 1/2 ]
