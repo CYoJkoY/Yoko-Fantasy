@@ -5,7 +5,8 @@
     "description": "",
     "website_url": "",
     "dependencies": [
-        "Yoko-NewContentLoader"
+        "Yoko-NewContentLoader",
+        "Yoko-MoreStatsContainer"
     ],
     "extra": {
         "godot": {
