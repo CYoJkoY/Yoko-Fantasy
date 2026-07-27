@@ -1,9 +1,9 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/magic_sword.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/scene/magic_sword.gd" type="Script" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/scene/magic_sword.webp" type="Texture" id=3]
-[ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=4]
+[ext_resource path="res://entities/units/movement_behaviors/movement_behavior.gd" type="Script" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/magic_sword_stats.tres" type="Resource" id=5]
 [ext_resource path="res://overlap/hitbox.gd" type="Script" id=6]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=7]
@@ -28,10 +28,9 @@
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_04.wav" type="AudioStream" id=26]
 [ext_resource path="res://entities/units/unit/crit_sounds/bullet_impact_metal_light_03.wav" type="AudioStream" id=27]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_06.wav" type="AudioStream" id=28]
-[ext_resource path="res://entities/units/target_behavior/closest_enemy_target_behavior.gd" type="Script" id=29]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/visual_effects/x_flow.gdshader" type="Shader" id=30]
+[ext_resource path="res://entities/units/target_behavior/target_behavior.gd" type="Script" id=29]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/scene/magic_sword_shadow.webp" type="Texture" id=31]
-
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/magic_sword_tuning.tres" type="Resource" id=32]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0
@@ -52,14 +51,8 @@ shader = ExtResource( 1 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_modifier = 1.0
 
-[sub_resource type="ShaderMaterial" id=14]
-shader = ExtResource( 30 )
-shader_param/glow_color = Color( 0.8, 0.4, 1, 1 )
-shader_param/width = 0.8
-shader_param/speed = 5.0
-
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 33.9911, 195 )
+extents = Vector2( 24, 34 )
 
 [sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 65, 19.5 )
@@ -184,69 +177,9 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.34902, 0.34902, 0.34902, 1 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-length = 1.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Animation:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6, 0.9, 1.2 ),
-"transitions": PoolRealArray( 0.5, 2, 0.5, 2, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 80 ), Vector2( 0, 0 ), Vector2( 0, -80 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=8]
-length = 0.5
-step = 0.01
-tracks/0/type = "method"
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0.2 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "shoot"
-} ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Animation:rotation_degrees")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.5 ),
-"transitions": PoolRealArray( 2.5, 0.4, 0.3, 1 ),
-"update": 0,
-"values": [ 0.0, 45.0, 0.0, 360.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Animation/Offset/Shadow:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.2, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-
-[sub_resource type="CircleShape2D" id=11]
-
 [node name="MagicSword" type="RigidBody2D"]
-collision_layer = 512
-collision_mask = 640
+collision_layer = 0
+collision_mask = 0
 mode = 2
 physics_material_override = SubResource( 6 )
 custom_integrator = true
@@ -260,7 +193,7 @@ stats = ExtResource( 5 )
 flash_mat = SubResource( 1 )
 curse_particles = ExtResource( 8 )
 damage_tracking_id = "item_fantasy_magic_sword"
-has_shoot_anim = true
+tuning = ExtResource( 32 )
 
 [node name="Animation" type="Node2D" parent="."]
 rotation = 6.28319
@@ -269,7 +202,6 @@ rotation = 6.28319
 position = Vector2( 0, 0 )
 
 [node name="Body" type="Sprite" parent="Animation/Offset"]
-material = SubResource( 14 )
 position = Vector2( 0, 40.441 )
 texture = ExtResource( 3 )
 
@@ -298,38 +230,23 @@ disabled = true
 visible = false
 position = Vector2( 39, -1.5 )
 shape = SubResource( 15 )
+disabled = true
 
 [node name="Hurtbox" parent="." instance=ExtResource( 9 )]
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle"
 anims/RESET = SubResource( 3 )
 anims/death = SubResource( 4 )
-anims/idle = SubResource( 5 )
-anims/shoot = SubResource( 8 )
 
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.1
 
 [node name="MovementBehavior" type="Node2D" parent="."]
 script = ExtResource( 4 )
-stop_close_to_target = true
-distance_to_target = 150.0
 
 [node name="TargetBehavior" type="Node2D" parent="."]
 script = ExtResource( 29 )
-target_player_if_no_target = true
-pet_id = "fantasy_magic_sword"
-exclude_elite_and_boss_target = true
-
-[node name="Range" type="Area2D" parent="TargetBehavior"]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetBehavior/Range"]
-visible = false
-shape = SubResource( 11 )
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -342,10 +259,5 @@ emitting = false
 [node name="EffectBehaviors" type="Node2D" parent="."]
 
 [connection signal="hit_something" from="Animation/Hitbox" to="." method="_on_Hitbox_hit_something"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
-[connection signal="target_found" from="TargetBehavior" to="MovementBehavior" method="_on_TargetBehavior_target_found"]
-[connection signal="target_player" from="TargetBehavior" to="MovementBehavior" method="_on_TargetBehavior_target_player"]
-[connection signal="body_entered" from="TargetBehavior/Range" to="TargetBehavior" method="_on_Range_body_entered"]
-[connection signal="body_exited" from="TargetBehavior/Range" to="TargetBehavior" method="_on_Range_body_exited"]
 [connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]

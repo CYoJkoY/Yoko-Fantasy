@@ -61,6 +61,12 @@ func install_script_classes() -> void:
             "language": "GDScript",
             "path": service_dir + "visual_parts_sync.gd"
         },
+        {
+            "base": "Reference",
+            "class": "EnemySpeedModifierService",
+            "language": "GDScript",
+            "path": service_dir + "enemy_speed_modifier_service.gd"
+        },
 
         # Enemies
         {
@@ -74,32 +80,6 @@ func install_script_classes() -> void:
             "class": "MediumSlime",
             "language": "GDScript",
             "path": enemy_dir + "medium_slime/medium_slime.gd"
-        },
-
-        # Pets
-        {
-            "base": "Pet",
-            "class": "FollowMeleePet",
-            "language": "GDScript",
-            "path": pet_dir + "follow_melee_pet.gd"
-        },
-        {
-            "base": "Pet",
-            "class": "FollowRangedPet",
-            "language": "GDScript",
-            "path": pet_dir + "follow_ranged_pet.gd"
-        },
-        {
-            "base": "Pet",
-            "class": "TacticalGlobalPet",
-            "language": "GDScript",
-            "path": pet_dir + "tactical_global_pet.gd"
-        },
-        {
-            "base": "Pet",
-            "class": "WanderingRangedPet",
-            "language": "GDScript",
-            "path": pet_dir + "wandering_ranged_pet.gd"
         },
 
     ]

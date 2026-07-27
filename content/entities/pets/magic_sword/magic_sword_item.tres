@@ -3,7 +3,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/magic_sword/magic_sword_data.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/magic_sword_stats.tres" type="Resource" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/magic_sword/magic_sword_icon.webp" type="Texture" id=3]
-[ext_resource path="res://entities/units/pet/ItemPet.gd" type="Script" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/fantasy_pet_data.gd" type="Script" id=4]
 
 [resource]
 script = ExtResource( 4 )
@@ -21,10 +21,16 @@ unlock_codex_descr_after_get_it = 1
 is_cursed = false
 curse_factor = 0.0
 stats = ExtResource( 2 )
-behaviour_description = "FANTASY_FOLLOW_MELEE_PET_BEHAVIOUR_DESCRIPTION"
+behaviour_description = "FANTASY_MAGIC_SWORD_BEHAVIOUR_DESCRIPTION"
+fantasy_affected_player_stats = [ "stat_lifesteal", "stat_percent_damage", "stat_crit_chance", "stat_fantasy_crit_damage", "stat_fantasy_pet_attack_speed", "stat_range", "knockback", "damage_against_bosses" ]
+fantasy_affected_player_stat_scopes = {
+"knockback": "FANTASY_PET_STAT_SCOPE_PRIMARY_ATTACK",
+"stat_fantasy_pet_attack_speed": "FANTASY_PET_STAT_SCOPE_PRIMARY_ATTACK",
+"stat_range": "FANTASY_PET_STAT_SCOPE_PRIMARY_ATTACK"
+}
 show_hp = false
 show_dammage = false
-show_speed = true
+show_speed = false
 show_knoback_resistance = false
 show_material_dropped = false
 item_drop = ExtResource( 1 )

@@ -3,7 +3,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/nightingale_stats.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/nightingale/nightingale_data.tres" type="Resource" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/nightingale_icon.webp" type="Texture" id=3]
-[ext_resource path="res://entities/units/pet/ItemPet.gd" type="Script" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/fantasy_pet_data.gd" type="Script" id=4]
 
 [resource]
 script = ExtResource( 4 )

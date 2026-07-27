@@ -1,5 +1,10 @@
-class_name TacticalGlobalPet
 extends Pet
+
+const COOLDOWN_VAR_NAMES: Array = [
+    "_cooldown", "_current_cooldown", "_current_ranged_cooldown",
+    "_current_ultime_cooldown", "_landmines_cooldown",
+    "_left_cooldown", "_right_cooldown",
+]
 
 export(int) var max_num: int = 8
 export(String) var damage_tracking_id
@@ -16,7 +21,7 @@ var _is_shooting: bool = false
 var tactical_global_args: TakeDamageArgs = null
 
 # =========================== Extension =========================== #
-func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref=null) -> void:
+func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
     damage_tracking_id_hash = Keys.generate_hash(damage_tracking_id)
 
@@ -67,7 +72,7 @@ func shoot() -> void:
         tactical_global_args = Utils.ncl_create_custom_damage_args(player_index, damage_color)
     else: tactical_global_args = TakeDamageArgs.new(player_index)
 
-    enemies.sort_custom(self, "fa_sort_by_health_desc")
+    enemies.sort_custom(self , "fa_sort_by_health_desc")
 
     var processed_count = 0
     for i in range(min(max_num, enemies.size())):
@@ -75,8 +80,8 @@ func shoot() -> void:
 
         if !is_instance_valid(enemy) or enemy.dead: continue
 
-        if !enemy.is_connected("died", self, "fa_on_tatical_global_pet_killed_best_enemy"):
-            enemy.connect("died", self, "fa_on_tatical_global_pet_killed_best_enemy", [], CONNECT_ONESHOT)
+        if !enemy.is_connected("died", self , "fa_on_wolf_totem_killed_best_enemy"):
+            enemy.connect("died", self , "fa_on_wolf_totem_killed_best_enemy", [entity_spawner], CONNECT_ONESHOT)
 
         var take_damage_array: Array = enemy.take_damage(damage, tactical_global_args)
         var actual_damage: int = take_damage_array[1]
@@ -85,9 +90,10 @@ func shoot() -> void:
 
         if processed_count >= max_num: break
     
-    if !has_shoot_anim:
-        _cooldown = _current_weapon_stats.cooldown
-        _is_shooting = false
+    if has_shoot_anim: return
+
+    _cooldown = _current_weapon_stats.cooldown
+    _is_shooting = false
 
 # =========================== Method =========================== #
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
@@ -96,8 +102,15 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
         _is_shooting = false
         _animation_player.play("idle")
 
+func fa_on_wolf_totem_killed_best_enemy(_entity: Entity, _die_args: Entity.DieArgs, entity_spawner: EntitySpawner) -> void:
+    for pet in entity_spawner.pets:
+        if !is_instance_valid(pet): continue
+
+        for cooldown_var_name in COOLDOWN_VAR_NAMES:
+            if pet.get(cooldown_var_name) == null:
+                continue
+
+            pet.set(cooldown_var_name, 0.0)
+
 func fa_sort_by_health_desc(enemy_1: Enemy, enemy_2: Enemy) -> bool:
     return enemy_1.current_stats.health > enemy_2.current_stats.health
-
-func fa_on_tatical_global_pet_killed_best_enemy(_entity: Entity, _die_args: Entity.DieArgs) -> void:
-    pass
