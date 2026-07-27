@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://ui/hud/ui_better_tab_container.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_menu.gd" type="Script" id=2]
@@ -7,11 +7,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_ui.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/menus/global/cross_icon..png" type="Texture" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/jobs/job_inventory_container.tscn" type="PackedScene" id=7]
-[ext_resource path="res://ui/menus/global/popup_manager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ui/menus/shop/item_popup.tscn" type="PackedScene" id=9]
-[ext_resource path="res://ui/menus/global/triangle_down_icon.png" type="Texture" id=10]
-[ext_resource path="res://ui/menus/shop/stat_container.tscn" type="PackedScene" id=11]
-[ext_resource path="res://ui/menus/shop/stat_popup.tscn" type="PackedScene" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.215686, 0.215686, 0.215686, 1 )
@@ -293,7 +289,6 @@ margin_bottom = 862.0
 [node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
-
 [node name="JobPlayerCont2" type="ScrollContainer" parent="JobCont/TabContainer"]
 unique_name_in_owner = true
 visible = false
@@ -474,7 +469,6 @@ margin_bottom = 355.0
 
 [node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
-
 
 [node name="JobPlayerCont3" type="ScrollContainer" parent="JobCont/TabContainer"]
 unique_name_in_owner = true
@@ -657,7 +651,6 @@ margin_bottom = 355.0
 [node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
-
 [node name="JobPlayerCont4" type="ScrollContainer" parent="JobCont/TabContainer"]
 unique_name_in_owner = true
 visible = false
@@ -839,7 +832,6 @@ margin_bottom = 355.0
 [node name="effect_line" parent="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription/ScrollContainer/VBoxContainer/Effects_scrolled" index="0"]
 margin_right = 430.0
 
-
 [node name="Others" type="Control" parent="."]
 margin_left = 5.0
 margin_top = 5.0
@@ -855,249 +847,6 @@ margin_right = 77.0
 margin_bottom = 65.0
 rect_pivot_offset = Vector2( 150, 136 )
 icon = ExtResource( 6 )
-
-[node name="StatsButton" type="Button" parent="Others"]
-unique_name_in_owner = true
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 90.0
-margin_right = 154.0
-margin_bottom = 65.0
-rect_pivot_offset = Vector2( 150, 136 )
-icon = ExtResource( 10 )
-expand_icon = true
-
-[node name="StatCont" type="VBoxContainer" parent="Others"]
-unique_name_in_owner = true
-margin_top = -1080.0
-margin_right = 480.0
-margin_bottom = -10.0
-custom_constants/separation = 23
-script = ExtResource( 1 )
-buttons_tab_np = [ NodePath("HBoxContainer/TabBut1"), NodePath("HBoxContainer/TabBut2"), NodePath("HBoxContainer/TabBut3"), NodePath("HBoxContainer/TabBut4") ]
-tab_container_np = NodePath("TabContainer")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Others/StatCont"]
-margin_right = 480.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 480, 0 )
-
-[node name="TabBut1" type="Button" parent="Others/StatCont/HBoxContainer"]
-margin_right = 480.0
-margin_bottom = 45.0
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 3 )
-text = "Player 1"
-
-[node name="TabBut2" type="Button" parent="Others/StatCont/HBoxContainer"]
-visible = false
-margin_left = 242.0
-margin_right = 480.0
-margin_bottom = 45.0
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 3 )
-text = "Player 2"
-
-[node name="TabBut3" type="Button" parent="Others/StatCont/HBoxContainer"]
-visible = false
-margin_left = 322.0
-margin_right = 480.0
-margin_bottom = 45.0
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 3 )
-text = "Player 3"
-
-[node name="TabBut4" type="Button" parent="Others/StatCont/HBoxContainer"]
-visible = false
-margin_left = 363.0
-margin_right = 480.0
-margin_bottom = 45.0
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 3 )
-text = "Player 4"
-
-[node name="TabContainer" type="TabContainer" parent="Others/StatCont"]
-margin_top = 68.0
-margin_right = 480.0
-margin_bottom = 1070.0
-size_flags_vertical = 3
-custom_styles/panel = SubResource( 2 )
-tabs_visible = false
-
-[node name="StatPlayerCont1" type="ScrollContainer" parent="Others/StatCont/TabContainer"]
-unique_name_in_owner = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Others/StatCont/TabContainer/StatPlayerCont1"]
-margin_right = 470.0
-margin_bottom = 106.0
-size_flags_horizontal = 3
-custom_constants/margin_right = 15
-custom_constants/margin_top = 15
-custom_constants/margin_left = 15
-
-[node name="VPlayerCont" type="VBoxContainer" parent="Others/StatCont/TabContainer/StatPlayerCont1/MarginContainer"]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 455.0
-margin_bottom = 106.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 23
-
-[node name="HolyContainer" parent="Others/StatCont/TabContainer/StatPlayerCont1/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
-margin_right = 440.0
-margin_bottom = 34.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-key = "STAT_FANTASY_HOLY"
-
-[node name="SoulContainer" parent="Others/StatCont/TabContainer/StatPlayerCont1/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
-margin_top = 57.0
-margin_right = 440.0
-margin_bottom = 91.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-key = "STAT_FANTASY_SOUL"
-
-[node name="StatPlayerCont2" type="ScrollContainer" parent="Others/StatCont/TabContainer"]
-unique_name_in_owner = true
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Others/StatCont/TabContainer/StatPlayerCont2"]
-margin_right = 470.0
-margin_bottom = 46.0
-size_flags_horizontal = 3
-custom_constants/margin_right = 15
-custom_constants/margin_top = 15
-custom_constants/margin_left = 15
-
-[node name="VPlayerCont" type="VBoxContainer" parent="Others/StatCont/TabContainer/StatPlayerCont2/MarginContainer"]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 455.0
-margin_bottom = 46.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 23
-
-[node name="HolyContainer" parent="Others/StatCont/TabContainer/StatPlayerCont2/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
-margin_right = 440.0
-margin_bottom = 34.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-key = "STAT_FANTASY_HOLY"
-
-[node name="SoulContainer" parent="Others/StatCont/TabContainer/StatPlayerCont2/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
-margin_top = 57.0
-margin_right = 440.0
-margin_bottom = 91.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-key = "STAT_FANTASY_SOUL"
-
-[node name="StatPlayerCont3" type="ScrollContainer" parent="Others/StatCont/TabContainer"]
-unique_name_in_owner = true
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Others/StatCont/TabContainer/StatPlayerCont3"]
-margin_right = 470.0
-margin_bottom = 46.0
-size_flags_horizontal = 3
-custom_constants/margin_right = 15
-custom_constants/margin_top = 15
-custom_constants/margin_left = 15
-
-[node name="VPlayerCont" type="VBoxContainer" parent="Others/StatCont/TabContainer/StatPlayerCont3/MarginContainer"]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 455.0
-margin_bottom = 46.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 23
-
-[node name="HolyContainer" parent="Others/StatCont/TabContainer/StatPlayerCont3/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
-margin_right = 440.0
-margin_bottom = 34.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-key = "STAT_FANTASY_HOLY"
-
-[node name="SoulContainer" parent="Others/StatCont/TabContainer/StatPlayerCont3/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
-margin_top = 57.0
-margin_right = 440.0
-margin_bottom = 91.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-key = "STAT_FANTASY_SOUL"
-
-[node name="StatPlayerCont4" type="ScrollContainer" parent="Others/StatCont/TabContainer"]
-unique_name_in_owner = true
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = -5.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Others/StatCont/TabContainer/StatPlayerCont4"]
-margin_right = 470.0
-margin_bottom = 46.0
-size_flags_horizontal = 3
-custom_constants/margin_right = 15
-custom_constants/margin_top = 15
-custom_constants/margin_left = 15
-
-[node name="VPlayerCont" type="VBoxContainer" parent="Others/StatCont/TabContainer/StatPlayerCont4/MarginContainer"]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 455.0
-margin_bottom = 46.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 23
-
-[node name="HolyContainer" parent="Others/StatCont/TabContainer/StatPlayerCont4/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
-margin_right = 440.0
-margin_bottom = 34.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-key = "STAT_FANTASY_HOLY"
-
-[node name="SoulContainer" parent="Others/StatCont/TabContainer/StatPlayerCont4/MarginContainer/VPlayerCont" instance=ExtResource( 11 )]
-margin_top = 57.0
-margin_right = 440.0
-margin_bottom = 91.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-key = "STAT_FANTASY_SOUL"
 
 [node name="JobsContainer" type="TabContainer" parent="Others"]
 unique_name_in_owner = true
@@ -1125,21 +874,18 @@ reserve_column_count = 12
 
 [node name="HBoxContainer" parent="Others/JobsContainer/JobsCont1/Jobs1" index="0"]
 margin_right = 1292.0
-margin_bottom = 51.0
 
 [node name="Label" parent="Others/JobsContainer/JobsCont1/Jobs1/HBoxContainer" index="0"]
-margin_top = 3.0
+margin_top = 0.0
 margin_right = 129.0
-margin_bottom = 48.0
+margin_bottom = 45.0
 text = "Jobs 1"
 
 [node name="HSeparator" parent="Others/JobsContainer/JobsCont1/Jobs1/HBoxContainer" index="1"]
 margin_left = 133.0
-margin_right = 1020.0
-margin_bottom = 51.0
+margin_right = 1292.0
 
 [node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont1/Jobs1" index="1"]
-margin_top = 76.0
 margin_right = 1292.0
 margin_bottom = 438.0
 
@@ -1156,21 +902,18 @@ reserve_column_count = 12
 
 [node name="HBoxContainer" parent="Others/JobsContainer/JobsCont1/Jobs2" index="0"]
 margin_right = 1292.0
-margin_bottom = 51.0
 
 [node name="Label" parent="Others/JobsContainer/JobsCont1/Jobs2/HBoxContainer" index="0"]
-margin_top = 3.0
+margin_top = 0.0
 margin_right = 131.0
-margin_bottom = 48.0
+margin_bottom = 45.0
 text = "Jobs 2"
 
 [node name="HSeparator" parent="Others/JobsContainer/JobsCont1/Jobs2/HBoxContainer" index="1"]
 margin_left = 135.0
-margin_right = 1020.0
-margin_bottom = 51.0
+margin_right = 1292.0
 
 [node name="ScrollSizeContainer" parent="Others/JobsContainer/JobsCont1/Jobs2" index="1"]
-margin_top = 76.0
 margin_right = 1292.0
 margin_bottom = 439.0
 
@@ -1397,42 +1140,30 @@ visible = false
 margin_right = 713.0
 margin_bottom = 1070.0
 
-[node name="StatPopup" parent="Others" instance=ExtResource( 12 )]
-unique_name_in_owner = true
-visible = false
-margin_top = 1008.0
-margin_bottom = 1008.0
-
-[node name="PopupManager" parent="." instance=ExtResource( 8 )]
-unique_name_in_owner = true
-
-[node name="Tween" type="Tween" parent="."]
-
 [connection signal="pressed" from="Others/CrossButton" to="." method="_on_CrossButton_pressed"]
-[connection signal="pressed" from="Others/StatsButton" to="." method="_on_StatsButton_pressed"]
 
 [editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1"]
 [editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2"]
 [editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3"]
+[editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1"]
 [editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2"]
 [editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3"]
+[editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1"]
 [editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2"]
 [editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
+[editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3"]
+[editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1"]
 [editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi1/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2"]
 [editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi2/MarginContainer/VBoxContainer/JobDescription"]
-[editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3"]
-[editable path="JobCont/TabContainer/JobPlayerCont1/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
-[editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3"]
-[editable path="JobCont/TabContainer/JobPlayerCont2/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
-[editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3"]
-[editable path="JobCont/TabContainer/JobPlayerCont3/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3"]
 [editable path="JobCont/TabContainer/JobPlayerCont4/VPlayerCont/JobUi3/MarginContainer/VBoxContainer/JobDescription"]
 [editable path="Others/JobsContainer/JobsCont1/Jobs1"]

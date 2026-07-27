@@ -1,35 +1,17 @@
 extends PanelContainer
 
-signal stat_focused(stat_button, stat_title, stat_value, player_index)
-signal stat_unfocused(player_index)
-signal stat_hovered(stat_button, stat_title, stat_value, player_index)
-signal stat_unhovered(player_index)
-
 onready var job_container: VBoxContainer = $"JobCont"
 onready var job_tabscontainer: HBoxContainer = $"JobCont/HBoxContainer"
-onready var stat_container: VBoxContainer = $"%StatCont"
-onready var stat_tabscontainer: HBoxContainer = $"%StatCont/HBoxContainer"
 
-onready var stats_button: Button = $"%StatsButton"
 onready var cross_button: Button = $"%CrossButton"
 onready var focus_before_created: Control = get_focus_owner()
-onready var _popup_manager = $"%PopupManager"
 onready var _item_popup = $"%ItemPopup"
-onready var _stat_popup = $"%StatPopup"
-onready var _tween: Tween = $"Tween"
 
 onready var job_player_conts: Array = [
     $"%JobPlayerCont1/VPlayerCont",
     $"%JobPlayerCont2/VPlayerCont",
     $"%JobPlayerCont3/VPlayerCont",
     $"%JobPlayerCont4/VPlayerCont",
-]
-
-onready var stat_player_conts: Array = [
-    $"%StatPlayerCont1/MarginContainer/VPlayerCont",
-    $"%StatPlayerCont2/MarginContainer/VPlayerCont",
-    $"%StatPlayerCont3/MarginContainer/VPlayerCont",
-    $"%StatPlayerCont4/MarginContainer/VPlayerCont",
 ]
 
 onready var jobs_conts: Array = [
@@ -45,11 +27,9 @@ var _job_ui_2: Array = [null, null, null, null]
 var _job_ui_3: Array = [null, null, null, null]
 var _jobs1: Array = [null, null, null, null]
 var _jobs2: Array = [null, null, null, null]
-var _stat_nodes: Array = [null, null, null, null]
 var _job_elements_hovered: Array = [null, null, null, null]
 var _job_elements_focused: Array = [null, null, null, null]
 var job_tab_buts: Array = [null, null, null, null]
-var stat_tab_buts: Array = [null, null, null, null]
 
 # =========================== Extension =========================== #
 func _input(event: InputEvent) -> void:
@@ -75,30 +55,9 @@ func _ready():
         _fantasy_connect_inventory_container(_jobs1[player_index])
         _fantasy_connect_inventory_container(_jobs2[player_index])
 
-        var stat_player_cont = stat_player_conts[player_index]
-        _stat_nodes[player_index] = stat_player_cont.get_children()
-
         job_tab_buts[player_index] = job_tabscontainer.get_child(player_index)
-        stat_tab_buts[player_index] = stat_tabscontainer.get_child(player_index)
         job_tab_buts[player_index].show()
-        stat_tab_buts[player_index].show()
         job_tab_buts[player_index].text = tr("COOP_PLAYER").format([player_index + 1])
-        stat_tab_buts[player_index].text = tr("COOP_PLAYER").format([player_index + 1])
-
-        for stat in _stat_nodes[player_index]:
-            stat.color_override = ItemService.get_stat(stat.key_hash).color_override
-            stat.connect("focused", self, "on_stat_focused")
-            stat.connect("unfocused", self, "on_stat_unfocused")
-            stat.connect("hovered", self, "on_stat_hovered")
-            stat.connect("unhovered", self, "on_stat_unhovered")
-            stat.enable_focus()
-
-    connect("stat_focused", _popup_manager, "_on_stat_focused")
-    connect("stat_unfocused", _popup_manager, "_on_stat_unfocused")
-    connect("stat_hovered", _popup_manager, "_on_stat_hovered")
-    connect("stat_unhovered", _popup_manager, "_on_stat_unhovered")
-    for player_index in range(RunData.get_player_count()):
-        _popup_manager.add_stat_popup(_stat_popup, player_index)
 
 func open_menu(p_scene_before_created: Node = null) -> void:
     scene_before_created = p_scene_before_created
@@ -107,7 +66,6 @@ func open_menu(p_scene_before_created: Node = null) -> void:
 func show() -> void:
     .show()
     update_jobs()
-    update_stats()
     focus_before_created = get_focus_owner()
     if scene_before_created != null and is_instance_valid(scene_before_created):
         scene_before_created.hide()
@@ -126,28 +84,6 @@ func update_jobs() -> void:
         jobs1._elements.set_elements(ItemService.fa_get_sorted_jobs_for_menu(0))
         jobs2._elements.set_elements(ItemService.fa_get_sorted_jobs_for_menu(1))
 
-func update_stats() -> void:
-    for player_index in range(RunData.get_player_count()):
-        for stat in _stat_nodes[player_index]:
-            stat.update_player_stat(player_index)
-
-func _on_StatsButton_pressed() -> void:
-    match stat_container.rect_position.y:
-        -1080.0:
-            job_container.hide()
-            _tween.interpolate_property(stat_container, "rect_position",
-                                        Vector2(0, -1080), Vector2(0, 0), 0.2,
-                                        Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
-            _tween.start()
-
-        _:
-            _tween.interpolate_property(stat_container, "rect_position",
-                                        Vector2(0, 0), Vector2(0, -1080), 0.2,
-                                        Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
-            _tween.start()
-            yield (_tween, "tween_completed")
-            job_container.show()
-
 func _on_CrossButton_pressed() -> void:
     _fantasy_close_menu()
 
@@ -158,18 +94,6 @@ func _fantasy_close_menu() -> void:
         scene_before_created.show()
     if focus_before_created != null and is_instance_valid(focus_before_created):
         focus_before_created.grab_focus()
-
-func on_stat_focused(stat_button, stat_title, stat_value, player_index) -> void:
-    emit_signal("stat_focused", stat_button, stat_title, stat_value, player_index)
-
-func on_stat_unfocused(player_index) -> void:
-    emit_signal("stat_unfocused", player_index)
-
-func on_stat_hovered(stat_button, stat_title, stat_value, player_index) -> void:
-    emit_signal("stat_hovered", stat_button, stat_title, stat_value, player_index)
-
-func on_stat_unhovered(player_index) -> void:
-    emit_signal("stat_unhovered", player_index)
 
 func _fantasy_connect_inventory_container(container: InventoryContainer) -> void:
     var inventory = container._elements
@@ -223,7 +147,6 @@ func _fantasy_get_player_index_for_element(element: InventoryElement) -> int:
 
 func _fantasy_reset_job_popup_state() -> void:
     _item_popup.hide()
-    _stat_popup.hide()
 
     for player_index in range(_job_elements_hovered.size()):
         _job_elements_hovered[player_index] = null
