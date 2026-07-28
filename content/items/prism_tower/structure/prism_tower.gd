@@ -83,7 +83,6 @@ func _ready() -> void:
     _reset_prism_body_visuals()
 
 func _physics_process(delta: float) -> void:
-    ._physics_process(delta)
     _update_prism_body_visuals(delta)
 
 func shoot() -> void:

@@ -22,8 +22,7 @@ func _ready() -> void:
     _fantasy_decaying_slow_enemy_when_below_hp_ready()
     _fantasy_is_clock_tower_guardian_character = _fantasy_is_clock_tower_guardian()
 
-func _physics_process(delta: float) -> void:
-    ._physics_process(delta)
+func _physics_process(_delta: float) -> void:
     _fantasy_update_clock_tower_hat_color()
 
 func get_damage_value(dmg_value: int, _from_player_index: int, armor_applied := true, dodgeable := true, _is_crit := false, _hitbox: Hitbox = null, _is_burning := false) -> Unit.GetDamageValueResult:

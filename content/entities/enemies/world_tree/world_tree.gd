@@ -13,7 +13,6 @@ func _ready() -> void:
     _prewarm_laser_projectile()
 
 func _physics_process(delta) -> void:
-    ._physics_process(delta)
     if dead: return
 
     if _current_state == 0:

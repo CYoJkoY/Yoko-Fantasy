@@ -13,7 +13,6 @@ func _ready() -> void:
     register_attack_behavior(mutation_2_shooting_attack_behavior)
 
 func _physics_process(delta: float) -> void:
-    ._physics_process(delta)
     if dead: return
 
     # Mutation 2: shoot five projectiles

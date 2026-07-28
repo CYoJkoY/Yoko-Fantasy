@@ -20,7 +20,6 @@ func _ready() -> void:
     register_attack_behavior(maple_shoot_attack_behavior)
 
 func _physics_process(delta: float) -> void:
-    ._physics_process(delta)
     if dead: return
 
     current_projectiles_cooldown -= Utils.physics_one(delta)

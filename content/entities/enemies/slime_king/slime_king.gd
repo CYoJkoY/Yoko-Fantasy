@@ -24,7 +24,6 @@ func _ready() -> void:
     register_attack_behavior(_slime_trail_attack_behavior)
 
 func _physics_process(delta) -> void:
-    ._physics_process(delta)
     if dead: return
 
     # Mutation 1: Plus Mutation 0 attack behavior

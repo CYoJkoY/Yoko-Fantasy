@@ -9,7 +9,6 @@ var pivots: Node2D = null
 
 # =========================== Extension =========================== #
 func _physics_process(delta: float) -> void:
-    ._physics_process(delta)
     if dead: return
 
     # Mutation 2: Plus Mutation 0 attack behavior

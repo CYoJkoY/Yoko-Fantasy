@@ -48,7 +48,6 @@ func _physics_process(delta) -> void:
 
     if velocity == Vector2.ZERO:
         velocity = _fallback_velocity
-    ._physics_process(delta)
 
 func stop() -> void:
     _orbit_enabled = false

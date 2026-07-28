@@ -10,7 +10,6 @@ func _ready() -> void:
     update_highlight()
 
 func _physics_process(delta: float) -> void:
-    ._physics_process(delta)
     _fantasy_pursue_target(delta)
 
 # =========================== Custom =========================== #

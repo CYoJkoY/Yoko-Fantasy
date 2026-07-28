@@ -43,7 +43,6 @@ func _ready() -> void:
     register_attack_behavior(_vertical_global_shooting_attack_behavior_3)
 
 func _physics_process(delta: float) -> void:
-    ._physics_process(delta)
     if dead: return
 
     # Mutation 1 Dash:  Shoot Slashes and Projectiles
