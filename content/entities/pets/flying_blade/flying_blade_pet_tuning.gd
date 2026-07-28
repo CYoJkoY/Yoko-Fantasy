@@ -33,8 +33,6 @@ export(float) var slash_width = 6.0
 export(float) var trail_width = 5.0
 export(float) var trail_aura_width = 10.0
 export(float) var trail_core_width = 2.0
-export(int) var trail_max_points = 7
-export(float) var trail_sample_min_distance = 10.0
 export(float) var attack_fragment_lifetime = 0.18
 export(float) var attack_fragment_interval_ticks = 0.50
 export(float) var attack_fragment_width = 2.0
@@ -58,6 +56,8 @@ export(float) var satellite_knockback = 5.0
 export(float) var satellite_guard_orbit_width = 2.5
 export(float) var satellite_guard_orbit_core_width = 0.8
 export(float) var satellite_guard_orbit_segment_width = 6.6
+# ---- 卫星间距控制（防止重叠）----
+export(float) var satellite_orbit_radius_offset = 28.0    # 每个卫星的径向间距（像素）
 
 export(float) var target_angle_weight = 0.10
 export(float) var target_origin_weight = 0.60
@@ -68,3 +68,19 @@ export(float) var target_follow_through_weight = 0.08
 export(int) var max_active_main_attacks = 0
 export(int) var max_active_satellite_attacks = 0
 export(int) var max_attack_dispatches_per_tick = 2
+
+# ---- 新增视觉参数（用于 Line2D 和 Particles2D）----
+export(float) var trail_line_width = 5.0
+export(Color) var trail_gradient_top = Color(0.8, 0.6, 1.0, 0.9)
+export(Color) var trail_gradient_bottom = Color(0.2, 0.1, 0.8, 0.5)
+export(int) var trail_max_points = 20
+export(float) var trail_sample_min_distance = 12.0
+
+export(float) var fragment_particle_lifetime = 0.3
+export(int) var fragment_particle_amount = 6
+export(float) var fragment_particle_speed = 150.0
+
+export(float) var afterimage_lifetime = 0.15
+export(int) var afterimage_amount = 3
+
+
