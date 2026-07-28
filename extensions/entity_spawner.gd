@@ -11,12 +11,12 @@ var plant_enemies: Array = []
 # EFFECT: clock_tower_area
 var _fantasy_clock_tower_structure_spawn_counts: Dictionary = {}
 var _fantasy_clock_tower_starting_offsets: Array = [
-    Vector2(-1, -181), #↑
-    Vector2(157, -92), #↗
-    Vector2(158, 92), #↘
-    Vector2(1, 183),  #↓
-    Vector2(-157, 95), #↙
-    Vector2(-158, -90), #↖
+    Vector2(-1, -181), # ↑
+    Vector2(157, -92), # ↗
+    Vector2(158, 92), # ↘
+    Vector2(1, 183),  # ↓
+    Vector2(-157, 95), # ↙
+    Vector2(-158, -90), # ↖
 ]
 
 # =========================== Extension =========================== #

@@ -1,5 +1,6 @@
 extends "res://singletons/entity_service.gd"
 
+# =========================== Extension =========================== #
 func sort_turrets_by_strength(a: TurretEffect, b: TurretEffect) -> bool:
     var ordering: = [
         "effect_builder_turret_alt",

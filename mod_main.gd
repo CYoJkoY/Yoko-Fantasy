@@ -101,7 +101,6 @@ func install_script_extensions() -> void:
     var extensions: Array = [
 
         "main.gd",
-        "singletons/debug_service.gd",
         # SYSTEMS: Job[ 1/6 ]
         # STATS: Soul[ 1/3 ]
         # ENEMIES: World Tree

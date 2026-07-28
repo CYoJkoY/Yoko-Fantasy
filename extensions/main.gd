@@ -1,6 +1,5 @@
 extends "res://main.gd"
 
-const EnemySpeedModifierService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/enemy_speed_modifier_service.gd")
 const FANTASY_END_WAVE_BEFORE_REWARDS: String = "before_wave_rewards"
 const FANTASY_END_WAVE_BEFORE_END_RUN_SCENE: String = "before_end_run_scene"
 

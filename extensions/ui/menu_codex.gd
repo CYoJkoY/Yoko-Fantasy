@@ -1,5 +1,6 @@
 extends "res://ui/menus/pages/menu_codex.gd"
 
+# =========================== Extension =========================== #
 func _pop():
 	var previous_focus: Control = Utils.fa_get_menu_focused_control(self, player_index)
 	._pop()

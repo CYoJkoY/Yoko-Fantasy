@@ -1,7 +1,5 @@
 extends "res://entities/units/player/player.gd"
 
-const EnemySpeedModifierService = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/enemy_speed_modifier_service.gd")
-
 var decaying_slow_enemy_when_below_hp_triggers: Dictionary = {}
 var _fantasy_active_decaying_slow_sources: Dictionary = {}
 var _fantasy_decaying_slow_source_enemies: Dictionary = {}
@@ -235,8 +233,7 @@ func _fantasy_get_decaying_slow_source_id(effect_index: int) -> String:
     return "decaying_slow_%s_%s_%s" % [player_index, effect_index, decaying_slow_enemy_when_below_hp_triggers[effect_index]]
 
 func fa_apply_decaying_slow_to_enemy(enemy: Enemy, source_id: String, slow_percent: float) -> void:
-    if !is_instance_valid(enemy) or enemy.dead:
-        return
+    if !is_instance_valid(enemy) or enemy.dead: return
 
     EnemySpeedModifierService.set_percent_modifier(enemy, source_id, slow_percent)
     if !_fantasy_decaying_slow_source_enemies.has(source_id):
