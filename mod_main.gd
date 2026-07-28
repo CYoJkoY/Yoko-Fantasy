@@ -161,9 +161,6 @@ func install_script_extensions() -> void:
         # EFFECTS: crit_overflow
         #          structure_scaling_stats
 
-        "weapon.gd",
-        # EFFECTS: cannot_attack_while_stationary
-
         "wave_manager.gd",
         # EFFECTS: extra_elites_next_wave
         #          extra_enemies_each_wave_by_stat
