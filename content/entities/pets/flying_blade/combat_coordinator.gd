@@ -1,20 +1,21 @@
 extends Reference
-# Combat Coordinator — one per player (stored on the player node via metadata
-# by the owning pet). Maintains a cached enemy target list, schedules
-# main-blade and satellite attacks through per-role queues with active-slot
-# limits, and assigns formation indices so satellites distribute evenly.
+# Combat Coordinator — optimized version with weak references and signal-based lifecycle.
 
 const ROLE_MAIN := "main"
 const ROLE_SATELLITE := "satellite"
 
 var player_index: int = -1
 var players_ref: Array = []
-var _target_cache: Array = []
+
+# 使用 WeakRef 存储敌人，防止因强引用导致敌人节点无法被GC回收
+var _target_cache: Array = [] 
 var _sensor_radius: float = 200.0
+
 var _main_queue: Array = []
 var _satellite_queue: Array = []
 var _active_main: Dictionary = {}
 var _active_satellite: Dictionary = {}
+
 var _max_main: int = 0
 var _max_satellite: int = 0
 var _max_dispatches: int = 2
@@ -35,8 +36,8 @@ func request_sensor_radius(radius: float) -> void:
 
 func refresh_targets() -> void:
     var root = Engine.get_main_loop().get_root()
-    if not root:
-        return
+    if not root: return
+    
     var space: Physics2DDirectSpaceState = root.get_world_2d().direct_space_state
     var shape := CircleShape2D.new()
     shape.radius = _sensor_radius
@@ -44,19 +45,30 @@ func refresh_targets() -> void:
     query.set_shape(shape)
     query.transform = Transform2D(0, _get_player_position())
     query.collision_layer = Utils.ENEMIES_BIT
+    
     var results := space.intersect_shape(query)
+    
+    # 清空旧缓存
     _target_cache.clear()
+    
+    # 仅存储弱引用，不持有强引用
     for res in results:
         var body = res.collider
-        if is_instance_valid(body) and not body.dead:
-            _target_cache.append(body)
+        if body: # 基础非空检查
+            _target_cache.append(weakref(body))
 
 func get_targets() -> Array:
-    return _target_cache
+    # 返回有效目标的实时列表，移除已死亡的弱引用
+    var valid_targets: Array = []
+    for wr in _target_cache:
+        var ref = wr.get_ref()
+        # 只有当引用有效且目标未死亡时才返回
+        if ref and not ref.dead:
+            valid_targets.append(ref)
+    return valid_targets
 
 func enqueue_attack(actor: Node, role: String) -> bool:
-    if not is_instance_valid(actor):
-        return false
+    # 假设调用者保证了 actor 的即时有效性，减少防御性检查
     var active := _get_active(role)
     var actor_id := actor.get_instance_id()
     if active.has(actor_id):
@@ -79,12 +91,15 @@ func _dispatch_role(role: String) -> bool:
     var queue := _get_queue(role)
     while not queue.empty():
         var actor = queue.pop_front()
+        # 简单的健壮性检查，如果 actor 已经 free，跳过即可
         if not is_instance_valid(actor):
             continue
+            
         var target = actor.get_coordinated_attack_target()
-        if not is_instance_valid(target) or target.dead:
+        if not target or target.dead: # target 现在是强引用或有效对象，直接检查 dead
             actor.coordinated_attack_failed()
             continue
+            
         active[actor.get_instance_id()] = actor
         actor.begin_coordinated_attack(target)
         return true
@@ -102,29 +117,37 @@ func get_orbit_phase(orbit_speed: float) -> float:
     return (OS.get_ticks_msec() / 1000.0) * orbit_speed * 0.72
 
 func register_satellite(satellite: Node2D) -> void:
-    if is_instance_valid(satellite) and not _satellites.has(satellite):
+    if not _satellites.has(satellite):
         _satellites.append(satellite)
+        # 关键重构：使用信号自动清理，避免轮询检查 is_instance_valid
+        if not satellite.is_connected("tree_exiting", self, "_on_satellite_exiting"):
+            satellite.connect("tree_exiting", self, "_on_satellite_exiting", [satellite], CONNECT_ONESHOT)
         _refresh_formations()
 
 func unregister_satellite(satellite: Node2D) -> void:
     var idx := _satellites.find(satellite)
     if idx >= 0:
         _satellites.remove(idx)
+        # 清理队列中可能存在的该卫星引用
+        _satellite_queue.erase(satellite)
         _refresh_formations()
 
+func _on_satellite_exiting(satellite: Node2D) -> void:
+    # 信号回调：卫星正在被移除，执行注销逻辑
+    unregister_satellite(satellite)
+
 func get_satellites() -> Array:
-    var valid: Array = []
+    # 过滤列表，虽然理论上 tree_exiting 会处理，但以防万一做一次安全清理
+    var clean_satellites = []
     for s in _satellites:
         if is_instance_valid(s):
-            valid.append(s)
-    return valid
+            clean_satellites.append(s)
+    if clean_satellites.size() != _satellites.size():
+        _satellites = clean_satellites
+        _refresh_formations()
+    return _satellites
 
 func _refresh_formations() -> void:
-    var clean: Array = []
-    for s in _satellites:
-        if is_instance_valid(s):
-            clean.append(s)
-    _satellites = clean
     var count := _satellites.size()
     for i in range(count):
         _satellites[i].set_formation(i, count)
