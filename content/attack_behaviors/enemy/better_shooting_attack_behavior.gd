@@ -4,7 +4,7 @@ export(int) var bullets_per_frame = 2
 
 var _shooting_cancelled: bool = false
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func reset() -> void:
     .reset()
     _shooting_cancelled = true

@@ -2,7 +2,7 @@ extends "res://entities/structures/turret/turret.gd"
 
 const TURRET_BASE_SPEED = 225
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     var menu_options = get_tree().current_scene._pause_menu._menu_options
     if !menu_options.is_connected("turret_highlighting_changed", self, "update_highlight"):
@@ -12,7 +12,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
     _fantasy_pursue_target(delta)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_pursue_target(delta: float) -> void:
     if !get_meta("can_pursue", true) or \
     _current_target.size() <= 0 or \

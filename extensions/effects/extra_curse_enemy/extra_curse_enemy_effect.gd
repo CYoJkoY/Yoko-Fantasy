@@ -1,6 +1,6 @@
 extends Effect
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
     return "fantasy_extra_curse_enemy"
 

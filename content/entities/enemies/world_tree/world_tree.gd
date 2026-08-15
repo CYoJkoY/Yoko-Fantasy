@@ -4,7 +4,7 @@ onready var _laser_shooting_attack_behavior: ShootingAttackBehavior = $"%LaserSh
 onready var COOLDOWN_0: float = _laser_shooting_attack_behavior.cooldown
 var current_cooldown_0: float = 0.0
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     _laser_shooting_attack_behavior.init(self )
     _laser_shooting_attack_behavior.max_range = int(ceil(ZoneService.get_current_zone_rect().size.length()))
@@ -21,7 +21,7 @@ func _physics_process(delta) -> void:
             current_cooldown_0 = COOLDOWN_0
             _laser_shooting_attack_behavior.shoot()
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _prewarm_laser_projectile() -> void:
     var main: Main = Utils.get_scene_node()
     var pool_id: int = _laser_shooting_attack_behavior.projectile_pool_id

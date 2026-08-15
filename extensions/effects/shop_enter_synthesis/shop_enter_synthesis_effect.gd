@@ -6,7 +6,7 @@ export(float) var pity_chance_step = 5.0
 export(Array, Array) var cursed_materials: Array = []
 var result_id_hash: int = Keys.empty_hash
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources := false) -> Resource:
     var duplication =.duplicate(subresources)
     if !materials.empty():

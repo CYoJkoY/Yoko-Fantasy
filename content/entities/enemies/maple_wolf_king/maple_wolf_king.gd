@@ -8,7 +8,7 @@ onready var charging_attack_behavior: ChargingAttackBehavior = $"ChargingAttackB
 onready var spawning_attack_behavior_twelve: SpawningAttackBehavior = $"%SpawningAttackBehaviorTwelve"
 onready var spawning_attack_behavior_five: SpawningAttackBehavior = $"%SpawningAttackBehaviorFive"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     shoot_anime_set(State.NORMAL)
     shoot_charmed_anime_set(State.NORMAL)
@@ -40,7 +40,7 @@ func is_playing_shoot_animation() -> bool:
     _animation_player.current_animation == "shoot_charmed" or \
     _animation_player.current_animation == "howling"
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func charging_start_shoot() -> void:
     charging_attack_behavior.start_shoot()
 
@@ -51,7 +51,7 @@ func die(args: = Utils.default_die_args) -> void:
     .die(args)
     _animation_player.stop()
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func switch_can_move(can_move: bool) -> void:
     _can_move = can_move
 

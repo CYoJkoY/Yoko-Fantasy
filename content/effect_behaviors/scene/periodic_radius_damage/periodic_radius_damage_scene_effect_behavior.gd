@@ -4,7 +4,7 @@ export(Resource) var periodic_radius_damage_player_effect_behavior_data
 
 var has_radius_damages: Array = []
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     var nb_players: int = RunData.get_player_count()
     has_radius_damages.resize(nb_players)
@@ -20,7 +20,7 @@ func _ready() -> void:
 
     var _err: int = _entity_spawner_ref.connect("players_spawned", self , "fa_on_EntitySpawner_players_spawned")
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_EntitySpawner_players_spawned(players: Array) -> void:
     for player in players:
         var player_radius_damages: Array = RunData.get_player_effect(Utils.fantasy_periodic_radius_damage_hash, player.player_index)

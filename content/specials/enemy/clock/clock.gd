@@ -19,7 +19,7 @@ var prediction_line: Line2D = null
 
 onready var main: Main = Utils.get_scene_node()
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     timer.wait_time = tick_time
     timer.start()
@@ -27,7 +27,7 @@ func _ready() -> void:
     global_position = ZoneService.get_map_center()
     if with_prediction: _fantasy_spawn_prediction_line()
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_change_tick(is_add: bool) -> void:
     var target_angle = rotation + (tick_angle if is_add else -tick_angle)
     tween.interpolate_property(

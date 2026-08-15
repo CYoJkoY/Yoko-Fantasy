@@ -2,12 +2,12 @@ extends MeleeWeapon
 
 var enemies_in_slow_area: Array = []
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _on_weapon_critically_hit_something(_thing_hit, _damage_dealt) -> void:
     ._on_weapon_critically_hit_something(_thing_hit, _damage_dealt)
     fa_slow_enemy_on_crit()
     
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_slow_enemy_on_crit() -> void:
     for enemy in enemies_in_slow_area: enemy.add_decaying_speed(-300)
 

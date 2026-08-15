@@ -40,7 +40,7 @@ onready var pulse_tween: Tween = $"PulseTween"
 onready var sprite: Sprite = $"%Sprite"
 onready var timer: Timer = $"Timer"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(parent: Player, base_range: int, range_rate: float, scaling_stats: Array, base_cooldown: int, base_damage: int, tracked_key: int, damage_color: Color, hit_visual_scene: PackedScene, can_light: bool) -> UnitEffectBehavior:
     _parent = parent
     _player_index = _parent.player_index
@@ -72,7 +72,7 @@ func _ready() -> void:
 func on_moved(_delta_position: Vector2) -> void:
     pass
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_start_aura_breath() -> void:
     aura_tween.stop_all()
     aura_tween.remove_all()

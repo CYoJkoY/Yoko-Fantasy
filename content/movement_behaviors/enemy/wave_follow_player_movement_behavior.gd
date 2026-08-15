@@ -5,7 +5,7 @@ export(float) var wave_amplitude = 1000.0
 
 var time: float = 0.0
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func get_movement() -> Vector2:
     time += _parent.get_physics_process_delta_time()
     var to_target: Vector2 = (get_target_position() - _parent.global_position).normalized()

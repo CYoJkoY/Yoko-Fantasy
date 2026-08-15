@@ -7,7 +7,7 @@ onready var maple_shoot_attack_behavior: Node2D = $MapleShootAttackBehavior
 onready var COOLDOWN: float = _charging_shoot_attack_behavior.cooldown
 var current_projectiles_cooldown: float = 0.0
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func respawn() -> void:
     .respawn()
     current_projectiles_cooldown = 0.0

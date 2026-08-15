@@ -2,7 +2,7 @@ extends "res://weapons/melee/melee_weapon.gd"
 
 var melee_shooting_cancelled: bool = true
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     WeaponService.fantasy_cannot_damage_tree(self)
 
@@ -37,7 +37,7 @@ func _on_weapon_critically_hit_something(_thing_hit, _damage_dealt) -> void:
     ._on_weapon_critically_hit_something(_thing_hit, _damage_dealt)
     WeaponService.fantasy_on_weapon_critically_hit(self)
 
-# =========================== Melee Only =========================== #
+# ══════════════════════════════════════════ Melee Only ══════════════════════════════════════════ #
 func _fantasy_projectiles_every_x_melee_shoot() -> void:
     for effect in effects:
         if effect.get_id() != "fantasy_projectiles_every_x_melee_shoot" or \

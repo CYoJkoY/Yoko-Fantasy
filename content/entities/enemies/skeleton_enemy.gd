@@ -3,7 +3,7 @@ extends Enemy
 onready var _parts_offset: Node2D = $Animation/Offset
 var _visual_parts_sync = VisualPartsSync.new()
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     _visual_parts_sync.setup(_parts_offset)
     _visual_parts_sync.sync (sprite.material)
@@ -28,6 +28,6 @@ func _set_outlines(alpha: float = 1.0, desaturation: float = 0.0) -> void:
     ._set_outlines(alpha, desaturation)
     _visual_parts_sync.sync (sprite.material)
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func switch_can_move(can_move: bool) -> void:
     _can_move = can_move

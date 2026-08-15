@@ -6,7 +6,7 @@ onready var mutation_2_shooting_attack_behavior: ShootingAttackBehavior = $"%Mut
 onready var COOLDOWN_0: float = mutation_2_shooting_attack_behavior.cooldown
 var current_cooldown_0: float = 0.0
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     mutation_2_shooting_attack_behavior.init(self )
 

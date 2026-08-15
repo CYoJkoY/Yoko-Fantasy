@@ -16,7 +16,7 @@ var evolve_count: int = 0
 
 onready var main: Main = Utils.get_scene_node()
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     if evolution_target_path: evolution_target = load(evolution_target_path)
 
@@ -24,7 +24,7 @@ func respawn() -> void:
     .respawn()
     evolve_count = 0
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_DetectionArea_body_entered(body: Enemy) -> void:
     if !body.is_connected("died", self, "fa_on_enemy_died"):
         body.connect("died", self, "fa_on_enemy_died")

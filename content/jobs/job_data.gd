@@ -4,7 +4,7 @@ enum Stage {S1, S2}
 
 export(Stage) var stage = Stage.S1
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func serialize() -> Dictionary:
     var serialized =.serialize()
     serialized.upgrade_id = upgrade_id

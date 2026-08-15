@@ -11,7 +11,7 @@ export(PackedScene) var hit_visual_scene = null
 var hit_visual_scene_hash: int = Keys.empty_hash
 export(bool) var can_light = true
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources := false) -> Resource:
 	var duplication =.duplicate(subresources)
 	if !scaling_stats.empty():

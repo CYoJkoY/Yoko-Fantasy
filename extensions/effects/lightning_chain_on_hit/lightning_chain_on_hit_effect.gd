@@ -14,7 +14,7 @@ export(float) var arc_crit_chance = 0.0
 export(float) var arc_crit_damage = 1.5
 export(PackedScene) var arc_scene = preload("res://mods-unpacked/Yoko-Fantasy/content/specials/player/lightning_arc/lightning_arc.tscn")
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources: bool = false) -> Resource:
     var duplication =.duplicate(subresources)
     if !damage_scaling_stats.empty():

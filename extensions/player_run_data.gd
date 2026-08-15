@@ -3,7 +3,7 @@ extends "res://singletons/player_run_data.gd"
 var jobs: Dictionary = {}
 var fantasy_synthesis_pity_data: Dictionary = {}
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(): # ! Avoid class problem
     var copy =.duplicate()
     copy.jobs = jobs.duplicate()

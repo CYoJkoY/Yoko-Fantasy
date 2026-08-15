@@ -3,7 +3,7 @@ extends DoubleValueEffect
 export(int) var stat_nb = 0
 export(int) var trigger_times = 1
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
 	return "fantasy_decaying_slow_enemy_when_below_hp"
 

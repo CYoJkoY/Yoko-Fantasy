@@ -2,7 +2,7 @@ extends "res://entities/units/pet/lootworm/lootworm.gd"
 
 onready var tree_area: Area2D = $"TreeArea2D"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     tree_area.collision_mask = Utils.NEUTRAL_BIT + Utils.ENEMIES_BIT
     if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, player_index):
@@ -16,7 +16,7 @@ func _on_TreeArea2D_body_exited(body):
     ._on_TreeArea2D_body_exited(body)
     _fantasy_on_plant_enemy_exited(body)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_on_plant_enemy_entered(body) -> void:
     if !(body is Enemy) or !Utils.plant_enemies_ids.has(body.enemy_id_hash): return
 

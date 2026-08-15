@@ -20,7 +20,7 @@ onready var _healing_collision: CollisionShape2D = $"%HealingCollision"
 onready var _healing_timer: Timer = $"%HealingTimer"
 onready var main: Main = Utils.get_scene_node()
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     _visual_parts_sync.setup(_parts_offset)
     _visual_parts_sync.sync (sprite.material)
@@ -105,7 +105,7 @@ func _set_outlines(alpha: float = 1.0, desaturation: float = 0.0) -> void:
     ._set_outlines(alpha, desaturation)
     _visual_parts_sync.sync (sprite.material)
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_HealingZone_body_entered(body: Node) -> void:
     if !dead and !(body is Structure) and body.current_stats.health < body.max_stats.health:
         entities_in_zone.append(body)

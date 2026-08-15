@@ -31,7 +31,7 @@ var _job_elements_hovered: Array = [null, null, null, null]
 var _job_elements_focused: Array = [null, null, null, null]
 var job_tab_buts: Array = [null, null, null, null]
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _input(event: InputEvent) -> void:
     if self.visible and event.is_action_pressed("ui_cancel"):
         _fantasy_close_menu()

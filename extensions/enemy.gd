@@ -1,6 +1,6 @@
 extends "res://entities/units/enemies/enemy.gd"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
     _fantasy_extra_curse_enemy()
@@ -42,7 +42,7 @@ func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := t
 
     return dmg_value_result
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_holy_reduce_health() -> void:
     var holy_stat: int = int(Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash))
     if holy_stat <= 0: return
@@ -132,7 +132,7 @@ func _fantasy_cannot_damage_tree(hitbox: Area2D) -> void:
     var player_index: int = hitbox.from.player_index
     if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, player_index): hitbox.ignored_objects.append(self )
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_apply_stat_to_both(target_stat: int, value: int) -> void:
     match target_stat:
         Utils.FANTASY_ENEMY_HP:

@@ -1,12 +1,12 @@
 extends "res://singletons/linked_stats.gd"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func reset_player(player_index: int) -> void:
     .reset_player(player_index)
     _fantasy_apply_cirt_overflow_stat(player_index)
 
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_apply_cirt_overflow_stat(player_index: int) -> void:
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_crit_overflow_stat_hash, player_index)
     if effect_items.empty(): return

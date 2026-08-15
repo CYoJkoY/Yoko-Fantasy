@@ -10,7 +10,7 @@ var time: float = 0.0
 var _actual: int
 var _distance_from_player: Vector2
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(parent: Node) -> Node:
     var _init =.init(parent)
     _actual = range_around_player + rand_range(-range_randomization, range_randomization)

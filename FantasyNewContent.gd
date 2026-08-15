@@ -6,7 +6,7 @@ const MAX_LUCK_BONUS: float = 2.0
 export(Array, Resource) var jobs = []
 export(Resource) var soul_data
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func add_custom_resources() -> void:
     .add_custom_resources()
     add_if_not_null(ItemService.jobs, jobs)

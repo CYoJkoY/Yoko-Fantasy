@@ -21,7 +21,7 @@ var is_eroded: bool = false
 onready var erosion_particles: CPUParticles2D = $"ErosionParticles"
 onready var timer: Timer = $"Timer"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     var main: Node = Utils.get_scene_node()
     floating_text_manager = main._floating_text_manager
@@ -73,7 +73,7 @@ func on_hurt(hitbox: Hitbox) -> void:
         var source_id: int = effect.source_id_hash
         fa_try_add_erosion(from_player_index, base_damage, scaling_stats, chance, times, cd, crit_chance, crit_damage, source_id)
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats: Array, chance: float, times: int, cd: float, crit_chance: float, crit_damage: float, source_id: int) -> void:
         if !Utils.get_chance_success(chance): return
 

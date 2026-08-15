@@ -9,7 +9,7 @@ var teleport_points: Array = []
 var teleport_point_index: int = 0
 var time: float = 0.0
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     teleport_point_index = Utils.randi_range(0, teleport_points.size() - 1)
 
@@ -23,7 +23,7 @@ func get_movement() -> Vector2:
     emit_signal("teleport_point_reached")
     return Vector2.ZERO
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_get_teleport_point():
     var target_position: Vector2 = Vector2.ZERO
     if order_teleport:

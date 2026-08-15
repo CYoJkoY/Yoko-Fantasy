@@ -15,7 +15,7 @@ var custom_sprite_material: ShaderMaterial = null
 
 onready var main: Main = Utils.get_scene_node()
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     reset()
     if is_instance_valid(slow_field_scene): slow_field_pool_id = Keys.generate_hash(slow_field_scene.resource_path)
@@ -52,7 +52,7 @@ func shoot() -> void:
         SpawnPosition.Self: slow_field.drop(global_position, slow_field_duration)
         SpawnPosition.Random: slow_field.drop(ZoneService.get_rand_pos(), slow_field_duration)
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_DurationTimer_timeout(slow_field: Area2D) -> void:
     if slow_field.already_recycle: return
 

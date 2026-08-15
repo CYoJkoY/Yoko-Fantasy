@@ -4,7 +4,7 @@ export(String) var set_id = ""
 var set_id_hash: int = Keys.empty_hash
 export(int) var need_num = 1
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources:=false) -> Resource:
     var duplication =.duplicate(subresources)
 

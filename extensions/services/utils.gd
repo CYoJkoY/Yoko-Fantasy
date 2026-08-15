@@ -197,7 +197,7 @@ func fa_get_menu_focused_control(some_control: Control, player_index: int, root:
 var icon_fantasy_job_to_process_hash: int = Keys.generate_hash("icon_fantasy_job_to_process")
 var icon_fantasy_princess_limited_hash = Keys.generate_hash("icon_fantasy_princess_limited")
 
-# =========================== Synthesis Pity =========================== #
+# ══════════════════════════════════════════ Synthesis Pity ══════════════════════════════════════════ #
 func fa_get_synthesis_pity_id(materials: Array, result_id_hash: int) -> String:
 	var material_keys: Array = []
 	for material in materials:
@@ -231,7 +231,7 @@ func fa_get_synthesis_pity_bonus_chance(pity_id: String, pity_chance_step: float
 	var fail_count: int = pity_data.get(pity_id, 0)
 	return fail_count * pity_chance_step
 
-# =========================== Soul =========================== #
+# ══════════════════════════════════════════ Soul ══════════════════════════════════════════ #
 func fa_spawn_soul(num: int, pos: Vector2, spread: int) -> void:
 	var main: Main = get_scene_node()
 	for _i in range(num):

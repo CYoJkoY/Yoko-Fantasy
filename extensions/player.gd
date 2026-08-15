@@ -17,7 +17,7 @@ const FANTASY_CLOCK_TOWER_HAT_PATH: String = "res://mods-unpacked/Yoko-Fantasy/c
 const FANTASY_CLOCK_TOWER_HAT_TWEEN_TIME: float = 0.35
 const FANTASY_CLOCK_TOWER_HAT_IN_AREA_EFFECT: float = 1.0
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     _fantasy_decaying_slow_enemy_when_below_hp_ready()
     _fantasy_is_clock_tower_guardian_character = _fantasy_is_clock_tower_guardian()
@@ -63,7 +63,7 @@ func on_room_cleanup() -> void:
     _fantasy_clear_soul_effects()
     .on_room_cleanup()
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_damage_clamp(result: Unit.GetDamageValueResult) -> Unit.GetDamageValueResult:
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_damage_clamp_hash, player_index)
     for effect in effect_items:
@@ -370,7 +370,7 @@ func _fantasy_lose_hp_per_second_stop_threshold() -> bool:
 
     return true
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_soul_effect(damage_to_add: int, speed_to_add: int) -> void:
     var soul_effect: Dictionary = {
         "damage": damage_to_add,

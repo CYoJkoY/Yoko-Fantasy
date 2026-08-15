@@ -3,7 +3,7 @@ extends Effect
 export(int) var need_times: int = 4
 export(float) var speed: float = 300.0
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
 	return "fantasy_dance"
 

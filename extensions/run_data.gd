@@ -6,7 +6,7 @@ var fantasy_resumed_from_state_in_shop: bool = false
 var fantasy_pending_job_selections: Array = [[], [], [], []]
 const FANTASY_JOB_UI_LEVEL_BASE: int = -200000
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func reset(restart: bool = false) -> void:
     .reset(restart)
     fantasy_resumed_from_state_in_shop = false
@@ -26,7 +26,7 @@ func update_item_related_effects(player_index: int) -> void:
     _fantasy_update_limited_item_bonuses(player_index)
     .update_item_related_effects(player_index)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_add_weapon_sets(player_index: int) -> void:
     var set_effects: Array = get_player_effect(Utils.fantasy_add_weapon_set_hash, player_index)
     if set_effects.empty(): return
@@ -109,7 +109,7 @@ func _fantasy_update_limited_item_bonuses(player_index: int) -> void:
         old_limited_unique_item_bonuses[stat] = old_limited_unique_item_bonuses.get(stat, 0) + bonus
         effects[stat] += bonus
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_add_job(job: UpgradeData, player_index: int) -> void:
     var job_slot: int = fa_get_next_job_slot(job.stage, player_index)
     if job_slot == -1: return

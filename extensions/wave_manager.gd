@@ -2,13 +2,13 @@ extends "res://zones/wave_manager.gd"
 
 const EXTRA_ENEMIES_GROUP_DATA = preload("res://mods-unpacked/Yoko-Fantasy/extensions/effects/extra_enemies_each_wave_by_stat/extra_enemies_each_wave_by_stat_group.tres")
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(p_wave_timer: Timer, zone_data: ZoneData, wave_data: Resource) -> void:
     _fantasy_extra_elites_next_wave()
     .init(p_wave_timer, zone_data, wave_data)
     _fantasy_extra_enemies_each_wave_by_stat(wave_data)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_extra_elites_next_wave():
     for player_index in range(RunData.get_player_count()):
         var effects: Dictionary = RunData.get_player_effects(player_index)

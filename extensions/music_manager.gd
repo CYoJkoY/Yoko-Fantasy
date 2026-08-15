@@ -3,7 +3,7 @@ extends "res://singletons/music_manager.gd"
 var fa_override_stream: AudioStream = null
 var fa_override_active: bool = false
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func on_track_finished() -> void:
     if fa_override_active:
         fa_clear_override()

@@ -1,6 +1,6 @@
 extends NullEffect
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
 	return "fantasy_soul_effect"
 

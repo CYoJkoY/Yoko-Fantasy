@@ -3,7 +3,7 @@ extends NullEffect
 export(int) var projectiles_per_frame = 3
 export(Resource) var projectile_stats = null
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
     return "fantasy_projectiles_every_x_melee_shoot"
 

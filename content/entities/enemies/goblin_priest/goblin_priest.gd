@@ -7,7 +7,7 @@ export(float) var heal_increase_each_wave = 5.0
 export(float) var player_heal = 0.5
 export(float) var player_heal_increase_each_wave = 0.25
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready():
     entities_in_zone = [[], []]
 

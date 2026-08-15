@@ -27,7 +27,7 @@ var _child_rotation_change_after_each_rad: float = 0.0
 var main: Main = null
 var entity_spawner: EntitySpawner = null
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     if child_projectile != null:
         child_projectile_pool_id = Keys.generate_hash(child_projectile.resource_path)

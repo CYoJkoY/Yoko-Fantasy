@@ -3,7 +3,7 @@ extends DoubleValueEffect
 export(Resource) var enemy_data = null
 export(String) var enemy_name_key = ""
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
     return "fantasy_extra_enemies_each_wave_by_stat"
 

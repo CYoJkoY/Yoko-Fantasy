@@ -4,7 +4,7 @@ enum WeaponTier {I, II, III, IV}
 
 export(WeaponTier) var tier = WeaponTier.I
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
     return "fantasy_scrap_weapons_for_items"
 

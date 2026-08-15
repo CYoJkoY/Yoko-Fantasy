@@ -22,7 +22,7 @@ var dance_speed: float = 300.0
 onready var timer: Timer = $"Timer"
 onready var main: Main = Utils.get_scene_node()
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     _previous_sprite_rotation = _parent.sprite.rotation_degrees
 
@@ -112,7 +112,7 @@ func on_hurt(hitbox: Hitbox) -> void:
 func on_death(_die_args: Entity.DieArgs) -> void:
     if is_active: fa_cleanup()
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_start_dance(dance: ActiveDance) -> void:
     is_active = true
     dance.stacks -= 1

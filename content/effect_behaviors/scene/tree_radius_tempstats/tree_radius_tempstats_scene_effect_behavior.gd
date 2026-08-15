@@ -4,7 +4,7 @@ export(Resource) var tree_radius_tempstats_neutral_effect_behavior_data
 
 var tempstats: Array = []
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     var nb_players: int = RunData.get_player_count()
     tempstats.resize(nb_players)
@@ -22,7 +22,7 @@ func _ready() -> void:
     var _err: int = _entity_spawner_ref.connect("neutral_respawned", self , "fa_on_EntitySpawner_neutral_respawned")
     _err = _entity_spawner_ref.connect("enemy_respawned", self , "fa_on_EntitySpawner_neutral_respawned")
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_EntitySpawner_neutral_respawned(neutral: Unit) -> void:
     if !(Utils.ncl_get_validate_node_name(neutral.name) == "Tree" or \
          neutral.get("enemy_id_hash") in Utils.plant_enemies_ids): return

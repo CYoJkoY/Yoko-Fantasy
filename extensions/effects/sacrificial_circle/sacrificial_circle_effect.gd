@@ -7,7 +7,7 @@ export(String) var consumable_id = "consumable_fantasy_soul"
 var consumable_id_hash: int = Keys.empty_hash
 export(int) var consumable_num = 1
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources := false) -> Resource:
     var duplication =.duplicate(subresources)
 

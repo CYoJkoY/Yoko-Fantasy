@@ -3,7 +3,7 @@ extends Effect
 export(String) var set_id = ""
 var set_id_hash: int = Keys.empty_hash
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources := false) -> Resource:
     var duplication = .duplicate(subresources)
 

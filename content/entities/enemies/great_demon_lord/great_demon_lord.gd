@@ -20,7 +20,7 @@ var _mutation_2_slash_shoot_token: int = 0
 onready var _parts_offset: Node2D = $Animation/Offset
 var _visual_parts_sync = VisualPartsSync.new()
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     _visual_parts_sync.setup(_parts_offset)
     _visual_parts_sync.sync (sprite.material)
@@ -99,14 +99,14 @@ func on_state_changed(_new_state: int) -> void:
         shoot_animation_name = "shoot_stand"
         reset_speed_stat(50)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func mutation_2_slash_shoot(token: int) -> void:
     for i in range(3):
         if dead or token != _mutation_2_slash_shoot_token or !is_inside_tree(): return
         _crescent_shooting_attack_behavior_2.shoot()
         if i < 2: yield (get_tree().create_timer(0.2), "timeout")
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func switch_can_move(can_move: bool) -> void:
     _can_move = can_move
 

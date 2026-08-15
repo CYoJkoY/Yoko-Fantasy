@@ -5,7 +5,7 @@ onready var minute_clock = $"MinuteClock"
 
 var minutes: int = 0
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_get_bullets() -> Array:
     var bullets: Array = []
     bullets.append_array(hour_clock.get_children())
@@ -17,7 +17,7 @@ func _fantasy_get_all_top_positions(is_hour: bool) -> Array:
     if is_hour: return hour_clock._fantasy_get_all_top_positions()
     else: return minute_clock._fantasy_get_all_top_positions()
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_remove_prediction_line() -> void:
     if is_instance_valid(minute_clock.prediction_line):
         minute_clock.prediction_line.queue_free()

@@ -5,7 +5,7 @@ export(String) var tracked_key = ""
 var tracked_key_hash: int = Keys.empty_hash
 export(Color) var damage_color = Color("#F5D35E")
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources := false) -> Resource:
     var duplication =.duplicate(subresources)
     if !scaling_stats.empty():

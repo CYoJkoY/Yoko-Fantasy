@@ -4,7 +4,7 @@ export(int) var piercing_times = 99
 
 onready var remaining_piercing_times = piercing_times
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _on_Hitbox_hit_something(_thing_hit: Node, _damage_dealt: int) -> void:
     remaining_piercing_times -= 1
 

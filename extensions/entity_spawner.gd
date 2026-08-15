@@ -19,7 +19,7 @@ var _fantasy_clock_tower_starting_offsets: Array = [
     Vector2(-158, -90), # ↖
 ]
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     var _err: int = connect("enemy_respawned", self , "fa_add_plant_enemy_on_enemy_respawned")
 
@@ -50,7 +50,7 @@ func spawn_entity_birth(
 
     .spawn_entity_birth(type, scene, pos, data, player_index, source, charmed_by)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_get_clock_tower_structure_pos(player_index: int, fallback_pos: Vector2) -> Vector2:
     var clock_tower_areas: Array = RunData.get_player_effect(Utils.fantasy_clock_tower_area_hash, player_index)
     if clock_tower_areas.empty():
@@ -145,7 +145,7 @@ func _fantasy_cursed_kill_healing(args: Entity.DieArgs) -> void:
         RunData.emit_signal("healing_effect", cursed_kill_healing[0], player_index, Keys.empty_hash)
         RunData.ncl_add_effect_tracking_value(cursed_kill_healing[1], cursed_kill_healing[0], player_index)
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_add_plant_enemy_on_enemy_respawned(enemy: Enemy) -> void:
     if !Utils.plant_enemies_ids.has(enemy.enemy_id_hash): return
 

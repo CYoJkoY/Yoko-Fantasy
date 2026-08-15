@@ -9,7 +9,7 @@ onready var _slime_trail_attack_behavior: AttackBehavior = $"SlimeTrailAttackBeh
 onready var COOLDOWN1: float = _slime_trail_attack_behavior.cooldown
 var current_slime_trail_cooldown_1: float = 0.0
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func respawn() -> void:
     .respawn()
     current_projectiles_cooldown_0 = INITIAL_COOLDOWN0

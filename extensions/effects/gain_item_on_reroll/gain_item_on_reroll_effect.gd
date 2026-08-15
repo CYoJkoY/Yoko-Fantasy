@@ -4,7 +4,7 @@ export(String) var item_id = ""
 var item_id_hash: int = Keys.empty_hash
 export(String) var sound_path = ""
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources := false) -> Resource:
     var duplication = .duplicate(subresources)
 

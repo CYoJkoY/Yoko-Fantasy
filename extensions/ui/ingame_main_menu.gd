@@ -6,7 +6,7 @@ const BUTTON_SHOW_JOB = preload("res://mods-unpacked/Yoko-Fantasy/extensions/job
 onready var h_container: HBoxContainer = _items_container.get_node("HBoxContainer")
 onready var sort_inventory_but: SortInventoryButton = h_container.get_node("Sort_Inventory_button")
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     _fantasy_job_button_display()
 
@@ -18,7 +18,7 @@ func _on_OptionsButton_pressed() -> void:
 
     emit_signal("options_button_pressed")
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_job_button_display() -> void:
     var ButtonShowJobInstance: Node = BUTTON_SHOW_JOB.instance()
     var before_sort_index: int = sort_inventory_but.get_index()

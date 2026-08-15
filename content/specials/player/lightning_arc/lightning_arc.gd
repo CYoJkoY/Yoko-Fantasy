@@ -14,7 +14,7 @@ onready var line: Line2D = $"Line"
 onready var glow_line: Line2D = $"GlowLine"
 onready var duration_timer: Timer = $"Timer"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     reset()
 
@@ -105,7 +105,7 @@ func _process(_delta: float) -> void:
     if time_left > 0: modulate.a = time_left / duration
     else: modulate.a = 0.0
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_update_chain_arc(enemies: Array) -> void:
     var points = PoolVector2Array()
 
@@ -163,7 +163,7 @@ func _fantasy_subdivide_lightning(
     points.append(mid)
     _fantasy_subdivide_lightning(points, mid, p2, depth - 1, roughness * 0.5)
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_DurationTimerTimeout() -> void:
     Utils.get_scene_node().add_node_to_pool(get_meta("pool_id"))
     reset()

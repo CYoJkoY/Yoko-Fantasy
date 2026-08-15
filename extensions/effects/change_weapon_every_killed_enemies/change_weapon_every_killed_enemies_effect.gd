@@ -1,6 +1,6 @@
 extends NullEffect
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
     return "fantasy_change_weapon_every_killed_enemies"
 

@@ -9,7 +9,7 @@ export(float) var crit_damage = 1.5
 export(String) var source_id = ""
 var source_id_hash: int = Keys.empty_hash
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources := false) -> Resource:
     var duplication =.duplicate(subresources)
     if !scaling_stats.empty():

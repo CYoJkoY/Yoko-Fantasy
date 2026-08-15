@@ -2,7 +2,7 @@ extends "res://ui/menus/ingame/upgrades_ui.gd"
 
 signal fantasy_jobs_processed
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     if RunData.is_coop_run != is_coop_ui:
         return
@@ -14,11 +14,11 @@ func _ready() -> void:
         if !player_container.is_connected("fantasy_job_skipped", self, "_fantasy_on_job_skipped"):
             player_container.connect("fantasy_job_skipped", self, "_fantasy_on_job_skipped")
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func show_fantasy_job_options() -> bool:
     return _fantasy_show_next_job_options()
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_show_next_job_options() -> bool:
     for player_index in RunData.get_player_count():
         var player_container = _get_player_container(player_index)

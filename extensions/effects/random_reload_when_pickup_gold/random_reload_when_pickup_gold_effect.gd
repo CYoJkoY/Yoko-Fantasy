@@ -1,6 +1,6 @@
 extends Effect
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
     return "fantasy_random_reload_when_pickup_gold"
 

@@ -9,7 +9,7 @@ export(float) var teleport_offset = 400.0
 
 var time: float = 0.0
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func get_movement() -> Vector2:
     time += _parent.get_physics_process_delta_time()
     var target_position: Vector2 = get_target_position()

@@ -2,7 +2,7 @@ extends PetEffect
 
 export(Resource) var weapon_stats
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
     return "fantasy_melee_pet"
 

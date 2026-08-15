@@ -5,7 +5,7 @@ export(int) var stat_nb = 1
 var stat_hash: int = Keys.empty_hash
 export(bool) var is_temp = true
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources := false) -> Resource:
     var duplication =.duplicate(subresources)
 

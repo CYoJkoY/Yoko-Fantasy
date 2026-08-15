@@ -14,7 +14,7 @@ var _pool_id: int = Keys.empty_hash
 onready var sprite: Sprite = $"Sprite"
 onready var tween: Tween = $"Tween"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func play(at_position: Vector2, main_node: Node = null, pool_id: int = Keys.empty_hash, visual_scale: float = 1.0) -> void:
     if sprite.texture == null: return
 
@@ -56,7 +56,7 @@ func play(at_position: Vector2, main_node: Node = null, pool_id: int = Keys.empt
 
     tween.start()
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_Tween_tween_all_completed() -> void:
     visible = false
     _main.add_node_to_pool(self , _pool_id)

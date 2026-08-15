@@ -3,7 +3,7 @@ extends "res://singletons/item_service.gd"
 var jobs: Array = []
 var jobs_by_stage: Dictionary = {0: [], 1: []}
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
 	_fantasy_get_jobs_by_stage()
 
@@ -31,7 +31,7 @@ func _get_rand_item_for_wave(wave: int, player_index: int, type: int, args: GetR
 
 	return item
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_extra_curse_item(item: ItemParentData, player_index: int) -> ItemParentData:
 	if item.is_cursed: return item
 
@@ -108,7 +108,7 @@ func _fantasy_can_spawn_erosion_related_item(item: ItemParentData, wave: int, pl
 
 	return item
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_get_jobs(stage: int, number: int = Utils.LARGE_NUMBER, way: int = Keys.empty_hash) -> Array:
 	var source = jobs_by_stage.get(stage, [])
 	var candidates = source

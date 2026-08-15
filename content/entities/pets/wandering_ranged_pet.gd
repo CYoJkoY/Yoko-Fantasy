@@ -21,7 +21,7 @@ var _next_proj_rotation = 0
 var _players: Array = []
 var _angle: float = rand_range(0, TAU)
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
     _players = p_players_ref
@@ -102,7 +102,7 @@ func shoot() -> void:
     _cooldown = _current_weapon_stats.cooldown
     _is_shooting = false
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
     if anim_name == "shoot" and !dead:
         _cooldown = _current_weapon_stats.cooldown

@@ -21,7 +21,7 @@ var _shooting_cancelled: bool = false
 
 onready var main: Main = Utils.get_scene_node()
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     if prediction_line_scene: prediction_line_pool_id = Keys.generate_hash(prediction_line_scene.resource_path)
 
@@ -83,7 +83,7 @@ func shoot() -> void:
     _shooting_cancelled = false
     _fantasy_distribute_shots(target_pos, base_randomization, base_pos, rand_rot)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_distribute_shots(target_pos: Vector2, base_randomization: float, base_pos: float, rand_rot: float) -> void:
     var speed: int = 0
     var bullets_this_frame = 0
@@ -150,7 +150,7 @@ func _fantasy_spawn_prediction_line(rot: float, pos: Vector2, spd: int) -> void:
 
     prediction_line.draw_prediction(prediction_line_duration)
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_DurationTimer_timeout(prediction_line: Line2D) -> void:
     if prediction_line.already_recycle: return
 

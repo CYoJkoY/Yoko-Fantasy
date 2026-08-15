@@ -1,6 +1,6 @@
 extends "res://ui/menus/shop/base_shop.gd"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     if !RunData.fantasy_resumed_from_state_in_shop:
         _fantasy_shop_enter_synthesis()
@@ -30,7 +30,7 @@ func _on_RerollButton_pressed(player_index: int) -> void:
     ._on_RerollButton_pressed(player_index)
     _fantasy_gain_item_on_reroll(player_index)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_gain_item_on_reroll(player_index: int) -> void:
     for effect in RunData.get_player_effect(Utils.fantasy_gain_item_on_reroll_hash, player_index):
         var chance: int = effect[0]
@@ -533,7 +533,7 @@ func _fantasy_scrap_specific_tier_weapons_for_items() -> void:
             player_gear_container.set_weapons_data(RunData.get_player_weapons(player_index))
             player_gear_container.set_items_data(RunData.get_player_items(player_index))
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_special_upgrade(weapon: WeaponData) -> Array:
     for effect in weapon.effects:
         if effect.get_id() != "fantasy_change_weapon_every_killed_enemies": continue

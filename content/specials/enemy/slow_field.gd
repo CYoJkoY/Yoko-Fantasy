@@ -11,7 +11,7 @@ var already_recycle: bool = false
 var reduction: float = 0.5
 var affected_units: Array = []
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     reset()
 
@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
         idle_time_after_pushed_back -= Utils.physics_one(delta)
     else: set_physics_process(false)
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_DurationTimerTimeout() -> void:
     emit_signal("duration_timeout")
     reset()

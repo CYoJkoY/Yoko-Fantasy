@@ -80,7 +80,7 @@ func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
     projectile.shoot()
     return projectile
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _has_live_shooting_context() -> bool:
     return is_instance_valid(_parent) and \
     !_parent.dead and \

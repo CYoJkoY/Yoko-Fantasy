@@ -1,6 +1,6 @@
 extends "res://entities/units/enemies/attack_behaviors/charging_attack_behavior.gd"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(parent: Node) -> Node:
     .init(parent)
     if !_parent.is_connected("died", self , "_fantasy_on_parent_died"):
@@ -17,7 +17,7 @@ func reset() -> void:
     .reset()
     _fantasy_restore_parent_state()
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_on_parent_died(_entity, _die_args) -> void:
     if is_instance_valid(_unlock_move_timer):
         _unlock_move_timer.stop()

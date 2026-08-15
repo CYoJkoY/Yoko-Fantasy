@@ -1,6 +1,6 @@
 extends "res://entities/units/target_behavior/lootworm_target_behavior.gd"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(parent: Node) -> Node:
     .init(parent)
     var _error: int = _entity_spawner.connect("enemy_spawned", self , "fa_on_plant_enemy_spawned")
@@ -19,7 +19,7 @@ func on_neutral_spawned(entity: Entity):
     if fa_cleanup_previous_plant_enemy_target(): return
     .on_neutral_spawned(entity)
 
-# =========================== Custom =========================== #    
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #    
 func _fantasy_update_target_plant_enemy() -> bool:
     if RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index): return false
 
@@ -59,7 +59,7 @@ func _fantasy_update_cannot_damage_tree() -> bool:
     fa_update_target_gold()
     return true
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_cleanup_previous_plant_enemy_target() -> bool:
     if !(_parent.current_target is Enemy) or !Utils.plant_enemies_ids.has(_parent.current_target.enemy_id_hash): return false
     

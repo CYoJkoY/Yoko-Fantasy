@@ -6,7 +6,7 @@ export(LineType) var line_type = LineType.AREA
 export(int) var base_range = 350
 export(int) var range_rate = 65
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
     return "fantasy_clock_tower_area"
 

@@ -2,7 +2,7 @@ extends Boss
 
 onready var _mage_circle_attack_behavior: Node2D = $"%MageCircleAttackBehavior"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     _mage_circle_attack_behavior.init(self )
 
@@ -14,7 +14,7 @@ func shoot() -> void:
 
     for _i in range(3): _mage_circle_attack_behavior.shoot()
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_change_state(boss: Boss) -> void:
     if dead: return
 

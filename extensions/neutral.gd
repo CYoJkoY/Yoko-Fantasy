@@ -1,11 +1,11 @@
 extends "res://entities/units/neutral/neutral.gd"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _on_Hurtbox_area_entered(hitbox: Area2D) -> void:
     _fantasy_cannot_damage_tree(hitbox)
     ._on_Hurtbox_area_entered(hitbox)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_cannot_damage_tree(hitbox: Area2D) -> void:
     if !is_instance_valid(hitbox) or \
     !is_instance_valid(hitbox.from) or \

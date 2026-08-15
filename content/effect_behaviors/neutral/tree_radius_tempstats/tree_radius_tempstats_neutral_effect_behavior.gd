@@ -7,7 +7,7 @@ var player_indexes: Array = []
 
 onready var collision: CollisionShape2D = $"%Collision"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(tree: Unit, stat: int, stat_num: int, _radius: int, _range_rate: float, player_index: int) -> UnitEffectBehavior:
     _parent = tree
     tempstats.append([stat, stat_num])
@@ -28,7 +28,7 @@ func on_burned(_burning_data: BurningData, _from_player_index: int) -> void:
 func update_target() -> void:
 	pass
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_add_temp_stat(stat: int, stat_num: int, player_index: int) -> void:
     tempstats.append([stat, stat_num])
     player_indexes.append(player_index)

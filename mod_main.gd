@@ -11,7 +11,7 @@ var entity_dir: String = ""
 var enemy_dir: String = ""
 var pet_dir: String = ""
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _init() -> void:
     dir = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR
     ext_dir = dir + "extensions/"
@@ -27,7 +27,7 @@ func _init() -> void:
     # Add Extensions
     install_script_extensions()
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func install_script_classes() -> void:
     var classes: Array = [
         # Services

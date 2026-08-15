@@ -1,6 +1,6 @@
 extends Reference
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func apply(
 	original_item: ItemParentData,
 	cursed_item: ItemParentData,
@@ -16,7 +16,7 @@ func apply(
 
 	return _fantasy_curse_item(original_item, cursed_item, player_index, turn_randomization_off, min_modifier, dlc_1_data)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_curse_item(
     _original_item: ItemParentData,
 	cursed_item: ItemParentData,
@@ -97,7 +97,7 @@ func _fantasy_curse_item(
 	new_item_data.effects = new_effects
 	return new_item_data
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func has_effect_fantasy(effects: Array) -> bool:
 	for effect in effects:
 		if !is_effect_fantasy(effect):

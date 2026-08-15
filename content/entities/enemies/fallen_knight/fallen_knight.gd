@@ -5,7 +5,7 @@ var mutation_0_attack_mode: int = 0
 
 onready var triangel_attack_behavior: ShootingAttackBehavior = $"%TriangleAttackBehavior"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     mutation_0_attack_behavior_2.init(self )
     triangel_attack_behavior.init(self )

@@ -34,7 +34,7 @@ onready var pulse_sprite: Sprite = $"PulseSprite"
 onready var pulse_tween: Tween = $"%PulseTween"
 onready var collision: CollisionShape2D = $"Collision"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(_main: Main, _player_index: int, _pos: Vector2, sacrificial_circle: Array) -> Area2D:
     main = _main
     player_index = _player_index
@@ -82,7 +82,7 @@ func _process(_delta: float) -> void:
     var scale_factor: float = fog_viewport.fog_sprite.scale.x
     fog_light.global_position = (pos - fog_viewport.camera.global_position) / scale_factor + (fog_viewport.size / 2)
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_start_breath() -> void:
     breath_tween.stop_all()
     breath_tween.remove_all()
@@ -184,7 +184,7 @@ func _fantasy_reward() -> void:
 
     pulse_tween.connect("tween_all_completed", self , "fa_on_PulseTween_tween_all_completed", [pulse_alpha, pulse_target_scale])
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_SacrificialCircle_body_entered(body: Node) -> void:
     if !is_instance_valid(body) or body.dead: return
 

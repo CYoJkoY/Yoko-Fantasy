@@ -5,7 +5,7 @@ export(String, FILE, "*.tscn") var die_to_spawn_path = ""
 var die_to_spawn: PackedScene = null
 export(int) var nb_spawns_on_death = 4
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
 	if die_to_spawn_path != "": die_to_spawn = load(die_to_spawn_path)
 

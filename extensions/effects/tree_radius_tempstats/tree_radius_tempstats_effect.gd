@@ -3,7 +3,7 @@ extends Effect
 export(int) var radius = 200
 export(float) var range_rate = 0.05
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
     return "fantasy_tree_radius_tempstats"
 

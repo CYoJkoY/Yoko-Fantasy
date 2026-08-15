@@ -2,7 +2,7 @@ extends ShootingAttackBehavior
 
 onready var main: Main = Utils.get_scene_node()
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
 	if !_has_live_shooting_context(): return null
 

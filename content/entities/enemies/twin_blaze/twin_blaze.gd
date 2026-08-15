@@ -6,7 +6,7 @@ onready var _spread_shooting_attack_behavior2: ShootingAttackBehavior = $"%Sprea
 var _attack_times: int = 0
 var _can_attack: bool = false
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     _spread_shooting_attack_behavior.init(self )
     _spread_shooting_attack_behavior2.init(self )
@@ -45,7 +45,7 @@ func _physics_process(delta) -> void:
         _can_attack = false
         _spread_shooting_attack_behavior2.shoot()
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_change_state(boss: Boss) -> void:
     if dead: return
 

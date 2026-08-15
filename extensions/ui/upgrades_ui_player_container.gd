@@ -10,7 +10,7 @@ var _fantasy_showing_job_selection: bool = false
 var _fantasy_job_ui_level: int = 0
 var _fantasy_focused_job_option: UpgradeUI = null
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     for upgrade_ui in _get_upgrade_uis():
         if !upgrade_ui.button.is_connected("focus_entered", self, "_fantasy_on_job_option_focused"):
@@ -34,7 +34,7 @@ func _on_choose_button_pressed(upgrade: UpgradeData) -> void:
 
     ._on_choose_button_pressed(upgrade)
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func show_fantasy_job_selection(job_selection: Array) -> void:
     _fantasy_hide_checkmark_group()
     _fantasy_showing_job_selection = true
@@ -62,7 +62,7 @@ func show_fantasy_job_selection(job_selection: Array) -> void:
     _items_container.hide()
     _upgrades_container.show()
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_choose_job(job_data: UpgradeData) -> void:
     if _button_pressed: return
 

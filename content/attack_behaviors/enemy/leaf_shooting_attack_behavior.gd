@@ -18,7 +18,7 @@ var active_projectiles: Array = []
 
 onready var main: Main = Utils.get_scene_node()
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func reset() -> void:
     _time_passed = 0.0
     active_projectiles.clear()

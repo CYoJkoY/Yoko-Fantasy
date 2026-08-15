@@ -17,7 +17,7 @@ var _cooldown: float = 0.0
 var _is_shooting: bool = false
 var _next_proj_rotation = 0
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
     _damage_tracking_id_hash = Keys.generate_hash(damage_tracking_id)
@@ -90,7 +90,7 @@ func shoot() -> void:
     _cooldown = _current_weapon_stats.cooldown
     _is_shooting = false
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func _spawn_projectile(position: Vector2) -> void:
     for _i in range(_current_weapon_stats.nb_projectiles):
         var spread: float = _current_weapon_stats.projectile_spread

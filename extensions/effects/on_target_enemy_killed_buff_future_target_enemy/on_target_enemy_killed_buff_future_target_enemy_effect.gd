@@ -13,7 +13,7 @@ export(EnemyFutureStats) var future_stat = EnemyFutureStats.HP
 export(String) var tracking_key = ""
 var tracking_key_hash: int = Keys.empty_hash
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(subresources := false) -> Resource:
     var duplication =.duplicate(subresources)
     

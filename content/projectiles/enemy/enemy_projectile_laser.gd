@@ -10,7 +10,7 @@ onready var content_sprite: Sprite = $LaserVisuals/Contents/Content
 onready var line: Node2D = $LaserVisuals/Line
 onready var line_sprite: Sprite = $LaserVisuals/Line/line
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     ._ready()
 

@@ -1,6 +1,6 @@
 extends DoubleValueEffect
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
     return "fantasy_limited_item_bonuses"
 

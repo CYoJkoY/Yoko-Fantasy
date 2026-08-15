@@ -9,7 +9,7 @@ var _current_target: Vector2 = Vector2.ZERO
 var _cooldown: float = 0.0
 var _is_teleporting: bool = false
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func get_movement() -> Vector2:
     _cooldown -= _parent.get_physics_process_delta_time()
     
@@ -19,7 +19,7 @@ func get_movement() -> Vector2:
 
     return Vector2.ZERO
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_trigger_teleport():
     _is_teleporting = true
     _cooldown = teleport_cooldown

@@ -7,7 +7,7 @@ var cooldown_0 = 0.0
 
 var pivots: Node2D = null
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _physics_process(delta: float) -> void:
     if dead: return
 

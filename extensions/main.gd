@@ -7,7 +7,7 @@ var FaTimers: Array = []
 var summoned_twins: Array = []
 var cursed_enemies: Array = []
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     call("ncl_register_end_wave_hook", FANTASY_END_WAVE_BEFORE_REWARDS, self, "_fantasy_process_job_options", 100)
     call("ncl_register_end_wave_hook", FANTASY_END_WAVE_BEFORE_END_RUN_SCENE, self, "_fantasy_before_end_run_scene", 100)
@@ -55,7 +55,7 @@ func clean_up_room() -> void:
     .clean_up_room()
     _fantasy_clear_living_cursed_enemy()
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_process_job_options() -> void:
     if RunData.is_coop_run:
         _hud.hide()
@@ -264,7 +264,7 @@ func _fantasy_clock_tower_area(players: Array) -> void:
             var center_pos: Vector2 = ZoneService.get_map_center()
             _materials_container.add_child(clock_tower_area_node.init(self , player_index, center_pos, total_range, base_range, range_rate))
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_time_bonus_current_health_damage(bonus: float, player_index: int, tracking_key_hash: int) -> void:
     var enemies: Array = _entity_spawner.get_all_enemies(false)
     for enemy in enemies:

@@ -1,6 +1,6 @@
 extends "res://singletons/weapon_service.gd"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init_base_stats(from_stats: WeaponStats, player_index: int, args: WeaponServiceInitStatsArgs = _init_stats_args_service, is_structure:=false, is_special_spawn:=false, is_pet:=false) -> WeaponStats:
     var base_stats: WeaponStats =.init_base_stats(from_stats, player_index, args, is_structure, is_special_spawn, is_pet)
     base_stats.crit_damage = _fantasy_add_crit_damage(base_stats.crit_damage, player_index)
@@ -28,7 +28,7 @@ func init_structure_pet_stats(from_stats: RangedWeaponStats, player_index: int, 
     structure_pet_stats.cooldown = apply_attack_speed_mod_to_cooldown(structure_pet_stats.cooldown, Utils.get_stat(Utils.stat_fantasy_pet_attack_speed_hash, player_index) / 100.0)
     return structure_pet_stats
 
-# =========================== Custom =========================== #
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_add_crit_damage(crit_damage: float, player_index: int) -> float:
     crit_damage += Utils.get_stat(Utils.stat_fantasy_crit_damage_hash, player_index) / 100.0
     return crit_damage
@@ -62,7 +62,7 @@ func _fantasy_apply_structure_scaling_stat_effects(scaling_stats: Array, player_
             new_scaling_stats.append([scaling_stat_hash, scaling_stat_value])
     return new_scaling_stats
 
-# =========================== Weapon Runtime Effects =========================== #
+# ══════════════════════════════════════════ Weapon Runtime Effects ══════════════════════════════════════════ #
 func fantasy_reset_weapon_cooldown(weapon: Node) -> void:
     weapon._current_cooldown = 0
     weapon.tween_animation.remove(weapon.sprite, "self_modulate")

@@ -6,7 +6,7 @@ var already_recycle: bool = false
 
 onready var duration_timer: Timer = $"Timer"
 
-# =========================== Extension =========================== #
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     reset()
 
@@ -25,7 +25,7 @@ func draw_prediction(duration: float = 0.0) -> void:
     material.set_shader_param("line_color", default_color)
     show()
 
-# =========================== Method =========================== #
+# ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_DurationTimerTimeout() -> void:
     emit_signal("duration_timeout")
     reset()
