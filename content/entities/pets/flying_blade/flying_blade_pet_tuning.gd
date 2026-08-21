@@ -68,3 +68,11 @@ export(float) var target_follow_through_weight = 0.08
 export(int) var max_active_main_attacks = 0
 export(int) var max_active_satellite_attacks = 0
 export(int) var max_attack_dispatches_per_tick = 2
+
+# Visual budgets never change combat concurrency or hitbox processing.
+export(int) var full_visual_count = 4
+export(int) var reduced_visual_count = 8
+export(int) var minimal_visual_count = 16
+export(int) var crowded_reduced_visual_slots = 3
+export(int) var crowded_minimal_visual_slots = 3
+export(int) var satellite_idle_visible_count = 8

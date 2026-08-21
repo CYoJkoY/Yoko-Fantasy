@@ -10,6 +10,7 @@ const MotionStreakVisual = preload("res://mods-unpacked/Yoko-Fantasy/content/ent
 const PierceStreakVisual = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/pierce_streak_visual.gd")
 const GuardBladeOrbitVisual = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/guard_blade_orbit_visual.gd")
 const FlyingBladeMotion = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/motion_math.gd")
+const FlyingBladeCombatCoordinator = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/combat_coordinator.gd")
 const FORMATION_OVERLAP_SLOTS = 8
 const COMBAT_ROLE = "satellite"
 
@@ -134,6 +135,7 @@ func reset() -> void:
     if _orbit_visual != null:
         _orbit_visual.hide_visual()
     visible = true
+    _body.visible = _is_idle_body_visible()
 
 func shutdown() -> void:
     _unregister_from_coordinator()
@@ -146,7 +148,8 @@ func _physics_process(delta: float) -> void:
         visible = false
         return
 
-    visible = true
+    visible = _state != SatelliteState.ORBIT or _is_idle_body_visible()
+    _enforce_visual_budget()
     var ticks: float = Utils.physics_one(delta)
     _cooldown -= ticks
     _state_ticks += ticks
@@ -201,9 +204,14 @@ func _process_attack(delta: float) -> void:
         _attack_hitbox_armed = true
         _enable_hitbox()
     var redraw_visual: bool = _should_redraw_attack_visual()
-    _update_attack_trail(redraw_visual)
-    if redraw_visual:
+    if _uses_motion_visual():
+        _update_attack_trail(redraw_visual)
+    else:
+        _motion_streak_visual.hide_visual()
+    if redraw_visual and _uses_pierce_visual():
         _update_attack_pierce(raw_progress)
+    elif !_uses_pierce_visual():
+        _pierce_streak_visual.hide_visual()
 
     if _state_ticks >= attack_ticks:
         _begin_return()
@@ -219,7 +227,10 @@ func _process_return(delta: float) -> void:
     var direction: Vector2 = previous_position.direction_to(global_position)
     if direction.length_squared() > 0.1:
         _face_direction(direction)
-    _update_attack_trail(_should_redraw_attack_visual())
+    if _uses_motion_visual():
+        _update_attack_trail(_should_redraw_attack_visual())
+    else:
+        _motion_streak_visual.hide_visual()
     if global_position.distance_squared_to(_return_end) <= 100.0 * 100.0:
         _apply_orbit_body_visual(delta)
     else:
@@ -236,6 +247,7 @@ func _begin_attack(target: Node2D) -> void:
     if _attack_slot_active and is_instance_valid(combat_coordinator):
         combat_coordinator.claim_target(self, target, COMBAT_ROLE)
     _state = SatelliteState.ATTACK
+    visible = true
     _state_ticks = 0.0
     _trail_points.clear()
     var target_position: Vector2 = target.global_position
@@ -469,7 +481,7 @@ func _get_scan_offset() -> float:
 func _should_redraw_attack_visual() -> bool:
     if !is_instance_valid(combat_coordinator):
         return true
-    return combat_coordinator.should_redraw_attack_visual(self)
+    return combat_coordinator.should_redraw_attack_visual(self, FlyingBladeCombatCoordinator.ROLE_SATELLITE)
 
 func _is_target_valid(target: Node) -> bool:
     if !is_instance_valid(target):
@@ -490,6 +502,29 @@ func _get_player_position() -> Vector2:
     if is_instance_valid(owner_pet):
         return owner_pet.global_position
     return global_position
+
+func _get_actor_visual_level() -> int:
+    if !is_instance_valid(combat_coordinator):
+        return FlyingBladeCombatCoordinator.VISUAL_FULL
+    return combat_coordinator.get_actor_visual_level(self, FlyingBladeCombatCoordinator.ROLE_SATELLITE)
+
+func _uses_motion_visual() -> bool:
+    return _get_actor_visual_level() <= FlyingBladeCombatCoordinator.VISUAL_REDUCED
+
+func _uses_pierce_visual() -> bool:
+    return _get_actor_visual_level() <= FlyingBladeCombatCoordinator.VISUAL_MINIMAL
+
+func _is_idle_body_visible() -> bool:
+    if !is_instance_valid(combat_coordinator):
+        return true
+    return combat_coordinator.is_satellite_idle_body_visible(self)
+
+func _enforce_visual_budget() -> void:
+    var visual_level: int = _get_actor_visual_level()
+    if visual_level > FlyingBladeCombatCoordinator.VISUAL_REDUCED:
+        _motion_streak_visual.hide_visual()
+    if visual_level >= FlyingBladeCombatCoordinator.VISUAL_ESSENTIAL:
+        _pierce_streak_visual.hide_visual()
 
 func _calculate_orbit_visual() -> void:
     var distinct_count: int = _formation_count
@@ -564,11 +599,11 @@ func _update_attack_trail(redraw: bool = true) -> void:
     var attack_secondary_color: Color = Color(trail_secondary_color.r * 0.76, trail_secondary_color.g * 0.84, trail_secondary_color.b, min(0.20, trail_secondary_color.a * 1.35))
     var attack_core_color: Color = Color(trail_core_color.r * 0.82, trail_core_color.g * 0.88, trail_core_color.b, min(0.28, trail_core_color.a * 1.08))
     var speed_ratio: float = clamp(_velocity.length() / max(260.0, orbit_radius * 8.0), 0.34, 1.0)
-    _motion_streak_visual.configure(_trail_local_points, attack_trail_color, attack_secondary_color, attack_core_color, trail_width * 1.18, trail_aura_width * 1.22, trail_core_width, 0.82 + speed_ratio * 0.24)
+    _motion_streak_visual.configure(_trail_local_points, attack_trail_color, attack_secondary_color, attack_core_color, trail_width * 1.18, trail_aura_width * 1.22, trail_core_width, 0.82 + speed_ratio * 0.24, _get_actor_visual_level())
 
 func _update_attack_pierce(progress: float) -> void:
     var visibility: float = 0.48 + sin(progress * PI) * 0.34
-    _pierce_streak_visual.configure(to_local(_attack_start), to_local(_attack_end), FlyingBladeMotion.to_local_direction(self, _attack_direction), progress, visibility, max(9.0, hitbox_width * 0.58), max(15.0, hitbox_width * 1.04), trail_core_width, trail_color, trail_secondary_color, trail_core_color, _state_ticks, _orbit_phase)
+    _pierce_streak_visual.configure(to_local(_attack_start), to_local(_attack_end), FlyingBladeMotion.to_local_direction(self, _attack_direction), progress, visibility, max(9.0, hitbox_width * 0.58), max(15.0, hitbox_width * 1.04), trail_core_width, trail_color, trail_secondary_color, trail_core_color, _state_ticks, _orbit_phase, _get_actor_visual_level())
 
 func _fade_attack_visuals(delta: float) -> void:
     if _state == SatelliteState.ORBIT:
@@ -594,7 +629,7 @@ func _update_orbit_ring_visual() -> void:
     ring_secondary_color.a *= alpha_scale * 0.58
     ring_core_color.a *= alpha_scale * 0.42
     _orbit_visual.global_position = _get_player_position() + Vector2(0.0, -2.0)
-    _orbit_visual.configure(_orbit_visual_radius, orbit_y_scale, _orbit_visual_phase, ring_color, ring_secondary_color, ring_core_color, max(2.0, guard_orbit_segment_width * 0.55))
+    _orbit_visual.configure(_orbit_visual_radius, orbit_y_scale, _orbit_visual_phase, ring_color, ring_secondary_color, ring_core_color, max(2.0, guard_orbit_segment_width * 0.55), _get_actor_visual_level())
 
 func _hide_orbit_ring_visual() -> void:
     if is_instance_valid(_orbit_visual):
@@ -621,7 +656,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, _damage_dealt: int) -> void:
     RunData.manage_life_steal(weapon_stats, player_index)
     if !_hitbox.ignored_objects.has(thing_hit):
         _hitbox.ignored_objects.push_back(thing_hit)
-    if is_instance_valid(_vfx_pool) and thing_hit is Node2D:
+    if is_instance_valid(_vfx_pool) and thing_hit is Node2D and _get_actor_visual_level() < FlyingBladeCombatCoordinator.VISUAL_ESSENTIAL:
         var direction: Vector2 = _attack_direction
         if direction.length_squared() <= 0.1:
             direction = Vector2.RIGHT

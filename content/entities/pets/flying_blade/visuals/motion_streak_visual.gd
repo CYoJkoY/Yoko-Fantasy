@@ -8,8 +8,9 @@ var _trail_width: float = 4.0
 var _aura_width: float = 10.0
 var _core_width: float = 1.0
 var _intensity: float = 0.0
+var _quality: int = 0
 
-func configure(points: Array, trail_color: Color, secondary_color: Color, core_color: Color, trail_width: float, aura_width: float, core_width: float, intensity: float) -> void:
+func configure(points: Array, trail_color: Color, secondary_color: Color, core_color: Color, trail_width: float, aura_width: float, core_width: float, intensity: float, quality: int = 0) -> void:
     _points.clear()
     for point in points:
         _points.append(point)
@@ -20,6 +21,7 @@ func configure(points: Array, trail_color: Color, secondary_color: Color, core_c
     _aura_width = aura_width
     _core_width = core_width
     _intensity = clamp(intensity, 0.0, 1.35)
+    _quality = quality
     visible = _points.size() >= 2 and _intensity > 0.02
     update()
 
@@ -55,13 +57,13 @@ func _draw() -> void:
         var aura_width: float = max(1.0, _aura_width * (0.16 + head_softness * 1.04))
         var body_width: float = max(1.0, _trail_width * (0.22 + head_softness * 1.12))
         var core_width: float = max(1.0, _core_width * (0.45 + head_softness * 0.62))
-        if shadow_color.a > 0.01:
+        if _quality == 0 and shadow_color.a > 0.01:
             draw_line(start, end, shadow_color, aura_width * 1.22, true)
-        if aura_color.a > 0.01:
+        if _quality <= 1 and aura_color.a > 0.01:
             draw_line(start, end, aura_color, aura_width, true)
         if body_color.a > 0.01:
             draw_line(start, end, body_color, body_width, true)
-        if core_color.a > 0.01 and i >= segment_count - 2:
+        if _quality == 0 and core_color.a > 0.01 and i >= segment_count - 2:
             draw_line(start, end, core_color, core_width, true)
-        if i == segment_count - 1 and aura_color.a > 0.01:
+        if _quality == 0 and i == segment_count - 1 and aura_color.a > 0.01:
             draw_circle(end, max(1.0, body_width * 0.42), Color(body_color.r, body_color.g, body_color.b, body_color.a * 0.72))

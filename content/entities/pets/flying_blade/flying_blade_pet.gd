@@ -70,6 +70,12 @@ var target_follow_through_weight: float
 var max_active_main_attacks: int
 var max_active_satellite_attacks: int
 var max_attack_dispatches_per_tick: int
+var full_visual_count: int
+var reduced_visual_count: int
+var minimal_visual_count: int
+var crowded_reduced_visual_slots: int
+var crowded_minimal_visual_slots: int
+var satellite_idle_visible_count: int
 
 onready var _body: Sprite = $Animation/Offset/Body
 onready var _shadow: Sprite = $Animation/Offset/Shadow
@@ -212,6 +218,7 @@ func _physics_process(delta: float) -> void:
 
     if !is_instance_valid(_combat_coordinator):
         _setup_combat_coordinator()
+    _enforce_visual_budget()
     var ticks: float = Utils.physics_one(delta)
     _cooldown -= ticks
     _target_refresh -= ticks
@@ -276,7 +283,10 @@ func _process_aim(delta: float) -> void:
         _attack_direction = (_aim_end - _aim_start).normalized()
     _face_direction(_attack_direction, 0.58)
     _set_shadow_visible(true)
-    _update_motion_trail(_should_redraw_attack_visual())
+    if _uses_motion_visual():
+        _update_motion_trail(_should_redraw_attack_visual())
+    else:
+        _motion_streak_visual.hide_visual()
 
     if _state_ticks >= aim_ticks or global_position.distance_squared_to(_aim_end) <= 22.0 * 22.0:
         _begin_windup()
@@ -301,9 +311,9 @@ func _process_windup(delta: float) -> void:
     _face_direction(_attack_direction, 0.62)
     _animation.scale = Vector2(1.0 + pulse * 0.07 + pull_progress * 0.06, 1.0 - pulse * 0.04)
     var redraw_visual: bool = _should_redraw_attack_visual()
-    if raw_progress > 0.32:
+    if raw_progress > 0.32 and _uses_motion_visual():
         _update_motion_trail(redraw_visual)
-    if redraw_visual:
+    if redraw_visual and _uses_slash_visual():
         _update_slash_visuals()
 
     if _state_ticks >= windup_ticks:
@@ -330,7 +340,10 @@ func _process_slash(delta: float) -> void:
 
 func _process_chain(delta: float) -> void:
     _disable_attack_hitbox()
-    _fade_attack_visuals(delta)
+    if _uses_slash_visual():
+        _fade_attack_visuals(delta)
+    else:
+        _hide_attack_visuals()
     _emit_attack_fragment(1.0)
     _emit_blade_afterimage()
 
@@ -363,8 +376,14 @@ func _process_return(delta: float) -> void:
     _velocity = (next_position - global_position) / max(delta, 0.001)
     global_position = FlyingBladeMotion.clamp_to_zone(next_position)
     _face_direction(_velocity, 0.44)
-    _update_motion_trail(_should_redraw_attack_visual())
-    _slash_ribbon_visual.fade(delta)
+    if _uses_motion_visual():
+        _update_motion_trail(_should_redraw_attack_visual())
+    else:
+        _motion_streak_visual.hide_visual()
+    if _uses_slash_visual():
+        _slash_ribbon_visual.fade(delta)
+    else:
+        _slash_ribbon_visual.hide_visual()
     _set_shadow_visible(false)
 
     if progress >= 1.0 or global_position.distance_squared_to(_return_end) <= 24.0 * 24.0:
@@ -395,7 +414,7 @@ func _begin_aim(target: Node2D, chaining: bool) -> void:
     if _attack_slot_active and is_instance_valid(_combat_coordinator):
         _combat_coordinator.claim_target(self, target, FlyingBladeCombatCoordinator.ROLE_MAIN)
     _last_afterimage_position = Vector2.ZERO
-    _enable_motion_trail(true)
+    _enable_motion_trail(_uses_motion_visual())
     _hide_slash_visuals()
     _disable_attack_hitbox()
     _set_shadow_visible(true)
@@ -570,6 +589,7 @@ func _setup_combat_coordinator() -> void:
         return
     if is_instance_valid(_combat_coordinator):
         _combat_coordinator.configure_attack_limits(max_active_main_attacks, max_active_satellite_attacks, max_attack_dispatches_per_tick)
+        _combat_coordinator.configure_visual_budgets(full_visual_count, reduced_visual_count, minimal_visual_count, crowded_reduced_visual_slots, crowded_minimal_visual_slots, satellite_idle_visible_count)
         _combat_coordinator.register_main(self, _get_target_sensor_radius())
         _vfx_pool = _combat_coordinator.get_vfx_pool()
         return
@@ -586,6 +606,7 @@ func _setup_combat_coordinator() -> void:
         parent.add_child(_combat_coordinator)
         _combat_coordinator.setup(player_index, players_ref, _get_target_sensor_radius())
     _combat_coordinator.configure_attack_limits(max_active_main_attacks, max_active_satellite_attacks, max_attack_dispatches_per_tick)
+    _combat_coordinator.configure_visual_budgets(full_visual_count, reduced_visual_count, minimal_visual_count, crowded_reduced_visual_slots, crowded_minimal_visual_slots, satellite_idle_visible_count)
     _combat_coordinator.register_main(self, _get_target_sensor_radius())
     _vfx_pool = _combat_coordinator.get_vfx_pool()
 
@@ -651,6 +672,12 @@ func _apply_tuning() -> void:
     max_active_main_attacks = tuning.max_active_main_attacks
     max_active_satellite_attacks = tuning.max_active_satellite_attacks
     max_attack_dispatches_per_tick = tuning.max_attack_dispatches_per_tick
+    full_visual_count = tuning.full_visual_count
+    reduced_visual_count = tuning.reduced_visual_count
+    minimal_visual_count = tuning.minimal_visual_count
+    crowded_reduced_visual_slots = tuning.crowded_reduced_visual_slots
+    crowded_minimal_visual_slots = tuning.crowded_minimal_visual_slots
+    satellite_idle_visible_count = tuning.satellite_idle_visible_count
 
 func _apply_weapon_stats_to_hitbox() -> void:
     _current_weapon_stats.burning_data.from = self
@@ -757,10 +784,25 @@ func _get_initial_target_refresh() -> float:
         return rand_range(0.0, max(1.0, target_refresh_ticks))
     return _combat_coordinator.get_actor_scan_offset(self, target_refresh_ticks)
 
-func _get_visual_lod() -> int:
+func _get_actor_visual_level() -> int:
     if !is_instance_valid(_combat_coordinator):
-        return 0
-    return _combat_coordinator.get_visual_lod()
+        return FlyingBladeCombatCoordinator.VISUAL_FULL
+    return _combat_coordinator.get_actor_visual_level(self, FlyingBladeCombatCoordinator.ROLE_MAIN)
+
+func _uses_motion_visual() -> bool:
+    return _get_actor_visual_level() <= FlyingBladeCombatCoordinator.VISUAL_REDUCED
+
+func _uses_slash_visual() -> bool:
+    return _get_actor_visual_level() <= FlyingBladeCombatCoordinator.VISUAL_MINIMAL
+
+func _enforce_visual_budget() -> void:
+    var visual_level: int = _get_actor_visual_level()
+    if visual_level > FlyingBladeCombatCoordinator.VISUAL_REDUCED:
+        _motion_streak_visual.hide_visual()
+        for wisp in _trail_wisps:
+            wisp.visible = false
+    if visual_level >= FlyingBladeCombatCoordinator.VISUAL_ESSENTIAL:
+        _slash_ribbon_visual.hide_visual()
 
 func _should_redraw_attack_visual() -> bool:
     if !is_instance_valid(_combat_coordinator):
@@ -851,9 +893,16 @@ func _hide_slash_visuals() -> void:
 
 func _update_attack_visuals(redraw: bool) -> void:
     _attack_visuals_active = true
-    _update_motion_trail(redraw)
-    if redraw:
+    if _uses_motion_visual():
+        _update_motion_trail(redraw)
+    else:
+        _motion_streak_visual.hide_visual()
+        for wisp in _trail_wisps:
+            wisp.visible = false
+    if redraw and _uses_slash_visual():
         _update_slash_visuals()
+    elif !_uses_slash_visual():
+        _slash_ribbon_visual.hide_visual()
 
 func _fade_attack_visuals(delta: float) -> void:
     var any_trail_visible: bool = false
@@ -872,6 +921,9 @@ func _fade_attack_visuals(delta: float) -> void:
     _attack_visuals_active = any_trail_visible or slash_visible
 
 func _update_motion_trail(redraw: bool = true) -> void:
+    if !_uses_motion_visual():
+        _motion_streak_visual.hide_visual()
+        return
     var sample_position: Vector2 = _body.global_position
     if _trail_points.empty() or _trail_points[_trail_points.size() - 1].distance_squared_to(sample_position) >= trail_sample_min_distance * trail_sample_min_distance:
         _trail_points.append(sample_position)
@@ -888,7 +940,8 @@ func _update_motion_trail(redraw: bool = true) -> void:
     var core_color: Color = trail_core_color
     if _state == BladeState.WINDUP or _state == BladeState.SLASH:
         core_color.a = 0.0
-    _motion_streak_visual.configure(_trail_local_points, trail_color, trail_secondary_color, core_color, trail_width, trail_aura_width, trail_core_width, intensity)
+    var visual_level: int = _get_actor_visual_level()
+    _motion_streak_visual.configure(_trail_local_points, trail_color, trail_secondary_color, core_color, trail_width, trail_aura_width, trail_core_width, intensity, visual_level)
 
     var rotation: float = _animation.global_rotation
     var trail_volume: float = clamp(trail_width / 6.4, 0.55, 1.50)
@@ -896,6 +949,9 @@ func _update_motion_trail(redraw: bool = true) -> void:
     var core_bias: float = clamp(trail_core_width / 1.7, 0.55, 1.60)
     for i in range(_trail_wisps.size()):
         var wisp: Sprite = _trail_wisps[i]
+        if visual_level != FlyingBladeCombatCoordinator.VISUAL_FULL:
+            wisp.visible = false
+            continue
         if i >= _trail_points.size():
             wisp.visible = false
             continue
@@ -924,17 +980,19 @@ func _update_slash_visuals() -> void:
         progress = FlyingBladeMotion.ease_out_cubic(slash_progress)
         visibility = 0.34 + sin(slash_progress * PI) * 0.52
 
-    _slash_ribbon_visual.configure(to_local(_attack_start), to_local(_attack_control), to_local(_attack_end), FlyingBladeMotion.to_local_direction(self, _attack_direction), _curve_side, progress, _state == BladeState.WINDUP, visibility, slash_width, slash_color, _state_ticks, _guard_phase)
+    _slash_ribbon_visual.configure(to_local(_attack_start), to_local(_attack_control), to_local(_attack_end), FlyingBladeMotion.to_local_direction(self, _attack_direction), _curve_side, progress, _state == BladeState.WINDUP, visibility, slash_width, slash_color, _state_ticks, _guard_phase, _get_actor_visual_level())
 
 func _emit_attack_fragment(extra_ticks: float) -> void:
     if !is_instance_valid(_vfx_pool) or _attack_fragment_tick > 0.0:
         return
-    if _get_visual_lod() >= 2 and extra_ticks > 0.0:
+    var visual_level: int = _get_actor_visual_level()
+    if visual_level != FlyingBladeCombatCoordinator.VISUAL_FULL:
         return
 
     _attack_fragment_tick = max(0.25, attack_fragment_interval_ticks - extra_ticks * 0.20)
     _spawn_attack_fragment(false)
-    _spawn_attack_fragment(true)
+    if visual_level == FlyingBladeCombatCoordinator.VISUAL_FULL:
+        _spawn_attack_fragment(true)
 
 func _spawn_attack_fragment(secondary: bool) -> void:
     var cursor: int = _attack_fragment_cursor
@@ -968,7 +1026,8 @@ func _spawn_attack_fragment(secondary: bool) -> void:
 func _emit_blade_afterimage() -> void:
     if !is_instance_valid(_vfx_pool):
         return
-    if _get_visual_lod() >= 2 and _chain_count <= 1:
+    var visual_level: int = _get_actor_visual_level()
+    if visual_level != FlyingBladeCombatCoordinator.VISUAL_FULL:
         return
     var current_position: Vector2 = _body.global_position
     if _last_afterimage_position != Vector2.ZERO and _last_afterimage_position.distance_squared_to(current_position) < blade_afterimage_min_distance * blade_afterimage_min_distance:
@@ -979,6 +1038,9 @@ func _emit_blade_afterimage() -> void:
 
 func _show_hit_flash(hit_position: Vector2) -> void:
     if !is_instance_valid(_vfx_pool):
+        return
+    var visual_level: int = _get_actor_visual_level()
+    if visual_level >= FlyingBladeCombatCoordinator.VISUAL_ESSENTIAL:
         return
     var direction: Vector2 = _attack_direction
     if direction.length_squared() <= 0.1:

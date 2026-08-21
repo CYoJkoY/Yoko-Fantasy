@@ -14,21 +14,21 @@ var _left_aura: Array = []
 var _right_aura: Array = []
 var _left_body: Array = []
 var _right_body: Array = []
+var _quality: int = 0
 
-func configure(start: Vector2, control: Vector2, end: Vector2, fallback_direction: Vector2, curve_side: float, progress: float, windup: bool, visibility: float, slash_width: float, slash_color: Color, ticks: float, phase: float) -> void:
+func configure(start: Vector2, control: Vector2, end: Vector2, fallback_direction: Vector2, curve_side: float, progress: float, windup: bool, visibility: float, slash_width: float, slash_color: Color, ticks: float, phase: float, quality: int = 0) -> void:
+    _quality = quality
     var head_pct: float = clamp(0.24 + progress * 0.84, 0.18, 1.0)
     var tail_pct: float = clamp(head_pct - (0.50 + progress * 0.12), 0.0, 0.78)
     if windup:
         head_pct = 0.46
         tail_pct = 0.08
-
     var flash: float = 0.88 + sin(phase * 8.0 + ticks * 1.7) * 0.12
     var volume: float = clamp(slash_width / 12.0, 0.70, 1.55)
     _left_aura.clear()
     _right_aura.clear()
     _left_body.clear()
     _right_body.clear()
-
     for i in range(SEGMENTS):
         var local_pct: float = float(i) / float(max(SEGMENTS - 1, 1))
         var path_pct: float = lerp(tail_pct, head_pct, local_pct)
@@ -39,7 +39,6 @@ func configure(start: Vector2, control: Vector2, end: Vector2, fallback_directio
         if tangent.length_squared() <= 0.1:
             tangent = Vector2.RIGHT
         tangent = tangent.normalized()
-
         var side: Vector2 = Vector2(-tangent.y, tangent.x) * curve_side
         var head_weight: float = FlyingBladeMotion.ease_out_cubic(local_pct)
         var tail_weight: float = clamp(local_pct * 3.2, 0.0, 1.0)
@@ -50,7 +49,6 @@ func configure(start: Vector2, control: Vector2, end: Vector2, fallback_directio
         var center: Vector2 = point + side * slash_width * (0.12 + mass * 0.26 + ripple * 0.12) + forward
         var aura_half: float = slash_width * (0.42 + mass * 1.25 + ripple) * volume
         var body_half: float = slash_width * (0.18 + mass * 0.92 + ripple * 0.55) * volume
-
         _left_aura.append(center + side * aura_half)
         _right_aura.push_front(center - side * aura_half * (0.48 + head_weight * 0.10))
         _left_body.append(center + side * body_half)
@@ -58,7 +56,6 @@ func configure(start: Vector2, control: Vector2, end: Vector2, fallback_directio
         if i == SEGMENTS - 1:
             _head_position = center + side * body_half * 0.08
             _head_radius = max(2.0, body_half * 0.50)
-
     _aura_polygon.resize(_left_aura.size() + _right_aura.size())
     _body_polygon.resize(_left_body.size() + _right_body.size())
     var point_index: int = 0
@@ -97,9 +94,9 @@ func hide_visual() -> void:
     visible = false
 
 func _draw() -> void:
-    if _aura_polygon.size() >= 3 and _aura_color.a > 0.0:
+    if _quality <= 1 and _aura_polygon.size() >= 3 and _aura_color.a > 0.0:
         draw_colored_polygon(_aura_polygon, _aura_color)
     if _body_polygon.size() >= 3 and _body_color.a > 0.0:
         draw_colored_polygon(_body_polygon, _body_color)
-    if _head_radius > 0.0 and _head_color.a > 0.0:
+    if _quality == 0 and _head_radius > 0.0 and _head_color.a > 0.0:
         draw_circle(_head_position, _head_radius, _head_color)
