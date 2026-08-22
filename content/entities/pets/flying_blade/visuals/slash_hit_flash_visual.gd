@@ -1,63 +1,64 @@
 extends Node2D
 
-var _points: PoolVector2Array = PoolVector2Array()
-var _inner_points: PoolVector2Array = PoolVector2Array()
-var _color: Color = Color.white
-var _inner_color: Color = Color.white
+const TEXTURE_STAR_GLINT = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/textures/star_glint_4pt.png")
+
+var _material: CanvasItemMaterial = null
+var _sprite_glint: Sprite = null
+
 var _base_color: Color = Color.white
 var _age: float = 0.0
-var _lifetime: float = 0.08
+var _lifetime: float = 0.10
 var _radius: float = 20.0
 
+func _init() -> void:
+	_material = CanvasItemMaterial.new()
+	_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	material = _material
+
+	_sprite_glint = Sprite.new()
+	_sprite_glint.name = "CenterGlint"
+	_sprite_glint.texture = TEXTURE_STAR_GLINT
+	_sprite_glint.material = _material
+	_sprite_glint.centered = true
+	_sprite_glint.z_as_relative = false
+	_sprite_glint.z_index = 24
+	add_child(_sprite_glint)
+
 func flash(p_position: Vector2, direction: Vector2, color: Color, radius: float, lifetime: float) -> void:
-    position = p_position
-    rotation = direction.angle()
-    _base_color = color
-    _color = color
-    _radius = radius
-    _lifetime = max(0.01, lifetime)
-    _age = 0.0
-    visible = true
-    _refresh(1.0)
-    update()
+	global_position = p_position
+	global_rotation = direction.angle() + rand_range(-0.6, 0.6)
+	_base_color = color
+	_radius = clamp(radius, 16.0, 26.0)
+	_lifetime = max(0.08, min(0.14, lifetime))
+	_age = 0.0
+	visible = true
+	_refresh(1.0)
 
 func tick(delta: float) -> bool:
-    if !visible:
-        return false
-    _age += delta
-    var pct: float = _age / _lifetime
-    if pct >= 1.0:
-        hide_visual()
-        return false
-    _refresh(1.0 - pct)
-    update()
-    return true
+	if !visible:
+		return false
+	_age += delta
+	var pct: float = _age / _lifetime
+	if pct >= 1.0:
+		hide_visual()
+		return false
+	global_rotation += delta * 2.2
+	_refresh(1.0 - pct)
+	return true
 
 func hide_visual() -> void:
-    visible = false
-
-func _draw() -> void:
-    if _points.size() >= 3 and _color.a > 0.0:
-        draw_colored_polygon(_points, _color)
-    if _inner_points.size() >= 3 and _inner_color.a > 0.0:
-        draw_colored_polygon(_inner_points, _inner_color)
+	visible = false
+	if is_instance_valid(_sprite_glint):
+		_sprite_glint.visible = false
 
 func _refresh(strength: float) -> void:
-    var radius: float = _radius * (0.35 + strength * 0.65)
-    _color = _base_color
-    _color.a = _base_color.a * strength * 0.82
-    _inner_color = Color(_base_color.r, _base_color.g, _base_color.b, _base_color.a * strength)
-    _points.resize(6)
-    _points[0] = Vector2(radius * 1.10, 0.0)
-    _points[1] = Vector2(radius * 0.36, radius * 0.28)
-    _points[2] = Vector2(-radius * 0.46, radius * 0.18)
-    _points[3] = Vector2(-radius * 0.82, 0.0)
-    _points[4] = Vector2(-radius * 0.46, -radius * 0.18)
-    _points[5] = Vector2(radius * 0.36, -radius * 0.28)
-    _inner_points.resize(6)
-    _inner_points[0] = Vector2(radius * 0.72, 0.0)
-    _inner_points[1] = Vector2(radius * 0.16, radius * 0.12)
-    _inner_points[2] = Vector2(-radius * 0.24, radius * 0.06)
-    _inner_points[3] = Vector2(-radius * 0.42, 0.0)
-    _inner_points[4] = Vector2(-radius * 0.24, -radius * 0.06)
-    _inner_points[5] = Vector2(radius * 0.16, -radius * 0.12)
+	var progress: float = 1.0 - strength
+	var current_radius: float = _radius * (1.15 - progress * 0.45)
+	var scale_val: float = (current_radius * 2.0) / 128.0
+
+	var alpha: float = clamp(_base_color.a * strength * 1.1, 0.0, 0.95)
+	var col_glint: Color = Color(_base_color.r * 1.2, _base_color.g * 1.15, _base_color.b * 1.4, alpha)
+
+	_sprite_glint.scale = Vector2(scale_val, scale_val)
+	_sprite_glint.modulate = col_glint
+	_sprite_glint.visible = true

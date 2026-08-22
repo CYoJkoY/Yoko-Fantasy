@@ -55,21 +55,16 @@ export(float) var satellite_attack_distance = 34.0
 export(float) var satellite_hitbox_length = 82.0
 export(float) var satellite_hitbox_width = 20.0
 export(float) var satellite_knockback = 5.0
-export(float) var satellite_guard_orbit_width = 2.5
-export(float) var satellite_guard_orbit_core_width = 0.8
-export(float) var satellite_guard_orbit_segment_width = 6.6
 
 export(float) var target_angle_weight = 0.10
 export(float) var target_origin_weight = 0.60
 export(float) var target_player_weight = 0.18
 export(float) var target_follow_through_weight = 0.08
 
-# Set an active limit only for explicit balance overrides; zero uses all ready blades.
 export(int) var max_active_main_attacks = 0
 export(int) var max_active_satellite_attacks = 0
 export(int) var max_attack_dispatches_per_tick = 2
 
-# Visual budgets never change combat concurrency or hitbox processing.
 export(int) var full_visual_count = 4
 export(int) var reduced_visual_count = 8
 export(int) var minimal_visual_count = 16

@@ -1,69 +1,118 @@
 extends Node2D
 
-var _points: Array = []
-var _trail_color: Color = Color(0, 0, 0, 0)
-var _secondary_color: Color = Color(0, 0, 0, 0)
-var _core_color: Color = Color(0, 0, 0, 0)
-var _trail_width: float = 4.0
-var _aura_width: float = 10.0
-var _core_width: float = 1.0
+const TEXTURE_TRAIL = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/textures/trail_soft_gradient.png")
+
+var _line_aura: Line2D = null
+var _line_core: Line2D = null
+var _material: CanvasItemMaterial = null
+var _aura_gradient: Gradient = null
+var _core_gradient: Gradient = null
+var _points: PoolVector2Array = PoolVector2Array()
+var _aura_colors: PoolColorArray = PoolColorArray()
+var _core_colors: PoolColorArray = PoolColorArray()
+
 var _intensity: float = 0.0
 var _quality: int = 0
 
-func configure(points: Array, trail_color: Color, secondary_color: Color, core_color: Color, trail_width: float, aura_width: float, core_width: float, intensity: float, quality: int = 0) -> void:
-    _points.clear()
-    for point in points:
-        _points.append(point)
-    _trail_color = trail_color
-    _secondary_color = secondary_color
-    _core_color = core_color
-    _trail_width = trail_width
-    _aura_width = aura_width
-    _core_width = core_width
-    _intensity = clamp(intensity, 0.0, 1.35)
+func _init() -> void:
+    _material = CanvasItemMaterial.new()
+    _material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+    material = _material
+    _aura_gradient = Gradient.new()
+    _aura_gradient.offsets = PoolRealArray([0.0, 0.45, 1.0])
+    _core_gradient = Gradient.new()
+    _core_gradient.offsets = PoolRealArray([0.0, 1.0])
+
+    _line_aura = Line2D.new()
+    _line_aura.name = "AuraTrail"
+    _line_aura.texture = TEXTURE_TRAIL
+    _line_aura.texture_mode = Line2D.LINE_TEXTURE_STRETCH
+    _line_aura.joint_mode = Line2D.LINE_JOINT_ROUND
+    _line_aura.begin_cap_mode = Line2D.LINE_CAP_ROUND
+    _line_aura.end_cap_mode = Line2D.LINE_CAP_ROUND
+    _line_aura.material = _material
+    _line_aura.set_as_toplevel(true)
+    _line_aura.z_as_relative = false
+    _line_aura.z_index = 6
+    _line_aura.gradient = _aura_gradient
+    add_child(_line_aura)
+
+    _line_core = Line2D.new()
+    _line_core.name = "CoreTrail"
+    _line_core.texture = TEXTURE_TRAIL
+    _line_core.texture_mode = Line2D.LINE_TEXTURE_STRETCH
+    _line_core.joint_mode = Line2D.LINE_JOINT_ROUND
+    _line_core.begin_cap_mode = Line2D.LINE_CAP_ROUND
+    _line_core.end_cap_mode = Line2D.LINE_CAP_ROUND
+    _line_core.material = _material
+    _line_core.set_as_toplevel(true)
+    _line_core.z_as_relative = false
+    _line_core.z_index = 7
+    _line_core.gradient = _core_gradient
+    add_child(_line_core)
+
+func configure(points: Array, trail_color: Color, secondary_color: Color, core_color: Color, trail_width: float, aura_width: float, intensity: float, quality: int = 0) -> void:
+    _intensity = clamp(intensity, 0.0, 1.5)
     _quality = quality
-    visible = _points.size() >= 2 and _intensity > 0.02
-    update()
+
+    if points.size() < 2 or _intensity <= 0.02:
+        hide_visual()
+        return
+
+    _points.resize(points.size())
+    for i in range(points.size()):
+        _points[i] = points[i]
+
+    var aura_w: float = max(4.0, aura_width * 1.35)
+    _line_aura.width = aura_w
+    var col_tail: Color = Color(trail_color.r, trail_color.g, trail_color.b, 0.0)
+    var col_mid: Color = Color(secondary_color.r * 1.2, secondary_color.g * 1.2, secondary_color.b * 1.4, min(0.75, trail_color.a * _intensity * 1.3))
+    var col_head: Color = Color(trail_color.r * 1.4, trail_color.g * 1.3, trail_color.b * 1.6, min(0.95, trail_color.a * _intensity * 1.6))
+    _aura_colors.resize(3)
+    _aura_colors[0] = col_tail
+    _aura_colors[1] = col_mid
+    _aura_colors[2] = col_head
+    _aura_gradient.colors = _aura_colors
+    _line_aura.points = _points
+    _line_aura.modulate.a = 1.0
+    _line_aura.visible = true
+
+    if _quality <= 1:
+        var core_w: float = max(1.5, trail_width * 0.7)
+        _line_core.width = core_w
+        var core_col_tail: Color = Color(core_color.r, core_color.g, core_color.b, 0.0)
+        var core_col_head: Color = Color(1.0, 1.0, 1.2, min(0.9, core_color.a * _intensity * 1.5))
+        _core_colors.resize(2)
+        _core_colors[0] = core_col_tail
+        _core_colors[1] = core_col_head
+        _core_gradient.colors = _core_colors
+        _line_core.points = _points
+        _line_core.modulate.a = 1.0
+        _line_core.visible = true
+    else:
+        _line_core.visible = false
+
+    visible = true
 
 func fade(delta: float) -> bool:
     if !visible:
         return false
-    _intensity = max(0.0, _intensity - delta * 4.2)
+    _intensity = max(0.0, _intensity - delta * 5.0)
     if _intensity <= 0.02:
         hide_visual()
         return false
-    update()
+    if is_instance_valid(_line_aura):
+        _line_aura.modulate.a = _intensity
+    if is_instance_valid(_line_core):
+        _line_core.modulate.a = _intensity
     return true
 
 func hide_visual() -> void:
     visible = false
-    _points.clear()
     _intensity = 0.0
-
-func _draw() -> void:
-    if _points.size() < 2 or _intensity <= 0.0:
-        return
-    var segment_count: int = _points.size() - 1
-    for i in range(segment_count):
-        var start: Vector2 = _points[i]
-        var end: Vector2 = _points[i + 1]
-        var pct: float = float(i + 1) / float(max(segment_count, 1))
-        var shaped: float = pow(pct, 1.55)
-        var head_softness: float = clamp((pct - 0.18) / 0.82, 0.0, 1.0)
-        var shadow_color: Color = Color(_trail_color.r * 0.40, _trail_color.g * 0.32, _trail_color.b * 0.58, _trail_color.a * _intensity * shaped * 0.34)
-        var aura_color: Color = Color(_trail_color.r, _trail_color.g, _trail_color.b, _trail_color.a * _intensity * shaped * 0.66)
-        var body_color: Color = Color(_secondary_color.r, _secondary_color.g, _secondary_color.b, _secondary_color.a * _intensity * (0.18 + shaped * 0.82))
-        var core_color: Color = Color(_core_color.r, _core_color.g, _core_color.b, _core_color.a * _intensity * shaped * 0.56)
-        var aura_width: float = max(1.0, _aura_width * (0.16 + head_softness * 1.04))
-        var body_width: float = max(1.0, _trail_width * (0.22 + head_softness * 1.12))
-        var core_width: float = max(1.0, _core_width * (0.45 + head_softness * 0.62))
-        if _quality == 0 and shadow_color.a > 0.01:
-            draw_line(start, end, shadow_color, aura_width * 1.22, true)
-        if _quality <= 1 and aura_color.a > 0.01:
-            draw_line(start, end, aura_color, aura_width, true)
-        if body_color.a > 0.01:
-            draw_line(start, end, body_color, body_width, true)
-        if _quality == 0 and core_color.a > 0.01 and i >= segment_count - 2:
-            draw_line(start, end, core_color, core_width, true)
-        if _quality == 0 and i == segment_count - 1 and aura_color.a > 0.01:
-            draw_circle(end, max(1.0, body_width * 0.42), Color(body_color.r, body_color.g, body_color.b, body_color.a * 0.72))
+    if is_instance_valid(_line_aura):
+        _line_aura.visible = false
+        _line_aura.clear_points()
+    if is_instance_valid(_line_core):
+        _line_core.visible = false
+        _line_core.clear_points()

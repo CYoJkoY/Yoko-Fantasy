@@ -1,34 +1,106 @@
 extends Node2D
 
 const FlyingBladeMotion = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/motion_math.gd")
-const SEGMENTS = 8
+const TEXTURE_SLASH_CRESCENT = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/textures/slash_arc_rift.png")
+const TEXTURE_STAR_GLINT = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/textures/star_glint_4pt.png")
 
-var _aura_polygon: PoolVector2Array = PoolVector2Array()
-var _body_polygon: PoolVector2Array = PoolVector2Array()
-var _aura_color: Color = Color(0, 0, 0, 0)
-var _body_color: Color = Color(0, 0, 0, 0)
-var _head_position: Vector2 = Vector2.ZERO
-var _head_radius: float = 0.0
-var _head_color: Color = Color(0, 0, 0, 0)
-var _left_aura: Array = []
-var _right_aura: Array = []
-var _left_body: Array = []
-var _right_body: Array = []
+const SEGMENTS = 12
+
+var _polygon_points: PoolVector2Array = PoolVector2Array()
+var _polygon_uvs: PoolVector2Array = PoolVector2Array()
+var _polygon_colors: PoolColorArray = PoolColorArray()
+var _left_side: Array = []
+var _right_side: Array = []
+var _u_left: Array = []
+var _u_right: Array = []
+
+var _tip_position: Vector2 = Vector2.ZERO
+var _tip_rotation: float = 0.0
+var _tip_scale: Vector2 = Vector2.ZERO
+var _tip_color: Color = Color.white
+
 var _quality: int = 0
+var _visible_alpha: float = 0.0
+var _base_color: Color = Color(0.75, 0.35, 1.0, 0.8)
+var _material: CanvasItemMaterial = null
+
+var is_world_entity: bool = false
+var _age: float = 0.0
+var _lifetime: float = 0.18
+var _start_world: Vector2 = Vector2.ZERO
+var _control_world: Vector2 = Vector2.ZERO
+var _end_world: Vector2 = Vector2.ZERO
+var _dir_world: Vector2 = Vector2.RIGHT
+var _curve_side_world: float = 1.0
+var _slash_width_world: float = 22.0
+
+func _init() -> void:
+    _material = CanvasItemMaterial.new()
+    _material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+    material = _material
+
+func ignite_world_rift(start_pos: Vector2, control_pos: Vector2, end_pos: Vector2, direction: Vector2, curve_side: float, slash_width: float, slash_color: Color, p_lifetime: float = 0.18) -> void:
+    is_world_entity = true
+    set_as_toplevel(true)
+    global_position = Vector2.ZERO
+    rotation = 0.0
+    scale = Vector2.ONE
+    _start_world = start_pos
+    _control_world = control_pos
+    _end_world = end_pos
+    _dir_world = direction if direction.length_squared() > 0.1 else Vector2.RIGHT
+    _curve_side_world = curve_side
+    _slash_width_world = max(10.0, slash_width)
+    _base_color = slash_color
+    _lifetime = max(0.04, p_lifetime)
+    _age = 0.0
+    _visible_alpha = 1.0
+    visible = true
+    _render_rift_mesh(0.0)
+
+func tick(delta: float) -> bool:
+    if !visible:
+        return false
+    _age += delta
+    var progress: float = _age / _lifetime
+    if progress >= 1.0:
+        hide_visual()
+        return false
+    _render_rift_mesh(progress)
+    return true
+
+func _render_rift_mesh(progress: float) -> void:
+    var ease_prog: float = FlyingBladeMotion.ease_out_cubic(clamp(progress, 0.0, 1.0))
+    var head_pct: float = clamp(0.25 + ease_prog * 0.75, 0.20, 1.0)
+    var tail_pct: float = clamp(head_pct - (0.48 + ease_prog * 0.22), 0.0, 0.75)
+    _visible_alpha = (1.0 - progress) * (1.0 - progress)
+    var dynamic_width: float = _slash_width_world * (1.0 + ease_prog * 0.35)
+    var col: Color = Color(_base_color.r * 1.3, _base_color.g * 1.15, _base_color.b * 1.45, min(0.90, _base_color.a * 1.4 * _visible_alpha))
+    var tip_color: Color = Color(1.0, 0.95, 1.2, min(0.95, _base_color.a * 1.8 * _visible_alpha))
+    _build_mesh(_start_world, _control_world, _end_world, _dir_world, _curve_side_world, head_pct, tail_pct, dynamic_width, 0.22, 0.10, col, tip_color)
 
 func configure(start: Vector2, control: Vector2, end: Vector2, fallback_direction: Vector2, curve_side: float, progress: float, windup: bool, visibility: float, slash_width: float, slash_color: Color, ticks: float, phase: float, quality: int = 0) -> void:
+    if is_world_entity:
+        return
     _quality = quality
-    var head_pct: float = clamp(0.24 + progress * 0.84, 0.18, 1.0)
-    var tail_pct: float = clamp(head_pct - (0.50 + progress * 0.12), 0.0, 0.78)
+    _base_color = slash_color
+    _visible_alpha = visibility
+
+    var head_pct: float = clamp(0.20 + progress * 0.88, 0.15, 1.0)
+    var tail_pct: float = clamp(head_pct - (0.45 + progress * 0.15), 0.0, 0.80)
     if windup:
-        head_pct = 0.46
-        tail_pct = 0.08
-    var flash: float = 0.88 + sin(phase * 8.0 + ticks * 1.7) * 0.12
-    var volume: float = clamp(slash_width / 12.0, 0.70, 1.55)
-    _left_aura.clear()
-    _right_aura.clear()
-    _left_body.clear()
-    _right_body.clear()
+        head_pct = 0.42
+        tail_pct = 0.06
+
+    var flash: float = 0.90 + sin(phase * 8.0 + ticks * 1.8) * 0.10
+    var dynamic_width: float = slash_width * 1.2
+    var col: Color = Color(slash_color.r * 1.25, slash_color.g * 1.15, slash_color.b * 1.35, min(0.85, slash_color.a * 1.45 * visibility * flash))
+    var tip_color: Color = Color(1.0, 0.95, 1.2, min(0.9, slash_color.a * 1.8 * visibility * flash))
+    _build_mesh(start, control, end, fallback_direction, curve_side, head_pct, tail_pct, dynamic_width, 0.20, 0.15, col, tip_color)
+
+func _build_mesh(start: Vector2, control: Vector2, end: Vector2, fallback_direction: Vector2, curve_side: float, head_pct: float, tail_pct: float, dynamic_width: float, width_base: float, tip_offset: float, polygon_color: Color, tip_color: Color) -> void:
+    _reset_work_arrays()
+
     for i in range(SEGMENTS):
         var local_pct: float = float(i) / float(max(SEGMENTS - 1, 1))
         var path_pct: float = lerp(tail_pct, head_pct, local_pct)
@@ -40,63 +112,69 @@ func configure(start: Vector2, control: Vector2, end: Vector2, fallback_directio
             tangent = Vector2.RIGHT
         tangent = tangent.normalized()
         var side: Vector2 = Vector2(-tangent.y, tangent.x) * curve_side
-        var head_weight: float = FlyingBladeMotion.ease_out_cubic(local_pct)
-        var tail_weight: float = clamp(local_pct * 3.2, 0.0, 1.0)
-        var tip_fade: float = clamp((1.06 - local_pct) * 3.0, 0.0, 1.0)
-        var mass: float = tail_weight * tip_fade * (0.42 + head_weight * 0.74)
-        var ripple: float = sin(float(i) * 1.73 + ticks * 0.72 + phase) * 0.08
-        var forward: Vector2 = tangent * (head_weight - 0.45) * slash_width * 0.12
-        var center: Vector2 = point + side * slash_width * (0.12 + mass * 0.26 + ripple * 0.12) + forward
-        var aura_half: float = slash_width * (0.42 + mass * 1.25 + ripple) * volume
-        var body_half: float = slash_width * (0.18 + mass * 0.92 + ripple * 0.55) * volume
-        _left_aura.append(center + side * aura_half)
-        _right_aura.push_front(center - side * aura_half * (0.48 + head_weight * 0.10))
-        _left_body.append(center + side * body_half)
-        _right_body.push_front(center - side * body_half * (0.44 + head_weight * 0.08))
-        if i == SEGMENTS - 1:
-            _head_position = center + side * body_half * 0.08
-            _head_radius = max(2.0, body_half * 0.50)
-    _aura_polygon.resize(_left_aura.size() + _right_aura.size())
-    _body_polygon.resize(_left_body.size() + _right_body.size())
-    var point_index: int = 0
-    for point in _left_aura:
-        _aura_polygon[point_index] = point
-        point_index += 1
-    for point in _right_aura:
-        _aura_polygon[point_index] = point
-        point_index += 1
-    point_index = 0
-    for point in _left_body:
-        _body_polygon[point_index] = point
-        point_index += 1
-    for point in _right_body:
-        _body_polygon[point_index] = point
-        point_index += 1
-    _aura_color = Color(slash_color.r, slash_color.g, slash_color.b, min(0.50, slash_color.a * 0.78 * visibility * flash))
-    _body_color = Color(slash_color.r, slash_color.g, slash_color.b, min(0.76, slash_color.a * 1.52 * visibility * flash))
-    _head_color = Color(slash_color.r, slash_color.g, slash_color.b, min(0.64, slash_color.a * 1.28 * visibility * flash))
-    visible = true
-    update()
 
-func fade(delta: float) -> bool:
-    if !visible:
-        return false
-    _aura_color.a = max(0.0, _aura_color.a - delta * 2.8)
-    _body_color.a = max(0.0, _body_color.a - delta * 3.4)
-    _head_color.a = max(0.0, _head_color.a - delta * 3.8)
-    if _aura_color.a <= 0.01 and _body_color.a <= 0.01 and _head_color.a <= 0.01:
-        hide_visual()
-        return false
+        var head_weight: float = FlyingBladeMotion.ease_out_cubic(local_pct)
+        var tail_weight: float = clamp(local_pct * 3.5, 0.0, 1.0)
+        var tip_fade: float = clamp((1.05 - local_pct) * 3.2, 0.0, 1.0)
+        var mass: float = tail_weight * tip_fade * (0.35 + head_weight * 0.85)
+
+        var half_w: float = dynamic_width * (width_base + mass * 1.15)
+        var forward_bias: Vector2 = tangent * (head_weight - 0.4) * dynamic_width * 0.15
+        var center: Vector2 = point + forward_bias
+
+        var p_left: Vector2 = center + side * half_w
+        var p_right: Vector2 = center - side * (half_w * 0.65)
+
+        _left_side.append(p_left)
+        _right_side.push_front(p_right)
+        _u_left.append(Vector2(local_pct, 0.0))
+        _u_right.push_front(Vector2(local_pct, 1.0))
+
+        if i == SEGMENTS - 1:
+            _tip_position = center + side * half_w * tip_offset
+            _tip_rotation = tangent.angle()
+            _tip_scale = Vector2(dynamic_width * 0.05, dynamic_width * 0.05) * (0.8 + head_weight * 0.4)
+
+    var total_points: int = _left_side.size() + _right_side.size()
+    _polygon_points.resize(total_points)
+    _polygon_uvs.resize(total_points)
+    _polygon_colors.resize(total_points)
+
+    var idx: int = 0
+    for j in range(_left_side.size()):
+        _polygon_points[idx] = _left_side[j]
+        _polygon_uvs[idx] = _u_left[j]
+        _polygon_colors[idx] = polygon_color
+        idx += 1
+    for j in range(_right_side.size()):
+        _polygon_points[idx] = _right_side[j]
+        _polygon_uvs[idx] = _u_right[j]
+        _polygon_colors[idx] = polygon_color
+        idx += 1
+
+    _tip_color = tip_color
+    visible = total_points >= 3 and _visible_alpha > 0.02
     update()
-    return true
 
 func hide_visual() -> void:
     visible = false
+    _visible_alpha = 0.0
+
+func _reset_work_arrays() -> void:
+    _left_side.clear()
+    _right_side.clear()
+    _u_left.clear()
+    _u_right.clear()
 
 func _draw() -> void:
-    if _quality <= 1 and _aura_polygon.size() >= 3 and _aura_color.a > 0.0:
-        draw_colored_polygon(_aura_polygon, _aura_color)
-    if _body_polygon.size() >= 3 and _body_color.a > 0.0:
-        draw_colored_polygon(_body_polygon, _body_color)
-    if _quality == 0 and _head_radius > 0.0 and _head_color.a > 0.0:
-        draw_circle(_head_position, _head_radius, _head_color)
+    if !visible or _polygon_points.size() < 3 or _visible_alpha <= 0.0:
+        return
+
+    draw_polygon(_polygon_points, _polygon_colors, _polygon_uvs, TEXTURE_SLASH_CRESCENT)
+
+    if _quality == 0 and _tip_color.a > 0.05:
+        var glint_size: Vector2 = Vector2(32.0, 32.0) * _tip_scale
+        var rect: Rect2 = Rect2(-glint_size * 0.5, glint_size)
+        draw_set_transform(_tip_position, _tip_rotation, Vector2.ONE)
+        draw_texture_rect(TEXTURE_STAR_GLINT, rect, false, _tip_color)
+        draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)

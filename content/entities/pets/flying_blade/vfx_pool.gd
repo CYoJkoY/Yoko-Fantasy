@@ -2,10 +2,14 @@ extends Node2D
 
 const SlashSparkVisual = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/slash_spark_visual.gd")
 const SlashHitFlashVisual = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/slash_hit_flash_visual.gd")
+const SlashRibbonVisual = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/slash_ribbon_visual.gd")
 
 const FRAGMENT_POOL_SIZE = 32
 const AFTERIMAGE_POOL_SIZE = 24
 const HIT_FLASH_POOL_SIZE = 24
+const SLASH_RIFT_POOL_SIZE = 16
+
+var _material_add: CanvasItemMaterial = null
 
 var _fragments: Array = []
 var _afterimages: Array = []
@@ -13,26 +17,42 @@ var _afterimage_ages: Array = []
 var _afterimage_lifetimes: Array = []
 var _afterimage_colors: Array = []
 var _hit_flashes: Array = []
+var _slash_rifts: Array = []
+
 var _fragment_cursor: int = 0
 var _afterimage_cursor: int = 0
 var _hit_flash_cursor: int = 0
+var _slash_rift_cursor: int = 0
+
 var _fragment_capacity: int = 4
 var _afterimage_capacity: int = 2
 var _hit_flash_capacity: int = 4
+var _slash_rift_capacity: int = 4
+
+func _init() -> void:
+	_material_add = CanvasItemMaterial.new()
+	_material_add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 
 func ensure_capacity(sword_count: int) -> void:
-	var count: int = sword_count
-	if count < 1:
-		count = 1
+	var count: int = max(1, sword_count)
 	_fragment_capacity = int(clamp(count * 2, 4, FRAGMENT_POOL_SIZE))
 	_afterimage_capacity = int(clamp(count * 2, 2, AFTERIMAGE_POOL_SIZE))
 	_hit_flash_capacity = int(clamp(count, 4, HIT_FLASH_POOL_SIZE))
+	_slash_rift_capacity = int(clamp(count, 4, SLASH_RIFT_POOL_SIZE))
+
 	while _fragments.size() < _fragment_capacity:
 		_create_fragment()
 	while _afterimages.size() < _afterimage_capacity:
 		_create_afterimage()
 	while _hit_flashes.size() < _hit_flash_capacity:
 		_create_hit_flash()
+	while _slash_rifts.size() < _slash_rift_capacity:
+		_create_slash_rift()
+
+func emit_slash_rift(start_pos: Vector2, control_pos: Vector2, end_pos: Vector2, direction: Vector2, curve_side: float, slash_width: float, slash_color: Color, lifetime: float = 0.18, z: int = 18) -> void:
+	var rift = _acquire_slash_rift()
+	rift.z_index = z
+	rift.ignite_world_rift(start_pos, control_pos, end_pos, direction, curve_side, slash_width, slash_color, lifetime)
 
 func emit_fragment(position: Vector2, direction: Vector2, color: Color, lifetime: float, length: float, width: float, velocity: Vector2, angular_velocity: float, z: int) -> void:
 	var fragment = _acquire_fragment()
@@ -66,6 +86,9 @@ func _physics_process(delta: float) -> void:
 	for fragment in _fragments:
 		if fragment.visible:
 			fragment.tick(delta)
+	for rift in _slash_rifts:
+		if rift.visible:
+			rift.tick(delta)
 	for i in range(_afterimages.size()):
 		var afterimage: Sprite = _afterimages[i]
 		if !afterimage.visible:
@@ -80,7 +103,7 @@ func _physics_process(delta: float) -> void:
 		var remaining: float = 1.0 - pct
 		base_color.a *= remaining * remaining
 		afterimage.modulate = base_color
-		afterimage.scale = afterimage.scale.linear_interpolate(Vector2.ZERO, min(1.0, delta * 2.4))
+		afterimage.scale = afterimage.scale.linear_interpolate(Vector2.ZERO, min(1.0, delta * 2.5))
 	for flash in _hit_flashes:
 		if flash.visible:
 			flash.tick(delta)
@@ -99,6 +122,22 @@ func _acquire_fragment():
 	var recycle_index: int = _fragment_cursor % active_size
 	var recycled = _fragments[recycle_index]
 	_fragment_cursor = (recycle_index + 1) % active_size
+	return recycled
+
+func _acquire_slash_rift():
+	var active_size: int = int(min(_slash_rifts.size(), _slash_rift_capacity))
+	for offset in range(active_size):
+		var index: int = (_slash_rift_cursor + offset) % active_size
+		if !_slash_rifts[index].visible:
+			_slash_rift_cursor = (index + 1) % active_size
+			return _slash_rifts[index]
+	if _slash_rifts.size() < _slash_rift_capacity:
+		var rift = _create_slash_rift()
+		_slash_rift_cursor = _slash_rifts.size() % SLASH_RIFT_POOL_SIZE
+		return rift
+	var recycle_index: int = _slash_rift_cursor % active_size
+	var recycled = _slash_rifts[recycle_index]
+	_slash_rift_cursor = (recycle_index + 1) % active_size
 	return recycled
 
 func _acquire_afterimage() -> int:
@@ -142,9 +181,20 @@ func _create_fragment():
 	_fragments.push_back(fragment)
 	return fragment
 
+func _create_slash_rift():
+	var rift = SlashRibbonVisual.new()
+	rift.name = "SlashRift%s" % _slash_rifts.size()
+	rift.set_as_toplevel(true)
+	rift.z_as_relative = false
+	rift.visible = false
+	add_child(rift)
+	_slash_rifts.push_back(rift)
+	return rift
+
 func _create_afterimage() -> Sprite:
 	var afterimage: Sprite = Sprite.new()
 	afterimage.name = "Afterimage%s" % _afterimages.size()
+	afterimage.material = _material_add
 	afterimage.set_as_toplevel(true)
 	afterimage.z_as_relative = false
 	afterimage.visible = false
