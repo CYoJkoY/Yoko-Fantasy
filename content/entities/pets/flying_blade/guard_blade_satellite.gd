@@ -327,7 +327,7 @@ func _setup_hitbox() -> void:
 func _apply_weapon_stats() -> void:
 	weapon_stats.burning_data.from = owner_pet
 	var hitbox_args = Hitbox.HitboxArgs.new().set_from_weapon_stats(weapon_stats)
-	var satellite_damage: int = max(1, int(round(float(weapon_stats.damage) * 0.40)))
+	var satellite_damage: int = int(max(1, int(round(float(weapon_stats.damage) * 0.50))))
 	_hitbox.projectiles_on_hit = []
 	_hitbox.effect_scale = weapon_stats.effect_scale
 	_hitbox.speed_percent_modifier = weapon_stats.speed_percent_modifier
@@ -492,7 +492,7 @@ func _refresh_visibility() -> void:
 	visible = _state != SatelliteState.ORBIT or _idle_body_visible
 
 func _calculate_orbit_visual() -> void:
-	var count: int = max(1, _formation_count)
+	var count: int = int(max(1, _formation_count))
 	var phase: float = _get_shared_orbit_phase()
 	var final_radius: float = 140.0
 	var final_y_scale: float = 0.68
@@ -518,7 +518,7 @@ func _calculate_orbit_visual() -> void:
 		base_scale = Vector2(0.68, 0.72)
 	else:
 		ring_is_outer = true
-		var outer_total: int = max(1, count - 8)
+		var outer_total: int = int(max(1, count - 8))
 		var outer_index: int = _formation_index - 8
 		var slot_angle: float = float(outer_index) * TAU / float(outer_total)
 		orbit_dir_sign = 1.0

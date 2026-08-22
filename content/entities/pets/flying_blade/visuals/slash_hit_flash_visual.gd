@@ -1,6 +1,6 @@
 extends Node2D
 
-const TEXTURE_STAR_GLINT = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/textures/star_glint_4pt.png")
+const TEXTURE_STAR_GLINT = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/textures/star_glint_4pt.webp")
 
 var _material: CanvasItemMaterial = null
 var _sprite_glint: Sprite = null

@@ -38,6 +38,7 @@ const AURA_WAVE_PERIOD = 2.15
 const VISUAL_FLOAT_PERIOD = 3.30
 const VISUAL_FLOAT_AMPLITUDE = 15.0
 const ATTACK_WAVE_BOOST_DURATION = 0.18
+const AURA_WAVE_OFFSETS = [0.0, 0.33, 0.66]
 
 var AURA_WAVE_COLORS: Array = [
     Color(1.0, 0.28, 0.32, 1.0),
@@ -333,13 +334,12 @@ func _update_visual_float() -> void:
     _muzzle.position = _base_muzzle_position + visual_offset
 
 func _update_aura_waves() -> void:
-    var offsets: Array = [0.0, 0.33, 0.66]
     var boost: float = 0.0
     if _attack_wave_boost_left > 0.0:
         boost = _attack_wave_boost_left / ATTACK_WAVE_BOOST_DURATION
     for i in range(_aura_waves.size()):
         var wave: Sprite = _aura_waves[i]
-        var progress: float = fmod((_aura_time / AURA_WAVE_PERIOD) + offsets[i], 1.0)
+        var progress: float = fmod((_aura_time / AURA_WAVE_PERIOD) + AURA_WAVE_OFFSETS[i], 1.0)
         var alpha_curve: float = sin(progress * PI)
         var color_index: int = int(floor(fmod(_aura_time * 1.8 + float(i) * 1.6, float(AURA_WAVE_COLORS.size()))))
         var color: Color = AURA_WAVE_COLORS[color_index]

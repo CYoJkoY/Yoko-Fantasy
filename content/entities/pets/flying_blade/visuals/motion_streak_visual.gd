@@ -1,6 +1,6 @@
 extends Node2D
 
-const TEXTURE_TRAIL = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/textures/trail_soft_gradient.png")
+const TEXTURE_TRAIL = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/textures/trail_soft_gradient.webp")
 
 var _line_aura: Line2D = null
 var _line_core: Line2D = null

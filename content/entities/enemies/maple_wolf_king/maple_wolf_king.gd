@@ -47,10 +47,6 @@ func charging_start_shoot() -> void:
 func charging_shoot() -> void:
     charging_attack_behavior.shoot()
 
-func die(args: = Utils.default_die_args) -> void:
-    .die(args)
-    _animation_player.stop()
-
 # ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func switch_can_move(can_move: bool) -> void:
     _can_move = can_move

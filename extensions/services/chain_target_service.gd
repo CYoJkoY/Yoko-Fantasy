@@ -38,22 +38,30 @@ static func collect_nearby_enemies(
 		return result
 
 	var candidates: Array = main._entity_spawner.get_all_enemies(false)
+	var excluded_ids: Dictionary = {}
+	var selected_ids: Dictionary = {}
+	var radius_squared: float = radius * radius
+	for enemy in excluded:
+		if is_instance_valid(enemy):
+			excluded_ids[enemy.get_instance_id()] = true
+
 	for _i in range(max_count):
 		var best: Node = null
-		var best_dist: float = radius
+		var best_dist_squared: float = radius_squared
 		for enemy in candidates:
 			if !_is_valid_enemy(enemy):
 				continue
-			if excluded.has(enemy) or result.has(enemy):
+			var enemy_id: int = enemy.get_instance_id()
+			if excluded_ids.has(enemy_id) or selected_ids.has(enemy_id):
 				continue
-			var dist: float = enemy.global_position.distance_to(center)
-			if dist <= best_dist:
+			var dist_squared: float = enemy.global_position.distance_squared_to(center)
+			if dist_squared <= best_dist_squared:
 				best = enemy
-				best_dist = dist
+				best_dist_squared = dist_squared
 		if best == null:
 			break
 		result.push_back(best)
-		candidates.erase(best)
+		selected_ids[best.get_instance_id()] = true
 
 	return result
 

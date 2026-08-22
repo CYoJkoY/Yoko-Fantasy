@@ -32,9 +32,10 @@ var _slash_rift_capacity: int = 4
 func _init() -> void:
 	_material_add = CanvasItemMaterial.new()
 	_material_add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	set_physics_process(false)
 
 func ensure_capacity(sword_count: int) -> void:
-	var count: int = max(1, sword_count)
+	var count: int = int(max(1, sword_count))
 	_fragment_capacity = int(clamp(count * 2, 4, FRAGMENT_POOL_SIZE))
 	_afterimage_capacity = int(clamp(count * 2, 2, AFTERIMAGE_POOL_SIZE))
 	_hit_flash_capacity = int(clamp(count, 4, HIT_FLASH_POOL_SIZE))
@@ -50,16 +51,19 @@ func ensure_capacity(sword_count: int) -> void:
 		_create_slash_rift()
 
 func emit_slash_rift(start_pos: Vector2, control_pos: Vector2, end_pos: Vector2, direction: Vector2, curve_side: float, slash_width: float, slash_color: Color, lifetime: float = 0.18, z: int = 18) -> void:
+	set_physics_process(true)
 	var rift = _acquire_slash_rift()
 	rift.z_index = z
 	rift.ignite_world_rift(start_pos, control_pos, end_pos, direction, curve_side, slash_width, slash_color, lifetime)
 
 func emit_fragment(position: Vector2, direction: Vector2, color: Color, lifetime: float, length: float, width: float, velocity: Vector2, angular_velocity: float, z: int) -> void:
+	set_physics_process(true)
 	var fragment = _acquire_fragment()
 	fragment.z_index = z
 	fragment.ignite(position, direction, color, lifetime, length, width, velocity, angular_velocity)
 
 func emit_afterimage(texture: Texture, centered: bool, offset: Vector2, flip_h: bool, flip_v: bool, position: Vector2, rotation: float, scale: Vector2, color: Color, lifetime: float, z: int) -> void:
+	set_physics_process(true)
 	var index: int = _acquire_afterimage()
 	var afterimage: Sprite = _afterimages[index]
 	_afterimage_ages[index] = 0.0
@@ -78,17 +82,21 @@ func emit_afterimage(texture: Texture, centered: bool, offset: Vector2, flip_h: 
 	afterimage.visible = true
 
 func emit_hit_flash(position: Vector2, direction: Vector2, color: Color, radius: float, lifetime: float, z: int) -> void:
+	set_physics_process(true)
 	var flash = _acquire_hit_flash()
 	flash.z_index = z
 	flash.flash(position, direction, color, radius, lifetime)
 
 func _physics_process(delta: float) -> void:
+	var has_active_visual: bool = false
 	for fragment in _fragments:
 		if fragment.visible:
 			fragment.tick(delta)
+			has_active_visual = has_active_visual or fragment.visible
 	for rift in _slash_rifts:
 		if rift.visible:
 			rift.tick(delta)
+			has_active_visual = has_active_visual or rift.visible
 	for i in range(_afterimages.size()):
 		var afterimage: Sprite = _afterimages[i]
 		if !afterimage.visible:
@@ -104,9 +112,13 @@ func _physics_process(delta: float) -> void:
 		base_color.a *= remaining * remaining
 		afterimage.modulate = base_color
 		afterimage.scale = afterimage.scale.linear_interpolate(Vector2.ZERO, min(1.0, delta * 2.5))
+		has_active_visual = true
 	for flash in _hit_flashes:
 		if flash.visible:
 			flash.tick(delta)
+			has_active_visual = has_active_visual or flash.visible
+	if !has_active_visual:
+		set_physics_process(false)
 
 func _acquire_fragment():
 	var active_size: int = int(min(_fragments.size(), _fragment_capacity))
