@@ -17,6 +17,8 @@ const FANTASY_CLOCK_TOWER_HAT_PATH: String = "res://mods-unpacked/Yoko-Fantasy/c
 const FANTASY_CLOCK_TOWER_HAT_TWEEN_TIME: float = 0.35
 const FANTASY_CLOCK_TOWER_HAT_IN_AREA_EFFECT: float = 1.0
 
+var _fa_healing_star_receiver = null
+
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     _fantasy_decaying_slow_enemy_when_below_hp_ready()
@@ -52,6 +54,27 @@ func on_consumable_picked_up(consumable_data: ConsumableData) -> void:
     .on_consumable_picked_up(consumable_data)
     _fantasy_dmg_when_pickup_consumable(consumable_data)
     _fantasy_add_stat_when_pickup_consumable(consumable_data)
+
+func fa_begin_healing_star_collection(receiver) -> void:
+    _fa_healing_star_receiver = receiver
+
+func fa_end_healing_star_collection(receiver) -> void:
+    if _fa_healing_star_receiver == receiver:
+        _fa_healing_star_receiver = null
+
+func on_healing_effect(value: int, tracking_key: int = Keys.empty_hash, from_torture: bool = false) -> int:
+    if is_instance_valid(_fa_healing_star_receiver):
+        _fa_healing_star_receiver.fa_store_healing(value)
+        return 0
+
+    return .on_healing_effect(value, tracking_key, from_torture)
+
+func on_heal_over_time_effect(total_healing: int, duration: int) -> void:
+    if is_instance_valid(_fa_healing_star_receiver):
+        _fa_healing_star_receiver.fa_store_healing(total_healing)
+        return
+
+    .on_heal_over_time_effect(total_healing, duration)
 
 func die(args = Utils.default_die_args) -> void:
     _fantasy_clear_decaying_slow_effects()

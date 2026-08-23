@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/healing_star/healing_star_stats.tres" type="Resource" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/healing_star/healing_star_data.tres" type="Resource" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/healing_star/healing_star_icon.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/fantasy_pet_data.gd" type="Script" id=4]
+
+[resource]
+script = ExtResource( 4 )
+my_id = "fantasy_healing_star"
+unlocked_by_default = false
+can_be_looted = true
+icon = ExtResource( 3 )
+name = "FANTASY_HEALING_STAR_NAME"
+tier = 1
+value = 30
+effects = [  ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+stats = ExtResource( 1 )
+behaviour_description = "FANTASY_HEALING_STAR_BEHAVIOUR_DESCRIPTION"
+fantasy_affected_player_stats = [ "stat_max_hp", "consumable_heal" ]
+show_hp = false
+show_dammage = false
+show_speed = false
+show_knoback_resistance = false
+show_material_dropped = false
+item_drop = ExtResource( 2 )
