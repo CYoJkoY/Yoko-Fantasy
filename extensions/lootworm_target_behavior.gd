@@ -26,14 +26,7 @@ func _fantasy_update_target_plant_enemy() -> bool:
     var min_dist_squared: int = Utils.LARGE_NUMBER
     var enemy_list: Array = _entity_spawner.plant_enemies
 
-    if _parent.current_target != null:
-        if _parent.current_target is Gold and _parent.current_target.is_connected("picked_up", self , "on_gold_picked_up_by_player"):
-            _parent.current_target.disconnect("picked_up", self , "on_gold_picked_up_by_player")
-        elif _parent.current_target is Neutral and _parent.current_target.is_connected("died", self , "on_dead_tree"):
-            _parent.current_target.disconnect("died", self , "on_dead_tree")
-        elif _parent.current_target is Enemy and _parent.current_target.is_connected("died", self , "fa_on_dead_plant_enemy"):
-            _parent.current_target.disconnect("died", self , "fa_on_dead_plant_enemy")
-    _parent.current_target = null
+    _fantasy_clear_current_target()
 
     for enemy in enemy_list:
         if enemy.dead: continue
@@ -52,10 +45,6 @@ func _fantasy_update_target_plant_enemy() -> bool:
 func _fantasy_update_cannot_damage_tree() -> bool:
     if !RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, _parent.player_index): return false
 
-    if _parent.current_target != null and _parent.current_target is Neutral and _parent.current_target.is_connected("died", self , "on_dead_tree"):
-        _parent.current_target.disconnect("died", self , "on_dead_tree")
-        _parent.current_target = null
-
     fa_update_target_gold()
     return true
 
@@ -63,8 +52,7 @@ func _fantasy_update_cannot_damage_tree() -> bool:
 func fa_cleanup_previous_plant_enemy_target() -> bool:
     if !(_parent.current_target is Enemy) or !Utils.plant_enemies_ids.has(_parent.current_target.enemy_id_hash): return false
     
-    _parent.current_target.disconnect("died", self , "fa_on_dead_plant_enemy")
-    _parent.current_target = null
+    _fantasy_clear_current_target()
     return true
 
 func fa_on_plant_enemy_spawned(enemy: Enemy) -> void:
@@ -72,19 +60,13 @@ func fa_on_plant_enemy_spawned(enemy: Enemy) -> void:
 
     if _parent.current_target == null: return
 
-    if _parent.current_target is Gold and _parent.current_target.is_connected("picked_up", self , "on_gold_picked_up_by_player"):
-        _parent.current_target.disconnect("picked_up", self , "on_gold_picked_up_by_player")
-    elif _parent.current_target is Neutral and _parent.current_target.is_connected("died", self , "on_dead_tree"):
-        _parent.current_target.disconnect("died", self , "on_dead_tree")
-    elif _parent.current_target is Enemy and _parent.current_target.is_connected("died", self , "fa_on_dead_plant_enemy"):
-        _parent.current_target.disconnect("died", self , "fa_on_dead_plant_enemy")
-    _parent.current_target = null
+    _fantasy_clear_current_target()
 
 func fa_on_dead_plant_enemy(_entity: Entity, _die_args: Entity.DieArgs) -> void:
-    if _parent.current_target != null: _parent.current_target.disconnect("died", self , "fa_on_dead_plant_enemy")
-    _parent.current_target = null
+    _fantasy_clear_current_target()
 
 func fa_update_target_gold() -> void:
+    _fantasy_clear_current_target()
     var min_dist_squared: int = Utils.LARGE_NUMBER
     var active_golds: Array = _main._active_golds
 
@@ -97,6 +79,18 @@ func fa_update_target_gold() -> void:
             _parent.current_target = gold
 
     if _parent.current_target != null:
-        var _error = _parent.current_target.connect("picked_up", self , "on_gold_picked_up_by_player")
+        if !_parent.current_target.is_connected("picked_up", self , "on_gold_picked_up_by_player"):
+            var _error = _parent.current_target.connect("picked_up", self , "on_gold_picked_up_by_player")
         emit_signal("target_found", self )
     else: _parent.current_target = self
+
+func _fantasy_clear_current_target() -> void:
+    var target = _parent.current_target
+    if is_instance_valid(target):
+        if target is Gold and target.is_connected("picked_up", self , "on_gold_picked_up_by_player"):
+            target.disconnect("picked_up", self , "on_gold_picked_up_by_player")
+        elif target is Neutral and target.is_connected("died", self , "on_dead_tree"):
+            target.disconnect("died", self , "on_dead_tree")
+        elif target is Enemy and target.is_connected("died", self , "fa_on_dead_plant_enemy"):
+            target.disconnect("died", self , "fa_on_dead_plant_enemy")
+    _parent.current_target = null

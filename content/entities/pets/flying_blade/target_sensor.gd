@@ -68,4 +68,5 @@ func _on_body_exited(body: Node) -> void:
     _disconnect_target(body)
 
 func _on_target_died(target: Node2D, _args: Entity.DieArgs) -> void:
+    _disconnect_target(target)
     _targets_in_range.erase(target)

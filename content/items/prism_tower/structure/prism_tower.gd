@@ -73,7 +73,6 @@ var _base_muzzle_position: Vector2 = Vector2.ZERO
 var _scatter_targets_scaling_stats: Array = [["stat_fantasy_holy", 0.1]]
 
 func _ready() -> void:
-    ._ready()
     _scatter_targets_scaling_stats = Utils.convert_to_hash_array(_scatter_targets_scaling_stats)
     _beam_pool_id = Keys.generate_hash(BEAM_SCENE_PATH)
     _holy_column_pool_id = Keys.generate_hash(HOLY_COLUMN_SCENE_PATH)

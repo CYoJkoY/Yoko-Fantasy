@@ -13,12 +13,9 @@ var _fantasy_focused_job_option: UpgradeUI = null
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     for upgrade_ui in _get_upgrade_uis():
-        if !upgrade_ui.button.is_connected("focus_entered", self, "_fantasy_on_job_option_focused"):
-            upgrade_ui.button.connect("focus_entered", self, "_fantasy_on_job_option_focused", [upgrade_ui])
-        if !upgrade_ui.button.is_connected("mouse_entered", self, "_fantasy_on_job_option_focused"):
-            upgrade_ui.button.connect("mouse_entered", self, "_fantasy_on_job_option_focused", [upgrade_ui])
-        if !upgrade_ui.button.is_connected("focus_exited", self, "_fantasy_on_job_option_unfocused"):
-            upgrade_ui.button.connect("focus_exited", self, "_fantasy_on_job_option_unfocused", [upgrade_ui])
+        var _error_focus_entered = upgrade_ui.button.connect("focus_entered", self, "_fantasy_on_job_option_focused", [upgrade_ui])
+        var _error_mouse_entered = upgrade_ui.button.connect("mouse_entered", self, "_fantasy_on_job_option_focused", [upgrade_ui])
+        var _error_focus_exited = upgrade_ui.button.connect("focus_exited", self, "_fantasy_on_job_option_unfocused", [upgrade_ui])
 
 func _on_RerollButton_pressed() -> void:
     if _fantasy_showing_job_selection:

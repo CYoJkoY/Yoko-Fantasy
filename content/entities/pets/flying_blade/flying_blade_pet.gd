@@ -66,7 +66,6 @@ var _attack_fragment_cursor: int = 0
 var _attack_fragment_tick: float = 0.0
 var _last_afterimage_position: Vector2 = Vector2.ZERO
 var _guard_phase: float = rand_range(0.0, TAU)
-var _blade_ready_done: bool = false
 var _attack_visuals_active: bool = false
 var _attack_queued: bool = false
 var _attack_slot_active: bool = false
@@ -74,12 +73,6 @@ var _attack_hitbox_enabled: bool = true
 var _visual_level: int = FlyingBladeCombatCoordinator.VISUAL_FULL
 
 func _ready() -> void:
-	_ready_blade()
-
-func _ready_blade() -> void:
-	if _blade_ready_done:
-		return
-	_blade_ready_done = true
 	_guard_slot_offset = float(get_index() % 8) * TAU / 8.0
 	_last_position = global_position
 	_setup_combat_coordinator()
