@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://weapons/weapon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=2]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/blazing_path/blazing_path.webp" type="Texture" id=3]
 [ext_resource path="res://weapons/ranged/ranged_weapon.gd" type="Script" id=4]
+[ext_resource path="res://particles/burning/torch_burning_particles.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -33,6 +34,12 @@ visible = false
 
 [node name="Muzzle" parent="Sprite" index="1"]
 position = Vector2( 32, 0 )
+
+[node name="BurningParticles" parent="Sprite/Muzzle" index="0" instance=ExtResource( 5 )]
+position = Vector2( -16, 0 )
+amount = 4
+scale_amount = 0.4
+local_coords = false
 
 [node name="CollisionShape2D" parent="Range" index="0"]
 shape = SubResource( 2 )
