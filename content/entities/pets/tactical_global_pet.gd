@@ -71,7 +71,8 @@ func shoot() -> void:
     var crit_damage: float = _current_weapon_stats.crit_damage
     var damage: int = _current_weapon_stats.damage
     var damage_args: TakeDamageArgs = null
-    if Utils.get_chance_success(crit_chance):
+    var was_crit: bool = Utils.get_chance_success(crit_chance)
+    if was_crit:
         damage = int(damage * crit_damage)
         damage_args = Utils.ncl_create_custom_damage_args(player_index, damage_color)
     else: damage_args = TakeDamageArgs.new(player_index)
@@ -82,9 +83,15 @@ func shoot() -> void:
         if !enemy.is_connected("died", self , "fa_on_wolf_totem_killed_best_enemy"):
             enemy.connect("died", self , "fa_on_wolf_totem_killed_best_enemy", [], CONNECT_ONESHOT)
 
+        var health_before: int = enemy.current_stats.health
         var take_damage_array: Array = enemy.take_damage(damage, damage_args)
         var actual_damage: int = take_damage_array[1]
         RunData.add_tracked_value(player_index, damage_tracking_id_hash, actual_damage)
+        Utils.fa_apply_direct_crit_kill_gold_rewards(
+            player_index,
+            was_crit,
+            health_before > 0 and actual_damage >= health_before
+        )
 
     if has_shoot_anim: return
 

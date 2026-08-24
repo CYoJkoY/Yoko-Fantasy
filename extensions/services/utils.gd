@@ -94,6 +94,21 @@ var fantasy_gain_item_on_reroll_hash: int = Keys.generate_hash("fantasy_gain_ite
 var fantasy_guaranteed_set_weapons_in_shop_hash: int = Keys.generate_hash("fantasy_guaranteed_set_weapons_in_shop")
 var fantasy_weapon_hit_proc_hash: int = Keys.generate_hash("fantasy_weapon_hit_proc")
 
+func fa_apply_direct_crit_kill_gold_rewards(player_index: int, was_crit: bool, was_kill: bool) -> void:
+	if !was_crit or !was_kill:
+		return
+
+	var gold_added: int = 0
+	var gold_on_crit_kill_effects: Array = RunData.get_player_effect(Keys.gold_on_crit_kill_hash, player_index)
+	for effect in gold_on_crit_kill_effects:
+		if !Utils.get_chance_success(effect[1] / 100.0):
+			continue
+		gold_added += 1
+		RunData.add_tracked_value(player_index, Keys.item_hunting_trophy_hash, 1)
+
+	if gold_added > 0:
+		RunData.add_gold(gold_added, player_index)
+
 # Clock Tower Guardian runtime state. Kept outside RunData so the area can act
 # like a temporary battlefield object instead of changing permanent stats.
 var fantasy_clock_tower_players_in_area: Dictionary = {}

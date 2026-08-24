@@ -1,0 +1,139 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://projectiles/player_projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/myriad_flourish_projectile.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/orb_glow_aura.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/orb_crystal_base.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/orb_fluid_mid.webp" type="Texture" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/orb_fluid_dark.webp" type="Texture" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/orb_vitality_swirl.webp" type="Texture" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/orb_sprout_crest.webp" type="Texture" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/orb_specular.webp" type="Texture" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/vfx_trail_beam.webp" type="Texture" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/vfx_soft_leaf.webp" type="Texture" id=11]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/vfx_sparkle_dust.webp" type="Texture" id=12]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.45, 0.65 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.05 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.25, 0.65, 1 )
+colors = PoolColorArray( 1, 1, 0.9, 1, 0.8, 1, 0.25, 0.85, 0.35, 0.9, 0.1, 0.5, 0.15, 0.6, 0.05, 0 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0.9 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 1, 1, 0.8, 1, 0.75, 1, 0.2, 0.85, 0.2, 0.75, 0.1, 0 )
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 18.0
+
+[node name="MyriadFlourishProjectile" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+clear_material_when_pooled = false
+
+[node name="Sprite" parent="." index="0"]
+visible = false
+
+[node name="TrailLine" type="Line2D" parent="." index="1"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+position = Vector2( -8, 0 )
+width = 22.0
+width_curve = SubResource( 2 )
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 3 )
+texture = ExtResource( 10 )
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="SparkleParticles" type="CPUParticles2D" parent="." index="2"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+position = Vector2( -6, 0 )
+amount = 10
+lifetime = 0.25
+local_coords = false
+texture = ExtResource( 12 )
+emission_shape = 1
+emission_sphere_radius = 8.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 18.0
+initial_velocity_random = 0.4
+spread = 180.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.3
+scale_amount_random = 0.2
+scale_amount_curve = SubResource( 4 )
+color_ramp = SubResource( 5 )
+
+[node name="LeafParticles" type="CPUParticles2D" parent="." index="3"]
+unique_name_in_owner = true
+position = Vector2( -6, 0 )
+amount = 8
+lifetime = 0.32
+local_coords = false
+texture = ExtResource( 11 )
+emission_shape = 1
+emission_sphere_radius = 8.0
+gravity = Vector2( 0, 25 )
+initial_velocity = 20.0
+initial_velocity_random = 0.4
+spread = 180.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.34
+scale_amount_random = 0.2
+scale_amount_curve = SubResource( 4 )
+color_ramp = SubResource( 5 )
+
+[node name="OrbRoot" type="Node2D" parent="." index="4"]
+unique_name_in_owner = true
+scale = Vector2( 0.52, 0.52 )
+
+[node name="GlowAura" type="Sprite" parent="OrbRoot" index="0"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+texture = ExtResource( 3 )
+
+[node name="CrystalBase" type="Sprite" parent="OrbRoot" index="1"]
+unique_name_in_owner = true
+texture = ExtResource( 4 )
+
+[node name="InnerFluid" type="Sprite" parent="OrbRoot" index="2"]
+unique_name_in_owner = true
+texture = ExtResource( 6 )
+
+[node name="OuterFluid" type="Sprite" parent="OrbRoot" index="3"]
+unique_name_in_owner = true
+texture = ExtResource( 5 )
+
+[node name="VitalitySwirl" type="Sprite" parent="OrbRoot" index="4"]
+unique_name_in_owner = true
+texture = ExtResource( 7 )
+
+[node name="SproutCrest" type="Sprite" parent="OrbRoot" index="5"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 8 )
+
+[node name="Specular" type="Sprite" parent="OrbRoot" index="6"]
+unique_name_in_owner = true
+texture = ExtResource( 9 )
+
+[node name="Hitbox" parent="." index="5"]
+unique_name_in_owner = true
+
+[node name="Collision" parent="Hitbox" index="0"]
+shape = SubResource( 6 )
+
+[editable path="Hitbox"]

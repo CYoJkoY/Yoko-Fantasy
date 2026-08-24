@@ -34,34 +34,37 @@ static func collect_nearby_enemies(
 	max_count: int
 ) -> Array:
 	var result: Array = []
-	if main == null or main._entity_spawner == null:
+	if main == null or main._entity_spawner == null or max_count <= 0:
 		return result
 
-	var candidates: Array = main._entity_spawner.get_all_enemies(false)
 	var excluded_ids: Dictionary = {}
-	var selected_ids: Dictionary = {}
-	var radius_squared: float = radius * radius
 	for enemy in excluded:
 		if is_instance_valid(enemy):
 			excluded_ids[enemy.get_instance_id()] = true
 
-	for _i in range(max_count):
-		var best: Node = null
-		var best_dist_squared: float = radius_squared
-		for enemy in candidates:
-			if !_is_valid_enemy(enemy):
-				continue
-			var enemy_id: int = enemy.get_instance_id()
-			if excluded_ids.has(enemy_id) or selected_ids.has(enemy_id):
-				continue
-			var dist_squared: float = enemy.global_position.distance_squared_to(center)
-			if dist_squared <= best_dist_squared:
-				best = enemy
-				best_dist_squared = dist_squared
-		if best == null:
-			break
-		result.push_back(best)
-		selected_ids[best.get_instance_id()] = true
+	var result_distances: Array = []
+	var radius_squared: float = radius * radius
+	for enemy in main._entity_spawner.get_all_enemies(false):
+		if !_is_valid_enemy(enemy):
+			continue
+		if excluded_ids.has(enemy.get_instance_id()):
+			continue
+
+		var distance_squared: float = enemy.global_position.distance_squared_to(center)
+		if distance_squared > radius_squared:
+			continue
+
+		var insert_index: int = result_distances.size()
+		while insert_index > 0 and distance_squared <= result_distances[insert_index - 1]:
+			insert_index -= 1
+		if insert_index >= max_count:
+			continue
+
+		result.insert(insert_index, enemy)
+		result_distances.insert(insert_index, distance_squared)
+		if result.size() > max_count:
+			result.pop_back()
+			result_distances.pop_back()
 
 	return result
 
