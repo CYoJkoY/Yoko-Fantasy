@@ -8,11 +8,11 @@ var _velocity: Vector2 = Vector2.ZERO
 var _target: Node = null
 var _damage: int = 1
 var _player_index: int = 0
+var _weapon_pos: int = -1
 var _crit_chance: float = 0.05
 var _crit_damage: float = 1.5
 var _slow_percent: float = 35.0
 var _applies_slow: bool = false
-var _hit_done: bool = false
 
 onready var _particles: CPUParticles2D = $"%Particles"
 
@@ -28,6 +28,7 @@ func launch(
 	target_enemy: Node,
 	damage: int,
 	player_index: int,
+	weapon_pos: int,
 	crit_chance: float,
 	crit_damage: float,
 	slow_percent: float,
@@ -39,13 +40,13 @@ func launch(
 	_pool_id = pool_id
 	_damage = damage
 	_player_index = player_index
+	_weapon_pos = weapon_pos
 	_crit_chance = crit_chance
 	_crit_damage = crit_damage
 	_slow_percent = slow_percent
 	_applies_slow = applies_slow
 	_target = target_enemy
 	_elapsed = 0.0
-	_hit_done = false
 
 	global_position = start_pos
 	_velocity = initial_dir.normalized() * rand_range(580.0, 780.0)
@@ -82,10 +83,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _hit_enemy(enemy: Enemy) -> void:
-	if _hit_done or enemy.dead:
+	if enemy.dead:
 		_finish()
 		return
-	_hit_done = true
 
 	var dmg_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(_player_index, Color("#98fb10"))
 
@@ -96,6 +96,7 @@ func _hit_enemy(enemy: Enemy) -> void:
 
 	var health_before: int = enemy.current_stats.health
 	var damage_taken: Array = enemy.take_damage(int(final_damage), dmg_args)
+	RunData.add_weapon_dmg_dealt(_weapon_pos, damage_taken[1], _player_index)
 	Utils.fa_apply_direct_crit_kill_gold_rewards(
 		_player_index,
 		was_crit,

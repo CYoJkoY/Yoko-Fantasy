@@ -1,4 +1,4 @@
-extends PlayerProjectile
+extends "res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/micro_homing_player_projectile.gd"
 
 const HIT_SPLASH_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/myriad_flourish_hit_splash.tscn")
 const PETAL_DART_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/myriad_flourish_petal.tscn")
@@ -6,6 +6,11 @@ const MYRIAD_FLOURISH_EFFECT = preload("res://mods-unpacked/Yoko-Fantasy/content
 const DEFAULT_PETAL_COUNT: int = 3
 const DEFAULT_PETAL_DAMAGE_RATIO: float = 0.45
 const DEFAULT_SLOW_PERCENT: float = 35.0
+
+const HOMING_TURN_RATE: float = 1.4
+const HOMING_MAX_RANGE: float = 420.0
+const HOMING_FOV_DEG: float = 35.0
+const HOMING_RELEASE_FOV_DEG: float = 55.0
 
 var base_petal_count: int = DEFAULT_PETAL_COUNT
 var petal_damage_ratio: float = DEFAULT_PETAL_DAMAGE_RATIO
@@ -93,6 +98,8 @@ func _physics_process(delta: float) -> void:
 	_elapsed_time += delta
 	var t = _elapsed_time
 
+	_process_micro_homing(delta, HOMING_TURN_RATE, HOMING_MAX_RANGE, HOMING_FOV_DEG, HOMING_RELEASE_FOV_DEG)
+
 	_inner_fluid.rotation -= delta * (3.8 + 1.8 * sin(t * 5.0))
 	_outer_fluid.rotation += delta * (4.8 + 2.2 * cos(t * 4.5))
 	_vitality_swirl.rotation += delta * (2.8 + 1.2 * sin(t * 6.0))
@@ -156,6 +163,7 @@ func _update_trail_line() -> void:
 
 
 func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
+	var weapon_pos: int = _hitbox.from.weapon_pos
 	._on_Hitbox_hit_something(thing_hit, damage_dealt)
 
 	var main = Utils.get_scene_node()
@@ -205,6 +213,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
 			assigned_target,
 			petal_dmg,
 			player_index,
+			weapon_pos,
 			crit_ch,
 			crit_dmg,
 			slow_percent,
