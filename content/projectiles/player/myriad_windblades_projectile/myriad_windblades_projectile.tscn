@@ -1,0 +1,116 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://projectiles/player_projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_windblades_projectile/myriad_windblades_projectile.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_windblades_projectile/windblade_crescent_core.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_windblades_projectile/windblade_crescent_glow.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_windblades_projectile/windblade_crescent_streaks.webp" type="Texture" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_windblades_projectile/wind_sparkle.webp" type="Texture" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_windblades_projectile/windblade_stream_trail.webp" type="Texture" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_windblades_projectile/windblade_stream_trail.shader" type="Shader" id=8]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = ExtResource( 8 )
+shader_param/phase = 0.0
+shader_param/tint = Color( 1, 1, 1, 1 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0.72 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.04 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.35, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.8, 0.42, 0.92, 1, 0.48, 0.12, 0.52, 0.9, 0 )
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 34.0
+
+[node name="MyriadWindbladesProjectile" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+clear_material_when_pooled = false
+
+[node name="Sprite" parent="." index="0"]
+visible = false
+texture = null
+
+[node name="StreamTrailSprite" type="Sprite" parent="." index="1"]
+unique_name_in_owner = true
+material = SubResource( 8 )
+position = Vector2( 46, 0 )
+scale = Vector2( 0, 0.4032 )
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 7 )
+
+[node name="AfterimageLayer" type="Node2D" parent="." index="2"]
+unique_name_in_owner = true
+
+[node name="BladeRoot" type="Node2D" parent="." index="3"]
+unique_name_in_owner = true
+scale = Vector2( 1.38, 1.38 )
+
+[node name="GlowSprite" type="Sprite" parent="BladeRoot" index="0"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+position = Vector2( 24, 0 )
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 4 )
+
+[node name="StreakSprite" type="Sprite" parent="BladeRoot" index="1"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+position = Vector2( 24, 0 )
+scale = Vector2( 0.65, 0.65 )
+texture = ExtResource( 5 )
+
+[node name="CoreSprite" type="Sprite" parent="BladeRoot" index="2"]
+unique_name_in_owner = true
+position = Vector2( 24, 0 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 3 )
+
+[node name="TipParticlesTop" type="CPUParticles2D" parent="." index="4"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+position = Vector2( 4, -33.12 )
+emitting = false
+amount = 2
+lifetime = 0.1
+local_coords = false
+texture = ExtResource( 6 )
+direction = Vector2( -1, 0 )
+spread = 9.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 230.0
+initial_velocity_random = 0.3
+scale_amount = 0.13
+scale_amount_random = 0.06
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 6 )
+
+[node name="TipParticlesBottom" type="CPUParticles2D" parent="." index="5"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+position = Vector2( 4, 33.12 )
+emitting = false
+amount = 2
+lifetime = 0.1
+local_coords = false
+texture = ExtResource( 6 )
+direction = Vector2( -1, 0 )
+spread = 9.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 230.0
+initial_velocity_random = 0.3
+scale_amount = 0.13
+scale_amount_random = 0.06
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 6 )
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 14, 0 )
+shape = SubResource( 7 )
+
+[editable path="Hitbox"]
