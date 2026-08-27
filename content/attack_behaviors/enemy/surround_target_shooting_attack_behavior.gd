@@ -101,7 +101,7 @@ func _fantasy_distribute_shots(target_pos: Vector2, base_rot: float) -> void:
         var spawn_pos: Vector2 = Vector2.ZERO
         var proj_direction: float = 0.0
 
-        if !specific_projectiles.empty() and specific_projectiles.keys().has(i):
+        if specific_projectiles.has(i):
             var specific_porjectile: Array = specific_projectiles[i]
             var specific_spawn_radius: int = specific_porjectile[0]
             angle = base_rot + specific_porjectile[1]

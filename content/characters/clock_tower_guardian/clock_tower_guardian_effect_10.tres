@@ -12,5 +12,5 @@ storage_method = 0
 effect_sign = 1
 custom_args = [  ]
 line_type = 4
-base_range = 350
+base_range = 400
 range_rate = 65

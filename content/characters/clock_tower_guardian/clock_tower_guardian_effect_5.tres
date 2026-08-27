@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 key = ""
 text_key = "EFFECT_FANTASY_CLOCK_TOWER_AREA"
-value = 350
+value = 400
 custom_key = "fantasy_clock_tower_area"
 storage_method = 0
 effect_sign = 3

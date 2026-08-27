@@ -143,7 +143,7 @@ func fa_get_clock_tower_area_radius(base_range: int, range_rate: float, player_i
 	return min(radius, map_limit)
 
 func fa_get_clock_tower_structure_attack_speed_bonus(player_index: int) -> int:
-	return 20 + int(fa_get_permanent_stat(stat_fantasy_holy_hash, player_index) * 4)
+	return int(fa_get_permanent_stat(stat_fantasy_holy_hash, player_index) * 3)
 
 func fa_get_clock_tower_enemy_speed_percent(player_index: int) -> int:
 	return int(max(-70, -20 - int(fa_get_permanent_stat(Keys.stat_engineering_hash, player_index) * 0.5)))

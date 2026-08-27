@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/big_slime/big_slime_stats.tres" type="Resource" id=2]
@@ -230,9 +230,6 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5, 1 )
 }
 
-[sub_resource type="CircleShape2D" id=13]
-radius = 200.0
-
 [sub_resource type="CircleShape2D" id=14]
 radius = 200.0
 
@@ -255,6 +252,7 @@ dodge_sounds = [ ExtResource( 28 ), ExtResource( 24 ) ]
 stats = ExtResource( 2 )
 flash_mat = SubResource( 1 )
 enemy_id = "fantasy_big_slime"
+can_pick_up_materials = true
 die_to_spawn_path = "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/medium_slime/medium_slime.tscn"
 nb_spawns_on_death = 2
 
@@ -332,14 +330,6 @@ emitting = false
 
 [node name="EffectBehaviors" type="Node2D" parent="."]
 
-[node name="DetectionArea" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-shape = SubResource( 13 )
-
 [node name="ItemAttractArea" type="Area2D" parent="."]
 visible = false
 collision_layer = 0
@@ -361,8 +351,6 @@ shape = SubResource( 15 )
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="wanted_to_spawn_an_enemy" from="AttackBehavior" to="." method="_on_AttackBehavior_wanted_to_spawn_an_enemy"]
 [connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]
-[connection signal="body_entered" from="DetectionArea" to="." method="fa_on_DetectionArea_body_entered"]
-[connection signal="body_exited" from="DetectionArea" to="." method="fa_on_DetectionArea_body_exited"]
 [connection signal="area_entered" from="ItemAttractArea" to="." method="fa_on_ItemAttractArea_area_entered"]
 [connection signal="area_entered" from="ItemPickUpArea" to="." method="fa_on_ItemPickUpArea_area_entered"]
 

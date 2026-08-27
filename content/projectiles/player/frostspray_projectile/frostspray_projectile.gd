@@ -95,7 +95,7 @@ func _physics_process(delta: float) -> void:
 	_clean_velocity = velocity
 
 	var spawn_pop = clamp(t / 0.08, 0.3, 1.0)
-	var breath = (0.65 + 0.03 * sin(t * 9.0)) * spawn_pop
+	var breath = (0.70 + 0.03 * sin(t * 9.0)) * spawn_pop
 	_visual_root.scale = Vector2.ONE * breath
 
 	var glow_pulse = 1.0 + 0.08 * sin(t * 8.0)
@@ -224,5 +224,5 @@ func _return_to_pool() -> void:
 	_history_positions.clear()
 	_elapsed_time = 0.0
 	_clean_velocity = Vector2.ZERO
-	_visual_root.scale = Vector2.ONE * 0.65
+	_visual_root.scale = Vector2.ONE * 0.70
 	_init_trail_points()

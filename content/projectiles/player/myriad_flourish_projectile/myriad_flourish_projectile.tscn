@@ -31,7 +31,7 @@ offsets = PoolRealArray( 0, 0.5, 1 )
 colors = PoolColorArray( 1, 1, 0.8, 1, 0.75, 1, 0.2, 0.85, 0.2, 0.75, 0.1, 0 )
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 18.0
+radius = 23.0
 
 [node name="MyriadFlourishProjectile" instance=ExtResource( 1 )]
 script = ExtResource( 2 )

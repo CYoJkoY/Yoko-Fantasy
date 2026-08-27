@@ -3,7 +3,7 @@ extends DoubleValueEffect
 enum LineType { RADIUS, STRUCTURE_SPAWN, STRUCTURE_ATTACK_SPEED, ENEMY_SLOW, STRUCTURE_DISABLED, AREA }
 
 export(LineType) var line_type = LineType.AREA
-export(int) var base_range = 350
+export(int) var base_range = 400
 export(int) var range_rate = 65
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
@@ -61,7 +61,7 @@ func _get_clock_tower_area_text_args(effect_base_range: int, effect_range_rate: 
     var range_text: String = _get_signed_text(total_range, effect_base_range) + " (" + range_scaling_text + ")"
     var structure_attack_speed: int = Utils.fa_get_clock_tower_structure_attack_speed_bonus(player_index)
     var structure_attack_speed_text: String = _get_signed_text(structure_attack_speed, 0, true)
-    var holy_scaling_text: String = _get_scaling_stat_icon_text(Utils.stat_fantasy_holy_hash, 4.0)
+    var holy_scaling_text: String = _get_scaling_stat_icon_text(Utils.stat_fantasy_holy_hash, 3.0)
     var enemy_slow: int = Utils.fa_get_clock_tower_enemy_speed_percent(player_index)
     var enemy_slow_text: String = _get_signed_text(enemy_slow, 0, false, true)
     var engineering_scaling_text: String = _get_scaling_stat_icon_text(Keys.stat_engineering_hash, -0.5)

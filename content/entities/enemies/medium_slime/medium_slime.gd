@@ -14,7 +14,7 @@ func die(args:=Entity.DieArgs.new()) -> void:
 
 	.die(args)
 
-	if args.cleaning_up or !die_to_spawn_path: return
+	if args.cleaning_up or _is_evolving or !die_to_spawn_path: return
 
 	var charmed_by = get_charmed_by_player_index()
 	var nb_to_spawn: int = nb_spawns_on_death
