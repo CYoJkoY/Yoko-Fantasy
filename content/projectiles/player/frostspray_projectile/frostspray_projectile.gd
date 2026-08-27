@@ -48,7 +48,7 @@ func shoot_ex(
 	pos: Vector2,
 	p_velocity: Vector2,
 	p_rotation: float,
-	p_weapon_stats: WeaponStats,
+	p_weapon_stats,
 	damage_tracking_key: int,
 	effects: Array,
 	hitbox_args: Hitbox.HitboxArgs,
@@ -169,7 +169,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
 	var hit_angle: float = impact_dir.angle()
 
 	var shard_pool_id: int = SHARD_SCENE.get_instance_id()
-	var shard_dmg: int = max(1, int(float(_hitbox.damage) * shard_damage_ratio))
+	var shard_dmg: int = int(max(1, float(_hitbox.damage) * shard_damage_ratio))
 	var crit_ch: float = _weapon_stats.crit_chance if _weapon_stats != null else 0.05
 	var crit_dmg: float = _weapon_stats.crit_damage if _weapon_stats != null else 1.5
 

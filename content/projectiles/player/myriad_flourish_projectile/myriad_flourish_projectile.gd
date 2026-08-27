@@ -50,7 +50,7 @@ func shoot_ex(
     pos: Vector2,
     p_velocity: Vector2,
     p_rotation: float,
-    p_weapon_stats: WeaponStats,
+    p_weapon_stats,
     damage_tracking_key: int,
     effects: Array,
     hitbox_args: Hitbox.HitboxArgs,
@@ -189,7 +189,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
     var petal_pool_id: int = PETAL_DART_SCENE.get_instance_id()
     var angle_step = TAU / float(base_petal_count)
     var base_angle = rand_range(0, TAU)
-    var petal_dmg: int = max(1, int(float(damage_dealt) * petal_damage_ratio))
+    var petal_dmg: int = int(max(1, float(damage_dealt) * petal_damage_ratio))
     var crit_ch: float = _weapon_stats.crit_chance if _weapon_stats != null else 0.05
     var crit_dmg: float = _weapon_stats.crit_damage if _weapon_stats != null else 1.5
     var slowed_target_ids: Dictionary = {}

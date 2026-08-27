@@ -15,7 +15,7 @@ func shoot_ex(
 	pos: Vector2,
 	p_velocity: Vector2,
 	p_rotation: float,
-	p_weapon_stats: WeaponStats,
+	p_weapon_stats,
 	damage_tracking_key: int,
 	effects: Array,
 	hitbox_args: Hitbox.HitboxArgs,

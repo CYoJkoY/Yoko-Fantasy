@@ -36,7 +36,7 @@ func _ready() -> void:
 
 func _init_line_points() -> void:
     _line.clear_points()
-    for i in range(num_body_points):
+    for _i in range(num_body_points):
         _line.add_point(Vector2.ZERO)
     _ember_particles.position = Vector2.ZERO
 
@@ -45,7 +45,7 @@ func shoot_ex(p_from: Node,
         pos: Vector2,
         p_velocity: Vector2,
         p_rotation: float,
-        p_weapon_stats: WeaponStats,
+        p_weapon_stats,
         damage_tracking_key: int,
         effects: Array,
         hitbox_args: Hitbox.HitboxArgs,

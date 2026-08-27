@@ -73,7 +73,7 @@ func shoot_ex(
     pos: Vector2,
     p_velocity: Vector2,
     p_rotation: float,
-    p_weapon_stats: WeaponStats,
+    p_weapon_stats,
     damage_tracking_key: int,
     effects: Array,
     hitbox_args: Hitbox.HitboxArgs,
@@ -267,7 +267,7 @@ func _apply_internal_wind_force(enemy: Enemy) -> void:
         wind_force.set_meta("pool_id", pool_id)
 
     var p_idx: int = _get_player_index()
-    var tick_dmg: int = max(1, int(Utils.ncl_get_dmg_with_scaling_stats(wind_force_base_damage, wind_force_scaling_stats, p_idx)))
+    var tick_dmg: int = int(max(1, Utils.ncl_get_dmg_with_scaling_stats(wind_force_base_damage, wind_force_scaling_stats, p_idx)))
     var crit_ch: float = _hitbox.crit_chance if _hitbox != null else 0.05
     var crit_dmg: float = _hitbox.crit_damage if _hitbox != null else 2.0
     var weapon_pos: int = _hitbox.from.weapon_pos
