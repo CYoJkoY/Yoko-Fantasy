@@ -1,5 +1,7 @@
 extends "res://singletons/utils.gd"
 
+const CLOCK_TOWER_CONFIG = preload("res://mods-unpacked/Yoko-Fantasy/extensions/effects/clock_tower_area/clock_tower_area_config.tres")
+
 # Enemy Stats
 const FANTASY_ENEMY_HP: int = 0
 const FANTASY_ENEMY_SPEED: int = 1
@@ -143,7 +145,7 @@ func fa_get_clock_tower_area_radius(base_range: int, range_rate: float, player_i
 	return min(radius, map_limit)
 
 func fa_get_clock_tower_structure_attack_speed_bonus(player_index: int) -> int:
-	return int(fa_get_permanent_stat(stat_fantasy_holy_hash, player_index) * 3)
+	return CLOCK_TOWER_CONFIG.structure_attack_speed_base + int(fa_get_permanent_stat(stat_fantasy_holy_hash, player_index) * CLOCK_TOWER_CONFIG.structure_attack_speed_per_holy)
 
 func fa_get_clock_tower_enemy_speed_percent(player_index: int) -> int:
 	return int(max(-70, -20 - int(fa_get_permanent_stat(Keys.stat_engineering_hash, player_index) * 0.5)))

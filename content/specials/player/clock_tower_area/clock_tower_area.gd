@@ -2,15 +2,15 @@ extends Area2D
 
 const EFFECT_REFRESH_INTERVAL: float = 0.2
 
-export (float) var base_radius: float = 400.0
+export (float) var base_radius: float
 export (float) var source_radius: float = 236.0
 export (bool) var animate: bool = true
 
 var main: Main = null
 var player_index: int = -1
 var pos: Vector2 = Vector2.ZERO
-var area_base_range: int = 400
-var area_range_rate: float = 0.65
+var area_base_range: int
+var area_range_rate: float
 var _enemy_speed_percent: int = -10
 var _structure_attack_speed_bonus_applied: int = 0
 var _player_in_area: bool = false
@@ -50,7 +50,7 @@ onready var gears: Node2D = $Visual/Gears
 onready var shadows: Node2D = $Visual/Shadows
 onready var collision: CollisionShape2D = $Collision
 
-func init(_main: Main, _player_index: int, _pos: Vector2, radius: float = -1.0, _base_range: int = 400, _range_rate: float = 0.65) -> Area2D:
+func init(_main: Main, _player_index: int, _pos: Vector2, radius: float, _base_range: int, _range_rate: float) -> Area2D:
     main = _main
     player_index = _player_index
     pos = _pos
