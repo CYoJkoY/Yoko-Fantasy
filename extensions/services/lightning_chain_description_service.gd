@@ -13,9 +13,11 @@ static func get_args(
 	arc_color: Color,
 	player_index: int
 ) -> Array:
+	var resolved_damage_scaling_stats := _resolve_scaling_stats(damage_scaling_stats)
+	var resolved_targets_scaling_stats := _resolve_scaling_stats(targets_scaling_stats)
 	var chain_damage_text: String = Utils.ncl_get_dmg_text_with_scaling_stats(
 		base_damage,
-		damage_scaling_stats,
+		resolved_damage_scaling_stats,
 		{
 			"player_index": player_index
 		}
@@ -23,7 +25,7 @@ static func get_args(
 
 	var chain_targets_count_text: String = Utils.ncl_get_num_text_with_scaling_stats(
 		base_chain_targets,
-		targets_scaling_stats,
+		resolved_targets_scaling_stats,
 		{
 			"player_index": player_index,
 			"show_initial": false
@@ -67,3 +69,8 @@ static func get_args(
 		chain_crit_text,
 		arc_color.to_html()
 	]
+
+static func _resolve_scaling_stats(scaling_stats: Array) -> Array:
+	if scaling_stats.empty() or scaling_stats[0].empty() or scaling_stats[0][0] is int:
+		return scaling_stats
+	return Utils.convert_to_hash_array(scaling_stats)
