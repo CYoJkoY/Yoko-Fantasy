@@ -1,10 +1,10 @@
 extends DoubleValueEffect
 
+const CLOCK_TOWER_CONFIG = preload("res://mods-unpacked/Yoko-Fantasy/extensions/effects/clock_tower_area/clock_tower_area_config.tres")
+
 enum LineType { RADIUS, STRUCTURE_SPAWN, STRUCTURE_ATTACK_SPEED, ENEMY_SLOW, STRUCTURE_DISABLED, AREA }
 
 export(LineType) var line_type = LineType.AREA
-export(int) var base_range = 350
-export(int) var range_rate = 65
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 static func get_id() -> String:
@@ -22,7 +22,7 @@ func apply(player_index: int) -> void:
     if custom_key == "": return
 
     var effects = RunData.get_player_effects(player_index)
-    effects[custom_key_hash].append([value, value2])
+    effects[custom_key_hash].append([CLOCK_TOWER_CONFIG.base_radius, int(CLOCK_TOWER_CONFIG.range_rate * 100.0)])
 
 func unapply(player_index: int) -> void:
     if line_type != LineType.AREA:
@@ -30,11 +30,11 @@ func unapply(player_index: int) -> void:
     if custom_key == "": return
 
     var effects = RunData.get_player_effects(player_index)
-    effects[custom_key_hash].erase([value, value2])
+    effects[custom_key_hash].erase([CLOCK_TOWER_CONFIG.base_radius, int(CLOCK_TOWER_CONFIG.range_rate * 100.0)])
 
 func get_args(player_index: int) -> Array:
-    var effect_base_range: int = value if line_type == LineType.AREA else base_range
-    var effect_range_rate: float = value2 / 100.0 if line_type == LineType.AREA else range_rate / 100.0
+    var effect_base_range: int = CLOCK_TOWER_CONFIG.base_radius
+    var effect_range_rate: float = CLOCK_TOWER_CONFIG.range_rate
     var text_args: Dictionary = _get_clock_tower_area_text_args(effect_base_range, effect_range_rate, player_index)
 
     match line_type:
@@ -61,7 +61,7 @@ func _get_clock_tower_area_text_args(effect_base_range: int, effect_range_rate: 
     var range_text: String = _get_signed_text(total_range, effect_base_range) + " (" + range_scaling_text + ")"
     var structure_attack_speed: int = Utils.fa_get_clock_tower_structure_attack_speed_bonus(player_index)
     var structure_attack_speed_text: String = _get_signed_text(structure_attack_speed, 0, true)
-    var holy_scaling_text: String = _get_scaling_stat_icon_text(Utils.stat_fantasy_holy_hash, 4.0)
+    var holy_scaling_text: String = _get_scaling_stat_icon_text(Utils.stat_fantasy_holy_hash, CLOCK_TOWER_CONFIG.structure_attack_speed_per_holy)
     var enemy_slow: int = Utils.fa_get_clock_tower_enemy_speed_percent(player_index)
     var enemy_slow_text: String = _get_signed_text(enemy_slow, 0, false, true)
     var engineering_scaling_text: String = _get_scaling_stat_icon_text(Keys.stat_engineering_hash, -0.5)

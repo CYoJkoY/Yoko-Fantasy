@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/clock_tower_area/clock_tower_area_config.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+base_radius = 400
+range_rate = 0.65
+structure_attack_speed_base = 0
+structure_attack_speed_per_holy = 3.0

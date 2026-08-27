@@ -1,7 +1,5 @@
 extends Node2D
 
-var start_point: Vector2
-var end_point: Vector2
 var width: float = 4.0
 var jaggedness: float = 20.0
 var color: Color = Color.white
@@ -24,8 +22,6 @@ func reset() -> void:
     set_as_toplevel(true)
     position = Vector2.ZERO
     modulate.a = 1.0
-    start_point = Vector2.ZERO
-    end_point = Vector2.ZERO
     line.points = PoolVector2Array()
     glow_line.points = PoolVector2Array()
 
@@ -57,8 +53,7 @@ func link(
         if RunData.get_player_effect_bool(Utils.fantasy_lightning_chain_can_crit_hash, player_index) else 0.0
     crit_damage = _crit_damage
 
-    var dmg_args: TakeDamageArgs = TakeDamageArgs.new(player_index)
-    dmg_args.set_meta("custom_color", color)
+    var dmg_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(player_index, color)
 
     for i in range(1, enemies.size()):
         var enemy: Enemy = enemies[i]
@@ -66,18 +61,18 @@ func link(
 
         var final_damage: float = damage * pow(chain_damage_mult, i - 1)
 
-        if Utils.get_chance_success(crit_chance):
+        var was_crit: bool = Utils.get_chance_success(crit_chance)
+        if was_crit:
             final_damage *= crit_damage
 
-            var gold_on_crit_kill_effects: Array = RunData.get_player_effect(Keys.gold_on_crit_kill_hash, player_index)
-            for effect in gold_on_crit_kill_effects:
-                if !Utils.get_chance_success(effect[1] / 100.0): continue
-
-                RunData.add_gold(1, player_index)
-                RunData.add_tracked_value(player_index, Keys.item_hunting_trophy_hash, 1)
-
+        var health_before: int = enemy.current_stats.health
         var damage_taken: Array = enemy.take_damage(int(final_damage), dmg_args)
         true_damage += damage_taken[1]
+        Utils.fa_apply_direct_crit_kill_gold_rewards(
+            player_index,
+            was_crit,
+            health_before > 0 and damage_taken[1] >= health_before
+        )
 
         var effects: Array = []
         var item_effects: Array = RunData.get_player_effect(Keys.enemy_percent_damage_taken_hash, player_index)

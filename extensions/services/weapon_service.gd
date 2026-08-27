@@ -192,9 +192,9 @@ func _fantasy_lightning_chain_on_hit(weapon: Node, thing_hit: Node) -> void:
         return
 
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_lightning_chain_on_hit_hash, weapon.player_index)
-    var params_list: Array = LightningChainService.new().collect_triggered_hit_params(weapon.effects, effect_items, weapon.player_index)
+    var params_list: Array = LightningChainService.collect_triggered_hit_params(weapon.effects, effect_items, weapon.player_index)
     for params in params_list:
-        var arc_damage: int = LightningChainService.new().spawn_lightning_chain(
+        var arc_damage: int = LightningChainService.spawn_lightning_chain(
             main,
             thing_hit,
             weapon.player_index,

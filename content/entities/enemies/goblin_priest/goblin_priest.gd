@@ -30,9 +30,12 @@ func _on_BoostZone_body_entered(body: Node) -> void:
         entities_in_zone[1].append(body)
 
 func _on_BoostTimer_timeout() -> void:
+    _remove_invalid_entities(entities_in_zone[0])
+    _remove_invalid_entities(entities_in_zone[1])
+
+    var healed_any: bool = false
     for entity in entities_in_zone[0]:
         if is_instance_valid(entity) and !(entity is Structure) and entity.current_stats.health < entity.max_stats.health:
-            SoundManager2D.play(heal_sound, global_position, -10, 0.2)
             var heal_value = int(player_heal + (RunData.current_wave - 1) * player_heal_increase_each_wave)
             if entity is Player:
                 entity.on_healing_effect(heal_value)
@@ -45,6 +48,10 @@ func _on_BoostTimer_timeout() -> void:
             else:
                 entity.emit_signal("healed", entity)
             emit_signal("healed", self )
+            healed_any = true
+
+    if healed_any:
+        SoundManager2D.play(heal_sound, global_position, -10, 0.2)
 
     var nb_entities_boosted = 0
     entities_in_zone[1].shuffle()
@@ -87,3 +94,8 @@ func _on_BoostZone_body_exited(body: Node) -> void:
         [true, true]:
             entities_in_zone[0].erase(body)
             entities_in_zone[1].erase(body)
+
+func _remove_invalid_entities(entities: Array) -> void:
+    for index in range(entities.size() - 1, -1, -1):
+        if !is_instance_valid(entities[index]):
+            entities.remove(index)

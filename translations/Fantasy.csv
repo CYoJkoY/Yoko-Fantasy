@@ -138,7 +138,7 @@ Perde velocità ma guadagna PV massimi. Ucciderlo gli fa rilasciare il doppio de
 Mutazione 2:
 Perde ancora più velocità ma guadagna ancora più PV massimi. Ucciderlo gli fa rilasciare il triplo dei materiali mangiati."
 FANTASY_LITTLE_SLIME_NAME,Small Slime,Petit slime,小史莱姆,スモールスライム,작은 슬라임,小史萊姆,Малый слизень,Mały szlam,Slime pequeño,Slime pequeno,Kleiner Schleim,Küçük slime,Slime piccolo
-FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,Slowly pursues the player. Evolves after 10 combined instances of non-slime enemies dying or materials being picked up within a 100-unit range,Poursuit lentement le joueur. Évolue après 10 occurrences combinées de morts d'ennemis non-slime ou de ramassage de matériaux dans un rayon de 100 unités,"缓慢追击玩家,100范围内死亡的非史莱姆系敌人与其拾取的材料之和达到10个则进化",ゆっくりとプレイヤーを追跡する.100ユニット範囲内で非スライム敵の死亡または素材の拾得が合計10回発生すると進化する,플레이어를 천천히 추적합니다. 100 범위 내에서 비슬라임 적 사망 또는 재료 획득이 10회 합산되면 진화합니다,"緩慢追擊玩家,100範圍內死亡的非史萊姆系敵人與其拾取的材料之和達到10個則進化",Медленно преследует игрока. Эволюционирует после 10 суммарных событий смерти не-слизней или подбора материалов в радиусе 100 единиц,Powoli ściga gracza. Ewoluuje po 10 łącznych przypadkach śmierci przeciwników niebędących szlamami lub zebrania materiałów w zasięgu 100 jednostek,Persigue lentamente al jugador. Evoluciona tras 10 instancias combinadas de muertes de enemigos no slime o recogida de materiales en un radio de 100 unidades,Persegue lentamente o jogador. Evolui após 10 ocorrências combinadas de mortes de inimigos não slime ou coleta de materiais em um raio de 100 unidades,Verfolgt den Spieler langsam. Entwickelt sich nach 10 kombinierten Vorkommnissen von getöteten Nicht-Schleim-Gegnern oder aufgesammelten Materialien in einem Umkreis von 100 Einheiten,Oyuncuyu yavaşça takip eder. 100 birim menzil içinde balçık olmayan düşman ölümleri veya malzeme toplamanın toplam 10 kez gerçekleşmesinden sonra evrimleşir,Insegue lentamente il giocatore. Si evolve dopo 10 occorrenze combinate di nemici non slime uccisi o materiali raccolti entro un raggio di 100 unità
+FANTASY_LITTLE_SLIME_BEHAVIOUR_DESCRIPTION,Slowly pursues the player,Poursuit lentement le joueur,缓慢追击玩家,ゆっくりプレイヤーを追跡する,플레이어를 천천히 추적합니다,緩慢追擊玩家,Медленно преследует игрока,Powoli ściga gracza,Persigue lentamente al jugador,Persegue lentamente o jogador,Verfolgt den Spieler langsam,Oyuncuyu yavaşça takip eder,Insegue lentamente il giocatore
 FANTASY_MEDIUM_SLIME_NAME,Medium Slime,Slime moyen,中史莱姆,ミディアムスライム,중간 슬라임,中史萊姆,Средний слизень,Średni szlam,Slime mediano,Slime médio,Mittlerer Schleim,Orta slime,Slime medio
 FANTASY_MEDIUM_SLIME_BEHAVIOUR_DESCRIPTION,Drops only gathered materials. Slowly pursues the player. Summons 1 small slime per second. Splits into 3 small slimes upon death. Evolves after 24 instances of either non-slime enemies dying or materials being picked up within a 150-unit range,Lâche uniquement les matériaux ramassés. Poursuit lentement le joueur. Invoque 1 petit slime par seconde. Se divise en 3 petits slimes à la mort. Évolue après 24 occurrences de morts d'ennemis non-slime ou de ramassage de matériaux dans un rayon de 150 unités,"仅掉落拾取的材料,缓慢追击玩家,每秒召唤1个小史莱姆,死亡时分裂成3个小史莱姆,150范围内死亡的非史莱姆系敌人与其拾取的材料之和达到24个则进化",拾得した素材のみを落とす.ゆっくりプレイヤーを追跡.毎秒1体のスモールスライムを召喚.死亡時に3体のスモールスライムに分裂.150ユニット範囲内で非スライム敵の死亡または素材の拾得が24回発生すると進化,획득한 재료만 떨어뜨립니다. 플레이어를 천천히 추적합니다. 매 초 작은 슬라임을 1마리 소환합니다. 사망 시 3마리의 작은 슬라임으로 분열합니다. 150 범위 내에서 비슬라임 적 사망 또는 재료 획득이 24회 발생하면 진화합니다,"僅掉落拾取的材料,緩慢追擊玩家,每秒召喚1個小史萊姆,死亡時分裂成3個小史萊姆,150範圍內死亡的非史萊姆系敵人與其拾取的材料之和達到24個則進化",Роняет только собранные материалы. Медленно преследует игрока. Призывает 1 малого слизня в секунду. При смерти разделяется на 3 малых слизней. Эволюционирует после 24 событий смерти не-слизней или подбора материалов в радиусе 150 единиц,Upuszcza tylko zebrane materiały. Powoli ściga gracza. Co sekundę przywołuje 1 małego szlama. Przy śmierci dzieli się na 3 małe szlamy. Ewoluuje po 24 przypadkach śmierci przeciwników niebędących szlamami lub zebrania materiałów w zasięgu 150 jednostek,Suelta solo los materiales recogidos. Persigue lentamente al jugador. Invoca 1 slime pequeño por segundo. Se divide en 3 slimes pequeños al morir. Evoluciona tras 24 instancias de muertes de enemigos no slime o recogida de materiales en un radio de 150 unidades,Solta apenas os materiais coletados. Persegue lentamente o jogador. Invoca 1 slime pequeno por segundo. Divide-se em 3 slimes pequenos ao morrer. Evolui após 24 ocorrências de mortes de inimigos não slime ou coleta de materiais em um raio de 150 unidades,Lässt nur gesammelte Materialien fallen. Verfolgt den Spieler langsam. Beschwört 1 kleinen Schleim pro Sekunde. Teilt sich beim Tod in 3 kleine Schleime. Entwickelt sich nach 24 Vorkommnissen von getöteten Nicht-Schleim-Gegnern oder aufgesammelten Materialien in einem Umkreis von 150 Einheiten,Yalnızca toplanan malzemeleri düşürür. Oyuncuyu yavaşça takip eder. Saniyede 1 küçük slime çağırır. Öldüğünde 3 küçük slime'a bölünür. 150 birim menzil içinde balçık olmayan düşman ölümleri veya malzeme toplamanın 24 kez gerçekleşmesinden sonra evrimleşir,Lascia cadere solo i materiali raccolti. Insegue lentamente il giocatore. Evoca 1 slime piccolo al secondo. Si divide in 3 slime piccoli alla morte. Si evolve dopo 24 occorrenze di nemici non slime uccisi o materiali raccolti entro un raggio di 150 unità
 FANTASY_BIG_SLIME_NAME,Big Slime,Gros slime,大史莱姆,ビッグスライム,큰 슬라임,大史萊姆,Большой слизень,Duży szlam,Slime grande,Slime grande,Großer Schleim,Büyük slime,Slime grande
@@ -304,124 +304,6 @@ ITEM_FANTASY_CRIMSON_HOLY_SHROUD,Crimson Holy Shroud,Suaire sacré cramoisi,绯�
 ITEM_FANTASY_CROW,Crow,Corbeau,乌鸦,カラス,까마귀,烏鴉,Ворона,Wrona,Cuervo,Corvo,Krähe,Karga,Corvo
 FANTASY_CROW_NAME,Crow,Corbeau,乌鸦,カラス,까마귀,烏鴉,Ворона,Wrona,Cuervo,Corvo,Krähe,Karga,Corvo
 EFFECT_FANTASY_PET_CROW,"Summon a crow that surrounds you, firing a feather every {0}s at enemies within range {1}, dealing {2} ({3}) damage","Invoque un corbeau qui vous entoure, tirant une plume toutes les {0}s sur les ennemis à portée {1}, infligeant {2} ({3}) dégâts","召唤一只乌鸦围绕在你身边,每{0}秒发射一枚羽毛攻击范围{1}内的敌人,造成{2}({3})伤害","カラスを召喚して周囲を旋回させ,{0}秒ごとに範囲{1}内の敵に羽根を発射し,{2}({3})ダメージを与える",주변을 맴도는 까마귀를 소환합니다. {0}초마다 범위 {1} 내의 적에게 깃털을 발사하여 {2}({3}) 피해를 줍니다,"召喚一隻烏鴉圍繞在你身邊,每{0}秒發射一枚羽毛攻擊範圍{1}內的敵人,造成{2}({3})傷害","Призывает ворону, которая кружит вокруг вас, каждые {0} с. выпуская перо во врагов в радиусе {1}, нанося {2} ({3}) урона","Przywołuje wronę, która krąży wokół ciebie, co {0} s wystrzeliwując pióro we wrogów w zasięgu {1}, zadając {2} ({3}) obrażeń","Invoca un cuervo que te rodea, disparando una pluma cada {0}s a los enemigos dentro del rango {1}, infligiendo {2} ({3}) de daño","Invoca um corvo que o rodeia, disparando uma pena a cada {0}s em inimigos num raio de {1}, causando {2} ({3}) de dano","Beschwört eine Krähe, die dich umkreist und alle {0}s eine Feder auf Gegner in Reichweite {1} feuert, die {2} ({3}) Schaden verursacht","Etrafında dönen bir karga çağırır, her {0} saniyede bir menzil {1} içindeki düşmanlara tüy atarak {2} ({3}) hasar verir","Evoca un corvo che ti circonda, sparando una piuma ogni {0}s ai nemici entro un raggio di {1}, infliggendo {2} ({3}) danni"
-FANTASY_WANDERING_RANGED_PET_BEHAVIOUR_DESCRIPTION,"Flies around the player, attacking enemies by firing projectiles
-
-This pet scales with player :
-- % Life Steal
-- % Damage
-- % Crit Chance
-- Bounces
-- Piercing
-- % Piercing Damage
-- % Damage against bosses","Vole autour du joueur, attaquant les ennemis en tirant des projectiles
-
-Ce familier évolue avec le joueur :
-- % Vol de vie
-- % Dégâts
-- % Crit
-- Rebonds
-- Perforation
-- % Dégâts de perforation
-- % Dégâts contre les boss","围绕玩家飞行,发射投射物攻击敌人
-
-这个宠物受到玩家以下属性的影响:
-- %生命窃取
-- %伤害
-- %暴击率
-- 弹跳
-- 贯通
-- %贯通伤害
-- %对头目伤害","プレイヤーの周囲を飛び,投射物を発射して敵を攻撃する
-
-このペットはプレイヤーの以下のステータスの影響を受ける:
-- %生命吸収
-- %ダメージ
-- %クリティカル率
-- バウンス
-- 貫通
-- %貫通ダメージ
-- %ボスダメージ","플레이어 주위를 날며, 투사체를 발사하여 적을 공격합니다
-
-이 펫은 플레이어의 다음 능력치에 따라 성장합니다:
-- % 생명력 흡수
-- % 피해
-- % 치명타 확률
-- 튕김
-- 관통
-- % 관통 피해
-- % 보스 피해","圍繞玩家飛行,發射投射物攻擊敵人
-
-這個寵物受到玩家以下屬性的影響:
-- %生命竊取
-- %傷害
-- %暴擊率
-- 彈跳
-- 貫通
-- %貫通傷害
-- %對頭目傷害","Летает вокруг игрока, атакуя врагов стрельбой снарядами
-
-Этот питомец зависит от характеристик игрока:
-- % Кражи жизни
-- % Урона
-- % Шанс крита
-- Отскоки
-- Пробивание
-- % Урона от пробивания
-- % Урона по боссам","Lata wokół gracza, atakując wrogów pociskami
-
-Ten towarzysz skaluje się z graczem:
-- % Kradzieży życia
-- % Obrażeń
-- % Szansy na krytyczne
-- Odbicia
-- Przebijanie
-- % Obrażeń od przebicia
-- % Obrażeń przeciwko bossom","Vuela alrededor del jugador, atacando enemigos disparando proyectiles
-
-Esta mascota escala con el jugador:
-- % Robo de vida
-- % Daño
-- % Prob. de crítico
-- Rebotes
-- Perforación
-- % Daño de perforación
-- % Daño contra jefes","Voa ao redor do jogador, atacando inimigos disparando projéteis
-
-Este pet escala com o jogador:
-- % Roubo de vida
-- % Dano
-- % Chance de Crítico
-- Ricochetes
-- Perfuração
-- % Dano de perfuração
-- % Dano contra chefes","Fliegt um den Spieler herum und greift Gegner mit Projektilen an
-
-Dieses Haustier skaliert mit dem Spieler:
-- % Lebensraub
-- % Schaden
-- % Krit-Chance
-- Abpraller
-- Durchschlag
-- % Durchschlagsschaden
-- % Schaden gegen Bosse","Oyuncunun etrafında uçar, mermi atarak düşmanlara saldırır
-
-Bu evcil hayvan oyuncunun şu özelliklerinden etkilenir:
-- % Yaşam Çalma
-- % Hasar
-- % Kritik Şansı
-- Sektirme
-- Delme
-- % Delme Hasarı
-- % Bosslara Karşı Hasar","Vola intorno al giocatore, attaccando i nemici sparando proiettili
-
-Questo famiglio scala con il giocatore:
-- % Risucchio vitale
-- % Danno
-- % Prob. critico
-- Rimbalzi
-- Perforazione
-- % Danno da perforazione
-- % Danno contro i boss"
 ITEM_FANTASY_CURSED_FIRE,Cursed Fire,Feu maudit,诅咒之火,呪われし炎,저주받은 불,詛咒之火,Проклятый огонь,Przeklęty ogień,Fuego maldito,Fogo amaldiçoado,Verfluchtes Feuer,Lanetli Ateş,Fuoco maledetto
 FANTASY_LIVING_CURSED_ENEMY,Cursed Enemy,Ennemi maudit,被诅咒的敌人,呪われた敵,저주받은 적,被詛咒的敵人,Проклятый враг,Przeklęty wróg,Enemigo maldito,Inimigo amaldiçoado,Verfluchter Feind,Lanetli Düşman,Nemico maledetto
 ITEM_FANTASY_DEMON_EYE,Demon Eye,Œil de démon,恶魔之眼,悪魔の目,악마의 눈,惡魔之眼,Глаз демона,Oko demona,Ojo de demonio,Olho de demônio,Dämonenauge,Şeytan Gözü,Occhio di demone
@@ -451,137 +333,6 @@ ITEM_FANTASY_DWARVEN_SCOPE,Dwarven Scope,Lunette naine,矮人瞄准镜,ドワー
 ITEM_FANTASY_EGYPTIAN_CAT,Egyptian Cat,Chat égyptien,埃及猫,エジプシャンキャット,이집트 고양이,埃及貓,Египетская кошка,Kot egipski,Gato egipcio,Gato egípcio,Ägyptische Katze,Mısır Kedisi,Gatto egiziano
 FANTASY_EGYPTIAN_CAT_NAME,Egyptian Cat,Chat égyptien,埃及猫,エジプシャンキャット,이집트 고양이,埃及貓,Египетская кошка,Kot egipski,Gato egipcio,Gato egípcio,Ägyptische Katze,Mısır Kedisi,Gatto egiziano
 EFFECT_FANTASY_PET_EGYPTIAN_CAT,"Summons an Egyptian cat that chases enemies within range of {1}, firing three spikes every {0} seconds and dealing {2}({3}) damage.","Invoque un chat égyptien qui poursuit les ennemis dans un rayon de {1}, tirant trois piques toutes les {0} secondes et infligeant {2}({3}) dégâts.","召唤一只埃及猫追击范围{1}内的敌人,每{0}秒发射三枚尖刺攻击,造成{2}({3})伤害","範囲{1}内の敵を追跡するエジプシャンキャットを召喚.{0}秒ごとに3本のスパイクを発射し,{2}({3})ダメージを与える.",범위 {1} 내의 적을 추적하는 이집트 고양이를 소환합니다. {0}초마다 세 개의 가시를 발사하여 {2}({3}) 피해를 줍니다.,"召喚一隻埃及貓追擊範圍{1}內的敵人,每{0}秒發射三枚尖刺攻擊,造成{2}({3})傷害","Призывает египетскую кошку, которая преследует врагов в радиусе {1}, каждые {0} секунд выпуская три шипа и нанося {2}({3}) урона.","Przywołuje egipskiego kota, który goni wrogów w zasięgu {1}, co {0} sekund wystrzeliwując trzy kolce i zadając {2}({3}) obrażeń.","Invoca un gato egipcio que persigue a los enemigos en un rango de {1}, disparando tres púas cada {0} segundos e infligiendo {2}({3}) de daño.","Invoca um gato egípcio que persegue inimigos em um raio de {1}, disparando três espinhos a cada {0} segundos e causando {2}({3}) de dano.","Beschwört eine ägyptische Katze, die Gegner in Reichweite von {1} jagt, alle {0} Sekunden drei Stacheln feuert und {2}({3}) Schaden verursacht.","{1} menzilindeki düşmanları kovalayan bir Mısır kedisi çağırır, her {0} saniyede üç diken atar ve {2}({3}) hasar verir.","Evoca un gatto egiziano che insegue i nemici entro un raggio di {1}, sparando tre spuntoni ogni {0} secondi e infliggendo {2}({3}) danni."
-FANTASY_FOLLOW_RANGED_PET_BEHAVIOUR_DESCRIPTION,"Chases enemies within range, launches projectiles to attack them, and returns to the player's side if beyond the range
-
-This pet scales with player :
-- % Life Steal
-- % Damage
-- % Crit Chance
-- Speed
-- Bounces
-- Piercing
-- % Piercing Damage
-- % Damage against bosses","Poursuit les ennemis à portée, lance des projectiles pour les attaquer, et retourne aux côtés du joueur s'il est hors de portée
-
-Ce familier évolue avec le joueur :
-- % Vol de vie
-- % Dégâts
-- % Crit
-- Vitesse
-- Rebonds
-- Perforation
-- % Dégâts de perforation
-- % Dégâts contre les boss","追击范围内的敌人,发射投射物攻击敌人,超出范围回到玩家身边
-
-这个宠物受到玩家以下属性的影响:
-- %生命窃取
-- %伤害
-- %暴击率
-- 速度
-- 弹跳
-- 贯通
-- %贯通伤害
-- %对头目伤害","範囲内の敵を追跡し,投射物を発射して攻撃する.範囲外に出るとプレイヤーの元に戻る
-
-このペットはプレイヤーの以下のステータスの影響を受ける:
-- %生命吸収
-- %ダメージ
-- %クリティカル率
-- 速度
-- バウンス
-- 貫通
-- %貫通ダメージ
-- %ボスダメージ","범위 내의 적을 쫓아, 투사체를 발사하여 공격합니다. 범위를 벗어나면 플레이어 곁으로 돌아옵니다
-
-이 펫은 플레이어의 다음 능력치에 따라 성장합니다:
-- % 생명력 흡수
-- % 피해
-- % 치명타 확률
-- 속도
-- 튕김
-- 관통
-- % 관통 피해
-- % 보스 피해","追擊範圍內的敵人,發射投射物攻擊敵人,超出範圍回到玩家身邊
-
-這個寵物受到玩家以下屬性的影響:
-- %生命竊取
-- %傷害
-- %暴擊率
-- 速度
-- 彈跳
-- 貫通
-- %貫通傷害
-- %對頭目傷害","Преследует врагов в радиусе, атакует их снарядами и возвращается к игроку, если выходит за пределы радиуса
-
-Этот питомец зависит от характеристик игрока:
-- % Кражи жизни
-- % Урона
-- % Шанс крита
-- Скорость
-- Отскоки
-- Пробивание
-- % Урона от пробивания
-- % Урона по боссам","Goni wrogów w zasięgu, wystrzeliwuje pociski, by ich atakować, i wraca do gracza, jeśli znajdzie się poza zasięgiem
-
-Ten towarzysz skaluje się z graczem:
-- % Kradzieży życia
-- % Obrażeń
-- % Szansy na krytyczne
-- Prędkość
-- Odbicia
-- Przebijanie
-- % Obrażeń od przebicia
-- % Obrażeń przeciwko bossom","Persigue a los enemigos dentro del alcance, lanza proyectiles para atacarlos y regresa al lado del jugador si se sale del alcance
-
-Esta mascota escala con el jugador:
-- % Robo de vida
-- % Daño
-- % Prob. de crítico
-- Velocidad
-- Rebotes
-- Perforación
-- % Daño de perforación
-- % Daño contra jefes","Persegue inimigos dentro do alcance, lança projéteis para atacá-los e retorna para perto do jogador se estiver fora do alcance
-
-Este pet escala com o jogador:
-- % Roubo de vida
-- % Dano
-- % Chance de Crítico
-- Velocidade
-- Ricochetes
-- Perfuração
-- % Dano de perfuração
-- % Dano contra chefes","Verfolgt Gegner in Reichweite, feuert Projektile auf sie ab und kehrt zum Spieler zurück, wenn außer Reichweite
-
-Dieses Haustier skaliert mit dem Spieler:
-- % Lebensraub
-- % Schaden
-- % Krit-Chance
-- Tempo
-- Abpraller
-- Durchschlag
-- % Durchschlagsschaden
-- % Schaden gegen Bosse","Menzildeki düşmanları kovalar, saldırmak için mermi atar ve menzil dışına çıkarsa oyuncunun yanına döner
-
-Bu evcil hayvan oyuncunun şu özelliklerinden etkilenir:
-- % Yaşam Çalma
-- % Hasar
-- % Kritik Şansı
-- Hız
-- Sektirme
-- Delme
-- % Delme Hasarı
-- % Bosslara Karşı Hasar","Insegue i nemici entro il raggio d'azione, lancia proiettili per attaccarli e torna al fianco del giocatore se oltre il raggio
-
-Questo famiglio scala con il giocatore:
-- % Risucchio vitale
-- % Danno
-- % Prob. critico
-- Velocità
-- Rimbalzi
-- Perforazione
-- % Danno da perforazione
-- % Danno contro i boss"
 ITEM_FANTASY_PIXIE,Pixie,Pixie,小妖精,ピクシー,요정,小妖精,Пикси,Pixie,Pixie,Pixie,Pixie,Pixie,Pixie
 ITEM_FANTASY_GAUNTLET,Gauntlet,Gantelet,护手,ガントレット,건틀릿,護手,Перчатка,Rękawica,Guantelete,Manopla,Panzerhandschuh,Eldiven,Guanto d'arme
 ITEM_FANTASY_IRON_RING,Iron Ring,Anneau de fer,铁戒指,鉄の指輪,철 반지,鐵戒指,Железное кольцо,Żelazny pierścień,Anillo de hierro,Anel de ferro,Eisenring,Demir Yüzük,Anello di ferro
@@ -623,6 +374,9 @@ FANTASY_MAGIC_SWORD_NAME,Magic Sword,Épée magique,魔剑,マジックソード
 FANTASY_MAGIC_SWORD_BEHAVIOUR_DESCRIPTION,"Guards the player and chains up to 3 flying slashes against nearby enemies. Each magic sword summons 1 guard blade that thrusts at enemies within 350 range every 1.5 seconds.","Protège le joueur et enchaîne jusqu'à 3 entailles volantes contre les ennemis proches. Chaque épée magique invoque 1 lame gardienne qui transperce les ennemis à 350 de portée toutes les 1,5 secondes.","护卫玩家,对附近敌人最多连续飞斩3次。每把魔剑会召唤1把护卫子剑,子剑每1.5秒突刺350范围内的敌人。","プレイヤーを護衛し,近くの敵に最大3回の連続飛翔斬りを行う。魔剣1本につき護衛剣を1本召喚し,1.5秒ごとに350範囲内の敵を突き刺す。","플레이어를 호위하며 주변 적에게 최대 3회의 연속 비행 참격을 가합니다. 마법검 하나마다 호위검 1개를 소환하며, 호위검은 1.5초마다 350 범위 내 적을 찌릅니다.","護衛玩家,對附近敵人最多連續飛斬3次。每把魔劍會召喚1把護衛子劍,子劍每1.5秒突刺350範圍內的敵人。","Охраняет игрока и выполняет до 3 летящих атак подряд по ближайшим врагам. Каждый волшебный меч призывает 1 клинок-страж, который раз в 1,5 секунды пронзает врагов в радиусе 350.","Chroni gracza i wykonuje do 3 kolejnych latających cięć przeciw pobliskim wrogom. Każdy magiczny miecz przywołuje 1 ostrze strażnicze, które co 1,5 sekundy przebija wrogów w zasięgu 350.","Protege al jugador y encadena hasta 3 tajos voladores contra enemigos cercanos. Cada espada mágica invoca 1 espada guardiana que perfora enemigos a 350 de alcance cada 1,5 segundos.","Protege o jogador e encadeia até 3 cortes voadores contra inimigos próximos. Cada espada mágica invoca 1 lâmina guardiã que perfura inimigos a 350 de alcance a cada 1,5 segundos.","Beschützt den Spieler und führt bis zu 3 fliegende Kettenhiebe gegen nahe Gegner aus. Jedes magische Schwert beschwört 1 Wächterklinge, die alle 1,5 Sekunden Gegner in 350 Reichweite durchbohrt.","Oyuncuyu korur ve yakındaki düşmanlara en fazla 3 zincirleme uçan kesiş yapar. Her sihirli kılıç, 1,5 saniyede bir 350 menzildeki düşmanları delen 1 muhafız kılıç çağırır.","Protegge il giocatore e concatena fino a 3 fendenti volanti contro i nemici vicini. Ogni spada magica evoca 1 lama guardiana che trafigge i nemici entro 350 ogni 1,5 secondi."
 FANTASY_PET_AFFECTED_PLAYER_STATS,This pet is affected by the following player stats:,Ce familier est affecté par les statistiques suivantes du joueur:,这个宠物受到玩家以下属性的影响:,このペットはプレイヤーの以下のステータスの影響を受ける:,이 펫은 플레이어의 다음 능력치에 영향을 받습니다:,這個寵物受到玩家以下屬性的影響:,На этого питомца влияют следующие характеристики игрока:,Na tego towarzysza wpływają następujące statystyki gracza:,Esta mascota se ve afectada por las siguientes estadísticas del jugador:,Este pet é afetado pelos seguintes atributos do jogador:,Dieses Haustier wird von den folgenden Spielerwerten beeinflusst:,Bu evcil hayvan oyuncunun şu özelliklerinden etkilenir:,Questo famiglio è influenzato dalle seguenti statistiche del giocatore:
 FANTASY_PET_STAT_SCOPE_PRIMARY_ATTACK,(primary attack only),(attaque principale uniquement),(仅主剑),(主剣のみ),(주 검만),(僅主劍),(только основной клинок),(tylko główny atak),(solo ataque principal),(apenas ataque principal),(nur Hauptangriff),(yalnızca ana saldırı),(solo attacco principale)
+FANTASY_WANDERING_RANGED_PET_BEHAVIOUR,"Flies around the player, attacking enemies by firing projectiles","Vole autour du joueur et attaque les ennemis en tirant des projectiles",围绕玩家飞行并发射投射物攻击敌人,プレイヤーの周囲を飛び投射物で敵を攻撃する,플레이어 주위를 날며 투사체를 발사해 적을 공격합니다,圍繞玩家飛行並發射投射物攻擊敵人,Летает вокруг игрока и атакует врагов снарядами,Lata wokół gracza i atakuje wrogów pociskami,Vuela alrededor del jugador y ataca a los enemigos con proyectiles,Voa ao redor do jogador e ataca inimigos com projéteis,Fliegt um den Spieler und greift Gegner mit Projektilen an,Oyuncunun etrafında uçar ve mermilerle düşmanlara saldırır,Vola intorno al giocatore e attacca i nemici con proiettili
+FANTASY_FOLLOW_RANGED_PET_BEHAVIOUR,"Chases enemies within range, attacks with projectiles, and returns to the player when out of range","Poursuit les ennemis à portée, attaque avec des projectiles et revient vers le joueur hors de portée",追击范围内的敌人并发射投射物攻击，超出范围时返回玩家身边,範囲内の敵を追跡して投射物で攻撃し範囲外ではプレイヤーの元へ戻る,범위 안의 적을 추격해 투사체로 공격하고 범위를 벗어나면 플레이어에게 돌아옵니다,追擊範圍內的敵人並發射投射物攻擊，超出範圍時返回玩家身邊,Преследует врагов в радиусе действия и возвращается к игроку за его пределами,Ściga wrogów w zasięgu i wraca do gracza poza zasięgiem,Persigue a los enemigos al alcance y vuelve al jugador cuando salen del alcance,Persegue inimigos ao alcance e retorna ao jogador quando saem do alcance,Verfolgt Gegner in Reichweite und kehrt außerhalb der Reichweite zum Spieler zurück,Menzildeki düşmanları kovalar ve menzil dışında oyuncuya döner,Insegue i nemici a portata e torna dal giocatore fuori portata
+FANTASY_TACTICAL_GLOBAL_PET_BEHAVIOUR,"Follows the player. Periodically attacks up to 8 enemies with the highest health. Killing an enemy resets all pets' cooldowns, including itself","Suit le joueur. Attaque périodiquement jusqu'à 8 ennemis ayant le plus de PV. Tuer un ennemi réinitialise le temps de recharge de tous les familiers, lui compris","跟随玩家，周期性攻击至多8个生命值最高的敌人；击杀敌人会重置包括自身在内所有宠物的冷却时间","プレイヤーに追従し周期的にHPの高い敵を最大8体攻撃する。敵を倒すと自身を含む全ペットのクールダウンをリセットする","플레이어를 따라다니며 주기적으로 체력이 가장 높은 적을 최대 8명 공격합니다. 적을 처치하면 자신을 포함한 모든 펫의 재사용 대기시간이 초기화됩니다","跟隨玩家，週期性攻擊至多8個生命值最高的敵人；擊殺敵人會重置包括自身在內所有寵物的冷卻時間","Следует за игроком и периодически атакует до 8 врагов с наибольшим здоровьем. Убийство сбрасывает перезарядку всех питомцев, включая себя","Podąża za graczem i okresowo atakuje do 8 wrogów z największym zdrowiem. Zabójstwo resetuje czas odnowienia wszystkich pupili, w tym jego","Sigue al jugador y ataca periódicamente hasta a 8 enemigos con más vida. Matar a un enemigo reinicia el enfriamiento de todas las mascotas, incluido él","Segue o jogador e ataca periodicamente até 8 inimigos com mais vida. Matar um inimigo reinicia a recarga de todos os pets, incluindo ele","Folgt dem Spieler und greift regelmäßig bis zu 8 Gegner mit den höchsten LP an. Ein Kill setzt die Abklingzeit aller Haustiere einschließlich seiner eigenen zurück","Oyuncuyu takip eder ve düzenli olarak en yüksek cana sahip 8 düşmana saldırır. Bir düşman öldürmek kendisi dahil tüm evcil hayvanların bekleme süresini sıfırlar","Segue il giocatore e attacca periodicamente fino a 8 nemici con più salute. Uccidere un nemico azzera la ricarica di tutti i famigli incluso se stesso"
 EFFECT_FANTASY_PET_MAGIC_SWORD,"Summons a magic sword that chains up to 3 flying slashes against enemies within {1} range, dealing {2} ({3}) damage. Its guard blade thrusts within 350 range every 1.5 seconds with 30 knockback.","Invoque une épée magique qui enchaîne jusqu'à 3 entailles volantes contre les ennemis à {1} de portée, infligeant {2} ({3}) dégâts. Sa lame gardienne transperce les ennemis à 350 de portée toutes les 1,5 secondes avec 30 de recul.","召唤一把魔剑,对{1}范围内的敌人最多连续飞斩3次,造成{2}({3})伤害。护卫子剑每1.5秒突刺350范围内的敌人,击退30。","魔剣を召喚し,{1}の範囲内の敵に最大3回の連続飛翔斬りで{2}({3})ダメージを与える。護衛剣は1.5秒ごとに350の範囲内を突き刺し,ノックバック30。","마법검을 소환하여 {1} 범위 내 적에게 최대 3회의 연속 비행 참격으로 {2}({3}) 피해를 줍니다. 호위검은 1.5초마다 350 범위 내 적을 찌르고 30만큼 밀쳐냅니다.","召喚一把魔劍,對{1}範圍內的敵人最多連續飛斬3次,造成{2}({3})傷害。護衛子劍每1.5秒突刺350範圍內的敵人,擊退30。","Призывает волшебный меч, который выполняет до 3 летящих атак по врагам в радиусе {1} и наносит {2} ({3}) урона. Клинок-страж раз в 1,5 секунды пронзает врагов в радиусе 350 с отбрасыванием 30.","Przywołuje magiczny miecz, który wykonuje do 3 latających cięć przeciw wrogom w zasięgu {1} i zadaje {2} ({3}) obrażeń. Ostrze strażnicze co 1,5 sekundy przebija wrogów w zasięgu 350 z odrzutem 30.","Invoca una espada mágica que encadena hasta 3 tajos voladores contra enemigos a {1} de alcance e inflige {2} ({3}) de daño. Su espada guardiana perfora a enemigos a 350 de alcance cada 1,5 segundos con 30 de retroceso.","Invoca uma espada mágica que encadeia até 3 cortes voadores contra inimigos a {1} de alcance e causa {2} ({3}) de dano. Sua lâmina guardiã perfura inimigos a 350 de alcance a cada 1,5 segundos com 30 de recuo.","Beschwört ein magisches Schwert, das Gegner in {1} Reichweite mit bis zu 3 fliegenden Kettenhieben trifft und {2} ({3}) Schaden verursacht. Seine Wächterklinge durchbohrt alle 1,5 Sekunden Gegner in 350 Reichweite mit 30 Rückstoß.","{1} menzildeki düşmanlara en fazla 3 zincirleme uçan kesişle {2} ({3}) hasar veren bir sihirli kılıç çağırır. Muhafız kılıç her 1,5 saniyede 350 menzildeki düşmanları 30 geri itmeyle deler.","Evoca una spada magica che concatena fino a 3 fendenti volanti contro i nemici entro {1} di portata, infliggendo {2} ({3}) danni. La lama guardiana trafigge i nemici entro 350 ogni 1,5 secondi con 30 di contraccolpo."
 ITEM_FANTASY_SACRIFICIAL_OFFERING,Sacrificial Offering,Offrande sacrificielle,仪式祭品,生贄の供物,제물,儀式祭品,Жертвенное подношение,Ofiara sakralna,Ofrenda sacrificial,Oferenda sacrificial,Opfergabe,Kurban Adağı,Offerta sacrificale
 EFFECT_FANTASY_EXTRA_CURSE_ITEM,"Items and weapons have an additional {0} chance to be cursed
@@ -655,137 +409,6 @@ ITEM_FANTASY_SILVER_POCKET_WATCH,Silver Pocket Watch,Montre de poche en argent,�
 ITEM_FANTASY_WOLF_TOTEM,Wolf Totem,Totem du loup,狼图腾,狼のトーテム,늑대 토템,狼圖騰,Волчий тотем,Totem wilka,Tótem de lobo,Totem de lobo,Wolfs-Totem,Kurt Totemi,Totem del lupo
 FANTASY_WOLF_TOTEM_NAME,Wolf God,Dieu loup,狼神,狼神,늑대 신,狼神,Волчий бог,Wilczy bóg,Dios lobo,Deus lobo,Wolfsgott,Kurt Tanrı,Dio lupo
 EFFECT_FANTASY_PET_WOLF_TOTEM,Summons a Wolf God to deal {2} ({3}) damage to up to 8 enemies with the highest health every {0}s. Killing an enemy resets all pets' cooldowns (not including Wolf God),Invoque un Dieu loup pour infliger {2} ({3}) dégâts à jusqu'à 8 ennemis ayant le plus de PV toutes les {0}s. Tuer un ennemi réinitialise le temps de recharge de tous les familiers (sauf Dieu loup),"召唤狼神跟随玩家, 每{0}秒对场上至多8个生命值最高的敌人造成造成{2}({3})伤害, 杀死敌人时, 立即重置所有宠物的冷却时间(不包括狼神)","狼神を召喚し,{0}秒ごとに最もHPの高い敵最大8体に{2}({3})ダメージを与える.敵を倒すと,狼神を除く全ペットのクールダウンがリセットされる",늑대 신을 소환하여 {0}초마다 가장 체력이 높은 최대 8명의 적에게 {2}({3}) 피해를 줍니다. 적을 처치하면 늑대 신을 제외한 모든 펫의 재사용 대기 시간이 초기화됩니다,"召喚狼神跟隨玩家,每{0}秒對場上至多8個生命值最高的敵人造成{2}({3})傷害,殺死敵人時,立即重置所有寵物的冷卻時間(不包括狼神)","Призывает Бога-волка, наносящего {2} ({3}) урона до 8 врагам с наибольшим здоровьем каждые {0} с. Убийство врага сбрасывает перезарядку всех питомцев (кроме Бога-волка)","Przywołuje Wilczego Boga, który co {0} s zadaje {2} ({3}) obrażeń maks. 8 wrogom z najwyższym zdrowiem. Zabicie wroga resetuje czas odnowienia wszystkich pupili (nie Wilczego Boga)",Invoca un Dios lobo para infligir {2} ({3}) de daño a hasta 8 enemigos con la vida más alta cada {0}s. Matar a un enemigo reinicia el enfriamiento de todas las mascotas (sin incluir al Dios lobo),Invoca um Deus Lobo que causa {2} ({3}) de dano a até 8 inimigos com a vida mais alta a cada {0}s. Matar um inimigo reinicia a recarga de todos os pets (exceto o Deus Lobo),"Beschwört einen Wolfsgott, der alle {0}s {2} ({3}) Schaden an bis zu 8 Gegnern mit den höchsten LP verursacht. Das Töten eines Gegners setzt die Abklingzeit aller Haustiere zurück (außer Wolfsgott)","Her {0} saniyede en yüksek cana sahip 8 düşmana {2} ({3}) hasar vermesi için bir Kurt Tanrı çağırır. Bir düşman öldürmek, Kurt Tanrı hariç tüm evcil hayvanların bekleme süresini sıfırlar",Evoca un Dio Lupo per infliggere {2} ({3}) danni a un massimo di 8 nemici con la salute più alta ogni {0}s. Uccidere un nemico azzera la ricarica di tutti i famigli (escluso il Dio Lupo)
-FANTASY_TACTICAL_GLOBAL_PET_BEHAVIOUR_DESCRIPTION,"Follows the player. Attacks up to 8 enemies with the highest health on the screen every {0}s. Killing an enemy resets the cooldown of all pets (including itself)
-
-This pet scales with the player's:
-% Life Steal
-% Damage
-% Crit Chance
-Speed
-Bounces
-Piercing
-% Piercing Damage
-% Damage to bosses","Suit le joueur. Attaque jusqu'à 8 ennemis avec le plus de PV à l'écran toutes les {0}s. Tuer un ennemi réinitialise le temps de recharge de tous les familiers (y compris lui-même)
-
-Ce familier évolue avec les statistiques du joueur :
-% Vol de vie
-% Dégâts
-% Crit
-Vitesse
-Rebonds
-Perforation
-% Dégâts de perforation
-% Dégâts contre les boss","跟随玩家,全屏攻击至多8个生命值最高的敌人,杀死敌人时会重置所有宠物(包括自身)冷却
-
-这个宠物受到玩家以下属性的影响:
-- %生命窃取
-- %伤害
-- %暴击率
-- 速度
-- 弹跳
-- 贯通
-- %贯通伤害
-- %对头目伤害","プレイヤーに追従.{0}秒ごとに画面上で最もHPの高い敵最大8体を攻撃する.敵を倒すと,自身を含む全ペットのクールダウンがリセットされる
-
-このペットはプレイヤーの以下に影響する:
-%生命吸収
-%ダメージ
-%クリティカル率
-速度
-バウンス
-貫通
-%貫通ダメージ
-%ボスダメージ","플레이어를 따라다닙니다. {0}초마다 화면에서 가장 체력이 높은 최대 8명의 적을 공격합니다. 적을 처치하면 모든 펫(자신 포함)의 재사용 대기 시간이 초기화됩니다.
-
-이 펫은 플레이어의 다음 능력치의 영향을 받습니다:
-% 생명력 흡수
-% 피해
-% 치명타 확률
-속도
-튕김
-관통
-% 관통 피해
-% 보스 피해","跟隨玩家,全螢幕攻擊至多8個生命值最高的敵人,殺死敵人時會重置所有寵物(包括自身)冷卻
-
-這個寵物受到玩家以下屬性的影響:
-- %生命竊取
-- %傷害
-- %暴擊率
-- 速度
-- 彈跳
-- 貫通
-- %貫通傷害
-- %對頭目傷害","Следует за игроком. Атакует до 8 врагов с наибольшим здоровьем на экране каждые {0} с. Убийство врага сбрасывает перезарядку всех питомцев (включая себя)
-
-Этот питомец зависит от характеристик игрока:
-% Кражи жизни
-% Урона
-% Шанс крита
-Скорость
-Отскоки
-Пробивание
-% Урона от пробивания
-% Урона по боссам","Podąża za graczem. Co {0} s atakuje do 8 wrogów z najwyższym zdrowiem na ekranie. Zabicie wroga resetuje czas odnowienia wszystkich pupili (włącznie z nim samym)
-
-Ten towarzysz skaluje się z graczem:
-% Kradzieży życia
-% Obrażeń
-% Szansy na krytyczne
-Prędkość
-Odbicia
-Przebijanie
-% Obrażeń od przebicia
-% Obrażeń przeciwko bossom","Sigue al jugador. Ataca hasta 8 enemigos con la salud más alta en pantalla cada {0}s. Matar a un enemigo reinicia el enfriamiento de todas las mascotas (incluida esta)
-
-Esta mascota escala con el jugador:
-% Robo de vida
-% Daño
-% Prob. crítico
-Velocidad
-Rebotes
-Perforación
-% Daño de perforación
-% Daño contra jefes","Segue o jogador. Ataca até 8 inimigos com a maior vida na tela a cada {0}s. Matar um inimigo reinicia a recarga de todos os pets (incluindo este)
-
-Este pet escala com os atributos do jogador:
-% Roubo de Vida
-% Dano
-% Chance de Crítico
-Velocidade
-Ricochetes
-Perfuração
-% Dano de Perfuração
-% Dano contra Chefes","Folgt dem Spieler. Greift alle {0}s bis zu 8 Gegner mit den höchsten LP auf dem Bildschirm an. Das Töten eines Gegners setzt die Abklingzeit aller Haustiere zurück (einschließlich seiner selbst)
-
-Dieses Haustier skaliert mit den Werten des Spielers:
-% Lebensraub
-% Schaden
-% Krit-Chance
-Tempo
-Abpraller
-Durchschlag
-% Durchschlagsschaden
-% Schaden gegen Bosse","Oyuncuyu takip eder. Her {0} saniyede ekrandaki en yüksek cana sahip 8 düşmana saldırır. Bir düşman öldürmek, kendisi de dahil tüm evcil hayvanların bekleme süresini sıfırlar
-
-Bu evcil hayvan oyuncunun şu özelliklerinden etkilenir:
-% Yaşam Çalma
-% Hasar
-% Kritik Şansı
-Hız
-Sektirme
-Delme
-% Delme Hasarı
-% Boss Hasarı","Segue il giocatore. Attacca fino a 8 nemici con la salute più alta sullo schermo ogni {0}s. Uccidere un nemico azzera la ricarica di tutti i famigli (incluso sé stesso)
-
-Questo famiglio scala con le statistiche del giocatore:
-% Risucchio vitale
-% Danno
-% Prob. critico
-Velocità
-Rimbalzi
-Perforazione
-% Danno da perforazione
-% Danno contro i boss"
 FANTASY_WORLD_TREE_NAME,World Tree,Arbre-Monde,世界树,世界樹,세계수,世界樹,Мировое Древо,Drzewo Świata,Árbol del Mundo,Árvore do Mundo,Weltenbaum,Dünya Ağacı,Albero del Mondo
 FANTASY_WORLD_TREE_BEHAVIOUR_DESCRIPTION,"Mutation 0:
 Immobilized. The player is forced to spawn at the exact center of the map. If the player does not move in time, they will be pushed aside by the World Tree and take collision damage. A massive amount of leaf projectiles will continuously and slowly fall from the top of the screen; their spawn points and drifting angles are randomized.
@@ -2016,3 +1639,24 @@ EFFECT_FANTASY_CLOCK_TOWER_AREA_STRUCTURE_SPAWN,Structures spawn on the area edg
 EFFECT_FANTASY_CLOCK_TOWER_AREA_STRUCTURE_ATTACK_SPEED,Inside: Structure Attack Speed {0}% ({1}).,Inside: Structure Attack Speed {0}% ({1}).,你在区域内: 构筑物攻速{0}%({1}),Inside: Structure Attack Speed {0}% ({1}).,Inside: Structure Attack Speed {0}% ({1}).,你在區域內: 構築物攻速{0}%({1}),Inside: Structure Attack Speed {0}% ({1}).,Inside: Structure Attack Speed {0}% ({1}).,Inside: Structure Attack Speed {0}% ({1}).,Inside: Structure Attack Speed {0}% ({1}).,Inside: Structure Attack Speed {0}% ({1}).,Inside: Structure Attack Speed {0}% ({1}).,Inside: Structure Attack Speed {0}% ({1}).
 EFFECT_FANTASY_CLOCK_TOWER_AREA_ENEMY_SLOW,Inside enemies/projectiles: speed {0}% ({1}).,Inside enemies/projectiles: speed {0}% ({1}).,区域内: 敌人/敌弹速度{0}%({1}),Inside enemies/projectiles: speed {0}% ({1}).,Inside enemies/projectiles: speed {0}% ({1}).,區域內: 敵人/敵彈速度{0}%({1}),Inside enemies/projectiles: speed {0}% ({1}).,Inside enemies/projectiles: speed {0}% ({1}).,Inside enemies/projectiles: speed {0}% ({1}).,Inside enemies/projectiles: speed {0}% ({1}).,Inside enemies/projectiles: speed {0}% ({1}).,Inside enemies/projectiles: speed {0}% ({1}).,Inside enemies/projectiles: speed {0}% ({1}).
 EFFECT_FANTASY_CLOCK_TOWER_AREA_STRUCTURE_DISABLED,Outside: structures cannot attack.,Outside: structures cannot attack.,你在区域外: 构筑物无法攻击,Outside: structures cannot attack.,Outside: structures cannot attack.,你在區域外: 構築物無法攻擊,Outside: structures cannot attack.,Outside: structures cannot attack.,Outside: structures cannot attack.,Outside: structures cannot attack.,Outside: structures cannot attack.,Outside: structures cannot attack.,Outside: structures cannot attack.
+ITEM_FANTASY_HEALING_STAR,Sanctuary Star,Étoile sacrée,圣愈星,聖癒星,성유성,聖癒星,Звезда святилища,Gwiazda Uzdrowienia,Estrella del Santuario,Estrela do Santuário,Heiligtum-Stern,Kutsal Şifa Yıldızı,Stella del Santuario
+EFFECT_FANTASY_PET_HEALING_STAR,"Summons a Sanctuary Star that collects fruit, crates, and souls. Stores fruit healing and restores missing health.","Invoque une Étoile sacrée qui ramasse fruits, caisses et âmes. Stocke le soin des fruits et restaure les PV manquants.","召唤圣愈星拾取水果、箱子和魂。储存水果治疗量，并在生命未满时恢复生命。","聖癒星を召喚してフルーツ、木箱、ソウルを拾得する。フルーツの回復量を蓄え、減少したHPを回復する。","과일, 상자, 영혼을 수집하는 성유성을 소환합니다. 과일 회복량을 저장하고 부족한 체력을 회복합니다.","召喚聖癒星拾取水果、箱子和魂。儲存水果治療量，並在生命未滿時恢復生命。","Призывает Звезду святилища, собирающую фрукты, ящики и души. Запасает лечение фруктов и восполняет недостающее здоровье.","Przywołuje Gwiazdę Uzdrowienia zbierającą owoce, skrzynie i dusze. Magazynuje leczenie z owoców i uzupełnia brakujące zdrowie.","Invoca una Estrella del Santuario que recoge frutas, cajas y almas. Almacena su curación y restaura la salud que falte.","Invoca uma Estrela do Santuário que coleta frutas, caixas e almas. Armazena a cura das frutas e recupera a vida perdida.","Beschwört einen Heiligtum-Stern, der Früchte, Kisten und Seelen sammelt. Speichert Fruchtheilung und stellt fehlende LP wieder her.","Meyve, sandık ve ruh toplayan Kutsal Şifa Yıldızı çağırır. Meyve iyileştirmesini depolar ve eksik canı yeniler.","Evoca una Stella del Santuario che raccoglie frutta, casse e anime. Accumula la cura della frutta e ripristina la salute mancante."
+FANTASY_HEALING_STAR_NAME,Sanctuary Star,Étoile sacrée,圣愈星,聖癒星,성유성,聖癒星,Звезда святилища,Gwiazda Uzdrowienia,Estrella del Santuario,Estrela do Santuário,Heiligtum-Stern,Kutsal Şifa Yıldızı,Stella del Santuario
+FANTASY_HEALING_STAR_BEHAVIOUR_DESCRIPTION,"Collects fruit, crates, and souls. Stores fruit healing and restores missing health.","Ramasse fruits, caisses et âmes. Stocke le soin des fruits et restaure les PV manquants.","拾取水果、箱子和魂。储存水果治疗量，并在生命未满时恢复生命。","フルーツ、木箱、ソウルを拾得する。フルーツの回復量を蓄え、減少したHPを回復する。","과일, 상자, 영혼을 수집합니다. 과일 회복량을 저장하고 부족한 체력을 회복합니다.","拾取水果、箱子和魂。儲存水果治療量，並在生命未滿時恢復生命。","Собирает фрукты, ящики и души. Запасает лечение фруктов и восполняет недостающее здоровье.","Zbiera owoce, skrzynie i dusze. Magazynuje leczenie z owoców i uzupełnia brakujące zdrowie.","Recoge frutas, cajas y almas. Almacena su curación y restaura la salud que falte.","Coleta frutas, caixas e almas. Armazena a cura das frutas e recupera a vida perdida.","Sammelt Früchte, Kisten und Seelen. Speichert Fruchtheilung und stellt fehlende LP wieder her.","Meyve, sandık ve ruh toplar. Meyve iyileştirmesini depolar ve eksik canı yeniler.","Raccoglie frutta, casse e anime. Accumula la cura della frutta e ripristina la salute mancante."
+WEAPON_FANTASY_BLAZING_PATH,Blazing Path,Voie ardente,炽炎之道,燃え盛る道,타오르는 길,熾炎之道,Пылающий путь,Płonąca Ścieżka,Senda ardiente,Caminho flamejante,Flammenpfad,Alevli Yol,Sentiero ardente
+WEAPON_FANTASY_EARTHSHATTER,Earthshatter,Fracture terrestre,大地崩坏,大地崩壊,대지 붕괴,大地崩壞,Сокрушение земли,Rozdarcie Ziemi,Fractura terrestre,Ruptura da Terra,Erdspalter,Yeryüzü Yıkımı,Frantumaterra
+WEAPON_FANTASY_MYRIAD_FLOURISH,Myriad Flourish,Floraison universelle,万物繁荣,万物繁栄,만물번영,萬物繁榮,Расцвет всего сущего,Rozkwit Wszechrzeczy,Florecimiento universal,Florescimento universal,Gedeihen aller Dinge,Her Şeyin Bereketi,Fioritura universale
+WEAPON_FANTASY_FROSTSPRAY,Frostspray,Gerbe de givre,冰屑飞溅,氷片飛沫,서리 파편,冰屑飛濺,Морозные брызги,Lodowy Rozprysk,Salpicadura helada,Rajada gélida,Frostspritzer,Buz Püskürtüsü,Spruzzo gelido
+WEAPON_FANTASY_MYRIAD_WINDBLADES,Myriad Windblades,Mille lames du vent,御风千切,御風千切,바람의 천검,御風千切,Тысяча ветряных клинков,Tysiąc Ostrzy Wiatru,Mil hojas de viento,Mil lâminas de vento,Tausend Windklingen,Bin Rüzgâr Bıçağı,Mille lame del vento
+EFFECT_FANTASY_MYRIAD_FLOURISH_1,"Hits unleash {0} tracking petal darts, dealing {1} of the hit's actual damage and slowing enemies by {2}","Les coups libèrent {0} pétales traqueurs, infligeant {1} des dégâts réels du coup et ralentissant de {2}","命中时绽放 {0} 片追踪飞叶，造成命中实际伤害的 {1} 并减速敌人 {2}","命中時に{0}枚の追尾花弁を放ち、命中時の実ダメージの{1}を与え、敵を{2}減速させる","적중 시 유도 꽃잎 {0}개를 방출하여 명중 실제 피해의 {1}만큼 피해를 주고 적을 {2} 감속시킴","命中時綻放 {0} 片追蹤飛葉，造成命中實際傷害的 {1} 並減速敵人 {2}","Попадания выпускают {0} самонаводящихся лепестка, нанося {1} от фактического урона попадания и замедляя врагов на {2}","Trafienia uwalniają {0} samonaprowadzające płatki, zadając {1} rzeczywistych obrażeń trafienia i spowalniając wrogów o {2}","Los impactos desatan {0} pétalos rastreadores, causando {1} del daño real del impacto y ralentizando a los enemigos un {2}","Acertos liberam {0} pétalas teleguiadas, causando {1} do dano real do acerto e desacelerando inimigos em {2}","Treffer entfesseln {0} zielsuchende Blütenblätter, die {1} des tatsächlichen Trefferschadens verursachen und Gegner um {2} verlangsamen","İsabetler {0} güdümlü taç yaprak saçar, isabetin gerçek hasarının {1} kadar hasar verir ve düşmanları {2} yavaşlatır","I colpi scatenano {0} petali a ricerca, infliggendo il {1} del danno effettivo del colpo e rallentando i nemici del {2}"
+EFFECT_FANTASY_MYRIAD_FLOURISH_2,"Hits unleash {0} tracking petal darts, dealing {1} of the hit's actual damage and slowing enemies by {2}","Les coups libèrent {0} pétales traqueurs, infligeant {1} des dégâts réels du coup et ralentissant de {2}","命中时绽放 {0} 片追踪飞叶，造成命中实际伤害的 {1} 并减速敌人 {2}","命中時に{0}枚の追尾花弁を放ち、命中時の実ダメージの{1}を与え、敵を{2}減速させる","적중 시 유도 꽃잎 {0}개를 방출하여 명중 실제 피해의 {1}만큼 피해를 주고 적을 {2} 감속시킴","命中時綻放 {0} 片追蹤飛葉，造成命中實際傷害的 {1} 並減速敵人 {2}","Попадания выпускают {0} самонаводящихся лепестка, нанося {1} от фактического урона попадания и замедляя врагов на {2}","Trafienia uwalniają {0} samonaprowadzające płatki, zadając {1} rzeczywistych obrażeń trafienia i spowalniając wrogów o {2}","Los impactos desatan {0} pétalos rastreadores, causando {1} del daño real del impacto y ralentizando a los enemigos un {2}","Acertos liberam {0} pétalas teleguiadas, causando {1} do dano real do acerto e desacelerando inimigos em {2}","Treffer entfesseln {0} zielsuchende Blütenblätter, die {1} des tatsächlichen Trefferschadens verursachen und Gegner um {2} verlangsamen","İsabetler {0} güdümlü taç yaprak saçar, isabetin gerçek hasarının {1} kadar hasar verir ve düşmanları {2} yavaşlatır","I colpi scatenano {0} petali a ricerca, infliggendo il {1} del danno effettivo del colpo e rallentando i nemici del {2}"
+EFFECT_FANTASY_MYRIAD_FLOURISH_3,"Hits unleash {0} tracking petal darts, dealing {1} of the hit's actual damage and slowing enemies by {2}","Les coups libèrent {0} pétales traqueurs, infligeant {1} des dégâts réels du coup et ralentissant de {2}","命中时绽放 {0} 片追踪飞叶，造成命中实际伤害的 {1} 并减速敌人 {2}","命中時に{0}枚の追尾花弁を放ち、命中時の実ダメージの{1}を与え、敵を{2}減速させる","적중 시 유도 꽃잎 {0}개를 방출하여 명중 실제 피해의 {1}만큼 피해를 주고 적을 {2} 감속시킴","命中時綻放 {0} 片追蹤飛葉，造成命中實際傷害的 {1} 並減速敵人 {2}","Попадания выпускают {0} самонаводящихся лепестков, нанося {1} от фактического урона попадания и замедляя врагов на {2}","Trafienia uwalniają {0} samonaprowadzających płatków, zadając {1} rzeczywistych obrażeń trafienia i spowalniając wrogów o {2}","Los impactos desatan {0} pétalos rastreadores, causando {1} del daño real del impacto y ralentizando a los enemigos un {2}","Acertos liberam {0} pétalas teleguiadas, causando {1} do dano real do acerto e desacelerando inimigos em {2}","Treffer entfesseln {0} zielsuchende Blütenblätter, die {1} des tatsächlichen Trefferschadens verursachen und Gegner um {2} verlangsamen","İsabetler {0} güdümlü taç yaprak saçar, isabetin gerçek hasarının {1} kadar hasar verir ve düşmanları {2} yavaşlatır","I colpi scatenano {0} petali a ricerca, infliggendo il {1} del danno effettivo del colpo e rallentando i nemici del {2}"
+EFFECT_FANTASY_MYRIAD_FLOURISH_4,"Hits unleash {0} tracking petal darts, dealing {1} of the hit's actual damage and slowing enemies by {2}","Les coups libèrent {0} pétales traqueurs, infligeant {1} des dégâts réels du coup et ralentissant de {2}","命中时绽放 {0} 片追踪飞叶，造成命中实际伤害的 {1} 并减速敌人 {2}","命中時に{0}枚の追尾花弁を放ち、命中時の実ダメージの{1}を与え、敵を{2}減速させる","적중 시 유도 꽃잎 {0}개를 방출하여 명중 실제 피해의 {1}만큼 피해를 주고 적을 {2} 감속시킴","命中時綻放 {0} 片追蹤飛葉，造成命中實際傷害的 {1} 並減速敵人 {2}","Попадания выпускают {0} самонаводящихся лепестков, нанося {1} от фактического урона попадания и замедляя врагов на {2}","Trafienia uwalniają {0} samonaprowadzających płatków, zadając {1} rzeczywistych obrażeń trafienia i spowalniając wrogów o {2}","Los impactos desatan {0} pétalos rastreadores, causando {1} del daño real del impacto y ralentizando a los enemigos un {2}","Acertos liberam {0} pétalas teleguiadas, causando {1} do dano real do acerto e desacelerando inimigos em {2}","Treffer entfesseln {0} zielsuchende Blütenblätter, die {1} des tatsächlichen Trefferschadens verursachen und Gegner um {2} verlangsamen","İsabetler {0} güdümlü taç yaprak saçar, isabetin gerçek hasarının {1} kadar hasar verir ve düşmanları {2} yavaşlatır","I colpi scatenano {0} petali a ricerca, infliggendo il {1} del danno effettivo del colpo e rallentando i nemici del {2}"
+EFFECT_FANTASY_FROSTSPRAY_1,"Hits spray {0} ice shards forward in a cone dealing {1} damage","Les coups projettent {0} éclats de glace en cône infligeant {1} de dégâts","命中时顺行进方向扇面喷射 {0} 枚碎冰，造成 {1} 伤害","命中時に進行方向の扇形に{0}個の氷片を放ち、{1}のダメージを与える","명중 시 진행 방향 부채꼴로 서리 파편 {0}개를 분사하여 {1} 피해를 줌","命中時順行進方向扇面噴射 {0} 枚碎冰，造成 {1} 傷害","При попадании выпускает веером {0} осколков льда с уроном {1}","Trafienia wyrzucają {0} odłamków lodu w stożku zadając {1} obrażeń","Al impactar lanza {0} esquirlas de hielo en cono causando {1} de daño","Acertos lançam {0} estilhaços de gelo em cone causando {1} de dano","Treffer sprühen {0} Eissplitter im Fächer nach vorn mit {1} Schaden","İsabetler ileriye doğru koni şeklinde {0} buz kıymığı püskürterek {1} hasar verir","I colpi sparano {0} schegge di ghiaccio a ventaglio infliggendo {1} danni"
+EFFECT_FANTASY_FROSTSPRAY_2,"Hits spray {0} ice shards forward in a cone dealing {1} damage","Les coups projettent {0} éclats de glace en cône infligeant {1} de dégâts","命中时顺行进方向扇面喷射 {0} 枚碎冰，造成 {1} 伤害","命中時に進行方向の扇形に{0}個の氷片を放ち、{1}のダメージを与える","명중 시 진행 방향 부채꼴로 서리 파편 {0}개를 분사하여 {1} 피해를 줌","命中時順行進方向扇面噴射 {0} 枚碎冰，造成 {1} 傷害","При попадании выпускает веером {0} осколков льда с уроном {1}","Trafienia wyrzucają {0} odłamków льда в stożku zadając {1} obrażeń","Al impactar lanza {0} esquirlas de hielo en cono causando {1} de daño","Acertos lançam {0} estilhaços de gelo em cone causando {1} de dano","Treffer sprühen {0} Eissplitter im Fächer nach vorn mit {1} Schaden","İsabetler ileriye doğru koni şeklinde {0} buz kıymığı püskürterek {1} hasar verir","I colpi sparano {0} schegge di ghiaccio a ventaglio infliggendo {1} danni"
+EFFECT_FANTASY_FROSTSPRAY_3,"Hits spray {0} ice shards forward in a cone dealing {1} damage","Les coups projettent {0} éclats de glace en cône infligeant {1} de dégâts","命中时顺行进方向扇面喷射 {0} 枚碎冰，造成 {1} 伤害","命中時に進行方向の扇形に{0}個の氷片を放ち、{1}のダメージを与える","명중 시 진행 방향 부채꼴로 서리 파편 {0}개를 분사하여 {1} 피해를 줌","命中時順行進方向扇面噴射 {0} 枚碎冰，造成 {1} 傷害","При попадании выпускает веером {0} осколков льда с уроном {1}","Trafienia wyrzucają {0} odłamków lodu w stożku zadając {1} obrażeń","Al impactar lanza {0} esquirlas de hielo en cono causando {1} de daño","Acertos lançam {0} estilhaços de gelo em cone causando {1} de dano","Treffer sprühen {0} Eissplitter im Fächer nach vorn mit {1} Schaden","İsabetler ileriye doğru koni şeklinde {0} buz kıymığı püskürterek {1} hasar verir","I colpi sparano {0} schegge di ghiaccio a ventaglio infliggendo {1} danni"
+EFFECT_FANTASY_FROSTSPRAY_4,"Hits spray {0} ice shards forward in a cone dealing {1} damage","Les coups projettent {0} éclats de glace en cône infligeant {1} de dégâts","命中时顺行进方向扇面喷射 {0} 枚碎冰，造成 {1} 伤害","命中時に進行方向の扇形に{0}個の氷片を放ち、{1}のダメージを与える","명중 시 진행 방향 부채꼴로 서리 파편 {0}개를 분사하여 {1} 피해를 줌","命中時順行進方向扇面噴射 {0} 枚碎冰，造成 {1} 傷害","При попадании выпускает веером {0} осколков льда с уроном {1}","Trafienia wyrzucają {0} odłamków lodu w stożku zadając {1} obrażeń","Al impactar lanza {0} esquirlas de hielo en cono causando {1} de daño","Acertos lançam {0} estilhaços de gelo em cone causando {1} de dano","Treffer sprühen {0} Eissplitter im Fächer nach vorn mit {1} Schaden","İsabetler ileriye doğru koni şeklinde {0} buz kıymığı püskürterek {1} hasar verir","I colpi sparano {0} schegge di ghiaccio a ventaglio infliggendo {1} danni"
+EFFECT_FANTASY_MYRIAD_WINDBLADES_1,"Pierced enemies retain wind force, taking {0} wind slices, each dealing {1} damage","Une force du vent subsiste dans les ennemis transpercés, qui subissent {0} entailles infligeant chacune {1} dégâts","被穿透的敌人体内残留风劲，受到 {0} 次风切，每次造成 {1} 伤害","貫通された敵に風の力が残り、{0}回の風切りを受け、1回につき{1}ダメージを受ける","관통된 적의 몸속에 바람의 힘이 남아 {0}회의 바람 베기를 받고, 회당 {1} 피해를 입음","被穿透的敵人體內殘留風勁，受到 {0} 次風切，每次造成 {1} 傷害","В пронзенных врагах остается сила ветра, и они получают {0} ударов, наносящих по {1} урона","W przebitych wrogach pozostaje siła wiatru, zadając {0} cięć po {1} obrażeń","La fuerza del viento permanece en los enemigos atravesados, que sufren {0} cortes de {1} de daño cada uno","A força do vento permanece nos inimigos perfurados, que sofrem {0} cortes de {1} de dano cada","In durchdrungenen Gegnern verbleibt Windkraft und verursacht {0} Schnitte mit je {1} Schaden","Delinen düşmanlarda rüzgar gücü kalır ve her biri {1} hasar veren {0} kesik oluşturur","La forza del vento permane nei nemici trapassati, infliggendo {0} tagli da {1} danni ciascuno"
+EFFECT_FANTASY_MYRIAD_WINDBLADES_2,"Pierced enemies retain wind force, taking {0} wind slices, each dealing {1} damage","Une force du vent subsiste dans les ennemis transpercés, qui subissent {0} entailles infligeant chacune {1} dégâts","被穿透的敌人体内残留风劲，受到 {0} 次风切，每次造成 {1} 伤害","貫通された敵に風の力が残り、{0}回の風切りを受け、1回につき{1}ダメージを受ける","관통된 적의 몸속에 바람의 힘이 남아 {0}회의 바람 베기를 받고, 회당 {1} 피해를 입음","被穿透的敵人體內殘留風勁，受到 {0} 次風切，每次造成 {1} 傷害","В пронзенных врагах остается сила ветра, и они получают {0} ударов, наносящих по {1} урона","W przebitych wrogach pozostaje siła wiatru, zadając {0} cięć po {1} obrażeń","La fuerza del viento permanece en los enemigos atravesados, que sufren {0} cortes de {1} de daño cada uno","A força do vento permanece nos inimigos perfurados, que sofrem {0} cortes de {1} de dano cada","In durchdrungenen Gegnern verbleibt Windkraft und verursacht {0} Schnitte mit je {1} Schaden","Delinen düşmanlarda rüzgar gücü kalır ve her biri {1} hasar veren {0} kesik oluşturur","La forza del vento permane nei nemici trapassati, infliggendo {0} tagli da {1} danni ciascuno"
+EFFECT_FANTASY_MYRIAD_WINDBLADES_3,"Pierced enemies retain wind force, taking {0} wind slices, each dealing {1} damage","Une force du vent subsiste dans les ennemis transpercés, qui subissent {0} entailles infligeant chacune {1} dégâts","被穿透的敌人体内残留风劲，受到 {0} 次风切，每次造成 {1} 伤害","貫通された敵に風の力が残り、{0}回の風切りを受け、1回につき{1}ダメージを受ける","관통된 적의 몸속에 바람의 힘이 남아 {0}회의 바람 베기를 받고, 회당 {1} 피해를 입음","被穿透的敵人體內殘留風勁，受到 {0} 次風切，每次造成 {1} 傷害","В пронзенных врагах остается сила ветра, и они получают {0} ударов, наносящих по {1} урона","W przebitych wrogach pozostaje siła wiatru, zadając {0} cięć po {1} obrażeń","La fuerza del viento permanece en los enemigos atravesados, que sufren {0} cortes de {1} de daño cada uno","A força do vento permanece nos inimigos perfurados, que sofrem {0} cortes de {1} de dano cada","In durchdrungenen Gegnern verbleibt Windkraft und verursacht {0} Schnitte mit je {1} Schaden","Delinen düşmanlarda rüzgar gücü kalır ve her biri {1} hasar veren {0} kesik oluşturur","La forza del vento permane nei nemici trapassati, infliggendo {0} tagli da {1} danni ciascuno"
+EFFECT_FANTASY_MYRIAD_WINDBLADES_4,"Pierced enemies retain wind force, taking {0} wind slices, each dealing {1} damage","Une force du vent subsiste dans les ennemis transpercés, qui subissent {0} entailles infligeant chacune {1} dégâts","被穿透的敌人体内残留风劲，受到 {0} 次风切，每次造成 {1} 伤害","貫通された敵に風の力が残り、{0}回の風切りを受け、1回につき{1}ダメージを受ける","관통된 적의 몸속에 바람의 힘이 남아 {0}회의 바람 베기를 받고, 회당 {1} 피해를 입음","被穿透的敵人體內殘留風勁，受到 {0} 次風切，每次造成 {1} 傷害","В пронзенных врагах остается сила ветра, и они получают {0} ударов, наносящих по {1} урона","W przebitych wrogach pozostaje siła wiatru, zadając {0} cięć po {1} obrażeń","La fuerza del viento permanece en los enemigos atravesados, que sufren {0} cortes de {1} de daño cada uno","A força do vento permanece nos inimigos perfurados, que sofrem {0} cortes de {1} de dano cada","In durchdrungenen Gegnern verbleibt Windkraft und verursacht {0} Schnitte mit je {1} Schaden","Delinen düşmanlarda rüzgar gücü kalır ve her biri {1} hasar veren {0} kesik oluşturur","La forza del vento permane nei nemici trapassati, infliggendo {0} tagli da {1} danni ciascuno"

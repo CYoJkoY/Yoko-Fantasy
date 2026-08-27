@@ -117,9 +117,6 @@ func install_script_extensions() -> void:
         # STATS: Holy[ 1/2 ]
         # EFFECTS: gain_stat_for_limited_item
 
-        "charging_attack_behavior.gd",
-        # ENEMIES: stop delayed charge unlock signals after death/cleanup
-
         "enemy.gd",
         # STATS: Holy[ 2/2 ]
         # EFFECTS: extra_curse_enemy

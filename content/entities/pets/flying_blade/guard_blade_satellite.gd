@@ -7,10 +7,8 @@ enum SatelliteState {
 }
 
 const MotionStreakVisual = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/motion_streak_visual.gd")
-const PierceStreakVisual = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/pierce_streak_visual.gd")
-const GuardBladeOrbitVisual = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/visuals/guard_blade_orbit_visual.gd")
 const FlyingBladeMotion = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/motion_math.gd")
-const FORMATION_OVERLAP_SLOTS = 8
+const FlyingBladeCombatCoordinator = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/pets/flying_blade/combat_coordinator.gd")
 const COMBAT_ROLE = "satellite"
 
 var owner_pet: Node = null
@@ -22,7 +20,6 @@ var damage_tracking_key_hash: int = Keys.empty_hash
 
 var orbit_radius: float
 var orbit_speed: float
-var orbit_y_scale: float = 0.46
 var attack_range: float
 var attack_cooldown_ticks: float
 var attack_ticks: float
@@ -33,19 +30,14 @@ var hitbox_width: float
 var knockback: float
 var trail_width: float
 var trail_aura_width: float
-var trail_core_width: float
 var trail_color: Color
 var trail_secondary_color: Color
 var trail_core_color: Color
-var guard_orbit_width: float
-var guard_orbit_core_width: float
-var guard_orbit_segment_width: float
 
 var _state: int = SatelliteState.ORBIT
 var _cooldown: float = 0.0
 var _state_ticks: float = 0.0
 var _target_scan_delay: float = 0.0
-var _orbit_phase: float = rand_range(0.0, TAU)
 var _formation_index: int = 0
 var _formation_count: int = 1
 var _attack_start: Vector2 = Vector2.ZERO
@@ -62,22 +54,19 @@ var _attack_direction: Vector2 = Vector2.RIGHT
 var _velocity: Vector2 = Vector2.ZERO
 var _target: Node2D = null
 var _trail_points: Array = []
-var _trail_local_points: Array = []
 var _body: Sprite = null
 var _hitbox: Hitbox = null
 var _hitbox_collision: CollisionShape2D = null
 var _hitbox_shape: RectangleShape2D = null
 var _motion_streak_visual = null
-var _pierce_streak_visual = null
-var _orbit_visual = null
 var _vfx_pool = null
 var _orbit_visual_position: Vector2 = Vector2.ZERO
 var _orbit_visual_rotation: float = 0.0
 var _orbit_visual_scale: Vector2 = Vector2.ONE
 var _orbit_visual_modulate: Color = Color.white
-var _orbit_visual_phase: float = 0.0
-var _orbit_visual_radius: float = 0.0
 var _orbit_visual_z_index: int = 2
+var _visual_level: int = FlyingBladeCombatCoordinator.VISUAL_FULL
+var _idle_body_visible: bool = true
 
 func setup(config: Dictionary) -> void:
     owner_pet = config["owner"]
@@ -99,13 +88,9 @@ func setup(config: Dictionary) -> void:
     knockback = tuning_data.satellite_knockback
     trail_width = tuning_data.trail_width
     trail_aura_width = tuning_data.trail_aura_width
-    trail_core_width = tuning_data.trail_core_width
     trail_color = tuning_data.satellite_trail_color
     trail_secondary_color = tuning_data.satellite_trail_secondary_color
     trail_core_color = tuning_data.trail_core_color
-    guard_orbit_width = tuning_data.satellite_guard_orbit_width
-    guard_orbit_core_width = tuning_data.satellite_guard_orbit_core_width
-    guard_orbit_segment_width = tuning_data.satellite_guard_orbit_segment_width
 
     _setup_visual(config["texture"], config["centered"], config["offset"], config["flip_h"], config["flip_v"])
     _setup_hitbox()
@@ -130,14 +115,11 @@ func reset() -> void:
     _trail_points.clear()
     _disable_hitbox()
     _motion_streak_visual.hide_visual()
-    _pierce_streak_visual.hide_visual()
-    if _orbit_visual != null:
-        _orbit_visual.hide_visual()
-    visible = true
+    _body.visible = true
+    _refresh_visibility()
 
 func shutdown() -> void:
     _unregister_from_coordinator()
-    _free_orbit_visual()
     queue_free()
 
 func _physics_process(delta: float) -> void:
@@ -146,7 +128,6 @@ func _physics_process(delta: float) -> void:
         visible = false
         return
 
-    visible = true
     var ticks: float = Utils.physics_one(delta)
     _cooldown -= ticks
     _state_ticks += ticks
@@ -196,14 +177,19 @@ func _process_attack(delta: float) -> void:
         _attack_direction = Vector2.RIGHT
     _face_direction(_attack_direction)
     _update_attack_body_visual(delta)
+    var stretch: float = 1.0 + (1.0 - raw_progress) * 0.28
+    _body.scale = Vector2(0.66 / max(0.1, sqrt(stretch)), 0.88 * stretch)
+    _body.modulate = Color(1.35, 1.22, 1.75, 0.98)
+
     _position_hitbox(previous_position, global_position)
-    if raw_progress >= 0.18 and !_attack_hitbox_armed:
+    if raw_progress >= 0.15 and !_attack_hitbox_armed:
         _attack_hitbox_armed = true
         _enable_hitbox()
     var redraw_visual: bool = _should_redraw_attack_visual()
-    _update_attack_trail(redraw_visual)
-    if redraw_visual:
-        _update_attack_pierce(raw_progress)
+    if _uses_motion_visual():
+        _update_attack_trail(redraw_visual)
+    else:
+        _motion_streak_visual.hide_visual()
 
     if _state_ticks >= attack_ticks:
         _begin_return()
@@ -219,7 +205,6 @@ func _process_return(delta: float) -> void:
     var direction: Vector2 = previous_position.direction_to(global_position)
     if direction.length_squared() > 0.1:
         _face_direction(direction)
-    _update_attack_trail(_should_redraw_attack_visual())
     if global_position.distance_squared_to(_return_end) <= 100.0 * 100.0:
         _apply_orbit_body_visual(delta)
     else:
@@ -230,29 +215,48 @@ func _process_return(delta: float) -> void:
         _state_ticks = 0.0
         _velocity *= 0.12
         _trail_points.clear()
+        _motion_streak_visual.hide_visual()
+        _body.scale = Vector2(0.80, 0.66)
+        _body.modulate = Color(1.25, 1.15, 1.50, 0.92)
+        _refresh_visibility()
 
 func _begin_attack(target: Node2D) -> void:
     _target = target
     if _attack_slot_active and is_instance_valid(combat_coordinator):
         combat_coordinator.claim_target(self, target, COMBAT_ROLE)
     _state = SatelliteState.ATTACK
+    _refresh_visibility()
     _state_ticks = 0.0
-    _trail_points.clear()
     var target_position: Vector2 = target.global_position
-    _attack_direction = global_position.direction_to(target_position)
+
+    var fan_angle: float = float(_formation_index) * (TAU * 0.382)
+    var target_offset: Vector2 = Vector2(cos(fan_angle) * 38.0, sin(fan_angle) * 28.0)
+    var strike_target: Vector2 = target_position + target_offset
+
+    _attack_direction = global_position.direction_to(strike_target)
     if _attack_direction.length_squared() <= 0.1:
         _attack_direction = Vector2.RIGHT
-    var side: Vector2 = Vector2(-_attack_direction.y, _attack_direction.x) * (1.0 if randf() < 0.5 else -1.0)
+    _attack_direction = _attack_direction.normalized()
+
+    var perp: Vector2 = Vector2(-_attack_direction.y, _attack_direction.x)
+    var curve_sign: float = 1.0 if (_formation_index % 2 == 0) else -1.0
+    var flank_offset: float = (16.0 + float(_formation_index % 5) * 5.0) * curve_sign
+
     _attack_start = global_position
-    _attack_end = FlyingBladeMotion.clamp_to_zone(target_position + _attack_direction * attack_distance)
-    _attack_control = FlyingBladeMotion.clamp_to_zone(_attack_start - _attack_direction * 24.0 + side * max(8.0, hitbox_width * 0.42))
+    _attack_end = FlyingBladeMotion.clamp_to_zone(strike_target + _attack_direction * (attack_distance + float(_formation_index % 4) * 14.0))
+    _attack_control = FlyingBladeMotion.clamp_to_zone((_attack_start + strike_target) * 0.5 + perp * flank_offset)
     _position_hitbox(_attack_start, _attack_start + _attack_direction * 4.0)
     _attack_hitbox_armed = false
     _disable_hitbox()
 
+    _trail_points.clear()
+    _trail_points.append(_attack_start - _attack_direction * 10.0)
+    _trail_points.append(_attack_start)
+
 func _begin_return(apply_cooldown: bool = true) -> void:
     _release_attack_slot()
     _state = SatelliteState.RETURN
+    _refresh_visibility()
     _state_ticks = 0.0
     _target_scan_delay = 0.0
     if apply_cooldown:
@@ -263,15 +267,22 @@ func _begin_return(apply_cooldown: bool = true) -> void:
     _target = null
     _attack_hitbox_armed = false
     _disable_hitbox()
+    _trail_points.clear()
     _return_start = global_position
     _return_end = _get_orbit_position()
-    var direction: Vector2 = _return_start.direction_to(_return_end)
-    if direction.length_squared() <= 0.1:
-        direction = _velocity.normalized()
-    if direction.length_squared() <= 0.1:
-        direction = Vector2.RIGHT
-    var side: Vector2 = Vector2(-direction.y, direction.x)
-    _return_control = FlyingBladeMotion.clamp_to_zone((_return_start + _return_end) * 0.5 + direction * orbit_radius * 0.18 + side * orbit_radius * 0.22)
+    var return_dir: Vector2 = _return_start.direction_to(_return_end)
+    if return_dir.length_squared() <= 0.1:
+        return_dir = _velocity.normalized()
+    if return_dir.length_squared() <= 0.1:
+        return_dir = Vector2.RIGHT
+    return_dir = return_dir.normalized()
+
+    var return_perp: Vector2 = Vector2(-return_dir.y, return_dir.x)
+    var return_side_sign: float = 1.0 if (_formation_index % 2 == 0) else -1.0
+    var lateral_spread: float = orbit_radius * (0.32 + float(_formation_index % 4) * 0.10) * return_side_sign
+    var forward_push: float = orbit_radius * 0.14
+
+    _return_control = FlyingBladeMotion.clamp_to_zone((_return_start + _return_end) * 0.5 + return_perp * lateral_spread + return_dir * forward_push)
 
 func _setup_visual(texture: Texture, centered: bool, offset: Vector2, flip_h: bool, flip_v: bool) -> void:
     _body = Sprite.new()
@@ -292,25 +303,6 @@ func _setup_visual(texture: Texture, centered: bool, offset: Vector2, flip_h: bo
     _motion_streak_visual.z_index = 18
     _motion_streak_visual.visible = false
     add_child(_motion_streak_visual)
-
-    _pierce_streak_visual = PierceStreakVisual.new()
-    _pierce_streak_visual.name = "PierceStreakVisual"
-    _pierce_streak_visual.z_as_relative = false
-    _pierce_streak_visual.z_index = 22
-    _pierce_streak_visual.visible = false
-    add_child(_pierce_streak_visual)
-
-func _setup_orbit_visual() -> void:
-    if is_instance_valid(_orbit_visual):
-        return
-    var parent: Node = get_parent()
-    if parent == null:
-        return
-    _orbit_visual = GuardBladeOrbitVisual.new()
-    _orbit_visual.name = "%sOrbitVisual" % name
-    _orbit_visual.z_as_relative = false
-    _orbit_visual.z_index = 1
-    parent.add_child(_orbit_visual)
 
 func _setup_hitbox() -> void:
     _hitbox = Hitbox.new()
@@ -334,13 +326,14 @@ func _setup_hitbox() -> void:
 
 func _apply_weapon_stats() -> void:
     weapon_stats.burning_data.from = owner_pet
-    var hitbox_args: Hitbox.HitboxArgs = Hitbox.HitboxArgs.new().set_from_weapon_stats(weapon_stats)
+    var hitbox_args = Hitbox.HitboxArgs.new().set_from_weapon_stats(weapon_stats)
+    var satellite_damage: int = int(max(1, int(round(float(weapon_stats.damage) * 0.50))))
     _hitbox.projectiles_on_hit = []
     _hitbox.effect_scale = weapon_stats.effect_scale
     _hitbox.speed_percent_modifier = weapon_stats.speed_percent_modifier
     _hitbox.from = owner_pet
     _hitbox.damage_tracking_key_hash = damage_tracking_key_hash
-    _hitbox.set_damage(weapon_stats.damage, hitbox_args)
+    _hitbox.set_damage(satellite_damage, hitbox_args)
 
 func _enable_hitbox() -> void:
     if _hitbox_enabled:
@@ -349,8 +342,6 @@ func _enable_hitbox() -> void:
     _hitbox.active = true
     _hitbox.ignored_objects.clear()
     _hitbox.enable()
-    if is_instance_valid(combat_coordinator):
-        combat_coordinator.report_hitbox_state(self, true)
 
 func _disable_hitbox() -> void:
     if !_hitbox_enabled:
@@ -359,8 +350,6 @@ func _disable_hitbox() -> void:
     _hitbox.active = false
     _hitbox.disable()
     _hitbox.ignored_objects.clear()
-    if is_instance_valid(combat_coordinator):
-        combat_coordinator.report_hitbox_state(self, false)
 
 func _position_hitbox(from_position: Vector2, to_position: Vector2) -> void:
     var movement: Vector2 = to_position - from_position
@@ -411,16 +400,10 @@ func coordinated_attack_failed() -> void:
         combat_coordinator.release_attack(self, COMBAT_ROLE)
 
 func _retarget_lost_attack() -> void:
-    if is_instance_valid(combat_coordinator):
-        combat_coordinator.report_target_lost()
     var next_target: Node2D = _select_target()
     if _is_target_valid(next_target):
-        if is_instance_valid(combat_coordinator):
-            combat_coordinator.report_retarget_result(true)
         _begin_attack(next_target)
         return
-    if is_instance_valid(combat_coordinator):
-        combat_coordinator.report_retarget_result(false)
     _begin_return(_attack_hitbox_armed)
 
 func _release_attack_slot() -> void:
@@ -469,7 +452,7 @@ func _get_scan_offset() -> float:
 func _should_redraw_attack_visual() -> bool:
     if !is_instance_valid(combat_coordinator):
         return true
-    return combat_coordinator.should_redraw_attack_visual(self)
+    return combat_coordinator.should_redraw_attack_visual(self, _visual_level)
 
 func _is_target_valid(target: Node) -> bool:
     if !is_instance_valid(target):
@@ -491,45 +474,100 @@ func _get_player_position() -> Vector2:
         return owner_pet.global_position
     return global_position
 
+func _uses_motion_visual() -> bool:
+    return _visual_level <= FlyingBladeCombatCoordinator.VISUAL_MINIMAL
+
+func set_visual_level(level: int) -> void:
+    if level == _visual_level:
+        return
+    _visual_level = level
+    if _visual_level > FlyingBladeCombatCoordinator.VISUAL_MINIMAL:
+        _motion_streak_visual.hide_visual()
+
+func set_idle_body_visible(p_visible: bool) -> void:
+    _idle_body_visible = p_visible
+    _refresh_visibility()
+
+func _refresh_visibility() -> void:
+    visible = _state != SatelliteState.ORBIT or _idle_body_visible
+
 func _calculate_orbit_visual() -> void:
-    var distinct_count: int = _formation_count
-    if distinct_count < 1:
-        distinct_count = 1
-    elif distinct_count > FORMATION_OVERLAP_SLOTS:
-        distinct_count = FORMATION_OVERLAP_SLOTS
-    var slot_count: int = distinct_count
-    var lane: int = int(floor(float(_formation_index) / float(slot_count)))
-    var slot_index: int = _formation_index % slot_count
-    var slot_angle: float = float(slot_index) * TAU / float(slot_count)
+    var count: int = int(max(1, _formation_count))
     var phase: float = _get_shared_orbit_phase()
-    var lane_phase: float = float(lane) * 0.73
-    var angle: float = slot_angle + phase + lane_phase * 0.12
-    var depth: float = sin(angle)
+    var final_radius: float = 140.0
+    var final_y_scale: float = 0.68
+    var current_angle: float = 0.0
+    var orbit_dir_sign: float = 1.0
+    var base_scale: Vector2 = Vector2(0.72, 0.76)
+    var ring_is_outer: bool = false
+
+    if count <= 6:
+        var slot_angle: float = float(_formation_index) * TAU / float(count)
+        orbit_dir_sign = 1.0
+        current_angle = slot_angle + phase * 0.75
+        final_radius = orbit_radius * 1.12 + sin(phase * 2.8 + float(_formation_index) * 1.1) * 6.0
+        final_y_scale = 0.66
+        base_scale = Vector2(0.72, 0.76)
+    elif _formation_index < 8:
+        var slot_angle: float = float(_formation_index) * TAU / 8.0
+        orbit_dir_sign = -1.0
+        current_angle = slot_angle - phase * 0.40
+        var breath: float = sin(phase * 1.6)
+        final_radius = 138.0 - breath * 12.0 + sin(phase * 2.5 + float(_formation_index) * 0.8) * 4.0
+        final_y_scale = 0.68
+        base_scale = Vector2(0.68, 0.72)
+    else:
+        ring_is_outer = true
+        var outer_total: int = int(max(1, count - 8))
+        var outer_index: int = _formation_index - 8
+        var slot_angle: float = float(outer_index) * TAU / float(outer_total)
+        orbit_dir_sign = 1.0
+        current_angle = slot_angle + phase * 0.28
+        var tier: int = outer_index % 3
+        var tier_stagger: float = float(tier) * 24.0
+        var breath: float = sin(phase * 1.6)
+        final_radius = 224.0 + breath * 14.0 + tier_stagger + sin(phase * 2.0 + float(outer_index) * 0.6) * 5.0
+        final_y_scale = 0.72
+        base_scale = Vector2(0.72, 0.76)
+
+    var depth: float = sin(current_angle)
     var depth_pct: float = (depth + 1.0) * 0.5
-    var radius: float = orbit_radius + float(lane) * max(3.0, guard_orbit_segment_width * 0.30)
-    var local: Vector2 = Vector2(cos(angle) * radius, depth * radius * orbit_y_scale)
-    var tangent: Vector2 = Vector2(-sin(angle) * radius, cos(angle) * radius * orbit_y_scale)
+    var local_offset: Vector2 = Vector2(cos(current_angle) * final_radius, depth * final_radius * final_y_scale)
+    var tier_float: float = float((_formation_index - 8) % 3 - 1) * 3.5 if ring_is_outer else 0.0
+    var float_bob: float = sin(phase * 3.8 + float(_formation_index) * 1.3) * 5.0 + tier_float
+    local_offset.y += float_bob
+
+    var tangent: Vector2 = Vector2(-sin(current_angle) * final_radius, cos(current_angle) * final_radius * final_y_scale) * orbit_dir_sign
     if tangent.length_squared() <= 0.1:
         tangent = Vector2.RIGHT
     tangent = tangent.normalized()
 
-    var pulse: float = 0.92 + sin(phase * 3.4 + slot_angle * 1.7 + lane_phase) * 0.08
-    var guard_volume: float = clamp((guard_orbit_width + guard_orbit_core_width) / 3.3, 0.55, 1.45)
-    var perspective: float = 0.78 + depth_pct * 0.34
-    var crowd_scale: float = clamp(1.0 - max(0.0, float(_formation_count - 4)) * 0.025, 0.82, 1.0)
-    var scale: Vector2 = Vector2(0.50 + guard_orbit_segment_width * 0.018, 0.64 + guard_orbit_segment_width * 0.025) * pulse * guard_volume * perspective * crowd_scale
+    var bank_roll: float = -sin(current_angle) * orbit_dir_sign * 0.14
+    var pitch_tilt: float = sin(phase * 4.2 + float(_formation_index) * 0.9) * 0.06
+    var heading_angle: float = tangent.angle() - PI / 2.0 + bank_roll + pitch_tilt
+
+    var pulse: float = 0.95 + sin(phase * 3.2 + float(_formation_index) * 0.5) * 0.05
+    var scale: Vector2 = base_scale * pulse * (0.90 + depth_pct * 0.20)
+
+    var slot_fraction: float = float(_formation_index) * TAU / max(1.0, float(count))
+    var wave_phase: float = sin(phase * 1.8 - slot_fraction)
+    var wave_boost: float = clamp(wave_phase, 0.0, 1.0) * 0.24
+
     var color: Color = trail_color
-    color.r = lerp(color.r, trail_core_color.r, depth_pct * 0.18)
-    color.g = lerp(color.g, trail_core_color.g, depth_pct * 0.12)
-    color.b = lerp(color.b, trail_core_color.b, depth_pct * 0.18)
-    color.a = clamp(color.a * guard_volume * (1.08 + depth_pct * 0.76) + trail_core_color.a * (0.12 + depth_pct * 0.20), 0.18, 0.54)
-    _orbit_visual_position = FlyingBladeMotion.clamp_to_zone(_get_player_position() + local + Vector2(0.0, -2.0))
-    _orbit_visual_rotation = tangent.angle() - PI / 2.0
+    color.r = lerp(color.r, trail_core_color.r, depth_pct * 0.18 + wave_boost)
+    color.g = lerp(color.g, trail_core_color.g, depth_pct * 0.18 + wave_boost)
+    color.b = lerp(color.b, trail_core_color.b, depth_pct * 0.18 + wave_boost)
+    color.a = clamp(color.a * (0.82 + depth_pct * 0.18 + wave_boost * 0.6), 0.22, 0.88)
+    scale = scale * (1.0 + wave_boost * 0.08)
+
+    _orbit_visual_position = FlyingBladeMotion.clamp_to_zone(_get_player_position() + local_offset)
+    _orbit_visual_rotation = heading_angle
     _orbit_visual_scale = scale
     _orbit_visual_modulate = color
-    _orbit_visual_phase = phase
-    _orbit_visual_radius = radius
-    _orbit_visual_z_index = 2
+    if ring_is_outer:
+        _orbit_visual_z_index = 1 if depth < 0 else 5
+    else:
+        _orbit_visual_z_index = 2 if depth < 0 else 4
 
 func _apply_orbit_body_visual(delta: float) -> void:
     var weight: float = 1.0 if delta <= 0.0 else min(1.0, delta * 10.0)
@@ -537,8 +575,6 @@ func _apply_orbit_body_visual(delta: float) -> void:
     _body.scale = _body.scale.linear_interpolate(_orbit_visual_scale, weight)
     _body.modulate = _body.modulate.linear_interpolate(_orbit_visual_modulate, weight)
     z_index = _orbit_visual_z_index
-    if _formation_index == 0:
-        _update_orbit_ring_visual()
 
 func _update_attack_body_visual(delta: float) -> void:
     var weight: float = min(1.0, delta * 14.0)
@@ -546,71 +582,33 @@ func _update_attack_body_visual(delta: float) -> void:
     _body.scale = _body.scale.linear_interpolate(Vector2(0.76 + attack_pulse * 0.08, 0.70), weight)
     _body.modulate = _body.modulate.linear_interpolate(Color(1.12, 1.02, 1.24, 0.96), weight)
     z_index = 6
-    if _formation_index == 0:
-        _hide_orbit_ring_visual()
 
 func _update_attack_trail(redraw: bool = true) -> void:
     var sample_position: Vector2 = global_position
-    if _trail_points.empty() or _trail_points[_trail_points.size() - 1].distance_squared_to(sample_position) >= 14.0 * 14.0:
+    if _trail_points.empty() or _trail_points[_trail_points.size() - 1].distance_squared_to(sample_position) >= 8.0 * 8.0:
         _trail_points.append(sample_position)
-    while _trail_points.size() > 4:
+    while _trail_points.size() > 5:
         _trail_points.pop_front()
     if !redraw:
         return
-    _trail_local_points.clear()
-    for point in _trail_points:
-        _trail_local_points.append(to_local(point))
     var attack_trail_color: Color = Color(trail_color.r * 0.78, trail_color.g * 0.66, trail_color.b * 0.94, min(0.34, trail_color.a * 1.42))
     var attack_secondary_color: Color = Color(trail_secondary_color.r * 0.76, trail_secondary_color.g * 0.84, trail_secondary_color.b, min(0.20, trail_secondary_color.a * 1.35))
     var attack_core_color: Color = Color(trail_core_color.r * 0.82, trail_core_color.g * 0.88, trail_core_color.b, min(0.28, trail_core_color.a * 1.08))
     var speed_ratio: float = clamp(_velocity.length() / max(260.0, orbit_radius * 8.0), 0.34, 1.0)
-    _motion_streak_visual.configure(_trail_local_points, attack_trail_color, attack_secondary_color, attack_core_color, trail_width * 1.18, trail_aura_width * 1.22, trail_core_width, 0.82 + speed_ratio * 0.24)
-
-func _update_attack_pierce(progress: float) -> void:
-    var visibility: float = 0.48 + sin(progress * PI) * 0.34
-    _pierce_streak_visual.configure(to_local(_attack_start), to_local(_attack_end), FlyingBladeMotion.to_local_direction(self, _attack_direction), progress, visibility, max(9.0, hitbox_width * 0.58), max(15.0, hitbox_width * 1.04), trail_core_width, trail_color, trail_secondary_color, trail_core_color, _state_ticks, _orbit_phase)
+    _motion_streak_visual.configure(_trail_points, attack_trail_color, attack_secondary_color, attack_core_color, trail_width * 1.18, trail_aura_width * 1.22, 0.82 + speed_ratio * 0.24, _visual_level)
 
 func _fade_attack_visuals(delta: float) -> void:
-    if _state == SatelliteState.ORBIT:
-        _motion_streak_visual.fade(delta)
     if _state != SatelliteState.ATTACK:
-        _pierce_streak_visual.fade(delta)
+        _motion_streak_visual.fade(delta)
 
 func _face_direction(direction: Vector2) -> void:
     if direction.length_squared() <= 0.1:
         return
     rotation = lerp_angle(rotation, direction.angle() - PI / 2.0, 0.48)
 
-func _update_orbit_ring_visual() -> void:
-    if !is_instance_valid(_orbit_visual):
-        _setup_orbit_visual()
-    if !is_instance_valid(_orbit_visual):
-        return
-    var alpha_scale: float = clamp(1.0 / sqrt(float(max(_formation_count, 1))), 0.38, 1.0)
-    var ring_color: Color = trail_color
-    var ring_secondary_color: Color = trail_secondary_color
-    var ring_core_color: Color = trail_core_color
-    ring_color.a *= alpha_scale * 0.62
-    ring_secondary_color.a *= alpha_scale * 0.58
-    ring_core_color.a *= alpha_scale * 0.42
-    _orbit_visual.global_position = _get_player_position() + Vector2(0.0, -2.0)
-    _orbit_visual.configure(_orbit_visual_radius, orbit_y_scale, _orbit_visual_phase, ring_color, ring_secondary_color, ring_core_color, max(2.0, guard_orbit_segment_width * 0.55))
-
-func _hide_orbit_ring_visual() -> void:
-    if is_instance_valid(_orbit_visual):
-        _orbit_visual.hide_visual()
-
-func _free_orbit_visual() -> void:
-    if is_instance_valid(_orbit_visual):
-        _orbit_visual.queue_free()
-    _orbit_visual = null
-
 func set_formation(index: int, count: int) -> void:
-    var old_index: int = _formation_index
     _formation_count = max(1, count)
     _formation_index = int(clamp(index, 0, _formation_count - 1))
-    if old_index == 0 and _formation_index != 0:
-        _free_orbit_visual()
 
 func _get_shared_orbit_phase() -> float:
     if is_instance_valid(combat_coordinator):
@@ -621,8 +619,12 @@ func _on_Hitbox_hit_something(thing_hit: Node, _damage_dealt: int) -> void:
     RunData.manage_life_steal(weapon_stats, player_index)
     if !_hitbox.ignored_objects.has(thing_hit):
         _hitbox.ignored_objects.push_back(thing_hit)
-    if is_instance_valid(_vfx_pool) and thing_hit is Node2D:
+    if !is_instance_valid(_vfx_pool) and is_instance_valid(combat_coordinator):
+        _vfx_pool = combat_coordinator.get_vfx_pool()
+    if is_instance_valid(_vfx_pool) and thing_hit is Node2D and _visual_level < FlyingBladeCombatCoordinator.VISUAL_ESSENTIAL:
         var direction: Vector2 = _attack_direction
         if direction.length_squared() <= 0.1:
             direction = Vector2.RIGHT
-        _vfx_pool.emit_hit_flash(thing_hit.global_position, direction.normalized(), trail_core_color, max(10.0, hitbox_width * 0.85), 0.08, 24)
+        var hit_pos: Vector2 = thing_hit.global_position
+        var hit_dir: Vector2 = direction.normalized()
+        _vfx_pool.emit_hit_flash(hit_pos, hit_dir, trail_core_color, 18.0, 0.08, 24)

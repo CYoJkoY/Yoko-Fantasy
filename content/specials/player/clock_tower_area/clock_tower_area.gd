@@ -1,20 +1,29 @@
 extends Area2D
 
-export (float) var base_radius: float = 350.0
+const EFFECT_REFRESH_INTERVAL: float = 0.2
+
+export (float) var base_radius: float
 export (float) var source_radius: float = 236.0
 export (bool) var animate: bool = true
 
 var main: Main = null
 var player_index: int = -1
 var pos: Vector2 = Vector2.ZERO
-var area_base_range: int = 350
-var area_range_rate: float = 0.65
+var area_base_range: int
+var area_range_rate: float
 var _enemy_speed_percent: int = -10
 var _structure_attack_speed_bonus_applied: int = 0
 var _player_in_area: bool = false
 var _time: float = 0.0
+var _effect_refresh_left: float = 0.0
 var _affected_enemies: Array = []
 var _affected_projectiles: Dictionary = {}
+var _gear_nodes: Array = []
+var _gear_rotation_speeds: Array = []
+var _shadow_nodes: Array = []
+var _shadow_phase_values: Array = []
+var _shadow_alpha_mins: Array = []
+var _shadow_alpha_maxes: Array = []
 var _gear_speeds: Dictionary = {
     "GearTopCenterS": 0.37,
     "GearTopRightS": -0.60,
@@ -41,7 +50,7 @@ onready var gears: Node2D = $Visual/Gears
 onready var shadows: Node2D = $Visual/Shadows
 onready var collision: CollisionShape2D = $Collision
 
-func init(_main: Main, _player_index: int, _pos: Vector2, radius: float = -1.0, _base_range: int = 350, _range_rate: float = 0.65) -> Area2D:
+func init(_main: Main, _player_index: int, _pos: Vector2, radius: float, _base_range: int, _range_rate: float) -> Area2D:
     main = _main
     player_index = _player_index
     pos = _pos
@@ -54,6 +63,7 @@ func init(_main: Main, _player_index: int, _pos: Vector2, radius: float = -1.0, 
 
 func _ready() -> void:
     global_position = pos
+    _cache_visual_nodes()
     set_area_radius(base_radius)
     _enemy_speed_percent = Utils.fa_get_clock_tower_enemy_speed_percent(player_index)
     _update_player_area_state()
@@ -71,10 +81,25 @@ func _process(delta: float) -> void:
     if animate:
         _update_gears(delta)
         _update_shadows()
-    _refresh_area_radius()
+    _effect_refresh_left -= delta
+    if _effect_refresh_left <= 0.0:
+        _refresh_area_radius()
+        _refresh_structure_attack_speed_bonus()
+        _refresh_enemy_speed_percent()
+        _effect_refresh_left = EFFECT_REFRESH_INTERVAL
     _update_player_area_state()
-    _refresh_structure_attack_speed_bonus()
-    _refresh_enemy_speed_percent()
+
+
+func _cache_visual_nodes() -> void:
+    for gear_name in _gear_speeds.keys():
+        _gear_nodes.append(gears.get_node(gear_name))
+        _gear_rotation_speeds.append(float(_gear_speeds[gear_name]))
+    for shadow_name in _shadow_phases.keys():
+        var alpha_range: Array = _shadow_alpha_ranges[shadow_name]
+        _shadow_nodes.append(shadows.get_node(shadow_name))
+        _shadow_phase_values.append(float(_shadow_phases[shadow_name]))
+        _shadow_alpha_mins.append(float(alpha_range[0]))
+        _shadow_alpha_maxes.append(float(alpha_range[1]))
 
 
 func set_area_radius(radius: float) -> void:
@@ -94,22 +119,14 @@ func _refresh_area_radius() -> void:
 
 
 func _update_gears(delta: float) -> void:
-    for gear_name in _gear_speeds.keys():
-        if gears == null or !gears.has_node(gear_name):
-            continue
-        var gear := gears.get_node(gear_name) as Node2D
-        gear.rotation += float(_gear_speeds[gear_name]) * delta
+    for i in range(_gear_nodes.size()):
+        _gear_nodes[i].rotation += _gear_rotation_speeds[i] * delta
 
 
 func _update_shadows() -> void:
-    for shadow_name in _shadow_phases.keys():
-        if shadows == null or !shadows.has_node(shadow_name):
-            continue
-        var shadow := shadows.get_node(shadow_name) as Sprite
-        var phase := float(_shadow_phases[shadow_name])
-        var alpha_range: Array = _shadow_alpha_ranges.get(shadow_name, [0.08, 0.5])
-        var pulse := 0.5 + 0.5 * sin(_time * 2.16 + phase)
-        shadow.modulate.a = float(alpha_range[0]) + pulse * (float(alpha_range[1]) - float(alpha_range[0]))
+    for i in range(_shadow_nodes.size()):
+        var pulse: float = 0.5 + 0.5 * sin(_time * 2.16 + _shadow_phase_values[i])
+        _shadow_nodes[i].modulate.a = _shadow_alpha_mins[i] + pulse * (_shadow_alpha_maxes[i] - _shadow_alpha_mins[i])
 
 
 func _update_player_area_state() -> void:

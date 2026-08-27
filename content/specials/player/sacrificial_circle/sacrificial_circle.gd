@@ -23,6 +23,8 @@ var killed_count: int = 0
 var fog_viewport: FogViewport = null
 var fog_light: Node2D = null
 var sprite_range: float = 0.0
+var _pulse_base_alpha: float = 1.0
+var _pulse_base_scale: Vector2 = Vector2.ONE
 
 onready var sprite: Sprite = $"Sprite"
 onready var breath_tween: Tween = $"%BreathTween"
@@ -61,6 +63,8 @@ func _ready() -> void:
     var target_scale: Vector2 = sprite_scale * 2.35
     sprite.scale = sprite_scale
     pulse_sprite.scale = target_scale
+    _pulse_base_alpha = pulse_sprite.self_modulate.a
+    _pulse_base_scale = pulse_sprite.scale
     collision.shape.radius = total_range
     global_position = pos
 
@@ -74,6 +78,7 @@ func _ready() -> void:
             fog_light.scale = Vector2.ONE * (total_range / PLAYER_LIGHT_RANGE)
             fog_light.modulate = FOG_LIGHT_COLOR
 
+    var _error_pulse_completed = pulse_tween.connect("tween_all_completed", self, "fa_on_PulseTween_tween_all_completed")
     _fantasy_start_breath()
 
 func _process(_delta: float) -> void:
@@ -140,9 +145,7 @@ func _fantasy_reward() -> void:
     pulse_tween.remove_all()
     idle_delay_timer.stop()
 
-    var pulse_alpha: float = pulse_sprite.self_modulate.a
-    var pulse_original_scale: Vector2 = pulse_sprite.scale * 0.18
-    var pulse_target_scale: Vector2 = pulse_sprite.scale
+    var pulse_original_scale: Vector2 = _pulse_base_scale * 0.18
     var reward_return_color: Color = Color(
         DEFAULT_SPRITE_COLOR.r,
         DEFAULT_SPRITE_COLOR.g,
@@ -159,7 +162,7 @@ func _fantasy_reward() -> void:
 
     pulse_tween.interpolate_property(
         pulse_sprite, "self_modulate:a",
-        pulse_alpha, 0.0,
+        _pulse_base_alpha, 0.0,
         0.28, Tween.TRANS_SINE, Tween.EASE_OUT
     )
 
@@ -171,7 +174,7 @@ func _fantasy_reward() -> void:
 
     pulse_tween.interpolate_property(
         pulse_sprite, "scale",
-        pulse_original_scale, pulse_target_scale,
+        pulse_original_scale, _pulse_base_scale,
         0.28, Tween.TRANS_SINE, Tween.EASE_OUT
     )
 
@@ -179,10 +182,6 @@ func _fantasy_reward() -> void:
 
     pulse_tween.start()
     pulse_sprite.show()
-
-    if pulse_tween.is_connected("tween_all_completed", self , "fa_on_PulseTween_tween_all_completed"): return
-
-    pulse_tween.connect("tween_all_completed", self , "fa_on_PulseTween_tween_all_completed", [pulse_alpha, pulse_target_scale])
 
 # ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_on_SacrificialCircle_body_entered(body: Node) -> void:
@@ -192,17 +191,17 @@ func fa_on_SacrificialCircle_body_entered(body: Node) -> void:
         body.connect("died", self , "fa_on_enemy_died_on_sacrificial_circle")
 
 func fa_on_SacrificialCircle_body_exited(body: Node) -> void:
-    if !is_instance_valid(body) or body.dead: return
+    if !is_instance_valid(body): return
 
     if body.is_connected("died", self , "fa_on_enemy_died_on_sacrificial_circle"):
         body.disconnect("died", self , "fa_on_enemy_died_on_sacrificial_circle")
 
 func fa_on_enemy_died_on_sacrificial_circle(enemy: Enemy, die_args: Entity.DieArgs) -> void:
-    if die_args.cleaning_up or !die_args.enemy_killed_by_player \
-    or die_args.killed_by_player_index != player_index: return
-
     if enemy.is_connected("died", self , "fa_on_enemy_died_on_sacrificial_circle"):
         enemy.disconnect("died", self , "fa_on_enemy_died_on_sacrificial_circle")
+
+    if die_args.cleaning_up or !die_args.enemy_killed_by_player \
+    or die_args.killed_by_player_index != player_index: return
 
     killed_count += 1
     _fantasy_sacrifice()
@@ -223,7 +222,7 @@ func fa_on_RewardTween_tween_all_completed() -> void:
 func fa_on_IdleDelayTimer_timeout() -> void:
     _fantasy_start_breath()
 
-func fa_on_PulseTween_tween_all_completed(pulse_alpha: float, pulse_target_scale: Vector2) -> void:
+func fa_on_PulseTween_tween_all_completed() -> void:
     pulse_sprite.hide()
-    pulse_sprite.self_modulate.a = pulse_alpha
-    pulse_sprite.scale = pulse_target_scale
+    pulse_sprite.self_modulate.a = _pulse_base_alpha
+    pulse_sprite.scale = _pulse_base_scale

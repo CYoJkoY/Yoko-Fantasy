@@ -120,18 +120,18 @@ func fa_on_Timer_timeout() -> void:
 func fa_on_erosion_cd_timeout(erosion: ActiveErosion) -> void:
     var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(erosion.player_index, Color("#33CC1A"))
     var final_damage: int = erosion.damage
-    if Utils.get_chance_success(erosion.crit_chance):
+    var was_crit: bool = Utils.get_chance_success(erosion.crit_chance)
+    if was_crit:
         final_damage = int(erosion.damage * erosion.crit_damage)
 
-        var gold_on_crit_kill_effects: Array = RunData.get_player_effect(Keys.gold_on_crit_kill_hash, erosion.player_index)
-        for effect in gold_on_crit_kill_effects:
-            if !Utils.get_chance_success(effect[1] / 100.0): continue
-
-            RunData.add_gold(1, erosion.player_index)
-            RunData.add_tracked_value(erosion.player_index, Keys.item_hunting_trophy_hash, 1)
-
+    var health_before: int = _parent.current_stats.health
     var take_damage_array: Array = _parent.take_damage(final_damage, damage_args)
     RunData.add_tracked_value(erosion.player_index, erosion.source_id, take_damage_array[1])
+    Utils.fa_apply_direct_crit_kill_gold_rewards(
+        erosion.player_index,
+        was_crit,
+        health_before > 0 and take_damage_array[1] >= health_before
+    )
 
     erosion.current_times -= 1
     if erosion.current_times > 0: return

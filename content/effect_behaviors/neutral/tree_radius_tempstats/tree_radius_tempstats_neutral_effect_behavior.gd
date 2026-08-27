@@ -23,10 +23,10 @@ func get_bonus_damage(_hitbox: Hitbox, _from_player_index: int) -> int:
     return 0
 
 func on_burned(_burning_data: BurningData, _from_player_index: int) -> void:
-	pass
+    pass
 
 func update_target() -> void:
-	pass
+    pass
 
 # ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_add_temp_stat(stat: int, stat_num: int, player_index: int) -> void:
@@ -34,7 +34,7 @@ func fa_add_temp_stat(stat: int, stat_num: int, player_index: int) -> void:
     player_indexes.append(player_index)
 
 func fa_update_collision_radius() -> void:
-    var total_radius: int = 0
+    var total_radius: float = 0.0
     for player_index in player_indexes: total_radius += Utils.ncl_get_range_with_detection(radius, range_rate, player_index)
     collision.shape.radius = total_radius / player_indexes.size()
 

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/myriad_windblades/myriad_windblades_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = ""
+text_key = "EFFECT_FANTASY_MYRIAD_WINDBLADES_1"
+value = 2
+custom_key = ""
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+wind_force_ticks = 2
+base_damage = 2
+scaling_stats = [ [ "stat_elemental_damage", 0.25 ] ]
+wind_force_tick_interval = 0.13

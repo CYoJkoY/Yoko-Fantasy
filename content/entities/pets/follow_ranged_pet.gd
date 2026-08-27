@@ -1,5 +1,7 @@
 extends Pet
 
+const TARGET_REFRESH_INTERVAL: float = 0.1
+
 export(String) var damage_tracking_id = ""
 var _damage_tracking_id_hash: int = Keys.empty_hash
 export(bool) var has_shoot_anim = false
@@ -16,6 +18,7 @@ var _current_target: Array = []
 var _cooldown: float = 0.0
 var _is_shooting: bool = false
 var _next_proj_rotation = 0
+var _target_refresh_left: float = 0.0
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
@@ -52,8 +55,11 @@ func _physics_process(delta) -> void:
 
     _current_target_behavior.update_target()
 
+    var attack_was_ready: bool = _cooldown <= 0.0
     _cooldown -= Utils.physics_one(delta)
-    _current_target = Utils.get_nearest(_targets_in_range, _muzzle.global_position, _current_weapon_stats.min_range)
+    _target_refresh_left -= delta
+    if _target_refresh_left <= 0.0 or (!attack_was_ready and _cooldown <= 0.0):
+        _refresh_current_target()
 
     if !should_shoot(_cooldown, _current_target): return
     
@@ -69,6 +75,10 @@ func should_shoot(cooldown: float, current_target: Array) -> bool:
             and Utils.is_between(current_target[1], _current_weapon_stats.min_range, _current_weapon_stats.max_range)
         )
     )
+
+func _refresh_current_target() -> void:
+    _current_target = Utils.get_nearest(_targets_in_range, _muzzle.global_position, _current_weapon_stats.min_range)
+    _target_refresh_left = TARGET_REFRESH_INTERVAL
 
 func shoot() -> void:
     var weapon_point: Vector2 = _muzzle.global_position
@@ -111,11 +121,18 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 
 func _on_TargetTriggerZone_body_entered(body):
     _targets_in_range.push_back(body)
+    _target_refresh_left = 0.0
     var _error = body.connect("died", self , "on_target_died")
 
 func _on_TargetTriggerZone_body_exited(body):
     _targets_in_range.erase(body)
+    if _current_target.size() > 0 and _current_target[0] == body:
+        _current_target.clear()
+    _target_refresh_left = 0.0
     body.disconnect("died", self , "on_target_died")
 
 func on_target_died(target: Node2D, _args: Entity.DieArgs) -> void:
     _targets_in_range.erase(target)
+    if _current_target.size() > 0 and _current_target[0] == target:
+        _current_target.clear()
+    _target_refresh_left = 0.0

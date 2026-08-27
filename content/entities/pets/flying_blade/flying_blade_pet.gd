@@ -22,57 +22,7 @@ const FlyingBladeMotion = preload("res://mods-unpacked/Yoko-Fantasy/content/enti
 export(String) var damage_tracking_id = ""
 export(Resource) var tuning = null
 
-var guard_radius: float
-var guard_orbit_speed: float
-var guard_speed: float
-var aim_ticks: float
-var windup_ticks: float
-var slash_ticks: float
-var chain_ticks: float
-var return_speed: float
-var target_refresh_ticks: float
-var approach_distance: float
-var exit_distance: float
-var curve_side_distance: float
-var aim_snap_distance: float
-var return_curve_distance: float
-var sweep_width: float
-var max_chain_hits: int
-var chain_search_radius: float
-var arc_radius: float
-var slash_color: Color
-var trail_color: Color
-var trail_secondary_color: Color
-var trail_core_color: Color
-var attack_fragment_color: Color
-var attack_fragment_secondary_color: Color
-var slash_width: float
-var trail_width: float
-var trail_aura_width: float
-var trail_core_width: float
-var trail_max_points: int
-var trail_sample_min_distance: float
-var attack_fragment_lifetime: float
-var attack_fragment_interval_ticks: float
-var attack_fragment_width: float
-var blade_afterimage_lifetime: float
-var blade_afterimage_alpha: float
-var blade_afterimage_min_distance: float
-var guard_breathe_scale: float
-var guard_wave_height: float
-var guard_wave_speed: float
-var guard_tilt_strength: float
-var hit_flash_alpha: float
-var target_angle_weight: float
-var target_origin_weight: float
-var target_player_weight: float
-var target_follow_through_weight: float
-var max_active_main_attacks: int
-var max_active_satellite_attacks: int
-var max_attack_dispatches_per_tick: int
-
 onready var _body: Sprite = $Animation/Offset/Body
-onready var _shadow: Sprite = $Animation/Offset/Shadow
 onready var _hitbox: Hitbox = $Animation/Hitbox
 onready var _hitbox_collision: CollisionShape2D = $Animation/Hitbox/Collision
 
@@ -112,25 +62,17 @@ var _chain_count: int = 0
 var _allow_repeat_target: bool = false
 var _targets_hit_this_combo: Array = []
 var _trail_points: Array = []
-var _trail_local_points: Array = []
 var _attack_fragment_cursor: int = 0
 var _attack_fragment_tick: float = 0.0
 var _last_afterimage_position: Vector2 = Vector2.ZERO
 var _guard_phase: float = rand_range(0.0, TAU)
-var _blade_ready_done: bool = false
 var _attack_visuals_active: bool = false
 var _attack_queued: bool = false
 var _attack_slot_active: bool = false
 var _attack_hitbox_enabled: bool = true
+var _visual_level: int = FlyingBladeCombatCoordinator.VISUAL_FULL
 
 func _ready() -> void:
-    _ready_blade()
-
-func _ready_blade() -> void:
-    if _blade_ready_done:
-        return
-    _blade_ready_done = true
-    _apply_tuning()
     _guard_slot_offset = float(get_index() % 8) * TAU / 8.0
     _last_position = global_position
     _setup_combat_coordinator()
@@ -197,15 +139,6 @@ func get_combat_coordinator():
         _setup_combat_coordinator()
     return _combat_coordinator
 
-func get_combat_debug_snapshot() -> Dictionary:
-    if !is_instance_valid(_combat_coordinator):
-        return {}
-    return _combat_coordinator.get_debug_snapshot()
-
-func set_combat_debug_metrics_enabled(enabled: bool) -> void:
-    if is_instance_valid(_combat_coordinator):
-        _combat_coordinator.set_debug_metrics_enabled(enabled)
-
 func _physics_process(delta: float) -> void:
     if dead or _end_of_wave:
         return
@@ -216,7 +149,7 @@ func _physics_process(delta: float) -> void:
     _cooldown -= ticks
     _target_refresh -= ticks
     _state_ticks += ticks
-    _guard_phase += delta * guard_orbit_speed * 0.72
+    _guard_phase += delta * tuning.guard_orbit_speed * 0.72
     _last_position = global_position
 
     match _state:
@@ -247,11 +180,10 @@ func update_animation(_movement: Vector2) -> void:
 
 func _process_guard(delta: float) -> void:
     var guard_position: Vector2 = _get_guard_position(delta)
-    _steer_toward(guard_position, guard_speed, 16.0, delta)
+    _steer_toward(guard_position, tuning.guard_speed, 16.0, delta)
     _face_guard_orbit(guard_position, 0.18)
     if _attack_visuals_active:
         _hide_attack_visuals()
-    _set_shadow_visible(false)
 
     if _cooldown > 0:
         return
@@ -265,7 +197,7 @@ func _process_aim(delta: float) -> void:
         return
 
     _attack_center = _attack_target.global_position
-    var raw_progress: float = min(_state_ticks / max(aim_ticks, 1.0), 1.0)
+    var raw_progress: float = min(_state_ticks / max(tuning.aim_ticks, 1.0), 1.0)
     var progress: float = FlyingBladeMotion.ease_in_out_cubic(raw_progress)
     var lead: Vector2 = _attack_direction * sin(raw_progress * PI) * -10.0
     var aim_position: Vector2 = FlyingBladeMotion.bezier2(_aim_start, _aim_control, _aim_end + lead, progress)
@@ -274,11 +206,13 @@ func _process_aim(delta: float) -> void:
     _attack_direction = global_position.direction_to(_attack_center)
     if _attack_direction == Vector2.ZERO:
         _attack_direction = (_aim_end - _aim_start).normalized()
-    _face_direction(_attack_direction, 0.58)
-    _set_shadow_visible(true)
-    _update_motion_trail(_should_redraw_attack_visual())
+    _face_direction(_attack_direction, 0.64)
+    if _uses_motion_visual():
+        _update_motion_trail(_should_redraw_attack_visual())
+    else:
+        _motion_streak_visual.hide_visual()
 
-    if _state_ticks >= aim_ticks or global_position.distance_squared_to(_aim_end) <= 22.0 * 22.0:
+    if _state_ticks >= tuning.aim_ticks or global_position.distance_squared_to(_aim_end) <= 22.0 * 22.0:
         _begin_windup()
 
 func _process_windup(delta: float) -> void:
@@ -292,65 +226,70 @@ func _process_windup(delta: float) -> void:
         _attack_direction = Vector2.RIGHT
 
     var side: Vector2 = Vector2(-_attack_direction.y, _attack_direction.x) * _curve_side
-    var pullback: Vector2 = _attack_center - _attack_direction * approach_distance + side * curve_side_distance * 0.22
-    var raw_progress: float = min(_state_ticks / max(windup_ticks, 1.0), 1.0)
+    var pullback: Vector2 = _attack_center - _attack_direction * tuning.approach_distance + side * tuning.curve_side_distance * 0.22
+    var raw_progress: float = min(_state_ticks / max(tuning.windup_ticks, 1.0), 1.0)
     var pull_progress: float = FlyingBladeMotion.ease_in_out_cubic(raw_progress)
     var pulse: float = sin(raw_progress * PI)
-    _steer_toward(FlyingBladeMotion.clamp_to_zone(pullback - _attack_direction * (12.0 + pull_progress * 24.0) + side * pulse * 8.0), return_speed, 34.0, delta)
+    _steer_toward(FlyingBladeMotion.clamp_to_zone(pullback - _attack_direction * (12.0 + pull_progress * 24.0) + side * pulse * 8.0), tuning.return_speed, 37.4, delta)
     _refresh_attack_path(global_position)
-    _face_direction(_attack_direction, 0.62)
-    _animation.scale = Vector2(1.0 + pulse * 0.07 + pull_progress * 0.06, 1.0 - pulse * 0.04)
+    _face_direction(_attack_direction, 0.68)
+    _animation.scale = Vector2(0.92 - pulse * 0.05, 1.10 + pull_progress * 0.12)
+    _body.modulate = Color(1.35 + pull_progress * 0.4, 1.2 + pull_progress * 0.3, 1.6 + pull_progress * 0.5, 1.0)
     var redraw_visual: bool = _should_redraw_attack_visual()
-    if raw_progress > 0.32:
+    if raw_progress > 0.32 and _uses_motion_visual():
         _update_motion_trail(redraw_visual)
-    if redraw_visual:
+    if redraw_visual and _uses_slash_visual():
         _update_slash_visuals()
 
-    if _state_ticks >= windup_ticks:
+    if _state_ticks >= tuning.windup_ticks:
         _begin_slash()
 
 func _process_slash(delta: float) -> void:
-    var raw_progress: float = min(_state_ticks / max(slash_ticks, 1.0), 1.0)
+    var raw_progress: float = min(_state_ticks / max(tuning.slash_ticks, 1.0), 1.0)
     var progress: float = FlyingBladeMotion.ease_out_cubic(raw_progress)
     var next_position: Vector2 = FlyingBladeMotion.bezier2(_attack_start, _attack_control, _attack_end, progress)
     _velocity = (next_position - global_position) / max(delta, 0.001)
     global_position = FlyingBladeMotion.clamp_to_zone(next_position)
-    _face_direction(FlyingBladeMotion.bezier2_tangent(_attack_start, _attack_control, _attack_end, progress), 0.78)
+    _face_direction(FlyingBladeMotion.bezier2_tangent(_attack_start, _attack_control, _attack_end, progress), 0.86)
     _position_sweep_hitbox(_last_position, global_position)
-    _update_attack_visuals(_should_redraw_attack_visual())
+    if _uses_motion_visual():
+        _update_motion_trail(_should_redraw_attack_visual())
+    else:
+        _motion_streak_visual.hide_visual()
+    _slash_ribbon_visual.hide_visual()
     if raw_progress > 0.10:
         _emit_attack_fragment(1.0)
     if raw_progress > 0.08:
         _emit_blade_afterimage()
-    var squash: float = sin(raw_progress * PI)
-    _animation.scale = Vector2(1.04 + squash * 0.10, 0.96 + squash * 0.03)
+    var stretch_factor: float = 1.0 + (1.0 - raw_progress) * 0.22
+    _animation.scale = Vector2(0.86 / max(0.1, sqrt(stretch_factor)), 1.16 * stretch_factor)
+    _body.modulate = Color(1.45, 1.30, 1.90, 1.0)
 
-    if _state_ticks >= slash_ticks:
+    if _state_ticks >= tuning.slash_ticks:
         _begin_chain()
 
 func _process_chain(delta: float) -> void:
     _disable_attack_hitbox()
-    _fade_attack_visuals(delta)
+    _slash_ribbon_visual.hide_visual()
     _emit_attack_fragment(1.0)
     _emit_blade_afterimage()
 
-    if _state_ticks < chain_ticks:
-        var settle: float = sin(min(_state_ticks / max(chain_ticks, 1.0), 1.0) * PI)
+    if _state_ticks < tuning.chain_ticks:
+        var settle: float = sin(min(_state_ticks / max(tuning.chain_ticks, 1.0), 1.0) * PI)
         var drift_target: Vector2 = _attack_end + _attack_direction * 28.0
-        _steer_toward(FlyingBladeMotion.clamp_to_zone(drift_target), return_speed, 10.0, delta)
-        _face_direction(_velocity, 0.42)
+        _steer_toward(FlyingBladeMotion.clamp_to_zone(drift_target), tuning.return_speed, 11.0, delta)
+        _face_direction(_velocity, 0.46)
         _animation.scale = _animation.scale.linear_interpolate(Vector2(1.0 + settle * 0.05, 1.0), min(1.0, delta * 10.0))
         return
 
-    if _chain_count < max_chain_hits:
-        var next_target: Node2D = _find_attack_target(_targets_hit_this_combo, global_position, chain_search_radius)
+    if _chain_count < tuning.max_chain_hits:
+        var next_target: Node2D = _find_attack_target(_targets_hit_this_combo, global_position, tuning.chain_search_radius)
         if _is_target_valid(next_target):
             _allow_repeat_target = false
             _begin_aim(next_target, true)
             return
         if _is_target_valid(_attack_target):
             _allow_repeat_target = true
-            _curve_side *= -1.0
             _begin_aim(_attack_target, true)
             return
 
@@ -358,20 +297,23 @@ func _process_chain(delta: float) -> void:
 
 func _process_return(delta: float) -> void:
     _return_end = _get_guard_position(delta)
-    var progress: float = FlyingBladeMotion.ease_out_cubic(min(_state_ticks / max(10.0, chain_ticks + 8.0), 1.0))
+    var progress: float = FlyingBladeMotion.ease_out_cubic(min(_state_ticks / max(12.5, tuning.chain_ticks + 10.0), 1.0))
     var next_position: Vector2 = FlyingBladeMotion.bezier2(_return_start, _return_control, _return_end, progress)
     _velocity = (next_position - global_position) / max(delta, 0.001)
     global_position = FlyingBladeMotion.clamp_to_zone(next_position)
-    _face_direction(_velocity, 0.44)
-    _update_motion_trail(_should_redraw_attack_visual())
-    _slash_ribbon_visual.fade(delta)
-    _set_shadow_visible(false)
+    _face_direction(_velocity, 0.48)
+    if _uses_motion_visual():
+        _update_motion_trail(_should_redraw_attack_visual())
+    else:
+        _motion_streak_visual.hide_visual()
+    _slash_ribbon_visual.hide_visual()
 
     if progress >= 1.0 or global_position.distance_squared_to(_return_end) <= 24.0 * 24.0:
         _state = BladeState.GUARD
         _state_ticks = 0.0
-        _velocity *= 0.16
-        _animation.scale = Vector2(1, 1)
+        _velocity *= 0.12
+        _animation.scale = Vector2(1.08, 0.94)
+        _body.modulate = Color(1.35, 1.25, 1.65, 1.0)
 
 func _begin_aim(target: Node2D, chaining: bool) -> void:
     _attack_target = target
@@ -380,14 +322,16 @@ func _begin_aim(target: Node2D, chaining: bool) -> void:
     if from_target == Vector2.ZERO:
         from_target = Vector2.RIGHT
     _attack_direction = from_target
-    if !_allow_repeat_target:
+    if chaining:
+        _curve_side = -_curve_side
+    elif !_allow_repeat_target:
         _curve_side = _choose_curve_side()
     var side: Vector2 = Vector2(-_attack_direction.y, _attack_direction.x) * _curve_side
     _aim_start = global_position
-    _aim_end = FlyingBladeMotion.clamp_to_zone(_attack_center - _attack_direction * approach_distance + side * curve_side_distance * 0.30)
-    if _aim_start.distance_squared_to(_aim_end) > aim_snap_distance * aim_snap_distance:
-        _aim_end = _aim_start.linear_interpolate(_aim_end, aim_snap_distance / _aim_start.distance_to(_aim_end))
-    _aim_control = FlyingBladeMotion.clamp_to_zone((_aim_start + _aim_end) * 0.5 + side * curve_side_distance * 0.60)
+    _aim_end = FlyingBladeMotion.clamp_to_zone(_attack_center - _attack_direction * tuning.approach_distance + side * tuning.curve_side_distance * 0.30)
+    if _aim_start.distance_squared_to(_aim_end) > tuning.aim_snap_distance * tuning.aim_snap_distance:
+        _aim_end = _aim_start.linear_interpolate(_aim_end, tuning.aim_snap_distance / _aim_start.distance_to(_aim_end))
+    _aim_control = FlyingBladeMotion.clamp_to_zone((_aim_start + _aim_end) * 0.5 + side * tuning.curve_side_distance * 0.60)
     if !chaining:
         _chain_count = 0
         _targets_hit_this_combo.clear()
@@ -395,12 +339,11 @@ func _begin_aim(target: Node2D, chaining: bool) -> void:
     if _attack_slot_active and is_instance_valid(_combat_coordinator):
         _combat_coordinator.claim_target(self, target, FlyingBladeCombatCoordinator.ROLE_MAIN)
     _last_afterimage_position = Vector2.ZERO
-    _enable_motion_trail(true)
+    _enable_motion_trail(_uses_motion_visual())
     _hide_slash_visuals()
     _disable_attack_hitbox()
-    _set_shadow_visible(true)
     _state = BladeState.AIM
-    _state_ticks = 0.0
+    _state_ticks = tuning.aim_ticks * 0.45 if chaining else 0.0
 
 func _begin_windup() -> void:
     _state = BladeState.WINDUP
@@ -426,6 +369,10 @@ func _begin_slash() -> void:
     _enable_attack_hitbox()
     _emit_attack_fragment(0.0)
 
+    if is_instance_valid(_vfx_pool) and _uses_slash_visual():
+        _vfx_pool.emit_slash_rift(_attack_start, _attack_control, _attack_end, _attack_direction, _curve_side, max(14.0, tuning.slash_width * 1.30), tuning.slash_color, 0.20)
+    _slash_ribbon_visual.hide_visual()
+
 func _begin_chain() -> void:
     _state = BladeState.CHAIN
     _state_ticks = 0.0
@@ -441,7 +388,7 @@ func _begin_return(apply_cooldown: bool = true) -> void:
         return_direction = _attack_direction
     var return_side: Vector2 = Vector2(-return_direction.y, return_direction.x) * _curve_side
     _return_end = _get_guard_position(0.0)
-    _return_control = FlyingBladeMotion.clamp_to_zone((global_position + _return_end) * 0.5 + return_direction * return_curve_distance * 0.45 + return_side * return_curve_distance)
+    _return_control = FlyingBladeMotion.clamp_to_zone((global_position + _return_end) * 0.5 + return_direction * tuning.return_curve_distance * 0.45 + return_side * tuning.return_curve_distance)
     if apply_cooldown:
         _cooldown = _get_next_cooldown(_current_weapon_stats.cooldown)
     else:
@@ -465,7 +412,6 @@ func _reset_runtime_state() -> void:
     _targets_hit_this_combo.clear()
     _animation.scale = Vector2(1, 1)
     _hide_attack_visuals()
-    _set_shadow_visible(false)
     _body.modulate = Color.white
     if is_instance_valid(_guard_satellite):
         _guard_satellite.reset()
@@ -492,7 +438,7 @@ func begin_coordinated_attack(target: Node2D) -> void:
         return
     _attack_slot_active = true
     _attack_target = target
-    _target_refresh = target_refresh_ticks
+    _target_refresh = tuning.target_refresh_ticks
     _begin_aim(target, false)
 
 func coordinated_attack_failed() -> void:
@@ -504,16 +450,10 @@ func coordinated_attack_failed() -> void:
         _combat_coordinator.release_attack(self, FlyingBladeCombatCoordinator.ROLE_MAIN)
 
 func _retarget_lost_attack() -> void:
-    if is_instance_valid(_combat_coordinator):
-        _combat_coordinator.report_target_lost()
     var next_target: Node2D = _find_attack_target(_targets_hit_this_combo, _get_player_position(), _get_attack_range())
     if _is_target_valid(next_target):
-        if is_instance_valid(_combat_coordinator):
-            _combat_coordinator.report_retarget_result(true)
         _begin_aim(next_target, _chain_count > 0)
         return
-    if is_instance_valid(_combat_coordinator):
-        _combat_coordinator.report_retarget_result(false)
     _begin_return(_chain_count > 0)
 
 func _release_attack_slot() -> void:
@@ -547,10 +487,10 @@ func _find_attack_target(excluded: Array, origin: Vector2, radius: float) -> Nod
         _get_preferred_target_angle(),
         _chain_count,
         _attack_direction,
-        target_origin_weight,
-        target_player_weight,
-        target_angle_weight,
-        target_follow_through_weight
+        tuning.target_origin_weight,
+        tuning.target_player_weight,
+        tuning.target_angle_weight,
+        tuning.target_follow_through_weight
     )
     return target
 
@@ -563,13 +503,14 @@ func _get_attack_range() -> float:
     return float(_current_weapon_stats.max_range)
 
 func _get_target_sensor_radius() -> float:
-    return max(_get_attack_range(), chain_search_radius) + guard_radius + guard_wave_height + exit_distance + 120.0
+    return max(_get_attack_range(), tuning.chain_search_radius) + tuning.guard_radius + tuning.guard_wave_height + tuning.exit_distance + 120.0
 
 func _setup_combat_coordinator() -> void:
     if player_index < 0 or player_index >= players_ref.size():
         return
     if is_instance_valid(_combat_coordinator):
-        _combat_coordinator.configure_attack_limits(max_active_main_attacks, max_active_satellite_attacks, max_attack_dispatches_per_tick)
+        _combat_coordinator.configure_attack_limits(tuning.max_active_main_attacks, tuning.max_active_satellite_attacks, tuning.max_attack_dispatches_per_tick)
+        _combat_coordinator.configure_visual_budgets(tuning.full_visual_count, tuning.reduced_visual_count, tuning.minimal_visual_count, tuning.crowded_reduced_visual_slots, tuning.crowded_minimal_visual_slots, tuning.satellite_idle_visible_count)
         _combat_coordinator.register_main(self, _get_target_sensor_radius())
         _vfx_pool = _combat_coordinator.get_vfx_pool()
         return
@@ -585,7 +526,8 @@ func _setup_combat_coordinator() -> void:
         _combat_coordinator.name = coordinator_name
         parent.add_child(_combat_coordinator)
         _combat_coordinator.setup(player_index, players_ref, _get_target_sensor_radius())
-    _combat_coordinator.configure_attack_limits(max_active_main_attacks, max_active_satellite_attacks, max_attack_dispatches_per_tick)
+    _combat_coordinator.configure_attack_limits(tuning.max_active_main_attacks, tuning.max_active_satellite_attacks, tuning.max_attack_dispatches_per_tick)
+    _combat_coordinator.configure_visual_budgets(tuning.full_visual_count, tuning.reduced_visual_count, tuning.minimal_visual_count, tuning.crowded_reduced_visual_slots, tuning.crowded_minimal_visual_slots, tuning.satellite_idle_visible_count)
     _combat_coordinator.register_main(self, _get_target_sensor_radius())
     _vfx_pool = _combat_coordinator.get_vfx_pool()
 
@@ -598,59 +540,6 @@ func _unregister_from_combat_coordinator() -> void:
         _combat_coordinator.unregister_main(self)
     _combat_coordinator = null
     _vfx_pool = null
-
-func _apply_tuning() -> void:
-    target_refresh_ticks = tuning.target_refresh_ticks
-
-    guard_radius = tuning.guard_radius
-    guard_orbit_speed = tuning.guard_orbit_speed
-    guard_speed = tuning.guard_speed
-    return_speed = tuning.return_speed
-    return_curve_distance = tuning.return_curve_distance
-
-    aim_ticks = tuning.aim_ticks
-    windup_ticks = tuning.windup_ticks
-    slash_ticks = tuning.slash_ticks
-    chain_ticks = tuning.chain_ticks
-    approach_distance = tuning.approach_distance
-    exit_distance = tuning.exit_distance
-    curve_side_distance = tuning.curve_side_distance
-    aim_snap_distance = tuning.aim_snap_distance
-    sweep_width = tuning.sweep_width
-    max_chain_hits = tuning.max_chain_hits
-    chain_search_radius = tuning.chain_search_radius
-
-    arc_radius = tuning.arc_radius
-    slash_color = tuning.slash_color
-    trail_color = tuning.trail_color
-    trail_secondary_color = tuning.trail_secondary_color
-    trail_core_color = tuning.trail_core_color
-    attack_fragment_color = tuning.attack_fragment_color
-    attack_fragment_secondary_color = tuning.attack_fragment_secondary_color
-    slash_width = tuning.slash_width
-    trail_width = tuning.trail_width
-    trail_aura_width = tuning.trail_aura_width
-    trail_core_width = tuning.trail_core_width
-    trail_max_points = tuning.trail_max_points
-    trail_sample_min_distance = tuning.trail_sample_min_distance
-    attack_fragment_lifetime = tuning.attack_fragment_lifetime
-    attack_fragment_interval_ticks = tuning.attack_fragment_interval_ticks
-    attack_fragment_width = tuning.attack_fragment_width
-    blade_afterimage_lifetime = tuning.blade_afterimage_lifetime
-    blade_afterimage_alpha = tuning.blade_afterimage_alpha
-    blade_afterimage_min_distance = tuning.blade_afterimage_min_distance
-    guard_breathe_scale = tuning.guard_breathe_scale
-    guard_wave_height = tuning.guard_wave_height
-    guard_wave_speed = tuning.guard_wave_speed
-    guard_tilt_strength = tuning.guard_tilt_strength
-    hit_flash_alpha = tuning.hit_flash_alpha
-    target_angle_weight = tuning.target_angle_weight
-    target_origin_weight = tuning.target_origin_weight
-    target_player_weight = tuning.target_player_weight
-    target_follow_through_weight = tuning.target_follow_through_weight
-    max_active_main_attacks = tuning.max_active_main_attacks
-    max_active_satellite_attacks = tuning.max_active_satellite_attacks
-    max_attack_dispatches_per_tick = tuning.max_attack_dispatches_per_tick
 
 func _apply_weapon_stats_to_hitbox() -> void:
     _current_weapon_stats.burning_data.from = self
@@ -670,8 +559,6 @@ func _enable_attack_hitbox() -> void:
     _attack_hitbox_enabled = true
     _hitbox.active = true
     _hitbox.enable()
-    if is_instance_valid(_combat_coordinator):
-        _combat_coordinator.report_hitbox_state(self, true)
 
 func _disable_attack_hitbox() -> void:
     if !_attack_hitbox_enabled:
@@ -680,35 +567,33 @@ func _disable_attack_hitbox() -> void:
     _hitbox.disable()
     _hitbox.active = false
     _hitbox.ignored_objects.clear()
-    if is_instance_valid(_combat_coordinator):
-        _combat_coordinator.report_hitbox_state(self, false)
 
 func _refresh_attack_path(start_position: Vector2) -> void:
     var side: Vector2 = Vector2(-_attack_direction.y, _attack_direction.x) * _curve_side
     _attack_start = start_position
-    _attack_end = FlyingBladeMotion.clamp_to_zone(_attack_center + _attack_direction * exit_distance)
-    _attack_control = FlyingBladeMotion.clamp_to_zone((_attack_start + _attack_end) * 0.5 + side * curve_side_distance)
+    _attack_end = FlyingBladeMotion.clamp_to_zone(_attack_center + _attack_direction * tuning.exit_distance)
+    _attack_control = FlyingBladeMotion.clamp_to_zone((_attack_start + _attack_end) * 0.5 + side * tuning.curve_side_distance)
 
 func _position_sweep_hitbox(from_pos: Vector2, to_pos: Vector2) -> void:
     var movement: Vector2 = to_pos - from_pos
     if movement.length_squared() <= 1.0:
         movement = _attack_direction * 8.0
 
-    var length: float = movement.length() + exit_distance * 0.55
+    var length: float = movement.length() + tuning.exit_distance * 0.55
     _hitbox.global_position = (from_pos + to_pos) * 0.5
     _hitbox.global_rotation = movement.angle()
     _hitbox_collision.position = Vector2.ZERO
-    _hitbox_shape.extents = Vector2(max(24.0, length * 0.5), sweep_width)
+    _hitbox_shape.extents = Vector2(max(24.0, length * 0.5), tuning.sweep_width)
     _hitbox.set_knockback(movement.normalized(), _current_weapon_stats.knockback, _current_weapon_stats.knockback_piercing)
 
 func _get_guard_position(delta: float) -> Vector2:
-    _orbit_angle += guard_orbit_speed * delta
+    _orbit_angle += tuning.guard_orbit_speed * delta
     var angle: float = _orbit_angle + _guard_slot_offset
     var player_position: Vector2 = _get_player_position()
     var depth: float = sin(angle)
-    var wave: float = sin(angle * 2.0 + _guard_phase * guard_wave_speed)
-    var radius: float = guard_radius + wave * guard_wave_height * 0.26
-    var offset: Vector2 = Vector2(cos(angle) * radius, depth * radius * 0.46)
+    var wave: float = sin(angle * 2.0 + _guard_phase * tuning.guard_wave_speed)
+    var radius: float = tuning.guard_radius + wave * tuning.guard_wave_height * 0.26
+    var offset: Vector2 = Vector2(cos(angle) * radius, depth * radius * 0.65)
     return FlyingBladeMotion.clamp_to_zone(player_position + offset)
 
 func _get_player_position() -> Vector2:
@@ -733,8 +618,8 @@ func _face_direction(direction: Vector2, weight: float) -> void:
 
 func _face_guard_orbit(guard_position: Vector2, weight: float) -> void:
     var player_position: Vector2 = _get_player_position()
-    var side: float = clamp((guard_position.x - player_position.x) / max(guard_radius, 1.0), -1.0, 1.0)
-    var target_rotation: float = PI + side * guard_tilt_strength
+    var side: float = clamp((guard_position.x - player_position.x) / max(tuning.guard_radius, 1.0), -1.0, 1.0)
+    var target_rotation: float = PI + side * tuning.guard_tilt_strength
     _animation.rotation = lerp_angle(_animation.rotation, target_rotation, weight)
 
 func _choose_curve_side() -> float:
@@ -754,18 +639,32 @@ func _get_target_retry_ticks() -> float:
 
 func _get_initial_target_refresh() -> float:
     if !is_instance_valid(_combat_coordinator):
-        return rand_range(0.0, max(1.0, target_refresh_ticks))
-    return _combat_coordinator.get_actor_scan_offset(self, target_refresh_ticks)
+        return rand_range(0.0, max(1.0, tuning.target_refresh_ticks))
+    return _combat_coordinator.get_actor_scan_offset(self, tuning.target_refresh_ticks)
 
-func _get_visual_lod() -> int:
-    if !is_instance_valid(_combat_coordinator):
-        return 0
-    return _combat_coordinator.get_visual_lod()
+func _uses_motion_visual() -> bool:
+    return _visual_level <= FlyingBladeCombatCoordinator.VISUAL_MINIMAL
+
+func _uses_slash_visual() -> bool:
+    return _visual_level <= FlyingBladeCombatCoordinator.VISUAL_MINIMAL
+
+func set_visual_level(level: int) -> void:
+    if level == _visual_level:
+        return
+    _visual_level = level
+    if _visual_level > FlyingBladeCombatCoordinator.VISUAL_MINIMAL:
+        if is_instance_valid(_motion_streak_visual):
+            _motion_streak_visual.hide_visual()
+        for wisp in _trail_wisps:
+            wisp.visible = false
+    if _visual_level >= FlyingBladeCombatCoordinator.VISUAL_ESSENTIAL:
+        if is_instance_valid(_slash_ribbon_visual):
+            _slash_ribbon_visual.hide_visual()
 
 func _should_redraw_attack_visual() -> bool:
     if !is_instance_valid(_combat_coordinator):
         return true
-    return _combat_coordinator.should_redraw_attack_visual(self)
+    return _combat_coordinator.should_redraw_attack_visual(self, _visual_level)
 
 func _setup_blade_visuals() -> void:
     _motion_streak_visual = MotionStreakVisual.new()
@@ -784,8 +683,8 @@ func _setup_blade_visuals() -> void:
     _slash_ribbon_visual.visible = false
     add_child(_slash_ribbon_visual)
 
-    for i in range(max(trail_max_points, 1)):
-        var wisp_color: Color = trail_color if i % 2 == 0 else trail_secondary_color
+    for i in range(max(tuning.trail_max_points, 1)):
+        var wisp_color: Color = tuning.trail_color if i % 2 == 0 else tuning.trail_secondary_color
         var wisp: Sprite = _make_blade_sprite("MotionWisp%s" % i, wisp_color, Z_MOTION_TRAIL, true)
         _trail_wisps.append(wisp)
 
@@ -849,58 +748,40 @@ func _enable_motion_trail(p_visible: bool) -> void:
 func _hide_slash_visuals() -> void:
     _slash_ribbon_visual.hide_visual()
 
-func _update_attack_visuals(redraw: bool) -> void:
-    _attack_visuals_active = true
-    _update_motion_trail(redraw)
-    if redraw:
-        _update_slash_visuals()
-
-func _fade_attack_visuals(delta: float) -> void:
-    var any_trail_visible: bool = false
-    any_trail_visible = _motion_streak_visual.fade(delta)
-    for wisp in _trail_wisps:
-        if _fade_sprite(wisp, delta * 2.6):
-            wisp.scale = wisp.scale.linear_interpolate(Vector2.ZERO, delta * 2.8)
-            any_trail_visible = true
-    if !any_trail_visible:
-        _trail_points.clear()
-
-    var slash_visible: bool = false
-    slash_visible = _slash_ribbon_visual.fade(delta)
-    if !slash_visible:
-        _hide_slash_visuals()
-    _attack_visuals_active = any_trail_visible or slash_visible
-
 func _update_motion_trail(redraw: bool = true) -> void:
+    if !_uses_motion_visual():
+        _motion_streak_visual.hide_visual()
+        return
     var sample_position: Vector2 = _body.global_position
-    if _trail_points.empty() or _trail_points[_trail_points.size() - 1].distance_squared_to(sample_position) >= trail_sample_min_distance * trail_sample_min_distance:
+    if _trail_points.empty() or _trail_points[_trail_points.size() - 1].distance_squared_to(sample_position) >= tuning.trail_sample_min_distance * tuning.trail_sample_min_distance:
         _trail_points.append(sample_position)
-    while _trail_points.size() > trail_max_points:
+    while _trail_points.size() > tuning.trail_max_points:
         _trail_points.pop_front()
     if !redraw:
         return
 
-    _trail_local_points.clear()
-    for point in _trail_points:
-        _trail_local_points.append(to_local(point))
-    var speed_ratio: float = clamp(_velocity.length() / max(return_speed, 1.0), 0.25, 1.0)
+    var speed_ratio: float = clamp(_velocity.length() / max(tuning.return_speed, 1.0), 0.25, 1.0)
     var intensity: float = clamp(0.45 + speed_ratio * 0.75, 0.0, 1.0)
-    var core_color: Color = trail_core_color
+    var core_color: Color = tuning.trail_core_color
     if _state == BladeState.WINDUP or _state == BladeState.SLASH:
         core_color.a = 0.0
-    _motion_streak_visual.configure(_trail_local_points, trail_color, trail_secondary_color, core_color, trail_width, trail_aura_width, trail_core_width, intensity)
+    var visual_level: int = _visual_level
+    _motion_streak_visual.configure(_trail_points, tuning.trail_color, tuning.trail_secondary_color, core_color, tuning.trail_width, tuning.trail_aura_width, intensity, visual_level)
 
     var rotation: float = _animation.global_rotation
-    var trail_volume: float = clamp(trail_width / 6.4, 0.55, 1.50)
-    var aura_volume: float = clamp(trail_aura_width / 17.0, 0.55, 1.50)
-    var core_bias: float = clamp(trail_core_width / 1.7, 0.55, 1.60)
+    var trail_volume: float = clamp(tuning.trail_width / 6.4, 0.55, 1.50)
+    var aura_volume: float = clamp(tuning.trail_aura_width / 17.0, 0.55, 1.50)
+    var core_bias: float = clamp(tuning.trail_core_width / 1.7, 0.55, 1.60)
     for i in range(_trail_wisps.size()):
         var wisp: Sprite = _trail_wisps[i]
+        if visual_level != FlyingBladeCombatCoordinator.VISUAL_FULL:
+            wisp.visible = false
+            continue
         if i >= _trail_points.size():
             wisp.visible = false
             continue
         var pct: float = float(i) / float(max(_trail_points.size() - 1, 1))
-        var alpha: float = trail_color.a * pct * pct * (0.48 + core_bias * 0.18)
+        var alpha: float = tuning.trail_color.a * pct * pct * (0.48 + core_bias * 0.18)
         if alpha <= 0.02:
             wisp.visible = false
             continue
@@ -909,47 +790,49 @@ func _update_motion_trail(redraw: bool = true) -> void:
         var length_scale: float = (0.72 + pct * 0.38) * trail_volume
         var thickness_scale: float = (0.88 + pct * 0.24) * aura_volume
         wisp.scale = Vector2(thickness_scale, length_scale)
-        wisp.modulate = Color(trail_color.r, trail_color.g, trail_color.b, alpha)
+        wisp.modulate = Color(tuning.trail_color.r, tuning.trail_color.g, tuning.trail_color.b, alpha)
         wisp.visible = true
 
 func _update_slash_visuals() -> void:
     var progress: float = 0.35
     var visibility: float = 1.0
     if _state == BladeState.WINDUP:
-        var windup_progress: float = min(_state_ticks / max(windup_ticks, 1.0), 1.0)
+        var windup_progress: float = min(_state_ticks / max(tuning.windup_ticks, 1.0), 1.0)
         progress = 0.10 + windup_progress * 0.20
         visibility = 0.18 + sin(windup_progress * PI) * 0.18
     elif _state == BladeState.SLASH:
-        var slash_progress: float = min(_state_ticks / max(slash_ticks, 1.0), 1.0)
+        var slash_progress: float = min(_state_ticks / max(tuning.slash_ticks, 1.0), 1.0)
         progress = FlyingBladeMotion.ease_out_cubic(slash_progress)
         visibility = 0.34 + sin(slash_progress * PI) * 0.52
 
-    _slash_ribbon_visual.configure(to_local(_attack_start), to_local(_attack_control), to_local(_attack_end), FlyingBladeMotion.to_local_direction(self, _attack_direction), _curve_side, progress, _state == BladeState.WINDUP, visibility, slash_width, slash_color, _state_ticks, _guard_phase)
+    _slash_ribbon_visual.configure(to_local(_attack_start), to_local(_attack_control), to_local(_attack_end), FlyingBladeMotion.to_local_direction(self, _attack_direction), _curve_side, progress, _state == BladeState.WINDUP, visibility, tuning.slash_width, tuning.slash_color, _state_ticks, _guard_phase, _visual_level)
 
 func _emit_attack_fragment(extra_ticks: float) -> void:
     if !is_instance_valid(_vfx_pool) or _attack_fragment_tick > 0.0:
         return
-    if _get_visual_lod() >= 2 and extra_ticks > 0.0:
+    var visual_level: int = _visual_level
+    if visual_level != FlyingBladeCombatCoordinator.VISUAL_FULL:
         return
 
-    _attack_fragment_tick = max(0.25, attack_fragment_interval_ticks - extra_ticks * 0.20)
+    _attack_fragment_tick = max(0.25, tuning.attack_fragment_interval_ticks - extra_ticks * 0.20)
     _spawn_attack_fragment(false)
-    _spawn_attack_fragment(true)
+    if visual_level == FlyingBladeCombatCoordinator.VISUAL_FULL:
+        _spawn_attack_fragment(true)
 
 func _spawn_attack_fragment(secondary: bool) -> void:
     var cursor: int = _attack_fragment_cursor
     _attack_fragment_cursor = (_attack_fragment_cursor + 1) % 3
-    var base_color: Color = attack_fragment_color
+    var base_color: Color = tuning.attack_fragment_color
     if cursor % 3 == 1:
-        base_color = attack_fragment_secondary_color
+        base_color = tuning.attack_fragment_secondary_color
     elif cursor % 3 == 2:
-        base_color = Color(attack_fragment_color.r, attack_fragment_color.g, attack_fragment_color.b, attack_fragment_color.a * 0.72)
+        base_color = Color(tuning.attack_fragment_color.r, tuning.attack_fragment_color.g, tuning.attack_fragment_color.b, tuning.attack_fragment_color.a * 0.72)
 
     var side: Vector2 = Vector2(-_attack_direction.y, _attack_direction.x)
     var direction: Vector2 = _attack_direction
     if direction == Vector2.ZERO:
         direction = Vector2.RIGHT
-    var center: Vector2 = _body.global_position - direction * rand_range(10.0, 34.0) + side * rand_range(-arc_radius * 0.34, arc_radius * 0.34)
+    var center: Vector2 = _body.global_position - direction * rand_range(10.0, 34.0) + side * rand_range(-tuning.arc_radius * 0.34, tuning.arc_radius * 0.34)
     var length_scale: float = rand_range(0.58, 0.92)
     var thickness_scale: float = rand_range(0.24, 0.46)
     if secondary:
@@ -961,48 +844,51 @@ func _spawn_attack_fragment(secondary: bool) -> void:
     var global_side: Vector2 = Vector2(-direction.y, direction.x)
     var fragment_velocity: Vector2 = direction * rand_range(70.0, 130.0) + global_side * _curve_side * rand_range(-34.0, 42.0)
     var fragment_color: Color = Color(base_color.r, base_color.g, base_color.b, base_color.a * rand_range(0.72, 1.16))
-    var fragment_length: float = attack_fragment_width * 8.0 * length_scale
-    var fragment_width: float = max(1.2, attack_fragment_width * thickness_scale)
-    _vfx_pool.emit_fragment(center, direction.rotated(rand_range(-0.16, 0.16)), fragment_color, attack_fragment_lifetime, fragment_length, fragment_width, fragment_velocity, _curve_side * (2.2 + float(cursor % 3) * 0.35), Z_SLASH_CORE + 1)
+    var fragment_length: float = tuning.attack_fragment_width * 8.0 * length_scale
+    var fragment_width: float = max(1.2, tuning.attack_fragment_width * thickness_scale)
+    _vfx_pool.emit_fragment(center, direction.rotated(rand_range(-0.16, 0.16)), fragment_color, tuning.attack_fragment_lifetime, fragment_length, fragment_width, fragment_velocity, _curve_side * (2.2 + float(cursor % 3) * 0.35), Z_SLASH_CORE + 1)
 
 func _emit_blade_afterimage() -> void:
     if !is_instance_valid(_vfx_pool):
         return
-    if _get_visual_lod() >= 2 and _chain_count <= 1:
+    var visual_level: int = _visual_level
+    if visual_level != FlyingBladeCombatCoordinator.VISUAL_FULL:
         return
     var current_position: Vector2 = _body.global_position
-    if _last_afterimage_position != Vector2.ZERO and _last_afterimage_position.distance_squared_to(current_position) < blade_afterimage_min_distance * blade_afterimage_min_distance:
+    if _last_afterimage_position != Vector2.ZERO and _last_afterimage_position.distance_squared_to(current_position) < tuning.blade_afterimage_min_distance * tuning.blade_afterimage_min_distance:
         return
     _last_afterimage_position = current_position
-    var color: Color = Color(trail_core_color.r, trail_core_color.g, trail_core_color.b, blade_afterimage_alpha)
-    _vfx_pool.emit_afterimage(_body.texture, _body.centered, _body.offset, _body.flip_h, _body.flip_v, _body.global_position, _animation.global_rotation, _animation.scale, color, blade_afterimage_lifetime, 8)
+    var color: Color = Color(tuning.trail_core_color.r, tuning.trail_core_color.g, tuning.trail_core_color.b, tuning.blade_afterimage_alpha)
+    _vfx_pool.emit_afterimage(_body.texture, _body.centered, _body.offset, _body.flip_h, _body.flip_v, _body.global_position, _animation.global_rotation, _animation.scale, color, tuning.blade_afterimage_lifetime, 8)
 
 func _show_hit_flash(hit_position: Vector2) -> void:
+    if !is_instance_valid(_vfx_pool) and is_instance_valid(_combat_coordinator):
+        _vfx_pool = _combat_coordinator.get_vfx_pool()
     if !is_instance_valid(_vfx_pool):
+        return
+    var visual_level: int = _visual_level
+    if visual_level >= FlyingBladeCombatCoordinator.VISUAL_ESSENTIAL:
         return
     var direction: Vector2 = _attack_direction
     if direction.length_squared() <= 0.1:
         direction = Vector2.RIGHT
-    var color: Color = Color(trail_core_color.r, trail_core_color.g, trail_core_color.b, hit_flash_alpha)
-    _vfx_pool.emit_hit_flash(hit_position, direction.rotated(_curve_side * 0.18), color, max(14.0, slash_width * 1.55), 0.075, Z_HIT_FLASH)
+    var color: Color = Color(tuning.trail_core_color.r, tuning.trail_core_color.g, tuning.trail_core_color.b, min(0.85, tuning.hit_flash_alpha))
+    _vfx_pool.emit_hit_flash(hit_position, direction.rotated(_curve_side * 0.18), color, 22.0, 0.08, Z_HIT_FLASH)
 
 func _update_body_energy(delta: float) -> void:
     if _state == BladeState.GUARD or _state == BladeState.RETURN:
-        if guard_breathe_scale <= 0.0:
+        if tuning.guard_breathe_scale <= 0.0:
             _body.modulate = _body.modulate.linear_interpolate(Color.white, min(1.0, delta * 8.0))
             _animation.scale = _animation.scale.linear_interpolate(Vector2(1, 1), min(1.0, delta * 8.0))
             return
-        var pulse: float = sin(_guard_phase * 3.2) * guard_breathe_scale
-        var target_modulate: Color = Color(1.0 + pulse * 0.8, 1.0 + pulse * 0.45, 1.0 + pulse * 1.1, 1.0)
+        var pulse: float = sin(_guard_phase * 3.2) * tuning.guard_breathe_scale
+        var target_modulate: Color = Color(1.15 + pulse * 0.8, 1.05 + pulse * 0.45, 1.35 + pulse * 1.1, 1.0)
         var target_scale: Vector2 = Vector2(1.0 + pulse * 0.45, 1.0 + pulse * 0.45)
         _body.modulate = _body.modulate.linear_interpolate(target_modulate, min(1.0, delta * 6.0))
         _animation.scale = _animation.scale.linear_interpolate(target_scale, min(1.0, delta * 6.0))
 
 func _get_preferred_target_angle() -> float:
     return _orbit_angle + _guard_slot_offset + float(_chain_count) * 0.95
-
-func _set_shadow_visible(p_visible: bool) -> void:
-    _shadow.visible = p_visible
 
 func _make_blade_sprite(sprite_name: String, color: Color, z: int, top_level: bool) -> Sprite:
     var sprite_node: Sprite = Sprite.new()
@@ -1012,6 +898,9 @@ func _make_blade_sprite(sprite_name: String, color: Color, z: int, top_level: bo
     sprite_node.offset = _body.offset
     sprite_node.flip_h = _body.flip_h
     sprite_node.flip_v = _body.flip_v
+    var add_mat: CanvasItemMaterial = CanvasItemMaterial.new()
+    add_mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+    sprite_node.material = add_mat
     sprite_node.set_as_toplevel(top_level)
     sprite_node.z_as_relative = !top_level
     sprite_node.z_index = z
@@ -1019,17 +908,6 @@ func _make_blade_sprite(sprite_name: String, color: Color, z: int, top_level: bo
     sprite_node.visible = false
     add_child(sprite_node)
     return sprite_node
-
-func _fade_sprite(sprite_node: Sprite, amount: float) -> bool:
-    if !sprite_node.visible:
-        return false
-    var color: Color = sprite_node.modulate
-    color.a = max(0.0, color.a - amount)
-    sprite_node.modulate = color
-    if color.a <= 0.01:
-        sprite_node.visible = false
-        return false
-    return true
 
 func _on_Hitbox_hit_something(thing_hit: Node, _damage_dealt: int) -> void:
     RunData.manage_life_steal(_current_weapon_stats, player_index)
@@ -1040,7 +918,6 @@ func _on_Hitbox_hit_something(thing_hit: Node, _damage_dealt: int) -> void:
     _body.modulate = Color(1.45, 1.28, 1.95, 1.0)
     if thing_hit is Node2D:
         _show_hit_flash(thing_hit.global_position)
-    _emit_attack_fragment(1.0)
     _flash_timer.start()
 
 func _on_FlashTimer_timeout() -> void:

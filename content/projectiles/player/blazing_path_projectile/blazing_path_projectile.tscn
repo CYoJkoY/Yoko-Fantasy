@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://projectiles/player_projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blazing_path_projectile/fire_snake_head_serpent.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blazing_path_projectile/blazing_path_projectile.gd" type="Script" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blazing_path_projectile/flame_spark_ember.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blazing_path_projectile/fire_beam_texture.webp" type="Texture" id=5]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.35, 0.85 ), 0.0, 0.0, 0, 0, Vector2( 0.7, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.05 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.2, 0.5, 0.8, 1 )
+colors = PoolColorArray( 1, 1, 0.95, 1, 1, 0.88, 0.25, 0.95, 1, 0.45, 0.05, 0.85, 0.8, 0.1, 0.02, 0.5, 0.25, 0.02, 0.01, 0 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0.8 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.25, 0.6, 1 )
+colors = PoolColorArray( 1, 1, 0.9, 1, 1, 0.75, 0.15, 0.85, 0.9, 0.3, 0.05, 0.5, 0.4, 0.05, 0.02, 0 )
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 22.0
+
+[node name="BlazingPathProjectile" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+stop_delay = 9.0
+clear_material_when_pooled = false
+
+[node name="Line2D" type="Line2D" parent="." index="0"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+width = 30.0
+width_curve = SubResource( 2 )
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 3 )
+texture = ExtResource( 5 )
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="EmberParticles" type="CPUParticles2D" parent="." index="1"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+position = Vector2( -30, 0 )
+amount = 14
+lifetime = 0.28
+local_coords = false
+texture = ExtResource( 4 )
+emission_shape = 1
+emission_sphere_radius = 6.0
+gravity = Vector2( 0, -20 )
+initial_velocity = 20.0
+initial_velocity_random = 0.4
+spread = 60.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.22
+scale_amount_random = 0.25
+scale_amount_curve = SubResource( 4 )
+color_ramp = SubResource( 5 )
+
+[node name="Sprite" parent="." index="2"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+position = Vector2( 0, 0 )
+texture = ExtResource( 2 )
+
+[node name="Hitbox" parent="." index="3"]
+unique_name_in_owner = true
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 6, 0 )
+shape = SubResource( 6 )
+
+[editable path="Hitbox"]

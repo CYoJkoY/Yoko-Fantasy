@@ -8,6 +8,7 @@ func _ready() -> void:
     _visual_parts_sync.setup_from(_parts_offset, sprite)
 
 func _physics_process(_delta: float) -> void:
+    ._physics_process(_delta)
     _angle = wrapf(_angle, 0.0, 2.0 * PI)
     sprite.flip_h = _angle > 0.0 and _angle < PI
     _parts_offset.scale.x = -abs(_parts_offset.scale.x) if sprite.flip_h else abs(_parts_offset.scale.x)

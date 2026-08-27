@@ -1,5 +1,7 @@
 extends "res://singletons/utils.gd"
 
+const CLOCK_TOWER_CONFIG = preload("res://mods-unpacked/Yoko-Fantasy/extensions/effects/clock_tower_area/clock_tower_area_config.tres")
+
 # Enemy Stats
 const FANTASY_ENEMY_HP: int = 0
 const FANTASY_ENEMY_SPEED: int = 1
@@ -94,6 +96,21 @@ var fantasy_gain_item_on_reroll_hash: int = Keys.generate_hash("fantasy_gain_ite
 var fantasy_guaranteed_set_weapons_in_shop_hash: int = Keys.generate_hash("fantasy_guaranteed_set_weapons_in_shop")
 var fantasy_weapon_hit_proc_hash: int = Keys.generate_hash("fantasy_weapon_hit_proc")
 
+func fa_apply_direct_crit_kill_gold_rewards(player_index: int, was_crit: bool, was_kill: bool) -> void:
+	if !was_crit or !was_kill:
+		return
+
+	var gold_added: int = 0
+	var gold_on_crit_kill_effects: Array = RunData.get_player_effect(Keys.gold_on_crit_kill_hash, player_index)
+	for effect in gold_on_crit_kill_effects:
+		if !Utils.get_chance_success(effect[1] / 100.0):
+			continue
+		gold_added += 1
+		RunData.add_tracked_value(player_index, Keys.item_hunting_trophy_hash, 1)
+
+	if gold_added > 0:
+		RunData.add_gold(gold_added, player_index)
+
 # Clock Tower Guardian runtime state. Kept outside RunData so the area can act
 # like a temporary battlefield object instead of changing permanent stats.
 var fantasy_clock_tower_players_in_area: Dictionary = {}
@@ -128,7 +145,7 @@ func fa_get_clock_tower_area_radius(base_range: int, range_rate: float, player_i
 	return min(radius, map_limit)
 
 func fa_get_clock_tower_structure_attack_speed_bonus(player_index: int) -> int:
-	return 20 + int(fa_get_permanent_stat(stat_fantasy_holy_hash, player_index) * 4)
+	return CLOCK_TOWER_CONFIG.structure_attack_speed_base + int(fa_get_permanent_stat(stat_fantasy_holy_hash, player_index) * CLOCK_TOWER_CONFIG.structure_attack_speed_per_holy)
 
 func fa_get_clock_tower_enemy_speed_percent(player_index: int) -> int:
 	return int(max(-70, -20 - int(fa_get_permanent_stat(Keys.stat_engineering_hash, player_index) * 0.5)))

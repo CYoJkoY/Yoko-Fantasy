@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource( 2 )
-key = null
+key = ""
 text_key = "EFFECT_FANTASY_LIGHTNING_CHAIN_ON_HIT_NO_CHANCE"
 value = 4
-custom_key = null
+custom_key = ""
 storage_method = 0
 effect_sign = 3
 custom_args = [  ]

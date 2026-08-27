@@ -9,6 +9,8 @@ func _ready() -> void:
     if die_to_spawn_path != "": die_to_spawn = load(die_to_spawn_path)
 
 func die(args := Utils.default_die_args) -> void:
+    if dead: return
+
     .die(args)
 
     if args.cleaning_up or !die_to_spawn_path: return

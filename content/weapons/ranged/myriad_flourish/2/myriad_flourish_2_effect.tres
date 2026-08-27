@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/myriad_flourish/myriad_flourish_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = ""
+text_key = "EFFECT_FANTASY_MYRIAD_FLOURISH_2"
+value = 4
+custom_key = ""
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+petal_count = 4
+petal_damage_percent = 55
+slow_percent = 40

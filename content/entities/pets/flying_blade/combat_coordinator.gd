@@ -5,6 +5,10 @@ const FlyingBladeVfxPool = preload("res://mods-unpacked/Yoko-Fantasy/content/ent
 
 const ROLE_MAIN = "main"
 const ROLE_SATELLITE = "satellite"
+const VISUAL_FULL = 0
+const VISUAL_REDUCED = 1
+const VISUAL_MINIMAL = 2
+const VISUAL_ESSENTIAL = 3
 const TARGET_CACHE_REFRESH_TICKS = 30.0
 const REGISTRY_PRUNE_TICKS = 30.0
 const CLAIM_PRUNE_TICKS = 6.0
@@ -27,30 +31,23 @@ var _claim_prune_ticks: float = CLAIM_PRUNE_TICKS
 var _time_ticks: float = 0.0
 var _actor_claims: Dictionary = {}
 var _target_claims: Dictionary = {}
-var _last_target_count: int = 0
 
 var _main_attack_queue: Array = []
 var _satellite_attack_queue: Array = []
 var _queued_actors: Dictionary = {}
 var _active_main_attacks: Dictionary = {}
 var _active_satellite_attacks: Dictionary = {}
-var _active_hitboxes: Dictionary = {}
 var _next_dispatch_role: int = 0
 var _max_active_main_attacks: int = 0
 var _max_active_satellite_attacks: int = 0
 var _max_dispatches_per_tick: int = 2
 var _visual_frame: int = 0
-var _debug_metrics_enabled: bool = false
-
-var _debug_selection_attempts: int = 0
-var _debug_candidate_evaluations: int = 0
-var _debug_selection_failures: int = 0
-var _debug_dispatches: int = 0
-var _debug_lost_targets: int = 0
-var _debug_retarget_successes: int = 0
-var _debug_retarget_failures: int = 0
-var _debug_visual_redraws: int = 0
-var _debug_visual_skips: int = 0
+var _full_visual_count: int = 4
+var _reduced_visual_count: int = 8
+var _minimal_visual_count: int = 16
+var _crowded_reduced_visual_slots: int = 3
+var _crowded_minimal_visual_slots: int = 3
+var _satellite_idle_visible_count: int = 8
 
 func setup(p_player_index: int, p_players_ref: Array, radius: float) -> void:
     player_index = p_player_index
@@ -65,27 +62,44 @@ func setup(p_player_index: int, p_players_ref: Array, radius: float) -> void:
     _target_cache_ticks = TARGET_CACHE_REFRESH_TICKS
 
 func configure_attack_limits(max_main: int, max_satellite: int, dispatches_per_tick: int) -> void:
-    # Zero keeps concurrency gameplay-neutral: every ready sword may attack.
     _max_active_main_attacks = max(0, max_main)
     _max_active_satellite_attacks = max(0, max_satellite)
     _max_dispatches_per_tick = max(1, dispatches_per_tick)
 
+func configure_visual_budgets(full_count: int, reduced_count: int, minimal_count: int, crowded_reduced_slots: int, crowded_minimal_slots: int, satellite_idle_count: int) -> void:
+    var next_full: int = int(max(1, full_count))
+    var next_reduced: int = int(max(next_full, reduced_count))
+    var next_minimal: int = int(max(next_reduced, minimal_count))
+    var next_crowded_reduced: int = int(max(0, crowded_reduced_slots))
+    var next_crowded_minimal: int = int(max(0, crowded_minimal_slots))
+    var next_satellite_idle: int = int(max(1, satellite_idle_count))
+    if next_full == _full_visual_count and next_reduced == _reduced_visual_count and next_minimal == _minimal_visual_count and next_crowded_reduced == _crowded_reduced_visual_slots and next_crowded_minimal == _crowded_minimal_visual_slots and next_satellite_idle == _satellite_idle_visible_count:
+        return
+    _full_visual_count = next_full
+    _reduced_visual_count = next_reduced
+    _minimal_visual_count = next_minimal
+    _crowded_reduced_visual_slots = next_crowded_reduced
+    _crowded_minimal_visual_slots = next_crowded_minimal
+    _satellite_idle_visible_count = next_satellite_idle
+    _refresh_visual_policy()
+
 func register_main(sword: Node, radius: float) -> void:
     if !_main_swords.has(sword):
         _main_swords.push_back(sword)
-    _update_vfx_capacity()
+    _refresh_visual_policy()
     request_sensor_radius(sword, radius)
 
 func unregister_main(sword: Node) -> void:
     cancel_attack(sword, ROLE_MAIN)
     _main_swords.erase(sword)
     _clear_radius_request(sword)
+    _refresh_visual_policy()
     _try_shutdown_when_empty()
 
 func register_satellite(satellite: Node) -> void:
     if !_satellites.has(satellite):
         _satellites.push_back(satellite)
-    _update_vfx_capacity()
+    _refresh_visual_policy()
     _refresh_satellite_formation()
 
 func unregister_satellite(satellite: Node) -> void:
@@ -93,6 +107,7 @@ func unregister_satellite(satellite: Node) -> void:
     _satellites.erase(satellite)
     _clear_radius_request(satellite)
     _refresh_satellite_formation()
+    _refresh_visual_policy()
     _try_shutdown_when_empty()
 
 func request_sensor_radius(owner: Node, radius: float) -> void:
@@ -112,11 +127,13 @@ func get_visual_lod() -> int:
     var count: int = get_main_count()
     if get_satellite_count() > count:
         count = get_satellite_count()
-    if count > 12:
-        return 2
-    if count > 6:
-        return 1
-    return 0
+    if count <= _full_visual_count:
+        return VISUAL_FULL
+    if count <= _reduced_visual_count:
+        return VISUAL_REDUCED
+    if count <= _minimal_visual_count:
+        return VISUAL_MINIMAL
+    return VISUAL_ESSENTIAL
 
 func get_vfx_pool():
     _setup_vfx_pool()
@@ -155,7 +172,6 @@ func enqueue_attack(actor: Node, role: String) -> bool:
 func release_attack(actor: Node, role: String) -> void:
     var actor_id: int = actor.get_instance_id()
     _get_active_attacks(role).erase(actor_id)
-    _active_hitboxes.erase(actor_id)
     _release_actor_claim(actor_id)
 
 func cancel_attack(actor: Node, role: String) -> void:
@@ -163,7 +179,6 @@ func cancel_attack(actor: Node, role: String) -> void:
     _queued_actors.erase(actor_id)
     _get_active_attacks(role).erase(actor_id)
     _get_attack_queue(role).erase(actor)
-    _active_hitboxes.erase(actor_id)
     _release_actor_claim(actor_id)
 
 func claim_target(actor: Node, target: Node, role: String) -> void:
@@ -185,52 +200,23 @@ func claim_target(actor: Node, target: Node, role: String) -> void:
     }
     _increment_target_claim(target, target_id, role)
 
-func report_target_lost() -> void:
-    if _debug_metrics_enabled:
-        _debug_lost_targets += 1
-
-func report_retarget_result(success: bool) -> void:
-    if !_debug_metrics_enabled:
-        return
-    if success:
-        _debug_retarget_successes += 1
-    else:
-        _debug_retarget_failures += 1
-
-func report_hitbox_state(actor: Node, active: bool) -> void:
-    if !is_instance_valid(actor):
-        return
-    var actor_id: int = actor.get_instance_id()
-    if active:
-        _active_hitboxes[actor_id] = actor
-    else:
-        _active_hitboxes.erase(actor_id)
-
-func should_redraw_attack_visual(actor: Node) -> bool:
-    if get_visual_lod() < 2:
-        if _debug_metrics_enabled:
-            _debug_visual_redraws += 1
+func should_redraw_attack_visual(actor: Node, visual_level: int) -> bool:
+    if visual_level >= VISUAL_ESSENTIAL:
+        return false
+    if visual_level < VISUAL_MINIMAL:
         return true
     var actor_bucket: int = actor.get_instance_id() % 2
     if (_visual_frame + actor_bucket) % 2 == 0:
-        if _debug_metrics_enabled:
-            _debug_visual_redraws += 1
         return true
-    if _debug_metrics_enabled:
-        _debug_visual_skips += 1
     return false
 
 func select_main_target(actor: Node, excluded: Array, origin: Vector2, radius: float, min_range: float, player_position: Vector2, preferred_angle: float, chain_count: int, attack_direction: Vector2, origin_weight: float, player_weight: float, angle_weight: float, follow_weight: float) -> Node2D:
     var targets: Array = _target_cache
-    _last_target_count = targets.size()
-    if _debug_metrics_enabled:
-        _debug_selection_attempts += 1
-        _debug_candidate_evaluations += targets.size()
     var best_target: Node2D = null
     var best_score: float = Utils.LARGE_NUMBER
     var radius_sq: float = radius * radius
     var min_dist_sq: float = min_range * min_range
-    var spread_factor: float = clamp(float(_last_target_count - 5) / 18.0, 0.0, 1.0)
+    var spread_factor: float = clamp(float(targets.size() - 5) / 18.0, 0.0, 1.0)
 
     var origin_is_player: bool = origin.distance_squared_to(player_position) <= 0.01
     for target in targets:
@@ -253,16 +239,10 @@ func select_main_target(actor: Node, excluded: Array, origin: Vector2, radius: f
             best_score = score
             best_target = target
 
-    if best_target == null and _debug_metrics_enabled:
-        _debug_selection_failures += 1
     return best_target
 
 func select_nearest_target(actor: Node, origin: Vector2, radius: float, min_range: float = 0.0) -> Node2D:
     var targets: Array = _target_cache
-    _last_target_count = targets.size()
-    if _debug_metrics_enabled:
-        _debug_selection_attempts += 1
-        _debug_candidate_evaluations += targets.size()
     var best_target: Node2D = null
     var best_score: float = Utils.LARGE_NUMBER
     var radius_sq: float = radius * radius
@@ -279,55 +259,10 @@ func select_nearest_target(actor: Node, origin: Vector2, radius: float, min_rang
             best_score = score
             best_target = target
 
-    if best_target == null and _debug_metrics_enabled:
-        _debug_selection_failures += 1
     return best_target
 
 func get_orbit_phase(orbit_speed: float) -> float:
     return (_time_ticks / 60.0) * orbit_speed * 0.72
-
-func get_debug_snapshot() -> Dictionary:
-    return {
-        "main_swords": _main_swords.size(),
-        "satellites": _satellites.size(),
-        "targets": _last_target_count,
-        "sensor_radius": _sensor_radius,
-        "queued_main": _main_attack_queue.size(),
-        "queued_satellites": _satellite_attack_queue.size(),
-        "active_main": _active_main_attacks.size(),
-        "active_satellites": _active_satellite_attacks.size(),
-        "main_attack_limit": _get_active_attack_limit(ROLE_MAIN),
-        "satellite_attack_limit": _get_active_attack_limit(ROLE_SATELLITE),
-        "claimed_actors": _actor_claims.size(),
-        "claimed_targets": _target_claims.size(),
-        "active_hitboxes": _active_hitboxes.size(),
-        "visual_lod": get_visual_lod(),
-        "metrics_enabled": _debug_metrics_enabled,
-        "selection_attempts": _debug_selection_attempts,
-        "candidate_evaluations": _debug_candidate_evaluations,
-        "selection_failures": _debug_selection_failures,
-        "dispatches": _debug_dispatches,
-        "lost_targets": _debug_lost_targets,
-        "retarget_successes": _debug_retarget_successes,
-        "retarget_failures": _debug_retarget_failures,
-        "visual_redraws": _debug_visual_redraws,
-        "visual_skips": _debug_visual_skips
-    }
-
-func set_debug_metrics_enabled(enabled: bool) -> void:
-    _debug_metrics_enabled = enabled
-    reset_debug_counters()
-
-func reset_debug_counters() -> void:
-    _debug_selection_attempts = 0
-    _debug_candidate_evaluations = 0
-    _debug_selection_failures = 0
-    _debug_dispatches = 0
-    _debug_lost_targets = 0
-    _debug_retarget_successes = 0
-    _debug_retarget_failures = 0
-    _debug_visual_redraws = 0
-    _debug_visual_skips = 0
 
 func shutdown() -> void:
     if is_instance_valid(_target_sensor):
@@ -345,7 +280,6 @@ func shutdown() -> void:
     _queued_actors.clear()
     _active_main_attacks.clear()
     _active_satellite_attacks.clear()
-    _active_hitboxes.clear()
     queue_free()
 
 func _physics_process(delta: float) -> void:
@@ -398,8 +332,6 @@ func _dispatch_role(role: String) -> bool:
             return true
         active[actor_id] = actor
         claim_target(actor, target, role)
-        if _debug_metrics_enabled:
-            _debug_dispatches += 1
         actor.begin_coordinated_attack(target)
         return true
     return false
@@ -437,7 +369,7 @@ func _setup_vfx_pool() -> void:
 
 func _update_vfx_capacity() -> void:
     if is_instance_valid(_vfx_pool):
-        _vfx_pool.ensure_capacity(max(_main_swords.size(), _satellites.size()))
+        _vfx_pool.ensure_capacity(_get_vfx_budget())
 
 func _update_sensor_position() -> void:
     global_position = _get_player_position()
@@ -450,10 +382,8 @@ func _get_player_position() -> Vector2:
 func _refresh_target_cache() -> void:
     if !is_instance_valid(_target_sensor):
         _target_cache.clear()
-        _last_target_count = 0
         return
     _target_cache = _target_sensor.get_targets()
-    _last_target_count = _target_cache.size()
 
 func _increment_target_claim(target: Node, target_id: int, role: String) -> void:
     var data: Dictionary = {
@@ -556,6 +486,39 @@ func _refresh_satellite_formation() -> void:
         if is_instance_valid(satellite):
             satellite.set_formation(i, count)
 
+func _refresh_visual_policy() -> void:
+    _assign_visual_levels(_main_swords)
+    _assign_visual_levels(_satellites)
+    for i in range(_satellites.size()):
+        var satellite = _satellites[i]
+        if is_instance_valid(satellite):
+            satellite.set_idle_body_visible(i < _satellite_idle_visible_count)
+    _update_vfx_capacity()
+
+func _assign_visual_levels(actors: Array) -> void:
+    var global_level: int = get_visual_lod()
+    for i in range(actors.size()):
+        var actor = actors[i]
+        if !is_instance_valid(actor):
+            continue
+        var level: int = global_level
+        if global_level == VISUAL_MINIMAL and i < _crowded_reduced_visual_slots:
+            level = VISUAL_REDUCED
+        elif global_level == VISUAL_ESSENTIAL:
+            if i < _crowded_reduced_visual_slots:
+                level = VISUAL_REDUCED
+            elif i < _crowded_reduced_visual_slots + _crowded_minimal_visual_slots:
+                level = VISUAL_MINIMAL
+        actor.set_visual_level(level)
+
+func _get_vfx_budget() -> int:
+    var count: int = int(max(_main_swords.size(), _satellites.size()))
+    if count <= _full_visual_count:
+        return int(max(1, count))
+    if count <= _reduced_visual_count:
+        return int(min(count, 6))
+    return int(max(1, _crowded_reduced_visual_slots + _crowded_minimal_visual_slots))
+
 func _prune_registries() -> void:
     for i in range(_main_swords.size() - 1, -1, -1):
         if !is_instance_valid(_main_swords[i]):
@@ -573,6 +536,7 @@ func _prune_registries() -> void:
         if is_instance_valid(actor):
             _queued_actors[actor.get_instance_id()] = ROLE_SATELLITE
     _refresh_satellite_formation()
+    _refresh_visual_policy()
 
 func _prune_attack_state(queue: Array, active: Dictionary) -> void:
     for i in range(queue.size() - 1, -1, -1):
@@ -586,7 +550,6 @@ func _prune_attack_state(queue: Array, active: Dictionary) -> void:
     for key in stale:
         active.erase(key)
         _queued_actors.erase(key)
-        _active_hitboxes.erase(key)
         _release_actor_claim(int(key))
 
 func _try_shutdown_when_empty() -> void:
