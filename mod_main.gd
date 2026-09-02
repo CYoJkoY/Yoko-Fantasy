@@ -6,97 +6,17 @@ const MYMODNAME_LOG: String = "Yoko-Fantasy"
 var dir: String = ""
 var ext_dir: String = ""
 var service_dir: String = ""
-var content_dir: String = ""
-var entity_dir: String = ""
-var enemy_dir: String = ""
-var pet_dir: String = ""
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _init() -> void:
     dir = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR
     ext_dir = dir + "extensions/"
     service_dir = ext_dir + "services/"
-    content_dir = dir + "content/"
-    entity_dir = content_dir + "entities/"
-    enemy_dir = entity_dir + "enemies/"
-    pet_dir = entity_dir + "pets/"
-
-    # Add Classes
-    install_script_classes()
 
     # Add Extensions
     install_script_extensions()
 
 # ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
-func install_script_classes() -> void:
-    var classes: Array = [
-        # Services
-        {
-            "base": "Node",
-            "class": "UpgradeHooks",
-            "language": "GDScript",
-            "path": service_dir + "upgrade_hooks.gd"
-        },
-        {
-            "base": "Reference",
-            "class": "LightningChainService",
-            "language": "GDScript",
-            "path": service_dir + "lightning_chain_service.gd",
-        },
-        {
-            "base": "Reference",
-            "class": "LightningChainDescriptionService",
-            "language": "GDScript",
-            "path": service_dir + "lightning_chain_description_service.gd"
-        },
-        {
-            "base": "Reference",
-            "class": "ChainTargetService",
-            "language": "GDScript",
-            "path": service_dir + "chain_target_service.gd"
-        },
-        {
-            "base": "Reference",
-            "class": "VisualPartsSync",
-            "language": "GDScript",
-            "path": service_dir + "visual_parts_sync.gd"
-        },
-        {
-            "base": "Reference",
-            "class": "EnemySpeedModifierService",
-            "language": "GDScript",
-            "path": service_dir + "enemy_speed_modifier_service.gd"
-        },
-
-        # Enemies
-        {
-            "base": "Enemy",
-            "class": "LittleSlime",
-            "language": "GDScript",
-            "path": enemy_dir + "little_slime/little_slime.gd"
-        },
-        {
-            "base": "LittleSlime",
-            "class": "MediumSlime",
-            "language": "GDScript",
-            "path": enemy_dir + "medium_slime/medium_slime.gd"
-        },
-
-    ]
-
-    var registered_classes: Array = ProjectSettings.get_setting("_global_script_classes")
-    var registered_names: Dictionary = {}
-    for old_class in registered_classes:
-        registered_names[old_class.class ] = true
-
-    var classes_to_register: Array = []
-    for new_class in classes:
-        if !registered_names.has(new_class.class ):
-            classes_to_register.append(new_class)
-
-    if !classes_to_register.empty():
-        ModLoaderMod.register_global_classes_from_array(classes_to_register)
-
 func install_script_extensions() -> void:
     var extensions: Array = [
 
@@ -110,7 +30,7 @@ func install_script_extensions() -> void:
         #          slow_cursed_enemy,
         #          time_bonus_current_health_damage
         #          random_reload_when_picked_up_gold
-    
+
         "services/item_service.gd",
         # SYSTEMS: Job[ 2/6 ]
         # ITEMS: Erosion Items
