@@ -51,8 +51,8 @@ func init_wind_force(
 	pool_id: int
 ) -> void:
 	target_unit = p_target
-	remaining_ticks = max(1, p_ticks)
-	damage_per_tick = max(1, p_damage)
+	remaining_ticks = max(1, p_ticks) as int
+	damage_per_tick = max(1, p_damage) as int
 	tick_interval = max(0.05, p_interval)
 	player_index = p_player_index
 	weapon_pos = p_weapon_pos

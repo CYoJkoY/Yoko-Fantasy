@@ -62,9 +62,9 @@ func setup(p_player_index: int, p_players_ref: Array, radius: float) -> void:
     _target_cache_ticks = TARGET_CACHE_REFRESH_TICKS
 
 func configure_attack_limits(max_main: int, max_satellite: int, dispatches_per_tick: int) -> void:
-    _max_active_main_attacks = max(0, max_main)
-    _max_active_satellite_attacks = max(0, max_satellite)
-    _max_dispatches_per_tick = max(1, dispatches_per_tick)
+    _max_active_main_attacks = max(0, max_main) as int
+    _max_active_satellite_attacks = max(0, max_satellite) as int
+    _max_dispatches_per_tick = max(1, dispatches_per_tick) as int
 
 func configure_visual_budgets(full_count: int, reduced_count: int, minimal_count: int, crowded_reduced_slots: int, crowded_minimal_slots: int, satellite_idle_count: int) -> void:
     var next_full: int = int(max(1, full_count))

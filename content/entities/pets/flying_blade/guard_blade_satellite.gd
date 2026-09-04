@@ -607,7 +607,7 @@ func _face_direction(direction: Vector2) -> void:
     rotation = lerp_angle(rotation, direction.angle() - PI / 2.0, 0.48)
 
 func set_formation(index: int, count: int) -> void:
-    _formation_count = max(1, count)
+    _formation_count = max(1, count) as int
     _formation_index = int(clamp(index, 0, _formation_count - 1))
 
 func _get_shared_orbit_phase() -> float:
