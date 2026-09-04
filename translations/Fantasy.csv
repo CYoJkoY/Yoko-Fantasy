@@ -883,12 +883,12 @@ In aggiunta alla Mutazione 0, evoca 1 Arciere scheletro aggiuntivo.
 Mutazione 2 (33% PV / 60 s):
 Non evoca più scheletri. L'attacco diventa sparare 5 proiettili a forma di bulbo oculare al giocatore al secondo ed evocare 10 bulbi oculari che circondano il giocatore ogni secondo."
 FANTASY_FALLEN_KNIGHT_NAME,Fallen Knight,Chevalier déchu,堕落骑士,フォールンナイト,타락한 기사,墮落騎士,Падший рыцарь,Upadły rycerz,Caballero caído,Cavaleiro caído,Gefallener Ritter,Düşmüş Şövalye,Cavaliere caduto
-FANTASY_FALLEN_KNIGHT_BEHAVIOUR_DESCRIPTION,"Mutation 0:  
-Chases the player. Every 2 seconds, alternates between:  
-- Firing a arrow-shaped projectile at the player that expands from its tail end;  
+FANTASY_FALLEN_KNIGHT_BEHAVIOUR_DESCRIPTION,"Mutation 0:
+Chases the player. Every 2 seconds, alternates between:
+- Firing a arrow-shaped projectile at the player that expands from its tail end;
 - Firing two semicircular waves of projectiles at the player, with the second wave filling the gaps of the first
 
-Mutation 1 (60% HP / 35s):  
+Mutation 1 (60% HP / 35s):
 Stops moving but performs a dash at the player every second. After each dash, fires an arrow-shaped projectile. After every three dashes, pauses for 3 seconds.","Mutation 0 :
 Poursuit le joueur. Toutes les 2 secondes, alterne entre :
 - Lancer un projectile en forme de flèche sur le joueur qui s'étend depuis son extrémité arrière ;
@@ -919,48 +919,48 @@ Arrête de bouger mais effectue une ruée vers le joueur chaque seconde. Après 
 - 對玩家發射兩圈半圓形彈幕,第二圈子彈疊加在第一圈的空隙間
 
 異變1(60%生命 / 35秒):
-停止移動,但是每秒對玩家使用衝刺.每次衝刺結束後都回發射一次箭頭彈幕.每衝刺三次,停頓3秒","Мутация 0:  
+停止移動,但是每秒對玩家使用衝刺.每次衝刺結束後都回發射一次箭頭彈幕.每衝刺三次,停頓3秒","Мутация 0:
 Преследует игрока. Каждые 2 секунды чередует:
 - Выстрел в игрока стреловидным снарядом, который расширяется от хвоста;
 - Выпускает две полукруглые волны снарядов в игрока, вторая волна заполняет промежутки первой.
 
-Мутация 1 (60% ОЗ / 35 с):  
-Перестает двигаться, но каждую секунду совершает рывок к игроку. После каждого рывка стреляет стреловидным снарядом. После каждых трех рывков делает паузу на 3 секунды.","Mutacja 0:  
+Мутация 1 (60% ОЗ / 35 с):
+Перестает двигаться, но каждую секунду совершает рывок к игроку. После каждого рывка стреляет стреловидным снарядом. После каждых трех рывков делает паузу на 3 секунды.","Mutacja 0:
 Ściga gracza. Co 2 sekundy na przemian:
 - Wystrzeliwuje w gracza pocisk w kształcie strzały, który rozszerza się od końca;
 - Wystrzeliwuje dwie półkoliste fale pocisków w gracza, przy czym druga fala wypełnia luki pierwszej.
 
-Mutacja 1 (60% PŻ / 35 s):  
-Przestaje się poruszać, ale co sekundę wykonuje doskok na gracza. Po każdym doskoku strzela pociskiem w kształcie strzały. Po każdych trzech doskokach robi 3-sekundową pauzę.","Mutación 0:  
+Mutacja 1 (60% PŻ / 35 s):
+Przestaje się poruszać, ale co sekundę wykonuje doskok na gracza. Po każdym doskoku strzela pociskiem w kształcie strzały. Po każdych trzech doskokach robi 3-sekundową pauzę.","Mutación 0:
 Persigue al jugador. Cada 2 segundos, alterna entre:
 - Disparar un proyectil en forma de flecha al jugador que se expande desde su extremo posterior;
 - Disparar dos ondas semicirculares de proyectiles al jugador, con la segunda onda llenando los huecos de la primera.
 
-Mutación 1 (60% Vida / 35s):  
-Deja de moverse pero realiza una embestida al jugador cada segundo. Después de cada embestida, dispara un proyectil en forma de flecha. Después de cada tres embestidas, hace una pausa de 3 segundos.","Mutação 0:  
+Mutación 1 (60% Vida / 35s):
+Deja de moverse pero realiza una embestida al jugador cada segundo. Después de cada embestida, dispara un proyectil en forma de flecha. Después de cada tres embestidas, hace una pausa de 3 segundos.","Mutação 0:
 Persegue o jogador. A cada 2 segundos, alterna entre:
 - Disparar um projétil em forma de flecha no jogador que se expande a partir da sua extremidade traseira;
 - Disparar duas ondas semicirculares de projéteis no jogador, com a segunda onda preenchendo as lacunas da primeira.
 
-Mutação 1 (60% PV / 35s):  
-Para de se mover, mas realiza uma investida contra o jogador a cada segundo. Após cada investida, dispara um projétil em forma de flecha. A cada três investidas, faz uma pausa de 3 segundos.","Mutation 0:  
+Mutação 1 (60% PV / 35s):
+Para de se mover, mas realiza uma investida contra o jogador a cada segundo. Após cada investida, dispara um projétil em forma de flecha. A cada três investidas, faz uma pausa de 3 segundos.","Mutation 0:
 Verfolgt den Spieler. Alle 2 Sekunden wechselt zwischen:
 - Abfeuern eines pfeilförmigen Projektils auf den Spieler, das sich vom Heck her ausdehnt;
 - Abfeuern von zwei halbkreisförmigen Projektilwellen auf den Spieler, wobei die zweite Welle die Lücken der ersten füllt.
 
-Mutation 1 (60% LP / 35 s):  
-Hört auf sich zu bewegen, führt aber jede Sekunde einen Sturmangriff auf den Spieler aus. Nach jedem Sturmangriff wird ein pfeilförmiges Projektil abgefeuert. Nach jeweils drei Sturmangriffen pausiert es 3 Sekunden.","Mutasyon 0:  
+Mutation 1 (60% LP / 35 s):
+Hört auf sich zu bewegen, führt aber jede Sekunde einen Sturmangriff auf den Spieler aus. Nach jedem Sturmangriff wird ein pfeilförmiges Projektil abgefeuert. Nach jeweils drei Sturmangriffen pausiert es 3 Sekunden.","Mutasyon 0:
 Oyuncuyu kovalar. Her 2 saniyede bir şunları sırayla yapar:
 - Oyuncuya kuyruk ucundan genişleyen ok şeklinde bir mermi ateşler;
 - Oyuncuya yarım daire şeklinde iki mermi dalgası ateşler, ikinci dalga birincinin boşluklarını doldurur.
 
-Mutasyon 1 (%60 Can / 35 sn):  
-Hareket etmeyi bırakır ancak her saniye oyuncuya atılır. Her atılıştan sonra ok şeklinde bir mermi ateşler. Her üç atılışta bir 3 saniye duraklar.","Mutazione 0:  
+Mutasyon 1 (%60 Can / 35 sn):
+Hareket etmeyi bırakır ancak her saniye oyuncuya atılır. Her atılıştan sonra ok şeklinde bir mermi ateşler. Her üç atılışta bir 3 saniye duraklar.","Mutazione 0:
 Insegue il giocatore. Ogni 2 secondi, alterna:
 - Sparare un proiettile a forma di freccia al giocatore che si espande dalla coda;
 - Sparare due ondate semicircolari di proiettili al giocatore, con la seconda ondata che riempie gli spazi della prima.
 
-Mutazione 1 (60% PV / 35 s):  
+Mutazione 1 (60% PV / 35 s):
 Smette di muoversi ma esegue uno scatto verso il giocatore ogni secondo. Dopo ogni scatto, spara un proiettile a forma di freccia. Dopo ogni tre scatti, si ferma per 3 secondi."
 FANTASY_DRAGON_NAME,Dragon,Dragon,龙,ドラゴン,드래곤,龍,Дракон,Smok,Dragón,Dragão,Drache,Ejderha,Drago
 FANTASY_DRAGON_BEHAVIOUR_DESCRIPTION,"Mutation 0:
@@ -1056,16 +1056,16 @@ Evoca una Coda di Drago composta da 10 proiettili che gli ruota intorno. L'inter
 Mutazione 2 (25% PV / 50 s):
 Smette di muoversi e scatta verso il giocatore ogni 2 secondi. Durante lo scatto spara continuamente il Soffio di Drago della Mutazione 0. La Coda di Drago rimane attiva, mentre l'effetto del Soffio della Mutazione 1 è disabilitato."
 FANTASY_GREAT_DEMON_LORD_NAME,Great Demon Lord,Grand seigneur démon,大恶魔领主,大魔王,대악마 군주,大惡魔領主,Великий повелитель демонов,Wielki Władca Demonów,Gran Señor Demonio,Grande Lorde Demônio,Großer Dämonenfürst,Büyük Şeytan Lordu,Grande Signore Demone
-FANTASY_GREAT_DEMON_LORD_BEHAVIOUR_DESCRIPTION,"Mutation 0:  
+FANTASY_GREAT_DEMON_LORD_BEHAVIOUR_DESCRIPTION,"Mutation 0:
 Chases the player, uses a dash toward the player every 3 seconds. When dashing starts, fires 1 crescent-shaped projectile in the facing direction; after dashing ends, fires 3 projectiles toward the player
 
-Mutation 1 (75% HP / 20s):  
+Mutation 1 (75% HP / 20s):
 Uses a dash toward the player every 2 seconds. While dashing, fires 1 crescent-shaped projectile and 3 projectiles to each side backward
 
-Mutation 2 (50% HP / 40s):  
+Mutation 2 (50% HP / 40s):
 No longer dashes; movement speed greatly increased. Pauses briefly every 3 seconds, then fires a rectangular barrage composed of 3 slashes toward the player, accompanied by 3 crescent-shaped projectiles on each side
 
-Mutation 3 (25% HP / 60s):  
+Mutation 3 (25% HP / 60s):
 Uses a dash toward the player every second. During the dash, releases 6 slashes around itself; at the end of the dash, generates either a horizontal or vertical slash barrage that crosses the entire screen","Mutation 0 :
 Poursuit le joueur, utilise une ruée vers lui toutes les 3 secondes. Au début de la ruée, tire 1 projectile en forme de croissant dans la direction du regard ; après la ruée, tire 3 projectiles vers le joueur.
 
@@ -1458,11 +1458,11 @@ WEAPON_CLASS_FANTASY_FAKE_LEGENDARY,Fake Legendary,Faux légendaire,伪传奇,�
 ITEM_FANTASY_SALTED_DUCK_EGG,Salted Duck Egg,Œuf de cane salé,咸鸭蛋,アヒルの塩漬け卵,오리알 염장,鹹鴨蛋,Солёное утиное яйцо,Solone jajko kaczki,Huevo de pato salgado,Ovo de pato salgado,Gesalzenes Entenei,Tuzlu ördek yumurtası,Uovo di anatra salato
 FANTASY_PITY_BONUS_CHANCE,Next chance bonus: +{0}%,Bonus de chance suivant: +{0}%,下次概率加成: +{0}%,次回確率ボーナス: +{0}%,다음 확률 보너스: +{0}%,下次機率加成: +{0}%,Бонус к следующему шансу: +{0}%,Premia do następnej szansy: +{0}%,Bonificación de probabilidad siguiente: +{0}%,Bônus da próxima chance: +{0}%,Nächster Chancenbonus: +{0}%,Sonraki şans bonusu: +{0}%,Bonus probabilità successiva: +{0}%
 WEAPON_FANTASY_KUNAI,Kunai,Kunaï,苦无,クナイ,쿠나이,苦無,Кунай,Kunai,Kunai,Kunai,Kunai,Kunai,Kunai
-FANTASY_CHAIN_DAMAGE_MULT,Chain Mod: ,Mod. Chaîne: ,链变: ,連鎖倍率: ,연쇄 배율: ,鏈變: ,Мод. цепи: ,Modyf. łańcucha: ,Mod. de cadena: ,Mod. de corrente: ,Kettenmod.: ,Zincir Mod.: ,Mod. catena: 
+FANTASY_CHAIN_DAMAGE_MULT,Chain Mod: ,Mod. Chaîne: ,链变: ,連鎖倍率: ,연쇄 배율: ,鏈變: ,Мод. цепи: ,Modyf. łańcucha: ,Mod. de cadena: ,Mod. de corrente: ,Kettenmod.: ,Zincir Mod.: ,Mod. catena:
 FANTASY_CHAIN_DAMAGE_MULT_FORMATTED,{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1}
-FANTASY_CHAIN_TARGETS,Chain Targets: ,Cibles en chaîne: ,连锁: ,連鎖: ,연쇄 대상: ,連鎖: ,Цели цепи: ,Cele łańcucha: ,Objetivos de cadena: ,Alvos em cadeia: ,Kettenziele: ,Zincir Hedefleri: ,Obiettivi a catena: 
+FANTASY_CHAIN_TARGETS,Chain Targets: ,Cibles en chaîne: ,连锁: ,連鎖: ,연쇄 대상: ,連鎖: ,Цели цепи: ,Cele łańcucha: ,Objetivos de cadena: ,Alvos em cadeia: ,Kettenziele: ,Zincir Hedefleri: ,Obiettivi a catena:
 FANTASY_CHAIN_TARGETS_FORMATTED,{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1}
-FANTASY_SCATTER_TARGETS,Scatter: ,Dispersion: ,散射: ,散射: ,산란: ,散射: ,Рассеивание: ,Rozproszenie: ,Dispersión: ,Dispersão: ,Streuung: ,Saçılma: ,Dispersione: 
+FANTASY_SCATTER_TARGETS,Scatter: ,Dispersion: ,散射: ,散射: ,산란: ,散射: ,Рассеивание: ,Rozproszenie: ,Dispersión: ,Dispersão: ,Streuung: ,Saçılma: ,Dispersione:
 FANTASY_PRISM_TOWER_MAIN,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,生成一座光棱塔。七彩光束: {0}伤害。,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,生成一座光棱塔。七彩光束: {0}傷害。,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.,Spawn a Prism Tower. Prismatic beam: {0} damage.
 FANTASY_PRISM_TOWER_RESONANCE,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0}座及以上会有共鸣效果,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0}座及以上會有共鳴效果,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.,{0} or more Prism Towers trigger resonance.
 EFFECT_FANTASY_PRISM_TOWER_SCATTER,{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0}
@@ -1660,3 +1660,11 @@ EFFECT_FANTASY_MYRIAD_WINDBLADES_1,"Pierced enemies retain wind force, taking {0
 EFFECT_FANTASY_MYRIAD_WINDBLADES_2,"Pierced enemies retain wind force, taking {0} wind slices, each dealing {1} damage","Une force du vent subsiste dans les ennemis transpercés, qui subissent {0} entailles infligeant chacune {1} dégâts","被穿透的敌人体内残留风劲，受到 {0} 次风切，每次造成 {1} 伤害","貫通された敵に風の力が残り、{0}回の風切りを受け、1回につき{1}ダメージを受ける","관통된 적의 몸속에 바람의 힘이 남아 {0}회의 바람 베기를 받고, 회당 {1} 피해를 입음","被穿透的敵人體內殘留風勁，受到 {0} 次風切，每次造成 {1} 傷害","В пронзенных врагах остается сила ветра, и они получают {0} ударов, наносящих по {1} урона","W przebitych wrogach pozostaje siła wiatru, zadając {0} cięć po {1} obrażeń","La fuerza del viento permanece en los enemigos atravesados, que sufren {0} cortes de {1} de daño cada uno","A força do vento permanece nos inimigos perfurados, que sofrem {0} cortes de {1} de dano cada","In durchdrungenen Gegnern verbleibt Windkraft und verursacht {0} Schnitte mit je {1} Schaden","Delinen düşmanlarda rüzgar gücü kalır ve her biri {1} hasar veren {0} kesik oluşturur","La forza del vento permane nei nemici trapassati, infliggendo {0} tagli da {1} danni ciascuno"
 EFFECT_FANTASY_MYRIAD_WINDBLADES_3,"Pierced enemies retain wind force, taking {0} wind slices, each dealing {1} damage","Une force du vent subsiste dans les ennemis transpercés, qui subissent {0} entailles infligeant chacune {1} dégâts","被穿透的敌人体内残留风劲，受到 {0} 次风切，每次造成 {1} 伤害","貫通された敵に風の力が残り、{0}回の風切りを受け、1回につき{1}ダメージを受ける","관통된 적의 몸속에 바람의 힘이 남아 {0}회의 바람 베기를 받고, 회당 {1} 피해를 입음","被穿透的敵人體內殘留風勁，受到 {0} 次風切，每次造成 {1} 傷害","В пронзенных врагах остается сила ветра, и они получают {0} ударов, наносящих по {1} урона","W przebitych wrogach pozostaje siła wiatru, zadając {0} cięć po {1} obrażeń","La fuerza del viento permanece en los enemigos atravesados, que sufren {0} cortes de {1} de daño cada uno","A força do vento permanece nos inimigos perfurados, que sofrem {0} cortes de {1} de dano cada","In durchdrungenen Gegnern verbleibt Windkraft und verursacht {0} Schnitte mit je {1} Schaden","Delinen düşmanlarda rüzgar gücü kalır ve her biri {1} hasar veren {0} kesik oluşturur","La forza del vento permane nei nemici trapassati, infliggendo {0} tagli da {1} danni ciascuno"
 EFFECT_FANTASY_MYRIAD_WINDBLADES_4,"Pierced enemies retain wind force, taking {0} wind slices, each dealing {1} damage","Une force du vent subsiste dans les ennemis transpercés, qui subissent {0} entailles infligeant chacune {1} dégâts","被穿透的敌人体内残留风劲，受到 {0} 次风切，每次造成 {1} 伤害","貫通された敵に風の力が残り、{0}回の風切りを受け、1回につき{1}ダメージを受ける","관통된 적의 몸속에 바람의 힘이 남아 {0}회의 바람 베기를 받고, 회당 {1} 피해를 입음","被穿透的敵人體內殘留風勁，受到 {0} 次風切，每次造成 {1} 傷害","В пронзенных врагах остается сила ветра, и они получают {0} ударов, наносящих по {1} урона","W przebitych wrogach pozostaje siła wiatru, zadając {0} cięć po {1} obrażeń","La fuerza del viento permanece en los enemigos atravesados, que sufren {0} cortes de {1} de daño cada uno","A força do vento permanece nos inimigos perfurados, que sofrem {0} cortes de {1} de dano cada","In durchdrungenen Gegnern verbleibt Windkraft und verursacht {0} Schnitte mit je {1} Schaden","Delinen düşmanlarda rüzgar gücü kalır ve her biri {1} hasar veren {0} kesik oluşturur","La forza del vento permane nei nemici trapassati, infliggendo {0} tagli da {1} danni ciascuno"
+JOB_STARCALLER,"Starcaller","Invocateur d'étoiles","唤星者","スターコーラー","스타콜러","喚星者","Звездочёт","Gwiezdny Przywoływacz","Invocador de Estrellas","Invocador de Estrelas","Sternrufer","Yıldız Çağıran","Invocatore di Stelle"
+JOB_SANCTIFIER,"Sanctifier","Sanctificateur","圣道信徒","聖道の信徒","성도의 신자","聖道信徒","Освятитель","Uświęciciel","Santificador","Santificador","Heiliger","Kutsayıcı","Santificatore"
+JOB_CELESTIAL,"Celestial","Céleste","天罡正气","天罡の気","천상의 기운","天罡正氣","Небесная Сила","Niebiańska Moc","Fuerza Celestial","Força Celestial","Himmlische Kraft","Göksel Güç","Forza Celeste"
+JOB_BOGBORN,"Bogborn","Né des Marais","泥沼信徒","沼沢の信徒","늪지 신도","泥沼信徒","Болотный Приверженец","Bagienny Wyznawca","Devoto del Pantano","Devoto do Pântano","Sumpfgeborener","Bataklık İnananı","Nato dalla Palude"
+JOB_SAVIOR,"Savior","Sauveur","济世会","救世会","구세회","濟世會","Спаситель","Zbawca","Salvador","Salvador","Erlöser","Kurtarıcı","Salvatore"
+JOB_SEER,"Seer","Voyant","窥见者","予見者","예지자","窺見者","Провидец","Wieszcz","Vidente","Vidente","Seher","Kâhin","Veggente"
+JOB_WILDBORN,"Wildborn","Né Sauvage","荒野信徒","荒野の信徒","야생 신도","荒野信徒","Дитя Дикой Природы","Dzikie Dziecię","Nacido de la Naturaleza","Nascido da Selva","Wildgeborener","Vahşi Doğmuş","Nato Selvaggio"
+JOB_HERETIC,"Heretic","Hérétique","邪道信徒","邪道の信徒","이단자","邪道信徒","Еретик","Heretyk","Hereje","Herege","Ketzer","Sapkın","Eretico"
