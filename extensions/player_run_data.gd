@@ -103,6 +103,7 @@ static func init_effects() -> Dictionary:
             Utils.fantasy_dmg_when_pickup_consumable_hash: [],
             Utils.fantasy_periodic_radius_damage_hash: [],
             Utils.fantasy_base_chance_drop_soul_hash: 0,
+            Utils.fantasy_soul_duration_hash: 0,
             Utils.fantasy_tree_radius_tempstats_hash: [],
             Utils.fantasy_cannot_damage_tree_hash: 0,
             Utils.fantasy_bonus_drop_from_target_hash: [],
