@@ -1,10 +1,10 @@
 <div align="center">
 
-# Yoko Fantasy
+# Fantasy Sylvar
 
 **A gameplay expansion mod for Brotato**
 
-Extending the game with new systems, combat mechanics, enemies, items, weapons, content resources, and UI behavior.
+Expanding Brotato with new gameplay systems, combat mechanics, enemies, items, weapons, content resources, and UI behavior.
 
 [![GDScript](https://img.shields.io/badge/GDScript-Godot-478CBF?style=flat-square)](https://godotengine.org/)
 [![Mod Loader](https://img.shields.io/badge/Mod%20Loader-6.0.0-5965FF?style=flat-square)](#-installation)
@@ -19,11 +19,11 @@ Extending the game with new systems, combat mechanics, enemies, items, weapons, 
 
 ## 📖 Overview
 
-**Yoko Fantasy** is a **Brotato Mod Loader** project written in GDScript. It integrates with the base game through targeted script extensions and custom resource definitions rather than modifying the game as a standalone project.
+**Fantasy Sylvar** is a **Brotato Mod Loader** project written in GDScript. It integrates with the base game through targeted script extensions and custom resource definitions rather than modifying the game as a standalone project.
 
 The project is organized around independent gameplay systems and extension points. `mod_main.gd` acts as the integration entry point, while content resources, extension scripts, and localization files provide the implementation and data used by the mod.
 
-> **Development status:** Yoko Fantasy is under active development. The current manifest version is `0.0.1`, with Mod Loader compatibility declared as `6.0.0`.
+> **Development status:** Fantasy Sylvar is under active development. The current manifest version is `0.0.1`, with Mod Loader compatibility declared as `6.0.0`.
 
 ## ✨ Features
 
@@ -77,7 +77,7 @@ The project extends gameplay and menu UI entry points and provides reusable loca
 
 ## 🚀 Installation
 
-Yoko Fantasy is intended to be installed as a **Brotato Mod Loader** package.
+Fantasy Sylvar is intended to be installed as a **Brotato Mod Loader** package.
 
 ### Requirements
 
@@ -92,8 +92,8 @@ The current `manifest.json` declares `Yoko-NewContentLoader` and `Yoko-MoreStats
 
 1. Install Brotato.
 2. Install a compatible Brotato Mod Loader version.
-3. Install the required Yoko dependencies.
-4. Download a Yoko Fantasy release package.
+3. Install the required dependencies.
+4. Download a Fantasy Sylvar release package.
 5. Extract the mod into your Mod Loader mods directory.
 6. Start Brotato and verify that the mod is loaded by Mod Loader.
 
@@ -110,7 +110,7 @@ Deploy the repository through your normal Brotato Mod Loader development workflo
 
 ## ⚙️ Architecture
 
-Yoko Fantasy uses **Mod Loader script extensions** as its primary integration mechanism.
+Fantasy Sylvar uses **Mod Loader script extensions** as its primary integration mechanism.
 
 The runtime flow is centered around `mod_main.gd`:
 
@@ -218,7 +218,8 @@ The current manifest declares:
 | Dependency | `Yoko-NewContentLoader` |
 | Dependency | `Yoko-MoreStatsContainer` |
 | Mod Version | `0.0.1` |
-| Author | `Yoko` |
+| Project Name | `Fantasy Sylvar` |
+| Contributors | `CYoJkoY`, `CaveGood` |
 | Compatible Game Versions | Not specified in the manifest |
 
 Because the manifest does not currently declare a compatible Brotato game-version list, compatibility should be verified against the user's installed game, Mod Loader, and dependency versions.
@@ -227,20 +228,31 @@ Because the manifest does not currently declare a compatible Brotato game-versio
 
 Bug reports, gameplay feedback, and code contributions are welcome.
 
+Fantasy Sylvar is developed collaboratively. Contributors are credited as project members rather than attributing the project to a single individual.
+
 When reporting a problem, include:
 
 - Brotato version.
 - Mod Loader version.
-- Yoko Fantasy version.
-- Versions of the required Yoko dependencies.
+- Fantasy Sylvar version.
+- Versions of the required dependencies.
 - A clear description of the problem.
 - Reproduction steps and relevant logs when available.
 
 For code contributions, keep changes focused and preserve the existing extension-based architecture.
 
+## 👥 Project Members
+
+Fantasy Sylvar is a collaborative project. The current repository history identifies the following project contributors:
+
+- **CYoJkoY**
+- **CaveGood**
+
+Contributions may include gameplay programming, systems design, content implementation, visual assets, effects, balancing, testing, documentation, and other project work.
+
 ## 📄 License
 
-Yoko Fantasy is released under the **MIT License**. Copyright © 2025 CYoJkoY.
+Fantasy Sylvar is released under the **MIT License**. Copyright © 2025 CYoJkoY and project contributors.
 
 See [`LICENSE`](LICENSE) for the complete license text.
 
@@ -248,6 +260,6 @@ See [`LICENSE`](LICENSE) for the complete license text.
 
 <div align="center">
 
-**Yoko Fantasy** · A Brotato content expansion project by Yoko
+**Fantasy Sylvar** · A collaborative Brotato content expansion project
 
 </div>
