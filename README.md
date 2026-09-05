@@ -1,6 +1,6 @@
 <div align="center">
 
-# Fantasy Sylvar
+<img src="assets/fantasy-sylvar-hero.svg" alt="Fantasy Sylvar" width="100%">
 
 **A gameplay expansion mod for Brotato**
 
@@ -11,7 +11,7 @@ Expanding Brotato with new gameplay systems, combat mechanics, enemies, items, w
 [![Version](https://img.shields.io/badge/Version-0.0.1-8A9E8B?style=flat-square)](#-compatibility--dependencies)
 [![License](https://img.shields.io/badge/License-MIT-9E8F7E?style=flat-square)](LICENSE)
 
-[Overview](#-overview) · [Features](#-features) · [Installation](#-installation) · [Architecture](#-architecture) · [Development](#-development)
+[Overview](#-overview) • [Features](#-features) • [Installation](#-installation) • [Architecture](#-architecture) • [Development](#-development)
 
 </div>
 
@@ -178,6 +178,7 @@ The extension-oriented structure provides three practical benefits:
 ```text
 Yoko-Fantasy/
 ├── 📁 .github/                 # Repository automation and metadata
+├── 📁 assets/                  # README and project visual assets
 ├── 📁 content/                 # Content resources and data
 ├── 📁 extensions/              # Base-game script extensions
 ├── 📁 translations/            # Localization resources
