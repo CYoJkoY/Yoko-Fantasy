@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="620" viewBox="0 0 1600 620" role="img" aria-labelledby="title desc">
+  <title id="title">Fantasy Sylvar</title>
+  <desc id="desc">A dark fantasy forest inspired hero banner for the Fantasy Sylvar Brotato expansion project.</desc>
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="42%" r="58%">
+      <stop offset="0%" stop-color="#3B4A43" stop-opacity="0.85"/>
+      <stop offset="48%" stop-color="#26332F" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#1E1E1E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mist" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8A9E8B" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#8A9E8B" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#8A9E8B" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="620" rx="34" fill="#1E1E1E"/>
+  <rect x="18" y="18" width="1564" height="584" rx="28" fill="none" stroke="#5A6B6B" stroke-opacity="0.65"/>
+  <ellipse cx="800" cy="300" rx="690" ry="280" fill="url(#glow)"/>
+
+  <!-- distant canopy -->
+  <g fill="#2A2A2A" opacity="0.9">
+    <path d="M0 245 Q80 185 165 245 T330 245 T495 245 T660 245 T825 245 T990 245 T1155 245 T1320 245 T1485 245 T1600 245 V0 H0 Z"/>
+  </g>
+
+  <!-- stylized forest silhouettes -->
+  <g fill="#121716" opacity="0.92">
+    <path d="M0 620 L0 390 L90 300 L130 390 L175 340 L220 390 L270 275 L310 390 L365 315 L420 390 L470 250 L515 390 L575 305 L635 390 L700 250 L755 390 L820 300 L875 390 L940 260 L995 390 L1055 310 L1110 390 L1170 245 L1215 390 L1270 300 L1325 390 L1385 265 L1430 390 L1490 305 L1545 390 L1600 330 V620 Z"/>
+  </g>
+
+  <!-- central sylvar emblem -->
+  <g transform="translate(800 212)" filter="url(#softGlow)">
+    <circle r="94" fill="#2A2A2A" stroke="#8A9E8B" stroke-width="3"/>
+    <circle r="71" fill="#1E1E1E" stroke="#5A6B6B" stroke-width="2"/>
+    <path d="M0 -48 C-9 -20 -26 -4 -43 12 C-22 12 -10 7 0 -3 C10 7 22 12 43 12 C26 -4 9 -20 0 -48 Z" fill="#8A9E8B"/>
+    <path d="M0 -26 C-16 3 -17 27 0 48 C17 27 16 3 0 -26 Z" fill="#E6DED6"/>
+    <path d="M0 -22 L0 38" stroke="#2A2A2A" stroke-width="4" stroke-linecap="round"/>
+    <path d="M-35 18 Q-8 2 0 -22 Q8 2 35 18" fill="none" stroke="#9E8F7E" stroke-width="3"/>
+  </g>
+
+  <!-- atmospheric particles -->
+  <g fill="#8A9E8B">
+    <circle cx="520" cy="176" r="3" opacity="0.65"/>
+    <circle cx="606" cy="126" r="2" opacity="0.45"/>
+    <circle cx="690" cy="164" r="3" opacity="0.55"/>
+    <circle cx="915" cy="142" r="2" opacity="0.5"/>
+    <circle cx="1000" cy="198" r="3" opacity="0.6"/>
+    <circle cx="1082" cy="150" r="2" opacity="0.45"/>
+  </g>
+
+  <rect x="240" y="418" width="1120" height="2" rx="1" fill="url(#mist)"/>
+
+  <!-- title -->
+  <text x="800" y="488" text-anchor="middle" fill="#E6DED6" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="64" font-weight="700" letter-spacing="8">FANTASY SYLVAR</text>
+  <text x="800" y="532" text-anchor="middle" fill="#BEB8AE" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="21" letter-spacing="3">A FANTASY EXPANSION FOR BROTATO</text>
+  <text x="800" y="565" text-anchor="middle" fill="#8A9E8B" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" letter-spacing="2">SYSTEMS • COMBAT • CREATURES • CONTENT • UI</text>
+</svg>
