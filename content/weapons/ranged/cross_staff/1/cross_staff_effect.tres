@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "fantasy_soul_duration"
-text_key = "EFFECT_FANTASY_SOUL_DURATION"
+key = "stat_fantasy_holy"
+text_key = ""
 value = 1
 custom_key = ""
 storage_method = 0

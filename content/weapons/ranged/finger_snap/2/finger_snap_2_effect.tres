@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/finger_snap_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = ""
+text_key = "EFFECT_FANTASY_FINGER_SNAP_2"
+value = 4
+custom_key = ""
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+bullet_count = 4
+base_damage = 5
+scaling_stats = [ [ "stat_luck", 0.05 ] ]

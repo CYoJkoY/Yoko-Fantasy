@@ -1,4 +1,3 @@
-class_name JobData
 extends UpgradeData
 
 enum Stage {S1, S2}

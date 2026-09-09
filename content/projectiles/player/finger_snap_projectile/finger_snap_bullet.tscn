@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://projectiles/player_projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/finger_snap_projectile/finger_snap_bullet.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/finger_snap_projectile/textures/starlight_orb_bullet.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/finger_snap_projectile/textures/trail_glow.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/vfx/textures/star_burst_shard.webp" type="Texture" id=5]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 1.0 ), 0.0, 0.0, 0, 0, Vector2( 0.2, 0.82 ), 0.0, 0.0, 0, 0, Vector2( 0.55, 0.45 ), 0.0, 0.0, 0, 0, Vector2( 0.85, 0.18 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.2, 0.5, 0.8, 1 )
+colors = PoolColorArray( 1, 0.72, 0.12, 1, 1, 0.82, 0.28, 0.95, 1, 0.92, 0.55, 0.55, 1, 0.96, 0.78, 0.2, 1, 0.98, 0.88, 0 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 1, 1, 0.9, 0.95, 1, 0.85, 0.45, 0.75, 1, 0.6, 0.1, 0 )
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 12.0
+
+[node name="FingerSnapBullet" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+stop_delay = 0.0
+clear_material_when_pooled = false
+
+[node name="TrailLine" type="Line2D" parent="." index="0"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+z_index = 0
+z_as_relative = true
+width = 34.0
+width_curve = SubResource( 2 )
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 3 )
+texture = ExtResource( 4 )
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="TrailParticles" type="CPUParticles2D" parent="." index="1"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+position = Vector2( -6, 0 )
+amount = 6
+lifetime = 0.18
+local_coords = false
+texture = ExtResource( 5 )
+emission_shape = 1
+emission_sphere_radius = 4.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 10.0
+initial_velocity_random = 0.3
+spread = 45.0
+scale_amount = 0.12
+scale_amount_random = 0.1
+scale_amount_curve = SubResource( 4 )
+color_ramp = SubResource( 5 )
+
+[node name="StarSprite" type="Sprite" parent="." index="2"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+z_index = 1
+scale = Vector2( 0.42, 0.42 )
+texture = ExtResource( 3 )
+
+[node name="Hitbox" parent="." index="4"]
+unique_name_in_owner = true
+
+[node name="Collision" parent="Hitbox" index="0"]
+shape = SubResource( 6 )
+
+[editable path="Hitbox"]

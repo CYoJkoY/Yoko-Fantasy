@@ -451,7 +451,7 @@ func _update_visuals(delta: float) -> void:
     _offset.rotation = _current_tilt
 
     var max_hp: float = _get_player_max_hp()
-    var max_capacity: float = max_hp * 1.5
+    var max_capacity: float = max_hp * 3.0
     var charge_ratio: float = clamp(float(stored_healing) / max_capacity, 0.0, 1.0)
 
     if is_instance_valid(_aura_glow):
@@ -466,11 +466,11 @@ func _update_visuals(delta: float) -> void:
         if !is_instance_valid(sat):
             continue
 
-        var hp_threshold: int = 1
+        var hp_threshold: int = int(ceil(max_hp))
         if idx == 1:
-            hp_threshold = int(max(2, ceil(max_hp * 0.40)))
+            hp_threshold = int(ceil(max_hp * 1.5))
         elif idx == 2:
-            hp_threshold = int(max(4, ceil(max_hp * 0.85)))
+            hp_threshold = int(ceil(max_hp * 3.0))
 
         if stored_healing >= hp_threshold:
             var orbit_angle = _time_passed * 2.2 + (idx * (TAU / sat_count))
@@ -496,7 +496,7 @@ func _update_aura() -> void:
         return
 
     var max_hp: float = _get_player_max_hp()
-    var max_capacity: float = max_hp * 1.5
+    var max_capacity: float = max_hp * 3.0
     var ratio: float = clamp(float(stored_healing) / max_capacity, 0.0, 1.0)
 
     if ratio < 0.25:

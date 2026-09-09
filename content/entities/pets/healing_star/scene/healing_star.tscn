@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://particles/burning/unit_burning_particles.tscn" type="PackedScene" id=1]
+[ext_resource path="res://particles/curse/curse_enemy_particles.tscn" type="PackedScene" id=13]
 [ext_resource path="res://overlap/hurtbox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=3]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=4]
@@ -100,6 +101,7 @@ mode = 2
 physics_material_override = SubResource( 1 )
 custom_integrator = true
 script = ExtResource( 7 )
+curse_particles = ExtResource( 13 )
 outline_material = SubResource( 2 )
 stats = ExtResource( 12 )
 flash_mat = SubResource( 3 )

@@ -62,9 +62,11 @@ func _physics_process(delta) -> void:
 
 func shoot() -> void:
     var enemies: Array = entity_spawner.get_all_enemies(false)
+    var targets: Array = fa_get_highest_health_enemies(enemies)
 
-    if enemies.empty():
+    if targets.empty():
         _is_shooting = false
+        if has_shoot_anim: _animation_player.play("idle")
         return
 
     var crit_chance: float = _current_weapon_stats.crit_chance
@@ -77,21 +79,23 @@ func shoot() -> void:
         damage_args = Utils.ncl_create_custom_damage_args(player_index, damage_color)
     else: damage_args = TakeDamageArgs.new(player_index)
 
-    var targets: Array = fa_get_highest_health_enemies(enemies)
+    var killed_any: bool = false
     for enemy in targets:
-
-        if !enemy.is_connected("died", self , "fa_on_wolf_totem_killed_best_enemy"):
-            enemy.connect("died", self , "fa_on_wolf_totem_killed_best_enemy", [], CONNECT_ONESHOT)
-
         var health_before: int = enemy.current_stats.health
+        var was_pending_die: bool = enemy._pending_die
         var take_damage_array: Array = enemy.take_damage(damage, damage_args)
         var actual_damage: int = take_damage_array[1]
+        var killed_by_this_attack: bool = health_before > 0 and !was_pending_die and enemy._pending_die
+        killed_any = killed_any or killed_by_this_attack
         RunData.add_tracked_value(player_index, damage_tracking_id_hash, actual_damage)
         Utils.fa_apply_direct_crit_kill_gold_rewards(
             player_index,
             was_crit,
-            health_before > 0 and actual_damage >= health_before
+            killed_by_this_attack
         )
+
+    if killed_any:
+        fa_reset_other_pet_cooldowns()
 
     if has_shoot_anim: return
 
@@ -105,15 +109,15 @@ func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
         _is_shooting = false
         _animation_player.play("idle")
 
-func fa_on_wolf_totem_killed_best_enemy(_entity: Entity, _die_args: Entity.DieArgs) -> void:
-    for pet in entity_spawner.pets:
-        if !is_instance_valid(pet): continue
+func fa_reset_other_pet_cooldowns() -> void:
+    for other_pet in entity_spawner.pets:
+        if !is_instance_valid(other_pet) or other_pet == self: continue
 
         for cooldown_var_name in COOLDOWN_VAR_NAMES:
-            if pet.get(cooldown_var_name) == null:
+            if other_pet.get(cooldown_var_name) == null:
                 continue
 
-            pet.set(cooldown_var_name, 0.0)
+            other_pet.set(cooldown_var_name, 0.0)
 
 func fa_get_highest_health_enemies(enemies: Array) -> Array:
     var targets: Array = []
@@ -121,7 +125,7 @@ func fa_get_highest_health_enemies(enemies: Array) -> Array:
     if target_limit == 0: return targets
 
     for enemy in enemies:
-        if !is_instance_valid(enemy) or !(enemy is Enemy) or enemy.dead: continue
+        if !is_instance_valid(enemy) or !(enemy is Enemy) or enemy.dead or enemy._pending_die: continue
 
         var insert_index: int = targets.size()
         for i in range(targets.size()):
@@ -139,6 +143,6 @@ func fa_get_highest_health_enemies(enemies: Array) -> Array:
 
 func fa_has_valid_enemy() -> bool:
     for enemy in entity_spawner.get_all_enemies(false):
-        if is_instance_valid(enemy) and enemy is Enemy and !enemy.dead:
+        if is_instance_valid(enemy) and enemy is Enemy and !enemy.dead and !enemy._pending_die:
             return true
     return false

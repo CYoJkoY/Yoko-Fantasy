@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/starlight_orb_bullet.webp-262b462f742ccbead8e00f4adcec8f28.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/finger_snap_projectile/textures/starlight_orb_bullet.webp"
+dest_files=[ "res://.import/starlight_orb_bullet.webp-262b462f742ccbead8e00f4adcec8f28.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.9
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

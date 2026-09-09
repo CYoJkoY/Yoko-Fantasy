@@ -100,6 +100,7 @@ func _fantasy_get_job_way_order() -> Array:
         Utils.job_fantasy_luck_hash,
         Utils.job_fantasy_melee_hash,
         Utils.job_fantasy_ranged_hash,
+        Utils.job_fantasy_holy_hash,
         Utils.job_fantasy_universal_hash,
     ]
 
@@ -113,8 +114,7 @@ func _fantasy_get_stat_description_text(stat_description: String, stat_hash: int
             var stat_holy: float = Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash)
             var damage_bonus: int = int(stat_holy)
             var chance_drop_soul: int = int(stat_holy / (stat_holy + 50.0) * 100)
-            var enemy_health_reduction: int = int(stat_holy / (stat_holy + 100.0) * 100)
-            stat_description = Text.text(key, [str(damage_bonus), str(chance_drop_soul), str(enemy_health_reduction)])
+            stat_description = Text.text(key, [str(damage_bonus), str(chance_drop_soul)])
 
         Utils.stat_fantasy_soul_hash:
             var bonus: int = 10 + RunData.get_player_effect(Utils.fantasy_soul_bonus_hash, player_index)
@@ -219,7 +219,7 @@ func fa_get_job_candidates_for_player(stage: int, number: int, player_index: int
     if s1_job == null or s1_job.upgrade_id_hash == Utils.job_fantasy_universal_hash:
         candidates = fa_get_jobs(1, Utils.LARGE_NUMBER, Utils.job_fantasy_universal_hash)
 
-    elif Utils.fa_is_damage_job_way(s1_job.upgrade_id_hash) or s1_job.upgrade_id_hash == Utils.job_fantasy_luck_hash:
+    elif Utils.fa_is_damage_job_way(s1_job.upgrade_id_hash) or s1_job.upgrade_id_hash in [Utils.job_fantasy_luck_hash, Utils.job_fantasy_holy_hash]:
         return _fantasy_get_mixed_s2_candidates(s1_job.upgrade_id_hash, number, player_index)
 
     else:

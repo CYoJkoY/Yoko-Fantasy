@@ -14,7 +14,7 @@ const HOMING_FOV_DEG: float = 45.0
 const HOMING_RELEASE_FOV_DEG: float = 70.0
 
 export (int) var num_trail_points: int = 12
-export (float) var trail_spacing: float = 6.0
+export (float) var trail_spacing: float = 10.0
 
 var shard_count: int = DEFAULT_SHARD_COUNT
 var shard_damage_ratio: float = DEFAULT_SHARD_DAMAGE_RATIO
@@ -76,7 +76,7 @@ func _configure_effects(effects: Array) -> void:
 
 func shoot() -> void:
 	.shoot()
-	var opacity = ProgressData.settings.projectile_opacity
+	var opacity = FantasyProjectileVisualUtils.get_opacity()
 	_visual_root.modulate.a = opacity
 	_trail_line.modulate.a = opacity
 	_sparkle_particles.modulate.a = opacity

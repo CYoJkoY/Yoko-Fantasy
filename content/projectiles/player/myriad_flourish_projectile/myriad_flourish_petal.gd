@@ -13,6 +13,7 @@ var _crit_chance: float = 0.05
 var _crit_damage: float = 1.5
 var _slow_percent: float = 35.0
 var _applies_slow: bool = false
+var _opacity: float = 1.0
 
 onready var _particles: CPUParticles2D = $"%Particles"
 
@@ -38,6 +39,7 @@ func launch(
 ) -> void:
 	_main = main
 	_pool_id = pool_id
+	_opacity = FantasyProjectileVisualUtils.get_opacity()
 	_damage = damage
 	_player_index = player_index
 	_weapon_pos = weapon_pos
@@ -52,7 +54,7 @@ func launch(
 	_velocity = initial_dir.normalized() * rand_range(580.0, 780.0)
 	rotation = _velocity.angle()
 	scale = Vector2.ONE * 0.75
-	modulate.a = 1.0
+	modulate.a = _opacity
 
 	_particles.emitting = true
 	_particles.restart()
@@ -76,7 +78,7 @@ func _physics_process(delta: float) -> void:
 	rotation = _velocity.angle()
 
 	if progress > 0.6:
-		modulate.a = (1.0 - progress) / 0.4
+		modulate.a = ((1.0 - progress) / 0.4) * _opacity
 
 	if _elapsed >= _lifetime:
 		_finish()

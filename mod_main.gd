@@ -5,14 +5,11 @@ const MYMODNAME_LOG: String = "Yoko-Fantasy"
 
 var dir: String = ""
 var ext_dir: String = ""
-var service_dir: String = ""
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _init() -> void:
     dir = ModLoaderMod.get_unpacked_dir() + MYMODNAME_MOD_DIR
     ext_dir = dir + "extensions/"
-    service_dir = ext_dir + "services/"
-
     # Add Extensions
     install_script_extensions()
 

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://effects/weapons/projectiles_on_hit_effect.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/handbell/4/handbell_4_projectile.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+key = "EFFECT_FANTASY_HANDBELL_PROC"
+text_key = ""
+value = 1
+custom_key = ""
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+weapon_stats = ExtResource( 2 )
+auto_target_enemy = true

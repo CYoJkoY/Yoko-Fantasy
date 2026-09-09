@@ -70,7 +70,7 @@ func init_wind_force(
 	_finish_delay = 0.0
 	_finishing = false
 	_finished = false
-	_visual_opacity = ProgressData.settings.projectile_opacity
+	_visual_opacity = FantasyProjectileVisualUtils.get_opacity()
 	modulate.a = _visual_opacity
 	visible = true
 

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/harp_pluck_3.wav-649ddfb56f598a0a096b210c4b08e650.sample"
+
+[deps]
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/harp_pluck_3.wav"
+dest_files=[ "res://.import/harp_pluck_3.wav-649ddfb56f598a0a096b210c4b08e650.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

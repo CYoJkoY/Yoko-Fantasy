@@ -5,6 +5,7 @@ const DURATION: float = 0.16
 var _elapsed: float = 0.0
 var _main: Node = null
 var _pool_id: int = 0
+var _opacity: float = 1.0
 
 onready var _speed_streak_sprite: Sprite = $"%SpeedStreakSprite" as Sprite
 onready var _primary_cut_sprite: Sprite = $"%PrimaryCutSprite" as Sprite
@@ -24,7 +25,8 @@ func play(at_position: Vector2, impact_rotation: float, main: Node, pool_id: int
 	_elapsed = 0.0
 	global_position = at_position
 	global_rotation = impact_rotation
-	modulate.a = ProgressData.settings.projectile_opacity
+	_opacity = FantasyProjectileVisualUtils.get_opacity()
+	modulate.a = _opacity
 	visible = true
 
 	_speed_streak_sprite.position = Vector2(-14.0, 0.0)

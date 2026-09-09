@@ -17,6 +17,7 @@ var _normal_direction: Vector2 = Vector2.UP
 var _wave_phase: float = 0.0
 var _elapsed_time: float = 0.0
 var _stop_head_scale: Vector2 = Vector2.ONE
+var _visual_opacity: float = 1.0
 
 var _history_positions: Array = []
 
@@ -84,7 +85,8 @@ func shoot_ex(p_from: Node,
 func shoot() -> void:
     .shoot()
     _time_until_max_range *= lifetime_multiplier
-    var opacity = ProgressData.settings.projectile_opacity
+    _visual_opacity = FantasyProjectileVisualUtils.get_opacity()
+    var opacity = _visual_opacity
     _head_sprite.modulate.a = opacity
     _head_sprite.scale = Vector2.ONE
     _line.modulate.a = opacity
@@ -129,7 +131,7 @@ func _process(_delta: float) -> void:
         return
 
     var progress = clamp(_elapsed_delay / max(0.001, stop_delay - 1.0), 0.0, 1.0)
-    var opacity = ProgressData.settings.projectile_opacity * (1.0 - progress)
+    var opacity = _visual_opacity * (1.0 - progress)
     _head_sprite.modulate.a = opacity
     _head_sprite.scale = _stop_head_scale.linear_interpolate(Vector2.ONE * 0.65, progress)
     _line.modulate.a = opacity
@@ -204,6 +206,7 @@ func _return_to_pool() -> void:
     _history_positions.clear()
     _elapsed_time = 0.0
     _stop_head_scale = Vector2.ONE
+    _visual_opacity = 1.0
     _init_line_points()
 
 

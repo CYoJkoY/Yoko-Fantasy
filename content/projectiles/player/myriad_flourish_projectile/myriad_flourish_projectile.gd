@@ -80,7 +80,7 @@ func _configure_effect(effects: Array) -> void:
 
 func shoot() -> void:
     .shoot()
-    var opacity = ProgressData.settings.projectile_opacity
+    var opacity = FantasyProjectileVisualUtils.get_opacity()
     _orb_root.modulate.a = opacity
     _trail_line.modulate.a = opacity
     _sparkle_particles.modulate.a = opacity

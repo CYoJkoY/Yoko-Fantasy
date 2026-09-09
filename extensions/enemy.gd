@@ -4,7 +4,6 @@ extends "res://entities/units/enemies/enemy.gd"
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
     _fantasy_extra_curse_enemy()
-    _fantasy_holy_reduce_health()
     _fantasy_buff_future_target()
     if Utils.plant_enemies_ids.has(enemy_id_hash): _fantasy_cannot_tree_damage()
 
@@ -12,7 +11,6 @@ func respawn() -> void:
     .respawn()
     EnemySpeedModifierService.clear_pooled_state(self)
     _fantasy_extra_curse_enemy()
-    _fantasy_holy_reduce_health()
     _fantasy_buff_future_target()
     if Utils.plant_enemies_ids.has(enemy_id_hash): _fantasy_cannot_tree_damage()
 
@@ -43,14 +41,6 @@ func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := t
     return dmg_value_result
 
 # ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
-func _fantasy_holy_reduce_health() -> void:
-    var holy_stat: int = int(Utils.average_all_player_stats(Utils.stat_fantasy_holy_hash))
-    if holy_stat <= 0: return
-
-    var reduction_factor: float = holy_stat / (holy_stat + 100.0)
-    current_stats.health -= int(current_stats.health * reduction_factor)
-    max_stats.health = current_stats.health
-
 func _fantasy_apply_holy_damage_bonus(dmg_value_result: GetDamageValueResult) -> GetDamageValueResult:
     if dead or !_outline_colors.has(Utils.CURSE_COLOR): return dmg_value_result
 

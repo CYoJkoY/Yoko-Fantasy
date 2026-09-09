@@ -1,36 +1,44 @@
 {
-  "name": "Fantasy",
-  "namespace": "Yoko",
-  "version_number": "1.1.0",
-  "description": "A systems-heavy fantasy expansion for Brotato with custom characters, jobs, weapons, items, enemies, combat systems, progression, maps, and UI content.",
-  "website_url": "",
-  "dependencies": [
-    "Yoko-NewContentLoader",
-    "Yoko-MoreStatsContainer"
-  ],
-  "extra": {
-    "godot": {
-      "authors": [
-        "CYoJkoY",
-        "CaveGood"
-      ],
-      "optional_dependencies": [],
-      "compatible_game_version": [
-        "1.15.4"
-      ],
-      "compatible_mod_loader_version": [
-        "6.3.0"
-      ],
-      "incompatibilities": [],
-      "load_before": [],
-      "tags": [
-        "content-expansion",
-        "fantasy",
-        "gameplay"
-      ],
-      "config_schema": {},
-      "description_rich": "A systems-heavy fantasy expansion for Brotato with custom characters, jobs, weapons, items, enemies, combat systems, progression, maps, and UI content.",
-      "image": null
-    }
-  }
+	"name": "Fantasy",
+	"namespace": "Yoko",
+	"version_number": "1.1.0",
+	"description": "A systems-heavy fantasy expansion for Brotato with custom characters, jobs, weapons, items, enemies, combat systems, progression, maps, and UI content.",
+	"website_url": "",
+	"dependencies": [
+		"Yoko-NewContentLoader",
+		"Yoko-MoreStatsContainer"
+	],
+	"extra": {
+		"godot": {
+			"authors": [
+				"CYoJkoY",
+				"CaveGood"
+			],
+			"optional_dependencies": [
+
+			],
+			"compatible_game_version": [
+				"1.1.15.4"
+			],
+			"compatible_mod_loader_version": [
+				"6.3.0"
+			],
+			"incompatibilities": [
+
+			],
+			"load_before": [
+
+			],
+			"tags": [
+				"content-expansion",
+				"fantasy",
+				"gameplay"
+			],
+			"config_schema": {
+
+			},
+			"description_rich": "A systems-heavy fantasy expansion for Brotato with custom characters, jobs, weapons, items, enemies, combat systems, progression, maps, and UI content.",
+			"image": null
+		}
+	}
 }

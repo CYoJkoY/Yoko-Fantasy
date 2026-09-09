@@ -1,0 +1,92 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://weapons/weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/cross_staff.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/cross_staff.gd" type="Script" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/vfx/textures/cross_staff_halo.webp" type="Texture" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/vfx/textures/cross_staff_flare.webp" type="Texture" id=6]
+[ext_resource path="res://particles/sprites/particle_9.png" type="Texture" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/vfx/textures/cross_staff_sun_halo.webp" type="Texture" id=8]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 2 )
+shader_param/width = 2.0
+shader_param/alpha = 1.0
+shader_param/desaturation = 0.0
+shader_param/texture_size = Vector2( 0, 0 )
+shader_param/outline_color_0 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_1 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_2 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0.0 ), 0.0, 1.5, 0, 0, Vector2( 0.35, 0.7 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -1.2, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.3, 0.75, 1 )
+colors = PoolColorArray( 1, 1, 0.9, 0, 1, 0.95, 0.7, 0.6, 1, 0.8, 0.3, 0.4, 1, 0.7, 0.2, 0 )
+
+[node name="CrossStaff" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
+outline_shader_mat = SubResource( 1 )
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, 0 )
+texture = ExtResource( 3 )
+
+[node name="Hitbox" parent="Sprite" index="0"]
+visible = false
+
+[node name="Muzzle" parent="Sprite" index="1"]
+position = Vector2( 48, 0 )
+
+[node name="StaffHalo" type="Sprite" parent="Sprite/Muzzle" index="0"]
+material = SubResource( 2 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+modulate = Color( 1, 0.94, 0.65, 0.7 )
+
+[node name="SunCoronaRing" type="Sprite" parent="Sprite/Muzzle" index="1"]
+visible = false
+material = SubResource( 2 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 8 )
+modulate = Color( 1, 0.95, 0.75, 0 )
+
+[node name="CastFlare" type="Sprite" parent="Sprite/Muzzle" index="2"]
+visible = false
+material = SubResource( 2 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 6 )
+modulate = Color( 1, 0.98, 0.85, 0 )
+
+[node name="CastParticles" type="CPUParticles2D" parent="Sprite/Muzzle" index="3"]
+material = SubResource( 2 )
+emitting = false
+amount = 4
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.3
+local_coords = false
+texture = ExtResource( 7 )
+emission_shape = 1
+emission_sphere_radius = 8.0
+direction = Vector2( 1, 0 )
+spread = 35.0
+gravity = Vector2( 0, -18 )
+initial_velocity = 20.0
+initial_velocity_random = 0.3
+scale_amount = 0.06
+scale_amount_random = 0.04
+scale_amount_curve = SubResource( 3 )
+color_ramp = SubResource( 4 )
+
+[node name="CollisionShape2D" parent="Range" index="0"]
+visible = false
+
+[editable path="Sprite/Hitbox"]

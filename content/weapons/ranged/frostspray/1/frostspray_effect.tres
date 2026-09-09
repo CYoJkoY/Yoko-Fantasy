@@ -11,5 +11,5 @@ custom_key = ""
 storage_method = 0
 effect_sign = 3
 custom_args = [  ]
-shard_count = 2
-shard_damage_percent = 30
+shard_count = 3
+shard_damage_percent = 25

@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/frostspray/frostspray_particle_mote.png" type="Texture" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/frostspray/frostspray_particle_ice.png" type="Texture" id=2]
+[ext_resource path="res://singletons/always_looking_at.gd" type="Script" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0.65 ), 0.0, 0.0, 0, 0, Vector2( 0.35, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.38 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.1, 0.35, 0.7, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.3, 0.9, 1, 0.95, 0.65, 0.95, 1, 0.9, 0.1, 0.55, 0.95, 0.6, 0.05, 0.25, 0.65, 0 )
+
+[sub_resource type="CanvasItemMaterial" id=4]
+blend_mode = 1
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0.3 ), 0.0, 0.0, 0, 0, Vector2( 0.45, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.2 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.2, 0.6, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.6, 0.95, 1, 0.9, 0.2, 0.7, 1, 0.6, 0.05, 0.3, 0.8, 0 )
+
+[node name="FrostsprayParticles" type="CPUParticles2D"]
+material = SubResource( 1 )
+amount = 4
+lifetime = 0.8
+randomness = 0.4
+draw_order = 1
+texture = ExtResource( 2 )
+emission_shape = 2
+emission_rect_extents = Vector2( 5, 14 )
+spread = 180.0
+gravity = Vector2( 0, -22 )
+initial_velocity = 12.0
+initial_velocity_random = 0.3
+damping = 14.0
+angular_velocity = 30.0
+angular_velocity_random = 0.5
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.44
+scale_amount_random = 0.2
+scale_amount_curve = SubResource( 2 )
+color = Color( 0.85, 0.95, 1, 1 )
+color_ramp = SubResource( 3 )
+anim_speed = 1.0
+anim_speed_random = 0.0
+local_coords = false
+script = ExtResource( 3 )
+direction = Vector2( 1, 0 )
+
+[node name="SecondaryParticles" type="CPUParticles2D" parent="."]
+material = SubResource( 4 )
+amount = 3
+lifetime = 0.65
+local_coords = false
+texture = ExtResource( 1 )
+emission_shape = 2
+emission_rect_extents = Vector2( 6, 15 )
+spread = 180.0
+gravity = Vector2( 0, -12 )
+damping = 8.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.48
+scale_amount_random = 0.35
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 6 )

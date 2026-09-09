@@ -110,7 +110,7 @@ func _configure_effect(effects: Array) -> void:
 
 func shoot() -> void:
     .shoot()
-    _visual_opacity = ProgressData.settings.projectile_opacity
+    _visual_opacity = FantasyProjectileVisualUtils.get_opacity()
     _blade_root.modulate.a = _visual_opacity
     _afterimage_layer.modulate.a = _visual_opacity
     _stream_trail_sprite.modulate.a = 0.0

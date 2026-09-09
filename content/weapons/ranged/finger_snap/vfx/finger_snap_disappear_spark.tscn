@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/vfx/finger_snap_disappear_spark.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/finger_snap_projectile/textures/starlight_orb_bullet.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/vfx/textures/star_cross_flare.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/vfx/textures/star_burst_shard.webp" type="Texture" id=4]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0.4 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 1, 1, 0.9, 0.9, 1, 0.85, 0.45, 0.6, 1, 0.6, 0.1, 0 )
+
+[node name="FingerSnapDisappearSpark" type="Node2D"]
+z_index = 8
+z_as_relative = false
+script = ExtResource( 1 )
+
+[node name="Orb" type="Sprite" parent="."]
+material = SubResource( 1 )
+scale = Vector2( 0.38, 0.38 )
+texture = ExtResource( 2 )
+
+[node name="Glint" type="Sprite" parent="."]
+material = SubResource( 1 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 3 )
+
+[node name="Dust" type="CPUParticles2D" parent="."]
+material = SubResource( 1 )
+emitting = false
+amount = 3
+lifetime = 0.16
+one_shot = true
+explosiveness = 0.85
+local_coords = false
+texture = ExtResource( 4 )
+emission_shape = 1
+emission_sphere_radius = 4.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 15.0
+initial_velocity_random = 0.4
+spread = 180.0
+scale_amount = 0.1
+scale_amount_random = 0.05
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )

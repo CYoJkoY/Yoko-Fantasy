@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/myriad_windblades/myriad_windblades_particle_whisper.png" type="Texture" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/myriad_windblades/myriad_windblades_particle_blade.png" type="Texture" id=2]
+[ext_resource path="res://singletons/always_looking_at.gd" type="Script" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 0.35, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.35 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.08, 0.35, 0.7, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.25, 0.95, 0.85, 0.92, 0.7, 0.98, 1, 0.85, 0.15, 0.75, 0.7, 0.45, 0.05, 0.35, 0.35, 0 )
+
+[sub_resource type="CanvasItemMaterial" id=4]
+blend_mode = 1
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0.35 ), 0.0, 0.0, 0, 0, Vector2( 0.4, 0.9 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.15 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.12, 0.5, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.35, 0.95, 0.85, 0.55, 0.65, 0.98, 0.92, 0.35, 0.05, 0.3, 0.3, 0 )
+
+[node name="WindbladesParticles" type="CPUParticles2D"]
+material = SubResource( 1 )
+amount = 5
+lifetime = 0.8
+lifetime_randomness = 0.2
+randomness = 0.35
+draw_order = 1
+texture = ExtResource( 2 )
+emission_shape = 2
+emission_rect_extents = Vector2( 5, 14 )
+spread = 180.0
+gravity = Vector2( 0, -18 )
+initial_velocity = 10.0
+initial_velocity_random = 0.3
+orbit_velocity = 0.48
+orbit_velocity_random = 0.15
+radial_accel = 20.0
+radial_accel_random = 0.2
+tangential_accel = 12.0
+damping = 4.0
+angular_velocity = 90.0
+angular_velocity_random = 0.4
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.44
+scale_amount_random = 0.2
+scale_amount_curve = SubResource( 2 )
+color = Color( 0.85, 1, 0.95, 1 )
+color_ramp = SubResource( 3 )
+anim_speed = 1.0
+anim_speed_random = 0.0
+local_coords = false
+script = ExtResource( 3 )
+direction = Vector2( 1, 0 )
+
+[node name="SecondaryParticles" type="CPUParticles2D" parent="."]
+material = SubResource( 4 )
+amount = 5
+lifetime = 0.85
+lifetime_randomness = 0.25
+local_coords = false
+texture = ExtResource( 1 )
+emission_shape = 2
+emission_rect_extents = Vector2( 6, 15 )
+spread = 180.0
+gravity = Vector2( 0, -15 )
+initial_velocity = 8.0
+initial_velocity_random = 0.4
+orbit_velocity = 0.38
+orbit_velocity_random = 0.2
+radial_accel = 24.0
+radial_accel_random = 0.25
+tangential_accel = 16.0
+damping = 3.0
+angle = 360.0
+angle_random = 1.0
+angular_velocity = 35.0
+angular_velocity_random = 0.5
+scale_amount = 0.5
+scale_amount_random = 0.25
+scale_amount_curve = SubResource( 5 )
+color_ramp = SubResource( 6 )

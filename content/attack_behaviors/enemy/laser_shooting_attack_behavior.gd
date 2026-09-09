@@ -1,8 +1,14 @@
 extends ShootingAttackBehavior
 
 onready var main: Main = Utils.get_scene_node()
+export(bool) var use_map_diagonal_range = false
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
+func _ready() -> void:
+	._ready()
+	if use_map_diagonal_range:
+		max_range = int(ceil(ZoneService.get_current_zone_rect().size.length()))
+
 func spawn_projectile(rot: float, pos: Vector2, spd: int) -> Node:
 	if !_has_live_shooting_context(): return null
 

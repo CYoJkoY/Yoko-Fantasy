@@ -26,6 +26,7 @@ var _player_index: int = 0
 var _weapon_pos: int = -1
 var _crit_chance: float = 0.05
 var _crit_damage: float = 1.5
+var _opacity: float = 1.0
 
 onready var _sprite: Sprite = $"%Sprite"
 onready var _particles: CPUParticles2D = $"%Particles"
@@ -52,7 +53,8 @@ func launch_advanced(
 ) -> void:
 	_main = main
 	_pool_id = pool_id
-	_damage = max(1, damage) as int
+	_opacity = FantasyProjectileVisualUtils.get_opacity()
+	_damage = int(max(1, damage))
 	_player_index = player_index
 	_weapon_pos = weapon_pos
 	_crit_chance = crit_chance
@@ -87,7 +89,7 @@ func launch_advanced(
 	_sprite.texture = SHARD_TEXTURES[tex_idx]
 	_sprite.rotation = 0.0
 	_sprite.scale = Vector2.ONE * scale_mult
-	modulate.a = 1.0
+	modulate.a = _opacity
 
 	_particles.emitting = true
 	_particles.restart()
@@ -109,7 +111,7 @@ func _physics_process(delta: float) -> void:
 	_velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * _drag_coefficient)
 
 	if progress > 0.45:
-		modulate.a = (1.0 - progress) / 0.55
+		modulate.a = ((1.0 - progress) / 0.55) * _opacity
 
 	if _elapsed >= _lifetime:
 		_finish()

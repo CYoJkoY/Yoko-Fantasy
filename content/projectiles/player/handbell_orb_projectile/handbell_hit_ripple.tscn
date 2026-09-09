@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/handbell_orb_projectile/handbell_hit_ripple.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/handbell_orb_projectile/handbell_ripple_ring.png" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/handbell_orb_projectile/handbell_sparkle.png" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/handbell_orb_projectile/handbell_orb_glow.png" type="Texture" id=4]
+
+[node name="HandbellHitRipple" type="Node2D"]
+z_index = 5
+script = ExtResource( 1 )
+
+[node name="Flash" type="Sprite" parent="."]
+modulate = Color( 1, 0.98, 0.85, 0.95 )
+texture = ExtResource( 4 )
+
+[node name="Ring" type="Sprite" parent="."]
+modulate = Color( 1, 0.95, 0.65, 0.95 )
+texture = ExtResource( 2 )
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 6
+lifetime = 0.24
+one_shot = true
+explosiveness = 0.9
+texture = ExtResource( 3 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 130.0
+initial_velocity_random = 0.4
+scale_amount = 0.9
+scale_amount_random = 0.3
+color = Color( 1, 0.97, 0.75, 1 )
