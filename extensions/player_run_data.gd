@@ -2,12 +2,14 @@ extends "res://singletons/player_run_data.gd"
 
 var jobs: Dictionary = {}
 var fantasy_synthesis_pity_data: Dictionary = {}
+var fantasy_consumable_pickup_counts: Dictionary = {}
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func duplicate(): # ! Avoid class problem
     var copy =.duplicate()
     copy.jobs = jobs.duplicate()
     copy.fantasy_synthesis_pity_data = fantasy_synthesis_pity_data.duplicate()
+    copy.fantasy_consumable_pickup_counts = fantasy_consumable_pickup_counts.duplicate()
 
     return copy
 
@@ -19,6 +21,7 @@ func serialize() -> Dictionary:
 
     serialized.jobs = serialized_jobs
     serialized.fantasy_synthesis_pity_data = fantasy_synthesis_pity_data.duplicate()
+    serialized.fantasy_consumable_pickup_counts = fantasy_consumable_pickup_counts.duplicate()
 
     return serialized
 
@@ -40,6 +43,7 @@ func deserialize(data: Dictionary): # ! Avoid class problem
             jobs[int(job_stage)] = job_data
 
     fantasy_synthesis_pity_data = data.get("fantasy_synthesis_pity_data", {}).duplicate()
+    fantasy_consumable_pickup_counts = data.get("fantasy_consumable_pickup_counts", {}).duplicate()
 
     return self
 

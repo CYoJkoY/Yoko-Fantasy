@@ -5,7 +5,6 @@ var _fantasy_active_decaying_slow_sources: Dictionary = {}
 var _fantasy_decaying_slow_source_enemies: Dictionary = {}
 var _fantasy_decaying_slow_original_materials: Dictionary = {}
 var _fantasy_decaying_slow_enemy_counts: Dictionary = {}
-var consumables_picked_up_this_run: Dictionary = {}
 var _fantasy_clock_tower_hat_sprite: Sprite = null
 var _fantasy_clock_tower_hat_tween: Tween = null
 var _fantasy_clock_tower_hat_material: ShaderMaterial = null
@@ -372,14 +371,24 @@ func _fantasy_add_stat_when_pickup_consumable(consumable_data: ConsumableData) -
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_add_stat_when_pickup_consumable_hash, player_index)
     if effect_items.empty(): return
 
+    # Player nodes are recreated each wave. Keep progress in the saved run data,
+    # keyed by the string ID so JSON round-trips cannot change key types.
+    var pickup_counts: Dictionary = RunData.players_data[player_index].fantasy_consumable_pickup_counts
+    var pickup_key: String = consumable_data.my_id
+    var pickup_count: int = int(pickup_counts.get(pickup_key, 0)) + 1
+    var counted: bool = false
+
     for effect_item in effect_items:
         var consumable_id: int = effect_item[0]
 
         if consumable_data.my_id_hash != consumable_id: continue
 
-        consumables_picked_up_this_run[consumable_id] = consumables_picked_up_this_run.get(consumable_id, 0) + 1
         var need_consumable_nb: int = effect_item[1]
-        if consumables_picked_up_this_run[consumable_id] % need_consumable_nb != 0: continue
+        if need_consumable_nb <= 0: continue
+        if !counted:
+            pickup_counts[pickup_key] = pickup_count
+            counted = true
+        if pickup_count % need_consumable_nb != 0: continue
 
         var stat: int = effect_item[2]
         var stat_nb: int = effect_item[3]

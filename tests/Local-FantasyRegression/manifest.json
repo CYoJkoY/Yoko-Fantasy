@@ -1,0 +1,9 @@
+{
+  "name": "FantasyRegression",
+  "namespace": "Local",
+  "version_number": "1.0.0",
+  "description": "Opt-in isolated-save regression tests for Fantasy mechanics.",
+  "website_url": "",
+  "dependencies": ["Yoko-Fantasy"],
+  "extra": {"godot": {"authors": ["Contributors"], "compatible_mod_loader_version": ["6.3.0"], "compatible_game_version": ["1.1.15.4"]}}
+}

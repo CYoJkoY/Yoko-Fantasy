@@ -79,6 +79,7 @@ func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats:
 
         for existing_erosion in active_erosions:
             if existing_erosion.source_id != source_id: continue
+            if existing_erosion.player_index != from_player_index: continue
 
             existing_erosion.stacks += 1
             existing_erosion.marked_for_removal = false
