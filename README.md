@@ -5,7 +5,7 @@
   <p>
     <a href="https://github.com/CYoJkoY/Yoko-Fantasy/releases"><img src="https://img.shields.io/github/v/release/CYoJkoY/Yoko-Fantasy?display_name=tag&sort=semver&style=flat-square&label=release" alt="Latest release"></a>
     <a href="https://github.com/CYoJkoY/Yoko-Fantasy/actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/CYoJkoY/Yoko-Fantasy/release.yml?style=flat-square&label=build" alt="Build status"></a>
-    <img src="https://img.shields.io/badge/Brotato-1.15.4-478CBF?style=flat-square" alt="Brotato 1.15.4">
+    <img src="https://img.shields.io/badge/Brotato-1.1.15.4-478CBF?style=flat-square" alt="Brotato 1.1.15.4">
     <img src="https://img.shields.io/badge/Mod%20Loader-6.3.0-5965FF?style=flat-square" alt="Mod Loader 6.3.0">
     <a href="LICENSE"><img src="https://img.shields.io/github/license/CYoJkoY/Yoko-Fantasy?style=flat-square" alt="MIT License"></a>
   </p>
@@ -54,7 +54,7 @@ The architecture keeps content inspectable while attaching deeper behavior to th
 
 ## <img src="assets/readme/icons/installation.svg" width="20" height="20" alt=""> Installation
 
-Requirements: **Brotato 1.15.4**, **Brotato Mod Loader 6.3.0**, [Yoko-NewContentLoader](https://github.com/CYoJkoY/Yoko-NewContentLoader), and [Yoko-MoreStatsContainer](https://github.com/CYoJkoY/Yoko-MoreStatsContainer).
+Requirements: **Brotato 1.1.15.4**, **Brotato Mod Loader 6.3.0**, [Yoko-NewContentLoader](https://github.com/CYoJkoY/Yoko-NewContentLoader), and [Yoko-MoreStatsContainer](https://github.com/CYoJkoY/Yoko-MoreStatsContainer).
 
 1. Install Brotato and the required Mod Loader version.
 2. Install both required Yoko dependencies.
