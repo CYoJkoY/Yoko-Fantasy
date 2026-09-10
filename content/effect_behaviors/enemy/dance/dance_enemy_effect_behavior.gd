@@ -15,6 +15,7 @@ var _previous_sprite_rotation: float = 0.0
 
 var active_dances: Dictionary = {}
 var is_active: bool = false
+var is_cooling_down: bool = false
 var from_player: Player = null
 var dance_id: int = Keys.empty_hash
 var dance_speed: float = 300.0
@@ -91,7 +92,7 @@ func on_hurt(hitbox: Hitbox) -> void:
 
         dance.current_times -= dance.need_times
         dance.stacks += 1
-        if is_active: continue
+        if is_active or is_cooling_down: continue
 
         fa_start_dance(dance)
 
@@ -105,12 +106,14 @@ func on_hurt(hitbox: Hitbox) -> void:
 
         dance.current_times -= dance.need_times
         dance.stacks += 1
-        if is_active: continue
+        if is_active or is_cooling_down: continue
 
         fa_start_dance(dance)
 
 func on_death(_die_args: Entity.DieArgs) -> void:
     if is_active: fa_cleanup()
+    timer.stop()
+    is_cooling_down = false
 
 # ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_start_dance(dance: ActiveDance) -> void:
@@ -127,6 +130,11 @@ func fa_start_dance(dance: ActiveDance) -> void:
     set_physics_process(true)
 
 func fa_on_dance_end() -> void:
+    if is_active:
+        fa_cleanup()
+        return
+
+    is_cooling_down = false
     var dance: ActiveDance = active_dances.get(dance_id)
     if dance.stacks > 0:
         fa_start_dance(dance)
@@ -146,7 +154,9 @@ func fa_cleanup() -> void:
     _parent.set_physics_process(true)
     if _parent is Boss and !_parent.dead: _parent._check_state_timer.start()
 
+    is_cooling_down = is_active and !_parent.dead
     is_active = false
     timer.stop()
+    if is_cooling_down: timer.start(2.0)
     set_physics_process(false)
     _parent.sprite.rotation_degrees = _previous_sprite_rotation

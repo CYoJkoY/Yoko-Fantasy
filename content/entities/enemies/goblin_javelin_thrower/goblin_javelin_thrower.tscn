@@ -518,6 +518,7 @@ max_cd_randomization = 18
 damage = 2
 max_range = 1000
 attack_anim_speed = 2.0
+base_direction_randomization = 0.1570796
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5

@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-key = "stat_percent_damage"
-text_key = ""
-value = 6
+key = "burning_cooldown_reduction"
+text_key = "effect_burning_cooldown_reduction"
+value = 4
 custom_key = ""
 storage_method = 0
 effect_sign = 3
