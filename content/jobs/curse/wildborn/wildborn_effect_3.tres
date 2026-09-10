@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://effects/items/double_key_value_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+key = "sea_pig"
+text_key = "EFFECT_FANTASY_BONUS_DROP_FROM_TARGET"
+value = 5
+custom_key = "fantasy_bonus_drop_from_target"
+storage_method = 0
+effect_sign = 3
+custom_args = [  ]
+key2 = "SEA_PIG_NAME"
+value2 = 0

@@ -37,6 +37,9 @@ func get_stats_value() -> int:
 func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := true, dodgeable := true, is_crit := false, hitbox: Hitbox = null, is_burning := false) -> GetDamageValueResult:
     var dmg_value_result: GetDamageValueResult =.get_damage_value(dmg_value, from_player_index, armor_applied, dodgeable, is_crit, hitbox, is_burning)
     dmg_value_result = _fantasy_apply_holy_damage_bonus(dmg_value_result)
+    if !dead and _outline_colors.has(Utils.CURSE_COLOR) and from_player_index >= 0 and from_player_index < RunData.get_player_count():
+        var curse_damage_bonus: int = RunData.get_player_effect(Utils.fantasy_damage_against_cursed_hash, from_player_index)
+        dmg_value_result.value = int(dmg_value_result.value * (1.0 + curse_damage_bonus / 100.0))
 
     return dmg_value_result
 

@@ -117,6 +117,13 @@ func fa_add_job(job: UpgradeData, player_index: int) -> void:
     players_data[player_index].jobs[job_slot] = job
     update_item_related_effects(player_index)
 
+func fa_add_fractional_xp(amount: float, player_index: int) -> void:
+    var effects: Dictionary = get_player_effects(player_index)
+    var total: float = effects[Utils.fantasy_fractional_xp_hash] + amount
+    var whole_xp: int = int(total)
+    effects[Utils.fantasy_fractional_xp_hash] = total - whole_xp
+    add_xp(whole_xp, player_index)
+
 func fa_get_current_job(job_stage: int, player_index: int) -> UpgradeData:
     return players_data[player_index].jobs.get(job_stage, null)
 

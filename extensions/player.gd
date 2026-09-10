@@ -54,6 +54,7 @@ func on_consumable_picked_up(consumable_data: ConsumableData) -> void:
     .on_consumable_picked_up(consumable_data)
     _fantasy_dmg_when_pickup_consumable(consumable_data)
     _fantasy_add_stat_when_pickup_consumable(consumable_data)
+    _fantasy_gain_xp_on_consumable(consumable_data)
 
 func fa_begin_healing_star_collection(receiver) -> void:
     _fa_healing_star_receiver = receiver
@@ -357,6 +358,12 @@ func _fantasy_lose_hp_per_second_min_hp() -> bool:
     else: var _healed: int = on_healing_effect(-lose_hp_per_second)
 
     return true
+
+func _fantasy_gain_xp_on_consumable(consumable_data: ConsumableData) -> void:
+    var effect_items: Array = RunData.get_player_effect(Utils.fantasy_xp_on_consumable_hash, player_index)
+    for effect in effect_items:
+        if effect[0] == consumable_data.my_id_hash:
+            RunData.fa_add_fractional_xp(RunData.get_next_level_xp_needed(player_index) * effect[1] / 100.0, player_index)
 
 func _fantasy_on_soul_entered(item: Item) -> void:
     if !(item is Consumable): return

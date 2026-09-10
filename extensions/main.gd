@@ -14,6 +14,7 @@ func _ready() -> void:
     _fantasy_connect_effect()
     _fantasy_queue_job_upgrades()
     _fantasy_start_time_bonus_current_health_damage_timer()
+    _fantasy_start_enemy_spawn_timers()
 
 func on_bonus_gold_changed(value: int) -> void:
     .on_bonus_gold_changed(value)
@@ -44,6 +45,8 @@ func _on_enemy_died(enemy: Enemy, args: Entity.DieArgs) -> void:
     ._on_enemy_died(enemy, args)
     _fantasy_lightning_chain_on_death(enemy)
     _fantasy_change_living_cursed_enemy(enemy, false)
+    if !_cleaning_up:
+        _fantasy_projectiles_on_enemy_death(enemy)
 
 func on_gold_picked_up(gold: Node, player_index: int) -> void:
     .on_gold_picked_up(gold, player_index)
@@ -80,6 +83,23 @@ func _fantasy_start_time_bonus_current_health_damage_timer() -> void:
             timer.connect("timeout", self , "fa_time_bonus_current_health_damage", [effect[2] / 100.0, player_index, effect[0]])
             add_child(timer)
             FaTimers.append(timer)
+
+func _fantasy_start_enemy_spawn_timers() -> void:
+    for player_index in range(_players.size()):
+        var effect_items: Array = RunData.get_player_effect(Utils.fantasy_spawn_enemies_per_interval_hash, player_index)
+        for effect in effect_items:
+            var enemy_scene: PackedScene = load(effect[2])
+            var timer: Timer = Timer.new()
+            timer.wait_time = effect[1]
+            timer.autostart = true
+            timer.connect("timeout", self, "_fantasy_spawn_enemies", [enemy_scene, effect[0], effect[3]])
+            add_child(timer)
+            FaTimers.append(timer)
+
+func _fantasy_spawn_enemies(enemy_scene: PackedScene, count: int, spawn_edge_of_map: bool) -> void:
+    for _i in range(count):
+        var pos: Vector2 = _entity_spawner.get_spawn_pos_in_area(Vector2.ZERO, -1, 0, spawn_edge_of_map)
+        _entity_spawner.spawn_entity_birth(EntityType.ENEMY, enemy_scene, pos)
 
 func _fantasy_change_living_cursed_enemy(enemy: Enemy, is_add: bool) -> void:
     if !enemy._outline_colors.has(Utils.CURSE_COLOR): return
@@ -119,6 +139,22 @@ func _fantasy_random_reload_when_pickup_gold(player_index: int) -> void:
         RunData.ncl_add_effect_tracking_value(tracking_key_hash, 1, player_index)
 
         WeaponService.fantasy_reset_weapon_cooldown(random_weapon)
+
+func _fantasy_projectiles_on_enemy_death(enemy: Enemy) -> void:
+    for player in _players:
+        if player.dead: continue
+        var effect_items: Array = RunData.get_player_effect(Utils.fantasy_projectile_on_enemy_death_hash, player.player_index)
+        for effect in effect_items:
+            if !Utils.get_chance_success(effect.value / 100.0): continue
+            var target: Enemy = Utils.fa_get_highest_health_enemy(_entity_spawner.get_all_enemies(false), enemy) if effect.target_highest_health else _entity_spawner.get_rand_enemy(enemy)
+            if target == null: continue
+            var stats: RangedWeaponStats = WeaponService.init_ranged_stats(effect.weapon_stats, player.player_index, true)
+            var direction: float = (target.global_position - enemy.global_position).angle()
+            var spawn_args: WeaponServiceSpawnProjectileArgs = WeaponServiceSpawnProjectileArgs.new()
+            spawn_args.from_player_index = player.player_index
+            var projectile: Node = WeaponService.manage_special_spawn_projectile(enemy, stats, direction, false, _entity_spawner, player, spawn_args)
+            if projectile.has_method("fa_set_initial_homing_target"):
+                projectile.call_deferred("fa_set_initial_homing_target", target)
 
 func _fantasy_lightning_chain_on_death(enemy: Enemy) -> void:
     if enemy == null:
