@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=45 format=2]
+[gd_resource type="Resource" load_steps=46 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/apostle/apostle_data.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/rotten_plant/rotten_plant_data.tres" type="Resource" id=2]
@@ -46,6 +46,8 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/curse/seer/seer_data.tres" type="Resource" id=182]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/curse_per_accuracy_loss/curse_per_accuracy_loss_effect.gd" type="Script" id=183]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/performer/performer_data.tres" type="Resource" id=184]
 
 [resource]
 script = ExtResource( 4 )
@@ -105,4 +107,4 @@ translation_keys_needing_percent = {
 scene_effect_behaviors = [  ]
 enemy_effect_behaviors = [  ]
 player_effect_behaviors = [  ]
-jobs = [ ExtResource( 23 ), ExtResource( 48 ), ExtResource( 179 ), ExtResource( 180 ), ExtResource( 181 ), ExtResource( 182 ) ]
+jobs = [ ExtResource( 23 ), ExtResource( 48 ), ExtResource( 179 ), ExtResource( 180 ), ExtResource( 181 ), ExtResource( 182 ), ExtResource( 184 ) ]
