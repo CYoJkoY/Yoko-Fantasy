@@ -1,7 +1,7 @@
 extends Effect
 
 export(Array, Array) var scaling_stats = [["stat_curse", 1.0]]
-export(int, 0, 100) var chance = 25
+export(float, 0, 100) var chance = 25.0
 export(int) var times = 3
 export(int) var cd = 30
 export(int, 0, 100) var crit_chance = 0
@@ -73,7 +73,7 @@ func serialize() -> Dictionary:
 func deserialize_and_merge(serialized: Dictionary) -> void:
     .deserialize_and_merge(serialized)
     scaling_stats = Utils.convert_to_hash_array(serialized.get("scaling_stats", []))
-    chance = serialized.chance as int
+    chance = serialized.chance as float
     times = serialized.times as int
     cd = serialized.cd as int
     crit_chance = serialized.crit_chance as int

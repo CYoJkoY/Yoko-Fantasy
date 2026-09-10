@@ -142,5 +142,35 @@ func run_tests():
     yield(get_tree().create_timer(0.2), "timeout")
     test_erosion_ownership()
     test_pickup_progress()
+    test_item_save_load()
     print("CC_RESULT ", to_json({"checks": checks, "failures": failures}))
     get_tree().quit(0 if failures.empty() else 1)
+
+func test_item_save_load():
+    prepare()
+    for item_id in ["item_fantasy_prism_tower", "item_fantasy_silver_pocket_watch", "item_fantasy_nuclear_drum"]:
+        var original = ItemService.get_item_from_id(Keys.generate_hash(item_id))
+        for cursed in [false, true]:
+            var item = original.duplicate()
+            if cursed:
+                item = ProgressData.get_dlc_data("abyssal_terrors").curse_item(item, 0, true)
+            var restored = original.duplicate()
+            restored.deserialize_and_merge(JSON.parse(to_json(item.serialize())).result)
+            for locale in ["en", "de"]:
+                TranslationServer.set_locale(locale)
+                check(restored.get_effects_text(0) == item.get_effects_text(0), item_id + " tooltip survives JSON, cursed=" + str(cursed) + " " + locale)
+            if item_id == "item_fantasy_nuclear_drum":
+                check(restored.effects[1].chance == item.effects[1].chance, "fractional Erosion chance retained")
+            if item_id == "item_fantasy_silver_pocket_watch":
+                check(restored.effects[0].trigger_times == item.effects[0].trigger_times, "watch trigger count retained")
+    var prism = ItemService.get_item_from_id(Keys.generate_hash("item_fantasy_prism_tower"))
+    var legacy = JSON.parse(to_json(prism.serialize())).result
+    for i in legacy.effects.size():
+        legacy.effects[i].effect_id = "turret" if i == 0 else "effect"
+    var legacy_before = to_json(legacy)
+    var restored = prism.duplicate()
+    restored.deserialize_and_merge(legacy)
+    check(to_json(legacy) == legacy_before, "legacy migration leaves input untouched")
+    for i in prism.effects.size():
+        check(restored.effects[i].get_id() == prism.effects[i].get_id(), "legacy Prism factory restored " + str(i))
+    check(restored.get_effects_text(0) == prism.get_effects_text(0), "legacy Prism description restored")

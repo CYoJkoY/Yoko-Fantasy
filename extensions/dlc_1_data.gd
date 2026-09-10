@@ -37,7 +37,7 @@ func _fantasy_curse_item(cursed_item_data: ItemParentData, turn_randomization_of
             ["fantasy_erosion", _, _]:
                 new_effect.scaling_stats = _boost_scaling_sats(new_effect.scaling_stats.duplicate(), effect_modifier)
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier)
-                new_effect.times = Utils.ncl_curse_effect_value(new_effect.times, effect_modifier)
+                new_effect.times = int(Utils.ncl_curse_effect_value(new_effect.times, effect_modifier))
             ["fantasy_dmg_when_pickup_consumable", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier, {"process_negative": false, "step": 1})
                 new_effect.scaling_stats = _boost_scaling_sats(new_effect.scaling_stats.duplicate(), effect_modifier)
@@ -46,12 +46,12 @@ func _fantasy_curse_item(cursed_item_data: ItemParentData, turn_randomization_of
                 new_effect.base_cooldown = Utils.ncl_curse_effect_value(new_effect.base_cooldown, effect_modifier, {"is_negative": true, "step": 1})
                 new_effect.scaling_stats = _boost_scaling_sats(new_effect.scaling_stats.duplicate(), effect_modifier)
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier)
-                new_effect.times = Utils.ncl_curse_effect_value(new_effect.times, effect_modifier)
+                new_effect.times = int(Utils.ncl_curse_effect_value(new_effect.times, effect_modifier))
             ["fantasy_tree_radius_tempstats", _, _]:
                 new_effect.range_rate = Utils.ncl_curse_effect_value(new_effect.range_rate, effect_modifier, {"process_negative": false})
             ["fantasy_decaying_slow_enemy_when_below_hp", _, _]:
                 new_effect.value2 = Utils.ncl_curse_effect_value(new_effect.value2, effect_modifier)
-                new_effect.trigger_times = Utils.ncl_curse_effect_value(new_effect.trigger_times, effect_modifier)
+                new_effect.trigger_times = int(ceil(Utils.ncl_curse_effect_value(new_effect.trigger_times, effect_modifier)))
             ["fantasy_projectiles_every_x_melee_shoot", _, _]:
                 new_effect.projectile_stats = _boost_weapon_stats_damage(new_effect.projectile_stats, effect_modifier)
             [_, _, Utils.fantasy_curse_all_on_reroll_hash]:

@@ -25,3 +25,5 @@ Coverage:
 - Co-op pickup progress is independent for each player.
 
 These focused tests do not establish complete coverage of the expansion, rendering, multiplayer networking or every third-party mod combination.
+
+Additional item regressions cover normal/cursed Prism Tower, Silver Pocket Watch and Nuclear Drum descriptions through JSON save/load, fractional Erosion chance, integer watch trigger counts, and migration of old Prism effect IDs without changing the input dictionary. The two-stage local audit tested 299 installed items in normal/cursed variants (598 cases); the broad harness and proprietary compatibility overlay are not included here. Base-game ProjectileEffect, DoubleValueEffect and Lootworm workarounds remain outside this PR.

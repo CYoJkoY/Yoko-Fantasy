@@ -10,3 +10,6 @@ func get_args(player_index: int) -> Array:
             "player_index": player_index
         }
     )]
+
+static func get_id() -> String:
+    return "fantasy_prism_tower"

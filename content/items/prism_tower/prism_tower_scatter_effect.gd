@@ -48,3 +48,6 @@ func deserialize_and_merge(serialized: Dictionary) -> void:
     base_chain_targets = serialized.get("base_chain_targets", base_chain_targets) as int
     targets_scaling_stats = Utils.convert_to_hash_array(serialized.get("targets_scaling_stats", targets_scaling_stats))
     max_chain_targets = serialized.get("max_chain_targets", max_chain_targets) as int
+
+static func get_id() -> String:
+    return "fantasy_prism_scatter"

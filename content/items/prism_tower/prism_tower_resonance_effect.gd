@@ -19,3 +19,6 @@ func serialize() -> Dictionary:
 func deserialize_and_merge(serialized: Dictionary) -> void:
     .deserialize_and_merge(serialized)
     resonance_min_towers = serialized.get("resonance_min_towers", resonance_min_towers) as int
+
+static func get_id() -> String:
+    return "fantasy_prism_resonance"

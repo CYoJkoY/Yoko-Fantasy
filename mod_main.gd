@@ -16,6 +16,7 @@ func _init() -> void:
 # ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func install_script_extensions() -> void:
     var extensions: Array = [
+        "item_audit/item_parent_data.gd",
 
         "main.gd",
         # SYSTEMS: Job[ 1/6 ]
