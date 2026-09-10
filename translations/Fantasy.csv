@@ -595,7 +595,7 @@ STAT_FANTASY_CRIT_DAMAGE,% Crit Damage,% Dégâts critiques,%暴击伤害,%ク�
 JOB_FANTASY_DIVINE_ARCHER,Divine Archer,Archer divin,神弓手,神弓使い,신성한 궁수,神弓手,Божественный лучник,Boski łucznik,Arquero divino,Arqueiro divino,Göttlicher Bogenschütze,İlahi Okçu,Arciere divino
 JOB_FANTASY_WIND_WALKER,Wind Walker,Marchevent,风行者,風の行者,바람 걷는 자,風行者,Ходящий по ветру,Chodzący z wiatrem,Caminante del viento,Andarilho do vento,Windgänger,Rüzgar Yürüyücüsü,Camminatore del vento
 JOB_FANTASY_CANNONIER,Cannonier,Canonnier,炮手,砲手,포수,炮手,Канонир,Kanonier,Cañonero,Canhoneiro,Kanonier,Topçu,Cannoniere
-EFFECT_FANTASY_SPECIFIC_SET_WEAPON_BONUSES,{0}{1} for every {4} weapon of type {2} you have[{3}],{0}{1} pour chaque {4} arme de type {2} que vous possédez[{3}],每持有{4}把{2}类武器{0}{1}[{3}],所持する{2}タイプの武器{4}本ごとに{0}{1}[{3}],보유한 {2} 유형 무기 {4}개마다 {0}{1}[{3}],每持有{4}把{2}類武器{0}{1}[{3}],{0}{1} за каждое {4} оружие типа {2} у вас[{3}],{0}{1} za każde {4} broni typu {2} którą posiadasz[{3}],{0}{1} por cada {4} arma de tipo {2} que tengas[{3}],{0}{1} para cada {4} arma do tipo {2} que você tem[{3}],{0}{1} für jede {4} Waffe des Typs {2}, die du besitzt[{3}],"Sahip olduğun her {4} {2} tipi silah için {0}{1}[{3}],{0}{1} per ogni {4} arma di tipo {2} in tuo possesso[{3}]"
+EFFECT_FANTASY_SPECIFIC_SET_WEAPON_BONUSES,{0}{1} for every {4} weapon of type {2} you have[{3}],{0}{1} pour chaque {4} arme de type {2} que vous possédez[{3}],每持有{4}把{2}类武器{0}{1}[{3}],所持する{2}タイプの武器{4}本ごとに{0}{1}[{3}],보유한 {2} 유형 무기 {4}개마다 {0}{1}[{3}],每持有{4}把{2}類武器{0}{1}[{3}],{0}{1} за каждое {4} оружие типа {2} у вас[{3}],{0}{1} za każde {4} broni typu {2} którą posiadasz[{3}],{0}{1} por cada {4} arma de tipo {2} que tengas[{3}],{0}{1} para cada {4} arma do tipo {2} que você tem[{3}],{0}{1} pro {4} Waffen des Typs {2} in deinem Besitz [aktuell: {3}], die du besitzt[{3}],"Sahip olduğun her {4} {2} tipi silah için {0}{1}[{3}],{0}{1} per ogni {4} arma di tipo {2} in tuo possesso[{3}]"
 JOB_FANTASY_FIREARMS_MASTER,Firearms Master,Maître des armes à feu,枪械大师,火器の達人,화기 달인,槍械大師,Мастер огнестрела,Mistrz broni palnej,Maestro de armas de fuego,Mestre em armas de fogo,Feuerwaffenmeister,Ateşli Silah Ustası,Maestro delle armi da fuoco
 JOB_FANTASY_FIRE_MAGE,Fire Mage,Mage de feu,火法师,炎の魔道士,화염 마법사,火法師,Огненный маг,Mag ognia,Mago de fuego,Mago de fogo,Feuermagier,Ateş Büyücüsü,Mago del fuoco
 JOB_FANTASY_LIGHTNING_MAGE,Lightning Mage,Mage de foudre,雷法师,雷の魔道士,번개 마법사,雷法師,Маг молний,Mag piorunów,Mago de rayo,Mago do raio,Blitzmagier,Yıldırım Büyücüsü,Mago del fulmine
@@ -1441,7 +1441,7 @@ EFFECT_FANTASY_SHOP_ENTER_SYNTHESIS,"Upon entering the shop, there is a {0}% cha
 {3}","Po wejściu do sklepu jest {0} szansy na zsyntetyzowanie {1} w {2}
 {3}","Al entrar en la tienda, hay una probabilidad de {0} de sintetizar {1} en {2}
 {3}","Ao entrar na loja, há {0} de chance de sintetizar {1} em {2}
-{3}","Beim Betreten des Ladens besteht eine {0}-Chance, {1} zu {2} zu synthetisieren
+{3}","Beim Betreten des Ladens besteht eine Chance von {0}%, {1} zu {2} zu synthetisieren
 {3}","Dükkana girerken, {1} eşyasını {2} ile sentezleme şansı {0}
 {3}","Entrando nel negozio, c'è una probabilità del {0} di sintetizzare {1} in {2}
 {3}"
@@ -1455,7 +1455,7 @@ EFFECT_FANTASY_GEAR_SHOP_ENTER_SYNTHESIS,"Upon entering the shop, if you have {1
 {3}","Po wejściu do sklepu ten przedmiot lub broń ma {0} szansy na syntezę z {1} w {2}
 {3}","Al entrar en la tienda, este objeto o arma tiene una probabilidad del {0} de sintetizarse con {1} en {2}
 {3}","Ao entrar na loja, este item ou arma tem {0} de chance de se sintetizar com {1} em {2}
-{3}","Beim Betreten des Ladens hat dieser Gegenstand oder diese Waffe eine {0}-Chance, mit {1} zu {2} synthetisiert zu werden
+{3}","Wenn du beim Betreten des Ladens {1} besitzt, besteht eine Chance von {0}%, daraus {2} zu synthetisieren
 {3}","Dükkana girerken, bu eşya veya silahın {1} ile sentezlenerek {2} olma şansı {0}
 {3}","Entrando nel negozio, questo oggetto o arma ha il {0} di probabilità di essere sintetizzato con {1} in {2}
 {3}"
