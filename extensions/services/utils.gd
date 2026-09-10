@@ -16,6 +16,25 @@ var job_fantasy_melee_hash: int = Keys.generate_hash("job_fantasy_melee")
 var job_fantasy_ranged_hash: int = Keys.generate_hash("job_fantasy_ranged")
 var job_fantasy_universal_hash: int = Keys.generate_hash("job_fantasy_universal")
 var job_fantasy_holy_hash: int = Keys.generate_hash("job_fantasy_holy")
+var job_fantasy_curse_hash: int = Keys.generate_hash("job_fantasy_curse")
+var fantasy_damage_against_cursed_hash: int = Keys.generate_hash("fantasy_damage_against_cursed")
+var fantasy_spawn_enemies_per_interval_hash: int = Keys.generate_hash("fantasy_spawn_enemies_per_interval")
+var fantasy_curse_per_accuracy_loss_hash: int = Keys.generate_hash("fantasy_curse_per_accuracy_loss")
+var fantasy_projectile_on_enemy_death_hash: int = Keys.generate_hash("fantasy_projectile_on_enemy_death")
+var fantasy_xp_on_consumable_hash: int = Keys.generate_hash("fantasy_xp_on_consumable")
+var fantasy_fractional_xp_hash: int = Keys.generate_hash("fantasy_fractional_xp")
+
+func fa_get_highest_health_enemy(enemies: Array, excluded_enemy: Node = null) -> Enemy:
+    var target: Enemy = null
+    for enemy in enemies:
+        if !is_instance_valid(enemy) or enemy == excluded_enemy or enemy.dead or enemy.current_stats.health <= 0:
+            continue
+        if target == null or enemy.current_stats.health > target.current_stats.health:
+            target = enemy
+    return target
+
+func fa_get_curse_accuracy_loss(curse_per_point: int, player_index: int) -> int:
+    return -int(max(0.0, get_stat(Keys.stat_curse_hash, player_index)) / curse_per_point)
 
 func fa_is_damage_job_way(way_hash: int) -> bool:
 	return [
@@ -179,6 +198,7 @@ func fa_get_job_category_text(job_data: UpgradeData) -> String:
 		job_fantasy_melee_hash: category_text = "JOB_MELEE"
 		job_fantasy_ranged_hash: category_text = "JOB_RANGED"
 		job_fantasy_holy_hash: category_text = "JOB_HOLY"
+		job_fantasy_curse_hash: category_text = "JOB_CURSE"
 		job_fantasy_universal_hash: category_text = "JOB_UNIVERSAL"
 
 	var stage_text: String = ""

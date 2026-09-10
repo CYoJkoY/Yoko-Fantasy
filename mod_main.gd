@@ -27,6 +27,7 @@ func install_script_extensions() -> void:
         #          slow_cursed_enemy,
         #          time_bonus_current_health_damage
         #          random_reload_when_picked_up_gold
+        #          projectile_on_enemy_death
 
         "services/item_service.gd",
         # SYSTEMS: Job[ 2/6 ]
@@ -66,6 +67,7 @@ func install_script_extensions() -> void:
         #          material_loss_on_hit
         #          dmg_when_pickup_consumable
         #          add_stat_when_pickup_consumable
+        #          xp_on_consumable
         #          lose_hp_per_second_min_hp
         #          lose_hp_per_second_stop_threshold
 

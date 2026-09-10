@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/spawn_enemies_per_interval/spawn_enemies_per_interval_effect.gd" type="Script" id=1]
+[ext_resource path="res://dlcs/dlc_1/enemies/sea_pig/sea_pig.tscn" type="PackedScene" id=2]
+
+[resource]
+script = ExtResource( 1 )
+key = "fantasy_spawn_enemies_per_interval"
+text_key = "EFFECT_FANTASY_SPAWN_ENEMIES_PER_INTERVAL"
+value = 1
+custom_key = ""
+storage_method = 0
+effect_sign = 0
+custom_args = [  ]
+enemy_scene = ExtResource( 2 )
+enemy_name_key = "SEA_PIG_NAME"
+interval = 5.0
+spawn_edge_of_map = true

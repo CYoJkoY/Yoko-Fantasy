@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://projectiles/player_projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/soul_projectile/soul_projectile.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/stats/soul/soul_icon.webp" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 12.0
+
+[node name="SoulProjectile" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+destroy_on_leaving_screen = false
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, 0 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 3 )
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 0, 0 )
+shape = SubResource( 1 )
+
+[editable path="Hitbox"]
