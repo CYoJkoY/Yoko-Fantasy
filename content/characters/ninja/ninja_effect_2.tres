@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 key = "dodge_cap"
 text_key = "effect_dodge_cap"
-value = 75
+value = 87
 custom_key = ""
 storage_method = 2
 effect_sign = 3

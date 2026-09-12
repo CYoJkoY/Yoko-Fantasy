@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=44 format=2]
+[gd_resource type="Resource" load_steps=46 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/apostle/apostle_data.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/rotten_plant/rotten_plant_data.tres" type="Resource" id=2]
@@ -35,14 +35,19 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/handbell/2/handbell_2_data.tres" type="Resource" id=168]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/handbell/3/handbell_3_data.tres" type="Resource" id=169]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/handbell/4/handbell_4_data.tres" type="Resource" id=170]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/1/harp_data.tres" type="Resource" id=171]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/2/harp_2_data.tres" type="Resource" id=172]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/3/harp_3_data.tres" type="Resource" id=173]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/4/harp_4_data.tres" type="Resource" id=174]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/1/finger_snap_data.tres" type="Resource" id=175]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/2/finger_snap_2_data.tres" type="Resource" id=176]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/3/finger_snap_3_data.tres" type="Resource" id=177]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/4/finger_snap_4_data.tres" type="Resource" id=178]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/curse/heretic/heretic_data.tres" type="Resource" id=179]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/curse/bogborn/bogborn_data.tres" type="Resource" id=180]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/curse/wildborn/wildborn_data.tres" type="Resource" id=181]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/curse/seer/seer_data.tres" type="Resource" id=182]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/curse_per_accuracy_loss/curse_per_accuracy_loss_effect.gd" type="Script" id=183]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/performer/performer_data.tres" type="Resource" id=184]
 
 [resource]
 script = ExtResource( 4 )
@@ -56,8 +61,8 @@ elites = [  ]
 bosses = [  ]
 stats = [  ]
 items = [ ExtResource( 132 ), ExtResource( 139 ), ExtResource( 144 ), ExtResource( 2 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 88 ), ExtResource( 87 ), ExtResource( 86 ), ExtResource( 85 ) ]
-weapons = [ ExtResource( 167 ), ExtResource( 168 ), ExtResource( 169 ), ExtResource( 170 ), ExtResource( 171 ), ExtResource( 172 ), ExtResource( 173 ), ExtResource( 174 ), ExtResource( 175 ), ExtResource( 176 ), ExtResource( 177 ), ExtResource( 178 ) ]
-effects = [ ExtResource( 151 ), ExtResource( 152 ), ExtResource( 83 ), ExtResource( 15 ), ExtResource( 17 ) ]
+weapons = [ ExtResource( 167 ), ExtResource( 168 ), ExtResource( 169 ), ExtResource( 170 ), ExtResource( 175 ), ExtResource( 176 ), ExtResource( 177 ), ExtResource( 178 ) ]
+effects = [ ExtResource( 151 ), ExtResource( 152 ), ExtResource( 83 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 183 ) ]
 consumables = [  ]
 upgrades = [  ]
 sets = [ ExtResource( 166 ) ]
@@ -68,6 +73,7 @@ translations = [  ]
 challenges = [  ]
 zones = [  ]
 tracked_items = {
+"job_fantasy_bogborn": 0,
 "item_fantasy_magic_sword": 0
 }
 tracked_effects = {
@@ -86,10 +92,12 @@ effect_keys_with_weapon_stats = [  ]
 translation_keys_needing_operator = {
 "effect_fantasy_cursed_kill_healing": [ 0 ],
 "effect_fantasy_extra_curse_enemy": [ 0 ],
+"effect_fantasy_damage_against_cursed": [ 0 ],
 "effect_fantasy_sacrificial_circle": [ 2 ],
 "effect_fantasy_slow_cursed_enemy": [ 0 ]
 }
 translation_keys_needing_percent = {
+"effect_fantasy_damage_against_cursed": [ 0 ],
 "effect_fantasy_extra_curse_enemy": [ 0 ],
 "effect_fantasy_extra_curse_enemy_cursed": [ 0 ],
 "effect_fantasy_extra_curse_item": [ 0 ],
@@ -99,4 +107,4 @@ translation_keys_needing_percent = {
 scene_effect_behaviors = [  ]
 enemy_effect_behaviors = [  ]
 player_effect_behaviors = [  ]
-jobs = [ ExtResource( 23 ), ExtResource( 48 ) ]
+jobs = [ ExtResource( 23 ), ExtResource( 48 ), ExtResource( 179 ), ExtResource( 180 ), ExtResource( 181 ), ExtResource( 182 ), ExtResource( 184 ) ]

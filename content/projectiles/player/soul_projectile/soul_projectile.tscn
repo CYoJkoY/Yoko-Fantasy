@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://projectiles/player_projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/soul_projectile/soul_projectile.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/soul_projectile/soul_wisp_core.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/soul_projectile/soul_sparkle.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/soul_projectile/soul_wisp_glow.webp" type="Texture" id=5]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.22, 0.85 ), 0.0, 0.0, 0, 0, Vector2( 0.58, 0.48 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.22, 0.6, 1 )
+colors = PoolColorArray( 0.35, 0.9, 1, 0.75, 0.25, 0.8, 1, 0.55, 0.18, 0.65, 0.95, 0.3, 0.1, 0.5, 0.9, 0 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0.35 ), 0.0, 1.4, 0, 0, Vector2( 0.35, 0.85 ), 1.4, 0.4, 0, 0, Vector2( 1, 0 ), -0.4, 0.0, 0, 0 ]
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 14.0
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.15, 0.55, 0.82, 1 )
+colors = PoolColorArray( 0.95, 1, 1, 1, 0.75, 0.96, 1, 0.95, 0.4, 0.82, 1, 0.7, 0.2, 0.65, 0.95, 0.28, 0.1, 0.5, 0.9, 0 )
+
+[node name="SoulProjectile" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+destroy_on_leaving_screen = false
+clear_material_when_pooled = false
+
+[node name="TrailLine" type="Line2D" parent="." index="0"]
+unique_name_in_owner = true
+material = SubResource( 1 )
+z_index = 0
+z_as_relative = true
+width = 22.0
+width_curve = SubResource( 2 )
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 3 )
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Sprite" parent="." index="1"]
+material = SubResource( 1 )
+position = Vector2( 0, 0 )
+scale = Vector2( 0.52, 0.52 )
+texture = ExtResource( 3 )
+z_index = 1
+
+[node name="Glow" type="Sprite" parent="." index="2"]
+material = SubResource( 1 )
+texture = ExtResource( 5 )
+z_index = 0
+modulate = Color( 0.45, 0.85, 1, 0.55 )
+scale = Vector2( 0.72, 0.72 )
+
+[node name="HitSparkles" type="CPUParticles2D" parent="." index="3"]
+unique_name_in_owner = true
+z_index = 2
+material = SubResource( 1 )
+emitting = false
+amount = 4
+lifetime = 0.65
+one_shot = true
+explosiveness = 0.9
+local_coords = false
+texture = ExtResource( 4 )
+emission_shape = 1
+emission_sphere_radius = 6.0
+spread = 180.0
+gravity = Vector2( 0, 10 )
+initial_velocity = 95.0
+initial_velocity_random = 0.4
+angular_velocity = 120.0
+angular_velocity_random = 1.0
+scale_amount = 1.65
+scale_amount_random = 0.5
+scale_amount_curve = SubResource( 5 )
+color = Color( 0.6, 0.92, 1, 0.95 )
+color_ramp = SubResource( 6 )
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 0, 0 )
+shape = SubResource( 4 )
+
+[editable path="Hitbox"]

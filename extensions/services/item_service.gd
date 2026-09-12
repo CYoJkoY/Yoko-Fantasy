@@ -101,6 +101,7 @@ func _fantasy_get_job_way_order() -> Array:
         Utils.job_fantasy_melee_hash,
         Utils.job_fantasy_ranged_hash,
         Utils.job_fantasy_holy_hash,
+        Utils.job_fantasy_curse_hash,
         Utils.job_fantasy_universal_hash,
     ]
 
@@ -219,7 +220,7 @@ func fa_get_job_candidates_for_player(stage: int, number: int, player_index: int
     if s1_job == null or s1_job.upgrade_id_hash == Utils.job_fantasy_universal_hash:
         candidates = fa_get_jobs(1, Utils.LARGE_NUMBER, Utils.job_fantasy_universal_hash)
 
-    elif Utils.fa_is_damage_job_way(s1_job.upgrade_id_hash) or s1_job.upgrade_id_hash in [Utils.job_fantasy_luck_hash, Utils.job_fantasy_holy_hash]:
+    elif Utils.fa_is_damage_job_way(s1_job.upgrade_id_hash) or s1_job.upgrade_id_hash in [Utils.job_fantasy_luck_hash, Utils.job_fantasy_holy_hash, Utils.job_fantasy_curse_hash]:
         return _fantasy_get_mixed_s2_candidates(s1_job.upgrade_id_hash, number, player_index)
 
     else:
@@ -233,9 +234,13 @@ func _fantasy_exclude_current_s2_jobs(candidates: Array, number: int, player_ind
         RunData.fa_get_current_job(1, player_index),
         RunData.fa_get_current_job(2, player_index),
     ]
+    var current_job_ids: Array = []
+    for current_job in current_jobs:
+        if current_job != null:
+            current_job_ids.append(current_job.my_id)
 
     for job in candidates:
-        if current_jobs.has(job): continue
+        if current_job_ids.has(job.my_id): continue
         if result.has(job): continue
 
         result.append(job)

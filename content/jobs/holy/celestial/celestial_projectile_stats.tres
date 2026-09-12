@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://weapons/weapon_stats/ranged_weapon_stats.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/soul_projectile/soul_projectile.tscn" type="PackedScene" id=2]
+
+[resource]
+script = ExtResource( 1 )
+damage = 40
+crit_chance = 0.0
+max_range = 5000
+scaling_stats = [ [ "stat_fantasy_holy", 1.0 ] ]
+shooting_sounds = [  ]
+nb_projectiles = 1
+piercing = 0
+bounce = 0
+can_bounce = false
+projectile_speed = 650
+projectile_scene = ExtResource( 2 )
