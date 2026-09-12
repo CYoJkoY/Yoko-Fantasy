@@ -1,7 +1,7 @@
 {
 	"name": "Fantasy",
 	"namespace": "Yoko",
-	"version_number": "1.1.0",
+	"version_number": "1.2.0",
 	"description": "A systems-heavy fantasy expansion for Brotato with custom characters, jobs, weapons, items, enemies, combat systems, progression, maps, and UI content.",
 	"website_url": "",
 	"dependencies": [
