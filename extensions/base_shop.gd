@@ -4,15 +4,25 @@ extends "res://ui/menus/shop/base_shop.gd"
 func _ready() -> void:
     for player_index in range(RunData.get_player_count()):
         var item_popup: Control = _get_item_popup(player_index)
-        if item_popup != null and !item_popup.is_connected("fantasy_item_bless_button_pressed", self, "_on_fantasy_item_bless_button_pressed"):
-            var _err = item_popup.connect("fantasy_item_bless_button_pressed", self, "_on_fantasy_item_bless_button_pressed", [player_index])
+        if item_popup != null and !item_popup.is_connected(
+            "fantasy_item_bless_button_pressed",
+            self,
+            "_on_fantasy_item_bless_button_pressed"
+        ):
+            var _err = item_popup.connect(
+                "fantasy_item_bless_button_pressed",
+                self,
+                "_on_fantasy_item_bless_button_pressed",
+                [player_index]
+            )
 
     if !RunData.fantasy_resumed_from_state_in_shop:
         _fantasy_shop_enter_synthesis()
         _fantasy_shop_enter_stat_curse()
         _fantasy_upgrade_specific_tier_weapons()
         _fantasy_scrap_specific_tier_weapons_for_items()
-    else: RunData.fantasy_resumed_from_state_in_shop = false
+    else:
+        RunData.fantasy_resumed_from_state_in_shop = false
 
 func fill_shop_items(player_locked_items: Array, player_index: int, just_entered_shop: bool = false) -> void:
     .fill_shop_items(player_locked_items, player_index, just_entered_shop)
@@ -39,95 +49,55 @@ func _combine_weapon(weapon_data: WeaponData, player_index: int, is_upgrade: boo
     if weapon_data.upgrades_into == null:
         return
 
-    var weapons_container: InventoryContainer = _get_gear_container(player_index).weapons_container
     var player_weapons: Array = RunData.get_player_weapons(player_index)
-    var weapons_to_remove: Array = []
-
-    var target_blessed: bool = Utils.fa_is_item_blessed(weapon_data)
-    var primary_weapon: WeaponData = null
-    for weapon in player_weapons:
-        if weapon == weapon_data:
-            primary_weapon = weapon
-            break
+    var primary_weapon: WeaponData = _fantasy_pick_primary_weapon(weapon_data, player_weapons)
     if primary_weapon == null:
-        for weapon in player_weapons:
-            if ItemService.is_same_weapon(weapon, weapon_data) and Utils.fa_is_item_blessed(weapon) == target_blessed:
-                primary_weapon = weapon
-                break
-    if primary_weapon == null:
-        primary_weapon = weapon_data
+        return
 
-    weapons_to_remove.push_back(primary_weapon)
-
+    var weapons_to_remove: Array = [primary_weapon]
     if not is_upgrade:
-        var partner_weapon: WeaponData = _fantasy_find_combine_partner(primary_weapon, player_weapons)
-        if partner_weapon == null:
+        var partner: WeaponData = _fantasy_find_combine_partner(primary_weapon, player_weapons)
+        if partner == null:
             return
-        weapons_to_remove.push_back(partner_weapon)
+        weapons_to_remove.push_back(partner)
 
-    var tracked_value: int = 0
-    var dmg_dealt_last_wave: int = 0
-    var is_cursed: bool = false
-    var curse_factor: float = 0.0
-    var nb_blessed: int = 0
-
-    for weapon in weapons_to_remove:
-        tracked_value += RunData.remove_weapon(weapon, player_index)
-        dmg_dealt_last_wave += weapon.dmg_dealt_last_wave
-        weapons_container._elements.remove_element(weapon, 1, true)
-        if weapon.is_cursed:
-            is_cursed = true
-            curse_factor = max(curse_factor, weapon.curse_factor)
-        if Utils.fa_is_item_blessed(weapon):
-            nb_blessed += 1
-
-    var new_weapon: WeaponData = weapon_data.upgrades_into
-    if is_cursed:
-        new_weapon = Utils.ncl_curse_item(weapon_data.upgrades_into, player_index, false, curse_factor)
-
-    var keep_blessing: bool = (is_upgrade and nb_blessed >= 1) or (not is_upgrade and nb_blessed >= 2)
-    if keep_blessing:
-        new_weapon = Utils.fa_bless_item(new_weapon) as WeaponData
-
-    var newly_added_weapon: WeaponData = RunData.add_weapon(new_weapon, player_index)
-    newly_added_weapon.tracked_value = tracked_value
-    newly_added_weapon.dmg_dealt_last_wave = dmg_dealt_last_wave
-    weapons_container._elements.add_element(newly_added_weapon)
-
-    if not is_upgrade:
-        SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1)
-    _update_stats()
+    _fantasy_execute_combine(
+        weapons_to_remove,
+        weapon_data.upgrades_into,
+        player_index,
+        is_upgrade,
+        [], # 无额外诅咒源
+        true # 播放合成音效
+    )
 
 func buy_weapon(weapon_data: WeaponData, player_index: int) -> void:
-    var has_weapon_slot: bool = RunData.has_weapon_slot_available(weapon_data, player_index)
-    if has_weapon_slot:
+    # 有槽位时直接走父类（父类内部会回调我们重写的 _combine_weapon）
+    if RunData.has_weapon_slot_available(weapon_data, player_index):
         .buy_weapon(weapon_data, player_index)
         return
 
-    var weapons_container: InventoryContainer = _get_gear_container(player_index).weapons_container
+    # 没槽位且不能升级 → 让父类自己处理（可能会失败/占位）
+    if weapon_data.upgrades_into == null:
+        .buy_weapon(weapon_data, player_index)
+        return
+
+    # 没槽位时尝试与已有武器合并
     var player_weapons: Array = RunData.get_player_weapons(player_index)
-    var weapon_to_combine: WeaponData = _fantasy_find_combine_partner(weapon_data, player_weapons)
-    if weapon_to_combine == null:
+    var partner: WeaponData = _fantasy_find_combine_partner(weapon_data, player_weapons)
+    if partner == null:
         .buy_weapon(weapon_data, player_index)
         return
 
-    var tracked_value: int = RunData.remove_weapon(weapon_to_combine, player_index)
-    var dmg_dealt_last_wave: int = weapon_to_combine.dmg_dealt_last_wave
-    weapons_container._elements.remove_element(weapon_to_combine, 1, true)
-
-    var new_weapon_data: WeaponData = weapon_data.upgrades_into
-    if weapon_data.is_cursed or weapon_to_combine.is_cursed:
-        var min_curse_factor: float = max(weapon_data.curse_factor, weapon_to_combine.curse_factor)
-        new_weapon_data = Utils.ncl_curse_item(new_weapon_data, player_index, false, min_curse_factor)
-
-    if Utils.fa_is_item_blessed(weapon_data) and Utils.fa_is_item_blessed(weapon_to_combine):
-        new_weapon_data = Utils.fa_bless_item(new_weapon_data) as WeaponData
-
-    var new_weapon: WeaponData = RunData.add_weapon(new_weapon_data, player_index)
-    new_weapon.tracked_value = tracked_value
-    new_weapon.dmg_dealt_last_wave = dmg_dealt_last_wave
-    weapons_container._elements.add_element(new_weapon)
-    SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1)
+    # 新买的武器尚未进入 RunData，因此不能放进 weapons_to_remove，
+    # 但要作为"诅咒/祝福源"参与判定 → 用 extra_sources 传进去
+    _fantasy_execute_combine(
+        [partner], # 只从 RunData / 容器移除已有武器
+        weapon_data.upgrades_into,
+        player_index,
+        false,
+        [weapon_data], # 额外诅咒源
+        true
+    )
 
 # ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_gain_item_on_reroll(player_index: int) -> void:
@@ -632,6 +602,87 @@ func _fantasy_scrap_specific_tier_weapons_for_items() -> void:
             player_gear_container.set_weapons_data(RunData.get_player_weapons(player_index))
             player_gear_container.set_items_data(RunData.get_player_items(player_index))
 
+func _fantasy_execute_combine(
+    weapons_to_remove: Array,
+    upgrades_into: WeaponData,
+    player_index: int,
+    is_upgrade: bool,
+    extra_cursed_blessed_sources: Array,
+    play_sound: bool
+) -> void:
+    if upgrades_into == null:
+        return
+
+    var weapons_container: InventoryContainer = _get_gear_container(player_index).weapons_container
+
+    var tracked_value: int = 0
+    var dmg_dealt_last_wave: int = 0
+    var is_cursed: bool = false
+    var curse_factor: float = 0.0
+    var nb_blessed: int = 0
+
+    # 参与判定但不从 RunData 移除的武器（例如刚买但未入库的武器）
+    for src in extra_cursed_blessed_sources:
+        if src.is_cursed:
+            is_cursed = true
+            curse_factor = max(curse_factor, src.curse_factor)
+            for effect in src.effects:
+                curse_factor = max(curse_factor, effect.curse_factor)
+        if Utils.fa_is_item_blessed(src):
+            nb_blessed += 1
+
+    for weapon in weapons_to_remove:
+        tracked_value += RunData.remove_weapon(weapon, player_index)
+        dmg_dealt_last_wave += weapon.dmg_dealt_last_wave
+        weapons_container._elements.remove_element(weapon, 1, true)
+        if weapon.is_cursed:
+            is_cursed = true
+            curse_factor = max(curse_factor, weapon.curse_factor)
+            for effect in weapon.effects:
+                curse_factor = max(curse_factor, effect.curse_factor)
+        if Utils.fa_is_item_blessed(weapon):
+            nb_blessed += 1
+
+    var new_weapon: WeaponData = upgrades_into
+    if is_cursed:
+        new_weapon = Utils.ncl_curse_item(new_weapon, player_index, false, curse_factor)
+
+    var keep_blessing: bool = (is_upgrade and nb_blessed >= 1) or (not is_upgrade and nb_blessed >= 2)
+    if keep_blessing and Utils.fa_can_bless_item(new_weapon, player_index):
+        new_weapon = Utils.fa_bless_item(new_weapon) as WeaponData
+
+    var newly_added: WeaponData = RunData.add_weapon(new_weapon, player_index)
+    newly_added.tracked_value = tracked_value
+    if is_upgrade:
+        newly_added.dmg_dealt_last_wave = dmg_dealt_last_wave
+
+    weapons_container._elements.add_element(newly_added)
+
+    _update_stats(player_index)
+    _get_shop_items_container(player_index).reload_shop_items()
+
+    if Input.get_mouse_mode() == Input.MOUSE_MODE_HIDDEN:
+        weapons_container._elements.focus_element(newly_added)
+
+    if play_sound:
+        SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1, true)
+
+func _fantasy_pick_primary_weapon(weapon_data: WeaponData, player_weapons: Array) -> WeaponData:
+    # 优先用 RunData 中同一实例
+    for weapon in player_weapons:
+        if weapon == weapon_data:
+            return weapon
+
+    # 否则用"同 id + 同祝福状态"的实例
+    var target_blessed: bool = Utils.fa_is_item_blessed(weapon_data)
+    for weapon in player_weapons:
+        if ItemService.is_same_weapon(weapon, weapon_data) \
+        and Utils.fa_is_item_blessed(weapon) == target_blessed:
+            return weapon
+
+    # 兜底：直接用传入对象（buy_weapon 路径下不在 RunData 里）
+    return weapon_data
+
 # ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_special_upgrade(weapon: WeaponData) -> Array:
     for effect in weapon.effects:
@@ -693,5 +744,5 @@ func _on_fantasy_item_bless_button_pressed(item_data: ItemParentData, player_ind
         RunData.add_item(blessed_gear as ItemData, player_index)
         player_gear_container.set_items_data(RunData.get_player_items(player_index))
 
-    _update_stats()
+    _update_stats(player_index)
     SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1)
