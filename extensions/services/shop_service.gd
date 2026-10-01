@@ -187,11 +187,7 @@ static func _fantasy_attach_bless_button(
     if container.has_node("FantasyBlessButton"):
         return
 
-    var bless_button: MyMenuButton = load("res://mods-unpacked/Yoko-Fantasy/extensions/ui/BlessButton.tscn").instance()
-    bless_button.name = "FantasyBlessButton"
-    bless_button.visible = true
-    bless_button.focus_mode = 2
-
+    var bless_button: MyMenuButton = load("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_button.tscn").instance()
     var cancel_button: MyMenuButton = item_popup.get_node("%CancelButton")
     container.add_child(bless_button)
     container.move_child(bless_button, cancel_button.get_index())
@@ -240,6 +236,7 @@ static func _fantasy_on_popup_bless_pressed(
 
     update_stats.call_func(player_index)
     SoundManager.play(Utils.get_rand_element(shop.combine_sounds), 0, 0.1)
+    _fantasy_refresh_all_bless_marks(shop, player_index)
 
 static func _fantasy_update_bless_button(
     container: VBoxContainer,
@@ -282,6 +279,28 @@ static func _fantasy_show_item_popup(shop: BaseShop, element: InventoryElement, 
     item_popup._cancel_button.show()
     item_popup._cancel_button.focus_mode = Control.FOCUS_ALL
     item_popup._cancel_button.grab_focus()
+
+static func _fantasy_refresh_all_bless_marks(shop: BaseShop, player_index: int) -> void:
+    var gear_container: PlayerGearContainer = shop._get_gear_container(player_index)
+    for element in gear_container.weapons_container._elements.get_children():
+        if element is InventoryElement:
+            _fantasy_apply_bless_mark(element)
+    for element in gear_container.items_container._elements.get_children():
+        if element is InventoryElement:
+            _fantasy_apply_bless_mark(element)
+
+
+static func _fantasy_apply_bless_mark(element: InventoryElement) -> void:
+    var border: TextureRect = element.get_node_or_null("FantasyBlessBorder") as TextureRect
+
+    if not Utils.fa_is_item_blessed(element.item):
+        if border != null: border.hide()
+        return
+
+    if border == null:
+        border = load("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_border.tscn").instance()
+        element.add_child(border)
+    border.show()
 
 # ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 static func _fantasy_shop_enter_stat_curse(update_stats: FuncRef, get_gear_container: FuncRef) -> void:

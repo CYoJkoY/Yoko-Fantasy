@@ -16,6 +16,7 @@ func _ready() -> void:
 
     for player_index in RunData.get_player_count():
         ShopService._fantasy_attach_bless_button(self, get_gear_container_func, update_stats_func, _popup_manager, player_index)
+        ShopService._fantasy_refresh_all_bless_marks(self, player_index)
 
 func fill_shop_items(player_locked_items: Array, player_index: int, just_entered_shop: bool = false) -> void:
     .fill_shop_items(player_locked_items, player_index, just_entered_shop)
