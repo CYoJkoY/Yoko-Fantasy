@@ -37,10 +37,10 @@ const TIER_COLORS = [
     }
 ]
 
-onready var _staff_halo: Sprite = $Sprite/Muzzle/StaffHalo
-onready var _sun_corona: Sprite = $Sprite/Muzzle/SunCoronaRing
-onready var _cast_flare: Sprite = $Sprite/Muzzle/CastFlare
-onready var _cast_particles: CPUParticles2D = $Sprite/Muzzle/CastParticles
+onready var _staff_halo: Sprite = $Sprite/VFXPivot/StaffHalo
+onready var _sun_corona: Sprite = $Sprite/VFXPivot/SunCoronaRing
+onready var _cast_flare: Sprite = $Sprite/VFXPivot/CastFlare
+onready var _cast_particles: CPUParticles2D = $Sprite/VFXPivot/CastParticles
 
 var _time: float = 0.0
 var _orbit_phase: float = 0.0
@@ -49,10 +49,16 @@ var _thrust_elapsed: float = 0.0
 var _cast_vfx_elapsed: float = 1.0
 var _pending_strikes: Array = []
 var _pending_targets: Array = []
+var _attack_effect: Resource = null
 
 
 func _ready() -> void:
     ._ready()
+
+    for effect in effects:
+        if effect != null and effect.get_id() == "weapon_cross_staff":
+            _attack_effect = effect
+            break
 
     visible = true
     if is_instance_valid(sprite):
@@ -370,7 +376,13 @@ func _collect_targets(main: Node) -> Array:
     candidates.erase(nearest)
     var targets: Array = [nearest]
     candidates.shuffle()
-    var extra_count: int = min(max(0, current_stats.nb_projectiles - 1), candidates.size())
+    var base_extra: int = max(0, current_stats.nb_projectiles - 1)
+    if _attack_effect != null:
+        var bonus_proj: int = 0
+        if stats != null and "nb_projectiles" in stats:
+            bonus_proj = max(0, current_stats.nb_projectiles - stats.nb_projectiles)
+        base_extra = max(base_extra, int(_attack_effect.value) + bonus_proj)
+    var extra_count: int = min(base_extra, candidates.size())
     for i in range(extra_count):
         targets.append(candidates[i])
     return targets

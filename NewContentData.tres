@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=262 format=2]
+[gd_resource type="Resource" load_steps=263 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -266,6 +266,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/holy/celestial/celestial_data.tres" type="Resource" id=262]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/holy/savior/savior_data.tres" type="Resource" id=263]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/projectile_on_enemy_death/projectile_on_enemy_death_effect.gd" type="Script" id=264]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/sacred/sacred_set_data.tres" type="Resource" id=265]
 
 [resource]
 script = ExtResource( 43 )
@@ -283,7 +284,7 @@ weapons = [ ExtResource( 159 ), ExtResource( 161 ), ExtResource( 160 ), ExtResou
 effects = [ ExtResource( 54 ), ExtResource( 88 ), ExtResource( 70 ), ExtResource( 86 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 46 ), ExtResource( 137 ), ExtResource( 139 ), ExtResource( 85 ), ExtResource( 141 ), ExtResource( 165 ), ExtResource( 68 ), ExtResource( 67 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 77 ), ExtResource( 136 ), ExtResource( 117 ), ExtResource( 138 ), ExtResource( 166 ), ExtResource( 167 ), ExtResource( 170 ), ExtResource( 207 ), ExtResource( 213 ), ExtResource( 214 ), ExtResource( 215 ), ExtResource( 216 ), ExtResource( 217 ), ExtResource( 218 ), ExtResource( 222 ), ExtResource( 223 ), ExtResource( 224 ), ExtResource( 227 ), ExtResource( 229 ), ExtResource( 253 ), ExtResource( 254 ), ExtResource( 255 ), ExtResource( 260 ), ExtResource( 261 ), ExtResource( 264 ) ]
 consumables = [  ]
 upgrades = [  ]
-sets = [ ExtResource( 163 ), ExtResource( 201 ) ]
+sets = [ ExtResource( 163 ), ExtResource( 201 ), ExtResource( 265 ) ]
 difficulties = [  ]
 icons = [ ExtResource( 96 ), ExtResource( 49 ) ]
 title_screen_backgrounds = [ ExtResource( 158 ) ]

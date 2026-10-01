@@ -10,6 +10,11 @@ onready var spawning_attack_behavior_five: SpawningAttackBehavior = $"%SpawningA
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
+    shoot_anime = shoot_anime.duplicate()
+    shoot_charmed_anime = shoot_charmed_anime.duplicate()
+    _animation_player.add_animation("shoot", shoot_anime)
+    _animation_player.add_animation("shoot_charmed", shoot_charmed_anime)
+
     shoot_anime_set(State.NORMAL)
     shoot_charmed_anime_set(State.NORMAL)
 
@@ -21,11 +26,26 @@ func _ready() -> void:
     register_attack_behavior(spawning_attack_behavior_twelve)
     register_attack_behavior(spawning_attack_behavior_five)
 
+func die(args := Utils.default_die_args) -> void:
+    if is_instance_valid(_check_state_timer):
+        _check_state_timer.stop()
+    if is_instance_valid(charging_attack_behavior):
+        charging_attack_behavior.reset()
+    .die(args)
+
 func on_state_changed(_new_state: int) -> void:
+    if dead or _pending_die:
+        return
+
     .on_state_changed(_new_state)
+
+    if is_instance_valid(charging_attack_behavior):
+        charging_attack_behavior.reset()
+    _can_move = true
 
     # Mutation 1 howling once ans spawn twelve maple wolf
     if _new_state == 0:
+        _animation_player.playback_speed = 1.0
         _animation_player.play("howling")
 
     # Mutation 2 boost speed, spawn five, disable charging, five shoot
@@ -33,6 +53,9 @@ func on_state_changed(_new_state: int) -> void:
         reset_speed_stat(50)
         shoot_anime_set(State.VIOLENT)
         shoot_charmed_anime_set(State.VIOLENT)
+        if _animation_player.current_animation == "howling":
+            _animation_player.play("idle")
+            _animation_player.playback_speed = _idle_playback_speed
 
 func is_playing_shoot_animation() -> bool:
     # Avoid "shoot" animation interrupt "howling" animation
@@ -40,24 +63,41 @@ func is_playing_shoot_animation() -> bool:
     _animation_player.current_animation == "shoot_charmed" or \
     _animation_player.current_animation == "howling"
 
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+    if dead or _pending_die:
+        return
+    ._on_AnimationPlayer_animation_finished(anim_name)
+    if anim_name == "howling":
+        _can_move = true
+    elif (anim_name == "shoot" or anim_name == "shoot_charmed") and (_current_state >= 1 or charging_attack_behavior._unlock_move_timer.time_left == 0):
+        _can_move = true
+
 # ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func charging_start_shoot() -> void:
+    if dead or _pending_die or _current_state >= 1 or !is_instance_valid(current_target):
+        _can_move = true
+        return
     charging_attack_behavior.start_shoot()
 
 func charging_shoot() -> void:
+    if dead or _pending_die or _current_state >= 1 or !is_instance_valid(current_target):
+        _can_move = true
+        return
     charging_attack_behavior.shoot()
 
 # ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func switch_can_move(can_move: bool) -> void:
+    if dead or _pending_die:
+        return
     _can_move = can_move
 
 func on_spawn_attack_five() -> void:
-    if dead: return
+    if dead or _pending_die or _current_state != 1: return
 
     spawning_attack_behavior_five.shoot()
 
 func on_spawn_attack_twelve() -> void:
-    if dead: return
+    if dead or _pending_die: return
 
     spawning_attack_behavior_twelve.shoot()
 

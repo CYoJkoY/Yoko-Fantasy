@@ -5,11 +5,12 @@ const SHARD_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectile
 const FROSTSPRAY_EFFECT = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/frostspray/frostspray_effect.gd")
 
 const DEFAULT_SHARD_COUNT: int = 4
-const DEFAULT_SHARD_DAMAGE_RATIO: float = 0.45
+const DEFAULT_SHARD_DAMAGE_RATIO: float = 0.25
+const DEFAULT_SLOW_PERCENT: float = 35.0
 const TOTAL_SPREAD_DEG: float = 45.0
 
 const HOMING_TURN_RATE: float = 2.0
-const HOMING_MAX_RANGE: float = 480.0
+const HOMING_MAX_RANGE: float = 540.0
 const HOMING_FOV_DEG: float = 45.0
 const HOMING_RELEASE_FOV_DEG: float = 70.0
 
@@ -18,6 +19,7 @@ export (float) var trail_spacing: float = 10.0
 
 var shard_count: int = DEFAULT_SHARD_COUNT
 var shard_damage_ratio: float = DEFAULT_SHARD_DAMAGE_RATIO
+var slow_percent: float = DEFAULT_SLOW_PERCENT
 
 var _elapsed_time: float = 0.0
 var _history_positions: Array = []
@@ -67,10 +69,12 @@ func shoot_ex(
 func _configure_effects(effects: Array) -> void:
 	shard_count = DEFAULT_SHARD_COUNT
 	shard_damage_ratio = DEFAULT_SHARD_DAMAGE_RATIO
+	slow_percent = DEFAULT_SLOW_PERCENT
 	for effect in effects:
 		if effect != null and effect.get_script() == FROSTSPRAY_EFFECT:
 			shard_count = effect.shard_count
 			shard_damage_ratio = float(effect.shard_damage_percent) / 100.0
+			slow_percent = float(effect.slow_percent)
 			return
 
 
@@ -151,6 +155,11 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
 	var weapon_pos: int = _hitbox.from.weapon_pos
 	._on_Hitbox_hit_something(thing_hit, damage_dealt)
 
+	if is_instance_valid(thing_hit) and thing_hit is Enemy and not thing_hit.dead:
+		if thing_hit.has_method("add_decaying_speed") and thing_hit.has_method("get_base_speed_value_for_pct_based_decrease"):
+			var base_spd = thing_hit.get_base_speed_value_for_pct_based_decrease()
+			thing_hit.add_decaying_speed(int(base_spd * -abs(slow_percent) / 100.0))
+
 	var main = Utils.get_scene_node()
 	if main == null:
 		return
@@ -207,6 +216,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
 			weapon_pos,
 			crit_ch,
 			crit_dmg,
+			slow_percent,
 			depth_tier,
 			main,
 			shard_pool_id

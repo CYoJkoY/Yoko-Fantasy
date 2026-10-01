@@ -2,6 +2,11 @@ extends "res://ui/menus/shop/base_shop.gd"
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
+    for player_index in range(RunData.get_player_count()):
+        var item_popup: Control = _get_item_popup(player_index)
+        if item_popup != null and !item_popup.is_connected("fantasy_item_bless_button_pressed", self, "_on_fantasy_item_bless_button_pressed"):
+            var _err = item_popup.connect("fantasy_item_bless_button_pressed", self, "_on_fantasy_item_bless_button_pressed", [player_index])
+
     if !RunData.fantasy_resumed_from_state_in_shop:
         _fantasy_shop_enter_synthesis()
         _fantasy_shop_enter_stat_curse()
@@ -29,6 +34,102 @@ func _on_RerollButton_pressed(player_index: int) -> void:
 
     ._on_RerollButton_pressed(player_index)
     _fantasy_gain_item_on_reroll(player_index)
+
+func _combine_weapon(weapon_data: WeaponData, player_index: int, is_upgrade: bool = false) -> void:
+    if weapon_data.upgrades_into == null:
+        return
+
+    var weapons_container: InventoryContainer = _get_gear_container(player_index).weapons_container
+    var player_weapons: Array = RunData.get_player_weapons(player_index)
+    var weapons_to_remove: Array = []
+
+    var target_blessed: bool = Utils.fa_is_item_blessed(weapon_data)
+    var primary_weapon: WeaponData = null
+    for weapon in player_weapons:
+        if weapon == weapon_data:
+            primary_weapon = weapon
+            break
+    if primary_weapon == null:
+        for weapon in player_weapons:
+            if ItemService.is_same_weapon(weapon, weapon_data) and Utils.fa_is_item_blessed(weapon) == target_blessed:
+                primary_weapon = weapon
+                break
+    if primary_weapon == null:
+        primary_weapon = weapon_data
+
+    weapons_to_remove.push_back(primary_weapon)
+
+    if not is_upgrade:
+        var partner_weapon: WeaponData = _fantasy_find_combine_partner(primary_weapon, player_weapons)
+        if partner_weapon == null:
+            return
+        weapons_to_remove.push_back(partner_weapon)
+
+    var tracked_value: int = 0
+    var dmg_dealt_last_wave: int = 0
+    var is_cursed: bool = false
+    var curse_factor: float = 0.0
+    var nb_blessed: int = 0
+
+    for weapon in weapons_to_remove:
+        tracked_value += RunData.remove_weapon(weapon, player_index)
+        dmg_dealt_last_wave += weapon.dmg_dealt_last_wave
+        weapons_container._elements.remove_element(weapon, 1, true)
+        if weapon.is_cursed:
+            is_cursed = true
+            curse_factor = max(curse_factor, weapon.curse_factor)
+        if Utils.fa_is_item_blessed(weapon):
+            nb_blessed += 1
+
+    var new_weapon: WeaponData = weapon_data.upgrades_into
+    if is_cursed:
+        new_weapon = DLC1_DATA.curse_item(weapon_data.upgrades_into, player_index, false, curse_factor)
+
+    var keep_blessing: bool = (is_upgrade and nb_blessed >= 1) or (not is_upgrade and nb_blessed >= 2)
+    if keep_blessing:
+        new_weapon = Utils.fa_bless_item(new_weapon) as WeaponData
+
+    var newly_added_weapon: WeaponData = RunData.add_weapon(new_weapon, player_index)
+    newly_added_weapon.tracked_value = tracked_value
+    newly_added_weapon.dmg_dealt_last_wave = dmg_dealt_last_wave
+    weapons_container._elements.add_element(newly_added_weapon)
+
+    if not is_upgrade:
+        SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1)
+        _reset_focus_after_using_popup(player_index)
+    _update_stats()
+    SaveSystem.save()
+
+func buy_weapon(weapon_data: WeaponData, player_index: int) -> void:
+    var has_weapon_slot: bool = RunData.has_weapon_slot_available(weapon_data, player_index)
+    if has_weapon_slot:
+        .buy_weapon(weapon_data, player_index)
+        return
+
+    var weapons_container: InventoryContainer = _get_gear_container(player_index).weapons_container
+    var player_weapons: Array = RunData.get_player_weapons(player_index)
+    var weapon_to_combine: WeaponData = _fantasy_find_combine_partner(weapon_data, player_weapons)
+    if weapon_to_combine == null:
+        .buy_weapon(weapon_data, player_index)
+        return
+
+    var tracked_value: int = RunData.remove_weapon(weapon_to_combine, player_index)
+    var dmg_dealt_last_wave: int = weapon_to_combine.dmg_dealt_last_wave
+    weapons_container._elements.remove_element(weapon_to_combine, 1, true)
+
+    var new_weapon_data: WeaponData = weapon_data.upgrades_into
+    if weapon_data.is_cursed or weapon_to_combine.is_cursed:
+        var min_curse_factor: float = max(weapon_data.curse_factor, weapon_to_combine.curse_factor)
+        new_weapon_data = DLC1_DATA.curse_item(new_weapon_data, player_index, false, min_curse_factor)
+
+    if Utils.fa_is_item_blessed(weapon_data) and Utils.fa_is_item_blessed(weapon_to_combine):
+        new_weapon_data = Utils.fa_bless_item(new_weapon_data) as WeaponData
+
+    var new_weapon: WeaponData = RunData.add_weapon(new_weapon_data, player_index)
+    new_weapon.tracked_value = tracked_value
+    new_weapon.dmg_dealt_last_wave = dmg_dealt_last_wave
+    weapons_container._elements.add_element(new_weapon)
+    SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1)
 
 # ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_gain_item_on_reroll(player_index: int) -> void:
@@ -539,3 +640,63 @@ func fa_special_upgrade(weapon: WeaponData) -> Array:
         if effect.get_id() != "fantasy_change_weapon_every_killed_enemies": continue
         return [true, effect.key_hash]
     return [false, Keys.empty_hash]
+
+func _fantasy_find_combine_partner(primary_weapon: WeaponData, player_weapons: Array) -> WeaponData:
+    var target_blessed: bool = Utils.fa_is_item_blessed(primary_weapon)
+    var same_blessed_candidates: Array = []
+    var other_candidates: Array = []
+
+    for weapon in player_weapons:
+        if weapon == primary_weapon:
+            continue
+        if weapon.my_id_hash != primary_weapon.my_id_hash:
+            continue
+        if Utils.fa_is_item_blessed(weapon) == target_blessed:
+            same_blessed_candidates.append(weapon)
+        else:
+            other_candidates.append(weapon)
+
+    var pool: Array = same_blessed_candidates if !same_blessed_candidates.empty() else other_candidates
+    if pool.empty():
+        return null
+
+    for weapon in pool:
+        if weapon.is_cursed == primary_weapon.is_cursed:
+            return weapon
+    return pool[0]
+
+func _on_fantasy_item_bless_button_pressed(item_data: ItemParentData, player_index: int) -> void:
+    if not Utils.fa_can_bless_item(item_data, player_index):
+        return
+
+    var neg_count: int = Utils.fa_get_negative_effect_count(item_data)
+    var cost: int = Utils.fa_get_bless_cost(item_data)
+    if neg_count <= 0 or cost <= 0:
+        return
+
+    RunData.remove_stat("stat_fantasy_soul", cost, player_index)
+    RunData.add_stat("stat_fantasy_holy", neg_count, player_index)
+
+    var blessed_gear: ItemParentData = Utils.fa_bless_item(item_data)
+    var player_gear_container: PlayerGearContainer = _get_gear_container(player_index)
+
+    if item_data is WeaponData:
+        var tracked_value: int = item_data.tracked_value
+        var dmg_dealt_last_wave: int = item_data.dmg_dealt_last_wave
+        var tracked_value_added_this_wave: int = item_data.tracked_value_added_this_wave
+        RunData.remove_weapon(item_data, player_index)
+        var added_weapon: WeaponData = RunData.add_weapon(blessed_gear as WeaponData, player_index)
+        added_weapon.tracked_value = tracked_value
+        added_weapon.dmg_dealt_last_wave = dmg_dealt_last_wave
+        added_weapon.tracked_value_added_this_wave = tracked_value_added_this_wave
+        player_gear_container.set_weapons_data(RunData.get_player_weapons(player_index))
+    elif item_data is ItemData:
+        RunData.remove_item(item_data, player_index)
+        RunData.add_item(blessed_gear as ItemData, player_index)
+        player_gear_container.set_items_data(RunData.get_player_items(player_index))
+
+    _update_stats()
+    _reset_focus_after_using_popup(player_index)
+    SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1)
+    SaveSystem.save()
+

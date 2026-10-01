@@ -14,18 +14,19 @@ const SHARD_TEXTURES = [
 	preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/frostspray_projectile/shards/frost_shard_11.webp")
 ]
 
-var _lifetime: float = 0.32
+var _lifetime: float = 0.42
 var _elapsed: float = 0.0
 var _main: Node = null
 var _pool_id: int = 0
 var _velocity: Vector2 = Vector2.ZERO
-var _drag_coefficient: float = 3.6
+var _drag_coefficient: float = 2.8
 var _drift_angular_vel: float = 0.0
 var _damage: int = 1
 var _player_index: int = 0
 var _weapon_pos: int = -1
 var _crit_chance: float = 0.05
 var _crit_damage: float = 1.5
+var _slow_percent: float = 35.0
 var _opacity: float = 1.0
 
 onready var _sprite: Sprite = $"%Sprite"
@@ -47,6 +48,7 @@ func launch_advanced(
 	weapon_pos: int,
 	crit_chance: float,
 	crit_damage: float,
+	slow_percent: float,
 	depth_tier: int,
 	main: Node,
 	pool_id: int
@@ -59,6 +61,7 @@ func launch_advanced(
 	_weapon_pos = weapon_pos
 	_crit_chance = crit_chance
 	_crit_damage = crit_damage
+	_slow_percent = slow_percent
 	_elapsed = 0.0
 
 	global_position = start_pos
@@ -66,19 +69,19 @@ func launch_advanced(
 	var speed: float
 	var scale_mult: float
 	if depth_tier == 0:
-		speed = rand_range(1450.0, 1750.0)
-		_lifetime = rand_range(0.36, 0.44)
-		_drag_coefficient = 2.4
+		speed = rand_range(1600.0, 1950.0)
+		_lifetime = rand_range(0.46, 0.56)
+		_drag_coefficient = 2.0
 		scale_mult = rand_range(1.0, 1.25)
 	elif depth_tier == 1:
-		speed = rand_range(1100.0, 1350.0)
-		_lifetime = rand_range(0.28, 0.34)
-		_drag_coefficient = 3.8
+		speed = rand_range(1250.0, 1550.0)
+		_lifetime = rand_range(0.38, 0.46)
+		_drag_coefficient = 2.8
 		scale_mult = rand_range(0.85, 1.05)
 	else:
-		speed = rand_range(800.0, 1050.0)
-		_lifetime = rand_range(0.20, 0.26)
-		_drag_coefficient = 5.2
+		speed = rand_range(950.0, 1250.0)
+		_lifetime = rand_range(0.30, 0.38)
+		_drag_coefficient = 3.6
 		scale_mult = rand_range(0.7, 0.9)
 
 	_velocity = initial_dir.normalized() * speed
@@ -139,6 +142,10 @@ func _on_hitbox_area_entered(hurtbox: Area2D) -> void:
 		was_crit,
 		health_before > 0 and damage_taken[1] >= health_before
 	)
+
+	if _slow_percent > 0.0 and not unit.dead and unit.has_method("add_decaying_speed") and unit.has_method("get_base_speed_value_for_pct_based_decrease"):
+		var base_spd = unit.get_base_speed_value_for_pct_based_decrease()
+		unit.add_decaying_speed(int(base_spd * -abs(_slow_percent) / 100.0))
 
 	set_physics_process(false)
 	visible = false

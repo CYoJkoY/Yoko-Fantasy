@@ -421,7 +421,6 @@ func _fantasy_remove_soul_effect(soul_effect: Dictionary) -> void:
     var damage_to_remove: int = soul_effect.damage
     var speed_to_remove: int = soul_effect.speed
     _fantasy_active_soul_effects.erase(soul_effect)
-    Utils.ncl_quiet_add_stat(Utils.stat_fantasy_soul_hash, -1, player_index)
     TempStats.remove_stat(Keys.stat_percent_damage_hash, damage_to_remove, player_index)
     TempStats.remove_stat(Keys.stat_attack_speed_hash, speed_to_remove, player_index)
 

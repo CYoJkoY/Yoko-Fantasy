@@ -116,6 +116,7 @@ var fantasy_add_weapon_set_hash: int = Keys.generate_hash("fantasy_add_weapon_se
 var fantasy_gain_item_on_reroll_hash: int = Keys.generate_hash("fantasy_gain_item_on_reroll")
 var fantasy_guaranteed_set_weapons_in_shop_hash: int = Keys.generate_hash("fantasy_guaranteed_set_weapons_in_shop")
 var fantasy_weapon_hit_proc_hash: int = Keys.generate_hash("fantasy_weapon_hit_proc")
+var fantasy_blessed_hash: int = Keys.generate_hash("fantasy_blessed")
 
 func fa_apply_direct_crit_kill_gold_rewards(player_index: int, was_crit: bool, was_kill: bool) -> void:
 	if !was_crit or !was_kill:
@@ -290,3 +291,83 @@ func fa_spawn_soul(num: int, pos: Vector2, spread: int) -> void:
 		var push_back_destination = ZoneService.get_rand_pos_in_area(pos, dist, 0)
 		consumable.drop(pos, 0, push_back_destination)
 		main._consumables.push_back(consumable)
+
+# ══════════════════════════════════════════ Blessing Ritual ══════════════════════════════════════════ #
+func fa_is_item_blessed(item_data: Resource) -> bool:
+	if item_data == null or not (item_data is ItemParentData):
+		return false
+	for effect in item_data.effects:
+		if effect != null and (effect.custom_key == "fantasy_blessed" or effect.custom_key_hash == fantasy_blessed_hash):
+			return true
+	return false
+
+func fa_is_negative_effect(effect: Effect) -> bool:
+	if effect == null or effect.custom_key == "fantasy_blessed" or effect.custom_key_hash == fantasy_blessed_hash:
+		return false
+	var sign_0: int = effect.get_sign(effect.effect_sign, effect.value)
+	if not effect._custom_args_added:
+		effect._add_custom_args()
+		effect._custom_args_added = true
+	for custom_arg in effect.custom_args:
+		if custom_arg != null and custom_arg.arg_index == 0:
+			var arg_val: String = effect.get_arg_value(custom_arg, str(effect.value), 0)
+			sign_0 = effect.get_sign(custom_arg.arg_sign, int(arg_val))
+	return sign_0 == Sign.NEGATIVE
+
+func fa_get_negative_effect_count(item_data: Resource) -> int:
+	if item_data == null or not (item_data is ItemParentData):
+		return 0
+	var count: int = 0
+	for effect in item_data.effects:
+		if fa_is_negative_effect(effect):
+			count += 1
+	return count
+
+func fa_get_bless_cost(item_data: Resource) -> int:
+	if item_data == null or not (item_data is ItemParentData):
+		return 0
+	var neg_count: int = fa_get_negative_effect_count(item_data)
+	return int(max(1, item_data.tier + 1)) * neg_count
+
+func fa_can_bless_item(item_data: Resource, player_index: int) -> bool:
+	if item_data == null or item_data is CharacterData or not (item_data is ItemData or item_data is WeaponData):
+		return false
+	if fa_is_item_blessed(item_data):
+		return false
+	var neg_count: int = fa_get_negative_effect_count(item_data)
+	if neg_count <= 0:
+		return false
+	var cost: int = fa_get_bless_cost(item_data)
+	var current_souls: int = int(get_stat(stat_fantasy_soul_hash, player_index))
+	return current_souls >= cost
+
+func fa_create_blessed_effect() -> Effect:
+	var blessed_effect: Effect = Effect.new()
+	blessed_effect.key = ""
+	blessed_effect.key_hash = Keys.empty_hash
+	blessed_effect.custom_key = "fantasy_blessed"
+	blessed_effect.custom_key_hash = fantasy_blessed_hash
+	blessed_effect.text_key = "EFFECT_FANTASY_BLESSED"
+	blessed_effect.value = 0
+	blessed_effect.effect_sign = Sign.POSITIVE
+	var custom_arg: CustomArg = CustomArg.new()
+	custom_arg.arg_index = 0
+	custom_arg.arg_sign = Sign.POSITIVE
+	custom_arg.arg_value = ArgValue.KEY
+	custom_arg.arg_key = "fantasy_blessed_tag"
+	blessed_effect.custom_args = [custom_arg]
+	return blessed_effect
+
+func fa_bless_item(item_data: ItemParentData) -> ItemParentData:
+	var new_item_data: ItemParentData = item_data.duplicate()
+	if item_data is WeaponData:
+		new_item_data.stats = item_data.stats.duplicate()
+	var new_effects: Array = []
+	for effect in item_data.effects:
+		if fa_is_negative_effect(effect):
+			continue
+		new_effects.append(effect.duplicate())
+	new_effects.append(fa_create_blessed_effect())
+	new_item_data.effects = new_effects
+	return new_item_data
+

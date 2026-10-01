@@ -11,8 +11,6 @@ var _player_index: int = 0
 var _weapon_pos: int = -1
 var _crit_chance: float = 0.05
 var _crit_damage: float = 1.5
-var _slow_percent: float = 35.0
-var _applies_slow: bool = false
 var _opacity: float = 1.0
 
 onready var _particles: CPUParticles2D = $"%Particles"
@@ -32,8 +30,6 @@ func launch(
 	weapon_pos: int,
 	crit_chance: float,
 	crit_damage: float,
-	slow_percent: float,
-	applies_slow: bool,
 	main: Node,
 	pool_id: int
 ) -> void:
@@ -45,8 +41,6 @@ func launch(
 	_weapon_pos = weapon_pos
 	_crit_chance = crit_chance
 	_crit_damage = crit_damage
-	_slow_percent = slow_percent
-	_applies_slow = applies_slow
 	_target = target_enemy
 	_elapsed = 0.0
 
@@ -104,10 +98,6 @@ func _hit_enemy(enemy: Enemy) -> void:
 		was_crit,
 		health_before > 0 and damage_taken[1] >= health_before
 	)
-
-	if _applies_slow and enemy.has_method("add_decaying_speed") and enemy.has_method("get_base_speed_value_for_pct_based_decrease"):
-		var base_spd = enemy.get_base_speed_value_for_pct_based_decrease()
-		enemy.add_decaying_speed(int(base_spd * -abs(_slow_percent) / 100.0))
 
 	_finish()
 

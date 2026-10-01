@@ -146,6 +146,10 @@ func install_script_extensions() -> void:
         "ui/end_run.gd",
         # SYSTEMS: Job[ 6/6 ]
 
+        "ui/inventory.gd",
+        "ui/item_popup.gd",
+        # SYSTEMS: Blessing Ritual
+
         "linked_stats.gd",
         # EFFECTS: crit_overflow_stat
 
