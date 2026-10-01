@@ -1,5 +1,6 @@
 extends "res://ui/menus/shop/inventory.gd"
 
+# ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func get_elements_with_count(p_elements: Array) -> Array:
 	var index := {}
 	var list := []
@@ -35,12 +36,6 @@ func get_elements_with_count_dict(p_elements: Array) -> Dictionary:
 				result[key] = [element, 1]
 	return result
 
-func _fantasy_stack_key(element: ItemParentData) -> String:
-	return "%s%s" % [
-		str(element.my_id_hash),
-		"_blessed" if Utils.fa_is_item_blessed(element) else "",
-	]
-
 func add_element(
 		element: ItemParentData,
 		check_for_duplicates: bool = false,
@@ -58,6 +53,35 @@ func add_element(
 
 	.add_element(element, false, sort_inventory, _display_banned, animated_entrance)
 
+func remove_element(
+		element: ItemParentData,
+		nb_to_remove: int = 1,
+		deep_comparison: bool = false
+) -> void:
+	if _fantasy_all_same_type_share_blessed(element):
+		.remove_element(element, nb_to_remove, deep_comparison)
+		return
+
+	_fantasy_remove_element_filtered(element, nb_to_remove, deep_comparison)
+
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
+func _fantasy_all_same_type_share_blessed(element: ItemParentData) -> bool:
+	var target_blessed: bool = Utils.fa_is_item_blessed(element)
+	var target_is_weapon: bool = element is WeaponData
+	for child in get_children():
+		if child.item == null or child.is_special or child.is_queued_for_deletion():
+			continue
+		if (child.item is WeaponData) != target_is_weapon:
+			continue
+		if Utils.fa_is_item_blessed(child.item) != target_blessed:
+			return false
+	return true
+
+func _fantasy_stack_key(element: ItemParentData) -> String:
+	return "%s%s" % [
+		str(element.my_id_hash),
+		"_blessed" if Utils.fa_is_item_blessed(element) else "",
+	]
 
 func _fantasy_try_stack_into_existing(element: ItemParentData) -> InventoryElement:
 	var target_blessed: bool = Utils.fa_is_item_blessed(element)
@@ -73,31 +97,6 @@ func _fantasy_try_stack_into_existing(element: ItemParentData) -> InventoryEleme
 		child.add_to_number()
 		return child
 	return null
-
-func remove_element(
-		element: ItemParentData,
-		nb_to_remove: int = 1,
-		deep_comparison: bool = false
-) -> void:
-	if _fantasy_all_same_type_share_blessed(element):
-		.remove_element(element, nb_to_remove, deep_comparison)
-		return
-
-	_fantasy_remove_element_filtered(element, nb_to_remove, deep_comparison)
-
-
-func _fantasy_all_same_type_share_blessed(element: ItemParentData) -> bool:
-	var target_blessed: bool = Utils.fa_is_item_blessed(element)
-	var target_is_weapon: bool = element is WeaponData
-	for child in get_children():
-		if child.item == null or child.is_special or child.is_queued_for_deletion():
-			continue
-		if (child.item is WeaponData) != target_is_weapon:
-			continue
-		if Utils.fa_is_item_blessed(child.item) != target_blessed:
-			return false
-	return true
-
 
 func _fantasy_remove_element_filtered(
 		element: ItemParentData,

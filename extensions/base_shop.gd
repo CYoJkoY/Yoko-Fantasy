@@ -59,40 +59,33 @@ func _combine_weapon(weapon_data: WeaponData, player_index: int, is_upgrade: boo
         weapon_data.upgrades_into,
         player_index,
         is_upgrade,
-        [], # 无额外诅咒源
-        true # 播放合成音效
+        [],
+        true
     )
 
 func buy_weapon(weapon_data: WeaponData, player_index: int) -> void:
-    # 有槽位时直接走父类（父类内部会回调我们重写的 _combine_weapon）
     if RunData.has_weapon_slot_available(weapon_data, player_index):
         .buy_weapon(weapon_data, player_index)
         return
 
-    # 没槽位且不能升级 → 让父类自己处理（可能会失败/占位）
     if weapon_data.upgrades_into == null:
         .buy_weapon(weapon_data, player_index)
         return
 
-    # 没槽位时尝试与已有武器合并
     var player_weapons: Array = RunData.get_player_weapons(player_index)
     var partner: WeaponData = _fantasy_find_combine_partner(weapon_data, player_weapons)
     if partner == null:
         .buy_weapon(weapon_data, player_index)
         return
 
-    # 新买的武器尚未进入 RunData，因此不能放进 weapons_to_remove，
-    # 但要作为"诅咒/祝福源"参与判定 → 用 extra_sources 传进去
     _fantasy_execute_combine(
-        [partner], # 只从 RunData / 容器移除已有武器
+        [partner],
         weapon_data.upgrades_into,
         player_index,
         false,
-        [weapon_data], # 额外诅咒源
+        [weapon_data],
         true
     )
-
-# ══════════════════════════════════════════ Focus Hooks (bless 按钮兜底刷新) ══════════════════════════════════════════ #
 
 func _on_shop_item_focused(shop_item: ShopItem, player_index: int) -> void:
     ._on_shop_item_focused(shop_item, player_index)
@@ -106,75 +99,119 @@ func _on_shop_item_unfocused(shop_item: ShopItem, player_index: int) -> void:
     if item_popup != null:
         _fantasy_refresh_popup_bless_button(item_popup, player_index)
 
-# ══════════════════════════════════════════ Bless Button Injection ══════════════════════════════════════════ #
+func _on_element_pressed(element: InventoryElement, player_index: int, popup_focused: bool) -> void:
+    ._on_element_pressed(element, player_index, popup_focused)
+    var item_popup: Control = _get_item_popup(player_index)
+    if item_popup != null:
+        call_deferred("_fantasy_refresh_popup_bless_button", item_popup, player_index)
 
+func _on_element_focused(element: InventoryElement, player_index: int) -> void:
+    ._on_element_focused(element, player_index)
+    var item_popup: Control = _get_item_popup(player_index)
+    if item_popup != null:
+        call_deferred("_fantasy_refresh_popup_bless_button", item_popup, player_index)
+
+func _on_element_unfocused(element: InventoryElement, player_index: int) -> void:
+    ._on_element_unfocused(element, player_index)
+    var item_popup: Control = _get_item_popup(player_index)
+    if item_popup != null:
+        call_deferred("_fantasy_refresh_popup_bless_button", item_popup, player_index)
+
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_attach_bless_button(item_popup: Control, player_index: int) -> void:
-    if item_popup.has_node(FANTASY_BLESS_BUTTON_NAME):
-        return
-
     var container: Node = _fantasy_find_popup_button_container(item_popup)
     if container == null:
+        return
+
+    if container.has_node(FANTASY_BLESS_BUTTON_NAME):
         return
 
     var bless_button: Button = MyMenuButton.new()
     bless_button.name = FANTASY_BLESS_BUTTON_NAME
     bless_button.text = tr("MENU_FANTASY_BLESS")
     bless_button.visible = false
-    bless_button.focus_mode = FOCUS_NONE
+    bless_button.focus_mode = FOCUS_ALL
     container.add_child(bless_button)
 
-    # 插到 CancelButton 之前（DiscardButton 与 CancelButton 之间）
-    var cancel_button: Control = item_popup.get_node_or_null("%CancelButton")
+    var cancel_button: Control = item_popup.find_node("CancelButton", true, false)
     if cancel_button != null and cancel_button.get_parent() == container:
         container.move_child(bless_button, cancel_button.get_index())
 
     bless_button.connect("pressed", self, "_fantasy_on_popup_bless_pressed", [item_popup, player_index])
 
-    # popup 显示/隐藏时刷新按钮 —— 覆盖父类 focus()/hide()/display_item_data() 的显示时机
-    item_popup.connect("visibility_changed", self, "_fantasy_refresh_popup_bless_button", [item_popup, player_index])
+    if not item_popup.is_connected("visibility_changed", self, "_fantasy_on_popup_visibility_changed"):
+        item_popup.connect("visibility_changed", self, "_fantasy_on_popup_visibility_changed", [item_popup, player_index])
 
-    # 立即同步一次初始状态
-    _fantasy_refresh_popup_bless_button(item_popup, player_index)
+    call_deferred("_fantasy_refresh_popup_bless_button", item_popup, player_index)
+
+func _fantasy_on_popup_visibility_changed(item_popup: Control, player_index: int) -> void:
+    if item_popup.visible:
+        call_deferred("_fantasy_refresh_popup_bless_button", item_popup, player_index)
+    else:
+        var bless_button: Button = item_popup.find_node(FANTASY_BLESS_BUTTON_NAME, true, false) as Button
+        if bless_button != null:
+            bless_button.visible = false
 
 func _fantasy_find_popup_button_container(item_popup: Control) -> Node:
-    var combine_button: Control = item_popup.get_node_or_null("%CombineButton")
-    if combine_button != null and combine_button.get_parent() != null:
-        return combine_button.get_parent()
+    var cancel_btn: Control = item_popup.find_node("CancelButton", true, false)
+    if cancel_btn != null and cancel_btn.get_parent() != null:
+        return cancel_btn.get_parent()
 
-    var cancel_button: Control = item_popup.get_node_or_null("%CancelButton")
-    if cancel_button != null and cancel_button.get_parent() != null:
-        return cancel_button.get_parent()
+    var combine_btn: Control = item_popup.find_node("CombineButton", true, false)
+    if combine_btn != null and combine_btn.get_parent() != null:
+        return combine_btn.get_parent()
 
+    var buttons_node: Node = item_popup.find_node("Buttons", true, false)
+    if buttons_node != null:
+        return buttons_node
+
+    return _fantasy_find_container_with_buttons_recursive(item_popup)
+
+func _fantasy_find_container_with_buttons_recursive(node: Node) -> Node:
+    if node is Container:
+        for child in node.get_children():
+            if child is Button:
+                return node
+    for child in node.get_children():
+        var found: Node = _fantasy_find_container_with_buttons_recursive(child)
+        if found != null:
+            return found
     return null
 
 func _fantasy_refresh_popup_bless_button(item_popup: Control, player_index: int) -> void:
-    if not is_instance_valid(item_popup):
+    if not is_instance_valid(item_popup) or not item_popup.visible:
         return
 
-    var bless_button: Button = item_popup.get_node_or_null(FANTASY_BLESS_BUTTON_NAME) as Button
+    var bless_button: Button = item_popup.find_node(FANTASY_BLESS_BUTTON_NAME, true, false) as Button
     if bless_button == null:
-        return
+        _fantasy_attach_bless_button(item_popup, player_index)
+        bless_button = item_popup.find_node(FANTASY_BLESS_BUTTON_NAME, true, false) as Button
+        if bless_button == null:
+            return
 
-    # 通过 Object.get() 读取 popup 的“私有”变量 —— 不依赖它的类身份
-    var item_data: ItemParentData = item_popup.get("_item_data")
-    var buttons_enabled: bool = item_popup.get("buttons_enabled")
-    var focused: bool = item_popup.get("_focused")
+    var item_data: ItemParentData = item_popup.get("item_data")
+    if item_data == null:
+        item_data = item_popup.get("_item_data")
+    if item_data == null and item_popup.get("current_element") != null:
+        item_data = item_popup.get("current_element").item
 
-    var should_show: bool = (
-        buttons_enabled
-        and item_data != null
-        and Utils.fa_can_bless_item(item_data, player_index)
-        and (not RunData.is_coop_run or focused)
-    )
+    var container: Node = bless_button.get_parent()
+    var cancel_btn: Control = item_popup.find_node("CancelButton", true, false)
 
-    # 与父类一致：锁定当前武器时隐藏所有交互按钮
+    var popup_active: bool = (cancel_btn != null and cancel_btn.visible) or (container is CanvasItem and container.visible) or item_popup.visible
+
+    var can_bless: bool = item_data != null and Utils.fa_can_bless_item(item_data, player_index)
+    var should_show: bool = popup_active and can_bless
+
     if RunData.get_player_effect_bool(Keys.lock_current_weapons_hash, player_index):
         should_show = false
 
     bless_button.visible = should_show
-    bless_button.focus_mode = FOCUS_ALL if (should_show and focused) else FOCUS_NONE
+    bless_button.focus_mode = FOCUS_ALL if should_show else FOCUS_NONE
 
     if should_show:
+        if container is CanvasItem:
+            container.visible = true
         _fantasy_relink_popup_button_focus(item_popup)
 
 func _fantasy_relink_popup_button_focus(item_popup: Control) -> void:
@@ -201,16 +238,15 @@ func _fantasy_relink_popup_button_focus(item_popup: Control) -> void:
 func _fantasy_on_popup_bless_pressed(item_popup: Control, player_index: int) -> void:
     if item_popup == null:
         return
-    if not item_popup.get("buttons_enabled"):
-        return
 
-    var item_data: ItemParentData = item_popup.get("_item_data")
+    var item_data: ItemParentData = item_popup.get("item_data")
+    if item_data == null:
+        item_data = item_popup.get("_item_data")
     if item_data == null:
         return
 
     _on_fantasy_item_bless_button_pressed(item_data, player_index)
 
-# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_gain_item_on_reroll(player_index: int) -> void:
     for effect in RunData.get_player_effect(Utils.fantasy_gain_item_on_reroll_hash, player_index):
         var chance: int = effect[0]

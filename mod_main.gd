@@ -52,6 +52,7 @@ func install_script_extensions() -> void:
         # SYSTEMS: one-shot job theme override
 
         "base_shop.gd",
+        # SYSTEMS: Blessing Ritual[ 1/2 ]
         # EFFECTS: shop_enter_stat_curse[ 1/2 ],
         #          curse_all_on_reroll,
         #          upgrade_specific_tier_weapons[ 1/2 ]
@@ -147,7 +148,7 @@ func install_script_extensions() -> void:
         # SYSTEMS: Job[ 6/6 ]
 
         "ui/inventory.gd",
-        # SYSTEMS: Blessing Ritual
+        # SYSTEMS: Blessing Ritual[ 2/2 ]
 
         "linked_stats.gd",
         # EFFECTS: crit_overflow_stat
