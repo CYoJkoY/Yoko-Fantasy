@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource( 2 )
 icon = ExtResource( 1 )
-health = 3
-health_increase_each_wave = 1.0
-speed = 120
-speed_randomization = 12
+health = 6
+health_increase_each_wave = 1.5
+speed = 170
+speed_randomization = 18
 damage = 1
 damage_increase_each_wave = 0.6
 attack_cd = 30.0

@@ -5,6 +5,7 @@ const PETAL_DART_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/proje
 const MYRIAD_FLOURISH_EFFECT = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/myriad_flourish/myriad_flourish_effect.gd")
 const DEFAULT_PETAL_COUNT: int = 3
 const DEFAULT_PETAL_DAMAGE_RATIO: float = 0.45
+const DEFAULT_SLOW_PERCENT: float = 35.0
 
 const HOMING_TURN_RATE: float = 1.4
 const HOMING_MAX_RANGE: float = 420.0
@@ -13,8 +14,9 @@ const HOMING_RELEASE_FOV_DEG: float = 55.0
 
 var base_petal_count: int = DEFAULT_PETAL_COUNT
 var petal_damage_ratio: float = DEFAULT_PETAL_DAMAGE_RATIO
-export (int) var num_trail_points: int = 12
-export (float) var trail_spacing: float = 6.0
+var slow_percent: float = DEFAULT_SLOW_PERCENT
+export(int) var num_trail_points: int = 12
+export(float) var trail_spacing: float = 6.0
 
 var _elapsed_time: float = 0.0
 var _history_positions: Array = []
@@ -67,10 +69,12 @@ func shoot_ex(
 func _configure_effect(effects: Array) -> void:
     base_petal_count = DEFAULT_PETAL_COUNT
     petal_damage_ratio = DEFAULT_PETAL_DAMAGE_RATIO
+    slow_percent = DEFAULT_SLOW_PERCENT
     for effect in effects:
         if effect != null and effect.get_script() == MYRIAD_FLOURISH_EFFECT:
             base_petal_count = effect.petal_count
             petal_damage_ratio = float(effect.petal_damage_percent) / 100.0
+            slow_percent = effect.slow_percent
             return
 
 
@@ -188,6 +192,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
     var petal_dmg: int = int(max(1, float(damage_dealt) * petal_damage_ratio))
     var crit_ch: float = _weapon_stats.crit_chance if _weapon_stats != null else 0.05
     var crit_dmg: float = _weapon_stats.crit_damage if _weapon_stats != null else 1.5
+    var slowed_target_ids: Dictionary = {}
 
     for i in range(base_petal_count):
         var dart = main.get_node_from_pool(petal_pool_id, main._effects)
@@ -198,6 +203,9 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
 
         var spread_dir = Vector2.RIGHT.rotated(base_angle + i * angle_step)
         var assigned_target = nearby_targets[i % nearby_targets.size()] if not nearby_targets.empty() else null
+        var apply_slow: bool = assigned_target != null and !slowed_target_ids.has(assigned_target.get_instance_id())
+        if apply_slow:
+            slowed_target_ids[assigned_target.get_instance_id()] = true
 
         dart.launch(
             global_position,
@@ -208,6 +216,8 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
             weapon_pos,
             crit_ch,
             crit_dmg,
+            slow_percent,
+            apply_slow,
             main,
             petal_pool_id
         )

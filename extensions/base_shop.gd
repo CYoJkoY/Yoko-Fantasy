@@ -83,7 +83,7 @@ func _combine_weapon(weapon_data: WeaponData, player_index: int, is_upgrade: boo
 
     var new_weapon: WeaponData = weapon_data.upgrades_into
     if is_cursed:
-        new_weapon = DLC1_DATA.curse_item(weapon_data.upgrades_into, player_index, false, curse_factor)
+        new_weapon = Utils.ncl_curse_item(weapon_data.upgrades_into, player_index, false, curse_factor)
 
     var keep_blessing: bool = (is_upgrade and nb_blessed >= 1) or (not is_upgrade and nb_blessed >= 2)
     if keep_blessing:
@@ -96,9 +96,7 @@ func _combine_weapon(weapon_data: WeaponData, player_index: int, is_upgrade: boo
 
     if not is_upgrade:
         SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1)
-        _reset_focus_after_using_popup(player_index)
     _update_stats()
-    SaveSystem.save()
 
 func buy_weapon(weapon_data: WeaponData, player_index: int) -> void:
     var has_weapon_slot: bool = RunData.has_weapon_slot_available(weapon_data, player_index)
@@ -120,7 +118,7 @@ func buy_weapon(weapon_data: WeaponData, player_index: int) -> void:
     var new_weapon_data: WeaponData = weapon_data.upgrades_into
     if weapon_data.is_cursed or weapon_to_combine.is_cursed:
         var min_curse_factor: float = max(weapon_data.curse_factor, weapon_to_combine.curse_factor)
-        new_weapon_data = DLC1_DATA.curse_item(new_weapon_data, player_index, false, min_curse_factor)
+        new_weapon_data = Utils.ncl_curse_item(new_weapon_data, player_index, false, min_curse_factor)
 
     if Utils.fa_is_item_blessed(weapon_data) and Utils.fa_is_item_blessed(weapon_to_combine):
         new_weapon_data = Utils.fa_bless_item(new_weapon_data) as WeaponData
@@ -442,23 +440,23 @@ func _fantasy_shop_enter_stat_curse() -> void:
             for item in player_items:
                 if !item.is_cursed:
                     all_gears.append(item)
-                    
+
             for weapon in player_weapons:
                 if !weapon.is_cursed:
                     all_gears.append(weapon)
-            
+
             var gear_count: int = int(min(effect[3], all_gears.size()))
             if gear_count <= 0: continue
-            
+
             RunData.ncl_add_effect_tracking_value(effect[4], effect[1], player_index, 0)
             RunData.ncl_add_effect_tracking_value(effect[4], gear_count, player_index, 1)
-            
+
             var gears_to_curse: Array = []
             for _i in range(gear_count):
                 var random_index: int = Utils.randi_range(0, all_gears.size() - 1)
                 gears_to_curse.append(all_gears[random_index])
                 all_gears.remove(random_index)
-            
+
             var updated_any_gear: bool = false
             for gear in gears_to_curse:
                 var new_gear: ItemParentData = Utils.ncl_curse_item(gear, player_index)
@@ -467,7 +465,7 @@ func _fantasy_shop_enter_stat_curse() -> void:
                     RunData.remove_weapon(gear, player_index)
                     RunData.add_weapon(new_gear, player_index)
                     updated_any_gear = true
-                
+
                 elif new_gear is ItemData:
                     RunData.remove_item(gear, player_index)
                     if gear.replaced_by: RunData.remove_item(gear.replaced_by, player_index)
@@ -482,7 +480,7 @@ func _fantasy_shop_enter_stat_curse() -> void:
 
 func _fantasy_curse_all_on_reroll(player_index: int, just_entered_shop: bool = false) -> void:
     if just_entered_shop: return
-    
+
     var curse_all_effects: Array = RunData.get_player_effect(Utils.fantasy_curse_all_on_reroll_hash, player_index)
     if curse_all_effects.empty(): return
 
@@ -499,7 +497,7 @@ func _fantasy_curse_all_on_reroll(player_index: int, just_entered_shop: bool = f
 
                 source_item = player_item
                 break
-            
+
             if source_item != null: break
 
         if source_item == null: continue
@@ -597,7 +595,7 @@ func _fantasy_upgrade_specific_tier_weapons() -> void:
                 upgraded += 1
 
             for w in to_upgrade: _combine_weapon(w, player_index, true)
-            for w_list in to_special_upgrade: Utils.ncl_change_weapon_within_shop(w_list[0], w_list[1], player_index, self )
+            for w_list in to_special_upgrade: Utils.ncl_change_weapon_within_shop(w_list[0], w_list[1], player_index, self)
 
 func _fantasy_scrap_specific_tier_weapons_for_items() -> void:
     for player_index in range(RunData.get_player_count()):
@@ -674,8 +672,8 @@ func _on_fantasy_item_bless_button_pressed(item_data: ItemParentData, player_ind
     if neg_count <= 0 or cost <= 0:
         return
 
-    RunData.remove_stat("stat_fantasy_soul", cost, player_index)
-    RunData.add_stat("stat_fantasy_holy", neg_count, player_index)
+    RunData.remove_stat(Utils.stat_fantasy_soul_hash, cost, player_index)
+    RunData.add_stat(Utils.stat_fantasy_holy_hash, neg_count, player_index)
 
     var blessed_gear: ItemParentData = Utils.fa_bless_item(item_data)
     var player_gear_container: PlayerGearContainer = _get_gear_container(player_index)
@@ -696,7 +694,4 @@ func _on_fantasy_item_bless_button_pressed(item_data: ItemParentData, player_ind
         player_gear_container.set_items_data(RunData.get_player_items(player_index))
 
     _update_stats()
-    _reset_focus_after_using_popup(player_index)
     SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1)
-    SaveSystem.save()
-

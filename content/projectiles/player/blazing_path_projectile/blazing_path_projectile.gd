@@ -6,96 +6,9 @@ const FLUTTER_STEP_COS_1: float = 0.900447102
 const FLUTTER_STEP_SIN_2: float = 0.717356091
 const FLUTTER_STEP_COS_2: float = 0.696706709
 
-const FLAME_SHADER_CODE: String = """
-shader_type canvas_item;
-render_mode blend_add;
-
-uniform vec4 tint_color : hint_color = vec4(1.0, 0.18, 0.06, 1.0);
-uniform vec4 core_color : hint_color = vec4(1.0, 0.65, 0.45, 1.0);
-
-void fragment() {
-    vec4 tex = texture(TEXTURE, UV);
-    float lum = max(tex.r, max(tex.g, tex.b));
-    float core = clamp((tex.r + tex.g + tex.b - 1.2) / 1.8, 0.0, 1.0);
-    vec3 recolored = mix(tint_color.rgb * lum, core_color.rgb, core * core);
-    COLOR = vec4(recolored * COLOR.rgb, tex.a * COLOR.a);
-}
-"""
-
-const TIER_FLAME_CONFIGS: Array = [
-    {
-        "tint": Color(1.0, 0.14, 0.05, 1.0),
-        "core": Color(1.0, 0.62, 0.42, 1.0),
-        "line_colors": [
-            Color(1.0, 0.78, 0.62, 1.0),
-            Color(1.0, 0.32, 0.12, 0.95),
-            Color(0.95, 0.12, 0.04, 0.85),
-            Color(0.75, 0.05, 0.02, 0.50),
-            Color(0.30, 0.01, 0.01, 0.0),
-        ],
-        "ember_colors": [
-            Color(1.0, 0.75, 0.55, 1.0),
-            Color(1.0, 0.25, 0.08, 0.85),
-            Color(0.85, 0.08, 0.02, 0.50),
-            Color(0.40, 0.02, 0.01, 0.0),
-        ],
-    },
-    {
-        "tint": Color(1.0, 0.84, 0.08, 1.0),
-        "core": Color(1.0, 0.98, 0.72, 1.0),
-        "line_colors": [
-            Color(1.0, 1.0, 0.85, 1.0),
-            Color(1.0, 0.92, 0.25, 0.95),
-            Color(1.0, 0.76, 0.08, 0.85),
-            Color(0.85, 0.52, 0.02, 0.50),
-            Color(0.35, 0.18, 0.01, 0.0),
-        ],
-        "ember_colors": [
-            Color(1.0, 1.0, 0.85, 1.0),
-            Color(1.0, 0.88, 0.18, 0.85),
-            Color(0.92, 0.65, 0.05, 0.50),
-            Color(0.42, 0.25, 0.02, 0.0),
-        ],
-    },
-    {
-        "tint": Color(0.94, 0.97, 1.0, 1.0),
-        "core": Color(1.0, 1.0, 1.0, 1.0),
-        "line_colors": [
-            Color(1.0, 1.0, 1.0, 1.0),
-            Color(0.96, 0.98, 1.0, 0.95),
-            Color(0.88, 0.92, 1.0, 0.85),
-            Color(0.68, 0.75, 0.88, 0.50),
-            Color(0.28, 0.32, 0.40, 0.0),
-        ],
-        "ember_colors": [
-            Color(1.0, 1.0, 1.0, 1.0),
-            Color(0.94, 0.97, 1.0, 0.85),
-            Color(0.78, 0.84, 0.95, 0.50),
-            Color(0.35, 0.40, 0.48, 0.0),
-        ],
-    },
-    {
-        "tint": Color(0.12, 0.52, 1.0, 1.0),
-        "core": Color(0.72, 0.95, 1.0, 1.0),
-        "line_colors": [
-            Color(0.82, 0.96, 1.0, 1.0),
-            Color(0.28, 0.72, 1.0, 0.95),
-            Color(0.08, 0.45, 1.0, 0.85),
-            Color(0.04, 0.22, 0.82, 0.50),
-            Color(0.01, 0.06, 0.32, 0.0),
-        ],
-        "ember_colors": [
-            Color(0.82, 0.96, 1.0, 1.0),
-            Color(0.22, 0.68, 1.0, 0.85),
-            Color(0.06, 0.36, 0.92, 0.50),
-            Color(0.02, 0.10, 0.42, 0.0),
-        ],
-    },
-]
-
-export (int) var num_body_points: int = 26
-export (float) var point_spacing: float = 8.0
-export (float, 0.0, 1.0) var lifetime_multiplier: float = 0.8
+export(int) var num_body_points: int = 26
+export(float) var point_spacing: float = 8.0
+export(float, 0.0, 1.0) var lifetime_multiplier: float = 0.8
 
 var _base_speed: float
 var _base_direction: Vector2 = Vector2.RIGHT
@@ -105,8 +18,6 @@ var _wave_phase: float = 0.0
 var _elapsed_time: float = 0.0
 var _stop_head_scale: Vector2 = Vector2.ONE
 var _visual_opacity: float = 1.0
-var _weapon_tier: int = 0
-var _flame_shader_mat: ShaderMaterial = null
 
 var _history_positions: Array = []
 
@@ -121,44 +32,7 @@ onready var _ember_particles: CPUParticles2D = $"%EmberParticles" as CPUParticle
 
 
 func _ready() -> void:
-    _setup_flame_materials()
     _init_line_points()
-
-
-func _setup_flame_materials() -> void:
-    var shader := Shader.new()
-    shader.code = FLAME_SHADER_CODE
-    _flame_shader_mat = ShaderMaterial.new()
-    _flame_shader_mat.shader = shader
-    _head_sprite.material = _flame_shader_mat
-    _line.material = _flame_shader_mat
-    _ember_particles.material = _flame_shader_mat
-
-    if _line.gradient != null:
-        _line.gradient = _line.gradient.duplicate()
-    if _ember_particles.color_ramp != null:
-        _ember_particles.color_ramp = _ember_particles.color_ramp.duplicate()
-
-    _apply_tier_visuals(_weapon_tier)
-
-
-func _apply_tier_visuals(tier_idx: int) -> void:
-    var clamped_tier: int = int(clamp(tier_idx, 0, TIER_FLAME_CONFIGS.size() - 1))
-    var cfg: Dictionary = TIER_FLAME_CONFIGS[clamped_tier]
-
-    if _flame_shader_mat != null:
-        _flame_shader_mat.set_shader_param("tint_color", cfg["tint"])
-        _flame_shader_mat.set_shader_param("core_color", cfg["core"])
-
-    if _line != null and _line.gradient != null:
-        var line_colors: Array = cfg["line_colors"]
-        for i in range(min(_line.gradient.get_point_count(), line_colors.size())):
-            _line.gradient.set_color(i, line_colors[i])
-
-    if _ember_particles != null and _ember_particles.color_ramp != null:
-        var ember_colors: Array = cfg["ember_colors"]
-        for i in range(min(_ember_particles.color_ramp.get_point_count(), ember_colors.size())):
-            _ember_particles.color_ramp.set_color(i, ember_colors[i])
 
 
 func _init_line_points() -> void:
@@ -178,12 +52,6 @@ func shoot_ex(p_from: Node,
         hitbox_args: Hitbox.HitboxArgs,
         knockback_direction: Vector2
         ) -> void:
-
-    _weapon_tier = 0
-    if p_from != null and is_instance_valid(p_from) and "tier" in p_from:
-        _weapon_tier = int(clamp(p_from.tier, 0, 3))
-    _apply_tier_visuals(_weapon_tier)
-
     _base_speed = p_velocity.length()
     if _base_speed < 1.0:
         _base_speed = p_weapon_stats.projectile_speed
@@ -218,10 +86,10 @@ func shoot() -> void:
     _time_until_max_range *= lifetime_multiplier
     _visual_opacity = FantasyProjectileVisualUtils.get_opacity()
     var opacity = _visual_opacity
-    _head_sprite.modulate = Color(1.0, 1.0, 1.0, opacity)
+    _head_sprite.modulate.a = opacity
     _head_sprite.scale = Vector2.ONE
-    _line.modulate = Color(1.0, 1.0, 1.0, opacity)
-    _ember_particles.modulate = Color(1.0, 1.0, 1.0, opacity)
+    _line.modulate.a = opacity
+    _ember_particles.modulate.a = opacity
     _ember_particles.emitting = true
     _ember_particles.restart()
 
@@ -371,4 +239,4 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
         splash = HIT_SPLASH_SCENE.instance()
         main.add_effect(splash)
         splash.set_meta("pool_id", pool_id)
-    splash.play(global_position, main, pool_id, _weapon_tier)
+    splash.play(global_position, main, pool_id)
