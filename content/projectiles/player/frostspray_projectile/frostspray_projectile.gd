@@ -13,8 +13,8 @@ const HOMING_MAX_RANGE: float = 480.0
 const HOMING_FOV_DEG: float = 45.0
 const HOMING_RELEASE_FOV_DEG: float = 70.0
 
-export (int) var num_trail_points: int = 12
-export (float) var trail_spacing: float = 10.0
+export(int) var num_trail_points: int = 12
+export(float) var trail_spacing: float = 10.0
 
 var shard_count: int = DEFAULT_SHARD_COUNT
 var shard_damage_ratio: float = DEFAULT_SHARD_DAMAGE_RATIO

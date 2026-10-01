@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=9 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
 [ext_resource path="res://items/sets/heavy/heavy_set_data.tres" type="Resource" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/holy_battleaxe/holy_battleaxe.tscn" type="PackedScene" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/holy_battleaxe/holy_battleaxe_icon.webp" type="Texture" id=7]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/holy_battleaxe/3/holy_battleaxe_3_data.tres" type="Resource" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/sacred/sacred_set_data.tres" type="Resource" id=9]
 
 [resource]
 script = ExtResource( 1 )
@@ -26,7 +27,7 @@ is_cursed = false
 curse_factor = 0.0
 weapon_id = "weapon_fantasy_holy_battleaxe"
 type = 0
-sets = [ ExtResource( 2 ), ExtResource( 3 ) ]
+sets = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 9 ) ]
 scene = ExtResource( 6 )
 stats = ExtResource( 4 )
 upgrades_into = ExtResource( 8 )

@@ -15,8 +15,8 @@ const HOMING_RELEASE_FOV_DEG: float = 55.0
 var base_petal_count: int = DEFAULT_PETAL_COUNT
 var petal_damage_ratio: float = DEFAULT_PETAL_DAMAGE_RATIO
 var slow_percent: float = DEFAULT_SLOW_PERCENT
-export (int) var num_trail_points: int = 12
-export (float) var trail_spacing: float = 6.0
+export(int) var num_trail_points: int = 12
+export(float) var trail_spacing: float = 6.0
 
 var _elapsed_time: float = 0.0
 var _history_positions: Array = []

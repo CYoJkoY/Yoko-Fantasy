@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=9 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
 [ext_resource path="res://items/sets/fire/fire_set_data.tres" type="Resource" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/blazing_path/4/blazing_path_4_effect.tres" type="Resource" id=7]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/blazing_path/4/blazing_path_4_burning_speed_effect.tres" type="Resource" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/blazing_path/4/blazing_path_4_burning_spread_effect.tres" type="Resource" id=9]
 
 [resource]
 script = ExtResource( 1 )
@@ -19,7 +20,7 @@ icon = ExtResource( 4 )
 name = "WEAPON_FANTASY_BLAZING_PATH"
 tier = 3
 value = 120
-effects = [ ExtResource( 8 ), ExtResource( 7 ) ]
+effects = [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 9 ) ]
 tracking_text = ""
 is_lockable = true
 unlock_codex_descr_after_get_it = 1

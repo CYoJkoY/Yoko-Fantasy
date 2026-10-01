@@ -13,4 +13,3 @@ effect_sign = 3
 custom_args = [  ]
 petal_count = 4
 petal_damage_percent = 55
-slow_percent = 40

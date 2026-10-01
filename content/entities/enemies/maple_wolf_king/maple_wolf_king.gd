@@ -13,9 +13,9 @@ func _ready() -> void:
     shoot_anime_set(State.NORMAL)
     shoot_charmed_anime_set(State.NORMAL)
 
-    charging_attack_behavior.init(self )
-    spawning_attack_behavior_twelve.init(self )
-    spawning_attack_behavior_five.init(self )
+    charging_attack_behavior.init(self)
+    spawning_attack_behavior_twelve.init(self)
+    spawning_attack_behavior_five.init(self)
 
     register_attack_behavior(charging_attack_behavior)
     register_attack_behavior(spawning_attack_behavior_twelve)

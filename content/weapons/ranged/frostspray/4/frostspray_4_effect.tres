@@ -6,10 +6,11 @@
 script = ExtResource( 1 )
 key = ""
 text_key = "EFFECT_FANTASY_FROSTSPRAY_4"
-value = 5
+value = 8
 custom_key = ""
 storage_method = 0
 effect_sign = 3
 custom_args = [  ]
-shard_count = 5
+shard_count = 8
 shard_damage_percent = 40
+slow_percent = 50

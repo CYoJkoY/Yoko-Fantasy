@@ -25,6 +25,7 @@ onready var main: Main = Utils.get_scene_node()
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
+    set_physics_process(false)
     _previous_sprite_rotation = _parent.sprite.rotation_degrees
 
     for player_index in range(RunData.get_player_count()):
@@ -52,7 +53,7 @@ func _ready() -> void:
                 active_dances.set(dance.source_id, dance)
 
 func _physics_process(delta: float) -> void:
-    if !is_instance_valid(from_player) or from_player.dead:
+    if !is_instance_valid(_parent) or _parent.dead or _parent._pending_die or !is_instance_valid(from_player) or from_player.dead:
         fa_cleanup()
         return
 
@@ -77,6 +78,8 @@ func should_add_on_spawn() -> bool:
     return false
 
 func on_hurt(hitbox: Hitbox) -> void:
+    if !is_instance_valid(_parent) or _parent.dead or _parent._pending_die: return
+
     var from: Node = hitbox.from
 
     if !is_instance_valid(from) or (is_instance_valid(from) and !("player_index" in from)): return
@@ -117,6 +120,8 @@ func on_death(_die_args: Entity.DieArgs) -> void:
 
 # ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_start_dance(dance: ActiveDance) -> void:
+    if !is_instance_valid(_parent) or _parent.dead or _parent._pending_die: return
+
     is_active = true
     dance.stacks -= 1
     from_player = main._players[dance.player_index]
@@ -130,19 +135,23 @@ func fa_start_dance(dance: ActiveDance) -> void:
     set_physics_process(true)
 
 func fa_on_dance_end() -> void:
+    if !is_instance_valid(_parent) or _parent.dead or _parent._pending_die:
+        fa_cleanup()
+        return
+
     if is_active:
         fa_cleanup()
         return
 
     is_cooling_down = false
     var dance: ActiveDance = active_dances.get(dance_id)
-    if dance.stacks > 0:
+    if dance != null and dance.stacks > 0:
         fa_start_dance(dance)
         return
 
     for other_dance_id in active_dances:
         var other_dance: ActiveDance = active_dances.get(other_dance_id)
-        if other_dance.stacks > 0:
+        if other_dance != null and other_dance.stacks > 0:
             fa_start_dance(other_dance)
             return
 
@@ -152,9 +161,9 @@ func fa_cleanup() -> void:
     if !is_instance_valid(_parent): return
 
     _parent.set_physics_process(true)
-    if _parent is Boss and !_parent.dead: _parent._check_state_timer.start()
+    if _parent is Boss and !_parent.dead and !_parent._pending_die: _parent._check_state_timer.start()
 
-    is_cooling_down = is_active and !_parent.dead
+    is_cooling_down = is_active and !_parent.dead and !_parent._pending_die
     is_active = false
     timer.stop()
     if is_cooling_down: timer.start(2.0)
