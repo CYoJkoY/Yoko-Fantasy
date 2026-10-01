@@ -178,12 +178,10 @@ static func _fantasy_attach_bless_button(
 ) -> void:
     var item_popup: ItemPopup = _popup_manager._item_popups[player_index]
     if item_popup == null:
-        push_error("_fantasy_attach_bless_button: _item_popups[%d] 为 null" % player_index)
         return
 
     var margin: MarginContainer = item_popup.find_node("MarginContainer", true, false)
     if margin == null:
-        push_error("_fantasy_attach_bless_button: 在 ItemPopup 下找不到 MarginContainer")
         return
     var container: VBoxContainer = margin.get_node("VBoxContainer")
     if container.has_node("FantasyBlessButton"):
@@ -242,6 +240,48 @@ static func _fantasy_on_popup_bless_pressed(
 
     update_stats.call_func(player_index)
     SoundManager.play(Utils.get_rand_element(shop.combine_sounds), 0, 0.1)
+
+static func _fantasy_update_bless_button(
+    container: VBoxContainer,
+    item_data: ItemParentData,
+    player_index: int
+) -> void:
+    var bless_button: MyMenuButton = container.get_node_or_null("FantasyBlessButton") as MyMenuButton
+    if bless_button == null: return
+
+    if item_data == null:
+        bless_button.hide()
+        return
+
+    var cost: int = Utils.fa_get_bless_cost(item_data)
+    var neg_count: int = Utils.fa_get_negative_effect_count(item_data)
+    var valid: bool = Utils.fa_can_bless_item(item_data, player_index) and cost > 0 and neg_count > 0
+
+    bless_button.visible = valid
+    if valid:
+        bless_button.text = TranslationServer.translate("MENU_FANTASY_BLESS") + " (" + str(cost) + ")"
+
+
+static func _fantasy_refresh_bless_button(shop: BaseShop, item_data: ItemParentData, player_index: int) -> void:
+    var item_popup: ItemPopup = shop._popup_manager._item_popups[player_index]
+    var margin: MarginContainer = item_popup.find_node("MarginContainer", true, false)
+    _fantasy_update_bless_button(margin.get_node("VBoxContainer"), item_data, player_index)
+
+
+static func _fantasy_show_item_popup(shop: BaseShop, element: InventoryElement, player_index: int) -> void:
+    var pm: PopupManager = shop._popup_manager
+    var item_popup: ItemPopup = pm._item_popups[player_index]
+
+    pm._elements_hovered[player_index] = element
+    pm._elements_focused[player_index] = element
+    pm._elements_pressed[player_index] = element
+
+    item_popup.display_element(element)
+
+    item_popup._focused = true
+    item_popup._cancel_button.show()
+    item_popup._cancel_button.focus_mode = Control.FOCUS_ALL
+    item_popup._cancel_button.grab_focus()
 
 # ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 static func _fantasy_shop_enter_stat_curse(update_stats: FuncRef, get_gear_container: FuncRef) -> void:
