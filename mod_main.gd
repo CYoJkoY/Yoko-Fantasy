@@ -147,7 +147,6 @@ func install_script_extensions() -> void:
         # SYSTEMS: Job[ 6/6 ]
 
         "ui/inventory.gd",
-        "ui/item_popup.gd",
         # SYSTEMS: Blessing Ritual
 
         "linked_stats.gd",
