@@ -3,111 +3,140 @@ extends "res://ui/menus/shop/inventory.gd"
 func get_elements_with_count(p_elements: Array) -> Array:
 	var index := {}
 	var list := []
-
 	for element in p_elements:
-		if element.is_cursed:
+		if element.is_cursed or element is WeaponData:
 			list.append([element, 1])
 			continue
-
-		var is_blessed: bool = Utils.fa_is_item_blessed(element)
-		var key: String = str(element.my_id_hash) + ("_blessed" if is_blessed else "")
-
-		if index.has(key):
-			list[index[key]][1] += 1
+		var key := _fantasy_stack_key(element)
+		var i = index.get(key)
+		if i != null:
+			list[i][1] += 1
 		else:
 			index[key] = list.size()
 			list.append([element, 1])
-
 	return list
 
 func get_elements_with_count_dict(p_elements: Array) -> Dictionary:
 	var result := {}
 	var cursed_seq := 0
-
+	var weapon_seq := 0
 	for element in p_elements:
 		if element.is_cursed:
-			var cursed_key := "__cursed_%d" % cursed_seq
+			result["__cursed_%d" % cursed_seq] = [element, 1]
 			cursed_seq += 1
-			result[cursed_key] = [element, 1]
-			continue
-
-		var is_blessed: bool = Utils.fa_is_item_blessed(element)
-		var key: String = str(element.my_id_hash) + ("_blessed" if is_blessed else "")
-
-		if result.has(key):
-			result[key][1] += 1
+		elif element is WeaponData:
+			result["__weapon_%d" % weapon_seq] = [element, 1]
+			weapon_seq += 1
 		else:
-			result[key] = [element, 1]
-
+			var key := _fantasy_stack_key(element)
+			if result.has(key):
+				result[key][1] += 1
+			else:
+				result[key] = [element, 1]
 	return result
 
+func _fantasy_stack_key(element: ItemParentData) -> String:
+	return "%s%s" % [
+		str(element.my_id_hash),
+		"_blessed" if Utils.fa_is_item_blessed(element) else "",
+	]
+
 func add_element(
-		item_data: ItemParentData,
-		check_for_duplicates: bool = true,
+		element: ItemParentData,
+		check_for_duplicates: bool = false,
 		sort_inventory: bool = true,
 		_display_banned: float = 0,
 		animated_entrance = false
 ):
-	# —— 重复检测：在父类“按 my_id”的基础上增加“祝福状态”维度 ——
-	if check_for_duplicates and not item_data.is_cursed:
-		var is_blessed: bool = Utils.fa_is_item_blessed(item_data)
-		for child in get_children():
-			if child.item == null or child.is_special or child.item.is_cursed:
-				continue
-			if (child.item.my_id_hash == item_data.my_id_hash
-					and Utils.fa_is_item_blessed(child.item) == is_blessed):
-				child.add_to_number()
-				return child
+	if element is WeaponData:
+		check_for_duplicates = false
 
-	var instance: InventoryElement = _spawn_element(item_data, _display_banned, animated_entrance)
-	if sort_inventory:
-		emit_signal("need_to_sort_inventory")
-	return instance
+	if check_for_duplicates and not element.is_cursed:
+		var stacked: InventoryElement = _fantasy_try_stack_into_existing(element)
+		if stacked != null:
+			return stacked
+
+	.add_element(element, false, sort_inventory, _display_banned, animated_entrance)
+
+
+func _fantasy_try_stack_into_existing(element: ItemParentData) -> InventoryElement:
+	var target_blessed: bool = Utils.fa_is_item_blessed(element)
+	for child in get_children():
+		if child.item == null or child.is_special or child.is_queued_for_deletion():
+			continue
+		if child.item.is_cursed or child.item is WeaponData:
+			continue
+		if child.item.my_id != element.my_id:
+			continue
+		if Utils.fa_is_item_blessed(child.item) != target_blessed:
+			continue
+		child.add_to_number()
+		return child
+	return null
 
 func remove_element(
 		element: ItemParentData,
 		nb_to_remove: int = 1,
 		deep_comparison: bool = false
 ) -> void:
-	var is_blessed: bool = Utils.fa_is_item_blessed(element)
-	var children: Array = get_children()
-	var index: int = 0
-	var removed: int = 0
+	if _fantasy_all_same_type_share_blessed(element):
+		.remove_element(element, nb_to_remove, deep_comparison)
+		return
+
+	_fantasy_remove_element_filtered(element, nb_to_remove, deep_comparison)
+
+
+func _fantasy_all_same_type_share_blessed(element: ItemParentData) -> bool:
+	var target_blessed: bool = Utils.fa_is_item_blessed(element)
+	var target_is_weapon: bool = element is WeaponData
+	for child in get_children():
+		if child.item == null or child.is_special or child.is_queued_for_deletion():
+			continue
+		if (child.item is WeaponData) != target_is_weapon:
+			continue
+		if Utils.fa_is_item_blessed(child.item) != target_blessed:
+			return false
+	return true
+
+
+func _fantasy_remove_element_filtered(
+		element: ItemParentData,
+		nb_to_remove: int,
+		deep_comparison: bool
+) -> void:
+	var target_blessed: bool = Utils.fa_is_item_blessed(element)
+	var children := get_children()
+	var index := 0
+	var removed := 0
 
 	for i in children.size():
 		var child = children[i]
 		if child.item == null or child.is_queued_for_deletion():
 			continue
-		# 祝福状态不同 → 不是同一个堆叠
-		if Utils.fa_is_item_blessed(child.item) != is_blessed:
+		if Utils.fa_is_item_blessed(child.item) != target_blessed:
 			continue
 
-		var is_same: bool
-		if deep_comparison:
-			is_same = ItemService.is_same_weapon(element, child.item)
-		else:
-			is_same = (child.item.my_id_hash == element.my_id_hash
-					and child.item.is_cursed == element.is_cursed)
+		var is_same: bool = (child.item == element) if deep_comparison \
+				else (child.item.my_id == element.my_id and child.item.is_cursed == element.is_cursed)
+		if not is_same:
+			continue
 
-		if is_same:
-			if child.current_number > 1:
-				child.remove_from_number()
-			else:
-				order_of_addition.erase(child)
-				child.queue_free()
-			index = i
-			removed += 1
-			if removed == nb_to_remove:
-				break
+		if child.current_number > 1:
+			child.remove_from_number()
+		else:
+			order_of_addition.erase(child)
+			child.queue_free()
+
+		index = i
+		removed += 1
+		if removed == nb_to_remove:
+			break
 
 	if removed > 0:
 		emit_signal("elements_changed")
 		queue_set_focus_neighbours()
 
 	if get_child_count() > 1:
-		if index == 0:
-			focus_element_index(1)
-		else:
-			focus_element_index(0)
+		focus_element_index(1 if index == 0 else 0)
 	else:
 		emit_signal("focus_lost")

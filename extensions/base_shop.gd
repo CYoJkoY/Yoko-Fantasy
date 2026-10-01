@@ -1,6 +1,5 @@
 extends "res://ui/menus/shop/base_shop.gd"
 
-# bless 按钮通过 BaseShop 侧注入到 ItemPopup 上，不扩展 ItemPopup 类型
 const FANTASY_BLESS_BUTTON_NAME := "FantasyBlessButton"
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
