@@ -372,3 +372,10 @@ func fa_bless_item(item_data: ItemParentData) -> ItemParentData:
     new_effects.append(fa_create_blessed_effect())
     new_item_data.effects = new_effects
     return new_item_data
+
+func fa_get_item_stack_key(item_data: ItemParentData) -> String:
+    if item_data == null:
+        return ""
+    if fa_is_item_blessed(item_data):
+        return item_data.my_id + "_blessed"
+    return item_data.my_id

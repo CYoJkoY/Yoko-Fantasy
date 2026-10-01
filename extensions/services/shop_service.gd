@@ -207,6 +207,23 @@ static func _fantasy_on_popup_bless_pressed(
     player_index: int
 ) -> void:
     var item_data: ItemParentData = item_popup._item_data
+    if item_data == null:
+        return
+
+    var in_inventory: bool = false
+    for w in RunData.get_player_weapons(player_index):
+        if w == item_data:
+            in_inventory = true
+            break
+    if not in_inventory:
+        for it in RunData.get_player_items(player_index):
+            if it == item_data:
+                in_inventory = true
+                break
+    if not in_inventory:
+        _fantasy_cleanup_popup(shop, item_popup, player_index)
+        return
+
     var can_blessed: bool = Utils.fa_can_bless_item(item_data, player_index)
     var cost: int = Utils.fa_get_bless_cost(item_data)
     var neg_count: int = Utils.fa_get_negative_effect_count(item_data)
@@ -236,7 +253,22 @@ static func _fantasy_on_popup_bless_pressed(
 
     update_stats.call_func(player_index)
     SoundManager.play(Utils.get_rand_element(shop.combine_sounds), 0, 0.1)
-    _fantasy_refresh_all_bless_marks(shop, player_index)
+
+    _fantasy_cleanup_popup(shop, item_popup, player_index)
+
+
+static func _fantasy_cleanup_popup(shop: BaseShop, item_popup: ItemPopup, player_index: int) -> void:
+    item_popup._item_data = null
+    item_popup.hide()
+
+    var block_bg = shop.get_node_or_null("Content/BlockBackground")
+    if block_bg != null:
+        block_bg.hide()
+
+    shop._popup_manager.reset_focus(player_index)
+
+    if shop._focused_shop_item[player_index] != null:
+        shop._focused_shop_item[player_index]._can_be_selected()
 
 static func _fantasy_update_bless_button(
     container: VBoxContainer,
@@ -279,16 +311,6 @@ static func _fantasy_show_item_popup(shop: BaseShop, element: InventoryElement, 
     item_popup._cancel_button.show()
     item_popup._cancel_button.focus_mode = Control.FOCUS_ALL
     item_popup._cancel_button.grab_focus()
-
-static func _fantasy_refresh_all_bless_marks(shop: BaseShop, player_index: int) -> void:
-    var gear_container: PlayerGearContainer = shop._get_gear_container(player_index)
-    for element in gear_container.weapons_container._elements.get_children():
-        if element is InventoryElement:
-            _fantasy_apply_bless_mark(element)
-    for element in gear_container.items_container._elements.get_children():
-        if element is InventoryElement:
-            _fantasy_apply_bless_mark(element)
-
 
 static func _fantasy_apply_bless_mark(element: InventoryElement) -> void:
     var border: TextureRect = element.get_node_or_null("FantasyBlessBorder") as TextureRect
