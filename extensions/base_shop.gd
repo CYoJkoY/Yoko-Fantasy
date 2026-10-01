@@ -1,13 +1,10 @@
 extends "res://ui/menus/shop/base_shop.gd"
 
-const FANTASY_BLESS_BUTTON_NAME := "FantasyBlessButton"
-
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
     for player_index in range(RunData.get_player_count()):
-        var item_popup: Control = _get_item_popup(player_index)
-        if item_popup != null:
-            _fantasy_attach_bless_button(item_popup, player_index)
+        var item_popup: ItemPopup = _get_item_popup(player_index)
+        _fantasy_attach_bless_button(item_popup, player_index)
 
     if !RunData.fantasy_resumed_from_state_in_shop:
         _fantasy_shop_enter_synthesis()
@@ -38,215 +35,61 @@ func _on_RerollButton_pressed(player_index: int) -> void:
     ._on_RerollButton_pressed(player_index)
     _fantasy_gain_item_on_reroll(player_index)
 
-func _combine_weapon(weapon_data: WeaponData, player_index: int, is_upgrade: bool = false) -> void:
-    if weapon_data.upgrades_into == null:
+# ══════════════════════════════════════════ Blessing Ritual ══════════════════════════════════════════ #
+func _fantasy_attach_bless_button(item_popup: ItemPopup, player_index: int) -> void:
+    var container: VBoxContainer = item_popup.get_node("MarginContainer").get_node("VBoxContainer")
+    if container.has_node("FantasyBlessButton"):
         return
 
-    var player_weapons: Array = RunData.get_player_weapons(player_index)
-    var primary_weapon: WeaponData = _fantasy_pick_primary_weapon(weapon_data, player_weapons)
-    if primary_weapon == null:
-        return
-
-    var weapons_to_remove: Array = [primary_weapon]
-    if not is_upgrade:
-        var partner: WeaponData = _fantasy_find_combine_partner(primary_weapon, player_weapons)
-        if partner == null:
-            return
-        weapons_to_remove.push_back(partner)
-
-    _fantasy_execute_combine(
-        weapons_to_remove,
-        weapon_data.upgrades_into,
-        player_index,
-        is_upgrade,
-        [],
-        true
-    )
-
-func buy_weapon(weapon_data: WeaponData, player_index: int) -> void:
-    if RunData.has_weapon_slot_available(weapon_data, player_index):
-        .buy_weapon(weapon_data, player_index)
-        return
-
-    if weapon_data.upgrades_into == null:
-        .buy_weapon(weapon_data, player_index)
-        return
-
-    var player_weapons: Array = RunData.get_player_weapons(player_index)
-    var partner: WeaponData = _fantasy_find_combine_partner(weapon_data, player_weapons)
-    if partner == null:
-        .buy_weapon(weapon_data, player_index)
-        return
-
-    _fantasy_execute_combine(
-        [partner],
-        weapon_data.upgrades_into,
-        player_index,
-        false,
-        [weapon_data],
-        true
-    )
-
-func _on_shop_item_focused(shop_item: ShopItem, player_index: int) -> void:
-    ._on_shop_item_focused(shop_item, player_index)
-    var item_popup: Control = _get_item_popup(player_index)
-    if item_popup != null:
-        _fantasy_refresh_popup_bless_button(item_popup, player_index)
-
-func _on_shop_item_unfocused(shop_item: ShopItem, player_index: int) -> void:
-    ._on_shop_item_unfocused(shop_item, player_index)
-    var item_popup: Control = _get_item_popup(player_index)
-    if item_popup != null:
-        _fantasy_refresh_popup_bless_button(item_popup, player_index)
-
-func _on_element_pressed(element: InventoryElement, player_index: int, popup_focused: bool) -> void:
-    ._on_element_pressed(element, player_index, popup_focused)
-    var item_popup: Control = _get_item_popup(player_index)
-    if item_popup != null:
-        call_deferred("_fantasy_refresh_popup_bless_button", item_popup, player_index)
-
-func _on_element_focused(element: InventoryElement, player_index: int) -> void:
-    ._on_element_focused(element, player_index)
-    var item_popup: Control = _get_item_popup(player_index)
-    if item_popup != null:
-        call_deferred("_fantasy_refresh_popup_bless_button", item_popup, player_index)
-
-func _on_element_unfocused(element: InventoryElement, player_index: int) -> void:
-    ._on_element_unfocused(element, player_index)
-    var item_popup: Control = _get_item_popup(player_index)
-    if item_popup != null:
-        call_deferred("_fantasy_refresh_popup_bless_button", item_popup, player_index)
-
-# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
-func _fantasy_attach_bless_button(item_popup: Control, player_index: int) -> void:
-    var container: Node = _fantasy_find_popup_button_container(item_popup)
-    if container == null:
-        return
-
-    if container.has_node(FANTASY_BLESS_BUTTON_NAME):
-        return
-
-    var bless_button: Button = MyMenuButton.new()
-    bless_button.name = FANTASY_BLESS_BUTTON_NAME
+    var bless_button: MyMenuButton = MyMenuButton.new()
+    bless_button.name = "FantasyBlessButton"
     bless_button.text = tr("MENU_FANTASY_BLESS")
-    bless_button.visible = false
+    bless_button.visible = true
     bless_button.focus_mode = FOCUS_ALL
     container.add_child(bless_button)
+    var cancel_button: MyMenuButton = container.find_node("CancelButton", true, false)
+    container.move_child(bless_button, cancel_button.get_index())
 
-    var cancel_button: Control = item_popup.find_node("CancelButton", true, false)
-    if cancel_button != null and cancel_button.get_parent() == container:
-        container.move_child(bless_button, cancel_button.get_index())
+    var item_data: ItemParentData = item_popup._item_data
+    var can_blessed: bool = Utils.fa_can_bless_item(item_data, player_index)
+    var cost: int = Utils.fa_get_bless_cost(item_data)
+    var neg_count: int = Utils.fa_get_negative_effect_count(item_data)
+    if cost <= 0 or neg_count <= 0 or not can_blessed:
+        bless_button.hide()
 
-    bless_button.connect("pressed", self, "_fantasy_on_popup_bless_pressed", [item_popup, player_index])
+    bless_button.connect(
+        "pressed",
+        self,
+        "_fantasy_on_popup_bless_pressed",
+        [item_data, cost, neg_count, player_index]
+    )
 
-    if not item_popup.is_connected("visibility_changed", self, "_fantasy_on_popup_visibility_changed"):
-        item_popup.connect("visibility_changed", self, "_fantasy_on_popup_visibility_changed", [item_popup, player_index])
+func _fantasy_on_popup_bless_pressed(item_data: ItemParentData, cost: int, neg_count: int, player_index: int) -> void:
+    RunData.remove_stat(Utils.stat_fantasy_soul_hash, cost, player_index)
+    RunData.add_stat(Utils.stat_fantasy_holy_hash, neg_count, player_index)
 
-    call_deferred("_fantasy_refresh_popup_bless_button", item_popup, player_index)
+    var blessed_gear: ItemParentData = Utils.fa_bless_item(item_data)
+    var player_gear_container: PlayerGearContainer = _get_gear_container(player_index)
 
-func _fantasy_on_popup_visibility_changed(item_popup: Control, player_index: int) -> void:
-    if item_popup.visible:
-        call_deferred("_fantasy_refresh_popup_bless_button", item_popup, player_index)
-    else:
-        var bless_button: Button = item_popup.find_node(FANTASY_BLESS_BUTTON_NAME, true, false) as Button
-        if bless_button != null:
-            bless_button.visible = false
+    if item_data is WeaponData:
+        var tracked_value: int = item_data.tracked_value
+        var dmg_dealt_last_wave: int = item_data.dmg_dealt_last_wave
+        var tracked_value_added_this_wave: int = item_data.tracked_value_added_this_wave
+        RunData.remove_weapon(item_data, player_index)
+        var added_weapon: WeaponData = RunData.add_weapon(blessed_gear as WeaponData, player_index)
+        added_weapon.tracked_value = tracked_value
+        added_weapon.dmg_dealt_last_wave = dmg_dealt_last_wave
+        added_weapon.tracked_value_added_this_wave = tracked_value_added_this_wave
+        player_gear_container.set_weapons_data(RunData.get_player_weapons(player_index))
+    elif item_data is ItemData:
+        RunData.remove_item(item_data, player_index)
+        RunData.add_item(blessed_gear as ItemData, player_index)
+        player_gear_container.set_items_data(RunData.get_player_items(player_index))
 
-func _fantasy_find_popup_button_container(item_popup: Control) -> Node:
-    var cancel_btn: Control = item_popup.find_node("CancelButton", true, false)
-    if cancel_btn != null and cancel_btn.get_parent() != null:
-        return cancel_btn.get_parent()
+    _update_stats(player_index)
+    SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1)
 
-    var combine_btn: Control = item_popup.find_node("CombineButton", true, false)
-    if combine_btn != null and combine_btn.get_parent() != null:
-        return combine_btn.get_parent()
-
-    var buttons_node: Node = item_popup.find_node("Buttons", true, false)
-    if buttons_node != null:
-        return buttons_node
-
-    return _fantasy_find_container_with_buttons_recursive(item_popup)
-
-func _fantasy_find_container_with_buttons_recursive(node: Node) -> Node:
-    if node is Container:
-        for child in node.get_children():
-            if child is Button:
-                return node
-    for child in node.get_children():
-        var found: Node = _fantasy_find_container_with_buttons_recursive(child)
-        if found != null:
-            return found
-    return null
-
-func _fantasy_refresh_popup_bless_button(item_popup: Control, player_index: int) -> void:
-    if not is_instance_valid(item_popup) or not item_popup.visible:
-        return
-
-    var bless_button: Button = item_popup.find_node(FANTASY_BLESS_BUTTON_NAME, true, false) as Button
-    if bless_button == null:
-        _fantasy_attach_bless_button(item_popup, player_index)
-        bless_button = item_popup.find_node(FANTASY_BLESS_BUTTON_NAME, true, false) as Button
-        if bless_button == null:
-            return
-
-    var item_data: ItemParentData = item_popup.get("item_data")
-    if item_data == null:
-        item_data = item_popup.get("_item_data")
-    if item_data == null and item_popup.get("current_element") != null:
-        item_data = item_popup.get("current_element").item
-
-    var container: Node = bless_button.get_parent()
-    var cancel_btn: Control = item_popup.find_node("CancelButton", true, false)
-
-    var popup_active: bool = (cancel_btn != null and cancel_btn.visible) or (container is CanvasItem and container.visible) or item_popup.visible
-
-    var can_bless: bool = item_data != null and Utils.fa_can_bless_item(item_data, player_index)
-    var should_show: bool = popup_active and can_bless
-
-    if RunData.get_player_effect_bool(Keys.lock_current_weapons_hash, player_index):
-        should_show = false
-
-    bless_button.visible = should_show
-    bless_button.focus_mode = FOCUS_ALL if should_show else FOCUS_NONE
-
-    if should_show:
-        if container is CanvasItem:
-            container.visible = true
-        _fantasy_relink_popup_button_focus(item_popup)
-
-func _fantasy_relink_popup_button_focus(item_popup: Control) -> void:
-    var container: Node = _fantasy_find_popup_button_container(item_popup)
-    if container == null:
-        return
-
-    var visible_buttons: Array = []
-    for child in container.get_children():
-        if child is Control and child.visible and child.focus_mode != FOCUS_NONE:
-            visible_buttons.append(child)
-
-    var count: int = visible_buttons.size()
-    if count == 0:
-        return
-
-    for i in range(count):
-        var btn: Control = visible_buttons[i]
-        var prev_btn: Control = visible_buttons[(i - 1 + count) % count]
-        var next_btn: Control = visible_buttons[(i + 1) % count]
-        btn.focus_neighbour_top = btn.get_path_to(prev_btn)
-        btn.focus_neighbour_bottom = btn.get_path_to(next_btn)
-
-func _fantasy_on_popup_bless_pressed(item_popup: Control, player_index: int) -> void:
-    if item_popup == null:
-        return
-
-    var item_data: ItemParentData = item_popup.get("item_data")
-    if item_data == null:
-        item_data = item_popup.get("_item_data")
-    if item_data == null:
-        return
-
-    _on_fantasy_item_bless_button_pressed(item_data, player_index)
-
+# ══════════════════════════════════════════ Custom ══════════════════════════════════════════ #
 func _fantasy_gain_item_on_reroll(player_index: int) -> void:
     for effect in RunData.get_player_effect(Utils.fantasy_gain_item_on_reroll_hash, player_index):
         var chance: int = effect[0]
@@ -749,147 +592,9 @@ func _fantasy_scrap_specific_tier_weapons_for_items() -> void:
             player_gear_container.set_weapons_data(RunData.get_player_weapons(player_index))
             player_gear_container.set_items_data(RunData.get_player_items(player_index))
 
-func _fantasy_execute_combine(
-    weapons_to_remove: Array,
-    upgrades_into: WeaponData,
-    player_index: int,
-    is_upgrade: bool,
-    extra_cursed_blessed_sources: Array,
-    play_sound: bool
-) -> void:
-    if upgrades_into == null:
-        return
-
-    var weapons_container: InventoryContainer = _get_gear_container(player_index).weapons_container
-
-    var tracked_value: int = 0
-    var dmg_dealt_last_wave: int = 0
-    var is_cursed: bool = false
-    var curse_factor: float = 0.0
-    var nb_blessed: int = 0
-
-    # 参与判定但不从 RunData 移除的武器（例如刚买但未入库的武器）
-    for src in extra_cursed_blessed_sources:
-        if src.is_cursed:
-            is_cursed = true
-            curse_factor = max(curse_factor, src.curse_factor)
-            for effect in src.effects:
-                curse_factor = max(curse_factor, effect.curse_factor)
-        if Utils.fa_is_item_blessed(src):
-            nb_blessed += 1
-
-    for weapon in weapons_to_remove:
-        tracked_value += RunData.remove_weapon(weapon, player_index)
-        dmg_dealt_last_wave += weapon.dmg_dealt_last_wave
-        weapons_container._elements.remove_element(weapon, 1, true)
-        if weapon.is_cursed:
-            is_cursed = true
-            curse_factor = max(curse_factor, weapon.curse_factor)
-            for effect in weapon.effects:
-                curse_factor = max(curse_factor, effect.curse_factor)
-        if Utils.fa_is_item_blessed(weapon):
-            nb_blessed += 1
-
-    var new_weapon: WeaponData = upgrades_into
-    if is_cursed:
-        new_weapon = Utils.ncl_curse_item(new_weapon, player_index, false, curse_factor)
-
-    var keep_blessing: bool = (is_upgrade and nb_blessed >= 1) or (not is_upgrade and nb_blessed >= 2)
-    if keep_blessing and Utils.fa_can_bless_item(new_weapon, player_index):
-        new_weapon = Utils.fa_bless_item(new_weapon) as WeaponData
-
-    var newly_added: WeaponData = RunData.add_weapon(new_weapon, player_index)
-    newly_added.tracked_value = tracked_value
-    if is_upgrade:
-        newly_added.dmg_dealt_last_wave = dmg_dealt_last_wave
-
-    weapons_container._elements.add_element(newly_added)
-
-    _update_stats(player_index)
-    _get_shop_items_container(player_index).reload_shop_items()
-
-    if Input.get_mouse_mode() == Input.MOUSE_MODE_HIDDEN:
-        weapons_container._elements.focus_element(newly_added)
-
-    if play_sound:
-        SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1, true)
-
-func _fantasy_pick_primary_weapon(weapon_data: WeaponData, player_weapons: Array) -> WeaponData:
-    # 优先用 RunData 中同一实例
-    for weapon in player_weapons:
-        if weapon == weapon_data:
-            return weapon
-
-    # 否则用"同 id + 同祝福状态"的实例
-    var target_blessed: bool = Utils.fa_is_item_blessed(weapon_data)
-    for weapon in player_weapons:
-        if ItemService.is_same_weapon(weapon, weapon_data) \
-        and Utils.fa_is_item_blessed(weapon) == target_blessed:
-            return weapon
-
-    # 兜底：直接用传入对象（buy_weapon 路径下不在 RunData 里）
-    return weapon_data
-
 # ══════════════════════════════════════════ Method ══════════════════════════════════════════ #
 func fa_special_upgrade(weapon: WeaponData) -> Array:
     for effect in weapon.effects:
         if effect.get_id() != "fantasy_change_weapon_every_killed_enemies": continue
         return [true, effect.key_hash]
     return [false, Keys.empty_hash]
-
-func _fantasy_find_combine_partner(primary_weapon: WeaponData, player_weapons: Array) -> WeaponData:
-    var target_blessed: bool = Utils.fa_is_item_blessed(primary_weapon)
-    var same_blessed_candidates: Array = []
-    var other_candidates: Array = []
-
-    for weapon in player_weapons:
-        if weapon == primary_weapon:
-            continue
-        if weapon.my_id_hash != primary_weapon.my_id_hash:
-            continue
-        if Utils.fa_is_item_blessed(weapon) == target_blessed:
-            same_blessed_candidates.append(weapon)
-        else:
-            other_candidates.append(weapon)
-
-    var pool: Array = same_blessed_candidates if !same_blessed_candidates.empty() else other_candidates
-    if pool.empty():
-        return null
-
-    for weapon in pool:
-        if weapon.is_cursed == primary_weapon.is_cursed:
-            return weapon
-    return pool[0]
-
-func _on_fantasy_item_bless_button_pressed(item_data: ItemParentData, player_index: int) -> void:
-    if not Utils.fa_can_bless_item(item_data, player_index):
-        return
-
-    var neg_count: int = Utils.fa_get_negative_effect_count(item_data)
-    var cost: int = Utils.fa_get_bless_cost(item_data)
-    if neg_count <= 0 or cost <= 0:
-        return
-
-    RunData.remove_stat(Utils.stat_fantasy_soul_hash, cost, player_index)
-    RunData.add_stat(Utils.stat_fantasy_holy_hash, neg_count, player_index)
-
-    var blessed_gear: ItemParentData = Utils.fa_bless_item(item_data)
-    var player_gear_container: PlayerGearContainer = _get_gear_container(player_index)
-
-    if item_data is WeaponData:
-        var tracked_value: int = item_data.tracked_value
-        var dmg_dealt_last_wave: int = item_data.dmg_dealt_last_wave
-        var tracked_value_added_this_wave: int = item_data.tracked_value_added_this_wave
-        RunData.remove_weapon(item_data, player_index)
-        var added_weapon: WeaponData = RunData.add_weapon(blessed_gear as WeaponData, player_index)
-        added_weapon.tracked_value = tracked_value
-        added_weapon.dmg_dealt_last_wave = dmg_dealt_last_wave
-        added_weapon.tracked_value_added_this_wave = tracked_value_added_this_wave
-        player_gear_container.set_weapons_data(RunData.get_player_weapons(player_index))
-    elif item_data is ItemData:
-        RunData.remove_item(item_data, player_index)
-        RunData.add_item(blessed_gear as ItemData, player_index)
-        player_gear_container.set_items_data(RunData.get_player_items(player_index))
-
-    _update_stats(player_index)
-    SoundManager.play(Utils.get_rand_element(combine_sounds), 0, 0.1)
