@@ -12,4 +12,5 @@ static func get_classes() -> Array:
         {"base": "MeleeWeapon", "class": "HandbellWeapon", "language": "GDScript", "path": "res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/handbell/handbell.gd"},
         {"base": "Enemy", "class": "LittleSlime", "language": "GDScript", "path": "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/little_slime/little_slime.gd"},
         {"base": "LittleSlime", "class": "MediumSlime", "language": "GDScript", "path": "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/medium_slime/medium_slime.gd"},
+        {"base": "Reference", "class": "ShopService", "language": "GDScript", "path": "res://mods-unpacked/Yoko-Fantasy/extensions/services/shop_service.gd"},
     ]
