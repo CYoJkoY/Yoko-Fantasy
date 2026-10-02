@@ -199,7 +199,7 @@ func _setup_lasers() -> void:
 		var col: CollisionShape2D = _laser_collisions[i]
 		col.position = local_pos
 		col.rotation = beam_angle
-		col.set_deferred("disabled", false)
+		col.set_deferred("disabled", true)
 
 
 func _disable_lasers() -> void:
