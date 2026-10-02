@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/soul_sparkle.png-789b3cb08bf687c1b926b26d994b573b.stex"
+path="res://.import/bless_border.webp-183ac4db0c9e3de099a40e1b19c1ec34.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/soul_projectile/soul_sparkle.png"
-dest_files=[ "res://.import/soul_sparkle.png-789b3cb08bf687c1b926b26d994b573b.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_border.webp"
+dest_files=[ "res://.import/bless_border.webp-183ac4db0c9e3de099a40e1b19c1ec34.stex" ]
 
 [params]
 

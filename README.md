@@ -82,4 +82,4 @@ Development support: **https://cyojkoy.github.io/Payment/**
 
 ## License
 
-Yoko-Fantasy is distributed under the [MIT License](LICENSE).
+Yoko-Fantasy is distributed under the [Custom License](LICENSE).

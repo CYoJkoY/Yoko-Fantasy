@@ -6,9 +6,9 @@ const FLUTTER_STEP_COS_1: float = 0.900447102
 const FLUTTER_STEP_SIN_2: float = 0.717356091
 const FLUTTER_STEP_COS_2: float = 0.696706709
 
-export (int) var num_body_points: int = 26
-export (float) var point_spacing: float = 8.0
-export (float, 0.0, 1.0) var lifetime_multiplier: float = 0.8
+export(int) var num_body_points: int = 26
+export(float) var point_spacing: float = 8.0
+export(float, 0.0, 1.0) var lifetime_multiplier: float = 0.8
 
 var _base_speed: float
 var _base_direction: Vector2 = Vector2.RIGHT
@@ -52,7 +52,6 @@ func shoot_ex(p_from: Node,
         hitbox_args: Hitbox.HitboxArgs,
         knockback_direction: Vector2
         ) -> void:
-
     _base_speed = p_velocity.length()
     if _base_speed < 1.0:
         _base_speed = p_weapon_stats.projectile_speed

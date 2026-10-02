@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource( 1 )
-cooldown = 17
+cooldown = 12
 damage = 16
 accuracy = 1.0
 crit_chance = 0.2
@@ -26,8 +26,8 @@ sound_db_mod = -5
 is_healing = false
 recoil = 25
 recoil_duration = 0.09
-additional_cooldown_every_x_shots = -1
-additional_cooldown_multiplier = -1.0
+additional_cooldown_every_x_shots = 6
+additional_cooldown_multiplier = 8.0
 speed_percent_modifier = 0
 deal_dmg_on_return = false
 attack_type = 0

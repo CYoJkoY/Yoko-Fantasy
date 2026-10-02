@@ -3,14 +3,21 @@ extends Line2D
 signal duration_timeout()
 
 var already_recycle: bool = false
+var _default_width_curve: Curve = null
 
 onready var duration_timer: Timer = $"Timer"
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
+    if material != null:
+        material = material.duplicate()
+    _default_width_curve = width_curve
     reset()
 
 func reset() -> void:
+    if duration_timer != null:
+        duration_timer.stop()
+    width_curve = _default_width_curve
     hide()
     clear_points()
 
