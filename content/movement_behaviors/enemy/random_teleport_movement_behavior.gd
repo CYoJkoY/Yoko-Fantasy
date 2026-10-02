@@ -87,8 +87,6 @@ func _spawn_prediction_circle(center: Vector2, duration: float) -> void:
         line = prediction_line_scene.instance()
         _main.add_effect(line)
 
-    for connection in line.get_signal_connection_list("duration_timeout"):
-        line.disconnect("duration_timeout", connection.target, connection.method)
     var _err = line.connect("duration_timeout", self, "fa_on_DurationTimer_timeout", [line])
 
     line.already_recycle = false
@@ -109,6 +107,8 @@ func _spawn_prediction_circle(center: Vector2, duration: float) -> void:
 func fa_on_DurationTimer_timeout(line: Line2D) -> void:
     if !is_instance_valid(line) or line.already_recycle:
         return
+    if line.is_connected("duration_timeout", self, "fa_on_DurationTimer_timeout"):
+        line.disconnect("duration_timeout", self, "fa_on_DurationTimer_timeout")
     line.already_recycle = true
     line.reset()
     if _prediction_line == line:

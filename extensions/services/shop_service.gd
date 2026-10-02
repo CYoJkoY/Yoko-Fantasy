@@ -1,6 +1,10 @@
 class_name ShopService
 extends Reference
 
+const BLESS_BUTTON_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_button.tscn")
+const BLESS_BORDER_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_border.tscn")
+const GOLDFISH_SOUND = preload("res://ui/sounds/goldfish.wav")
+
 # ══════════════════════════════════════════ Shop Entry ══════════════════════════════════════════ #
 static func _fantasy_on_shop_ready(shop: BaseShop) -> void:
     var update_stats_func: FuncRef = funcref(shop, "_update_stats")
@@ -204,7 +208,7 @@ static func _fantasy_attach_bless_button(
     if container.has_node("FantasyBlessButton"):
         return
 
-    var bless_button: MyMenuButton = load("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_button.tscn").instance()
+    var bless_button: MyMenuButton = BLESS_BUTTON_SCENE.instance()
     var cancel_button: MyMenuButton = item_popup.get_node("%CancelButton")
     container.add_child(bless_button)
     container.move_child(bless_button, cancel_button.get_index())
@@ -332,7 +336,7 @@ static func _fantasy_apply_bless_mark(element: InventoryElement) -> void:
         return
 
     if border == null:
-        border = load("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_border.tscn").instance()
+        border = BLESS_BORDER_SCENE.instance()
         element.add_child(border)
     border.show()
 
@@ -614,7 +618,7 @@ static func _fantasy_curse_all_on_reroll(shop_items: Array, get_gear_container: 
 
         RunData.remove_item(source_item, player_index)
         get_gear_container.call_func(player_index).set_items_data(RunData.get_player_items(player_index))
-        SoundManager.play(load("res://ui/sounds/goldfish.wav"), 0, 0.2)
+        SoundManager.play(GOLDFISH_SOUND, 0, 0.2)
         break
 
     var new_shop_items: Array = []

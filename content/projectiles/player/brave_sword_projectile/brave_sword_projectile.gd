@@ -1,11 +1,9 @@
 extends PlayerProjectile
 
-const LASER_COUNT: int = 4
-const LASER_HALF_LENGTH: float = 4000.0
-const LASER_HALF_WIDTH: float = 56.0
-const LASER_SPAWN_MIN_RADIUS: float = 35.0
-const LASER_SPAWN_MAX_RADIUS: float = 185.0
-const LASER_DURATION: float = 0.36
+const LASER_COUNT: int = 6
+const LASER_HALF_LENGTH: float = 3600.0
+const LASER_HALF_WIDTH: float = 42.0
+const LASER_DURATION: float = 0.55
 
 const WAVE_GROW_DURATION: float = 0.16
 const WAVE_START_SCALE := Vector2(0.10, 0.12)
@@ -17,8 +15,11 @@ var _elapsed: float = 0.0
 var _visual_opacity: float = 1.0
 var _laser_transforms: Array = []
 var _laser_visuals: Array = []
-var _laser_collisions: Array = []
-var _laser_damage_applied: bool = false
+var _laser_hit_enemies: Array = []
+var _hex_base_angle: float = 0.0
+var _hex_rot_speed: float = 0.0
+var _hex_start_radius: float = 65.0
+var _hex_target_radius: float = 195.0
 
 onready var _particles: CPUParticles2D = $"%CPUParticles2D" as CPUParticles2D
 onready var _wave_collision: CollisionShape2D = $Hitbox/Collision as CollisionShape2D
@@ -27,64 +28,9 @@ onready var _laser_container: Node2D = $LaserContainer as Node2D
 
 func _ready() -> void:
 	._ready()
-	_build_laser_nodes()
-
-
-func _build_laser_nodes() -> void:
 	_laser_visuals.clear()
-	_laser_collisions.clear()
-
-	var additive_mat := CanvasItemMaterial.new()
-	additive_mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
-
 	for i in range(LASER_COUNT):
-		var beam_root := Node2D.new()
-		beam_root.name = "LaserBeam%d" % i
-		beam_root.visible = false
-		_laser_container.add_child(beam_root)
-
-		var outer_line := Line2D.new()
-		outer_line.name = "OuterGlow"
-		outer_line.width = LASER_HALF_WIDTH * 2.35
-		outer_line.default_color = Color(1.0, 0.78, 0.18, 0.42)
-		outer_line.material = additive_mat
-		outer_line.points = PoolVector2Array([Vector2(-LASER_HALF_LENGTH, 0.0), Vector2(LASER_HALF_LENGTH, 0.0)])
-		beam_root.add_child(outer_line)
-
-		var mid_line := Line2D.new()
-		mid_line.name = "MidBeam"
-		mid_line.width = LASER_HALF_WIDTH * 1.45
-		mid_line.default_color = Color(1.0, 0.92, 0.42, 0.78)
-		mid_line.material = additive_mat
-		mid_line.points = PoolVector2Array([Vector2(-LASER_HALF_LENGTH, 0.0), Vector2(LASER_HALF_LENGTH, 0.0)])
-		beam_root.add_child(mid_line)
-
-		var core_line := Line2D.new()
-		core_line.name = "CoreBeam"
-		core_line.width = LASER_HALF_WIDTH * 0.62
-		core_line.default_color = Color(1.0, 0.99, 0.88, 0.98)
-		core_line.material = additive_mat
-		core_line.points = PoolVector2Array([Vector2(-LASER_HALF_LENGTH, 0.0), Vector2(LASER_HALF_LENGTH, 0.0)])
-		beam_root.add_child(core_line)
-
-		var cross_flare := Line2D.new()
-		cross_flare.name = "CrossFlare"
-		cross_flare.width = 24.0
-		cross_flare.default_color = Color(1.0, 0.96, 0.72, 0.85)
-		cross_flare.material = additive_mat
-		cross_flare.points = PoolVector2Array([Vector2(0.0, -LASER_HALF_WIDTH * 1.9), Vector2(0.0, LASER_HALF_WIDTH * 1.9)])
-		beam_root.add_child(cross_flare)
-
-		_laser_visuals.push_back(beam_root)
-
-		var col := CollisionShape2D.new()
-		col.name = "LaserCollision%d" % i
-		var rect := RectangleShape2D.new()
-		rect.extents = Vector2(LASER_HALF_LENGTH, LASER_HALF_WIDTH)
-		col.shape = rect
-		col.disabled = true
-		_hitbox.add_child(col)
-		_laser_collisions.push_back(col)
+		_laser_visuals.push_back(_laser_container.get_node("LaserBeam%d" % i))
 
 
 func shoot_ex(
@@ -99,7 +45,7 @@ func shoot_ex(
 	knockback_direction: Vector2
 ) -> void:
 	_elapsed = 0.0
-	_laser_damage_applied = false
+	_laser_hit_enemies.clear()
 
 	_is_laser_mode = true
 	if is_instance_valid(p_from):
@@ -172,40 +118,38 @@ func shoot() -> void:
 
 
 func _setup_lasers() -> void:
+	_hex_base_angle = rand_range(0.0, TAU)
+	_hex_rot_speed = rand_range(-0.25, 0.25)
+	_hex_start_radius = rand_range(50.0, 75.0)
+	_hex_target_radius = _hex_start_radius + rand_range(110.0, 150.0)
+	_update_hexagram_transforms(_hex_base_angle, _hex_start_radius)
+	_laser_container.modulate = Color(1.0, 1.0, 1.0, _visual_opacity)
+	for beam in _laser_visuals:
+		beam.scale = Vector2(1.0, 0.35)
+		beam.visible = true
+
+
+func _update_hexagram_transforms(base_angle: float, radius: float) -> void:
 	_laser_transforms.clear()
-	var base_angle: float = rand_range(0.0, PI)
-	var angle_step: float = PI / float(LASER_COUNT)
 
 	for i in range(LASER_COUNT):
-		var offset_angle: float = rand_range(0.0, TAU)
-		var offset_dist: float = rand_range(LASER_SPAWN_MIN_RADIUS, LASER_SPAWN_MAX_RADIUS)
-		var local_pos: Vector2 = Vector2.RIGHT.rotated(offset_angle) * offset_dist
-		var beam_angle: float = base_angle + float(i) * angle_step + rand_range(-0.28, 0.28)
+		var normal_angle: float = base_angle + float(i) * PI / 3.0
+		var local_pos: Vector2 = Vector2.RIGHT.rotated(normal_angle) * radius
+		var beam_angle: float = normal_angle + PI * 0.5
 
 		_laser_transforms.push_back({
-			"local_pos": local_pos,
 			"world_pos": global_position + local_pos,
-			"angle": beam_angle,
 			"dir": Vector2.RIGHT.rotated(beam_angle)
 		})
 
 		var beam_root: Node2D = _laser_visuals[i]
 		beam_root.position = local_pos
 		beam_root.rotation = beam_angle
-		beam_root.scale = Vector2(1.0, 0.15)
-		beam_root.modulate = Color(1.0, 1.0, 1.0, _visual_opacity)
-		beam_root.visible = true
-
-		var col: CollisionShape2D = _laser_collisions[i]
-		col.position = local_pos
-		col.rotation = beam_angle
-		col.set_deferred("disabled", true)
 
 
 func _disable_lasers() -> void:
 	for i in range(_laser_visuals.size()):
 		_laser_visuals[i].visible = false
-		_laser_collisions[i].set_deferred("disabled", true)
 
 
 func _physics_process(delta: float) -> void:
@@ -221,35 +165,33 @@ func _physics_process(delta: float) -> void:
 
 
 func _process_laser_mode(_delta: float) -> void:
-	if not _laser_damage_applied:
-		_laser_damage_applied = true
-		_damage_enemies_in_lasers()
+	if _elapsed >= LASER_DURATION:
+		stop()
+		return
 
 	var progress: float = clamp(_elapsed / LASER_DURATION, 0.0, 1.0)
+	var sweep_t: float = clamp(_elapsed / (LASER_DURATION * 0.75), 0.0, 1.0)
+	var radius: float = lerp(_hex_start_radius, _hex_target_radius, 1.0 - pow(1.0 - sweep_t, 2.5))
+	_update_hexagram_transforms(_hex_base_angle + _hex_rot_speed * _elapsed, radius)
+	_damage_enemies_in_lasers()
 	var width_scale: float = 1.0
 	var alpha_mult: float = 1.0
 
-	if progress < 0.16:
-		var t_in: float = progress / 0.16
-		width_scale = lerp(0.18, 1.18, 1.0 - pow(1.0 - t_in, 3.0))
-		alpha_mult = clamp(t_in * 1.4, 0.0, 1.0)
-	elif progress < 0.52:
-		var pulse: float = 1.0 + 0.10 * sin(_elapsed * 55.0)
-		width_scale = pulse
+	if progress < 0.12:
+		var t_in: float = progress / 0.12
+		width_scale = lerp(0.35, 1.35, sin(t_in * PI * 0.5))
+		alpha_mult = lerp(0.5, 1.0, t_in)
+	elif progress < 0.65:
+		width_scale = lerp(1.35, 1.0, (progress - 0.12) / 0.53)
 		alpha_mult = 1.0
 	else:
-		var t_out: float = (progress - 0.52) / 0.48
-		width_scale = lerp(1.0, 0.02, pow(t_out, 1.6))
-		alpha_mult = 1.0 - pow(t_out, 1.4)
+		var t_out: float = (progress - 0.65) / 0.35
+		width_scale = lerp(1.0, 0.06, t_out * t_out)
+		alpha_mult = 1.0 - t_out * t_out
 
-	for i in range(_laser_visuals.size()):
-		var beam_root: Node2D = _laser_visuals[i]
-		beam_root.scale = Vector2(1.0, max(0.01, width_scale))
-		beam_root.modulate.a = _visual_opacity * alpha_mult
-
-	if _elapsed >= LASER_DURATION:
-		stop()
-
+	_laser_container.modulate.a = _visual_opacity * alpha_mult
+	for beam in _laser_visuals:
+		beam.scale = Vector2(1.0, max(0.01, width_scale))
 
 func _damage_enemies_in_lasers() -> void:
 	var main = Utils.get_scene_node()
@@ -262,7 +204,7 @@ func _damage_enemies_in_lasers() -> void:
 
 	var all_enemies: Array = spawner.get_all_enemies()
 	for enemy in all_enemies:
-		if not is_instance_valid(enemy) or enemy.dead or _hitbox.ignored_objects.has(enemy):
+		if not is_instance_valid(enemy) or enemy.dead or _laser_hit_enemies.has(enemy) or _hitbox.ignored_objects.has(enemy):
 			continue
 
 		var enemy_pos: Vector2 = enemy.global_position
@@ -278,6 +220,7 @@ func _damage_enemies_in_lasers() -> void:
 				break
 
 		if hit_by_laser and enemy.has_method("hurt_area_entered_deferred"):
+			_laser_hit_enemies.append(enemy)
 			enemy.call_deferred("hurt_area_entered_deferred", _hitbox)
 
 
@@ -309,6 +252,7 @@ func stop() -> void:
 
 func _return_to_pool() -> void:
 	_disable_lasers()
+	_laser_hit_enemies.clear()
 	if is_instance_valid(_particles):
 		_particles.emitting = false
 	_sprite.scale = Vector2.ONE
