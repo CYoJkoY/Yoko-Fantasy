@@ -51,6 +51,7 @@ func install_script_extensions() -> void:
         "music_manager.gd",
         # SYSTEMS: one-shot job theme override
 
+        "base_shop.gd",
         "shop.gd",
         "coop_shop.gd",
         # SYSTEMS: Blessing Ritual[ 1/2 ]
