@@ -93,10 +93,10 @@ func fantasy_cannot_attack_while_stationary(weapon: Node) -> bool:
 func fantasy_cannot_damage_tree(weapon: Node) -> void:
     if !RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, weapon._parent.player_index): return
 
-    weapon._range.collision_mask -= Utils.NEUTRAL_BIT
+    weapon._range.collision_mask &= ~Utils.NEUTRAL_BIT
 
 func fantasy_should_ignore_tree_body(weapon: Node, body: Node) -> bool:
-    return RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, weapon._parent.player_index) and Utils.plant_enemies_ids.has(body.get("enemy_id_hash"))
+    return RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, weapon._parent.player_index) and (body is Neutral or Utils.plant_enemies_ids.has(body.get("enemy_id_hash")))
 
 func fantasy_on_shoot(weapon: Node) -> void:
     _fantasy_reload_when_shoot(weapon)

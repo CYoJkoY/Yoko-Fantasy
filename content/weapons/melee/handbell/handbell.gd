@@ -13,7 +13,6 @@ var _was_vibrating: bool = false
 
 
 func _ready() -> void:
-	._ready()
 	_hitbox.connect("hit_something", self, "_on_handbell_hit_something")
 
 

@@ -17,10 +17,8 @@ onready var _glow_sprite: Sprite = $Glow
 
 
 func _ready() -> void:
-    ._ready()
     _time_alive = rand_range(0.0, PI)
     _pulse_timer = 0.0
-
 
 func _physics_process(delta: float) -> void:
     _time_alive += delta

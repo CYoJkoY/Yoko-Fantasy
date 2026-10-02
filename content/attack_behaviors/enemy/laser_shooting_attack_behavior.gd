@@ -5,7 +5,6 @@ export(bool) var use_map_diagonal_range = false
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:
-	._ready()
 	if use_map_diagonal_range:
 		max_range = int(ceil(ZoneService.get_current_zone_rect().size.length()))
 

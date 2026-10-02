@@ -37,10 +37,17 @@ const TIER_COLORS = [
     }
 ]
 
-onready var _staff_halo: Sprite = $Sprite/Muzzle/StaffHalo
-onready var _sun_corona: Sprite = $Sprite/Muzzle/SunCoronaRing
-onready var _cast_flare: Sprite = $Sprite/Muzzle/CastFlare
-onready var _cast_particles: CPUParticles2D = $Sprite/Muzzle/CastParticles
+const CURSED_COLORS = {
+    "halo": Color(0.72, 0.30, 1.0, 0.78),
+    "corona": Color(0.66, 0.22, 1.0, 0.66),
+    "flare": Color(0.90, 0.62, 1.0, 0.56),
+    "strike": Color(0.80, 0.42, 1.0, 1.0)
+}
+
+onready var _staff_halo: Sprite = $Sprite/StaffEffects/StaffHalo
+onready var _sun_corona: Sprite = $Sprite/StaffEffects/SunCoronaRing
+onready var _cast_flare: Sprite = $Sprite/StaffEffects/CastFlare
+onready var _cast_particles: CPUParticles2D = $Sprite/StaffEffects/CastParticles
 
 var _time: float = 0.0
 var _orbit_phase: float = 0.0
@@ -52,13 +59,19 @@ var _pending_targets: Array = []
 
 
 func _ready() -> void:
-    ._ready()
-
     visible = true
     if is_instance_valid(sprite):
         sprite.visible = true
 
     var cfg: Dictionary = _get_tier_color_config()
+
+    if is_cursed:
+        var cursed_ramp: Gradient = _cast_particles.color_ramp.duplicate()
+        cursed_ramp.colors = PoolColorArray([
+            Color(0.94, 0.80, 1.0, 0.0), Color(0.85, 0.55, 1.0, 0.6),
+            Color(0.62, 0.22, 1.0, 0.4), Color(0.40, 0.10, 0.80, 0.0)
+        ])
+        _cast_particles.color_ramp = cursed_ramp
 
     if _sun_corona != null:
         _sun_corona.visible = false
@@ -82,6 +95,8 @@ func _ready() -> void:
 
 
 func _get_tier_color_config() -> Dictionary:
+    if is_cursed:
+        return CURSED_COLORS
     var t: int = 0
     if "tier" in self and tier is int:
         t = tier
@@ -390,7 +405,7 @@ func _is_primary_target_in_range(target: Node, center: Vector2, max_range_sq: fl
 
 
 func _strike_target(target: Unit, main: Node) -> void:
-    if not is_instance_valid(target) or target.dead:
+    if not _is_valid_primary_target(target):
         return
 
     var cfg: Dictionary = _get_tier_color_config()

@@ -19,7 +19,6 @@ var _base_sprite_rotation: float = 0.0
 
 
 func _ready() -> void:
-    ._ready()
     visible = true
     if is_instance_valid(sprite):
         sprite.visible = true
