@@ -10,7 +10,7 @@ func get_elements_with_count(elements: Array) -> Array:
         else:
             var key: String = Utils.fa_get_item_stack_key(element)
             var index = element_index.get(key)
-            if index:
+            if index != null:
                 element_list[index][1] += 1
             else:
                 element_index[key] = element_list.size()

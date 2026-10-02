@@ -24,7 +24,7 @@ onready var _main: Main = Utils.get_scene_node()
 func _ready() -> void:
     _cooldown = teleport_cooldown
     if prediction_line_scene != null:
-        _prediction_line_pool_id = Keys.generate_hash(prediction_line_scene.resource_path)
+        _prediction_line_pool_id = Keys.generate_hash(prediction_line_scene.resource_path + "_fantasy_teleport")
 
 func init(parent: Node) -> Node:
     .init(parent)
@@ -86,7 +86,10 @@ func _spawn_prediction_circle(center: Vector2, duration: float) -> void:
     if !is_instance_valid(line):
         line = prediction_line_scene.instance()
         _main.add_effect(line)
-        var _err = line.connect("duration_timeout", self, "fa_on_DurationTimer_timeout", [line])
+
+    for connection in line.get_signal_connection_list("duration_timeout"):
+        line.disconnect("duration_timeout", connection.target, connection.method)
+    var _err = line.connect("duration_timeout", self, "fa_on_DurationTimer_timeout", [line])
 
     line.already_recycle = false
     var points := PoolVector2Array()
