@@ -33,7 +33,7 @@
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_07.wav" type="AudioStream" id=34]
 [ext_resource path="res://resources/sounds/burn/fireball_impact_burn_01.wav" type="AudioStream" id=35]
 [ext_resource path="res://entities/units/unit/hurt_sounds/punch_general_body_impact_01.wav" type="AudioStream" id=36]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/surround_target_shooting_attack_behavior.gd" type="Script" id=37]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/fallen_knight_fan_attack_behavior.gd" type="Script" id=37]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/fallen_knight_projectile/fallen_knight_triangle_projectile.tscn" type="PackedScene" id=38]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/fallen_knight_projectile/fallen_knight_semicircle_projectile.tscn" type="PackedScene" id=39]
 
@@ -309,24 +309,9 @@ cooldown = 120.0
 initial_cooldown = 120
 max_cd_randomization = 0
 damage_increase_each_wave = 0.75
-number_projectiles = 15
-target_class = 0
-towards_player = true
-spawn_radius = 0
-spawn_degrees = 2.09
-init_rotation = 5.24
-projectile_direction = 5.24
-direction_change_after_each_proj = 0.26
-pos_base_on_centerx = false
-specific_projectiles = {
-8: [ 200, 5.38, 5.38 ],
-9: [ 200, 5.64, 5.64 ],
-10: [ 200, 5.9, 5.9 ],
-11: [ 200, 6.16, 6.16 ],
-12: [ 200, 6.42, 6.42 ],
-13: [ 200, 0.4, 0.4 ],
-14: [ 200, 0.66, 0.66 ]
-}
+number_projectiles = 7
+projectile_spread = 1.02
+constant_spread = true
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -344,11 +329,13 @@ timer_start = 35.0
 
 [node name="AttackBehavior" parent="States/State1" index="1"]
 script = ExtResource( 8 )
+cooldown = 30.0
+max_range = 1200
 long_cooldown_every_x_shoots = 3
-long_cooldown = 180.0
+long_cooldown = 90.0
 max_cd_randomization = 0
 charge_duration = 1.0
-charge_speed = 500.0
+charge_speed = 650.0
 target_calculation_timing = 0
 target = 0
 rand_target_size = -1
