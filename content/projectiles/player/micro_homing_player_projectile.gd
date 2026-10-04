@@ -1,5 +1,7 @@
 extends PlayerProjectile
 
+const TARGET_INDEX = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_target_index.gd")
+
 const HOMING_REACQUIRE_INTERVAL_MIN: float = 0.08
 const HOMING_REACQUIRE_INTERVAL_MAX: float = 0.12
 const HOMING_MIN_SPEED_SQ: float = 2500.0
@@ -21,6 +23,7 @@ func shoot_ex(
 	hitbox_args: Hitbox.HitboxArgs,
 	knockback_direction: Vector2
 ) -> void:
+	player_index = p_from.player_index
 	_reset_micro_homing()
 	.shoot_ex(p_from, pos, p_velocity, p_rotation, p_weapon_stats, damage_tracking_key, effects, hitbox_args, knockback_direction)
 
@@ -75,11 +78,14 @@ func _find_best_homing_target(max_range: float, acquire_fov_deg: float) -> Node:
 	if main == null or main._entity_spawner == null:
 		return null
 
+	if not main.has_meta(TARGET_INDEX.META_KEY):
+		main.set_meta(TARGET_INDEX.META_KEY, TARGET_INDEX.new())
+	var target_index = main.get_meta(TARGET_INDEX.META_KEY)
 	var current_direction: Vector2 = velocity.normalized()
 	var min_fov_dot: float = cos(deg2rad(acquire_fov_deg))
 	var best_target: Node = null
 	var min_distance_squared: float = max_range * max_range
-	for enemy in main._entity_spawner.get_all_enemies(false):
+	for enemy in target_index.candidates(main, global_position, max_range):
 		if not is_instance_valid(enemy) or not (enemy is Enemy) or enemy.dead:
 			continue
 		var to_enemy: Vector2 = enemy.global_position - global_position

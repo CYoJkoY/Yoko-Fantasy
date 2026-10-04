@@ -9,6 +9,13 @@ const THRUST_DURATION: float = 0.48
 const THRUST_HEIGHT: float = 22.0
 const CAST_VFX_DURATION: float = 0.36
 const STRIKE_STAGGER_INTERVAL: float = 0.038
+const ATTACK_FIELDS = [
+    "damage", "knockback_direction", "knockback_amount", "knockback_piercing",
+    "crit_chance", "crit_damage", "effect_scale", "burning_data", "accuracy",
+    "is_healing", "projectiles_on_hit", "ignored_objects", "effects",
+    "speed_percent_modifier", "from", "damage_tracking_key_hash", "scaling_stats",
+    "player_attack_id", "active", "deals_damage"
+]
 
 const TIER_COLORS = [
     {
@@ -158,7 +165,7 @@ func _process_pending_strikes(delta: float) -> void:
         if item.timer <= 0.0:
             var target: Unit = item.target
             if is_instance_valid(target) and not target.dead:
-                _strike_target(target, main)
+                _strike_target(target, main, item.attack)
             _pending_strikes.remove(i)
         i -= 1
 
@@ -330,13 +337,15 @@ func shoot() -> void:
 
     _play_cast_sound()
 
+    var attack: Dictionary = _capture_attack(true)
     if not targets.empty():
-        _strike_target(targets[0], main)
+        _strike_target(targets[0], main, attack)
 
     for idx in range(1, targets.size()):
         _pending_strikes.append({
             "target": targets[idx],
-            "timer": float(idx) * STRIKE_STAGGER_INTERVAL
+            "timer": float(idx) * STRIKE_STAGGER_INTERVAL,
+            "attack": attack
         })
 
     WeaponService.fantasy_on_shoot(self)
@@ -400,11 +409,29 @@ func _is_valid_primary_target(target: Node) -> bool:
     )
 
 
-func _is_primary_target_in_range(target: Node, center: Vector2, max_range_sq: float) -> bool:
-    return _is_valid_primary_target(target) and center.distance_squared_to(target.global_position) <= max_range_sq
+func _capture_attack(copy_resources: bool = false) -> Dictionary:
+    var attack: Dictionary = {"stats": current_stats.duplicate() if copy_resources else current_stats}
+    for field in ATTACK_FIELDS:
+        var value = _hitbox.get(field)
+        if copy_resources:
+            if value is Resource:
+                value = value.duplicate(true)
+            elif value is Array:
+                var copied: Array = []
+                for entry in value:
+                    copied.append(entry.duplicate(true) if entry is Resource else entry)
+                value = copied
+        attack[field] = value
+    return attack
 
 
-func _strike_target(target: Unit, main: Node) -> void:
+func _restore_attack(attack: Dictionary) -> void:
+    current_stats = attack.stats
+    for field in ATTACK_FIELDS:
+        _hitbox.set(field, attack[field])
+
+
+func _strike_target(target: Unit, main: Node, attack: Dictionary) -> void:
     if not _is_valid_primary_target(target):
         return
 
@@ -417,4 +444,9 @@ func _strike_target(target: Unit, main: Node) -> void:
         main._effects.add_child(strike_vfx)
     strike_vfx.set_pool_id(pool_id)
     strike_vfx.start_strike(target.global_position, target, 1.0, cfg.strike)
+    var live_attack: Dictionary = _capture_attack()
+    _restore_attack(attack)
     target.hurt_area_entered_deferred(_hitbox)
+    for field in ATTACK_FIELDS:
+        attack[field] = _hitbox.get(field)
+    _restore_attack(live_attack)

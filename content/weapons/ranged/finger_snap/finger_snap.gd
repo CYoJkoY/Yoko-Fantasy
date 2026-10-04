@@ -152,7 +152,7 @@ func shoot() -> void:
     _spawn_target_astrolabe(main, target_pos, target, tier_val)
     _apply_direct_hit(target)
 
-    _spawn_converging_bullet_ring(main, target_pos)
+    _spawn_converging_bullet_ring(target_pos)
 
     WeaponService.fantasy_on_shoot(self)
 
@@ -198,7 +198,7 @@ func _spawn_target_astrolabe(main: Node, target_pos: Vector2, target: Node, tier
     astrolabe.start_astrolabe(target_pos, target, tier_val, main, _astrolabe_pool_id)
 
 
-func _spawn_converging_bullet_ring(main: Node, target_pos: Vector2) -> void:
+func _spawn_converging_bullet_ring(target_pos: Vector2) -> void:
     if _finger_snap_effect == null:
         return
 
@@ -223,30 +223,22 @@ func _spawn_converging_bullet_ring(main: Node, target_pos: Vector2) -> void:
 
     var start_angle: float = rand_range(0.0, TAU)
     var angle_step: float = TAU / float(bullet_count)
-    var pool_id: int = BULLET_SCENE.get_instance_id()
-    var hitbox_args := Hitbox.HitboxArgs.new().set_from_weapon_stats(current_stats)
+    var bullet_stats: RangedWeaponStats = current_stats.duplicate()
+    bullet_stats.projectile_scene = BULLET_SCENE
+    bullet_stats.damage = final_bullet_dmg
+    var spawn_args := WeaponServiceSpawnProjectileArgs.new()
+    spawn_args.effects = effects
+    spawn_args.from_player_index = player_index
 
     for i in range(bullet_count):
         var angle: float = start_angle + float(i) * angle_step
         var spawn_pos: Vector2 = target_pos + Vector2(cos(angle), sin(angle)) * CONVERGE_RADIUS
 
-        var bullet = main.get_node_from_pool(pool_id, main._player_projectiles)
-        if bullet == null:
-            bullet = BULLET_SCENE.instance()
-            main.add_player_projectile(bullet)
-            bullet.set_meta("pool_id", pool_id)
-
-        bullet.set_weapon_stats(current_stats)
-
-        var bullet_hitbox: Hitbox = bullet._hitbox
-        if bullet_hitbox != null:
-            bullet_hitbox.set_damage(final_bullet_dmg, hitbox_args)
-            bullet_hitbox.player_attack_id = _shooting_behavior._get_next_attack_id()
-            bullet_hitbox.from = _parent
-            bullet_hitbox.active = true
-            bullet_hitbox.enable()
-            bullet_hitbox.ignored_objects.clear()
-
+        spawn_args.knockback_direction = Vector2.RIGHT.rotated(angle + PI)
+        var bullet = WeaponService.spawn_projectile(spawn_pos, bullet_stats, angle + PI, self, spawn_args)
+        bullet.player_index = player_index
+        bullet._hitbox.player_attack_id = _shooting_behavior._get_next_attack_id()
+        on_projectile_shot(bullet)
         bullet.init_converge(target_pos, spawn_pos, 460.0)
 
 

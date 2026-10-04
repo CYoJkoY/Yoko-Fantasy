@@ -1,5 +1,7 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/micro_homing_player_projectile.gd"
 
+const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
+
 const HIT_SPLASH_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/myriad_flourish_hit_splash.tscn")
 const PETAL_DART_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/myriad_flourish_petal.tscn")
 const MYRIAD_FLOURISH_EFFECT = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/myriad_flourish/myriad_flourish_effect.gd")
@@ -19,7 +21,8 @@ export(int) var num_trail_points: int = 12
 export(float) var trail_spacing: float = 6.0
 
 var _elapsed_time: float = 0.0
-var _history_positions: Array = []
+var _history = TRAIL_HISTORY.new()
+var _trail_points: Array = []
 
 onready var _orb_root: Node2D = $"%OrbRoot" as Node2D
 onready var _glow_aura: Sprite = $"%GlowAura" as Sprite
@@ -41,6 +44,7 @@ func _init_trail_points() -> void:
     if not is_instance_valid(_trail_line):
         return
     _trail_line.clear_points()
+    _trail_points.resize(num_trail_points)
     for _i in range(num_trail_points):
         _trail_line.add_point(Vector2.ZERO)
 
@@ -59,8 +63,8 @@ func shoot_ex(
     _configure_effect(effects)
 
     _elapsed_time = rand_range(0.0, 10.0)
-    _history_positions.clear()
-    _history_positions.push_back(pos)
+    _history.clear()
+    _history.push(pos)
     _init_trail_points()
 
     .shoot_ex(p_from, pos, p_velocity, p_rotation, p_weapon_stats, damage_tracking_key, effects, hitbox_args, knockback_direction)
@@ -123,43 +127,15 @@ func _physics_process(delta: float) -> void:
     _orb_root.scale = Vector2.ONE * breath
     _orb_root.position.y = sin(t * 14.0) * 2.0
 
-    _history_positions.push_front(global_position)
+    _history.push(global_position)
     _update_trail_line()
 
 
 func _update_trail_line() -> void:
-    if _history_positions.size() < 2:
-        return
-
+    _history.sample(_trail_points, trail_spacing, global_transform.affine_inverse())
     _trail_line.set_point_position(0, Vector2.ZERO)
-    var available_dist: float = 0.0
-    var req_dist: float = (num_trail_points - 1) * trail_spacing
-
-    for i in range(1, _history_positions.size()):
-        available_dist += (_history_positions[i] - _history_positions[i - 1]).length()
-        if available_dist >= req_dist:
-            _history_positions.resize(i + 1)
-            break
-
-    var h_idx: int = 1
-    var prev_dist: float = 0.0
-    var cur_dist: float = (_history_positions[1] - _history_positions[0]).length()
-
-    for pt_idx in range(1, num_trail_points):
-        var target_d = pt_idx * trail_spacing
-        if available_dist <= 0.001:
-            _trail_line.set_point_position(pt_idx, Vector2.ZERO)
-            continue
-
-        var clamped_d = min(target_d, available_dist)
-        while h_idx < _history_positions.size() - 1 and cur_dist < clamped_d:
-            h_idx += 1
-            prev_dist = cur_dist
-            cur_dist += (_history_positions[h_idx] - _history_positions[h_idx - 1]).length()
-
-        var prog = (clamped_d - prev_dist) / max(0.0001, cur_dist - prev_dist)
-        var world_pt = _history_positions[h_idx - 1].linear_interpolate(_history_positions[h_idx], prog)
-        _trail_line.set_point_position(pt_idx, to_local(world_pt))
+    for i in range(1, _trail_points.size()):
+        _trail_line.set_point_position(i, _trail_points[i])
 
 
 func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
@@ -212,7 +188,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
             spread_dir,
             assigned_target,
             petal_dmg,
-            player_index,
+            _get_player_index(),
             weapon_pos,
             crit_ch,
             crit_dmg,
@@ -233,7 +209,7 @@ func _return_to_pool() -> void:
     ._return_to_pool()
     _sparkle_particles.emitting = false
     _leaf_particles.emitting = false
-    _history_positions.clear()
+    _history.clear()
     _elapsed_time = 0.0
     _inner_fluid.rotation = 0.0
     _inner_fluid.scale = Vector2.ONE
