@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/harp_flecks.png-28e54f57d41cb4995760ffe0e8bcb79d.stex"
+path="res://.import/harp_staff.webp-613fd1a2a60a0fe39f580370b540a3e3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/harp_projectile/harp_flecks.png"
-dest_files=[ "res://.import/harp_flecks.png-28e54f57d41cb4995760ffe0e8bcb79d.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/harp_projectile/harp_staff.webp"
+dest_files=[ "res://.import/harp_staff.webp-613fd1a2a60a0fe39f580370b540a3e3.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/harp_halo.png-87dbf1afa65e60653f19c2fce268fe42.stex"
+path="res://.import/earthshatter_crater.webp-3bb5b97b9d1be05d442d0b2f6a764994.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/harp_projectile/harp_halo.png"
-dest_files=[ "res://.import/harp_halo.png-87dbf1afa65e60653f19c2fce268fe42.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/earthshatter_projectile/textures/earthshatter_crater.webp"
+dest_files=[ "res://.import/earthshatter_crater.webp-3bb5b97b9d1be05d442d0b2f6a764994.stex" ]
 
 [params]
 

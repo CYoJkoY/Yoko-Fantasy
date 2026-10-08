@@ -9,6 +9,8 @@ onready var contents: Node2D = $LaserVisuals/Contents
 onready var content_sprite: Sprite = $LaserVisuals/Contents/Content
 onready var line: Node2D = $LaserVisuals/Line
 onready var line_sprite: Sprite = $LaserVisuals/Line/line
+onready var _laser_sprites: Array = [content_sprite, line_sprite, $LaserVisuals/StartContainer/StartProjectile, $LaserVisuals/EndContainer/EndProjectile]
+onready var _default_laser_material: ShaderMaterial = content_sprite.material
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 
@@ -31,12 +33,16 @@ func shoot() -> void:
     contents.position.x = sprite_w
     _hitbox.position.x = - sprite_w
     start_container.position.x = 0
-    _set_laser_outline_texture_sizes()
+    _update_laser_material()
 
 func set_range(p_min_range: int, p_max_range: int) -> void:
     min_range = p_min_range
     max_range = p_max_range
 
-func _set_laser_outline_texture_sizes() -> void:
+func _update_laser_material() -> void:
+    if _sprite.material == null:
+        _sprite.material = _default_laser_material
+    for laser_sprite in _laser_sprites:
+        laser_sprite.material = _sprite.material
     var outline_size: Vector2 = content_sprite.texture.get_size() if ProgressData.settings.projectile_highlighting else Vector2(0, 0)
-    content_sprite.material.set_shader_param("texture_size", outline_size)
+    _default_laser_material.set_shader_param("texture_size", outline_size)

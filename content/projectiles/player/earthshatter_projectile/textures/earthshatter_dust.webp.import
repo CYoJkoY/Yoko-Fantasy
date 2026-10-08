@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/harp_staff.png-799188dd7676e34e7c1fcc244762039e.stex"
+path="res://.import/earthshatter_dust.webp-65df7f986700f1aa59390ddf0fd21c48.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/harp_projectile/harp_staff.png"
-dest_files=[ "res://.import/harp_staff.png-799188dd7676e34e7c1fcc244762039e.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/earthshatter_projectile/textures/earthshatter_dust.webp"
+dest_files=[ "res://.import/earthshatter_dust.webp-65df7f986700f1aa59390ddf0fd21c48.stex" ]
 
 [params]
 
