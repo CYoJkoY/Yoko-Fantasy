@@ -250,7 +250,6 @@ static func _fantasy_on_popup_bless_pressed(
         return
 
     RunData.remove_stat(Utils.stat_fantasy_soul_hash, blessing.cost, player_index)
-    RunData.add_stat(Utils.stat_fantasy_holy_hash, blessing.negative_count, player_index)
 
     var blessed_gear: ItemParentData = Utils.fa_bless_item(item_data)
     var player_gear_container: PlayerGearContainer = get_gear_container.call_func(player_index)

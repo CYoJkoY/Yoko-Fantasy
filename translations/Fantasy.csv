@@ -262,7 +262,7 @@ STAT_FANTASY_SOUL,Soul,Âme,魂,ソウル,영혼,魂,Душа,Dusza,Alma,Alma,Se
 CONSUMABLE_FANTASY_SOUL,Soul,Âme,魂,ソウル,영혼,魂,Душа,Dusza,Alma,Alma,Seele,Ruh,Anima
 MENU_FANTASY_BLESS,Bless,Bénir,祝福,祝福,축복,祝福,Благословить,Błogosław,Bendecir,Abençoar,Segnen,Kutsa,Benedici
 FANTASY_BLESSED_TAG,Blessed,Béni,已祝福,祝福済み,축복받음,已祝福,Благословлено,Błogosławiony,Bendecido,Abençoado,Gesegnet,Kutsanmış,Benedetto
-EFFECT_FANTASY_BLESSED,{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0}
+EFFECT_FANTASY_BLESSED,[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color],[color=#f9cc35]{0}[/color]
 ITEM_FANTASY_BADGE,Badge,Insigne,徽章,バッジ,뱃지,徽章,Жетон,Odznaka,Insignia,Distintivo,Abzeichen,Rozet,Distintivo
 ITEM_FANTASY_BIBLE,Bible,Bible,圣经,聖書,성경,聖經,Библия,Biblia,Biblia,Bíblia,Bibel,İncil,Bibbia
 ITEM_FANTASY_BLACK_MUD,Black Mud,Boue noire,黑泥,黒い泥,검은 진흙,黑泥,Чёрная грязь,Czarne błoto,Lodo negro,Lama negra,Schwarzer Schlamm,Kara Çamur,Fango nero
@@ -1486,7 +1486,7 @@ FANTASY_CHAIN_DAMAGE_MULT,Chain Mod: ,Mod. Chaîne: ,链变: ,連鎖倍率: ,연
 FANTASY_CHAIN_DAMAGE_MULT_FORMATTED,{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1}
 FANTASY_CHAIN_TARGETS,Chain Targets: ,Cibles en chaîne: ,连锁: ,連鎖: ,연쇄 대상: ,連鎖: ,Цели цепи: ,Cele łańcucha: ,Objetivos de cadena: ,Alvos em cadeia: ,Kettenziele: ,Zincir Hedefleri: ,Obiettivi a catena:
 FANTASY_CHAIN_TARGETS_FORMATTED,{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1},{0}{1}
-FANTASY_SCATTER_TARGETS,Scatter: ,Dispersion: ,散射: ,散射: ,산란: ,散射: ,Рассеивание: ,Rozproszenie: ,Dispersión: ,Dispersão: ,Streuung: ,Saçılma: ,Dispersione: 
+FANTASY_SCATTER_TARGETS,Scatter: ,Dispersion: ,散射: ,散射: ,산란: ,散射: ,Рассеивание: ,Rozproszenie: ,Dispersión: ,Dispersão: ,Streuung: ,Saçılma: ,Dispersione:
 FANTASY_PRISM_TOWER_MAIN,Spawn a Prism Tower. Prismatic beam: {0} damage.,Génère une Tour à prisme. Rayon prismatique : {0} dégâts.,生成一座光棱塔。七彩光束: {0}伤害。,プリズムタワーを1基生成。七色の光線: {0}ダメージ。,프리즘 탑을 1개 생성합니다. 무지개 광선: {0} 피해.,生成一座光稜塔。七彩光束: {0}傷害。,Создает призматическую башню. Радужный луч: {0} урона.,Tworzy Wieżę Pryzmatyczną. Promień pryzmatyczny: {0} obrażeń.,Genera una Torre prismática. Rayo prismático: {0} de daño.,Gera uma Torre Prismática. Raio prismático: {0} de dano.,Erzeugt einen Prismenturm. Prismatischer Strahl: {0} Schaden.,Bir Prizma Kulesi oluşturur. Prizmatik ışın: {0} hasar.,Genera una Torre Prismatica. Raggio prismatico: {0} danni.
 FANTASY_PRISM_TOWER_RESONANCE,{0} or more Prism Towers trigger resonance.,{0} Tours à prisme ou plus déclenchent une résonance.,{0}座及以上会有共鸣效果,{0}基以上で共鳴効果が発生,{0}개 이상 보유 시 공명 효과 발생,{0}座及以上會有共鳴效果,{0} или более призматических башен вызывают резонанс.,{0} lub więcej Wież Pryzmatycznych wywołuje rezonans.,{0} o más Torres prismáticas activan resonancia.,{0} ou mais Torres Prismáticas ativam ressonância.,{0} oder mehr Prismentürme lösen eine Resonanz aus.,{0} veya daha fazla Prizma Kulesi rezonansı tetikler.,{0} o più Torri Prismatiche attivano la risonanza.
 EFFECT_FANTASY_PRISM_TOWER_SCATTER,{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0},{0}

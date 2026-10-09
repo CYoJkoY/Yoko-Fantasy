@@ -341,12 +341,14 @@ func fa_create_blessed_effect() -> Effect:
     blessed_effect.custom_key_hash = fantasy_blessed_hash
     blessed_effect.text_key = "EFFECT_FANTASY_BLESSED"
     blessed_effect.value = 0
-    blessed_effect.effect_sign = Sign.POSITIVE
+    blessed_effect.effect_sign = Sign.NEUTRAL
+
     var custom_arg: CustomArg = CustomArg.new()
     custom_arg.arg_index = 0
-    custom_arg.arg_sign = Sign.POSITIVE
+    custom_arg.arg_sign = Sign.NEUTRAL
     custom_arg.arg_value = ArgValue.KEY
     custom_arg.arg_key = "fantasy_blessed_tag"
+
     blessed_effect.custom_args = [custom_arg]
     return blessed_effect
 
