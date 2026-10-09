@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=9 format=2]
 
 [ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
 [ext_resource path="res://items/sets/heavy/heavy_set_data.tres" type="Resource" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/crusader_hammer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/crusader_hammer_icon.webp" type="Texture" id=7]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/sacred/sacred_set_data.tres" type="Resource" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/4/crusader_hammer_4_effect.tres" type="Resource" id=10]
 
 [resource]
 script = ExtResource( 1 )
@@ -17,7 +18,7 @@ icon = ExtResource( 7 )
 name = "WEAPON_FANTASY_CRUSADER_HAMMER"
 tier = 3
 value = 192
-effects = [  ]
+effects = [ ExtResource( 10 ) ]
 tracking_text = ""
 is_lockable = true
 unlock_codex_descr_after_get_it = 1
