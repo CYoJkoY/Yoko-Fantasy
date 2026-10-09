@@ -449,7 +449,7 @@ static func _fantasy_scrap_specific_tier_weapons_for_items(update_stats: FuncRef
                 var weapon_num_need: int = effect[1]
                 var item_id: int = effect[2]
                 var item_num: int = weapons_to_remove.size() / weapon_num_need * gain_item_num
-                var cursed_item_num: int = min(cursed_num, item_num)
+                var cursed_item_num: int = min(cursed_num, item_num) as int
                 for _i in range(item_num - cursed_item_num): RunData.add_item(ItemService.get_item_from_id(item_id), player_index)
                 for _i in range(cursed_item_num):
                     var item: ItemData = ItemService.get_item_from_id(item_id)
