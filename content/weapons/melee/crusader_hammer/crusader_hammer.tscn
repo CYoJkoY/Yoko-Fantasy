@@ -2,16 +2,16 @@
 
 [ext_resource path="res://weapons/weapon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/crusader_hammer.webp" type="Texture" id=2]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/crusader_hammer_shooting_behavior.gd" type="Script" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/shared/sweep_shooting_behavior.gd" type="Script" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/crusader_hammer.gd" type="Script" id=8]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/crusader_hammer_rune.webp" type="Texture" id=9]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/rune_glow.gdshader" type="Shader" id=10]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_swing_gradient.png" type="Texture" id=11]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/swing_glow.gdshader" type="Shader" id=12]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/shared/sweep_glow.gdshader" type="Shader" id=12]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=13]
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 46.5, 32.5 )
+extents = Vector2( 60, 32.5 )
 
 [sub_resource type="CircleShape2D" id=5]
 resource_local_to_scene = true
@@ -39,7 +39,7 @@ texture = ExtResource( 2 )
 offset = Vector2( 35, 0 )
 
 [node name="Collision" parent="Sprite/Hitbox" index="0"]
-position = Vector2( 34.5, 0 )
+position = Vector2( 22, 0 )
 shape = SubResource( 4 )
 
 [node name="Muzzle" parent="Sprite" index="1"]

@@ -1,14 +1,11 @@
-extends "res://weapons/melee/melee_weapon.gd"
+extends "res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/shared/sweep_weapon.gd"
 
 const EXPLOSION_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/crusader_hammer_explosion.tscn")
-const SWING_FADE_DURATION: float = 0.09
 
 onready var _rune: Sprite = $Sprite/Rune
-onready var _swing: Sprite = $SwingGlow
 
 var rune_charge: float = 0.0
 var _clock: float = 0.0
-var _swing_fade: float = 0.0
 var _hammer_effect: Resource
 var _blast_stats: MeleeWeaponStats
 var _blast_effect: ExplodingEffect = ExplodingEffect.new()
@@ -25,43 +22,24 @@ func _ready() -> void:
     _blast_effect.base_smoke_amount = 1
     _blast_effect.sound_db_mod = -14
     _clock = rand_range(0.0, TAU)
-    _swing.visible = false
-    _shooting_behavior.set_physics_process(false)
 
 
 func _process(delta: float) -> void:
+    var was_fading: bool = _swing_fade > 0.0
     ._process(delta)
     _rune.flip_v = sprite.flip_v
-    _swing.flip_v = sprite.flip_v
     _clock += delta
     var breath: float = pow(0.5 + 0.5 * sin(_clock * 2.1), 1.8)
     _rune.material.set_shader_param("opacity", 0.025 + breath * 0.68)
     _rune.material.set_shader_param("charge", rune_charge)
     _rune.material.set_shader_param("phase", _clock)
-    if _swing_fade > 0.0:
-        _swing_fade = max(0.0, _swing_fade - delta)
-        var fade: float = _swing_fade / SWING_FADE_DURATION
-        _swing.modulate.a = fade * fade * 0.18 * ProgressData.settings.explosion_opacity
-        rune_charge = fade * 0.35
-        _swing.visible = _swing_fade > 0.0 and ProgressData.settings.visual_effects
-
-
-func begin_swing(distance: float) -> void:
-    _swing_fade = 0.0
-    _swing.scale = Vector2.ONE * distance / 250.0
-    _swing.position = Vector2.ZERO
-    update_swing(0.0)
+    if was_fading:
+        rune_charge = _swing_fade / SWING_FADE_DURATION * 0.35
 
 
 func update_swing(progress: float) -> void:
-    _swing.visible = ProgressData.settings.visual_effects
-    _swing.material.set_shader_param("progress", progress)
-    _swing.modulate.a = (0.18 + sin(progress * PI) * 0.18) * ProgressData.settings.explosion_opacity
+    .update_swing(progress)
     rune_charge = 0.35 + sin(progress * PI) * 0.65
-
-
-func end_swing() -> void:
-    _swing_fade = SWING_FADE_DURATION
 
 
 func on_weapon_hit_something(thing_hit: Node, damage_dealt: int, hitbox: Hitbox) -> void:
