@@ -7,11 +7,17 @@
 script = ExtResource( 2 )
 arg_index = 0
 arg_sign = 3
+arg_value = 0
+arg_format = 0
+arg_key = ""
 
 [sub_resource type="Resource" id=2]
 script = ExtResource( 2 )
 arg_index = 1
 arg_sign = 2
+arg_value = 0
+arg_format = 0
+arg_key = ""
 
 [resource]
 script = ExtResource( 1 )

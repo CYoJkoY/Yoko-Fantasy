@@ -8,5 +8,5 @@
 script = ExtResource( 1 )
 name = "BG_FORESTLAND"
 icon = ExtResource( 3 )
-outline_color = Color( 0.294118, 0.337255, 0.356863, 1 )
+outline_color = Color( 0.227451, 0.321569, 0.239216, 1 )
 tiles_sprite = ExtResource( 2 )
