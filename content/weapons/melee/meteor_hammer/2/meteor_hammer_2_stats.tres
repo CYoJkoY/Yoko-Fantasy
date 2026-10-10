@@ -30,5 +30,5 @@ additional_cooldown_every_x_shots = -1
 additional_cooldown_multiplier = -1.0
 speed_percent_modifier = 0
 deal_dmg_on_return = false
-attack_type = 1
+attack_type = 0
 alternate_attack_type = false
