@@ -28,8 +28,5 @@ func serialize() -> Dictionary:
 func deserialize_and_merge(serialized: Dictionary) -> void:
     .deserialize_and_merge(serialized)
     projectiles_per_frame = serialized.projectiles_per_frame as int
-    if serialized.projectile_stats is String:
-        projectile_stats = ResourceLoader.load(serialized.projectile_stats) as RangedWeaponStats
-    else:
-        projectile_stats = RangedWeaponStats.new()
-        projectile_stats.deserialize_and_merge(serialized.projectile_stats)
+    projectile_stats = RangedWeaponStats.new()
+    projectile_stats.deserialize_and_merge(serialized.projectile_stats)

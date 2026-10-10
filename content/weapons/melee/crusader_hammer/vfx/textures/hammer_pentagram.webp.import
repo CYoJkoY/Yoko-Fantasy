@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hammer_pentagram.png-79ec09f3c51a37869affc8a16cb43f30.stex"
+path="res://.import/hammer_pentagram.webp-f1d6e845f3e7f82660329d8f0a1bb9e2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_pentagram.png"
-dest_files=[ "res://.import/hammer_pentagram.png-79ec09f3c51a37869affc8a16cb43f30.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_pentagram.webp"
+dest_files=[ "res://.import/hammer_pentagram.webp-f1d6e845f3e7f82660329d8f0a1bb9e2.stex" ]
 
 [params]
 

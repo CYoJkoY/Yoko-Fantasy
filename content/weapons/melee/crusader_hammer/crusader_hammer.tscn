@@ -6,7 +6,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/crusader_hammer.gd" type="Script" id=8]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/crusader_hammer_rune.webp" type="Texture" id=9]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/rune_glow.gdshader" type="Shader" id=10]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_swing_gradient.png" type="Texture" id=11]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_swing_gradient.webp" type="Texture" id=11]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/shared/sweep_glow.gdshader" type="Shader" id=12]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=13]
 

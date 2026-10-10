@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hammer_swing_gradient.png-b0b5564461396a0b4290adc683fd36cc.stex"
+path="res://.import/hammer_shockwave.webp-776259317e449258e76836e269dfc875.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_swing_gradient.png"
-dest_files=[ "res://.import/hammer_swing_gradient.png-b0b5564461396a0b4290adc683fd36cc.stex" ]
+source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_shockwave.webp"
+dest_files=[ "res://.import/hammer_shockwave.webp-776259317e449258e76836e269dfc875.stex" ]
 
 [params]
 
