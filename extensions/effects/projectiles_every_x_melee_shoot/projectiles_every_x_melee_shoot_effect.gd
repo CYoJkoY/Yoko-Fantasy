@@ -21,11 +21,15 @@ func get_args(player_index: int) -> Array:
 func serialize() -> Dictionary:
     var serialized =.serialize()
     serialized.projectiles_per_frame = projectiles_per_frame
-    serialized.projectile_stats = projectile_stats.resource_path
+    serialized.projectile_stats = projectile_stats.serialize()
 
     return serialized
 
 func deserialize_and_merge(serialized: Dictionary) -> void:
     .deserialize_and_merge(serialized)
     projectiles_per_frame = serialized.projectiles_per_frame as int
-    projectile_stats = ResourceLoader.load(serialized.projectile_stats) as RangedWeaponStats
+    if serialized.projectile_stats is String:
+        projectile_stats = ResourceLoader.load(serialized.projectile_stats) as RangedWeaponStats
+    else:
+        projectile_stats = RangedWeaponStats.new()
+        projectile_stats.deserialize_and_merge(serialized.projectile_stats)

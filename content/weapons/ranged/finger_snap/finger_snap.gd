@@ -206,20 +206,9 @@ func _spawn_converging_bullet_ring(target_pos: Vector2) -> void:
     if current_stats != null and stats != null:
         extra_projectiles = max(0, int(current_stats.nb_projectiles) - int(stats.nb_projectiles))
     var bullet_count: int = max(1, int(_finger_snap_effect.bullet_count) + extra_projectiles)
-    var base_bullet_dmg: float = float(_finger_snap_effect.base_damage)
-    var luck_ratio: float = float(_finger_snap_effect.scaling_stats[0][1])
-
-    var player_luck: float = 0.0
-    if is_instance_valid(_parent):
-        player_luck = float(Utils.get_stat(Keys.stat_luck_hash, _parent.player_index))
-
-    var luck_bonus_dmg: float = max(0.0, player_luck * luck_ratio)
-
-    var percent_dmg: float = 0.0
-    if is_instance_valid(_parent):
-        percent_dmg = float(Utils.get_stat(Keys.stat_percent_damage_hash, _parent.player_index))
-
-    var final_bullet_dmg: int = max(1, int(round((base_bullet_dmg + luck_bonus_dmg) * (1.0 + percent_dmg / 100.0))))
+    var final_bullet_dmg: int = Utils.ncl_get_dmg_with_scaling_stats(
+        _finger_snap_effect.base_damage, _finger_snap_effect.scaling_stats, player_index
+    )
 
     var start_angle: float = rand_range(0.0, TAU)
     var angle_step: float = TAU / float(bullet_count)

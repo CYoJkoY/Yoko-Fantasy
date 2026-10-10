@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/tambourine_hit.wav-66db3a1b2264a9051457f35d4bc72c84.sample"
+
+[deps]
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/audio/tambourine_hit.wav"
+dest_files=[ "res://.import/tambourine_hit.wav-66db3a1b2264a9051457f35d4bc72c84.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

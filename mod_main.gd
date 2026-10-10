@@ -48,6 +48,9 @@ func install_script_extensions() -> void:
         "services/utils.gd",
         # HASHES
 
+        "floating_text_manager.gd",
+        # VISUALS: hitbox damage colors
+
         "music_manager.gd",
         # SYSTEMS: one-shot job theme override
 

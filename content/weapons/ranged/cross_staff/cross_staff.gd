@@ -63,9 +63,15 @@ var _thrust_elapsed: float = 0.0
 var _cast_vfx_elapsed: float = 1.0
 var _pending_strikes: Array = []
 var _pending_targets: Array = []
+var _cross_staff_effect: Resource
 
 
 func _ready() -> void:
+    for effect in effects:
+        if effect.get_id() == "weapon_cross_staff":
+            _cross_staff_effect = effect
+            break
+    assert(_cross_staff_effect != null, "Cross Staff effect is missing")
     visible = true
     if is_instance_valid(sprite):
         sprite.visible = true
@@ -394,7 +400,8 @@ func _collect_targets(main: Node) -> Array:
     candidates.erase(nearest)
     var targets: Array = [nearest]
     candidates.shuffle()
-    var extra_count: int = min(max(0, current_stats.nb_projectiles - 1), candidates.size())
+    var projectile_bonus: int = current_stats.nb_projectiles - stats.nb_projectiles
+    var extra_count: int = min(max(0, _cross_staff_effect.value + projectile_bonus), candidates.size())
     for i in range(extra_count):
         targets.append(candidates[i])
     return targets
