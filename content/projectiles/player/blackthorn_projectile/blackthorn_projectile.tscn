@@ -1,0 +1,61 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://projectiles/player_projectile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blackthorn_projectile/blackthorn_projectile.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blackthorn_projectile/blackthorn_arrow.png" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blackthorn_projectile/blackthorn_glow.png" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blackthorn_projectile/blackthorn_ribbon.png" type="Texture" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blackthorn_projectile/blackthorn_arrow_trail.gdshader" type="Shader" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 6 )
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 0.45 ), 0.0, 4.0, 0, 0, Vector2( 0.12, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 0.5 ), -1.4, -1.4, 0, 0, Vector2( 1, 0 ), -0.4, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.45, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.95, 0.8, 1, 0.85, 0.65, 0.3, 1, 0 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 7 )
+
+[sub_resource type="CanvasItemMaterial" id=6]
+blend_mode = 1
+
+[node name="BlackthornProjectile" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+stop_delay = 12.0
+clear_material_when_pooled = false
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 0, 0 )
+texture = ExtResource( 3 )
+
+[node name="Hitbox" parent="." index="1"]
+position = Vector2( 0, 0 )
+
+[node name="Collision" parent="Hitbox" index="0"]
+position = Vector2( 8, 0 )
+shape = SubResource( 1 )
+
+[node name="Trail" type="Line2D" parent="." index="3"]
+show_behind_parent = true
+material = SubResource( 4 )
+width = 26.0
+width_curve = SubResource( 2 )
+gradient = SubResource( 3 )
+texture = ExtResource( 6 )
+texture_mode = 2
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+round_precision = 3
+
+[node name="Glow" type="Sprite" parent="." index="4"]
+show_behind_parent = true
+material = SubResource( 6 )
+scale = Vector2( 1.15, 0.48 )
+texture = ExtResource( 4 )
+
+[editable path="Hitbox"]
