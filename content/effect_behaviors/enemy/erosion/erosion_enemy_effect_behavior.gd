@@ -77,8 +77,11 @@ func on_hurt(hitbox: Hitbox) -> void:
 func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats: Array, chance: float, times: int, cd: float, crit_chance: float, crit_damage: float, source_id: int) -> void:
         if !Utils.get_chance_success(chance): return
 
+        var damage: int = Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, from_player_index)
         for existing_erosion in active_erosions:
             if existing_erosion.source_id != source_id or existing_erosion.player_index != from_player_index: continue
+            if existing_erosion.damage != damage or existing_erosion.times != times or existing_erosion.cd != cd: continue
+            if existing_erosion.crit_chance != crit_chance or existing_erosion.crit_damage != crit_damage: continue
 
             existing_erosion.stacks += 1
             existing_erosion.marked_for_removal = false
@@ -86,7 +89,7 @@ func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats:
 
         var erosion: ActiveErosion = ActiveErosion.new()
         erosion.player_index = from_player_index
-        erosion.damage = int(Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, from_player_index))
+        erosion.damage = damage
         erosion.chance = chance
         erosion.current_times = times
         erosion.times = times

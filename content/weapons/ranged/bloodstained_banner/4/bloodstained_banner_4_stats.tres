@@ -1,6 +1,5 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://projectiles/bullet_ghost_scepter/bullet_ghost_scepter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://weapons/weapon_stats/ranged_weapon_stats.gd" type="Script" id=2]
 [ext_resource path="res://weapons/ranged/medical_gun/weapon_fun_small_zapper_02.wav" type="AudioStream" id=3]
 
@@ -23,7 +22,7 @@ lifesteal = 0.0
 shooting_sounds = [ ExtResource( 3 ) ]
 sound_db_mod = -7
 is_healing = false
-recoil = 10
+recoil = 0
 recoil_duration = 0.1
 additional_cooldown_every_x_shots = -1
 additional_cooldown_multiplier = -1.0
@@ -34,7 +33,6 @@ piercing = 0
 piercing_dmg_reduction = 0.5
 bounce = 0
 bounce_dmg_reduction = 0.5
-can_bounce = true
-projectile_speed = 700
+can_bounce = false
+projectile_speed = 0
 increase_projectile_speed_with_range = false
-projectile_scene = ExtResource( 1 )

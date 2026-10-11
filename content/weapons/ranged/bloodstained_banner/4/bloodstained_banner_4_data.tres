@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=2]
+[gd_resource type="Resource" load_steps=11 format=2]
 
 [ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/sets/fallen/fallen_set_data.tres" type="Resource" id=2]
@@ -6,6 +6,11 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/bloodstained_banner_icon.webp" type="Texture" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/bloodstained_banner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/4/bloodstained_banner_4_stats.tres" type="Resource" id=6]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/4/bloodstained_banner_4_targets.tres" type="Resource" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/4/bloodstained_banner_4_erosion.tres" type="Resource" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/4/bloodstained_banner_4_speed.tres" type="Resource" id=9]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/bloodstained_banner_sacrifice.tres" type="Resource" id=10]
 
 [resource]
 script = ExtResource( 1 )
@@ -16,7 +21,7 @@ icon = ExtResource( 4 )
 name = "WEAPON_FANTASY_BLOODSTAINED_BANNER"
 tier = 3
 value = 280
-effects = [  ]
+effects = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
 tracking_text = ""
 is_lockable = true
 unlock_codex_descr_after_get_it = 1

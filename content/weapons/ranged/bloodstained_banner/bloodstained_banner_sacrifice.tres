@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://effects/weapons/null_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+text_key = "EFFECT_FANTASY_BLOODSTAINED_BANNER_SACRIFICE"
+effect_sign = 1
+custom_args = [  ]
