@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/tambourine_shockwave.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/textures/tambourine_shockwave.png" type="Texture" id=2]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/textures/tambourine_halo.png" type="Texture" id=3]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/textures/tambourine_flash.png" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/textures/tambourine_shockwave.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/textures/tambourine_halo.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/textures/tambourine_flash.webp" type="Texture" id=4]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/shaders/tambourine_shockwave.gdshader" type="Shader" id=6]
 
 [ext_resource path="res://projectiles/explosion.tscn" type="PackedScene" id=8]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/player/periodic_radius_damage/periodic_radius_damage_player_effect_behavior.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/player/periodic_radius_damage/periodic_radius_damage.png" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/effect_behaviors/player/periodic_radius_damage/periodic_radius_damage.webp" type="Texture" id=3]
 [ext_resource path="res://dlcs/dlc_1/items/lantern/lantern.wav" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=4]

@@ -35,7 +35,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_archer/skeleton_archer_bow_arm.webp" type="Texture" id=33]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_archer/skeleton_archer_arrow.webp" type="Texture" id=34]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_archer/skeleton_archer_bow_empty.webp" type="Texture" id=35]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_archer/skeleton_archer.png" type="Texture" id=36]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_archer/skeleton_archer.webp" type="Texture" id=36]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

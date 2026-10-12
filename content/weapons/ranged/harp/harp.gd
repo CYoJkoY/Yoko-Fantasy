@@ -11,7 +11,7 @@ onready var _strings: Sprite = $Sprite/Strings
 
 func _ready() -> void:
     _ready_glint = Sprite.new()
-    _ready_glint.texture = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/harp_ready.png")
+    _ready_glint.texture = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/harp_ready.webp")
     _ready_glint.position = Vector2(21, -8)
     _ready_glint.visible = false
     sprite.add_child(_ready_glint)

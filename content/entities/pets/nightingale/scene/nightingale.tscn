@@ -32,7 +32,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_body.webp" type="Texture" id=30]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_right_wing_blocked.webp" type="Texture" id=31]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale_right_wing.webp" type="Texture" id=32]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale.png" type="Texture" id=33]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/nightingale/scene/nightingale.webp" type="Texture" id=33]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

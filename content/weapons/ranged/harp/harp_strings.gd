@@ -1,6 +1,6 @@
 extends Sprite
 
-const MASK = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/harp_strings_mask.png")
+const MASK = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/harp_strings_mask.webp")
 const STRING_SHADER = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/harp_strings.gdshader")
 const COLORS = [Color(0.46, 0.86, 1.0), Color(1.0, 0.67, 0.3), Color(0.83, 0.48, 1.0), Color(1.0, 0.86, 0.48)]
 
