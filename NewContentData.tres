@@ -381,6 +381,7 @@ translation_keys_needing_operator = {
 "stat_fantasy_soul": [ 0 ]
 }
 translation_keys_needing_percent = {
+"effect_fantasy_kou_b_hand": [ 0 ],
 "effect_fantasy_celestial_projectile": [ 0 ],
 "effect_fantasy_xp_on_consumable": [ 0 ],
 "effect_fantasy_crit_overflow": [ 0, 2 ],
