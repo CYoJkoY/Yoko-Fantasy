@@ -14,13 +14,19 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-    ._process(delta)
-    _swing.flip_v = sprite.flip_v
     if _swing_fade > 0.0:
         _swing_fade = max(0.0, _swing_fade - delta)
-        var fade: float = _swing_fade / SWING_FADE_DURATION
-        _swing.modulate.a = fade * fade * 0.18 * ProgressData.settings.explosion_opacity
-        _swing.visible = _swing_fade > 0.0 and ProgressData.settings.visual_effects
+        _update_swing_fade(_swing_fade / SWING_FADE_DURATION)
+
+
+func update_sprite_flipv() -> void:
+    .update_sprite_flipv()
+    _swing.flip_v = sprite.flip_v
+
+
+func _update_swing_fade(fade: float) -> void:
+    _swing.modulate.a = fade * fade * 0.18 * ProgressData.settings.explosion_opacity
+    _swing.visible = fade > 0.0 and ProgressData.settings.visual_effects
 
 
 func begin_swing(distance: float) -> void:

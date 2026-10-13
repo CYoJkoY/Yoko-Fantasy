@@ -139,7 +139,6 @@ func _update_trail_line() -> void:
 
 
 func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
-    var weapon_pos: int = _hitbox.from.weapon_pos
     ._on_Hitbox_hit_something(thing_hit, damage_dealt)
 
     var main = Utils.get_scene_node()
@@ -166,8 +165,6 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
     var angle_step = TAU / float(base_petal_count)
     var base_angle = rand_range(0, TAU)
     var petal_dmg: int = int(max(1, float(damage_dealt) * petal_damage_ratio))
-    var crit_ch: float = _weapon_stats.crit_chance if _weapon_stats != null else 0.05
-    var crit_dmg: float = _weapon_stats.crit_damage if _weapon_stats != null else 1.5
     var slowed_target_ids: Dictionary = {}
 
     for i in range(base_petal_count):
@@ -188,10 +185,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
             spread_dir,
             assigned_target,
             petal_dmg,
-            _get_player_index(),
-            weapon_pos,
-            crit_ch,
-            crit_dmg,
+            _hitbox,
             slow_percent,
             apply_slow,
             main,

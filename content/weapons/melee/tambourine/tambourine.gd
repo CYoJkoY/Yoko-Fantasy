@@ -21,7 +21,6 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	._process(delta)
 	if _parent.dead or _parent.cleaning_up:
 		_swing_trail.clear_trail()
 		_shockwave_sequences.clear()
@@ -90,12 +89,14 @@ func _trigger_shockwave(effect: Resource, impact_position: Vector2) -> void:
 	args.crit_chance = _hitbox.crit_chance
 	args.crit_damage = _hitbox.crit_damage
 	args.from_player_index = player_index
-	_spawn_shockwave(args, effect.damage_color)
+	var attack_id: int = _hitbox.player_attack_id
+	_spawn_shockwave(args, effect.damage_color, attack_id)
 	if blast_offsets.size() > 1:
 		_shockwave_sequences.append({
 			"offsets": blast_offsets,
 			"origin": impact_position,
 			"args": args,
+			"attack_id": attack_id,
 			"next_index": 1,
 			"delay": BLAST_INTERVAL,
 			"created_frame": Engine.get_idle_frames(),
@@ -122,16 +123,17 @@ func _advance_shockwaves(delta: float) -> void:
 		sequence.delay -= delta
 		while sequence.delay <= 0.0 and sequence.next_index < sequence.offsets.size():
 			sequence.args.pos = sequence.origin + sequence.offsets[sequence.next_index]
-			_spawn_shockwave(sequence.args, sequence.tint)
+			_spawn_shockwave(sequence.args, sequence.tint, sequence.attack_id)
 			sequence.next_index += 1
 			sequence.delay += BLAST_INTERVAL
 		if sequence.next_index >= sequence.offsets.size():
 			_shockwave_sequences.remove(i)
 
 
-func _spawn_shockwave(args: WeaponServiceExplodeArgs, tint: Color) -> void:
+func _spawn_shockwave(args: WeaponServiceExplodeArgs, tint: Color, attack_id: int) -> void:
 	_blast_effect.scale = BASE_BLAST_SCALE * rand_range(1.0 - BLAST_SCALE_VARIATION, 1.0 + BLAST_SCALE_VARIATION)
 	var explosion: Node = WeaponService.explode(_blast_effect, args)
+	explosion._hitbox.player_attack_id = attack_id
 	explosion.set_tint(tint)
 	explosion.connect("hit_something", self, "on_weapon_hit_something", [explosion._hitbox])
 	explosion.connect("killed_something", self, "on_killed_something", [explosion._hitbox])

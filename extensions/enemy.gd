@@ -35,6 +35,10 @@ func get_stats_value() -> int:
     return value
 
 func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := true, dodgeable := true, is_crit := false, hitbox: Hitbox = null, is_burning := false) -> GetDamageValueResult:
+    if hitbox != null and hitbox.has_meta("fantasy_kou_b_hand_self_loss"):
+        var self_loss_result: GetDamageValueResult = GetDamageValueResult.new()
+        self_loss_result.value = hitbox.get_meta("fantasy_kou_b_hand_self_loss")
+        return self_loss_result
     var dmg_value_result: GetDamageValueResult =.get_damage_value(dmg_value, from_player_index, armor_applied, dodgeable, is_crit, hitbox, is_burning)
     dmg_value_result = _fantasy_apply_holy_damage_bonus(dmg_value_result)
     if !dead and _outline_colors.has(Utils.CURSE_COLOR) and from_player_index >= 0 and from_player_index < RunData.get_player_count():

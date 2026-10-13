@@ -26,6 +26,9 @@ func _fantasy_curse_item(cursed_item_data: ItemParentData, turn_randomization_of
             new_effect.value = 2
 
         match [new_effect.get_id(), new_effect.key_hash, new_effect.custom_key_hash]:
+            ["fantasy_kou_b_hand", _, _]:
+                new_effect.self_loss_percent = Utils.ncl_curse_effect_value(new_effect.self_loss_percent, cursed_item_data.curse_factor)
+                new_effect.boss_loss_percent = Utils.ncl_curse_effect_value(new_effect.boss_loss_percent, cursed_item_data.curse_factor)
             ["fantasy_shop_enter_stat_curse", _, _]:
                 new_effect.value = 0 if new_effect.value == 1 else new_effect.value
                 new_effect.chance = Utils.ncl_curse_effect_value(new_effect.chance, effect_modifier, {"step": 1})

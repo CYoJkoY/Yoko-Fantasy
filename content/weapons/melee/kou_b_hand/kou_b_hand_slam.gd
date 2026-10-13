@@ -5,9 +5,6 @@ const HITBOX: PackedScene = preload("res://overlap/hitbox.tscn")
 const TARGET_INDEX = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_target_index.gd")
 const FLIGHT_DURATION: float = 0.78
 const IMPACT_DURATION: float = 0.22
-const IMPACT_RADIUS: float = 64.0
-const SELF_LOSS_RATIO: float = 0.5
-const BOSS_LOSS_RATIO: float = 0.1
 
 var _source: Node
 var _target: Node
@@ -33,11 +30,12 @@ var _z_index: int
 var _spin: float
 var _visuals: bool
 var _self_loss_ratio: float
+var _impact_radius: float
 var _player_index: int
 var _boss_timer_paused: bool
 
 
-func begin(source: Node, target: Node, weapon: Node, main: Node) -> void:
+func begin(source: Node, target: Node, weapon: Node, main: Node, effect: Effect) -> void:
     _source = source
     _target = target
     _weapon = weapon
@@ -58,7 +56,8 @@ func begin(source: Node, target: Node, weapon: Node, main: Node) -> void:
     _z_index = source.z_index
     _spin = -1.0 if _destination.x < _start.x else 1.0
     _visuals = ProgressData.settings.visual_effects
-    _self_loss_ratio = BOSS_LOSS_RATIO if source is Boss else SELF_LOSS_RATIO
+    _self_loss_ratio = (effect.boss_loss_percent if source is Boss else effect.self_loss_percent) / 100.0
+    _impact_radius = effect.impact_radius
     _player_index = weapon.player_index
     if source is Boss:
         _boss_timer_paused = source._check_state_timer.paused
@@ -77,17 +76,22 @@ func begin(source: Node, target: Node, weapon: Node, main: Node) -> void:
     source._hitbox.disable()
     source._hurtbox.disable()
     source.z_index = 25
-    _hitbox = HITBOX.instance()
-    add_child(_hitbox)
-    _hitbox.collision_layer = 0
-    _hitbox.collision_mask = 0
-    _hitbox.disable()
-    _hitbox.from = weapon
-    _hitbox.damage = max(1, source.max_stats.health)
-    _hitbox.damage_tracking_key_hash = weapon._hitbox.damage_tracking_key_hash
-    _hitbox.player_attack_id = weapon._hitbox.player_attack_id
-    _hitbox.connect("hit_something", weapon, "on_weapon_hit_something", [_hitbox])
-    _hitbox.connect("killed_something", weapon, "on_killed_something", [_hitbox])
+    _hitbox = _create_hitbox(max(1, source.max_stats.health), weapon._hitbox.player_attack_id)
+
+
+func _create_hitbox(damage: int, attack_id: int) -> Hitbox:
+    var hitbox: Hitbox = HITBOX.instance()
+    add_child(hitbox)
+    hitbox.collision_layer = 0
+    hitbox.collision_mask = 0
+    hitbox.disable()
+    hitbox.from = _weapon
+    hitbox.damage = damage
+    hitbox.damage_tracking_key_hash = _weapon._hitbox.damage_tracking_key_hash
+    hitbox.player_attack_id = attack_id
+    hitbox.connect("hit_something", _weapon, "on_weapon_hit_something", [hitbox])
+    hitbox.connect("killed_something", _weapon, "on_killed_something", [hitbox])
+    return hitbox
 
 
 func _physics_process(delta: float) -> void:
@@ -127,8 +131,9 @@ func _land() -> void:
     _restore_source()
     _target = null
     _landed = true
-    _apply_self_loss(thrown)
-    _apply_impact(thrown)
+    if is_instance_valid(_weapon) and not _weapon.is_queued_for_deletion() and not _weapon._parent.dead and not _weapon._parent.cleaning_up:
+        _apply_self_loss(thrown)
+        _apply_impact(thrown)
     if not _visuals:
         _finish()
 
@@ -137,32 +142,29 @@ func _apply_self_loss(thrown: Node) -> void:
     if not is_instance_valid(thrown) or thrown.dead or thrown._pending_die:
         return
     var loss_amount: int = int(floor(thrown.max_stats.health * _self_loss_ratio))
-    var health_lost: int = int(min(thrown.current_stats.health, loss_amount))
-    thrown.current_stats.health -= health_lost
-    thrown.emit_signal("health_updated", thrown, thrown.current_stats.health, thrown.max_stats.health)
-    if health_lost > 0:
-        thrown.flash()
-        if is_instance_valid(_weapon) and not _weapon.is_queued_for_deletion():
-            _hitbox.hit_something(thrown, health_lost)
-    if is_instance_valid(thrown) and not thrown.dead and not thrown._pending_die and thrown.current_stats.health <= 0:
-        thrown._pending_die = true
-        _hitbox.killed_something(thrown)
-        var death_args = Entity.DieArgs.new()
-        death_args.killed_by_player_index = _player_index
-        death_args.killing_blow_dmg_value = loss_amount
-        thrown.call_deferred("die", death_args)
+    if loss_amount <= 0:
+        return
+    var self_loss_hitbox: Hitbox = _create_hitbox(loss_amount, _hitbox.player_attack_id)
+    self_loss_hitbox.set_meta("fantasy_kou_b_hand_self_loss", loss_amount)
+    var damage_args = TakeDamageArgs.new(_player_index, self_loss_hitbox)
+    damage_args.from = _weapon
+    damage_args.armor_applied = false
+    damage_args.dodgeable = false
+    var damage_taken: Array = thrown.take_damage(loss_amount, damage_args)
+    if damage_taken[1] > 0:
+        self_loss_hitbox.hit_something(thrown, damage_taken[1])
 
 
 func _apply_impact(thrown: Node) -> void:
     if not is_instance_valid(_weapon) or _weapon._parent.dead or _weapon._parent.cleaning_up:
         return
     var index = _main.get_meta(TARGET_INDEX.META_KEY)
-    for enemy in index.candidates(_main, global_position, IMPACT_RADIUS):
+    for enemy in index.candidates(_main, global_position, _impact_radius):
         if not is_instance_valid(_weapon) or _weapon.is_queued_for_deletion():
             break
         if not is_instance_valid(enemy) or enemy == thrown or enemy.dead or enemy._pending_die or enemy.has_meta(META_KEY):
             continue
-        if enemy.global_position.distance_squared_to(global_position) <= IMPACT_RADIUS * IMPACT_RADIUS:
+        if enemy.global_position.distance_squared_to(global_position) <= _impact_radius * _impact_radius:
             enemy.hurt_area_entered_deferred(_hitbox)
 
 
@@ -224,4 +226,4 @@ func _draw() -> void:
     else:
         var progress: float = clamp((_age - FLIGHT_DURATION) / IMPACT_DURATION, 0.0, 1.0)
         draw_set_transform(Vector2.ZERO, 0.0, Vector2(1.0, 0.55))
-        draw_arc(Vector2.ZERO, lerp(12.0, IMPACT_RADIUS, progress), 0.0, TAU, 24, Color(1.0, 0.66, 0.77, (1.0 - progress) * 0.8), 3.0 * (1.0 - progress), true)
+        draw_arc(Vector2.ZERO, lerp(12.0, _impact_radius, progress), 0.0, TAU, 24, Color(1.0, 0.66, 0.77, (1.0 - progress) * 0.8), 3.0 * (1.0 - progress), true)

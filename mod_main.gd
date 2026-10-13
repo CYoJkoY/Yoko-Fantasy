@@ -36,6 +36,7 @@ func install_script_extensions() -> void:
         # EFFECTS: gain_stat_for_limited_item
 
         "enemy.gd",
+        # WEAPONS: Kou B Hand fixed self-loss
         # STATS: Holy[ 2/2 ]
         # EFFECTS: extra_curse_enemy
         #          on_target_enemy_killed_buff_future_target_enemy[ 1/2 ]

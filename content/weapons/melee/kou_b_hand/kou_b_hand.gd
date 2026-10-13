@@ -94,7 +94,7 @@ func on_weapon_hit_something(thing_hit: Node, damage_dealt: int, hitbox: Hitbox)
         return
     var slam = SLAM.new()
     main.add_effect(slam)
-    slam.begin(thing_hit, target, self, main)
+    slam.begin(thing_hit, target, self, main, _climax_effect)
     if ProgressData.settings.visual_effects:
         var hearts_id: int = HEARTS_SCENE.get_instance_id()
         var hearts = main.get_node_from_pool(hearts_id, main._effects)

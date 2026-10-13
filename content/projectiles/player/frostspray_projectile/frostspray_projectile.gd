@@ -124,7 +124,7 @@ func _update_trail_line() -> void:
 
 
 func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
-	var weapon_pos: int = _hitbox.from.weapon_pos
+	var shard_dmg: int = int(max(1, float(_hitbox.damage) * shard_damage_ratio))
 	._on_Hitbox_hit_something(thing_hit, damage_dealt)
 
 	var main = Utils.get_scene_node()
@@ -145,9 +145,6 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
 	var hit_angle: float = impact_dir.angle()
 
 	var shard_pool_id: int = SHARD_SCENE.get_instance_id()
-	var shard_dmg: int = int(max(1, float(_hitbox.damage) * shard_damage_ratio))
-	var crit_ch: float = _weapon_stats.crit_chance if _weapon_stats != null else 0.05
-	var crit_dmg: float = _weapon_stats.crit_damage if _weapon_stats != null else 1.5
 
 	var total_spread_rad: float = deg2rad(TOTAL_SPREAD_DEG)
 	var half_spread: float = total_spread_rad / 2.0
@@ -179,10 +176,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
 			global_position,
 			shard_dir,
 			shard_dmg,
-			_get_player_index(),
-			weapon_pos,
-			crit_ch,
-			crit_dmg,
+			_hitbox,
 			depth_tier,
 			main,
 			shard_pool_id

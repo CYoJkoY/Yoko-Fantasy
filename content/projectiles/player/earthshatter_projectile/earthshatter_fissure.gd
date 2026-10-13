@@ -1,5 +1,7 @@
 extends Node2D
 
+const SECONDARY_DAMAGE = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/secondary_damage.gd")
+
 const CRACK_EXPAND_DURATION: float = 0.18
 const TREMOR_DURATION: float = 1.0
 const TREMOR_DURATION_VARIATION: float = 0.5
@@ -10,14 +12,11 @@ var _duration: float = TREMOR_DURATION
 var _main: Node = null
 var _pool_id: int = 0
 var _slow_percent: int = 25
-var _damage: int = 10
-var _player_index: int = 0
-var _weapon_pos: int = -1
-var _crit_chance: float = 0.05
-var _crit_damage: float = 1.5
 var _has_pulsed_damage: bool = false
 var _slowed_enemies: Dictionary = {}
 var _enemies_in_area: Dictionary = {}
+
+var _secondary_damage: Reference
 
 onready var _slow_source_id: String = "earthshatter_fissure_%s" % get_instance_id()
 
@@ -35,10 +34,7 @@ func _ready() -> void:
 func activate(
     pos: Vector2,
     damage: int,
-    player_index: int,
-    weapon_pos: int,
-    crit_chance: float,
-    crit_damage: float,
+    source: Hitbox,
     main: Node,
     pool_id: int,
     slow_percent: int
@@ -46,11 +42,7 @@ func activate(
     _main = main
     _pool_id = pool_id
     _slow_percent = slow_percent
-    _damage = damage
-    _player_index = player_index
-    _weapon_pos = weapon_pos
-    _crit_chance = crit_chance
-    _crit_damage = crit_damage
+    _secondary_damage = SECONDARY_DAMAGE.new(source, damage, Color("#ffaa33"))
     _elapsed = 0.0
     _duration = rand_range(TREMOR_DURATION - TREMOR_DURATION_VARIATION, TREMOR_DURATION + TREMOR_DURATION_VARIATION)
     _has_pulsed_damage = false
@@ -109,28 +101,14 @@ func _physics_process(delta: float) -> void:
 func _apply_seismic_pulse(enemies_in_area: Dictionary) -> void:
     for unit_id in enemies_in_area:
         var unit = enemies_in_area[unit_id]
-        var was_crit: bool = Utils.get_chance_success(_crit_chance)
-        var final_damage: float = float(_damage)
-        if was_crit:
-            final_damage *= _crit_damage
-
         var push_dir = (unit.global_position - global_position).normalized()
         if push_dir.length_squared() < 0.01:
             push_dir = Vector2.RIGHT.rotated(rand_range(0.0, TAU))
 
-        var dmg_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(_player_index, Color("#ffaa33"))
-        var health_before: int = unit.current_stats.health
-        var damage_taken: Array = unit.take_damage(int(final_damage), dmg_args)
-        RunData.add_weapon_dmg_dealt(_weapon_pos, damage_taken[1], _player_index)
+        var damage_dealt: int = _secondary_damage.deal(unit)
 
-        if unit.current_stats.health > 0:
+        if damage_dealt > 0 and not unit._pending_die:
             unit.knockback_vector = push_dir * 1.8
-
-        Utils.fa_apply_direct_crit_kill_gold_rewards(
-            _player_index,
-            was_crit,
-            health_before > 0 and damage_taken[1] >= health_before
-        )
 
 
 func _apply_tremor_slow() -> void:
@@ -157,6 +135,7 @@ func _clear_tremor_slow() -> void:
 
 
 func _exit_tree() -> void:
+    _secondary_damage = null
     _clear_tremor_slow()
 
 

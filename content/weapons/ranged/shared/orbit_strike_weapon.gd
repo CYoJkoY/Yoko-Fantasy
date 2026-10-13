@@ -1,20 +1,14 @@
 extends "res://weapons/ranged/ranged_weapon.gd"
 
+const STRIKE_ATTACK: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/shared/orbit_strike_attack.tscn")
+
 const FALLBACK_SOUND: AudioStream = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/myriad_thunder/myriad_thunder.wav")
 
 const BASE_ORBIT_RADIUS_X: float = 72.0
 const BASE_ORBIT_RADIUS_Y: float = 42.0
 const THRUST_DURATION: float = 0.48
 const THRUST_HEIGHT: float = 22.0
-const STRIKE_STAGGER_INTERVAL: float = 0.038
 const ORBIT_GROUP: String = "fantasy_orbit_strike_weapons"
-const ATTACK_FIELDS = [
-    "damage", "knockback_direction", "knockback_amount", "knockback_piercing",
-    "crit_chance", "crit_damage", "effect_scale", "burning_data", "accuracy",
-    "is_healing", "projectiles_on_hit", "ignored_objects", "effects",
-    "speed_percent_modifier", "from", "damage_tracking_key_hash", "scaling_stats",
-    "player_attack_id", "active", "deals_damage"
-]
 
 export(PackedScene) var strike_scene
 export(String) var targeting_effect_id
@@ -24,7 +18,6 @@ var _orbit_phase: float = 0.0
 var _is_thrusting: bool = false
 var _thrust_elapsed: float = 0.0
 var _recoil_remaining: float = 0.0
-var _pending_strikes: Array = []
 var _pending_targets: Array = []
 var _targeting_effect: Resource
 
@@ -69,7 +62,6 @@ func update_sprite_flipv() -> void:
 
 func _physics_process(delta: float) -> void:
     if not is_instance_valid(_parent) or _parent.dead or _parent.cleaning_up:
-        _pending_strikes.clear()
         _pending_targets.clear()
         _recoil_remaining = 0.0
         _is_shooting = false
@@ -85,30 +77,8 @@ func _physics_process(delta: float) -> void:
         sprite.visible = true
 
     _time += delta
-    _process_pending_strikes(delta)
     _update_orbit_position_and_motion(delta)
     _update_visual_effects(delta)
-
-
-func _process_pending_strikes(delta: float) -> void:
-    if _pending_strikes.empty():
-        return
-
-    var main = Utils.get_scene_node()
-    if main == null or not is_instance_valid(main):
-        _pending_strikes.clear()
-        return
-
-    var i: int = _pending_strikes.size() - 1
-    while i >= 0:
-        var item: Dictionary = _pending_strikes[i]
-        item.timer -= delta
-        if item.timer <= 0.0:
-            var target: Unit = item.target
-            if is_instance_valid(target) and not target.dead:
-                _strike_target(target, main, item.attack)
-            _pending_strikes.remove(i)
-        i -= 1
 
 
 func _update_orbit_position_and_motion(delta: float) -> void:
@@ -168,23 +138,11 @@ func _update_orbit_position_and_motion(delta: float) -> void:
 
 
 func should_shoot() -> bool:
-    if _is_shooting:
-        return false
-
-    if _current_cooldown > 0.0:
-        return false
-
-    if not is_instance_valid(_parent) or _parent.dead or _parent.cleaning_up or current_stats == null:
-        return false
-
-    if _parent._current_movement != Vector2.ZERO and not RunData.get_player_effect(Keys.can_attack_while_moving_hash, player_index):
-        return false
-
-    if WeaponService.fantasy_cannot_attack_while_stationary(self):
+    if not WeaponService.fantasy_can_start_attack(self):
         return false
 
     var main = Utils.get_scene_node()
-    if main == null or main._entity_spawner == null:
+    if not is_instance_valid(main) or main._cleaning_up or main._entity_spawner == null:
         return false
 
     _pending_targets = _collect_targets(main)
@@ -193,7 +151,11 @@ func should_shoot() -> bool:
 
 func shoot() -> void:
     var main = Utils.get_scene_node()
-    if main == null or main._entity_spawner == null:
+    if not is_instance_valid(main) or main._cleaning_up or main._entity_spawner == null:
+        _is_shooting = false
+        return
+
+    if is_queued_for_deletion() or not is_physics_processing():
         _is_shooting = false
         return
 
@@ -202,7 +164,7 @@ func shoot() -> void:
         return
 
     for i in range(_pending_targets.size() - 1, -1, -1):
-        if not _is_valid_primary_target(_pending_targets[i]):
+        if not is_valid_strike_target(_pending_targets[i]):
             _pending_targets.remove(i)
     if _pending_targets.empty():
         _pending_targets = _collect_targets(main)
@@ -214,18 +176,8 @@ func shoot() -> void:
     _pending_targets = []
 
     _nb_shots_taken += 1
-    var original_stats: RangedWeaponStats = null
-    for projectile_count in _stats_every_x_shots:
-        if _nb_shots_taken % projectile_count == 0:
-            original_stats = current_stats
-            current_stats = _stats_every_x_shots[projectile_count]
-            var hitbox_args := Hitbox.HitboxArgs.new().set_from_weapon_stats(current_stats)
-            _hitbox.set_damage(current_stats.damage, hitbox_args)
-
     _current_cooldown = get_next_cooldown()
     _recoil_remaining = current_stats.recoil_duration * 2.0
-    _hitbox.player_attack_id = _shooting_behavior._get_next_attack_id()
-    _hitbox.ignored_objects.clear()
 
     for effect in effects:
         if effect.key_hash == Keys.reload_turrets_on_shoot_hash:
@@ -237,23 +189,12 @@ func shoot() -> void:
 
     _play_cast_sound()
 
-    var attack: Dictionary = _capture_attack(true)
-    if not targets.empty():
-        _strike_target(targets[0], main, attack)
-
-    for idx in range(1, targets.size()):
-        _pending_strikes.append({
-            "target": targets[idx],
-            "timer": float(idx) * STRIKE_STAGGER_INTERVAL,
-            "attack": attack
-        })
+    var attack = STRIKE_ATTACK.instance()
+    add_child(attack)
+    attack.connect("strike_started", self, "_spawn_strike_visuals", [main])
+    attack.start(self, targets, main)
 
     WeaponService.fantasy_on_shoot(self)
-
-    if original_stats != null:
-        current_stats = original_stats
-        var hitbox_args := Hitbox.HitboxArgs.new().set_from_weapon_stats(current_stats)
-        _hitbox.set_damage(current_stats.damage, hitbox_args)
 
     _is_shooting = _recoil_remaining > 0.0
     _on_cast_completed()
@@ -275,12 +216,12 @@ func _collect_targets(main: Node) -> Array:
     var candidates: Array = []
     var in_range: Array = []
     for enemy in main._entity_spawner.get_all_enemies(false):
-        if _is_valid_primary_target(enemy):
+        if is_valid_strike_target(enemy):
             candidates.append(enemy)
             if center.distance_squared_to(enemy.global_position) <= max_range_sq:
                 in_range.append(enemy)
     for neutral in main._entity_spawner.neutrals:
-        if _is_valid_primary_target(neutral):
+        if is_valid_strike_target(neutral):
             if center.distance_squared_to(neutral.global_position) <= max_range_sq:
                 in_range.append(neutral)
     if in_range.empty():
@@ -305,41 +246,17 @@ func _collect_targets(main: Node) -> Array:
     return targets
 
 
-func _is_valid_primary_target(target: Node) -> bool:
+func is_valid_strike_target(target) -> bool:
     return (
         is_instance_valid(target)
         and target is Unit
         and not target.dead
+        and not target._pending_die
         and not WeaponService.fantasy_should_ignore_tree_body(self, target)
     )
 
 
-func _capture_attack(copy_resources: bool = false) -> Dictionary:
-    var attack: Dictionary = {"stats": current_stats.duplicate() if copy_resources else current_stats}
-    for field in ATTACK_FIELDS:
-        var value = _hitbox.get(field)
-        if copy_resources:
-            if value is Resource:
-                value = value.duplicate(true)
-            elif value is Array:
-                var copied: Array = []
-                for entry in value:
-                    copied.append(entry.duplicate(true) if entry is Resource else entry)
-                value = copied
-        attack[field] = value
-    return attack
-
-
-func _restore_attack(attack: Dictionary) -> void:
-    current_stats = attack.stats
-    for field in ATTACK_FIELDS:
-        _hitbox.set(field, attack[field])
-
-
-func _strike_target(target: Unit, main: Node, attack: Dictionary) -> void:
-    if not _is_valid_primary_target(target):
-        return
-
+func _spawn_strike_visuals(target: Unit, main: Node) -> void:
     var pool_id: int = strike_scene.get_instance_id()
     var strike_vfx: Node2D = main.get_node_from_pool(pool_id, main._effects)
     if not is_instance_valid(strike_vfx):
@@ -348,12 +265,6 @@ func _strike_target(target: Unit, main: Node, attack: Dictionary) -> void:
     strike_vfx.set_pool_id(pool_id)
     _configure_strike_visuals(strike_vfx)
     strike_vfx.start_strike(target.global_position, target, 1.0, _get_strike_tint())
-    var live_attack: Dictionary = _capture_attack()
-    _restore_attack(attack)
-    target.hurt_area_entered_deferred(_hitbox)
-    for field in ATTACK_FIELDS:
-        attack[field] = _hitbox.get(field)
-    _restore_attack(live_attack)
 
 
 func _get_thrust_height() -> float:

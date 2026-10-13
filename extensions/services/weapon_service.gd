@@ -77,6 +77,15 @@ func fantasy_reset_weapon_cooldown(weapon: Node) -> void:
     )
     weapon.tween_animation.start()
 
+func fantasy_can_start_attack(weapon: Node) -> bool:
+    if weapon._is_shooting or weapon._current_cooldown > 0.0:
+        return false
+    if not is_instance_valid(weapon._parent) or weapon._parent.dead or weapon._parent.cleaning_up or weapon.current_stats == null:
+        return false
+    if weapon._parent._current_movement != Vector2.ZERO and not RunData.get_player_effect(Keys.can_attack_while_moving_hash, weapon.player_index):
+        return false
+    return not fantasy_cannot_attack_while_stationary(weapon)
+
 func fantasy_cannot_attack_while_stationary(weapon: Node) -> bool:
     if RunData.get_player_effect(Utils.fantasy_cannot_attack_while_stationary_hash, weapon.player_index) <= 0:
         return false

@@ -115,7 +115,8 @@ func fa_on_Timer_timeout() -> void:
         timer.stop()
 
 func fa_on_erosion_cd_timeout(erosion: ActiveErosion) -> void:
-    var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(erosion.player_index, Color("#301440"))
+    var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(erosion.player_index, Color.white)
+    damage_args.set_meta("fantasy_erosion_gradient", true)
     var final_damage: int = erosion.damage
     var was_crit: bool = Utils.get_chance_success(erosion.crit_chance)
     if was_crit:

@@ -241,19 +241,13 @@ func _apply_internal_wind_force(enemy: Enemy) -> void:
 
     var p_idx: int = _get_player_index()
     var tick_dmg: int = int(max(1, Utils.ncl_get_dmg_with_scaling_stats(wind_force_base_damage, wind_force_scaling_stats, p_idx)))
-    var crit_ch: float = _hitbox.crit_chance if _hitbox != null else 0.05
-    var crit_dmg: float = _hitbox.crit_damage if _hitbox != null else 2.0
-    var weapon_pos: int = _hitbox.from.weapon_pos
 
     wind_force.init_wind_force(
         enemy,
         wind_force_ticks,
         tick_dmg,
         wind_force_tick_interval,
-        p_idx,
-        weapon_pos,
-        crit_ch,
-        crit_dmg,
+        _hitbox,
         main,
         pool_id
     )

@@ -30,16 +30,7 @@ func _ready() -> void:
 
 
 func should_shoot() -> bool:
-    if _is_shooting:
-        return false
-
-    if WeaponService.fantasy_cannot_attack_while_stationary(self):
-        return false
-
-    if _current_cooldown > 0.0:
-        return false
-
-    if _parent == null or current_stats == null:
+    if not WeaponService.fantasy_can_start_attack(self):
         return false
 
     if not is_instance_valid(_target) or ("dead" in _target and _target.dead):
@@ -48,7 +39,7 @@ func should_shoot() -> bool:
 
 
 func _physics_process(delta: float) -> void:
-    if not is_instance_valid(_parent) or _parent.dead:
+    if not is_instance_valid(_parent) or _parent.dead or _parent.cleaning_up:
         _target = null
         return
 
@@ -133,7 +124,8 @@ func shoot() -> void:
 
     _current_cooldown = get_next_cooldown()
 
-    _hitbox.player_attack_id = _shooting_behavior._get_next_attack_id()
+    var attack_id: int = _shooting_behavior._get_next_attack_id()
+    _hitbox.player_attack_id = attack_id
     _hitbox.ignored_objects.clear()
 
     for effect in effects:
@@ -152,7 +144,7 @@ func shoot() -> void:
     _spawn_target_astrolabe(main, target_pos, target, tier_val)
     _apply_direct_hit(target)
 
-    _spawn_converging_bullet_ring(target_pos)
+    _spawn_converging_bullet_ring(target_pos, attack_id)
 
     WeaponService.fantasy_on_shoot(self)
 
@@ -198,7 +190,7 @@ func _spawn_target_astrolabe(main: Node, target_pos: Vector2, target: Node, tier
     astrolabe.start_astrolabe(target_pos, target, tier_val, main, _astrolabe_pool_id)
 
 
-func _spawn_converging_bullet_ring(target_pos: Vector2) -> void:
+func _spawn_converging_bullet_ring(target_pos: Vector2, attack_id: int) -> void:
     if _finger_snap_effect == null:
         return
 
@@ -226,7 +218,7 @@ func _spawn_converging_bullet_ring(target_pos: Vector2) -> void:
         spawn_args.knockback_direction = Vector2.RIGHT.rotated(angle + PI)
         var bullet = WeaponService.spawn_projectile(spawn_pos, bullet_stats, angle + PI, self, spawn_args)
         bullet.player_index = player_index
-        bullet._hitbox.player_attack_id = _shooting_behavior._get_next_attack_id()
+        bullet._hitbox.player_attack_id = attack_id
         on_projectile_shot(bullet)
         bullet.init_converge(target_pos, spawn_pos, 460.0)
 

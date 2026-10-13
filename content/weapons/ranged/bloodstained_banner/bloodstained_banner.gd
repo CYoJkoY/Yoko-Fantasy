@@ -27,8 +27,6 @@ func _configure_strike_visuals(strike_vfx: Node2D) -> void:
 
 func _on_cast_completed() -> void:
     var _damage_taken: Array = _parent.take_damage(1, _sacrifice_args)
-    if _parent.dead:
-        _pending_strikes.clear()
 
 
 func _update_visual_effects(delta: float) -> void:

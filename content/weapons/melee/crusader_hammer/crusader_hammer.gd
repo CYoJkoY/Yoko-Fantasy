@@ -4,7 +4,6 @@ const EXPLOSION_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/c
 
 onready var _rune: Sprite = $Sprite/Rune
 
-var rune_charge: float = 0.0
 var _clock: float = 0.0
 var _hammer_effect: Resource
 var _blast_stats: MeleeWeaponStats
@@ -25,21 +24,25 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-    var was_fading: bool = _swing_fade > 0.0
-    ._process(delta)
-    _rune.flip_v = sprite.flip_v
     _clock += delta
     var breath: float = pow(0.5 + 0.5 * sin(_clock * 2.1), 1.8)
     _rune.material.set_shader_param("opacity", 0.025 + breath * 0.68)
-    _rune.material.set_shader_param("charge", rune_charge)
     _rune.material.set_shader_param("phase", _clock)
-    if was_fading:
-        rune_charge = _swing_fade / SWING_FADE_DURATION * 0.35
+
+
+func update_sprite_flipv() -> void:
+    .update_sprite_flipv()
+    _rune.flip_v = sprite.flip_v
+
+
+func _update_swing_fade(fade: float) -> void:
+    ._update_swing_fade(fade)
+    _rune.material.set_shader_param("charge", fade * 0.35)
 
 
 func update_swing(progress: float) -> void:
     .update_swing(progress)
-    rune_charge = 0.35 + sin(progress * PI) * 0.65
+    _rune.material.set_shader_param("charge", 0.35 + sin(progress * PI) * 0.65)
 
 
 func on_weapon_hit_something(thing_hit: Node, damage_dealt: int, hitbox: Hitbox) -> void:

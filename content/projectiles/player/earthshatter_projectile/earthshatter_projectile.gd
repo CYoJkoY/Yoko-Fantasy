@@ -7,7 +7,7 @@ const EARTHSHATTER_EFFECT = preload("res://mods-unpacked/Yoko-Fantasy/content/we
 
 var _earthshatter_effect: Resource
 
-var _detonated: bool = false
+var _handling_hit: bool = false
 var _boulder_spin_speed: float = 8.0
 
 onready var _trail_particles: CPUParticles2D = $"%TrailParticles"
@@ -27,7 +27,6 @@ func set_effects(effects: Array) -> void:
 
 
 func shoot() -> void:
-	_detonated = false
 	.shoot()
 	_trail_particles.modulate.a = _sprite.modulate.a
 	_trail_particles.emitting = true
@@ -42,25 +41,27 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
+	if not _hitbox.active:
+		return
+
+	_handling_hit = true
 	_detonate(velocity)
 	._on_Hitbox_hit_something(thing_hit, damage_dealt)
+	_handling_hit = false
 
 
 func stop() -> void:
-	_detonate(velocity)
+	if not _hitbox.active:
+		return
+
+	if not _handling_hit:
+		_detonate(velocity)
 	.stop()
 
 
 func _detonate(impact_dir: Vector2) -> void:
-	if _detonated:
-		return
-	_detonated = true
-
 	var main = Utils.get_scene_node()
 	var impact_pos: Vector2 = global_position
-	var weapon_pos: int = _hitbox.from.weapon_pos
-	var crit_ch: float = _weapon_stats.crit_chance
-	var crit_dmg: float = _weapon_stats.crit_damage
 	var base_dmg: int = _hitbox.damage
 
 	var vfx_pool_id: int = IMPACT_VFX_SCENE.get_instance_id()
@@ -79,10 +80,7 @@ func _detonate(impact_dir: Vector2) -> void:
 	fissure.activate(
 		impact_pos,
 		fissure_dmg,
-		_get_player_index(),
-		weapon_pos,
-		crit_ch,
-		crit_dmg,
+		_hitbox,
 		main,
 		fissure_pool_id,
 		_earthshatter_effect.slow_percent
@@ -108,10 +106,7 @@ func _detonate(impact_dir: Vector2) -> void:
 			impact_pos,
 			shard_dir,
 			shard_dmg,
-			_get_player_index(),
-			weapon_pos,
-			crit_ch,
-			crit_dmg,
+			_hitbox,
 			main,
 			shard_pool_id
 		)
