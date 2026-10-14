@@ -94,7 +94,7 @@ func _fantasy_damage_clamp(result: Unit.GetDamageValueResult) -> Unit.GetDamageV
         var max_hp: float = Utils.get_stat(Keys.stat_max_hp_hash, player_index)
         var tracking_key_hash: int = effect[0]
         var max_percent: float = effect[2] / 100.0
-        var max_allowed_dmg: int = max(1, int(max_hp * max_percent))
+        var max_allowed_dmg: int = int(max(1, int(max_hp * max_percent)))
         var max_taken_dmg: int = int(clamp(result.value, min(effect[1], result.value), max_allowed_dmg))
 
         RunData.ncl_add_effect_tracking_value(tracking_key_hash, result.value - max_taken_dmg, player_index)

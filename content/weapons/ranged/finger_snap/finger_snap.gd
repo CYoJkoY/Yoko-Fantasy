@@ -196,8 +196,8 @@ func _spawn_converging_bullet_ring(target_pos: Vector2, attack_id: int) -> void:
 
     var extra_projectiles: int = 0
     if current_stats != null and stats != null:
-        extra_projectiles = max(0, int(current_stats.nb_projectiles) - int(stats.nb_projectiles))
-    var bullet_count: int = max(1, int(_finger_snap_effect.bullet_count) + extra_projectiles)
+        extra_projectiles = int(max(0, int(current_stats.nb_projectiles) - int(stats.nb_projectiles)))
+    var bullet_count: int = int(max(1, int(_finger_snap_effect.bullet_count) + extra_projectiles))
     var final_bullet_dmg: int = Utils.ncl_get_dmg_with_scaling_stats(
         _finger_snap_effect.base_damage, _finger_snap_effect.scaling_stats, player_index
     )

@@ -99,7 +99,7 @@ func _process_dissipating(delta: float) -> void:
     _sprite.modulate.a = progress * _visual_opacity
     _glow_sprite.modulate.a = progress * 0.4 * _visual_opacity
     _trail_shrink_progress += delta * TRAIL_SHRINK_POINTS_PER_SECOND
-    var points_to_remove: int = min(int(_trail_shrink_progress), _history.count)
+    var points_to_remove: int = int(min(int(_trail_shrink_progress), _history.count))
     _trail_shrink_progress -= points_to_remove
     _history.trim_oldest(points_to_remove)
     for _i in range(points_to_remove):

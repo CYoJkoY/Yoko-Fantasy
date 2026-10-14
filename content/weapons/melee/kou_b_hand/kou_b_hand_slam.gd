@@ -76,7 +76,7 @@ func begin(source: Node, target: Node, weapon: Node, main: Node, effect: Effect)
     source._hitbox.disable()
     source._hurtbox.disable()
     source.z_index = 25
-    _hitbox = _create_hitbox(max(1, source.max_stats.health), weapon._hitbox.player_attack_id)
+    _hitbox = _create_hitbox(int(max(1, source.max_stats.health)), weapon._hitbox.player_attack_id)
 
 
 func _create_hitbox(damage: int, attack_id: int) -> Hitbox:

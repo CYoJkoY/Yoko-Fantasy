@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/moon_in_woodland.mp3-4f73f362eda7a2e138ec850277786bc5.mp3str"
+
+[deps]
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/music/moon_in_woodland.mp3"
+dest_files=[ "res://.import/moon_in_woodland.mp3-4f73f362eda7a2e138ec850277786bc5.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

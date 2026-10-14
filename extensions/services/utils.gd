@@ -328,7 +328,8 @@ func fa_get_bless_info(item_data: Resource, player_index: int) -> Dictionary:
         if fa_is_negative_effect(effect):
             info.negative_count += 1
 
-    info.cost = int(max(1, item_data.tier + 1)) * info.negative_count
+    var base_cost: int = int(max(1, item_data.tier + 1)) * info.negative_count
+    info.cost = base_cost + int(round(base_cost * clamp(RunData.current_wave, 0, 20) / 20.0))
     var current_souls: int = int(get_stat(stat_fantasy_soul_hash, player_index))
     info.can_bless = not blessed and info.negative_count > 0 and current_souls >= info.cost
     return info

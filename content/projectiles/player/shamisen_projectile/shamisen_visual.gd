@@ -174,7 +174,7 @@ func _update_flow(at: Vector2, update_animation: bool = true) -> void:
         while next_sample <= distance:
             _flow_cursor = (_flow_cursor + 1) % FLOW_SAMPLES
             _flow_samples[_flow_cursor] = _flow_last_position.linear_interpolate(at, next_sample / distance)
-            _flow_count = min(_flow_count + 1, FLOW_SAMPLES)
+            _flow_count = int(min(_flow_count + 1, FLOW_SAMPLES))
             next_sample += FLOW_SPACING
         _flow_carry = fmod(_flow_carry + distance, FLOW_SPACING)
     _flow_last_position = at
@@ -183,7 +183,7 @@ func _update_flow(at: Vector2, update_animation: bool = true) -> void:
         return
     if distance > 0.0:
         for i in range(FLOW_SAMPLES):
-            var offset: int = min(FLOW_SAMPLES - 1 - i, _flow_count - 1)
+            var offset: int = int(min(FLOW_SAMPLES - 1 - i, _flow_count - 1))
             _flow_points[i] = _flow_samples[(_flow_cursor - offset + FLOW_SAMPLES) % FLOW_SAMPLES]
         _flow_points[FLOW_SAMPLES] = at
         _flow_smoothed[0] = _flow_points[0]

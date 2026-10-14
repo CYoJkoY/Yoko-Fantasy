@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=296 format=2]
+[gd_resource type="Resource" load_steps=299 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/swift_wolf/swift_wolf_item.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/skeleton_knight/skeleton_knight_item.tres" type="Resource" id=2]
@@ -305,11 +305,15 @@
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/kou_b_hand/kou_b_hand_effect.gd" type="Script" id=301]
 
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/music/doudouone.mp3" type="AudioStream" id=302]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/music/koukouzis_longing.mp3" type="AudioStream" id=303]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/music/moon_in_woodland.mp3" type="AudioStream" id=304]
+
 [resource]
 script = ExtResource( 43 )
 my_id = ""
 groups_in_all_zones = [ ExtResource( 25 ) ]
-music_tracks = [  ]
+music_tracks = [ ExtResource( 302 ), ExtResource( 303 ), ExtResource( 304 ) ]
 backgrounds = [ ExtResource( 40 ) ]
 characters = [ ExtResource( 37 ), ExtResource( 45 ), ExtResource( 48 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 76 ), ExtResource( 81 ), ExtResource( 98 ), ExtResource( 164 ), ExtResource( 211 ), ExtResource( 228 ) ]
 entities = [ ExtResource( 13 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 22 ), ExtResource( 2 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 11 ), ExtResource( 18 ), ExtResource( 47 ), ExtResource( 56 ), ExtResource( 69 ), ExtResource( 83 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 133 ), ExtResource( 134 ), ExtResource( 135 ), ExtResource( 142 ), ExtResource( 143 ), ExtResource( 144 ), ExtResource( 34 ), ExtResource( 231 ) ]

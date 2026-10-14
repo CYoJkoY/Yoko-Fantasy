@@ -89,7 +89,7 @@ func _update_orbit_position_and_motion(delta: float) -> void:
     if not orbiting_weapons.has(self):
         orbiting_weapons.append(self)
 
-    var total_weapons: int = max(1, orbiting_weapons.size())
+    var total_weapons: int = int(max(1, orbiting_weapons.size()))
     var my_index: int = orbiting_weapons.find(self)
     if my_index < 0:
         my_index = 0
@@ -236,7 +236,7 @@ func _collect_targets(main: Node) -> Array:
     candidates.erase(nearest)
     var targets: Array = [nearest]
     var projectile_bonus: int = current_stats.nb_projectiles - stats.nb_projectiles
-    var extra_count: int = min(max(0, _targeting_effect.value + projectile_bonus), candidates.size())
+    var extra_count: int = int(min(max(0, _targeting_effect.value + projectile_bonus), candidates.size()))
     for i in range(extra_count):
         var selected_index: int = Utils.randi_range(i, candidates.size() - 1)
         var selected: Unit = candidates[selected_index]

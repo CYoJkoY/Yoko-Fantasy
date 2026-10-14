@@ -141,6 +141,9 @@ func install_script_extensions() -> void:
         "ui/ingame_main_menu.gd",
         # SYSTEMS: Job[ 5/6 ]
 
+        "ui/menus.gd",
+        # UI: Fantasy music tracks
+
         "ui/menu_confirm.gd",
         "ui/menu_restart.gd",
         "ui/menu_end_run.gd",
