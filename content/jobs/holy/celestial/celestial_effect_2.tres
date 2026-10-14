@@ -8,13 +8,20 @@
 script = ExtResource( 3 )
 arg_index = 1
 arg_sign = 2
+arg_value = 0
+arg_format = 0
+arg_key = ""
 
 [resource]
 script = ExtResource( 1 )
 key = "fantasy_projectile_on_enemy_death"
 text_key = "EFFECT_FANTASY_CELESTIAL_PROJECTILE"
 value = 25
+custom_key = ""
+storage_method = 0
 effect_sign = 0
 custom_args = [ SubResource( 1 ) ]
 weapon_stats = ExtResource( 2 )
+auto_target_enemy = false
+cooldown = -1
 target_highest_health = true

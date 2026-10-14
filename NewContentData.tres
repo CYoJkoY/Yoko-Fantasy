@@ -256,10 +256,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/3/cross_staff_3_data.tres" type="Resource" id=258]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/4/cross_staff_4_data.tres" type="Resource" id=259]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/cross_staff_effect.gd" type="Script" id=260]
-
-
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/spawn_enemies_per_interval/spawn_enemies_per_interval_effect.gd" type="Script" id=261]
-
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/holy/celestial/celestial_data.tres" type="Resource" id=262]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/holy/savior/savior_data.tres" type="Resource" id=263]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/extensions/effects/projectile_on_enemy_death/projectile_on_enemy_death_effect.gd" type="Script" id=264]
@@ -356,7 +353,6 @@ primary_stats_list = [  ]
 effect_keys_full_serialization = [ "fantasy_projectile_on_enemy_death" ]
 effect_keys_with_weapon_stats = [  ]
 translation_keys_needing_operator = {
-"effect_fantasy_xp_on_consumable": [ 0 ],
 "effect_fantasy_add_stat_when_pickup_consumable": [ 2 ],
 "effect_fantasy_base_chance_drop_soul": [ 0 ],
 "effect_fantasy_bonus_drop_from_target": [ 0 ],
@@ -375,6 +371,7 @@ translation_keys_needing_operator = {
 "effect_fantasy_soul_duration": [ 0 ],
 "effect_fantasy_specific_set_weapon_bonuses": [ 0, 3 ],
 "effect_fantasy_tree_radius_tempstats": [ 1 ],
+"effect_fantasy_xp_on_consumable": [ 0 ],
 "info_pos_stat_fantasy_soul": [ 0, 1 ],
 "stat_fantasy_crit_damage": [ 0 ],
 "stat_fantasy_holy": [ 0 ],
@@ -384,7 +381,6 @@ translation_keys_needing_operator = {
 translation_keys_needing_percent = {
 "effect_fantasy_kou_b_hand": [ 0, 2 ],
 "effect_fantasy_celestial_projectile": [ 0 ],
-"effect_fantasy_xp_on_consumable": [ 0 ],
 "effect_fantasy_crit_overflow": [ 0, 2 ],
 "effect_fantasy_damage_clamp": [ 2 ],
 "effect_fantasy_damage_reflect": [ 0 ],
@@ -407,6 +403,7 @@ translation_keys_needing_percent = {
 "effect_fantasy_soul_bonus": [ 0 ],
 "effect_fantasy_structure_scaling_stats": [ 0 ],
 "effect_fantasy_time_bonus_current_health_damage": [ 1, 2 ],
+"effect_fantasy_xp_on_consumable": [ 0 ],
 "effect_reload_when_critically_hit": [ 0 ],
 "info_pos_stat_fantasy_holy": [ 0, 1, 2 ],
 "info_pos_stat_fantasy_soul": [ 0, 1 ],
