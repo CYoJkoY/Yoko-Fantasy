@@ -1,5 +1,9 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/micro_homing_player_projectile.gd"
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
+const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
+
 const HIT_SPLASH_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/frostspray_projectile/frostspray_hit_splash.tscn")
 const SHARD_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/frostspray_projectile/frostspray_shard.tscn")
 const FROSTSPRAY_EFFECT = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/frostspray/frostspray_effect.gd")
@@ -20,7 +24,8 @@ var shard_count: int = DEFAULT_SHARD_COUNT
 var shard_damage_ratio: float = DEFAULT_SHARD_DAMAGE_RATIO
 
 var _elapsed_time: float = 0.0
-var _history_positions: Array = []
+var _history = TRAIL_HISTORY.new()
+var _trail_points: Array = []
 var _clean_velocity: Vector2 = Vector2.ZERO
 
 onready var _visual_root: Node2D = $"%VisualRoot" as Node2D
@@ -39,6 +44,7 @@ func _init_trail_points() -> void:
 	if not is_instance_valid(_trail_line):
 		return
 	_trail_line.clear_points()
+	_trail_points.resize(num_trail_points)
 	for _i in range(num_trail_points):
 		_trail_line.add_point(Vector2.ZERO)
 
@@ -56,8 +62,8 @@ func shoot_ex(
 ) -> void:
 	_configure_effects(effects)
 	_elapsed_time = 0.0
-	_history_positions.clear()
-	_history_positions.push_back(pos)
+	_history.clear()
+	_history.push(pos)
 	_init_trail_points()
 	_clean_velocity = p_velocity
 
@@ -76,7 +82,7 @@ func _configure_effects(effects: Array) -> void:
 
 func shoot() -> void:
 	.shoot()
-	var opacity = FantasyProjectileVisualUtils.get_opacity()
+	var opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 	_visual_root.modulate.a = opacity
 	_trail_line.modulate.a = opacity
 	_sparkle_particles.modulate.a = opacity
@@ -108,47 +114,19 @@ func _physics_process(delta: float) -> void:
 
 	_crystal_mesh.modulate.a = 0.88 + 0.12 * sin(t * 7.5)
 
-	_history_positions.push_front(global_position)
+	_history.push(global_position)
 	_update_trail_line()
 
 
 func _update_trail_line() -> void:
-	if _history_positions.size() < 2:
-		return
-
+	_history.sample(_trail_points, trail_spacing, global_transform.affine_inverse())
 	_trail_line.set_point_position(0, Vector2.ZERO)
-	var available_dist: float = 0.0
-	var req_dist: float = (num_trail_points - 1) * trail_spacing
-
-	for i in range(1, _history_positions.size()):
-		available_dist += (_history_positions[i] - _history_positions[i - 1]).length()
-		if available_dist >= req_dist:
-			_history_positions.resize(i + 1)
-			break
-
-	var h_idx: int = 1
-	var prev_dist: float = 0.0
-	var cur_dist: float = (_history_positions[1] - _history_positions[0]).length()
-
-	for pt_idx in range(1, num_trail_points):
-		var target_d = pt_idx * trail_spacing
-		if available_dist <= 0.001:
-			_trail_line.set_point_position(pt_idx, Vector2.ZERO)
-			continue
-
-		var clamped_d = min(target_d, available_dist)
-		while h_idx < _history_positions.size() - 1 and cur_dist < clamped_d:
-			h_idx += 1
-			prev_dist = cur_dist
-			cur_dist += (_history_positions[h_idx] - _history_positions[h_idx - 1]).length()
-
-		var prog = (clamped_d - prev_dist) / max(0.0001, cur_dist - prev_dist)
-		var world_pt = _history_positions[h_idx - 1].linear_interpolate(_history_positions[h_idx], prog)
-		_trail_line.set_point_position(pt_idx, to_local(world_pt))
+	for i in range(1, _trail_points.size()):
+		_trail_line.set_point_position(i, _trail_points[i])
 
 
 func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
-	var weapon_pos: int = _hitbox.from.weapon_pos
+	var shard_dmg: int = int(max(1, float(_hitbox.damage) * shard_damage_ratio))
 	._on_Hitbox_hit_something(thing_hit, damage_dealt)
 
 	var main = Utils.get_scene_node()
@@ -169,9 +147,6 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
 	var hit_angle: float = impact_dir.angle()
 
 	var shard_pool_id: int = SHARD_SCENE.get_instance_id()
-	var shard_dmg: int = int(max(1, float(_hitbox.damage) * shard_damage_ratio))
-	var crit_ch: float = _weapon_stats.crit_chance if _weapon_stats != null else 0.05
-	var crit_dmg: float = _weapon_stats.crit_damage if _weapon_stats != null else 1.5
 
 	var total_spread_rad: float = deg2rad(TOTAL_SPREAD_DEG)
 	var half_spread: float = total_spread_rad / 2.0
@@ -203,10 +178,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
 			global_position,
 			shard_dir,
 			shard_dmg,
-			player_index,
-			weapon_pos,
-			crit_ch,
-			crit_dmg,
+			_hitbox,
 			depth_tier,
 			main,
 			shard_pool_id
@@ -221,7 +193,7 @@ func stop() -> void:
 func _return_to_pool() -> void:
 	._return_to_pool()
 	_sparkle_particles.emitting = false
-	_history_positions.clear()
+	_history.clear()
 	_elapsed_time = 0.0
 	_clean_velocity = Vector2.ZERO
 	_visual_root.scale = Vector2.ONE * 0.70

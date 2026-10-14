@@ -51,7 +51,7 @@ func get_args(_player_index: int) -> Array:
         Utils.FANTASY_ENEMY_DAMAGE: str_future_stat = tr("STAT_DAMAGE")
         Utils.FANTASY_ENEMY_ARMOR: str_future_stat = tr("STAT_ARMOR")
     
-    var tracking_value: int = RunData.ncl_get_effect_tracking_value(tracking_key_hash, _player_index)
+    var tracking_value: int = int(RunData.ncl_get_effect_tracking_value(tracking_key_hash, _player_index))
     var tracking: String = Utils.ncl_create_tracking("STATS_GAINED", tracking_value)
 
     return [tr(trigger_enemy_name), tr(future_target_enemy_name), str(value), str_future_stat, str(value2), tracking]

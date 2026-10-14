@@ -1,17 +1,16 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
+const SECONDARY_DAMAGE = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/secondary_damage.gd")
+
 const PRIMARY_SLASH_DURATION: float = 0.085
 const SECONDARY_SLASH_DURATION: float = 0.075
 const FINISH_DURATION: float = 0.18
 
 var target_unit: Node = null
 var remaining_ticks: int = 3
-var damage_per_tick: int = 5
 var tick_interval: float = 0.13
-var player_index: int = 0
-var weapon_pos: int = 0
-var crit_chance: float = 0.0
-var crit_damage: float = 2.0
 
 var _main: Node = null
 var _pool_id: int = 0
@@ -24,7 +23,7 @@ var _finish_delay: float = 0.0
 var _finishing: bool = false
 var _finished: bool = false
 var _visual_opacity: float = 1.0
-var _damage_args: TakeDamageArgs = null
+var _secondary_damage: Reference = null
 
 onready var _vortex_sprite: Sprite = $"%VortexSprite" as Sprite
 onready var _vortex_echo_sprite: Sprite = $"%VortexEchoSprite" as Sprite
@@ -43,22 +42,14 @@ func init_wind_force(
 	p_ticks: int,
 	p_damage: int,
 	p_interval: float,
-	p_player_index: int,
-	p_weapon_pos: int,
-	p_crit_chance: float,
-	p_crit_damage: float,
+	source: Hitbox,
 	main: Node,
 	pool_id: int
 ) -> void:
 	target_unit = p_target
 	remaining_ticks = max(1, p_ticks) as int
-	damage_per_tick = max(1, p_damage) as int
 	tick_interval = max(0.05, p_interval)
-	player_index = p_player_index
-	weapon_pos = p_weapon_pos
-	crit_chance = p_crit_chance
-	crit_damage = p_crit_damage
-	_damage_args = Utils.ncl_create_custom_damage_args(player_index, Color("#62e9be"))
+	_secondary_damage = SECONDARY_DAMAGE.new(source, max(1, p_damage), Color("#62e9be"))
 	_main = main
 	_pool_id = pool_id
 
@@ -70,7 +61,7 @@ func init_wind_force(
 	_finish_delay = 0.0
 	_finishing = false
 	_finished = false
-	_visual_opacity = FantasyProjectileVisualUtils.get_opacity()
+	_visual_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 	modulate.a = _visual_opacity
 	visible = true
 
@@ -172,21 +163,7 @@ func _trigger_tick() -> void:
 
 	_play_slash_vfx()
 
-	var final_damage: float = float(damage_per_tick)
-	var was_crit: bool = Utils.get_chance_success(crit_chance)
-	if was_crit:
-		final_damage *= crit_damage
-
-	var health_before: int = target_unit.current_stats.health
-	var damage_taken: Array = target_unit.take_damage(int(max(1, final_damage)), _damage_args)
-
-	if damage_taken.size() > 1:
-		RunData.add_weapon_dmg_dealt(weapon_pos, damage_taken[1], player_index)
-		Utils.fa_apply_direct_crit_kill_gold_rewards(
-			player_index,
-			was_crit,
-			health_before > 0 and damage_taken[1] >= health_before
-		)
+	_secondary_damage.deal(target_unit)
 
 	remaining_ticks -= 1
 	if remaining_ticks <= 0:
@@ -239,9 +216,13 @@ func _finish() -> void:
 	_particles.emitting = false
 	visible = false
 	target_unit = null
-	_damage_args = null
+	_secondary_damage = null
 
 	if is_instance_valid(_main):
 		_main.add_node_to_pool(self, _pool_id)
 	else:
 		queue_free()
+
+
+func _exit_tree() -> void:
+	_secondary_damage = null

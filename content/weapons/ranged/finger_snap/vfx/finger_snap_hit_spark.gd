@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const DURATION: float = 0.16
 
 onready var _flare: Sprite = $Flare
@@ -21,7 +23,7 @@ func _ready() -> void:
 func play_hit(pos: Vector2, main: Node, pool_id: int) -> void:
     _main = main
     _pool_id = pool_id
-    _opacity = FantasyProjectileVisualUtils.get_opacity()
+    _opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     global_position = pos
     _elapsed = 0.0
     _active = true

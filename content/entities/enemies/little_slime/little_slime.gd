@@ -1,4 +1,3 @@
-class_name LittleSlime
 extends Enemy
 
 export(String, FILE, "*.tscn") var evolution_target_path = ""

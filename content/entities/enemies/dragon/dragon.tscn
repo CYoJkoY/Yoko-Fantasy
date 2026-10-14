@@ -9,7 +9,7 @@
 [ext_resource path="res://entities/units/enemies/boss/boss_state.tscn" type="PackedScene" id=7]
 [ext_resource path="res://entities/units/enemies/attack_behaviors/charging_attack_behavior.gd" type="Script" id=8]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/dragon_projectile/dragon_projectile.tscn" type="PackedScene" id=9]
-[ext_resource path="res://entities/units/enemies/attack_behaviors/shooting_attack_behavior.gd" type="Script" id=10]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/attack_behaviors/enemy/dragon_breath_attack_behavior.gd" type="Script" id=10]
 [ext_resource path="res://entities/units/movement_behaviors/target_rand_pos_movement_behavior.gd" type="Script" id=11]
 [ext_resource path="res://resources/shaders/flash.gdshader" type="Shader" id=12]
 [ext_resource path="res://overlap/hitbox.tscn" type="PackedScene" id=13]
@@ -293,17 +293,29 @@ script = ExtResource( 11 )
 [node name="AttackBehavior" type="Node2D" parent="."]
 script = ExtResource( 10 )
 projectile_scene = ExtResource( 9 )
-projectile_speed = 800
+projectile_speed = 750
 cooldown = 15.0
 max_cd_randomization = 0
 long_cooldown_every_x_shoots = 5
 long_cooldown = 240
 damage_increase_each_wave = 0.8
-attack_anim_speed = 2.0
+attack_anim_speed = 1.0
 number_projectiles = 3
-projectile_spread = 0.6
+projectile_spread = 0.22
 constant_spread = true
-shoot_in_unit_direction = true
+
+[node name="BreathWarning" type="Node2D" parent="."]
+visible = false
+z_index = 0
+z_as_relative = false
+
+[node name="Fill" type="Polygon2D" parent="BreathWarning"]
+color = Color( 1, 0.35, 0.08, 0.25 )
+
+[node name="Outline" type="Line2D" parent="BreathWarning"]
+width = 3.0
+default_color = Color( 1, 0.55, 0.16, 0.8 )
+antialiased = true
 
 [node name="BurningTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -323,15 +335,15 @@ timer_start = 25.0
 script = ExtResource( 11 )
 
 [node name="AttackBehavior" parent="States/State1" index="1"]
+script = ExtResource( 10 )
 projectile_scene = ExtResource( 9 )
-projectile_speed = 1500
+projectile_speed = 750
 cooldown = 10.0
 max_cd_randomization = 0
 long_cooldown_every_x_shoots = 5
 long_cooldown = 240
 damage_increase_each_wave = 0.8
-attack_anim_speed = 2.0
-shoot_in_unit_direction = true
+attack_anim_speed = 1.0
 
 [node name="State2" parent="States" instance=ExtResource( 7 )]
 hp_start = 0.25
@@ -371,6 +383,7 @@ progress_color = Color( 0.721569, 0, 0, 1 )
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
 [connection signal="timeout" from="FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="timeout" from="BurningTimer" to="." method="_on_BurningTimer_timeout"]
+[connection signal="move_unlocked" from="States/State2/AttackBehavior" to="." method="on_charge_finished"]
 [connection signal="timeout" from="CheckStateTimer" to="." method="_on_CheckStateTimer_timeout"]
 
 [editable path="Hurtbox"]

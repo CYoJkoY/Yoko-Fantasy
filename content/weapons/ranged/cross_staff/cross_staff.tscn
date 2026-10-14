@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://weapons/weapon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/vfx/textures/cross_staff_flare.webp" type="Texture" id=6]
 [ext_resource path="res://particles/sprites/particle_9.png" type="Texture" id=7]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/vfx/textures/cross_staff_sun_halo.webp" type="Texture" id=8]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/cross_staff/vfx/holy_light_strike.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -33,6 +35,8 @@ colors = PoolColorArray( 1, 1, 0.9, 0, 1, 0.95, 0.7, 0.6, 1, 0.8, 0.3, 0.4, 1, 0
 
 [node name="CrossStaff" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
+strike_scene = ExtResource( 9 )
+targeting_effect_id = "weapon_cross_staff"
 outline_shader_mat = SubResource( 1 )
 
 [node name="Sprite" parent="." index="0"]
@@ -45,27 +49,30 @@ visible = false
 [node name="Muzzle" parent="Sprite" index="1"]
 position = Vector2( 48, 0 )
 
-[node name="StaffHalo" type="Sprite" parent="Sprite/Muzzle" index="0"]
+[node name="StaffEffects" type="Node2D" parent="Sprite" index="2"]
+position = Vector2( 48, 0 )
+
+[node name="StaffHalo" type="Sprite" parent="Sprite/StaffEffects" index="0"]
 material = SubResource( 2 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 5 )
 modulate = Color( 1, 0.94, 0.65, 0.7 )
 
-[node name="SunCoronaRing" type="Sprite" parent="Sprite/Muzzle" index="1"]
+[node name="SunCoronaRing" type="Sprite" parent="Sprite/StaffEffects" index="1"]
 visible = false
 material = SubResource( 2 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 8 )
 modulate = Color( 1, 0.95, 0.75, 0 )
 
-[node name="CastFlare" type="Sprite" parent="Sprite/Muzzle" index="2"]
+[node name="CastFlare" type="Sprite" parent="Sprite/StaffEffects" index="2"]
 visible = false
 material = SubResource( 2 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 6 )
 modulate = Color( 1, 0.98, 0.85, 0 )
 
-[node name="CastParticles" type="CPUParticles2D" parent="Sprite/Muzzle" index="3"]
+[node name="CastParticles" type="CPUParticles2D" parent="Sprite/StaffEffects" index="3"]
 material = SubResource( 2 )
 emitting = false
 amount = 4

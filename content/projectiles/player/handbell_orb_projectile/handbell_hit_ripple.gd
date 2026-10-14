@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 var _lifetime: float = 0.24
 var _elapsed: float = 0.0
 var _main: Node = null
@@ -30,7 +32,7 @@ func play(at_position: Vector2, main: Node, pool_id: int, respect_opacity: bool 
     _active = true
     _opacity = 1.0
     if respect_opacity:
-        _opacity = FantasyProjectileVisualUtils.get_opacity()
+        _opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     global_position = at_position
     visible = true
     _ring_sprite.scale = Vector2.ONE * 0.2

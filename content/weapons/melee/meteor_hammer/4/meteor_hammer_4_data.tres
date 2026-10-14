@@ -1,0 +1,47 @@
+[gd_resource type="Resource" load_steps=11 format=2]
+
+[ext_resource path="res://items/global/weapon_data.gd" type="Script" id=1]
+[ext_resource path="res://items/sets/heavy/heavy_set_data.tres" type="Resource" id=2]
+[ext_resource path="res://items/sets/blunt/blunt_set_data.tres" type="Resource" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/meteor_hammer/4/meteor_hammer_4_stats.tres" type="Resource" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/meteor_hammer/meteor_hammer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/meteor_hammer/meteor_hammer_icon.webp" type="Texture" id=7]
+
+[ext_resource path="res://items/global/effect.gd" type="Script" id=9]
+[ext_resource path="res://effects/weapons/null_effect.gd" type="Script" id=10]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 9 )
+key = "stat_attack_speed"
+value = -8
+custom_args = [  ]
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 10 )
+text_key = "EFFECT_FANTASY_METEOR_HAMMER_KILL_COOLDOWN"
+value = 50
+custom_key = "meteor_hammer_kill_cooldown"
+effect_sign = 0
+custom_args = [  ]
+
+[resource]
+script = ExtResource( 1 )
+my_id = "weapon_fantasy_meteor_hammer_4"
+unlocked_by_default = true
+can_be_looted = true
+icon = ExtResource( 7 )
+name = "WEAPON_FANTASY_METEOR_HAMMER"
+tier = 3
+value = 220
+effects = [ SubResource( 1 ), SubResource( 2 ) ]
+tracking_text = ""
+is_lockable = true
+unlock_codex_descr_after_get_it = 1
+is_cursed = false
+curse_factor = 0.0
+weapon_id = "weapon_fantasy_meteor_hammer"
+type = 0
+sets = [ ExtResource( 3 ), ExtResource( 2 ) ]
+scene = ExtResource( 6 )
+stats = ExtResource( 4 )
+add_to_chars_as_starting = [  ]

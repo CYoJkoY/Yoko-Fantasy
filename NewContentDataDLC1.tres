@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=46 format=2]
+[gd_resource type="Resource" load_steps=52 format=2]
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/characters/apostle/apostle_data.tres" type="Resource" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/items/rotten_plant/rotten_plant_data.tres" type="Resource" id=2]
@@ -49,6 +49,14 @@
 
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/jobs/universal/performer/performer_data.tres" type="Resource" id=184]
 
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/1/harp_data.tres" type="Resource" id=185]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/2/harp_2_data.tres" type="Resource" id=186]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/3/harp_3_data.tres" type="Resource" id=187]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/harp/4/harp_4_data.tres" type="Resource" id=188]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/shamisen/3/shamisen_3_data.tres" type="Resource" id=189]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/shamisen/4/shamisen_4_data.tres" type="Resource" id=190]
+
 [resource]
 script = ExtResource( 4 )
 my_id = ""
@@ -61,7 +69,7 @@ elites = [  ]
 bosses = [  ]
 stats = [  ]
 items = [ ExtResource( 132 ), ExtResource( 139 ), ExtResource( 144 ), ExtResource( 2 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 88 ), ExtResource( 87 ), ExtResource( 86 ), ExtResource( 85 ) ]
-weapons = [ ExtResource( 167 ), ExtResource( 168 ), ExtResource( 169 ), ExtResource( 170 ), ExtResource( 175 ), ExtResource( 176 ), ExtResource( 177 ), ExtResource( 178 ) ]
+weapons = [ ExtResource( 167 ), ExtResource( 168 ), ExtResource( 169 ), ExtResource( 170 ), ExtResource( 175 ), ExtResource( 176 ), ExtResource( 177 ), ExtResource( 178 ), ExtResource( 185 ), ExtResource( 186 ), ExtResource( 187 ), ExtResource( 188 ), ExtResource( 189 ), ExtResource( 190 ) ]
 effects = [ ExtResource( 151 ), ExtResource( 152 ), ExtResource( 83 ), ExtResource( 15 ), ExtResource( 17 ), ExtResource( 183 ) ]
 consumables = [  ]
 upgrades = [  ]

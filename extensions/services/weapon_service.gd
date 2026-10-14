@@ -1,5 +1,7 @@
 extends "res://singletons/weapon_service.gd"
 
+const FANTASY_LIGHTNING_CHAIN_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_service.gd")
+
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init_base_stats(from_stats: WeaponStats, player_index: int, args: WeaponServiceInitStatsArgs = _init_stats_args_service, is_structure:=false, is_special_spawn:=false, is_pet:=false) -> WeaponStats:
     var base_stats: WeaponStats =.init_base_stats(from_stats, player_index, args, is_structure, is_special_spawn, is_pet)
@@ -77,6 +79,15 @@ func fantasy_reset_weapon_cooldown(weapon: Node) -> void:
     )
     weapon.tween_animation.start()
 
+func fantasy_can_start_attack(weapon: Node) -> bool:
+    if weapon._is_shooting or weapon._current_cooldown > 0.0:
+        return false
+    if not is_instance_valid(weapon._parent) or weapon._parent.dead or weapon._parent.cleaning_up or weapon.current_stats == null:
+        return false
+    if weapon._parent._current_movement != Vector2.ZERO and not RunData.get_player_effect(Keys.can_attack_while_moving_hash, weapon.player_index):
+        return false
+    return not fantasy_cannot_attack_while_stationary(weapon)
+
 func fantasy_cannot_attack_while_stationary(weapon: Node) -> bool:
     if RunData.get_player_effect(Utils.fantasy_cannot_attack_while_stationary_hash, weapon.player_index) <= 0:
         return false
@@ -93,10 +104,10 @@ func fantasy_cannot_attack_while_stationary(weapon: Node) -> bool:
 func fantasy_cannot_damage_tree(weapon: Node) -> void:
     if !RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, weapon._parent.player_index): return
 
-    weapon._range.collision_mask -= Utils.NEUTRAL_BIT
+    weapon._range.collision_mask &= ~Utils.NEUTRAL_BIT
 
 func fantasy_should_ignore_tree_body(weapon: Node, body: Node) -> bool:
-    return RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, weapon._parent.player_index) and Utils.plant_enemies_ids.has(body.get("enemy_id_hash"))
+    return RunData.get_player_effect_bool(Utils.fantasy_cannot_damage_tree_hash, weapon._parent.player_index) and (body is Neutral or Utils.plant_enemies_ids.has(body.get("enemy_id_hash")))
 
 func fantasy_on_shoot(weapon: Node) -> void:
     _fantasy_reload_when_shoot(weapon)
@@ -195,9 +206,9 @@ func _fantasy_lightning_chain_on_hit(weapon: Node, thing_hit: Node) -> void:
         return
 
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_lightning_chain_on_hit_hash, weapon.player_index)
-    var params_list: Array = LightningChainService.collect_triggered_hit_params(weapon.effects, effect_items, weapon.player_index)
+    var params_list: Array = FANTASY_LIGHTNING_CHAIN_SERVICE.collect_triggered_hit_params(weapon.effects, effect_items, weapon.player_index)
     for params in params_list:
-        var arc_damage: int = LightningChainService.spawn_lightning_chain(
+        var arc_damage: int = FANTASY_LIGHTNING_CHAIN_SERVICE.spawn_lightning_chain(
             main,
             thing_hit,
             weapon.player_index,

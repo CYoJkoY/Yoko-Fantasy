@@ -19,7 +19,6 @@ var _base_sprite_rotation: float = 0.0
 
 
 func _ready() -> void:
-    ._ready()
     visible = true
     if is_instance_valid(sprite):
         sprite.visible = true
@@ -31,16 +30,7 @@ func _ready() -> void:
 
 
 func should_shoot() -> bool:
-    if _is_shooting:
-        return false
-
-    if WeaponService.fantasy_cannot_attack_while_stationary(self):
-        return false
-
-    if _current_cooldown > 0.0:
-        return false
-
-    if _parent == null or current_stats == null:
+    if not WeaponService.fantasy_can_start_attack(self):
         return false
 
     if not is_instance_valid(_target) or ("dead" in _target and _target.dead):
@@ -49,7 +39,7 @@ func should_shoot() -> bool:
 
 
 func _physics_process(delta: float) -> void:
-    if not is_instance_valid(_parent) or _parent.dead:
+    if not is_instance_valid(_parent) or _parent.dead or _parent.cleaning_up:
         _target = null
         return
 
@@ -134,7 +124,8 @@ func shoot() -> void:
 
     _current_cooldown = get_next_cooldown()
 
-    _hitbox.player_attack_id = _shooting_behavior._get_next_attack_id()
+    var attack_id: int = _shooting_behavior._get_next_attack_id()
+    _hitbox.player_attack_id = attack_id
     _hitbox.ignored_objects.clear()
 
     for effect in effects:
@@ -153,7 +144,7 @@ func shoot() -> void:
     _spawn_target_astrolabe(main, target_pos, target, tier_val)
     _apply_direct_hit(target)
 
-    _spawn_converging_bullet_ring(main, target_pos)
+    _spawn_converging_bullet_ring(target_pos, attack_id)
 
     WeaponService.fantasy_on_shoot(self)
 
@@ -199,55 +190,36 @@ func _spawn_target_astrolabe(main: Node, target_pos: Vector2, target: Node, tier
     astrolabe.start_astrolabe(target_pos, target, tier_val, main, _astrolabe_pool_id)
 
 
-func _spawn_converging_bullet_ring(main: Node, target_pos: Vector2) -> void:
+func _spawn_converging_bullet_ring(target_pos: Vector2, attack_id: int) -> void:
     if _finger_snap_effect == null:
         return
 
     var extra_projectiles: int = 0
     if current_stats != null and stats != null:
-        extra_projectiles = max(0, int(current_stats.nb_projectiles) - int(stats.nb_projectiles))
-    var bullet_count: int = max(1, int(_finger_snap_effect.bullet_count) + extra_projectiles)
-    var base_bullet_dmg: float = float(_finger_snap_effect.base_damage)
-    var luck_ratio: float = float(_finger_snap_effect.scaling_stats[0][1])
-
-    var player_luck: float = 0.0
-    if is_instance_valid(_parent):
-        player_luck = float(Utils.get_stat(Keys.stat_luck_hash, _parent.player_index))
-
-    var luck_bonus_dmg: float = max(0.0, player_luck * luck_ratio)
-
-    var percent_dmg: float = 0.0
-    if is_instance_valid(_parent):
-        percent_dmg = float(Utils.get_stat(Keys.stat_percent_damage_hash, _parent.player_index))
-
-    var final_bullet_dmg: int = max(1, int(round((base_bullet_dmg + luck_bonus_dmg) * (1.0 + percent_dmg / 100.0))))
+        extra_projectiles = int(max(0, int(current_stats.nb_projectiles) - int(stats.nb_projectiles)))
+    var bullet_count: int = int(max(1, int(_finger_snap_effect.bullet_count) + extra_projectiles))
+    var final_bullet_dmg: int = Utils.ncl_get_dmg_with_scaling_stats(
+        _finger_snap_effect.base_damage, _finger_snap_effect.scaling_stats, player_index
+    )
 
     var start_angle: float = rand_range(0.0, TAU)
     var angle_step: float = TAU / float(bullet_count)
-    var pool_id: int = BULLET_SCENE.get_instance_id()
-    var hitbox_args := Hitbox.HitboxArgs.new().set_from_weapon_stats(current_stats)
+    var bullet_stats: RangedWeaponStats = current_stats.duplicate()
+    bullet_stats.projectile_scene = BULLET_SCENE
+    bullet_stats.damage = final_bullet_dmg
+    var spawn_args := WeaponServiceSpawnProjectileArgs.new()
+    spawn_args.effects = effects
+    spawn_args.from_player_index = player_index
 
     for i in range(bullet_count):
         var angle: float = start_angle + float(i) * angle_step
         var spawn_pos: Vector2 = target_pos + Vector2(cos(angle), sin(angle)) * CONVERGE_RADIUS
 
-        var bullet = main.get_node_from_pool(pool_id, main._player_projectiles)
-        if bullet == null:
-            bullet = BULLET_SCENE.instance()
-            main.add_player_projectile(bullet)
-            bullet.set_meta("pool_id", pool_id)
-
-        bullet.set_weapon_stats(current_stats)
-
-        var bullet_hitbox: Hitbox = bullet._hitbox
-        if bullet_hitbox != null:
-            bullet_hitbox.set_damage(final_bullet_dmg, hitbox_args)
-            bullet_hitbox.player_attack_id = _shooting_behavior._get_next_attack_id()
-            bullet_hitbox.from = _parent
-            bullet_hitbox.active = true
-            bullet_hitbox.enable()
-            bullet_hitbox.ignored_objects.clear()
-
+        spawn_args.knockback_direction = Vector2.RIGHT.rotated(angle + PI)
+        var bullet = WeaponService.spawn_projectile(spawn_pos, bullet_stats, angle + PI, self, spawn_args)
+        bullet.player_index = player_index
+        bullet._hitbox.player_attack_id = attack_id
+        on_projectile_shot(bullet)
         bullet.init_converge(target_pos, spawn_pos, 460.0)
 
 

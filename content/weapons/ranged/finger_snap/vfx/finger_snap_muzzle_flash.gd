@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const DURATION: float = 0.28
 const PEAK_SCALE: float = 0.78
 
@@ -22,7 +24,7 @@ func _ready() -> void:
 func play_flash(pos: Vector2, rot: float, main: Node, pool_id: int) -> void:
 	_main = main
 	_pool_id = pool_id
-	_opacity = FantasyProjectileVisualUtils.get_opacity()
+	_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 	global_position = pos
 	rotation = rot
 	_elapsed = 0.0

@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const TOTAL_DURATION: float = 0.42
 const SUMMON_TIME: float = 0.05
 const STRIKE_TIME: float = 0.18
@@ -77,7 +79,7 @@ func start_strike(target_pos: Vector2, _target_node: Node = null, scale_mult: fl
 	_active = true
 	_elapsed = 0.0
 	modulate = tint_color
-	modulate.a = FantasyProjectileVisualUtils.get_opacity()
+	modulate.a = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 
 	_ground_seal.visible = true
 	_ground_seal.scale = Vector2.ONE * (_base_seal_scale * 0.3)

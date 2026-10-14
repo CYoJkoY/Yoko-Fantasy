@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const DURATION: float = 0.16
 
 var _elapsed: float = 0.0
@@ -25,7 +27,7 @@ func play(at_position: Vector2, impact_rotation: float, main: Node, pool_id: int
 	_elapsed = 0.0
 	global_position = at_position
 	global_rotation = impact_rotation
-	_opacity = FantasyProjectileVisualUtils.get_opacity()
+	_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 	modulate.a = _opacity
 	visible = true
 

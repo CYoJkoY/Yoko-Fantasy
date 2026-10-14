@@ -4,7 +4,6 @@ class ActiveErosion:
     var marked_for_removal: bool = false
     var player_index: int = -1
     var damage: int = 0
-    var chance: float = 0.25
     var current_times: int = 3
     var times: int = 3
     var cd: float = 0.5
@@ -14,19 +13,13 @@ class ActiveErosion:
     var stacks: int = 1
     var source_id: int = Keys.empty_hash
 
-var floating_text_manager: FloatingTextManager = null
 var active_erosions: Array = []
-var is_eroded: bool = false
 
 onready var erosion_particles: CPUParticles2D = $"ErosionParticles"
+onready var erosion_glow: CPUParticles2D = $"ErosionParticles/Glow"
 onready var timer: Timer = $"Timer"
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
-func _ready() -> void:
-    var main: Node = Utils.get_scene_node()
-    floating_text_manager = main._floating_text_manager
-    erosion_particles.emitting = false
-
 func should_add_on_spawn() -> bool:
     for player_index in range(RunData.get_player_count()):
         if !RunData.get_player_effect(Utils.fantasy_erosion_hash, player_index).empty(): return true
@@ -77,8 +70,11 @@ func on_hurt(hitbox: Hitbox) -> void:
 func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats: Array, chance: float, times: int, cd: float, crit_chance: float, crit_damage: float, source_id: int) -> void:
         if !Utils.get_chance_success(chance): return
 
+        var damage: int = Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, from_player_index)
         for existing_erosion in active_erosions:
             if existing_erosion.source_id != source_id or existing_erosion.player_index != from_player_index: continue
+            if existing_erosion.damage != damage or existing_erosion.times != times or existing_erosion.cd != cd: continue
+            if existing_erosion.crit_chance != crit_chance or existing_erosion.crit_damage != crit_damage: continue
 
             existing_erosion.stacks += 1
             existing_erosion.marked_for_removal = false
@@ -86,8 +82,7 @@ func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats:
 
         var erosion: ActiveErosion = ActiveErosion.new()
         erosion.player_index = from_player_index
-        erosion.damage = int(Utils.ncl_get_dmg_with_scaling_stats(base_damage, scaling_stats, from_player_index))
-        erosion.chance = chance
+        erosion.damage = damage
         erosion.current_times = times
         erosion.times = times
         erosion.cd = cd
@@ -98,15 +93,12 @@ func fa_try_add_erosion(from_player_index: int, base_damage: int, scaling_stats:
         erosion.source_id = source_id
         active_erosions.append(erosion)
 
-        if timer.is_stopped(): timer.start()
+        if timer.is_stopped():
+            erosion_particles.emitting = true
+            erosion_glow.emitting = true
+            timer.start()
 
 func fa_on_Timer_timeout() -> void:
-    if active_erosions.empty():
-        erosion_particles.emitting = false
-        timer.stop()
-        return
-
-    erosion_particles.emitting = true
     for i in range(active_erosions.size() - 1, -1, -1):
         var erosion: ActiveErosion = active_erosions[i]
         erosion.current_cd -= 0.1
@@ -117,8 +109,14 @@ func fa_on_Timer_timeout() -> void:
 
         if erosion.marked_for_removal: active_erosions.remove(i)
 
+    if active_erosions.empty():
+        erosion_particles.emitting = false
+        erosion_glow.emitting = false
+        timer.stop()
+
 func fa_on_erosion_cd_timeout(erosion: ActiveErosion) -> void:
-    var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(erosion.player_index, Color("#33CC1A"))
+    var damage_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(erosion.player_index, Color.white)
+    damage_args.set_meta("fantasy_erosion_gradient", true)
     var final_damage: int = erosion.damage
     var was_crit: bool = Utils.get_chance_success(erosion.crit_chance)
     if was_crit:

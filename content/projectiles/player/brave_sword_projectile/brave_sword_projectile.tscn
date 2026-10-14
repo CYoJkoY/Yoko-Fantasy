@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://projectiles/projectile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/brave_sword_projectile/brave_sword_projectile.webp" type="Texture" id=2]
@@ -20,11 +20,128 @@ shader_param/color_B = Color( 1, 1, 1, 1 )
 [sub_resource type="CircleShape2D" id=1]
 radius = 398.502
 
+[sub_resource type="CanvasItemMaterial" id=5]
+blend_mode = 1
+
 [node name="BraveSwordProjectile" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 rotation_speed = 0
 
 [node name="LaserContainer" type="Node2D" parent="." index="0"]
+[node name="LaserBeam0" type="Node2D" parent="LaserContainer" index="0"]
+visible = false
+
+[node name="Aura" type="Line2D" parent="LaserContainer/LaserBeam0" index="0"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 84.0
+default_color = Color( 1, 0.72, 0.18, 0.32 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Core" type="Line2D" parent="LaserContainer/LaserBeam0" index="1"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 28.0
+default_color = Color( 1, 0.98, 0.88, 0.9 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LaserBeam1" type="Node2D" parent="LaserContainer" index="1"]
+visible = false
+
+[node name="Aura" type="Line2D" parent="LaserContainer/LaserBeam1" index="0"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 84.0
+default_color = Color( 1, 0.72, 0.18, 0.32 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Core" type="Line2D" parent="LaserContainer/LaserBeam1" index="1"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 28.0
+default_color = Color( 1, 0.98, 0.88, 0.9 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LaserBeam2" type="Node2D" parent="LaserContainer" index="2"]
+visible = false
+
+[node name="Aura" type="Line2D" parent="LaserContainer/LaserBeam2" index="0"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 84.0
+default_color = Color( 1, 0.72, 0.18, 0.32 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Core" type="Line2D" parent="LaserContainer/LaserBeam2" index="1"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 28.0
+default_color = Color( 1, 0.98, 0.88, 0.9 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LaserBeam3" type="Node2D" parent="LaserContainer" index="3"]
+visible = false
+
+[node name="Aura" type="Line2D" parent="LaserContainer/LaserBeam3" index="0"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 84.0
+default_color = Color( 1, 0.72, 0.18, 0.32 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Core" type="Line2D" parent="LaserContainer/LaserBeam3" index="1"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 28.0
+default_color = Color( 1, 0.98, 0.88, 0.9 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LaserBeam4" type="Node2D" parent="LaserContainer" index="4"]
+visible = false
+
+[node name="Aura" type="Line2D" parent="LaserContainer/LaserBeam4" index="0"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 84.0
+default_color = Color( 1, 0.72, 0.18, 0.32 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Core" type="Line2D" parent="LaserContainer/LaserBeam4" index="1"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 28.0
+default_color = Color( 1, 0.98, 0.88, 0.9 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="LaserBeam5" type="Node2D" parent="LaserContainer" index="5"]
+visible = false
+
+[node name="Aura" type="Line2D" parent="LaserContainer/LaserBeam5" index="0"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 84.0
+default_color = Color( 1, 0.72, 0.18, 0.32 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Core" type="Line2D" parent="LaserContainer/LaserBeam5" index="1"]
+material = SubResource( 5 )
+points = PoolVector2Array( -3600, 0, 3600, 0 )
+width = 28.0
+default_color = Color( 1, 0.98, 0.88, 0.9 )
+begin_cap_mode = 2
+end_cap_mode = 2
+
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." index="1"]
 unique_name_in_owner = true

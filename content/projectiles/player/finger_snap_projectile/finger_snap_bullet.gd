@@ -1,5 +1,9 @@
 extends PlayerProjectile
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
+const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
+
 const HIT_SPARK_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/vfx/finger_snap_hit_spark.tscn")
 const DISAPPEAR_SPARK_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/vfx/finger_snap_disappear_spark.tscn")
 onready var _hit_spark_pool_id: int = HIT_SPARK_SCENE.get_instance_id()
@@ -16,7 +20,7 @@ var _is_converging: bool = false
 var _telegraph_timer: float = 0.0
 var _current_speed: float = 0.0
 var _initial_pos: Vector2 = Vector2.ZERO
-var _history_points: Array = []
+var _history = TRAIL_HISTORY.new(TRAIL_MAX_POINTS)
 var _reached_center_once: bool = false
 var _has_hit_something: bool = false
 var _spin_angle: float = 0.0
@@ -35,10 +39,11 @@ func _ready() -> void:
 
 
 func _init_trail() -> void:
-    _history_points.clear()
+    _history.clear()
     if is_instance_valid(_trail_line):
         _trail_line.clear_points()
         _trail_line.set_as_toplevel(true)
+        _trail_line.global_transform = Transform2D.IDENTITY
 
 
 func init_converge(
@@ -52,7 +57,7 @@ func init_converge(
     velocity = Vector2.ZERO
     sinusoidal_motion = Vector2.ZERO
 
-    _setting_opacity = FantasyProjectileVisualUtils.get_opacity()
+    _setting_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 
     _inward_dir = (target_center - spawn_pos).normalized()
     if _inward_dir == Vector2.ZERO:
@@ -75,7 +80,7 @@ func init_converge(
         _hitbox.ignored_objects.clear()
 
     _init_trail()
-    _record_trail_point(spawn_pos)
+    _history.push(spawn_pos)
     if is_instance_valid(_trail_line):
         _trail_line.add_point(spawn_pos)
 
@@ -97,7 +102,6 @@ func init_converge(
 func _physics_process(delta: float) -> void:
     if not _is_converging:
         _update_trail()
-        ._physics_process(delta)
         return
 
     _time_until_max_range = 5.0
@@ -176,19 +180,12 @@ func _update_trail() -> void:
     if not is_instance_valid(_trail_line):
         return
 
-    var cur_pos = global_position
-    if _history_points.empty() or _history_points[0].distance_to(cur_pos) >= TRAIL_MIN_DIST:
-        _record_trail_point(cur_pos)
-
-    _trail_line.clear_points()
-    for point in _history_points:
-        _trail_line.add_point(point)
-
-
-func _record_trail_point(pos: Vector2) -> void:
-    _history_points.push_front(pos)
-    if _history_points.size() > TRAIL_MAX_POINTS:
-        _history_points.pop_back()
+    if not _history.push(global_position, TRAIL_MIN_DIST * TRAIL_MIN_DIST):
+        return
+    if _trail_line.get_point_count() < _history.count:
+        _trail_line.add_point(Vector2.ZERO)
+    for i in range(_history.count):
+        _trail_line.set_point_position(i, _history.newest(i))
 
 
 func _spawn_hit_spark(pos: Vector2) -> void:
@@ -226,5 +223,5 @@ func _return_to_pool() -> void:
     _has_hit_something = false
     if is_instance_valid(_trail_line):
         _trail_line.clear_points()
-    _history_points.clear()
+    _history.clear()
     ._return_to_pool()

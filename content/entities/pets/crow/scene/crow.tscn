@@ -30,7 +30,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow_body.webp" type="Texture" id=29]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow_right_wing.webp" type="Texture" id=30]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow_left_wing.webp" type="Texture" id=31]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow.png" type="Texture" id=32]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/pets/crow/scene/crow.webp" type="Texture" id=32]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const DURATION: float = 0.18
 
 onready var _orb: Sprite = $Orb
@@ -27,7 +29,7 @@ func play_disappear(pos: Vector2, main: Node, pool_id: int) -> void:
 	_active = true
 	visible = true
 
-	_opacity = FantasyProjectileVisualUtils.get_opacity()
+	_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 
 	if is_instance_valid(_orb):
 		_orb.visible = true

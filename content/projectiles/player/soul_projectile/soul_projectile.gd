@@ -1,5 +1,9 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/micro_homing_player_projectile.gd"
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
+const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
+
 export(float) var initial_float_speed: float = 170.0
 export(float) var min_target_speed: float = 680.0
 export(float) var arm_delay: float = 0.15
@@ -16,7 +20,7 @@ var _dissipate_timer: float = 0.0
 var _trail_shrink_progress: float = 0.0
 var _current_speed: float = 0.0
 var _top_speed: float = 0.0
-var _history_points: Array = []
+var _history = TRAIL_HISTORY.new(TRAIL_MAX_POINTS)
 var _visual_opacity: float = 1.0
 
 onready var _glow_sprite: Sprite = $Glow
@@ -30,7 +34,7 @@ func shoot() -> void:
     _arm_timer = arm_delay
     _dissipating = false
     _dissipate_timer = 0.0
-    _visual_opacity = FantasyProjectileVisualUtils.get_opacity()
+    _visual_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _top_speed = max(min_target_speed, _weapon_stats.projectile_speed)
 
     _hitbox.ignored_objects.clear()
@@ -52,7 +56,7 @@ func shoot() -> void:
     _trail_line.modulate.a = _visual_opacity
     _hit_sparkles.modulate.a = _visual_opacity
     _hit_sparkles.emitting = false
-    _history_points.clear()
+    _history.clear()
     _trail_line.clear_points()
     _update_trail()
 
@@ -87,11 +91,7 @@ func _physics_process(delta: float) -> void:
     _sprite.scale = Vector2.ONE * pulse
     _glow_sprite.scale = Vector2.ONE * (pulse + 0.2)
 
-    position += velocity * delta
     _update_trail()
-    _time_until_max_range -= delta
-    if _time_until_max_range <= 0.0:
-        stop()
 
 
 func _process_dissipating(delta: float) -> void:
@@ -101,10 +101,10 @@ func _process_dissipating(delta: float) -> void:
     _sprite.modulate.a = progress * _visual_opacity
     _glow_sprite.modulate.a = progress * 0.4 * _visual_opacity
     _trail_shrink_progress += delta * TRAIL_SHRINK_POINTS_PER_SECOND
-    var points_to_remove: int = min(int(_trail_shrink_progress), _history_points.size())
+    var points_to_remove: int = int(min(int(_trail_shrink_progress), _history.count))
     _trail_shrink_progress -= points_to_remove
+    _history.trim_oldest(points_to_remove)
     for _i in range(points_to_remove):
-        _history_points.pop_back()
         _trail_line.remove_point(_trail_line.get_point_count() - 1)
 
     if _dissipate_timer <= 0.0:
@@ -120,17 +120,12 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
 
 
 func _update_trail() -> void:
-    var current_position: Vector2 = global_position
-    if _history_points.empty() or _history_points[0].distance_squared_to(current_position) >= TRAIL_MIN_DIST * TRAIL_MIN_DIST:
-        _history_points.push_front(current_position)
-        if _history_points.size() > TRAIL_MAX_POINTS:
-            _history_points.pop_back()
-
-    if _trail_line.get_point_count() < _history_points.size():
+    _history.push(global_position, TRAIL_MIN_DIST * TRAIL_MIN_DIST)
+    if _trail_line.get_point_count() < _history.count:
         _trail_line.add_point(Vector2.ZERO)
     var to_local_transform: Transform2D = _trail_line.global_transform.affine_inverse()
-    for i in range(_history_points.size()):
-        _trail_line.set_point_position(i, to_local_transform.xform(_history_points[i]))
+    for i in range(_history.count):
+        _trail_line.set_point_position(i, to_local_transform.xform(_history.newest(i)))
 
 
 func _find_best_homing_target(_max_range: float, _acquire_fov_deg: float) -> Node:
@@ -142,7 +137,7 @@ func _return_to_pool() -> void:
     _hitbox.disable()
     _hitbox.ignored_objects.clear()
     _hit_sparkles.emitting = false
-    _history_points.clear()
+    _history.clear()
     _trail_line.clear_points()
     ._return_to_pool()
 

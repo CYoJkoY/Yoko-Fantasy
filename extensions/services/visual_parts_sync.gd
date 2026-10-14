@@ -1,4 +1,3 @@
-class_name VisualPartsSync
 extends Reference
 
 var _sprites: Array = []

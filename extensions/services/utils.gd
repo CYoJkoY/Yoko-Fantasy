@@ -316,32 +316,23 @@ func fa_is_negative_effect(effect: Effect) -> bool:
 
     return sign_0 == Sign.NEGATIVE
 
-func fa_get_negative_effect_count(item_data: Resource) -> int:
-    if item_data == null or not (item_data is ItemParentData):
-        return 0
-    var count: int = 0
-    for effect in item_data.effects:
-        if fa_is_negative_effect(effect):
-            count += 1
-    return count
-
-func fa_get_bless_cost(item_data: Resource) -> int:
-    if item_data == null or not (item_data is ItemParentData):
-        return 0
-    var neg_count: int = fa_get_negative_effect_count(item_data)
-    return int(max(1, item_data.tier + 1)) * neg_count
-
-func fa_can_bless_item(item_data: Resource, player_index: int) -> bool:
+func fa_get_bless_info(item_data: Resource, player_index: int) -> Dictionary:
+    var info: Dictionary = {"negative_count": 0, "cost": 0, "can_bless": false}
     if item_data == null or item_data is CharacterData or not (item_data is ItemData or item_data is WeaponData):
-        return false
-    if fa_is_item_blessed(item_data):
-        return false
-    var neg_count: int = fa_get_negative_effect_count(item_data)
-    if neg_count <= 0:
-        return false
-    var cost: int = fa_get_bless_cost(item_data)
+        return info
+
+    var blessed: bool = false
+    for effect in item_data.effects:
+        if effect != null and effect.custom_key_hash == fantasy_blessed_hash:
+            blessed = true
+        if fa_is_negative_effect(effect):
+            info.negative_count += 1
+
+    var base_cost: int = int(max(1, item_data.tier + 1)) * info.negative_count
+    info.cost = base_cost + int(round(base_cost * clamp(RunData.current_wave, 0, 20) / 20.0))
     var current_souls: int = int(get_stat(stat_fantasy_soul_hash, player_index))
-    return current_souls >= cost
+    info.can_bless = not blessed and info.negative_count > 0 and current_souls >= info.cost
+    return info
 
 func fa_create_blessed_effect() -> Effect:
     var blessed_effect: Effect = Effect.new()
@@ -351,12 +342,14 @@ func fa_create_blessed_effect() -> Effect:
     blessed_effect.custom_key_hash = fantasy_blessed_hash
     blessed_effect.text_key = "EFFECT_FANTASY_BLESSED"
     blessed_effect.value = 0
-    blessed_effect.effect_sign = Sign.POSITIVE
+    blessed_effect.effect_sign = Sign.NEUTRAL
+
     var custom_arg: CustomArg = CustomArg.new()
     custom_arg.arg_index = 0
-    custom_arg.arg_sign = Sign.POSITIVE
+    custom_arg.arg_sign = Sign.NEUTRAL
     custom_arg.arg_value = ArgValue.KEY
     custom_arg.arg_key = "fantasy_blessed_tag"
+
     blessed_effect.custom_args = [custom_arg]
     return blessed_effect
 

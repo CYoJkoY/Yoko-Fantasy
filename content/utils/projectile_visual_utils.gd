@@ -1,4 +1,4 @@
-class_name FantasyProjectileVisualUtils
+extends Reference
 
 
 static func get_opacity() -> float:

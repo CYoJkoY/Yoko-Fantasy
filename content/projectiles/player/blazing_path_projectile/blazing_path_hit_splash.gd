@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 var _lifetime: float = 0.25
 var _elapsed: float = 0.0
 var _main: Node = null
@@ -12,7 +14,7 @@ onready var _particles: CPUParticles2D = $CPUParticles2D
 func play(at_position: Vector2, main: Node, pool_id: int) -> void:
     _main = main
     _pool_id = pool_id
-    _opacity = FantasyProjectileVisualUtils.get_opacity()
+    _opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _elapsed = 0.0
     global_position = at_position
     visible = true

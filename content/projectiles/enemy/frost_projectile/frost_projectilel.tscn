@@ -94,7 +94,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "shoot"
-length = 0.7
+length = 0.844
 step = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -103,7 +103,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.48, 0.51, 0.54, 0.57, 0.6, 0.63 ),
+"times": PoolRealArray( 0, 0.624, 0.654, 0.684, 0.714, 0.744, 0.774 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ ExtResource( 9 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 4 ) ]
@@ -115,7 +115,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.48, 0.6, 0.63 ),
+"times": PoolRealArray( 0, 0.624, 0.744, 0.774 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -138,7 +138,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.48, 0.51, 0.54, 0.57, 0.6, 0.63 ),
+"times": PoolRealArray( 0.624, 0.654, 0.684, 0.714, 0.744, 0.774 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -122, 18 ), Vector2( -71, 18 ), Vector2( -6.5, 18 ), Vector2( 65.5, 19 ), Vector2( 105, 15.5 ), Vector2( 143, 18 ) ]
@@ -150,7 +150,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.48, 0.51, 0.54, 0.57, 0.6, 0.63 ),
+"times": PoolRealArray( 0.624, 0.654, 0.684, 0.714, 0.744, 0.774 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 30, 17 ), Vector2( 79, 15 ), Vector2( 136.5, 14 ), Vector2( 88.5, 12 ), Vector2( 44, 9.5 ), Vector2( 20, 7 ) ]

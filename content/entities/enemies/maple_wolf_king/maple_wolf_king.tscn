@@ -320,6 +320,7 @@ tracks/4/keys = {
 }
 
 [sub_resource type="Animation" id=9]
+resource_local_to_scene = true
 length = 1.25
 step = 0.05
 tracks/0/type = "value"
@@ -497,6 +498,7 @@ tracks/11/keys = {
 }
 
 [sub_resource type="Animation" id=8]
+resource_local_to_scene = true
 resource_name = "shoot_charmed"
 length = 1.25
 tracks/0/type = "value"
@@ -775,7 +777,7 @@ distance_to_target = 100.0
 script = ExtResource( 5 )
 projectile_scene = ExtResource( 2 )
 projectile_speed = 600
-cooldown = 180.0
+cooldown = 90.0
 damage_increase_each_wave = 1.15
 max_range = 2560
 number_projectiles = 5

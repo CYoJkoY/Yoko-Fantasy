@@ -1,0 +1,108 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://projectiles/explosion.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/crusader_hammer_explosion.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_pentagram.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_shockwave.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_flash.webp" type="Texture" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_spark.webp" type="Texture" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/seal_glow.gdshader" type="Shader" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_halo.webp" type="Texture" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/crusader_hammer/vfx/textures/hammer_radiance.webp" type="Texture" id=9]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 7 )
+shader_param/progress = 0.0
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.18, 0.65, 1 )
+colors = PoolColorArray( 1, 1, 0.85, 0, 1, 0.95, 0.66, 0.8, 1, 0.77, 0.35, 0.55, 1, 0.65, 0.25, 0 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0.45 ), 0.0, 0.0, 0, 0, Vector2( 0.15, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[node name="CrusaderHammerExplosion" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+z_as_relative = false
+z_index = 0
+
+[node name="Sprite" parent="." index="0"]
+material = SubResource( 1 )
+self_modulate = Color( 1, 1, 1, 1 )
+texture = ExtResource( 5 )
+
+[node name="ExplosionSmoke" parent="." index="3"]
+amount = 1
+
+[node name="Ground" type="Node2D" parent="." index="4"]
+scale = Vector2( 1, 0.72 )
+
+[node name="Bloom" type="Sprite" parent="Ground"]
+material = SubResource( 1 )
+texture = ExtResource( 8 )
+
+[node name="Radiance" type="Sprite" parent="Ground"]
+material = SubResource( 1 )
+texture = ExtResource( 9 )
+
+[node name="Seal" type="Sprite" parent="Ground"]
+material = SubResource( 2 )
+texture = ExtResource( 3 )
+
+[node name="Shockwave" type="Sprite" parent="Ground"]
+material = SubResource( 1 )
+texture = ExtResource( 4 )
+
+[node name="EchoRing" type="Sprite" parent="Ground"]
+material = SubResource( 1 )
+texture = ExtResource( 4 )
+
+[node name="Dust" type="CPUParticles2D" parent="Ground"]
+material = SubResource( 1 )
+emitting = false
+amount = 14
+lifetime = 0.60
+one_shot = true
+explosiveness = 1.0
+randomness = 0.3
+texture = ExtResource( 6 )
+emission_shape = 1
+emission_sphere_radius = 44.0
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.45
+damping = 120.0
+angle_random = 1.0
+scale_amount = 0.18
+scale_amount_random = 0.5
+scale_amount_curve = SubResource( 4 )
+color_ramp = SubResource( 3 )
+
+[node name="Sparks" type="CPUParticles2D" parent="." index="5"]
+material = SubResource( 1 )
+position = Vector2( 0, -6 )
+emitting = false
+amount = 18
+lifetime = 0.60
+one_shot = true
+explosiveness = 0.96
+randomness = 0.25
+texture = ExtResource( 6 )
+emission_shape = 1
+emission_sphere_radius = 22.0
+direction = Vector2( 0, -1 )
+spread = 68.0
+gravity = Vector2( 0, 210 )
+initial_velocity = 135.0
+initial_velocity_random = 0.45
+damping = 15.0
+angle_random = 1.0
+scale_amount = 0.25
+scale_amount_random = 0.45
+scale_amount_curve = SubResource( 4 )
+color_ramp = SubResource( 3 )

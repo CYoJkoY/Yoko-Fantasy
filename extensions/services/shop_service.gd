@@ -1,5 +1,25 @@
-class_name ShopService
 extends Reference
+
+const BLESS_BUTTON_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_button.tscn")
+const BLESS_BORDER_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_border.tscn")
+const GOLDFISH_SOUND = preload("res://ui/sounds/goldfish.wav")
+
+# ══════════════════════════════════════════ Shop Entry ══════════════════════════════════════════ #
+static func _fantasy_on_shop_ready(shop: BaseShop) -> void:
+    var update_stats_func: FuncRef = funcref(shop, "_update_stats")
+    var get_gear_container_func: FuncRef = funcref(shop, "_get_gear_container")
+    var combine_weapon_func: FuncRef = funcref(shop, "_combine_weapon")
+
+    if !RunData.fantasy_resumed_from_state_in_shop:
+        _fantasy_shop_enter_synthesis(update_stats_func, get_gear_container_func)
+        _fantasy_shop_enter_stat_curse(update_stats_func, get_gear_container_func)
+        _fantasy_upgrade_specific_tier_weapons(shop, combine_weapon_func)
+        _fantasy_scrap_specific_tier_weapons_for_items(update_stats_func, get_gear_container_func)
+    else:
+        RunData.fantasy_resumed_from_state_in_shop = false
+
+    for player_index in RunData.get_player_count():
+        _fantasy_attach_bless_button(shop, get_gear_container_func, update_stats_func, shop._popup_manager, player_index)
 
 # ══════════════════════════════════════════ Synthesis ══════════════════════════════════════════ #
 static func _fantasy_shop_enter_synthesis(update_stats: FuncRef, get_gear_container: FuncRef) -> void:
@@ -187,7 +207,7 @@ static func _fantasy_attach_bless_button(
     if container.has_node("FantasyBlessButton"):
         return
 
-    var bless_button: MyMenuButton = load("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_button.tscn").instance()
+    var bless_button: MyMenuButton = BLESS_BUTTON_SCENE.instance()
     var cancel_button: MyMenuButton = item_popup.get_node("%CancelButton")
     container.add_child(bless_button)
     container.move_child(bless_button, cancel_button.get_index())
@@ -224,14 +244,11 @@ static func _fantasy_on_popup_bless_pressed(
         _fantasy_cleanup_popup(shop, item_popup, player_index)
         return
 
-    var can_blessed: bool = Utils.fa_can_bless_item(item_data, player_index)
-    var cost: int = Utils.fa_get_bless_cost(item_data)
-    var neg_count: int = Utils.fa_get_negative_effect_count(item_data)
-    if cost <= 0 or neg_count <= 0 or not can_blessed:
+    var blessing: Dictionary = Utils.fa_get_bless_info(item_data, player_index)
+    if not blessing.can_bless:
         return
 
-    RunData.remove_stat(Utils.stat_fantasy_soul_hash, cost, player_index)
-    RunData.add_stat(Utils.stat_fantasy_holy_hash, neg_count, player_index)
+    RunData.remove_stat(Utils.stat_fantasy_soul_hash, blessing.cost, player_index)
 
     var blessed_gear: ItemParentData = Utils.fa_bless_item(item_data)
     var player_gear_container: PlayerGearContainer = get_gear_container.call_func(player_index)
@@ -282,13 +299,10 @@ static func _fantasy_update_bless_button(
         bless_button.hide()
         return
 
-    var cost: int = Utils.fa_get_bless_cost(item_data)
-    var neg_count: int = Utils.fa_get_negative_effect_count(item_data)
-    var valid: bool = Utils.fa_can_bless_item(item_data, player_index) and cost > 0 and neg_count > 0
-
-    bless_button.visible = valid
-    if valid:
-        bless_button.text = TranslationServer.translate("MENU_FANTASY_BLESS") + " (" + str(cost) + ")"
+    var blessing: Dictionary = Utils.fa_get_bless_info(item_data, player_index)
+    bless_button.visible = blessing.can_bless
+    if blessing.can_bless:
+        bless_button.text = TranslationServer.translate("MENU_FANTASY_BLESS") + " (" + str(blessing.cost) + ")"
 
 
 static func _fantasy_refresh_bless_button(shop: BaseShop, item_data: ItemParentData, player_index: int) -> void:
@@ -320,7 +334,7 @@ static func _fantasy_apply_bless_mark(element: InventoryElement) -> void:
         return
 
     if border == null:
-        border = load("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_border.tscn").instance()
+        border = BLESS_BORDER_SCENE.instance()
         element.add_child(border)
     border.show()
 
@@ -433,8 +447,9 @@ static func _fantasy_scrap_specific_tier_weapons_for_items(update_stats: FuncRef
                 var weapon_num_need: int = effect[1]
                 var item_id: int = effect[2]
                 var item_num: int = weapons_to_remove.size() / weapon_num_need * gain_item_num
-                for _i in range(item_num - cursed_num): RunData.add_item(ItemService.get_item_from_id(item_id), player_index)
-                for _i in range(cursed_num):
+                var cursed_item_num: int = min(cursed_num, item_num) as int
+                for _i in range(item_num - cursed_item_num): RunData.add_item(ItemService.get_item_from_id(item_id), player_index)
+                for _i in range(cursed_item_num):
                     var item: ItemData = ItemService.get_item_from_id(item_id)
                     RunData.add_item(Utils.ncl_curse_item(item, player_index), player_index)
 
@@ -601,7 +616,7 @@ static func _fantasy_curse_all_on_reroll(shop_items: Array, get_gear_container: 
 
         RunData.remove_item(source_item, player_index)
         get_gear_container.call_func(player_index).set_items_data(RunData.get_player_items(player_index))
-        SoundManager.play(load("res://ui/sounds/goldfish.wav"), 0, 0.2)
+        SoundManager.play(GOLDFISH_SOUND, 0, 0.2)
         break
 
     var new_shop_items: Array = []

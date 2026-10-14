@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/tambourine_shockwave.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/textures/tambourine_shockwave.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/textures/tambourine_halo.webp" type="Texture" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/textures/tambourine_flash.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/tambourine/vfx/shaders/tambourine_shockwave.gdshader" type="Shader" id=6]
+
+[ext_resource path="res://projectiles/explosion.tscn" type="PackedScene" id=8]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 6 )
+shader_param/progress = 0.0
+shader_param/tint_color = Color( 1, 0.77, 0.24, 1 )
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = ExtResource( 6 )
+shader_param/progress = 0.0
+shader_param/tint_color = Color( 1, 0.93, 0.65, 1 )
+shader_param/width_ratio = 0.65
+
+[node name="TambourineShockwave" instance=ExtResource( 8 )]
+z_index = 5
+script = ExtResource( 1 )
+
+[node name="Sprite" parent="." index="0"]
+visible = false
+
+[node name="ExplosionSmoke" parent="." index="3"]
+visible = false
+emitting = false
+
+[node name="Halo" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="EchoRing" type="Sprite" parent="."]
+material = SubResource( 4 )
+texture = ExtResource( 2 )
+
+[node name="Ring" type="Sprite" parent="."]
+material = SubResource( 1 )
+texture = ExtResource( 2 )
+
+[node name="Flash" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+
