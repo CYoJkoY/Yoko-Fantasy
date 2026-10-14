@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const SECONDARY_DAMAGE = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/secondary_damage.gd")
 
 const PRIMARY_SLASH_DURATION: float = 0.085
@@ -59,7 +61,7 @@ func init_wind_force(
 	_finish_delay = 0.0
 	_finishing = false
 	_finished = false
-	_visual_opacity = FantasyProjectileVisualUtils.get_opacity()
+	_visual_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 	modulate.a = _visual_opacity
 	visible = true
 

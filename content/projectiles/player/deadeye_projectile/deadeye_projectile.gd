@@ -1,5 +1,7 @@
 extends "res://projectiles/player_projectile.gd"
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const FLASH_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/deadeye/vfx/deadeye_flash.tscn")
 const FOLLOWUP_TEXTURE: Texture = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/deadeye_projectile/deadeye_followup.webp")
 const NORMAL_TEXTURE: Texture = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/deadeye_projectile/deadeye_projectile.webp")
@@ -37,7 +39,7 @@ func _on_Hitbox_critically_hit_something(thing_hit: Node, damage_dealt: int) -> 
 
 
 func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
-    var opacity: float = FantasyProjectileVisualUtils.get_opacity() if damage_dealt > 0 else 0.0
+    var opacity: float = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity() if damage_dealt > 0 else 0.0
     if opacity > 0.0:
         var main = Utils.get_scene_node()
         var flash = main.get_node_from_pool(_flash_pool_id, main._effects)

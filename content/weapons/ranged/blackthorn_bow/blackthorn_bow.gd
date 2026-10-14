@@ -1,5 +1,7 @@
 extends "res://weapons/ranged/ranged_weapon.gd"
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 var _release_age: float = 1.0
 var _draw_cooldown: float = 1.0
 
@@ -32,7 +34,7 @@ func _process(delta: float) -> void:
     var nock_alpha: float = clamp((_release_age - nock_delay) / nock_fade, 0.0, 1.0)
     var kick: float = pow(max(0.0, 1.0 - _release_age / 0.12), 2.0)
     var side: float = -1.0 if sprite.flip_v else 1.0
-    var opacity: float = FantasyProjectileVisualUtils.get_opacity()
+    var opacity: float = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     sprite.scale = Vector2(1.0 - kick * 0.08, 1.0 + kick * 0.05)
     _charge.flip_v = sprite.flip_v
     _charge.modulate.a = opacity

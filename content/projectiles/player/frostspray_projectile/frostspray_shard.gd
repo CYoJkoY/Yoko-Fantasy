@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const SECONDARY_DAMAGE = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/secondary_damage.gd")
 
 const SHARD_TEXTURES = [
@@ -49,7 +51,7 @@ func launch_advanced(
 ) -> void:
 	_main = main
 	_pool_id = pool_id
-	_opacity = FantasyProjectileVisualUtils.get_opacity()
+	_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 	_secondary_damage = SECONDARY_DAMAGE.new(source, damage, Color("#88ddff"))
 	_elapsed = 0.0
 

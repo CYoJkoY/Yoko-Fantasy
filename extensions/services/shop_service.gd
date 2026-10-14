@@ -1,4 +1,3 @@
-class_name ShopService
 extends Reference
 
 const BLESS_BUTTON_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/ui/bless/bless_button.tscn")

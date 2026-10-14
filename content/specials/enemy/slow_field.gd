@@ -1,5 +1,7 @@
 extends Area2D
 
+const FANTASY_ENEMY_SPEED_MODIFIER_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/enemy_speed_modifier_service.gd")
+
 signal duration_timeout()
 
 onready var duration_timer: Timer = $"Timer"
@@ -54,7 +56,7 @@ func fa_on_SlowField_body_entered(body) -> void:
 
     if !is_instance_valid(body) or body.dead: return
 
-    EnemySpeedModifierService.set_percent_modifier(body, get_instance_id(), (reduction - 1.0) * 100.0)
+    FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.set_percent_modifier(body, get_instance_id(), (reduction - 1.0) * 100.0)
     affected_units.append(body)
 
 func fa_on_SlowField_body_exited(body) -> void:
@@ -64,7 +66,7 @@ func fa_remove_effect_from_body(body) -> void:
     if !affected_units.has(body): return
 
     affected_units.erase(body)
-    EnemySpeedModifierService.remove_modifier(body, get_instance_id())
+    FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.remove_modifier(body, get_instance_id())
 
 func _clear_affected_units() -> void:
     for body in affected_units.duplicate():

@@ -1,5 +1,7 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/micro_homing_player_projectile.gd"
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
 
 export(float) var initial_float_speed: float = 170.0
@@ -32,7 +34,7 @@ func shoot() -> void:
     _arm_timer = arm_delay
     _dissipating = false
     _dissipate_timer = 0.0
-    _visual_opacity = FantasyProjectileVisualUtils.get_opacity()
+    _visual_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _top_speed = max(min_target_speed, _weapon_stats.projectile_speed)
 
     _hitbox.ignored_objects.clear()

@@ -1,5 +1,7 @@
 extends PlayerProjectile
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
 
 const HIT_SPLASH_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_windblades_projectile/myriad_windblades_hit_splash.tscn")
@@ -112,7 +114,7 @@ func _configure_effect(effects: Array) -> void:
 
 func shoot() -> void:
     .shoot()
-    _visual_opacity = FantasyProjectileVisualUtils.get_opacity()
+    _visual_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _blade_root.modulate.a = _visual_opacity
     _afterimage_layer.modulate.a = _visual_opacity
     _stream_trail_sprite.modulate.a = 0.0

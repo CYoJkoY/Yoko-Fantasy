@@ -1,5 +1,7 @@
 extends Area2D
 
+const FANTASY_ENEMY_SPEED_MODIFIER_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/enemy_speed_modifier_service.gd")
+
 const EFFECT_REFRESH_INTERVAL: float = 0.2
 
 export (float) var base_radius: float
@@ -198,7 +200,7 @@ func _refresh_enemy_speed_percent() -> void:
     for enemy in _affected_enemies:
         if !is_instance_valid(enemy) or enemy.dead:
             continue
-        EnemySpeedModifierService.set_percent_modifier(enemy, _get_enemy_speed_source_id(), _enemy_speed_percent)
+        FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.set_percent_modifier(enemy, _get_enemy_speed_source_id(), _enemy_speed_percent)
 
     for projectile in _affected_projectiles.keys():
         if !is_instance_valid(projectile):
@@ -213,7 +215,7 @@ func _slow_enemy(enemy: Node) -> void:
         return
 
     _affected_enemies.append(enemy)
-    EnemySpeedModifierService.set_percent_modifier(enemy, _get_enemy_speed_source_id(), _enemy_speed_percent)
+    FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.set_percent_modifier(enemy, _get_enemy_speed_source_id(), _enemy_speed_percent)
 
 
 func _restore_enemy(enemy: Node) -> void:
@@ -221,7 +223,7 @@ func _restore_enemy(enemy: Node) -> void:
         return
 
     _affected_enemies.erase(enemy)
-    EnemySpeedModifierService.remove_modifier(enemy, _get_enemy_speed_source_id())
+    FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.remove_modifier(enemy, _get_enemy_speed_source_id())
 
 func _get_enemy_speed_source_id() -> String:
     return "clock_tower_area_%s" % get_instance_id()

@@ -1,5 +1,8 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/micro_homing_player_projectile.gd"
 
+const FANTASY_CHAIN_TARGET_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/chain_target_service.gd")
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
 
 const HIT_SPLASH_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_flourish_projectile/myriad_flourish_hit_splash.tscn")
@@ -84,7 +87,7 @@ func _configure_effect(effects: Array) -> void:
 
 func shoot() -> void:
     .shoot()
-    var opacity = FantasyProjectileVisualUtils.get_opacity()
+    var opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _orb_root.modulate.a = opacity
     _trail_line.modulate.a = opacity
     _sparkle_particles.modulate.a = opacity
@@ -153,7 +156,7 @@ func _on_Hitbox_hit_something(thing_hit: Node, damage_dealt: int) -> void:
         splash.set_meta("pool_id", splash_pool_id)
     splash.play(global_position, main, splash_pool_id)
 
-    var nearby_targets = ChainTargetService.collect_nearby_enemies(
+    var nearby_targets = FANTASY_CHAIN_TARGET_SERVICE.collect_nearby_enemies(
         main,
         global_position,
         [thing_hit],

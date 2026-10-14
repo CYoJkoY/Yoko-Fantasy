@@ -1,5 +1,7 @@
 extends PlayerProjectile
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
 
 const HIT_SPLASH_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blazing_path_projectile/blazing_path_hit_splash.tscn")
@@ -88,7 +90,7 @@ func shoot_ex(p_from: Node,
 func shoot() -> void:
     .shoot()
     _time_until_max_range *= lifetime_multiplier
-    _visual_opacity = FantasyProjectileVisualUtils.get_opacity()
+    _visual_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     var opacity = _visual_opacity
     _head_sprite.modulate.a = opacity
     _head_sprite.scale = Vector2.ONE

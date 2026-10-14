@@ -1,5 +1,7 @@
 extends "res://entities/units/enemies/enemy.gd"
 
+const FANTASY_ENEMY_SPEED_MODIFIER_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/enemy_speed_modifier_service.gd")
+
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
@@ -9,7 +11,7 @@ func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [
 
 func respawn() -> void:
     .respawn()
-    EnemySpeedModifierService.clear_pooled_state(self)
+    FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.clear_pooled_state(self)
     _fantasy_extra_curse_enemy()
     _fantasy_buff_future_target()
     if Utils.plant_enemies_ids.has(enemy_id_hash): _fantasy_cannot_tree_damage()
@@ -136,7 +138,7 @@ func fa_apply_stat_to_both(target_stat: int, value: int) -> void:
             current_stats.health += value
             max_stats.health += value
         Utils.FANTASY_ENEMY_SPEED:
-            EnemySpeedModifierService.add_base_speed(self, value)
+            FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.add_base_speed(self, value)
         Utils.FANTASY_ENEMY_DAMAGE:
             current_stats.damage += value
             max_stats.damage += value

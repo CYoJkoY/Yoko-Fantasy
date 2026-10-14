@@ -1,5 +1,7 @@
 extends Pet
 
+const FANTASY_VISUAL_PARTS_SYNC = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/visual_parts_sync.gd")
+
 enum State {
     WANDER,
     SEEK_CONSUMABLE
@@ -40,7 +42,7 @@ onready var _aura_glow: Sprite = $Animation/Offset/AuraGlow
 
 onready var _trail_particles: CPUParticles2D = $Animation/TrailParticles
 
-var _visual_parts_sync = VisualPartsSync.new()
+var _visual_parts_sync = FANTASY_VISUAL_PARTS_SYNC.new()
 var _add_material: CanvasItemMaterial = null
 var _active_wisps: Array = []
 var _satellites: Array = []

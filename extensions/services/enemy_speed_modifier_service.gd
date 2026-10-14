@@ -1,4 +1,3 @@
-class_name EnemySpeedModifierService
 extends Reference
 
 const BASE_SPEED_META: String = "fantasy_enemy_base_speed"

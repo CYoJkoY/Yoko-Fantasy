@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const Palette = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/vfx/blood_palette.gd")
 const DURATION: float = 0.86
 
@@ -55,7 +57,7 @@ func start_strike(target_pos: Vector2, _target_node: Node = null, scale_mult: fl
     global_position = target_pos
     scale = Vector2.ONE * scale_mult
     modulate = tint_color
-    modulate.a = FantasyProjectileVisualUtils.get_opacity()
+    modulate.a = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _seal_angle = randf() * TAU
     _embers.restart()
     _embers.emitting = true

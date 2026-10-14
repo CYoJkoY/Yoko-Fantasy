@@ -1,5 +1,9 @@
 extends "res://main.gd"
 
+const FANTASY_UPGRADE_HOOKS = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/upgrade_hooks.gd")
+const FANTASY_LIGHTNING_CHAIN_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_service.gd")
+const FANTASY_ENEMY_SPEED_MODIFIER_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/enemy_speed_modifier_service.gd")
+
 const FANTASY_END_WAVE_BEFORE_REWARDS: String = "before_wave_rewards"
 const FANTASY_END_WAVE_BEFORE_END_RUN_SCENE: String = "before_end_run_scene"
 
@@ -21,7 +25,7 @@ func on_bonus_gold_changed(value: int) -> void:
     if value != 0: _ui_bonus_gold.show()
 
 func on_upgrade_selected(upgrade_data: UpgradeData, upgrade: UpgradesUI.UpgradeToProcess) -> void:
-    UpgradeHooks.fa_handle_selected_upgrade_hooks(upgrade_data, upgrade.player_index, "normal_upgrade")
+    FANTASY_UPGRADE_HOOKS.fa_handle_selected_upgrade_hooks(upgrade_data, upgrade.player_index, "normal_upgrade")
     .on_upgrade_selected(upgrade_data, upgrade)
     _fantasy_add_job(upgrade_data, upgrade.player_index)
 
@@ -167,8 +171,8 @@ func _fantasy_lightning_chain_on_death(enemy: Enemy) -> void:
             if !Utils.get_chance_success(chance):
                 continue
 
-            var params: Dictionary = LightningChainService.build_params_from_array(effect_item, player_index)
-            LightningChainService.spawn_lightning_chain(
+            var params: Dictionary = FANTASY_LIGHTNING_CHAIN_SERVICE.build_params_from_array(effect_item, player_index)
+            FANTASY_LIGHTNING_CHAIN_SERVICE.spawn_lightning_chain(
                 self,
                 enemy,
                 player_index,
@@ -228,7 +232,7 @@ func _fantasy_slow_cursed_enemy(enemy: Enemy) -> void:
         var slow_percent: int = RunData.get_player_effect(Utils.fantasy_slow_cursed_enemy_hash, player_index)
         if slow_percent == 0: continue
 
-        EnemySpeedModifierService.set_percent_modifier(enemy, "slow_cursed_enemy_%s" % player_index, slow_percent)
+        FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.set_percent_modifier(enemy, "slow_cursed_enemy_%s" % player_index, slow_percent)
 
 func _fantasy_add_job(job_data: UpgradeData, player_index: int) -> void:
     if job_data.get("stage") == null: return

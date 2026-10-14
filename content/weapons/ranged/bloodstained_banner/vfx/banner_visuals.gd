@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const Palette = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/vfx/blood_palette.gd")
 
 onready var _weapon_sprite: Sprite = get_parent()
@@ -58,7 +60,7 @@ func advance(delta: float, time: float) -> void:
     _cast_press = lerp(_cast_press, press, blend)
     _cast_sway = lerp(_cast_sway, sin(t * TAU) * energy * 0.12, blend)
     var breath: float = sin(time * 2.2)
-    modulate.a = FantasyProjectileVisualUtils.get_opacity()
+    modulate.a = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _halo.scale = Vector2(0.70, 0.48) * (1.0 + breath * 0.05 + _cast_energy * 0.16)
     _halo.modulate = Color(1.0, 0.035, 0.13, 0.42 + breath * 0.04 + _cast_energy * 0.32)
     _corona.rotation = time * 1.05 + sin(time * 1.7) * 0.18 + _cast_sway * 1.4

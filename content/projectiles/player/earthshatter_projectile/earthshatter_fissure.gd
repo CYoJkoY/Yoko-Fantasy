@@ -1,5 +1,8 @@
 extends Node2D
 
+const FANTASY_ENEMY_SPEED_MODIFIER_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/enemy_speed_modifier_service.gd")
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const SECONDARY_DAMAGE = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/secondary_damage.gd")
 
 const CRACK_EXPAND_DURATION: float = 0.18
@@ -48,7 +51,7 @@ func activate(
     _has_pulsed_damage = false
 
     global_position = pos
-    modulate.a = FantasyProjectileVisualUtils.get_opacity()
+    modulate.a = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 
     rotation = rand_range(0.0, TAU)
     var base_scale: float = rand_range(0.7225, 0.8925)
@@ -114,12 +117,12 @@ func _apply_seismic_pulse(enemies_in_area: Dictionary) -> void:
 func _apply_tremor_slow() -> void:
     for unit_id in _enemies_in_area:
         if not _slowed_enemies.has(unit_id):
-            EnemySpeedModifierService.set_percent_modifier(_enemies_in_area[unit_id], _slow_source_id, -float(_slow_percent), "earthshatter")
+            FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.set_percent_modifier(_enemies_in_area[unit_id], _slow_source_id, -float(_slow_percent), "earthshatter")
 
     for unit_id in _slowed_enemies:
         var enemy = _slowed_enemies[unit_id]
         if is_instance_valid(enemy) and not _enemies_in_area.has(unit_id):
-            EnemySpeedModifierService.remove_modifier(enemy, _slow_source_id)
+            FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.remove_modifier(enemy, _slow_source_id)
     var previous_enemies: Dictionary = _slowed_enemies
     _slowed_enemies = _enemies_in_area
     _enemies_in_area = previous_enemies
@@ -129,7 +132,7 @@ func _clear_tremor_slow() -> void:
     for unit_id in _slowed_enemies:
         var enemy = _slowed_enemies[unit_id]
         if is_instance_valid(enemy):
-            EnemySpeedModifierService.remove_modifier(enemy, _slow_source_id)
+            FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.remove_modifier(enemy, _slow_source_id)
     _slowed_enemies.clear()
     _enemies_in_area.clear()
 

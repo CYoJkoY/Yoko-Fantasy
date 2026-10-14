@@ -1,4 +1,4 @@
-extends MediumSlime
+extends "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/medium_slime/medium_slime.gd"
 
 onready var _shoot_projectiles_behavior: ShootingAttackBehavior = $ShootAttackBehavior
 onready var INITIAL_COOLDOWN0: float = _shoot_projectiles_behavior.initial_cooldown

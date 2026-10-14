@@ -1,5 +1,7 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/micro_homing_player_projectile.gd"
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const HIT_RIPPLE_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/handbell_orb_projectile/handbell_hit_ripple.tscn")
 const FLIGHT_PULSE_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/handbell_orb_projectile/handbell_flight_pulse.tscn")
 onready var _hit_ripple_pool_id: int = HIT_RIPPLE_SCENE.get_instance_id()
@@ -22,7 +24,7 @@ func shoot() -> void:
     .shoot()
     _time_alive = rand_range(0.0, PI)
     _pulse_timer = 0.0
-    _visual_opacity = FantasyProjectileVisualUtils.get_opacity()
+    _visual_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _glow_sprite.modulate.a = 0.75 * _visual_opacity
     _trail_particles.modulate.a = _visual_opacity
     _trail_particles.restart()

@@ -1,4 +1,3 @@
-class_name LightningChainService
 extends Reference
 
 static func build_params_from_effect(

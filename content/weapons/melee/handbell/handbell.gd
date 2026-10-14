@@ -1,4 +1,3 @@
-class_name HandbellWeapon
 extends MeleeWeapon
 
 const STRIKE_RIPPLE_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/handbell_orb_projectile/handbell_hit_ripple.tscn")

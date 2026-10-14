@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const STAFF_TEXTURE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/harp_projectile/harp_staff.webp")
 const FLECK_TEXTURE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/harp_projectile/harp_flecks.webp")
 const TRAIL_LIFETIME: float = 0.55
@@ -81,7 +83,7 @@ func begin(note: Texture, note_scale: float, accent: Color) -> void:
     global_transform = Transform2D.IDENTITY
     _size = note_scale
     _active = true
-    modulate.a = FantasyProjectileVisualUtils.get_opacity()
+    modulate.a = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _line.modulate = accent.linear_interpolate(Color(1.0, 0.93, 0.71), 0.4)
     _burst.modulate = accent.linear_interpolate(Color.white, 0.25)
     for ghost in _ghosts:

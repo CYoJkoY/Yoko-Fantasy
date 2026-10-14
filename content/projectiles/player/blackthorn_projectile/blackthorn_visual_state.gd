@@ -1,5 +1,7 @@
 extends Reference
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const META_KEY: String = "fantasy_blackthorn_visual_state"
 const MAIN_IMPACTS_PER_WINDOW: int = 8
 const SHARD_IMPACTS_PER_WINDOW: int = 16
@@ -16,7 +18,7 @@ func refresh() -> void:
     var frame: int = Engine.get_physics_frames()
     if frame != _frame:
         _frame = frame
-        opacity = FantasyProjectileVisualUtils.get_opacity()
+        opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 
 
 func allow_impact(at: Vector2, is_shard: bool) -> bool:

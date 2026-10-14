@@ -1,5 +1,7 @@
 extends "res://entities/structures/turret/turret.gd"
 
+const FANTASY_CHAIN_TARGET_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/chain_target_service.gd")
+
 const BEAM_SCENE_PATH = "res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/effects/prism_beam.tscn"
 const HOLY_COLUMN_SCENE_PATH = "res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/effects/prism_holy_column.tscn"
 const RESONANCE_FOCUS_SCENE_PATH = "res://mods-unpacked/Yoko-Fantasy/content/items/prism_tower/effects/prism_resonance_focus.tscn"
@@ -126,7 +128,7 @@ func _apply_prism_damage(target: Unit, damage: int, color: Color, effect_scale: 
     return int(damage_taken[1])
 
 func _scatter_from(primary_target: Node, base_damage: int) -> void:
-    var target_count: int = ChainTargetService.get_scaled_target_count(
+    var target_count: int = FANTASY_CHAIN_TARGET_SERVICE.get_scaled_target_count(
         SCATTER_BASE_TARGETS,
         _scatter_targets_scaling_stats,
         player_index,
@@ -198,7 +200,7 @@ func _get_scatter_radius() -> float:
 
 func _get_nearby_targets(center: Vector2, excluded: Array, radius: float, max_count: int) -> Array:
     var main: Main = Utils.get_scene_node()
-    return ChainTargetService.collect_nearby_enemies(main, center, excluded, radius, max_count)
+    return FANTASY_CHAIN_TARGET_SERVICE.collect_nearby_enemies(main, center, excluded, radius, max_count)
 
 func _is_valid_enemy(node: Node) -> bool:
     return is_instance_valid(node) and node is Enemy and !node.dead

@@ -1,5 +1,7 @@
 extends PlayerProjectile
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
 
 const HIT_SPARK_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/finger_snap/vfx/finger_snap_hit_spark.tscn")
@@ -55,7 +57,7 @@ func init_converge(
     velocity = Vector2.ZERO
     sinusoidal_motion = Vector2.ZERO
 
-    _setting_opacity = FantasyProjectileVisualUtils.get_opacity()
+    _setting_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 
     _inward_dir = (target_center - spawn_pos).normalized()
     if _inward_dir == Vector2.ZERO:

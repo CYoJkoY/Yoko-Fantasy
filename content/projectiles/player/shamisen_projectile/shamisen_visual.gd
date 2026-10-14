@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const NOTES = [
     preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/shamisen_projectile/shamisen_note_1.webp"),
     preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/shamisen_projectile/shamisen_note_2.webp"),
@@ -201,7 +203,7 @@ func begin(note_index: int, note_lifetime: float) -> void:
     global_transform = Transform2D.IDENTITY
     _phase = float(note_index) * 2.0944
     _accent = COLORS[note_index]
-    _opacity = FantasyProjectileVisualUtils.get_opacity()
+    _opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _active = true
     _note.texture = NOTES[note_index]
     _note_material.set_shader_param("accent", _accent)
@@ -361,7 +363,7 @@ func _physics_process(delta: float) -> void:
     if not _active and _age - _released_at >= RELEASE_DURATION:
         clear()
         return
-    var opacity: float = FantasyProjectileVisualUtils.get_opacity()
+    var opacity: float = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     if opacity != _opacity:
         if opacity <= 0.0 or _opacity <= 0.0:
             _clear_flow()

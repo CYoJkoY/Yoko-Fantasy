@@ -1,5 +1,7 @@
 extends "res://singletons/weapon_service.gd"
 
+const FANTASY_LIGHTNING_CHAIN_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/lightning_chain_service.gd")
+
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init_base_stats(from_stats: WeaponStats, player_index: int, args: WeaponServiceInitStatsArgs = _init_stats_args_service, is_structure:=false, is_special_spawn:=false, is_pet:=false) -> WeaponStats:
     var base_stats: WeaponStats =.init_base_stats(from_stats, player_index, args, is_structure, is_special_spawn, is_pet)
@@ -204,9 +206,9 @@ func _fantasy_lightning_chain_on_hit(weapon: Node, thing_hit: Node) -> void:
         return
 
     var effect_items: Array = RunData.get_player_effect(Utils.fantasy_lightning_chain_on_hit_hash, weapon.player_index)
-    var params_list: Array = LightningChainService.collect_triggered_hit_params(weapon.effects, effect_items, weapon.player_index)
+    var params_list: Array = FANTASY_LIGHTNING_CHAIN_SERVICE.collect_triggered_hit_params(weapon.effects, effect_items, weapon.player_index)
     for params in params_list:
-        var arc_damage: int = LightningChainService.spawn_lightning_chain(
+        var arc_damage: int = FANTASY_LIGHTNING_CHAIN_SERVICE.spawn_lightning_chain(
             main,
             thing_hit,
             weapon.player_index,

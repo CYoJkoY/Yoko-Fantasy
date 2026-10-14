@@ -1,5 +1,7 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/micro_homing_player_projectile.gd"
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const NOTES = [
     preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/harp_projectile/harp_note_eighth.webp"),
     preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/harp_projectile/harp_note_beamed.webp"),
@@ -36,7 +38,7 @@ func shoot_ex(p_from: Node, pos: Vector2, p_velocity: Vector2, p_rotation: float
     _sprite.visible = true
     _sprite.material.set_shader_param("accent", COLORS[_note_index])
     _aura.modulate = COLORS[_note_index]
-    _aura.modulate.a = FantasyProjectileVisualUtils.get_opacity()
+    _aura.modulate.a = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _aura.visible = true
     _score.begin(_sprite.texture, _note_scale, COLORS[_note_index])
     _update_note_pose()

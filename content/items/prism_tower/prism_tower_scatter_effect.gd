@@ -1,5 +1,7 @@
 extends Effect
 
+const FANTASY_CHAIN_TARGET_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/chain_target_service.gd")
+
 export(int) var base_chain_targets = 3
 export(Array) var targets_scaling_stats = [["stat_fantasy_holy", 0.1]]
 export(int) var max_chain_targets = 7
@@ -22,7 +24,7 @@ func unapply(_player_index: int) -> void:
     pass
 
 func get_args(player_index: int) -> Array:
-    var targets_text: String = ChainTargetService.get_scaled_target_count_text(
+    var targets_text: String = FANTASY_CHAIN_TARGET_SERVICE.get_scaled_target_count_text(
         base_chain_targets,
         targets_scaling_stats,
         player_index,

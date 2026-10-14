@@ -1,5 +1,7 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/micro_homing_player_projectile.gd"
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
 
 const HIT_SPLASH_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/frostspray_projectile/frostspray_hit_splash.tscn")
@@ -80,7 +82,7 @@ func _configure_effects(effects: Array) -> void:
 
 func shoot() -> void:
 	.shoot()
-	var opacity = FantasyProjectileVisualUtils.get_opacity()
+	var opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
 	_visual_root.modulate.a = opacity
 	_trail_line.modulate.a = opacity
 	_sparkle_particles.modulate.a = opacity

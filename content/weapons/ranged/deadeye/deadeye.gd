@@ -1,5 +1,7 @@
 extends "res://weapons/ranged/ranged_weapon.gd"
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const FLASH_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/deadeye/vfx/deadeye_flash.tscn")
 const FOLLOWUP_SOUND: AudioStream = preload("res://weapons/ranged/pistol/gun_pistol_shot_02.wav")
 
@@ -35,7 +37,7 @@ func _process(delta: float) -> void:
 
 func shoot() -> void:
     .shoot()
-    _spawn_muzzle_flash(rotation, false, FantasyProjectileVisualUtils.get_opacity())
+    _spawn_muzzle_flash(rotation, false, FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity())
 
 
 func request_followup(target: Node, direction: float, source_stats: Resource) -> void:
@@ -70,7 +72,7 @@ func _fire_followup(target_ref: WeakRef, direction: float, source_stats: Resourc
     projectile._hitbox.player_attack_id = _shooting_behavior._get_next_attack_id()
     on_projectile_shot(projectile)
 
-    var opacity: float = FantasyProjectileVisualUtils.get_opacity()
+    var opacity: float = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _eye_pulse = 1.0
     _eye.modulate.a = opacity
     _eye.material.set_shader_param("pulse", _eye_pulse)
