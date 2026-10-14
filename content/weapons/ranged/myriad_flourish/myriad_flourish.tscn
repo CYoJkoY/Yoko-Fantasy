@@ -33,13 +33,17 @@ texture = ExtResource( 3 )
 visible = false
 
 [node name="Muzzle" parent="Sprite" index="1"]
-position = Vector2( 32, 0 )
+position = Vector2( 57, 0 )
 
 [node name="FlourishParticles" parent="Sprite/Muzzle" index="0" instance=ExtResource( 5 )]
-position = Vector2( -16, 0 )
+position = Vector2( -41, 0 )
 amount = 4
 scale_amount = 0.4
 local_coords = false
+
+[node name="Attach" parent="Sprite" index="2"]
+position = Vector2( -17, 0 )
+scale = Vector2( 1e-05, 1e-05 )
 
 [node name="CollisionShape2D" parent="Range" index="0"]
 shape = SubResource( 2 )
