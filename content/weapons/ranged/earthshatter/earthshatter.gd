@@ -1,6 +1,4 @@
-extends "res://weapons/ranged/ranged_weapon.gd"
-
-var _time: float = 0.0
+extends "res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/shared/floating_spell_weapon.gd"
 
 onready var _cast_particles: CPUParticles2D = $Sprite/CastParticles
 
@@ -12,7 +10,5 @@ func shoot() -> void:
 	_cast_particles.emitting = true
 
 
-func _process(delta: float) -> void:
-	_time += delta
-	sprite.offset.y = sin(_time * 4.0) * 2.5
-	sprite.rotation = sin(_time * 2.5) * 0.04
+func _process(_delta: float) -> void:
+	_cast_particles.position = muzzle.position
