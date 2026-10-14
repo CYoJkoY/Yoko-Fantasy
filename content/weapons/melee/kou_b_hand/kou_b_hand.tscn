@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://weapons/weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/kou_b_hand/kou_b_hand.gd" type="Script" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/kou_b_hand/kou_b_hand_shooting_behavior.gd" type="Script" id=3]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/melee/kou_b_hand/kou_b_hand_01.webp" type="Texture" id=4]
+[ext_resource path="res://resources/shaders/outline.gdshader" type="Shader" id=5]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 5 )
+shader_param/width = 2.0
+shader_param/alpha = 1.0
+shader_param/desaturation = 0.0
+shader_param/texture_size = Vector2( 0, 0 )
+shader_param/outline_color_0 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_1 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_2 = Color( 0, 0, 0, 0 )
+shader_param/outline_color_3 = Color( 0, 0, 0, 0 )
+
+[node name="KouBHand" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+outline_shader_mat = SubResource( 1 )
+
+[node name="Sprite" parent="." index="0"]
+position = Vector2( 35, 0 )
+texture = ExtResource( 4 )
+
+[node name="Hitbox" parent="Sprite" index="0"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="Muzzle" parent="Sprite" index="1"]
+position = Vector2( 40, 0 )
+
+[node name="ShootingBehavior" parent="." index="4"]
+script = ExtResource( 3 )
+
+[editable path="Sprite/Hitbox"]

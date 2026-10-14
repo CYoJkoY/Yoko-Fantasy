@@ -1,7 +1,9 @@
 extends Enemy
 
+const FANTASY_VISUAL_PARTS_SYNC = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/visual_parts_sync.gd")
+
 onready var _parts_offset: Node2D = $Animation/Offset
-var _visual_parts_sync = VisualPartsSync.new()
+var _visual_parts_sync = FANTASY_VISUAL_PARTS_SYNC.new()
 
 func _ready() -> void:
 	_visual_parts_sync.setup(_parts_offset)

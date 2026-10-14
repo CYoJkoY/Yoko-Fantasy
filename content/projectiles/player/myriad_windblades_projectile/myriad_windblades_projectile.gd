@@ -1,5 +1,9 @@
 extends PlayerProjectile
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
+const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
+
 const HIT_SPLASH_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_windblades_projectile/myriad_windblades_hit_splash.tscn")
 const WIND_FORCE_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/myriad_windblades_projectile/wind_force_effect.tscn")
 const MYRIAD_WINDBLADES_EFFECT = preload("res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/myriad_windblades/myriad_windblades_effect.gd")
@@ -29,7 +33,7 @@ var _flight_age: float = 0.0
 var _seed_1: float = 0.0
 var _seed_2: float = 0.0
 var _visual_opacity: float = 1.0
-var _history_positions: Array = []
+var _history = TRAIL_HISTORY.new()
 var _trail_sample_points: Array = []
 var _afterimage_sprites: Array = []
 
@@ -85,8 +89,8 @@ func shoot_ex(
     _flight_age = 0.0
     _seed_1 = rand_range(0.0, 100.0)
     _seed_2 = rand_range(0.0, 100.0)
-    _history_positions.clear()
-    _history_positions.push_back(pos)
+    _history.clear()
+    _history.push(pos)
     _reset_visual_state()
     var stream_material: ShaderMaterial = _stream_trail_sprite.material as ShaderMaterial
     stream_material.set_shader_param("phase", _seed_1)
@@ -110,7 +114,7 @@ func _configure_effect(effects: Array) -> void:
 
 func shoot() -> void:
     .shoot()
-    _visual_opacity = FantasyProjectileVisualUtils.get_opacity()
+    _visual_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     _blade_root.modulate.a = _visual_opacity
     _afterimage_layer.modulate.a = _visual_opacity
     _stream_trail_sprite.modulate.a = 0.0
@@ -169,44 +173,15 @@ func _physics_process(delta: float) -> void:
     var particle_alpha: float = _visual_opacity * (0.10 + 0.24 * wind_presence)
     _tip_particles_top.modulate.a = particle_alpha
     _tip_particles_bottom.modulate.a = particle_alpha
-    if _history_positions.empty() or global_position.distance_squared_to(_history_positions.front()) >= 16.0:
-        _history_positions.push_front(global_position)
+    _history.push(global_position, 16.0)
     _update_trail_samples_and_afterimages(wind_presence)
 
 
 func _update_trail_samples_and_afterimages(wind_presence: float) -> void:
-    if _history_positions.size() < 2:
+    if _history.count < 2:
         _hide_afterimages()
         return
-
-    _trail_sample_points[0] = Vector2.ZERO
-    var required_distance: float = float(TRAIL_SAMPLE_COUNT - 1) * TRAIL_SAMPLE_SPACING
-    var available_distance: float = 0.0
-
-    for i in range(1, _history_positions.size()):
-        available_distance += (_history_positions[i] - _history_positions[i - 1]).length()
-        if available_distance >= required_distance:
-            _history_positions.resize(i + 1)
-            break
-
-    var history_index: int = 1
-    var previous_distance: float = 0.0
-    var current_distance: float = (_history_positions[1] - _history_positions[0]).length()
-
-    for point_index in range(1, TRAIL_SAMPLE_COUNT):
-        var target_distance: float = min(float(point_index) * TRAIL_SAMPLE_SPACING, available_distance)
-        while history_index < _history_positions.size() - 1 and current_distance < target_distance:
-            history_index += 1
-            previous_distance = current_distance
-            current_distance += (_history_positions[history_index] - _history_positions[history_index - 1]).length()
-
-        var segment_progress: float = (target_distance - previous_distance) / max(0.0001, current_distance - previous_distance)
-        var world_point: Vector2 = _history_positions[history_index - 1].linear_interpolate(
-            _history_positions[history_index],
-            segment_progress
-        )
-        var local_point: Vector2 = to_local(world_point)
-        _trail_sample_points[point_index] = local_point
+    var available_distance: float = _history.sample(_trail_sample_points, TRAIL_SAMPLE_SPACING, global_transform.affine_inverse())
 
     _update_afterimages(available_distance, wind_presence)
 
@@ -268,19 +243,13 @@ func _apply_internal_wind_force(enemy: Enemy) -> void:
 
     var p_idx: int = _get_player_index()
     var tick_dmg: int = int(max(1, Utils.ncl_get_dmg_with_scaling_stats(wind_force_base_damage, wind_force_scaling_stats, p_idx)))
-    var crit_ch: float = _hitbox.crit_chance if _hitbox != null else 0.05
-    var crit_dmg: float = _hitbox.crit_damage if _hitbox != null else 2.0
-    var weapon_pos: int = _hitbox.from.weapon_pos
 
     wind_force.init_wind_force(
         enemy,
         wind_force_ticks,
         tick_dmg,
         wind_force_tick_interval,
-        p_idx,
-        weapon_pos,
-        crit_ch,
-        crit_dmg,
+        _hitbox,
         main,
         pool_id
     )
@@ -302,8 +271,8 @@ func _spawn_hit_splash(pos: Vector2, impact_rotation: float) -> void:
 
 func bounce(thing_hit: Node) -> void:
     .bounce(thing_hit)
-    _history_positions.clear()
-    _history_positions.push_back(global_position)
+    _history.clear()
+    _history.push(global_position)
     _hide_afterimages()
 
 
@@ -337,5 +306,5 @@ func _reset_visual_state() -> void:
 
 func _return_to_pool() -> void:
     _stop_emitters()
-    _history_positions.clear()
+    _history.clear()
     ._return_to_pool()

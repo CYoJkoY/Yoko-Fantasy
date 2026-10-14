@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/doudouone.mp3-b9488d3148bdaf0bddc56db61a92a42d.mp3str"
+
+[deps]
+
+source_file="res://mods-unpacked/Yoko-Fantasy/content/music/doudouone.mp3"
+dest_files=[ "res://.import/doudouone.mp3-b9488d3148bdaf0bddc56db61a92a42d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

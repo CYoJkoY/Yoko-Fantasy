@@ -1,5 +1,7 @@
 extends Boss
 
+const FANTASY_VISUAL_PARTS_SYNC = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/visual_parts_sync.gd")
+
 const PARTICLES = preload("res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/elder_shadow/elder_shadow_particles.tscn")
 
 export(PackedScene) var clocks_scene = null
@@ -13,7 +15,7 @@ var particles: Node = null
 var clocks: Node = null
 var entities_in_zone: Array = []
 onready var _parts_offset: Node2D = $Animation/Offset
-var _visual_parts_sync = VisualPartsSync.new()
+var _visual_parts_sync = FANTASY_VISUAL_PARTS_SYNC.new()
 
 onready var _healing_zone: Area2D = $"%HealingZone"
 onready var _healing_collision: CollisionShape2D = $"%HealingCollision"

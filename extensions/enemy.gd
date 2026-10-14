@@ -1,5 +1,7 @@
 extends "res://entities/units/enemies/enemy.gd"
 
+const FANTASY_ENEMY_SPEED_MODIFIER_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/enemy_speed_modifier_service.gd")
+
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [], entity_spawner_ref = null) -> void:
     .init(zone_min_pos, zone_max_pos, p_players_ref, entity_spawner_ref)
@@ -9,7 +11,7 @@ func init(zone_min_pos: Vector2, zone_max_pos: Vector2, p_players_ref: Array = [
 
 func respawn() -> void:
     .respawn()
-    EnemySpeedModifierService.clear_pooled_state(self)
+    FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.clear_pooled_state(self)
     _fantasy_extra_curse_enemy()
     _fantasy_buff_future_target()
     if Utils.plant_enemies_ids.has(enemy_id_hash): _fantasy_cannot_tree_damage()
@@ -35,6 +37,10 @@ func get_stats_value() -> int:
     return value
 
 func get_damage_value(dmg_value: int, from_player_index: int, armor_applied := true, dodgeable := true, is_crit := false, hitbox: Hitbox = null, is_burning := false) -> GetDamageValueResult:
+    if hitbox != null and hitbox.has_meta("fantasy_kou_b_hand_self_loss"):
+        var self_loss_result: GetDamageValueResult = GetDamageValueResult.new()
+        self_loss_result.value = hitbox.get_meta("fantasy_kou_b_hand_self_loss")
+        return self_loss_result
     var dmg_value_result: GetDamageValueResult =.get_damage_value(dmg_value, from_player_index, armor_applied, dodgeable, is_crit, hitbox, is_burning)
     dmg_value_result = _fantasy_apply_holy_damage_bonus(dmg_value_result)
     if !dead and _outline_colors.has(Utils.CURSE_COLOR) and from_player_index >= 0 and from_player_index < RunData.get_player_count():
@@ -132,7 +138,7 @@ func fa_apply_stat_to_both(target_stat: int, value: int) -> void:
             current_stats.health += value
             max_stats.health += value
         Utils.FANTASY_ENEMY_SPEED:
-            EnemySpeedModifierService.add_base_speed(self, value)
+            FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.add_base_speed(self, value)
         Utils.FANTASY_ENEMY_DAMAGE:
             current_stats.damage += value
             max_stats.damage += value

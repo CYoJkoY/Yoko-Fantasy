@@ -1,5 +1,7 @@
 extends Boss
 
+const FANTASY_VISUAL_PARTS_SYNC = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/visual_parts_sync.gd")
+
 onready var _crescent_shooting_attack_behavior: ShootingAttackBehavior = $"CrescentShootingAttackBehavior"
 onready var _projectile_shooting_attack_behavior: ShootingAttackBehavior = $"ProjectileShootingAttackBehavior"
 
@@ -18,7 +20,7 @@ onready var _vertical_global_shooting_attack_behavior_3: ShootingAttackBehavior 
 
 var _mutation_2_slash_shoot_token: int = 0
 onready var _parts_offset: Node2D = $Animation/Offset
-var _visual_parts_sync = VisualPartsSync.new()
+var _visual_parts_sync = FANTASY_VISUAL_PARTS_SYNC.new()
 
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func _ready() -> void:

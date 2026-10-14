@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/bloodstained_banner_effect.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+text_key = "EFFECT_FANTASY_BLOODSTAINED_BANNER_TARGETS"
+value = 4
+effect_sign = 3
+custom_args = [  ]

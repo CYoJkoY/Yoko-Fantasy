@@ -1,5 +1,7 @@
 extends "res://entities/units/player/player.gd"
 
+const FANTASY_ENEMY_SPEED_MODIFIER_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/enemy_speed_modifier_service.gd")
+
 var decaying_slow_enemy_when_below_hp_triggers: Dictionary = {}
 var _fantasy_active_decaying_slow_sources: Dictionary = {}
 var _fantasy_decaying_slow_source_enemies: Dictionary = {}
@@ -94,7 +96,7 @@ func _fantasy_damage_clamp(result: Unit.GetDamageValueResult) -> Unit.GetDamageV
         var max_hp: float = Utils.get_stat(Keys.stat_max_hp_hash, player_index)
         var tracking_key_hash: int = effect[0]
         var max_percent: float = effect[2] / 100.0
-        var max_allowed_dmg: int = max(1, int(max_hp * max_percent))
+        var max_allowed_dmg: int = int(max(1, int(max_hp * max_percent)))
         var max_taken_dmg: int = int(clamp(result.value, min(effect[1], result.value), max_allowed_dmg))
 
         RunData.ncl_add_effect_tracking_value(tracking_key_hash, result.value - max_taken_dmg, player_index)
@@ -259,7 +261,7 @@ func _fantasy_get_decaying_slow_source_id(effect_index: int) -> String:
 func fa_apply_decaying_slow_to_enemy(enemy: Enemy, source_id: String, slow_percent: float) -> void:
     if !is_instance_valid(enemy) or enemy.dead: return
 
-    EnemySpeedModifierService.set_percent_modifier(enemy, source_id, slow_percent)
+    FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.set_percent_modifier(enemy, source_id, slow_percent)
     if !_fantasy_decaying_slow_source_enemies.has(source_id):
         _fantasy_decaying_slow_source_enemies[source_id] = []
     if !_fantasy_decaying_slow_source_enemies[source_id].has(enemy):
@@ -277,7 +279,7 @@ func fa_apply_decaying_slow_to_enemy(enemy: Enemy, source_id: String, slow_perce
 func fa_remove_decaying_slow_source(source_id: String) -> void:
     var enemies: Array = _fantasy_decaying_slow_source_enemies.get(source_id, [])
     for enemy in enemies:
-        EnemySpeedModifierService.remove_modifier(enemy, source_id)
+        FANTASY_ENEMY_SPEED_MODIFIER_SERVICE.remove_modifier(enemy, source_id)
         if !_fantasy_decaying_slow_enemy_counts.has(enemy):
             continue
 

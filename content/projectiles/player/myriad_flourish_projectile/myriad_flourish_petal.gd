@@ -1,19 +1,20 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
+const SECONDARY_DAMAGE = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/secondary_damage.gd")
+
 var _lifetime: float = 0.45
 var _elapsed: float = 0.0
 var _main: Node = null
 var _pool_id: int = 0
 var _velocity: Vector2 = Vector2.ZERO
 var _target: Node = null
-var _damage: int = 1
-var _player_index: int = 0
-var _weapon_pos: int = -1
-var _crit_chance: float = 0.05
-var _crit_damage: float = 1.5
 var _slow_percent: float = 35.0
 var _applies_slow: bool = false
 var _opacity: float = 1.0
+
+var _secondary_damage: Reference
 
 onready var _particles: CPUParticles2D = $"%Particles"
 
@@ -28,10 +29,7 @@ func launch(
 	initial_dir: Vector2,
 	target_enemy: Node,
 	damage: int,
-	player_index: int,
-	weapon_pos: int,
-	crit_chance: float,
-	crit_damage: float,
+	source: Hitbox,
 	slow_percent: float,
 	applies_slow: bool,
 	main: Node,
@@ -39,12 +37,8 @@ func launch(
 ) -> void:
 	_main = main
 	_pool_id = pool_id
-	_opacity = FantasyProjectileVisualUtils.get_opacity()
-	_damage = damage
-	_player_index = player_index
-	_weapon_pos = weapon_pos
-	_crit_chance = crit_chance
-	_crit_damage = crit_damage
+	_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
+	_secondary_damage = SECONDARY_DAMAGE.new(source, damage, Color("#98fb10"))
 	_slow_percent = slow_percent
 	_applies_slow = applies_slow
 	_target = target_enemy
@@ -89,23 +83,9 @@ func _hit_enemy(enemy: Enemy) -> void:
 		_finish()
 		return
 
-	var dmg_args: TakeDamageArgs = Utils.ncl_create_custom_damage_args(_player_index, Color("#98fb10"))
+	var damage_dealt: int = _secondary_damage.deal(enemy)
 
-	var final_damage: float = float(_damage)
-	var was_crit: bool = Utils.get_chance_success(_crit_chance)
-	if was_crit:
-		final_damage *= _crit_damage
-
-	var health_before: int = enemy.current_stats.health
-	var damage_taken: Array = enemy.take_damage(int(final_damage), dmg_args)
-	RunData.add_weapon_dmg_dealt(_weapon_pos, damage_taken[1], _player_index)
-	Utils.fa_apply_direct_crit_kill_gold_rewards(
-		_player_index,
-		was_crit,
-		health_before > 0 and damage_taken[1] >= health_before
-	)
-
-	if _applies_slow and enemy.has_method("add_decaying_speed") and enemy.has_method("get_base_speed_value_for_pct_based_decrease"):
+	if damage_dealt > 0 and not enemy._pending_die and _applies_slow:
 		var base_spd = enemy.get_base_speed_value_for_pct_based_decrease()
 		enemy.add_decaying_speed(int(base_spd * -abs(_slow_percent) / 100.0))
 
@@ -118,3 +98,7 @@ func _finish() -> void:
 	_particles.emitting = false
 	if _main != null and is_instance_valid(_main):
 		_main.add_node_to_pool(self, _pool_id)
+
+
+func _exit_tree() -> void:
+	_secondary_damage = null

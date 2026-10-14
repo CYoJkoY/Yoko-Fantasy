@@ -41,7 +41,7 @@
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/great_demon_lord_projectile/great_demon_lord_crescent_projectile.tscn" type="PackedScene" id=39]
 [ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/projectiles/enemy/great_demon_lord_projectile/great_demon_lord_ball_projectile.tscn" type="PackedScene" id=40]
 [ext_resource path="res://entities/units/movement_behaviors/follow_target_movement_behavior.gd" type="Script" id=41]
-[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/great_demon_lord/great_demon_lord.png" type="Texture" id=42]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/great_demon_lord/great_demon_lord.webp" type="Texture" id=42]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.0

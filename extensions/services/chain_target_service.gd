@@ -1,4 +1,3 @@
-class_name ChainTargetService
 extends Reference
 
 static func get_scaled_target_count(

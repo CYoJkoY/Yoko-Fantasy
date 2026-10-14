@@ -1,5 +1,7 @@
 extends Node2D
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const TOTAL_DURATION: float = 0.34
 
 onready var _aura_shock: Sprite = $AuraShock
@@ -23,7 +25,7 @@ func _ready() -> void:
 func start_astrolabe(pos: Vector2, _target: Node, tier: int, main: Node, pool_id: int, tint: Color = Color(1.0, 0.95, 0.75, 1.0)) -> void:
     _main = main
     _pool_id = pool_id
-    _opacity = FantasyProjectileVisualUtils.get_opacity()
+    _opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     global_position = pos
     _elapsed = 0.0
     _active = true

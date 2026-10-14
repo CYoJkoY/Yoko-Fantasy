@@ -33,6 +33,11 @@ func on_state_changed(_new_state: int) -> void:
         reset_speed_stat(50)
         shoot_anime_set(State.VIOLENT)
         shoot_charmed_anime_set(State.VIOLENT)
+        charging_attack_behavior.reset()
+        _can_move = false
+        _animation_player.stop()
+        _animation_player.playback_speed = _current_attack_behavior.attack_anim_speed
+        _animation_player.play(shoot_animation_name)
 
 func is_playing_shoot_animation() -> bool:
     # Avoid "shoot" animation interrupt "howling" animation

@@ -1,0 +1,131 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/vfx/banner_visuals.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/vfx/textures/blood_halo.webp" type="Texture" id=2]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/vfx/textures/blood_ember.webp" type="Texture" id=4]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/vfx/textures/blood_aura.webp" type="Texture" id=5]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/vfx/textures/banner_blood_veins.webp" type="Texture" id=6]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/vfx/banner_veins.gdshader" type="Shader" id=7]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/vfx/banner_aura.gdshader" type="Shader" id=8]
+[ext_resource path="res://mods-unpacked/Yoko-Fantasy/content/weapons/ranged/bloodstained_banner/vfx/textures/blood_glint.webp" type="Texture" id=9]
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 7 )
+shader_param/age = 0.0
+shader_param/energy = 0.0
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = ExtResource( 8 )
+shader_param/age = 0.0
+shader_param/energy = 0.0
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.18, 0.7, 1 )
+colors = PoolColorArray( 1, 0.12, 0.16, 0, 1, 0.035, 0.12, 0.5, 0.72, 0.055, 0.35, 0.25, 0.45, 0.015, 0.6, 0 )
+
+[node name="BannerEffects" type="Node2D"]
+show_behind_parent = true
+script = ExtResource( 1 )
+
+[node name="BloodHalo" type="Sprite" parent="."]
+position = Vector2( 5, -4 )
+material = SubResource( 1 )
+texture = ExtResource( 2 )
+scale = Vector2( 0.70, 0.48 )
+modulate = Color( 1, 0.035, 0.13, 0.42 )
+
+[node name="IdleCorona" type="Sprite" parent="."]
+z_index = 1
+position = Vector2( 2, -4 )
+material = SubResource( 4 )
+texture = ExtResource( 5 )
+scale = Vector2( 0.68, 0.47 )
+modulate = Color( 1, 1, 1, 0.48 )
+
+[node name="IdleAccent" type="Sprite" parent="."]
+position = Vector2( 4, -2 )
+material = SubResource( 1 )
+texture = ExtResource( 5 )
+scale = Vector2( 0.55, 0.39 )
+modulate = Color( 0.72, 0.12, 0.90, 0.18 )
+
+[node name="CastWave" type="Sprite" parent="."]
+z_index = 1
+position = Vector2( 18, -2 )
+scale = Vector2( 0.46, 0.32 )
+visible = false
+material = SubResource( 1 )
+texture = ExtResource( 5 )
+
+[node name="BloodVeins" type="Sprite" parent="."]
+z_index = 1
+material = SubResource( 3 )
+texture = ExtResource( 6 )
+
+[node name="CastGlint" type="Sprite" parent="."]
+z_index = 1
+position = Vector2( 46, 0 )
+material = SubResource( 1 )
+texture = ExtResource( 9 )
+scale = Vector2( 0.20, 0.20 )
+modulate = Color( 1, 0.42, 0.36, 0 )
+
+[node name="CastEmbers" type="CPUParticles2D" parent="."]
+z_index = 1
+position = Vector2( 28, -4 )
+material = SubResource( 1 )
+emitting = false
+amount = 6
+lifetime = 0.45
+one_shot = true
+explosiveness = 0.65
+local_coords = false
+texture = ExtResource( 4 )
+emission_shape = 1
+emission_sphere_radius = 15.0
+direction = Vector2( 1, 0 )
+spread = 35.0
+gravity = Vector2( 0, -20 )
+initial_velocity = 26.0
+initial_velocity_random = 0.4
+scale_amount = 0.065
+scale_amount_random = 0.4
+color_ramp = SubResource( 2 )
+
+[node name="OrbitSpark" type="Sprite" parent="."]
+z_index = 1
+material = SubResource( 1 )
+texture = ExtResource( 9 )
+scale = Vector2( 0.14, 0.10 )
+modulate = Color( 1, 0.30, 0.35, 0.34 )
+
+[node name="OrbitEcho" type="Sprite" parent="."]
+z_index = 1
+material = SubResource( 1 )
+texture = ExtResource( 9 )
+scale = Vector2( 0.10, 0.08 )
+modulate = Color( 0.82, 0.12, 0.66, 0.20 )
+
+[node name="IdleMotes" type="CPUParticles2D" parent="."]
+position = Vector2( 5, -4 )
+material = SubResource( 1 )
+amount = 3
+lifetime = 1.2
+preprocess = 1.2
+local_coords = false
+texture = ExtResource( 4 )
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector2( 1, 0 )
+spread = 30.0
+gravity = Vector2( 0, -6 )
+initial_velocity = 8.0
+initial_velocity_random = 0.4
+scale_amount = 0.045
+scale_amount_random = 0.3
+color_ramp = SubResource( 2 )

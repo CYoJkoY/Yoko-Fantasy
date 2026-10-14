@@ -1,5 +1,7 @@
 extends "res://ui/menus/shop/inventory.gd"
 
+const FANTASY_SHOP_SERVICE = preload("res://mods-unpacked/Yoko-Fantasy/extensions/services/shop_service.gd")
+
 # ══════════════════════════════════════════ Extension ══════════════════════════════════════════ #
 func get_elements_with_count(elements: Array) -> Array:
     var element_index = {}
@@ -32,5 +34,5 @@ func add_element(element: ItemParentData, check_for_duplicates: bool = false, so
 
 func _spawn_element(element: Resource, _display_banned: float = 0, animated_entrance = false) -> InventoryElement:
     var instance: InventoryElement = ._spawn_element(element, _display_banned, animated_entrance)
-    ShopService._fantasy_apply_bless_mark(instance)
+    FANTASY_SHOP_SERVICE._fantasy_apply_bless_mark(instance)
     return instance

@@ -1,15 +1,14 @@
-class_name EnemySpeedModifierService
 extends Reference
 
 const BASE_SPEED_META: String = "fantasy_enemy_base_speed"
 const MODIFIERS_META: String = "fantasy_enemy_speed_modifiers"
 
 
-static func set_percent_modifier(enemy: Node, source_id, percent: float) -> void:
-    set_modifier(enemy, source_id, 0.0, percent)
+static func set_percent_modifier(enemy: Node, source_id, percent: float, strongest_group: String = "") -> void:
+    set_modifier(enemy, source_id, 0.0, percent, strongest_group)
 
 
-static func set_modifier(enemy: Node, source_id, flat: float, percent: float) -> void:
+static func set_modifier(enemy: Node, source_id, flat: float, percent: float, strongest_group: String = "") -> void:
     if !_can_modify(enemy):
         return
 
@@ -18,6 +17,7 @@ static func set_modifier(enemy: Node, source_id, flat: float, percent: float) ->
     modifiers[str(source_id)] = {
         "flat": flat,
         "percent": percent,
+        "strongest_group": strongest_group,
     }
     enemy.set_meta(MODIFIERS_META, modifiers)
     _apply(enemy)
@@ -107,10 +107,19 @@ static func _apply(enemy: Node) -> void:
     var speed: float = float(_get_base_speed(enemy))
     var modifiers: Dictionary = _get_modifiers(enemy)
 
-    for source_id in modifiers.keys():
+    for source_id in modifiers:
         speed += float(modifiers[source_id].get("flat", 0.0))
 
-    for source_id in modifiers.keys():
-        speed *= 1.0 + float(modifiers[source_id].get("percent", 0.0)) / 100.0
+    var strongest: Dictionary = {}
+    for source_id in modifiers:
+        var modifier: Dictionary = modifiers[source_id]
+        var percent: float = float(modifier.get("percent", 0.0))
+        var group: String = modifier.get("strongest_group", "")
+        if group.empty():
+            speed *= 1.0 + percent / 100.0
+        else:
+            strongest[group] = min(float(strongest.get(group, 0.0)), percent)
+    for percent in strongest.values():
+        speed *= 1.0 + float(percent) / 100.0
 
     enemy.current_stats.speed = max(1, int(round(speed)))

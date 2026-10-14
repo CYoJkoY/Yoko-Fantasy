@@ -27,7 +27,6 @@ onready var _laser_container: Node2D = $LaserContainer as Node2D
 
 
 func _ready() -> void:
-	._ready()
 	_laser_visuals.clear()
 	for i in range(LASER_COUNT):
 		_laser_visuals.push_back(_laser_container.get_node("LaserBeam%d" % i))

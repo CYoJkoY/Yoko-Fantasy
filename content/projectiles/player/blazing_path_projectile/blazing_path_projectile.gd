@@ -1,5 +1,9 @@
 extends PlayerProjectile
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
+const TRAIL_HISTORY = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_trail_history.gd")
+
 const HIT_SPLASH_SCENE = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/blazing_path_projectile/blazing_path_hit_splash.tscn")
 const FLUTTER_STEP_SIN_1: float = 0.434965534
 const FLUTTER_STEP_COS_1: float = 0.900447102
@@ -19,7 +23,8 @@ var _elapsed_time: float = 0.0
 var _stop_head_scale: Vector2 = Vector2.ONE
 var _visual_opacity: float = 1.0
 
-var _history_positions: Array = []
+var _history = TRAIL_HISTORY.new()
+var _body_points: Array = []
 
 var _seed_1: float = 0.0
 var _seed_2: float = 0.0
@@ -37,6 +42,7 @@ func _ready() -> void:
 
 func _init_line_points() -> void:
     _line.clear_points()
+    _body_points.resize(num_body_points)
     for _i in range(num_body_points):
         _line.add_point(Vector2.ZERO)
     _ember_particles.position = Vector2.ZERO
@@ -67,7 +73,7 @@ func shoot_ex(p_from: Node,
     _seed_2 = rand_range(0.0, 20.0)
     _seed_3 = rand_range(0.0, 20.0)
     _seed_4 = rand_range(0.0, 20.0)
-    _history_positions.clear()
+    _history.clear()
     if p_from != null and is_instance_valid(p_from):
         var toggle: bool = p_from.get_meta("blazing_toggle") if p_from.has_meta("blazing_toggle") else false
         p_from.set_meta("blazing_toggle", not toggle)
@@ -75,7 +81,7 @@ func shoot_ex(p_from: Node,
     else:
         _wave_phase = (randi() % 2) * PI
 
-    _history_positions.push_back(pos)
+    _history.push(pos)
     _init_line_points()
 
     .shoot_ex(p_from, pos, p_velocity, p_rotation, p_weapon_stats, damage_tracking_key, effects, hitbox_args, knockback_direction)
@@ -84,7 +90,7 @@ func shoot_ex(p_from: Node,
 func shoot() -> void:
     .shoot()
     _time_until_max_range *= lifetime_multiplier
-    _visual_opacity = FantasyProjectileVisualUtils.get_opacity()
+    _visual_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
     var opacity = _visual_opacity
     _head_sprite.modulate.a = opacity
     _head_sprite.scale = Vector2.ONE
@@ -116,7 +122,7 @@ func _physics_process(delta: float) -> void:
         var target_angle = current_velocity.angle()
         rotation = lerp_angle(rotation, target_angle, clamp(delta * 24.0, 0.0, 1.0))
 
-    _history_positions.push_front(global_position)
+    _history.push(global_position)
 
     _update_fluid_serpent_body(t)
 
@@ -138,21 +144,10 @@ func _process(_delta: float) -> void:
 
 
 func _update_fluid_serpent_body(t: float) -> void:
-    if _history_positions.size() < 2:
+    if _history.count < 2:
         return
-
     _line.set_point_position(0, Vector2.ZERO)
-    var available_distance: float = 0.0
-    var required_distance: float = (num_body_points - 1) * point_spacing
-    for i in range(1, _history_positions.size()):
-        available_distance += (_history_positions[i] - _history_positions[i - 1]).length()
-        if available_distance >= required_distance:
-            _history_positions.resize(i + 1)
-            break
-
-    var history_index: int = 1
-    var previous_distance: float = 0.0
-    var current_distance: float = (_history_positions[1] - _history_positions[0]).length()
+    var available_distance: float = _history.sample(_body_points, point_spacing, global_transform.affine_inverse())
     var flutter_phase_1: float = 18.0 * t - 0.45 + _seed_1
     var flutter_phase_2: float = 32.0 * t - 0.8
     var flutter_sin_1: float = sin(flutter_phase_1)
@@ -161,23 +156,9 @@ func _update_fluid_serpent_body(t: float) -> void:
     var flutter_cos_2: float = cos(flutter_phase_2)
 
     for body_index in range(1, num_body_points):
-        var target_distance = body_index * point_spacing
-        if available_distance <= 0.001:
-            _line.set_point_position(body_index, Vector2.ZERO)
-            continue
-
-        var clamped_distance = min(target_distance, available_distance)
-        while history_index < _history_positions.size() - 1 and current_distance < clamped_distance:
-            history_index += 1
-            previous_distance = current_distance
-            current_distance += (_history_positions[history_index] - _history_positions[history_index - 1]).length()
-
-        var progress = (clamped_distance - previous_distance) / max(0.0001, current_distance - previous_distance)
-        var world_point = _history_positions[history_index - 1].linear_interpolate(_history_positions[history_index], progress)
-
         var emergence = clamp(available_distance / max(0.001, body_index * point_spacing), 0.0, 1.0)
         var spine_flutter = (flutter_sin_1 * 2.5 + flutter_cos_2 * 1.2) * (1.0 - float(body_index) / float(num_body_points)) * emergence
-        _line.set_point_position(body_index, to_local(world_point) + Vector2(0, spine_flutter))
+        _line.set_point_position(body_index, _body_points[body_index] + Vector2(0, spine_flutter))
 
         var next_sin_1: float = flutter_sin_1 * FLUTTER_STEP_COS_1 - flutter_cos_1 * FLUTTER_STEP_SIN_1
         flutter_cos_1 = flutter_cos_1 * FLUTTER_STEP_COS_1 + flutter_sin_1 * FLUTTER_STEP_SIN_1
@@ -202,7 +183,7 @@ func stop() -> void:
 func _return_to_pool() -> void:
     ._return_to_pool()
     _ember_particles.emitting = false
-    _history_positions.clear()
+    _history.clear()
     _elapsed_time = 0.0
     _stop_head_scale = Vector2.ONE
     _visual_opacity = 1.0
@@ -224,8 +205,8 @@ func bounce(thing_hit: Node) -> void:
     _seed_3 = rand_range(0.0, 20.0)
     _seed_4 = rand_range(0.0, 20.0)
 
-    _history_positions.clear()
-    _history_positions.push_back(global_position)
+    _history.clear()
+    _history.push(global_position)
     _init_line_points()
 
 

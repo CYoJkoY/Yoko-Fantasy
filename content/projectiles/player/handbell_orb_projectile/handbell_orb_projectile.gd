@@ -1,5 +1,7 @@
 extends "res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/micro_homing_player_projectile.gd"
 
+const FANTASY_PROJECTILE_VISUAL_UTILS = preload("res://mods-unpacked/Yoko-Fantasy/content/utils/projectile_visual_utils.gd")
+
 const HIT_RIPPLE_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/handbell_orb_projectile/handbell_hit_ripple.tscn")
 const FLIGHT_PULSE_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/handbell_orb_projectile/handbell_flight_pulse.tscn")
 onready var _hit_ripple_pool_id: int = HIT_RIPPLE_SCENE.get_instance_id()
@@ -14,20 +16,25 @@ const PULSE_INTERVAL: float = 0.085
 
 onready var _core_sprite: Sprite = $Sprite
 onready var _glow_sprite: Sprite = $Glow
+onready var _trail_particles: CPUParticles2D = $TrailParticles
+var _visual_opacity: float = 1.0
 
 
-func _ready() -> void:
-    ._ready()
+func shoot() -> void:
+    .shoot()
     _time_alive = rand_range(0.0, PI)
     _pulse_timer = 0.0
-
+    _visual_opacity = FANTASY_PROJECTILE_VISUAL_UTILS.get_opacity()
+    _glow_sprite.modulate.a = 0.75 * _visual_opacity
+    _trail_particles.modulate.a = _visual_opacity
+    _trail_particles.restart()
+    _trail_particles.emitting = true
 
 func _physics_process(delta: float) -> void:
     _time_alive += delta
     _pulse_timer += delta
 
     _process_micro_homing(delta, homing_turn_rate, homing_max_range, 180.0, 180.0)
-    ._physics_process(delta)
 
     if is_instance_valid(_core_sprite):
         var vibration = sin(_time_alive * 18.0) * 0.12
@@ -36,7 +43,7 @@ func _physics_process(delta: float) -> void:
     if is_instance_valid(_glow_sprite):
         var glow_pulse: float = 1.0 + 0.22 * sin(_time_alive * 9.0)
         _glow_sprite.scale = Vector2.ONE * glow_pulse
-        _glow_sprite.modulate.a = 0.75 + 0.25 * sin(_time_alive * 9.0)
+        _glow_sprite.modulate.a = (0.75 + 0.25 * sin(_time_alive * 9.0)) * _visual_opacity
 
     if _pulse_timer >= PULSE_INTERVAL:
         _pulse_timer = 0.0

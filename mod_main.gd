@@ -36,6 +36,7 @@ func install_script_extensions() -> void:
         # EFFECTS: gain_stat_for_limited_item
 
         "enemy.gd",
+        # WEAPONS: Kou B Hand fixed self-loss
         # STATS: Holy[ 2/2 ]
         # EFFECTS: extra_curse_enemy
         #          on_target_enemy_killed_buff_future_target_enemy[ 1/2 ]
@@ -47,6 +48,9 @@ func install_script_extensions() -> void:
 
         "services/utils.gd",
         # HASHES
+
+        "floating_text_manager.gd",
+        # VISUALS: hitbox damage colors
 
         "music_manager.gd",
         # SYSTEMS: one-shot job theme override
@@ -136,6 +140,9 @@ func install_script_extensions() -> void:
 
         "ui/ingame_main_menu.gd",
         # SYSTEMS: Job[ 5/6 ]
+
+        "ui/menus.gd",
+        # UI: Fantasy music tracks
 
         "ui/menu_confirm.gd",
         "ui/menu_restart.gd",

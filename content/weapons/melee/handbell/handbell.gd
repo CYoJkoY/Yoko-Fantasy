@@ -1,4 +1,3 @@
-class_name HandbellWeapon
 extends MeleeWeapon
 
 const STRIKE_RIPPLE_SCENE: PackedScene = preload("res://mods-unpacked/Yoko-Fantasy/content/projectiles/player/handbell_orb_projectile/handbell_hit_ripple.tscn")
@@ -13,7 +12,6 @@ var _was_vibrating: bool = false
 
 
 func _ready() -> void:
-	._ready()
 	_hitbox.connect("hit_something", self, "_on_handbell_hit_something")
 
 

@@ -1,5 +1,4 @@
-class_name MediumSlime
-extends LittleSlime
+extends "res://mods-unpacked/Yoko-Fantasy/content/entities/enemies/little_slime/little_slime.gd"
 
 export(String, FILE, "*.tscn") var die_to_spawn_path = ""
 var die_to_spawn: PackedScene = null

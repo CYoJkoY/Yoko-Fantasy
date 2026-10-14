@@ -6,6 +6,7 @@ func _ready():
     var specific_direction = Utils.get_rand_element([-1, 1])
     for p in bullets.get_children():
         p.direction = specific_direction
+        p.rotation = -specific_direction * deg2rad(p.start_rotation)
 
 func free_pivots() -> void:
     if is_instance_valid(bullets):

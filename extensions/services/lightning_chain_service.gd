@@ -1,4 +1,3 @@
-class_name LightningChainService
 extends Reference
 
 static func build_params_from_effect(
@@ -6,7 +5,7 @@ static func build_params_from_effect(
 	player_index: int
 ) -> Dictionary:
 	var damage: int = Utils.ncl_get_dmg_with_scaling_stats(effect.value, effect.damage_scaling_stats, player_index)
-	var chain_targets: int = Utils.ncl_get_dmg_with_scaling_stats(effect.base_chain_targets, effect.targets_scaling_stats, player_index)
+	var chain_targets: int = Utils.ncl_get_num_with_scaling_stats(effect.base_chain_targets, effect.targets_scaling_stats, player_index)
 
 	return {
 		"damage": damage,
@@ -34,7 +33,7 @@ static func build_params_from_array(
 
 	return {
 		"damage": Utils.ncl_get_dmg_with_scaling_stats(base_damage, damage_scaling_stats, player_index),
-		"chain_targets": Utils.ncl_get_dmg_with_scaling_stats(base_chain_targets, targets_scaling_stats, player_index),
+		"chain_targets": Utils.ncl_get_num_with_scaling_stats(base_chain_targets, targets_scaling_stats, player_index),
 		"chain_damage_mult": effect_item[5],
 		"arc_width": effect_item[6],
 		"arc_jaggedness": effect_item[7],
